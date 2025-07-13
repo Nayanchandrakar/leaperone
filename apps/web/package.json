@@ -23,7 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@leapercrm/typescript-config": "workspace:*",
+    "@leapercrm/tsconfig": "workspace:*",
     "typescript": "^5.7.3"
   }
 }

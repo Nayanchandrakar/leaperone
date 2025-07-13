@@ -14,7 +14,7 @@
     "@biomejs/biome": "^2.0.6",
     "@commitlint/config-conventional": "^19.8.1",
     "@leapercrm/biome-config": "workspace:*",
-    "@leapercrm/typescript-config": "workspace:*",
+    "@leapercrm/tsconfig": "workspace:*",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "turbo": "^2.4.2",

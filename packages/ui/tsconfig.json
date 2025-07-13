@@ -1,5 +1,5 @@
 {
-  "extends": "@leapercrm/typescript-config/react-library.json",
+  "extends": "@leapercrm/tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

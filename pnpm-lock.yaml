@@ -17,9 +17,9 @@ importers:
       '@leapercrm/biome-config':
         specifier: workspace:*
         version: link:packages/biome-config
-      '@leapercrm/typescript-config':
+      '@leapercrm/tsconfig':
         specifier: workspace:*
-        version: link:packages/typescript-config
+        version: link:packages/tsconfig
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -54,9 +54,9 @@ importers:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
     devDependencies:
-      '@leapercrm/typescript-config':
+      '@leapercrm/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../packages/tsconfig
       '@types/node':
         specifier: ^20
         version: 20.19.7
@@ -72,7 +72,7 @@ importers:
 
   packages/biome-config: {}
 
-  packages/typescript-config: {}
+  packages/tsconfig: {}
 
   packages/ui:
     dependencies:
@@ -215,9 +215,9 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
-      '@leapercrm/typescript-config':
+      '@leapercrm/tsconfig':
         specifier: workspace:*
-        version: link:../typescript-config
+        version: link:../tsconfig
       '@tailwindcss/postcss':
         specifier: ^4.0.8
         version: 4.1.11
