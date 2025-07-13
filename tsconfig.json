@@ -1,4 +1,3 @@
 {
-  "extends": "@workspace/typescript-config/base.json"
+  "extends": "@leapercrm/typescript-config/base.json"
 }
-

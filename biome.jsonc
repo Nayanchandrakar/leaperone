@@ -1,0 +1,3 @@
+{
+  "extends": ["@leapercrm/biome-config/base.json"]
+}
