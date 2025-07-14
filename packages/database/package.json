@@ -28,13 +28,13 @@
   "license": "ISC",
   "description": "A database instance to be used in web and tRPC server",
   "dependencies": {
-    "@paralleldrive/cuid2": "^2.2.2",
-    "drizzle-orm": "^0.44.2"
+    "@paralleldrive/cuid2": "catalog:",
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
-    "@types/node": "^24.0.4",
-    "drizzle-kit": "^0.31.4",
-    "typescript": "^5.8.3"
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:",
+    "typescript": "catalog:"
   }
 }

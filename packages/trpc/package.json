@@ -18,15 +18,15 @@
   "license": "ISC",
   "description": "A tRPC instance for hono server and nextjs client",
   "dependencies": {
-    "@hono/trpc-server": "^0.4.0",
+    "@hono/trpc-server": "catalog:",
     "@leapercrm/database": "workspace:*",
     "@leapercrm/env": "workspace:*",
-    "@trpc/server": "^11.4.2",
-    "superjson": "^2.2.2"
+    "@trpc/server": "catalog:",
+    "superjson": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
-    "@types/node": "^24.0.3",
-    "typescript": "^5.8.3"
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

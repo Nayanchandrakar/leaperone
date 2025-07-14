@@ -11,14 +11,14 @@
     "clean": "rm -rf .turbo && turbo clean"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.6",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@biomejs/biome": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
     "@leapercrm/biome-config": "workspace:*",
     "@leapercrm/tsconfig": "workspace:*",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
-    "turbo": "^2.4.2",
-    "typescript": "5.7.3"
+    "husky": "catalog:",
+    "lint-staged": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:"
   },
   "packageManager": "pnpm@10.4.1",
   "engines": {

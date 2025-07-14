@@ -14,24 +14,26 @@
   "dependencies": {
     "@leapercrm/database": "workspace:*",
     "@leapercrm/env": "workspace:*",
+    "@leapercrm/trpc": "workspace:*",
     "@leapercrm/ui": "workspace:*",
-    "@tanstack/react-query": "^5.83.0",
-    "@trpc/client": "^11.4.3",
-    "@trpc/tanstack-react-query": "^11.4.3",
-    "client-only": "^0.0.1",
-    "lucide-react": "^0.525.0",
-    "next": "15.3.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-error-boundary": "^6.0.0",
-    "server-only": "^0.0.1",
-    "superjson": "^2.2.2"
+    "@leapercrm/zod": "workspace:*",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:",
+    "@trpc/tanstack-react-query": "catalog:",
+    "client-only": "catalog:",
+    "lucide-react": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-error-boundary": "catalog:",
+    "server-only": "catalog:",
+    "superjson": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
   }
 }
