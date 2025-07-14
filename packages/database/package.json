@@ -1,0 +1,40 @@
+{
+  "name": "@leapercrm/database",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./types": "./src/types/index.ts"
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:reset": "bun ./database/scripts/admin/reset-database.ts",
+    "db:seed": "bun ./database/scripts/seed/index.ts",
+    "db:studio": "drizzle-kit studio",
+    "db:pull": "drizzle-kit pull",
+    "db:export": "drizzle-kit export",
+    "db:check": "drizzle-kit check",
+    "db:up": "drizzle-kit up",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "description": "A database instance to be used in web and tRPC server",
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "drizzle-orm": "^0.44.2"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "^24.0.4",
+    "drizzle-kit": "^0.31.4",
+    "typescript": "^5.8.3"
+  }
+}
