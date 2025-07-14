@@ -1,0 +1,27 @@
+{
+  "name": "@leapercrm/env",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./server": "./src/server/index.ts",
+    "./web": "./src/web/index.ts"
+  },
+  "author": "leapercrm-organization",
+  "description": "A package for typesafe environment variables",
+  "license": "ISC",
+  "dependencies": {
+    "@t3-oss/env-core": "^0.13.8",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}
