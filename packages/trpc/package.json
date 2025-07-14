@@ -1,0 +1,32 @@
+{
+  "name": "@leapercrm/trpc",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./src/index.ts",
+  "private": true,
+  "exports": {
+    "./server": "./src/index.ts",
+    "./client": "./src/types/client.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "description": "A tRPC instance for hono server and nextjs client",
+  "dependencies": {
+    "@hono/trpc-server": "^0.4.0",
+    "@leapercrm/database": "workspace:*",
+    "@leapercrm/env": "workspace:*",
+    "@trpc/server": "^11.4.2",
+    "superjson": "^2.2.2"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "^24.0.3",
+    "typescript": "^5.8.3"
+  }
+}

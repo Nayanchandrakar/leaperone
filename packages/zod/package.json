@@ -1,0 +1,26 @@
+{
+  "name": "@leapercrm/zod",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./server/*": "./src/schema/server/*.ts",
+    "./common/*": "./src/schema/common/*.ts",
+    "./client/*": "./src/schema/client/*.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "description": "Zod schema validation for web and hono server",
+  "dependencies": {
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*"
+  }
+}
