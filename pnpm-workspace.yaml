@@ -103,3 +103,7 @@ catalog:
 
   # Icons
   lucide-react: "^0.525.0"
+
+  # Server 
+  "hono": "^4.8.5"
+  "@hono/node-server": "^1.16.0"

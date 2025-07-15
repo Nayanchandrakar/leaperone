@@ -1,0 +1,16 @@
+{
+  "extends": "@leapercrm/tsconfig/server.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
+      "@leapercrm/env/*": ["../../packages/env/src/*"],
+      "@leapercrm/logger/*": ["../../packages/logger/src/*"],
+      "@leapercrm/auth/*": ["../../packages/auth/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

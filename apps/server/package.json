@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "author": "leapercrm-organization",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "A Hono server used in web application",
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "start": "bun ./dist/src/index.js",
+    "build": "bun ./build.config.ts",
+    "clean": "rm -rf dist .turbo",
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "catalog:",
+    "@leapercrm/logger": "workspace:*",
+    "@leapercrm/database": "workspace:*",
+    "@leapercrm/trpc": "workspace:*",
+    "@leapercrm/env": "workspace:*",
+    "hono": "catalog:"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

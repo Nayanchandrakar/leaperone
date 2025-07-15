@@ -12,6 +12,9 @@ catalogs:
     '@commitlint/config-conventional':
       specifier: ^19.8.1
       version: 19.8.1
+    '@hono/node-server':
+      specifier: ^1.16.0
+      version: 1.16.0
     '@hono/trpc-server':
       specifier: ^0.4.0
       version: 0.4.0
@@ -153,6 +156,9 @@ catalogs:
     embla-carousel-react:
       specifier: ^8.6.0
       version: 8.6.0
+    hono:
+      specifier: ^4.8.5
+      version: 4.8.5
     husky:
       specifier: ^9.1.7
       version: 9.1.7
@@ -254,6 +260,37 @@ importers:
       turbo:
         specifier: 'catalog:'
         version: 2.5.4
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+
+  apps/server:
+    dependencies:
+      '@hono/node-server':
+        specifier: 'catalog:'
+        version: 1.16.0(hono@4.8.5)
+      '@leapercrm/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@leapercrm/env':
+        specifier: workspace:*
+        version: link:../../packages/env
+      '@leapercrm/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
+      '@leapercrm/trpc':
+        specifier: workspace:*
+        version: link:../../packages/trpc
+      hono:
+        specifier: 'catalog:'
+        version: 4.8.5
+    devDependencies:
+      '@leapercrm/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.0.13
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
@@ -1001,6 +1038,12 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@hono/node-server@1.16.0':
+    resolution: {integrity: sha512-9LwRb5XOrTFapOABiQjGC50wRVlzUvWZsDHINCnkBniP+Q+LQf4waN0nzk9t+2kqcTsnGnieSmqpHsr6kH2bdw==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
 
   '@hono/trpc-server@0.4.0':
     resolution: {integrity: sha512-LGlJfCmNIGMwcknZEIYdujVMs9OkNVazhpOhaz3kTWOXvNL660VOHpvvktosCiJrajyBY1RtIJKQ+IKaQvNuSg==}
@@ -3983,6 +4026,10 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
 
   '@floating-ui/utils@0.2.10': {}
+
+  '@hono/node-server@1.16.0(hono@4.8.5)':
+    dependencies:
+      hono: 4.8.5
 
   '@hono/trpc-server@0.4.0(@trpc/server@11.4.3(typescript@5.8.3))(hono@4.8.5)':
     dependencies:
