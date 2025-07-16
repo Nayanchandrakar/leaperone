@@ -17,12 +17,12 @@
   "description": "A custom package for logging in the server",
   "license": "ISC",
   "dependencies": {
-    "pino": "catalog:",
-    "pino-pretty": "catalog:"
+    "pino": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "pino-pretty": "catalog:",
     "typescript": "catalog:"
   }
 }

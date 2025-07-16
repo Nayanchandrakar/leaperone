@@ -416,9 +416,6 @@ importers:
       pino:
         specifier: 'catalog:'
         version: 9.7.0
-      pino-pretty:
-        specifier: 'catalog:'
-        version: 13.0.0
     devDependencies:
       '@leapercrm/tsconfig':
         specifier: workspace:*
@@ -426,6 +423,9 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.0.13
+      pino-pretty:
+        specifier: 'catalog:'
+        version: 13.0.0
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
