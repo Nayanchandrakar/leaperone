@@ -1,0 +1,25 @@
+{
+  "name": "@leapercrm/auth",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "description": "A package for authentication using better0-auth",
+  "dependencies": {
+    "@leapercrm/database": "workspace:*",
+    "better-auth": "^1.2.12"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*"
+  }
+}
