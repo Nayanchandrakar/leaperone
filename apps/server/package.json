@@ -17,6 +17,7 @@
   "dependencies": {
     "@hono/node-server": "catalog:",
     "@leapercrm/logger": "workspace:*",
+    "@leapercrm/auth": "workspace:*",
     "@leapercrm/database": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
     "@leapercrm/env": "workspace:*",
