@@ -10,6 +10,6 @@
     "hono": "catalog:"
   },
   "devDependencies": {
-    "wrangler": "calalog:"
+    "wrangler": "^4.4.0"
   }
 }

@@ -5,7 +5,7 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    ".": "./src/*.ts"
+    ".": "./src/**.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",
