@@ -17,6 +17,15 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  transpilePackages: [
+    "@leapercrm/env",
+    "@leapercrm/database",
+    "@leapercrm/env",
+    "@leapercrm/trpc",
+    "@leapercrm/ui",
+    "@leapercrm/zod",
+  ],
 }
 
 export default nextConfig

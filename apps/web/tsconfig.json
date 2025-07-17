@@ -8,7 +8,11 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@leapercrm/ui/*": ["../../packages/ui/src/*"]
+      "@leapercrm/ui/*": ["../../packages/ui/src/*"],
+      "@leapercrm/env/*": ["../../packages/env/src/*"],
+      "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
+      "@leapercrm/database/*": ["../../packages/database/src/*"],
+      "@leapercrm/logger/*": ["../../packages/logger/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

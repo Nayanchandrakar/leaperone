@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "typescript": "catalog:"
   }
 }

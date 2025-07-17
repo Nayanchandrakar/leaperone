@@ -1,4 +1,4 @@
-import { clientEnv } from "@leapercrm/env/web/client"
+import { clientEnv } from "@leapercrm/env/client"
 
 export class StringService {
   private constructor() {}
