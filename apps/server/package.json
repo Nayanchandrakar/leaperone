@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "bun --hot src/index.ts",
     "start": "bun ./dist/src/index.js",
-    "build": "bun ./build.config.ts",
+    "build": "tsdown",
     "clean": "rm -rf dist .turbo",
     "lint": "biome lint --write .",
     "format": "biome check --write .",
@@ -21,12 +21,13 @@
     "@leapercrm/env": "workspace:*",
     "@leapercrm/logger": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
+    "dotenv": "^17.2.0",
     "hono": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "esbuild": "^0.25.6",
+    "tsdown": "^0.12.9",
     "typescript": "catalog:"
   }
 }
