@@ -5,10 +5,11 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", "!CHANGELOG.md"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]
@@ -28,6 +29,35 @@
       "cache": false,
       "persistent": true,
       "inputs": ["$TURBO_DEFAULT$", ".env*"]
+    },
+    "db:migrate": {
+      "dependsOn": ["db:generate"],
+      "passThroughEnv": ["DATABASE_URL"],
+      "inputs": ["drizzle/**"]
+    },
+    "db:generate": {
+      "passThroughEnv": ["DATABASE_URL"],
+      "inputs": ["src/schema/**", "drizzle.config.ts"],
+      "outputs": ["drizzle/**"]
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:check": {
+      "cache": false
+    },
+    "db:drop": {
+      "cache": false
+    },
+    "db:pull": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:up": {
+      "cache": false
     },
     "clean": {
       "cache": false

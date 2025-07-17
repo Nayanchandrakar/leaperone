@@ -16,16 +16,17 @@
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
-    "@leapercrm/logger": "workspace:*",
     "@leapercrm/auth": "workspace:*",
     "@leapercrm/database": "workspace:*",
-    "@leapercrm/trpc": "workspace:*",
     "@leapercrm/env": "workspace:*",
+    "@leapercrm/logger": "workspace:*",
+    "@leapercrm/trpc": "workspace:*",
     "hono": "catalog:"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "esbuild": "^0.25.6",
     "typescript": "catalog:"
   }
 }

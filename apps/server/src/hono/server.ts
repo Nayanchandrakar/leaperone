@@ -5,14 +5,12 @@ import type { Hono } from "hono"
 type StartDevServerType = {
   port: number
   hostname: string
-  nodeEnv: string
   logger: Logger
   fetch: Hono["fetch"]
 }
 
 export function startDevServer({
   hostname,
-  nodeEnv,
   port,
   fetch,
   logger,
