@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "@leapercrm/trpc/utils/init"
+import { createTRPCRouter, publicProcedure } from "../utils/init"
 
 export const appRouter = createTRPCRouter({
   hello: publicProcedure.query(() => {

@@ -1,8 +1,8 @@
 import { defineConfig, type Options } from "tsdown"
 
 export default defineConfig((options: Options) => ({
-  platform: "node",
   target: "es2022",
+  platform: "node",
   entry: ["src/**/*"],
   tsconfig: "./tsconfig.json",
   clean: true,

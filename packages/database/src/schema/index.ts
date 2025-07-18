@@ -1,1 +1,1 @@
-export * from "@leapercrm/database/schema/users"
+export * from "./users"

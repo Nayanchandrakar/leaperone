@@ -1,4 +1,3 @@
-import { bootStrapServer } from "@/bootstrap"
+import { bootStrapServer } from "./bootstrap.js"
 
-// Start server
 bootStrapServer()

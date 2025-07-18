@@ -9,7 +9,6 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@leapercrm/trpc/*": ["./src/*"],
       "@leapercrm/database/*": ["../../packages/database/src/*"]
     }
   },

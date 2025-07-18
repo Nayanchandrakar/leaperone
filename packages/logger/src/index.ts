@@ -1,6 +1,6 @@
-import type { LoggerOptions, LogMessage } from "@leapercrm/logger/types"
 import { type Logger as LoggerType, pino } from "pino"
 import pretty from "pino-pretty"
+import type { LoggerOptions, LogMessage } from "./types"
 
 export class Logger {
   private logger: LoggerType
