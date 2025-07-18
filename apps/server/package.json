@@ -26,8 +26,19 @@
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/node": "catalog:",
     "tsdown": "^0.12.9",
     "typescript": "catalog:"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./bootstrap": "./dist/bootstrap.js",
+    "./config/cors": "./dist/config/cors.js",
+    "./hono/server": "./dist/hono/server.js",
+    "./types/index": "./dist/types/index.js",
+    "./package.json": "./package.json"
   }
 }
