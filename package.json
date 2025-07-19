@@ -23,6 +23,7 @@
       "turbo": "^2.4.2",
       "@turbo/gen": "^2.4.2",
       "husky": "^9.1.7",
+      "dotenv": "^17.2.0",
       "lint-staged": "^16.1.2",
       "@biomejs/biome": "^2.0.6",
       "@commitlint/config-conventional": "^19.8.1",
