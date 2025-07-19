@@ -1,3 +1,3 @@
-import { bootStrapServer } from "./bootstrap.js"
+import { bootStrapServer } from "@/bootstrap"
 
 bootStrapServer()

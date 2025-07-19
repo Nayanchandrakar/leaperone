@@ -1,5 +1,7 @@
 import { defineConfig, type Options } from "tsdown"
 
+const isProduction = process?.env?.NODE_ENV === "production"
+
 export default defineConfig((options: Options) => ({
   target: "es2022",
   platform: "node",
@@ -7,7 +9,9 @@ export default defineConfig((options: Options) => ({
   tsconfig: "./tsconfig.json",
   clean: true,
   format: "esm",
-  unbundle: true,
+  unbundle: !isProduction,
+  skipNodeModulesBundle: isProduction,
+  minify: isProduction,
   noExternal: [
     "@leapercrm/env/server",
     "@leapercrm/trpc/server",

@@ -1,3 +1,4 @@
+import "@/config/dotenv"
 import { serverEnv } from "@leapercrm/env/server"
 import { Logger } from "@leapercrm/logger"
 import { trpcHonoMiddleware } from "@leapercrm/trpc/server"

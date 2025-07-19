@@ -8,10 +8,7 @@
     "moduleResolution": "Bundler",
     "outDir": "./dist",
     "rootDir": "src",
-    "baseUrl": ".",
-    "paths": {
-      "@leapercrm/env/*": ["./src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
