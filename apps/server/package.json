@@ -7,8 +7,9 @@
   "description": "A Hono server used in web application",
   "scripts": {
     "dev": "bun --hot src/index.ts",
-    "start": "bun ./dist/src/index.js",
+    "start": "bun ./dist/index.js",
     "build": "tsdown",
+    "node:start": "node -r dotenv/config ./dist/index.js",
     "clean": "rm -rf dist .turbo",
     "lint": "biome lint --write .",
     "format": "biome check --write .",
@@ -21,7 +22,7 @@
     "@leapercrm/env": "workspace:*",
     "@leapercrm/logger": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
-    "dotenv": "^17.2.0",
+    "dotenv": "catalog:",
     "hono": "catalog:"
   },
   "devDependencies": {
