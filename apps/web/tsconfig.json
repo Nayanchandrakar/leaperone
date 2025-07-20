@@ -9,7 +9,7 @@
     "paths": {
       "@/*": ["./*"],
       "@leapercrm/ui/*": ["../../packages/ui/src/*"],
-      "@leapercrm/env/*": ["../../packages/env/src/*"],
+      "@leapercrm/lib/*": ["../../packages/lib/src/*"],
       "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
       "@leapercrm/database/*": ["../../packages/database/src/*"]
     }

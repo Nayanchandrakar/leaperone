@@ -18,11 +18,12 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.848.0",
     "@aws-sdk/s3-request-presigner": "^3.848.0",
-    "@upstash/ratelimit": "^2.0.5"
+    "@t3-oss/env-core": "^0.13.8",
+    "@upstash/ratelimit": "^2.0.5",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
-    "@leapercrm/env": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

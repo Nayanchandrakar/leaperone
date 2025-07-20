@@ -1,4 +1,4 @@
-import { serverEnv } from "@leapercrm/env/server"
+import { serverEnv } from "@leapercrm/lib/env/server"
 import { Logger } from "@leapercrm/lib/logger"
 import { trpcHonoMiddleware } from "@leapercrm/trpc/server"
 import { Hono } from "hono"

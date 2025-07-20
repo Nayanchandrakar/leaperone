@@ -13,7 +13,7 @@ export default defineConfig((options: Options) => ({
   skipNodeModulesBundle: isProduction,
   minify: isProduction,
   noExternal: [
-    "@leapercrm/env/server",
+    "@leapercrm/lib/env/server",
     "@leapercrm/trpc/server",
     "@leapercrm/lib/logger",
     "@leapercrm/database",

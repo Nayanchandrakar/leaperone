@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@leapercrm/database": "workspace:*",
-    "@leapercrm/env": "workspace:*",
+    "@leapercrm/lib": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
     "@leapercrm/ui": "workspace:*",
     "@leapercrm/zod": "workspace:*",

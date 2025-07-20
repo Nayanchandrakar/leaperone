@@ -30,7 +30,6 @@
         "@hono/node-server": "catalog:",
         "@leapercrm/auth": "workspace:*",
         "@leapercrm/database": "workspace:*",
-        "@leapercrm/env": "workspace:*",
         "@leapercrm/lib": "workspace:*",
         "@leapercrm/trpc": "workspace:*",
         "dotenv": "catalog:",
@@ -49,7 +48,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@leapercrm/database": "workspace:*",
-        "@leapercrm/env": "workspace:*",
+        "@leapercrm/lib": "workspace:*",
         "@leapercrm/trpc": "workspace:*",
         "@leapercrm/ui": "workspace:*",
         "@leapercrm/zod": "workspace:*",
@@ -104,32 +103,17 @@
         "typescript": "catalog:",
       },
     },
-    "packages/env": {
-      "name": "@leapercrm/env",
-      "version": "0.0.1",
-      "dependencies": {
-        "@hono/trpc-server": "catalog:",
-        "@t3-oss/env-core": "catalog:",
-        "@trpc/server": "catalog:",
-        "superjson": "catalog:",
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@leapercrm/tsconfig": "workspace:*",
-        "@types/node": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
     "packages/lib": {
       "name": "@leapercrm/lib",
       "version": "1.0.0",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.848.0",
         "@aws-sdk/s3-request-presigner": "^3.848.0",
+        "@t3-oss/env-core": "^0.13.8",
         "@upstash/ratelimit": "^2.0.5",
+        "zod": "^4.0.5",
       },
       "devDependencies": {
-        "@leapercrm/env": "workspace:*",
         "@leapercrm/tsconfig": "workspace:*",
         "@types/node": "catalog:",
         "typescript": "catalog:",
@@ -141,7 +125,7 @@
       "dependencies": {
         "@hono/trpc-server": "catalog:",
         "@leapercrm/database": "workspace:*",
-        "@leapercrm/env": "workspace:*",
+        "@leapercrm/lib": "workspace:*",
         "@trpc/server": "catalog:",
         "superjson": "catalog:",
       },
@@ -589,8 +573,6 @@
     "@leapercrm/biome-config": ["@leapercrm/biome-config@workspace:packages/biome-config"],
 
     "@leapercrm/database": ["@leapercrm/database@workspace:packages/database"],
-
-    "@leapercrm/env": ["@leapercrm/env@workspace:packages/env"],
 
     "@leapercrm/lib": ["@leapercrm/lib@workspace:packages/lib"],
 

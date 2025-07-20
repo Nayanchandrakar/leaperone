@@ -6,7 +6,6 @@
     "paths": {
       "@/*": ["src/*"],
       "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
-      "@leapercrm/env/*": ["../../packages/env/src/*"],
       "@leapercrm/auth/*": ["../../packages/auth/src/*"],
       "@leapercrm/lib/*": ["../../packages/lib/src/*"]
     }

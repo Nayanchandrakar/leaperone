@@ -19,9 +19,8 @@ const nextConfig: NextConfig = {
   },
 
   transpilePackages: [
-    "@leapercrm/env",
     "@leapercrm/database",
-    "@leapercrm/env",
+    "@leapercrm/lib",
     "@leapercrm/trpc",
     "@leapercrm/ui",
     "@leapercrm/zod",

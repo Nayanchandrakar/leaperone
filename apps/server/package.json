@@ -19,7 +19,6 @@
     "@hono/node-server": "catalog:",
     "@leapercrm/auth": "workspace:*",
     "@leapercrm/database": "workspace:*",
-    "@leapercrm/env": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
     "@leapercrm/lib": "workspace:*",
     "dotenv": "catalog:",
