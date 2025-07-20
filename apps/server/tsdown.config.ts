@@ -1,3 +1,5 @@
+import "dotenv/config"
+
 import { defineConfig, type Options } from "tsdown"
 
 const isProduction = process?.env?.NODE_ENV === "production"
