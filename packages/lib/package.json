@@ -1,28 +1,29 @@
 {
-  "name": "@leapercrm/logger",
-  "version": "0.0.1",
+  "name": "@leapercrm/lib",
+  "version": "1.0.0",
   "sideEffects": false,
-  "private": true,
   "type": "module",
   "main": "./src/index.ts",
+  "private": true,
+  "exports": {
+    ".": "./src/*.ts"
+  },
   "scripts": {
     "lint": "biome lint --write .",
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "author": "leapercrm",
-  "description": "A custom package for logging in the server",
+  "author": "leapercrm-organization",
   "license": "ISC",
   "dependencies": {
-    "pino": "catalog:"
+    "@aws-sdk/client-s3": "^3.848.0",
+    "@aws-sdk/s3-request-presigner": "^3.848.0",
+    "@upstash/ratelimit": "^2.0.5"
   },
   "devDependencies": {
     "@leapercrm/tsconfig": "workspace:*",
+    "@leapercrm/env": "workspace:*",
     "@types/node": "catalog:",
-    "pino-pretty": "catalog:",
     "typescript": "catalog:"
   }
 }

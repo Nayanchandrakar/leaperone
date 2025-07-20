@@ -1,5 +1,5 @@
 import { serve } from "@hono/node-server"
-import type { Logger } from "@leapercrm/logger"
+import type { Logger } from "@leapercrm/lib/logger"
 import type { Hono } from "hono"
 
 type StartDevServerType = {

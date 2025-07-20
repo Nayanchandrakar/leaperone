@@ -7,8 +7,8 @@
       "@/*": ["src/*"],
       "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
       "@leapercrm/env/*": ["../../packages/env/src/*"],
-      "@leapercrm/logger/*": ["../../packages/logger/src/*"],
-      "@leapercrm/auth/*": ["../../packages/auth/src/*"]
+      "@leapercrm/auth/*": ["../../packages/auth/src/*"],
+      "@leapercrm/lib/*": ["../../packages/lib/src/*"]
     }
   },
   "include": ["src/**/*"],

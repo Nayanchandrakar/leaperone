@@ -15,7 +15,7 @@ export default defineConfig((options: Options) => ({
   noExternal: [
     "@leapercrm/env/server",
     "@leapercrm/trpc/server",
-    "@leapercrm/logger",
+    "@leapercrm/lib/logger",
     "@leapercrm/database",
     "@leapercrm/auth",
   ],

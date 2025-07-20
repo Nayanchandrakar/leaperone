@@ -20,8 +20,8 @@
     "@leapercrm/auth": "workspace:*",
     "@leapercrm/database": "workspace:*",
     "@leapercrm/env": "workspace:*",
-    "@leapercrm/logger": "workspace:*",
     "@leapercrm/trpc": "workspace:*",
+    "@leapercrm/lib": "workspace:*",
     "dotenv": "catalog:",
     "hono": "catalog:"
   },

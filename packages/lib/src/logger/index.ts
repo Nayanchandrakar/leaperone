@@ -1,6 +1,18 @@
 import { type Logger as LoggerType, pino } from "pino"
 import pretty from "pino-pretty"
-import type { LoggerOptions, LogMessage } from "./types"
+
+export interface LoggerOptions {
+  prefix?: string
+  level?: string
+  customLevels?: Record<string, number>
+  customColors?: string
+}
+
+export interface LogMessage {
+  msg?: string
+  level?: unknown
+  [key: string]: unknown
+}
 
 export class Logger {
   private logger: LoggerType
