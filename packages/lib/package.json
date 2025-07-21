@@ -16,6 +16,7 @@
   "author": "leapercrm-organization",
   "license": "ISC",
   "dependencies": {
+    "pino": "catalog:",
     "@aws-sdk/client-s3": "^3.848.0",
     "@aws-sdk/s3-request-presigner": "^3.848.0",
     "@t3-oss/env-core": "^0.13.8",
@@ -23,6 +24,7 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "pino-pretty": "catalog:",
     "@leapercrm/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
