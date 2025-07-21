@@ -4,25 +4,18 @@ import type { Hono } from "hono"
 
 type StartDevServerType = {
   port: number
-  hostname: string
   logger: Logger
   fetch: Hono["fetch"]
 }
 
-export function startDevServer({
-  hostname,
-  port,
-  fetch,
-  logger,
-}: StartDevServerType) {
+export function startDevServer({ port, fetch, logger }: StartDevServerType) {
   serve(
     {
       fetch,
-      hostname,
       port,
     },
     (info) => {
-      logger.info(`Server started on http://${hostname}:${info.port}`)
+      logger.info(`Server started on http://localhost:${info.port}`)
     },
   )
 }

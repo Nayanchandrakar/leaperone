@@ -10,7 +10,6 @@ import type { ServerConfig } from "@/types"
 
 const DEFAULT_CONFIG: Required<ServerConfig> = {
   port: serverEnv.PORT,
-  hostname: serverEnv.HOST,
   trpcEndpoint: "/api/trpc/*",
   authEndpoint: "/api/auth/**",
 }
@@ -19,7 +18,7 @@ const bootStrapLogger = Logger.createLogger({ prefix: "BootStrap" })
 
 export function bootStrapServer(config: ServerConfig = {}) {
   const app = new Hono()
-  const { trpcEndpoint, hostname, port } = {
+  const { trpcEndpoint, port } = {
     ...DEFAULT_CONFIG,
     ...config,
   }
@@ -32,7 +31,6 @@ export function bootStrapServer(config: ServerConfig = {}) {
 
   startDevServer({
     port,
-    hostname,
     fetch: app.fetch,
     logger: bootStrapLogger,
   })
