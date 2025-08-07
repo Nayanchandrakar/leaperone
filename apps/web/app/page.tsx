@@ -1,3 +1,6 @@
+"use client"
+import { Button } from "@leapercrm/ui/components/button"
+
 export default function HomePage() {
-  return <div className="">Home page</div>
+  return <Button>Submit</Button>
 }
