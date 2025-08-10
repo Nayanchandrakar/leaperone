@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen items-center justify-center gap-4">
       {variants.map((value) => (
-        <Input key={value} />
+        <Input variant="gray" key={value} />
       ))}
     </div>
   )
