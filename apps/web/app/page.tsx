@@ -1,6 +1,16 @@
 "use client"
-import { Button } from "@leapercrm/ui/components/button"
+
+import { Input } from "@leapercrm/ui/components/input"
 
 export default function HomePage() {
-  return <Button>Submit</Button>
+  // variants
+  const variants = ["default", "secondary", "outline", "destructive"]
+
+  return (
+    <div className="flex min-h-screen items-center justify-center gap-4">
+      {variants.map((value) => (
+        <Input key={value} />
+      ))}
+    </div>
+  )
 }
