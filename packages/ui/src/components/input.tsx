@@ -12,7 +12,7 @@ const inputVariants = cva(
         gray: "bg-neutral-100 border border-zinc-100 focus-visible:border-zinc-200",
       },
       size: {
-        default: "h-10 rounded-xl px-3 py-1 text-base",
+        default: "h-10 rounded-xl px-4 py-1 text-base",
       },
     },
     defaultVariants: {
