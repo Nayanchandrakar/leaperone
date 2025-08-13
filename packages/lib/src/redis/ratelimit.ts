@@ -1,5 +1,5 @@
 import { Ratelimit } from "@upstash/ratelimit"
-import { redis } from "./index.js"
+import { redis } from "./index"
 
 class Ratelimiter {
   private static instance: Ratelimiter | null = null

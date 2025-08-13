@@ -1,0 +1,14 @@
+{
+  "extends": "@leapercrm/tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "outDir": "./dist",
+    "baseUrl": "."
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@leapercrm/env",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "dependencies": {
+    "@t3-oss/env-core": "^0.13.8"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
