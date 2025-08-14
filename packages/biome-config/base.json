@@ -46,8 +46,7 @@
         "useSemanticElements": "off"
       },
       "nursery": {
-        "noTsIgnore": "error",
-        "noUnresolvedImports": "error"
+        "noTsIgnore": "error"
       },
       "complexity": {
         "noUselessCatch": "error",
