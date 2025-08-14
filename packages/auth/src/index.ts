@@ -1,10 +1,9 @@
+import { APP_NAME } from "@myleaper/constants/config"
 import { dbHttp } from "@myleaper/database"
 import { account, users, verification } from "@myleaper/database/schema"
 import { RedisStorage } from "@myleaper/redis/utils/auth-storage"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-
-const APP_NAME = "Myleaper"
 
 export const auth = betterAuth({
   appName: APP_NAME,
@@ -24,6 +23,7 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
     resetPasswordTokenExpiresIn: 300,
+    revokeSessionsOnPasswordReset: true,
     async sendResetPassword({ token, url, user }) {
       console.log(token, url, user)
     },

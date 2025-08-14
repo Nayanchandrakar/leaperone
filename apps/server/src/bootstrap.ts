@@ -1,4 +1,4 @@
-import { auth } from "@myleaper/auth/lib"
+import { auth } from "@myleaper/auth/index"
 import { serverEnv } from "@myleaper/env/server"
 import { Logger } from "@myleaper/logger/index"
 import { trpcHonoMiddleware } from "@myleaper/trpc/server"

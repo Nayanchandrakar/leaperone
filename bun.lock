@@ -78,6 +78,7 @@
       "name": "@myleaper/auth",
       "version": "1.0.0",
       "dependencies": {
+        "@myleaper/constants": "workspace:*",
         "@myleaper/database": "workspace:*",
         "@myleaper/redis": "workspace:*",
         "better-auth": "catalog:",
@@ -104,6 +105,13 @@
       "name": "@myleaper/biome-config",
       "version": "0.0.0",
     },
+    "packages/constants": {
+      "name": "@myleaper/constants",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@myleaper/tsconfig": "workspace:*",
+      },
+    },
     "packages/database": {
       "name": "@myleaper/database",
       "version": "1.0.0",
@@ -111,6 +119,7 @@
         "@neondatabase/serverless": "catalog:",
         "@paralleldrive/cuid2": "catalog:",
         "@upstash/redis": "catalog:",
+        "dotenv": "catalog:",
         "drizzle-orm": "catalog:",
       },
       "devDependencies": {
@@ -617,6 +626,8 @@
     "@myleaper/aws": ["@myleaper/aws@workspace:packages/aws"],
 
     "@myleaper/biome-config": ["@myleaper/biome-config@workspace:packages/biome-config"],
+
+    "@myleaper/constants": ["@myleaper/constants@workspace:packages/constants"],
 
     "@myleaper/database": ["@myleaper/database@workspace:packages/database"],
 

@@ -7,12 +7,7 @@
     "strict": true,
     "moduleResolution": "Bundler",
     "outDir": "./dist",
-    "baseUrl": ".",
-    "paths": {
-      "@myleaper/database/*": ["../../packages/database/src/*"],
-      "@myleaper/redis/*": ["../../packages/redis/src/*"],
-      "@myleaper/constants/*": ["../../packages/constants/src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
