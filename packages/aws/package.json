@@ -1,0 +1,27 @@
+{
+  "name": "@leapercrm/aws",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "leapercrm-organization",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@aws-sdk/s3-request-presigner": "^3.864.0",
+    "@leapercrm/env": "workspace:*"
+  },
+  "devDependencies": {
+    "@leapercrm/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
