@@ -1,5 +1,5 @@
-import { type Button, buttonVariants } from "@leapercrm/ui/components/button"
-import { cn } from "@leapercrm/ui/lib/utils"
+import { type Button, buttonVariants } from "@myleaper/ui/components/button"
+import { cn } from "@myleaper/ui/lib/utils"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,

@@ -1,5 +1,5 @@
 {
-  "name": "@leapercrm/zod",
+  "name": "@myleaper/zod",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -21,6 +21,6 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
-    "@leapercrm/tsconfig": "workspace:*"
+    "@myleaper/tsconfig": "workspace:*"
   }
 }

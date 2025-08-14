@@ -12,11 +12,11 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
-    "@leapercrm/database": "workspace:*",
-    "@leapercrm/lib": "workspace:*",
-    "@leapercrm/trpc": "workspace:*",
-    "@leapercrm/ui": "workspace:*",
-    "@leapercrm/zod": "workspace:*",
+    "@myleaper/database": "workspace:*",
+    "@myleaper/lib": "workspace:*",
+    "@myleaper/trpc": "workspace:*",
+    "@myleaper/ui": "workspace:*",
+    "@myleaper/zod": "workspace:*",
     "@tanstack/react-query": "catalog:",
     "@trpc/client": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
@@ -30,7 +30,7 @@
     "superjson": "catalog:"
   },
   "devDependencies": {
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

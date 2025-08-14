@@ -1,5 +1,5 @@
 {
-  "name": "@leapercrm/logger",
+  "name": "@myleaper/logger",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "pino-pretty": "catalog:",
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

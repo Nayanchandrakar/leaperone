@@ -1,4 +1,4 @@
-import { cn } from "@leapercrm/ui/lib/utils"
+import { cn } from "@myleaper/ui/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import type * as React from "react"

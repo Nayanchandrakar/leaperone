@@ -6,8 +6,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@leapercrm/ui/components/dialog"
-import { cn } from "@leapercrm/ui/lib/utils"
+} from "@myleaper/ui/components/dialog"
+import { cn } from "@myleaper/ui/lib/utils"
 import { Command as CommandPrimitive } from "cmdk"
 import { SearchIcon } from "lucide-react"
 import type * as React from "react"

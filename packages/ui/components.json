@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@leapercrm/ui/components",
-    "utils": "@leapercrm/ui/lib/utils",
-    "hooks": "@leapercrm/ui/hooks",
-    "lib": "@leapercrm/ui/lib",
-    "ui": "@leapercrm/ui/components"
+    "components": "@myleaper/ui/components",
+    "utils": "@myleaper/ui/lib/utils",
+    "hooks": "@myleaper/ui/hooks",
+    "lib": "@myleaper/ui/lib",
+    "ui": "@myleaper/ui/components"
   }
 }

@@ -2,7 +2,7 @@ import type {
   ConfigOptions,
   HttpConnectionType,
   WsConnectionType,
-} from "@leapercrm/database/types"
+} from "@myleaper/database/types"
 import { upstashCache } from "drizzle-orm/cache/upstash"
 import { drizzle } from "drizzle-orm/neon-http"
 import { drizzle as drizzleWs } from "drizzle-orm/neon-serverless"

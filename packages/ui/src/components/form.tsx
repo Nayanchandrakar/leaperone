@@ -1,7 +1,7 @@
 "use client"
 
-import { Label } from "@leapercrm/ui/components/label"
-import { cn } from "@leapercrm/ui/lib/utils"
+import { Label } from "@myleaper/ui/components/label"
+import { cn } from "@myleaper/ui/lib/utils"
 import type * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
 import * as React from "react"

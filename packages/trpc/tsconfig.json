@@ -1,5 +1,5 @@
 {
-  "extends": "@leapercrm/tsconfig/base.json",
+  "extends": "@myleaper/tsconfig/base.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",
@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@leapercrm/database/*": ["../../packages/database/src/*"]
+      "@myleaper/database/*": ["../../packages/database/src/*"]
     }
   },
   "include": ["src/**/*"],

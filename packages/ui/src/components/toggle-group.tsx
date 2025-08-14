@@ -1,7 +1,7 @@
 "use client"
 
-import { toggleVariants } from "@leapercrm/ui/components/toggle"
-import { cn } from "@leapercrm/ui/lib/utils"
+import { toggleVariants } from "@myleaper/ui/components/toggle"
+import { cn } from "@myleaper/ui/lib/utils"
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 import type { VariantProps } from "class-variance-authority"
 import * as React from "react"

@@ -17,15 +17,15 @@
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
-    "@leapercrm/auth": "workspace:*",
-    "@leapercrm/database": "workspace:*",
-    "@leapercrm/trpc": "workspace:*",
-    "@leapercrm/lib": "workspace:*",
+    "@myleaper/auth": "workspace:*",
+    "@myleaper/database": "workspace:*",
+    "@myleaper/trpc": "workspace:*",
+    "@myleaper/lib": "workspace:*",
     "dotenv": "catalog:",
     "hono": "catalog:"
   },
   "devDependencies": {
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/node": "catalog:",
     "tsdown": "^0.12.9",

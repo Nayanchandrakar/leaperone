@@ -1,5 +1,5 @@
 {
-  "name": "@leapercrm/auth",
+  "name": "@myleaper/auth",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -16,10 +16,10 @@
   "license": "ISC",
   "description": "A package for authentication using better0-auth",
   "dependencies": {
-    "@leapercrm/database": "workspace:*",
+    "@myleaper/database": "workspace:*",
     "better-auth": "^1.2.12"
   },
   "devDependencies": {
-    "@leapercrm/tsconfig": "workspace:*"
+    "@myleaper/tsconfig": "workspace:*"
   }
 }

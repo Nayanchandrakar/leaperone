@@ -1,24 +1,24 @@
 "use client"
 
-import { Button } from "@leapercrm/ui/components/button"
-import { Input } from "@leapercrm/ui/components/input"
-import { Separator } from "@leapercrm/ui/components/separator"
+import { Button } from "@myleaper/ui/components/button"
+import { Input } from "@myleaper/ui/components/input"
+import { Separator } from "@myleaper/ui/components/separator"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@leapercrm/ui/components/sheet"
-import { Skeleton } from "@leapercrm/ui/components/skeleton"
+} from "@myleaper/ui/components/sheet"
+import { Skeleton } from "@myleaper/ui/components/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@leapercrm/ui/components/tooltip"
-import { useIsMobile } from "@leapercrm/ui/hooks/use-mobile"
-import { cn } from "@leapercrm/ui/lib/utils"
+} from "@myleaper/ui/components/tooltip"
+import { useIsMobile } from "@myleaper/ui/hooks/use-mobile"
+import { cn } from "@myleaper/ui/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { PanelLeftIcon } from "lucide-react"

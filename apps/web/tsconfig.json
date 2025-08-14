@@ -1,5 +1,5 @@
 {
-  "extends": "@leapercrm/tsconfig/nextjs.json",
+  "extends": "@myleaper/tsconfig/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {
@@ -8,10 +8,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@leapercrm/ui/*": ["../../packages/ui/src/*"],
-      "@leapercrm/lib/*": ["../../packages/lib/src/*"],
-      "@leapercrm/trpc/*": ["../../packages/trpc/src/*"],
-      "@leapercrm/database/*": ["../../packages/database/src/*"]
+      "@myleaper/ui/*": ["../../packages/ui/src/*"],
+      "@myleaper/lib/*": ["../../packages/lib/src/*"],
+      "@myleaper/trpc/*": ["../../packages/trpc/src/*"],
+      "@myleaper/database/*": ["../../packages/database/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

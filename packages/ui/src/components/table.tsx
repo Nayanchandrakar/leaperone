@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@leapercrm/ui/lib/utils"
+import { cn } from "@myleaper/ui/lib/utils"
 import type * as React from "react"
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {

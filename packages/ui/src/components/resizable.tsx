@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@leapercrm/ui/lib/utils"
+import { cn } from "@myleaper/ui/lib/utils"
 import { GripVerticalIcon } from "lucide-react"
 import type * as React from "react"
 import * as ResizablePrimitive from "react-resizable-panels"

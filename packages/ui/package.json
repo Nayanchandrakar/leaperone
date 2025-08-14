@@ -1,5 +1,5 @@
 {
-  "name": "@leapercrm/ui",
+  "name": "@myleaper/ui",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -63,7 +63,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },

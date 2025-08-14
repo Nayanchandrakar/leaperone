@@ -98,8 +98,8 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@commitlint/config-conventional": "catalog:",
-    "@leapercrm/biome-config": "workspace:*",
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/biome-config": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "husky": "catalog:",
     "lint-staged": "catalog:",
     "turbo": "catalog:",

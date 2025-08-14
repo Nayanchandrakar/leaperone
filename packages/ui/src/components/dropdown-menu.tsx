@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@leapercrm/ui/lib/utils"
+import { cn } from "@myleaper/ui/lib/utils"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 import type * as React from "react"

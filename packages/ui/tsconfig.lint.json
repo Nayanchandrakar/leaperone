@@ -1,5 +1,5 @@
 {
-  "extends": "@leapercrm/tsconfig/react-library.json",
+  "extends": "@myleaper/tsconfig/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },

@@ -1,6 +1,6 @@
 "use client"
 
-import type { AppRouter } from "@leapercrm/trpc/client"
+import type { AppRouter } from "@myleaper/trpc/client"
 import type { QueryClient } from "@tanstack/react-query"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { createTRPCClient, httpBatchLink } from "@trpc/client"

@@ -1,5 +1,5 @@
 {
-  "name": "@leapercrm/trpc",
+  "name": "@myleaper/trpc",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
@@ -19,13 +19,13 @@
   "description": "A tRPC instance for hono server and nextjs client",
   "dependencies": {
     "@hono/trpc-server": "catalog:",
-    "@leapercrm/database": "workspace:*",
-    "@leapercrm/lib": "workspace:*",
+    "@myleaper/database": "workspace:*",
+    "@myleaper/lib": "workspace:*",
     "@trpc/server": "catalog:",
     "superjson": "catalog:"
   },
   "devDependencies": {
-    "@leapercrm/tsconfig": "workspace:*",
+    "@myleaper/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

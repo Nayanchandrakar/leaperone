@@ -1,9 +1,9 @@
 {
-  "extends": "@leapercrm/tsconfig/react-library.json",
+  "extends": "@myleaper/tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@leapercrm/ui/*": ["./src/*"]
+      "@myleaper/ui/*": ["./src/*"]
     }
   },
   "include": ["."],

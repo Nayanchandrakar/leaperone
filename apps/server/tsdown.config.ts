@@ -15,11 +15,11 @@ export default defineConfig((options: Options) => ({
   skipNodeModulesBundle: isProduction,
   minify: isProduction,
   noExternal: [
-    "@leapercrm/lib/env/server",
-    "@leapercrm/trpc/server",
-    "@leapercrm/lib/logger",
-    "@leapercrm/database",
-    "@leapercrm/auth",
+    "@myleaper/lib/env/server",
+    "@myleaper/trpc/server",
+    "@myleaper/lib/logger",
+    "@myleaper/database",
+    "@myleaper/auth",
   ],
   ...options,
 }))

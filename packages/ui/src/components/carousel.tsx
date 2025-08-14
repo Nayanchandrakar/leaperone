@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@leapercrm/ui/components/button"
-import { cn } from "@leapercrm/ui/lib/utils"
+import { Button } from "@myleaper/ui/components/button"
+import { cn } from "@myleaper/ui/lib/utils"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"

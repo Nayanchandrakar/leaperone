@@ -5,7 +5,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { serverEnv } from "@leapercrm/env/server/index"
+import { serverEnv } from "@myleaper/env/server/index"
 
 class S3Service {
   private static instance: S3Service

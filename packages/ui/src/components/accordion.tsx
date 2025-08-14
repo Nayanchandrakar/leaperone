@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@leapercrm/ui/lib/utils"
+import { cn } from "@myleaper/ui/lib/utils"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import { ChevronDownIcon } from "lucide-react"
 import type * as React from "react"

@@ -1,6 +1,6 @@
 "use client"
 
-import { Input } from "@leapercrm/ui/components/input"
+import { Input } from "@myleaper/ui/components/input"
 
 export default function HomePage() {
   // variants

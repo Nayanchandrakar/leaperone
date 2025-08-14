@@ -19,11 +19,11 @@ const nextConfig: NextConfig = {
   },
 
   transpilePackages: [
-    "@leapercrm/database",
-    "@leapercrm/lib",
-    "@leapercrm/trpc",
-    "@leapercrm/ui",
-    "@leapercrm/zod",
+    "@myleaper/database",
+    "@myleaper/lib",
+    "@myleaper/trpc",
+    "@myleaper/ui",
+    "@myleaper/zod",
   ],
 }
 

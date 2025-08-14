@@ -1,5 +1,5 @@
-import { dbHttp } from "@leapercrm/database"
-import { account, users, verification } from "@leapercrm/database/schema"
+import { dbHttp } from "@myleaper/database"
+import { account, users, verification } from "@myleaper/database/schema"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { configuration } from "../config"
