@@ -29,7 +29,7 @@
     "@myleaper/tsconfig": "workspace:*",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/node": "catalog:",
-    "tsdown": "^0.12.9",
+    "tsdown": "^0.14.1",
     "typescript": "catalog:"
   },
   "main": "./dist/index.js",
