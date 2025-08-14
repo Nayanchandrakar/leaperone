@@ -1,3 +1,4 @@
+import { auth } from "@myleaper/auth/lib"
 import { serverEnv } from "@myleaper/env/server"
 import { Logger } from "@myleaper/logger/index"
 import { trpcHonoMiddleware } from "@myleaper/trpc/server"
@@ -18,7 +19,7 @@ const bootStrapLogger = Logger.createLogger({ prefix: "BootStrap" })
 
 export function bootStrapServer(config: ServerConfig = {}) {
   const app = new Hono()
-  const { trpcEndpoint, port } = {
+  const { trpcEndpoint, port, authEndpoint } = {
     ...DEFAULT_CONFIG,
     ...config,
   }
@@ -27,7 +28,7 @@ export function bootStrapServer(config: ServerConfig = {}) {
   app.use(crossOriginRequest)
   app.use(csrf())
   app.use(trpcEndpoint, trpcHonoMiddleware)
-  // app.on(["POST", "GET"], authEndpoint, (c) => auth.handler(c.req.raw))
+  app.on(["POST", "GET"], authEndpoint, (c) => auth.handler(c.req.raw))
 
   startDevServer({
     port,

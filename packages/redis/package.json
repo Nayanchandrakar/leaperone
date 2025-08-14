@@ -1,5 +1,5 @@
 {
-  "name": "@myleaper/auth",
+  "name": "@myleaper/redis",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,11 +14,10 @@
   },
   "author": "myleaper-organization",
   "license": "ISC",
-  "description": "A package for authentication using better0-auth",
+  "description": "A package for upstash/redis",
   "dependencies": {
-    "@myleaper/database": "workspace:*",
-    "@myleaper/redis": "workspace:*",
-    "better-auth": "catalog:"
+    "@upstash/redis": "catalog:",
+    "@upstash/ratelimit": "catalog:"
   },
   "devDependencies": {
     "@myleaper/tsconfig": "workspace:*"

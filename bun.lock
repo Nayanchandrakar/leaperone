@@ -56,6 +56,7 @@
         "@tanstack/react-query": "catalog:",
         "@trpc/client": "catalog:",
         "@trpc/tanstack-react-query": "catalog:",
+        "better-auth": "catalog:",
         "client-only": "catalog:",
         "lucide-react": "catalog:",
         "next": "catalog:",
@@ -78,7 +79,8 @@
       "version": "1.0.0",
       "dependencies": {
         "@myleaper/database": "workspace:*",
-        "better-auth": "^1.3.6",
+        "@myleaper/redis": "workspace:*",
+        "better-auth": "catalog:",
       },
       "devDependencies": {
         "@myleaper/tsconfig": "workspace:*",
@@ -106,9 +108,9 @@
       "name": "@myleaper/database",
       "version": "1.0.0",
       "dependencies": {
-        "@neondatabase/serverless": "^1.0.1",
+        "@neondatabase/serverless": "catalog:",
         "@paralleldrive/cuid2": "catalog:",
-        "@upstash/redis": "^1.35.3",
+        "@upstash/redis": "catalog:",
         "drizzle-orm": "catalog:",
       },
       "devDependencies": {
@@ -130,24 +132,6 @@
         "typescript": "catalog:",
       },
     },
-    "packages/lib": {
-      "name": "@myleaper/lib",
-      "version": "1.0.0",
-      "dependencies": {
-        "@aws-sdk/client-s3": "^3.848.0",
-        "@aws-sdk/s3-request-presigner": "^3.848.0",
-        "@t3-oss/env-core": "^0.13.8",
-        "@upstash/ratelimit": "^2.0.5",
-        "pino": "catalog:",
-        "zod": "^4.0.5",
-      },
-      "devDependencies": {
-        "@myleaper/tsconfig": "workspace:*",
-        "@types/node": "catalog:",
-        "pino-pretty": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
     "packages/logger": {
       "name": "@myleaper/logger",
       "version": "1.0.0",
@@ -159,6 +143,17 @@
         "@types/node": "catalog:",
         "pino-pretty": "catalog:",
         "typescript": "catalog:",
+      },
+    },
+    "packages/redis": {
+      "name": "@myleaper/redis",
+      "version": "1.0.0",
+      "dependencies": {
+        "@upstash/ratelimit": "catalog:",
+        "@upstash/redis": "catalog:",
+      },
+      "devDependencies": {
+        "@myleaper/tsconfig": "workspace:*",
       },
     },
     "packages/trpc": {
@@ -261,6 +256,7 @@
     "@hono/node-server": "^1.18.2",
     "@hono/trpc-server": "^0.4.0",
     "@hookform/resolvers": "^5.2.1",
+    "@neondatabase/serverless": "^1.0.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -298,6 +294,9 @@
     "@types/node": "^24.2.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
+    "@upstash/ratelimit": "^2.0.5",
+    "@upstash/redis": "^1.35.3",
+    "better-auth": "^1.3.6",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
     "clsx": "^2.1.1",
@@ -623,9 +622,9 @@
 
     "@myleaper/env": ["@myleaper/env@workspace:packages/env"],
 
-    "@myleaper/lib": ["@myleaper/lib@workspace:packages/lib"],
-
     "@myleaper/logger": ["@myleaper/logger@workspace:packages/logger"],
+
+    "@myleaper/redis": ["@myleaper/redis@workspace:packages/redis"],
 
     "@myleaper/trpc": ["@myleaper/trpc@workspace:packages/trpc"],
 

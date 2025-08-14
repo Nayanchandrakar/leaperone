@@ -21,6 +21,7 @@
     "@trpc/client": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
     "client-only": "catalog:",
+    "better-auth": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
