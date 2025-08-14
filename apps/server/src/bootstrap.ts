@@ -1,5 +1,5 @@
-import { serverEnv } from "@myleaper/lib/env/server"
-import { Logger } from "@myleaper/lib/logger"
+import { serverEnv } from "@myleaper/env/server"
+import { Logger } from "@myleaper/logger/index"
 import { trpcHonoMiddleware } from "@myleaper/trpc/server"
 import { Hono } from "hono"
 import { csrf } from "hono/csrf"

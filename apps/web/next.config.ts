@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
 
   transpilePackages: [
     "@myleaper/database",
-    "@myleaper/lib",
+    "@myleaper/env",
     "@myleaper/trpc",
     "@myleaper/ui",
     "@myleaper/zod",

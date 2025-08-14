@@ -20,7 +20,8 @@
     "@myleaper/auth": "workspace:*",
     "@myleaper/database": "workspace:*",
     "@myleaper/trpc": "workspace:*",
-    "@myleaper/lib": "workspace:*",
+    "@myleaper/env": "workspace:*",
+    "@myleaper/logger": "workspace:*",
     "dotenv": "catalog:",
     "hono": "catalog:"
   },

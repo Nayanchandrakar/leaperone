@@ -20,7 +20,8 @@
   "dependencies": {
     "@hono/trpc-server": "catalog:",
     "@myleaper/database": "workspace:*",
-    "@myleaper/lib": "workspace:*",
+    "@myleaper/env": "workspace:*",
+    "@myleaper/logger": "workspace:*",
     "@trpc/server": "catalog:",
     "superjson": "catalog:"
   },

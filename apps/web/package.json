@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@myleaper/database": "workspace:*",
-    "@myleaper/lib": "workspace:*",
+    "@myleaper/env": "workspace:*",
     "@myleaper/trpc": "workspace:*",
     "@myleaper/ui": "workspace:*",
     "@myleaper/zod": "workspace:*",

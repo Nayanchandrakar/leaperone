@@ -9,7 +9,7 @@
     "paths": {
       "@/*": ["./*"],
       "@myleaper/ui/*": ["../../packages/ui/src/*"],
-      "@myleaper/lib/*": ["../../packages/lib/src/*"],
+      "@myleaper/env/*": ["../../packages/env/src/*"],
       "@myleaper/trpc/*": ["../../packages/trpc/src/*"],
       "@myleaper/database/*": ["../../packages/database/src/*"]
     }

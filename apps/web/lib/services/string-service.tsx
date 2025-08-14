@@ -1,4 +1,4 @@
-import { clientEnv } from "@myleaper/lib/env/client"
+import { clientEnv } from "@myleaper/env/client"
 
 export class StringService {
   private constructor() {}

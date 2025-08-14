@@ -15,9 +15,9 @@ export default defineConfig((options: Options) => ({
   skipNodeModulesBundle: isProduction,
   minify: isProduction,
   noExternal: [
-    "@myleaper/lib/env/server",
+    "@myleaper/env/server",
+    "@myleaper/logger/index",
     "@myleaper/trpc/server",
-    "@myleaper/lib/logger",
     "@myleaper/database",
     "@myleaper/auth",
   ],
