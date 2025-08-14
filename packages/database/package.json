@@ -28,9 +28,9 @@
   "license": "ISC",
   "description": "A database instance to be used in web and tRPC server",
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.1",
+    "@neondatabase/serverless": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
-    "@upstash/redis": "^1.35.3",
+    "@upstash/redis": "catalog:",
     "drizzle-orm": "catalog:"
   },
   "devDependencies": {

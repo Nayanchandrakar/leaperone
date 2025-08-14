@@ -92,6 +92,8 @@
       "superjson": "^2.2.2",
       "lucide-react": "^0.539.0",
       "hono": "^4.9.1",
+      "@upstash/redis": "catalog:",
+      "@neondatabase/serverless": "^1.0.1",
       "@hono/node-server": "^1.18.2"
     }
   },
