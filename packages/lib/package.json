@@ -13,7 +13,7 @@
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
     "pino": "catalog:",

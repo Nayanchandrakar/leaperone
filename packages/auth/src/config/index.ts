@@ -1,6 +1,6 @@
 export const configuration = {
   site: {
-    name: "leapercrm",
-    cookiePrefix: "leapercrm-organization",
+    name: "myleaper",
+    cookiePrefix: "myleaper-organization",
   },
 }

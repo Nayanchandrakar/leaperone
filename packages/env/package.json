@@ -12,7 +12,7 @@
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8"

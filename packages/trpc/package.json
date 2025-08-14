@@ -14,7 +14,7 @@
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "description": "A tRPC instance for hono server and nextjs client",
   "dependencies": {

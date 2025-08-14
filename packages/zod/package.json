@@ -14,7 +14,7 @@
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "description": "Zod schema validation for web and hono server",
   "dependencies": {

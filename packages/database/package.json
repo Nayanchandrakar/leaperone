@@ -24,7 +24,7 @@
     "db:up": "drizzle-kit up",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "description": "A database instance to be used in web and tRPC server",
   "dependencies": {

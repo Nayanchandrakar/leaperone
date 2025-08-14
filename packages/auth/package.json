@@ -12,7 +12,7 @@
     "format": "biome check --write .",
     "typecheck": "tsc --noEmit"
   },
-  "author": "leapercrm-organization",
+  "author": "myleaper-organization",
   "license": "ISC",
   "description": "A package for authentication using better0-auth",
   "dependencies": {
