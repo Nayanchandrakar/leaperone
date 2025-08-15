@@ -4,7 +4,7 @@ import { z } from "zod"
 export const clientEnv = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
   client: {
-    NEXT_PUBLIC_BACKEND_URL: z.string().default("http://localhost:8080"),
+    NEXT_PUBLIC_SERVER_URL: z.string().default("http://localhost:8080"),
   },
   runtimeEnv: process.env,
 })

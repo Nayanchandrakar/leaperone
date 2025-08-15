@@ -3,6 +3,7 @@
   "author": "myleaper-organization",
   "version": "1.0.0",
   "type": "module",
+  "sideEffects": false,
   "private": true,
   "description": "A Hono server used in web application",
   "scripts": {

@@ -4,22 +4,30 @@ import { defineConfig, type Options } from "tsdown"
 
 const isProduction = process?.env?.NODE_ENV === "production"
 
-export default defineConfig((options: Options) => ({
-  target: "es2022",
-  platform: "node",
-  entry: ["src/**/*"],
-  tsconfig: "./tsconfig.json",
-  clean: true,
-  format: "esm",
-  unbundle: !isProduction,
-  skipNodeModulesBundle: isProduction,
-  minify: isProduction,
-  noExternal: [
-    "@myleaper/env/server",
-    "@myleaper/logger/index",
-    "@myleaper/trpc/server",
-    "@myleaper/database",
-    "@myleaper/auth",
-  ],
-  ...options,
-}))
+export default defineConfig(
+  (options: Options) =>
+    ({
+      target: "es2022",
+      platform: "node",
+      entry: ["src/**/*"],
+      tsconfig: "./tsconfig.json",
+      clean: true,
+      treeshake: true,
+      format: "esm",
+      unbundle: !isProduction,
+      skipNodeModulesBundle: isProduction,
+      minify: isProduction,
+      noExternal: [
+        "@myleaper/logger",
+        "@myleaper/trpc",
+        "@myleaper/database",
+        "@myleaper/auth",
+        "@myleaper/redis",
+        "@myleaper/constants",
+        "@myleaper/env/server",
+        "@myleaper/trpc/server",
+        "@myleaper/database/schema",
+      ],
+      ...options,
+    }) as Options,
+)

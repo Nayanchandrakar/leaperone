@@ -5,7 +5,8 @@
   "type": "module",
   "private": true,
   "exports": {
-    ".": "./src/*.ts"
+    "./server": "./src/server/index.ts",
+    "./client": "./src/client/index.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",

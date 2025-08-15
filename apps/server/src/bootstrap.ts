@@ -1,6 +1,6 @@
-import { auth } from "@myleaper/auth/index"
+import { auth } from "@myleaper/auth"
 import { serverEnv } from "@myleaper/env/server"
-import { Logger } from "@myleaper/logger/index"
+import { Logger } from "@myleaper/logger"
 import { trpcHonoMiddleware } from "@myleaper/trpc/server"
 import { Hono } from "hono"
 import { csrf } from "hono/csrf"

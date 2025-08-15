@@ -21,6 +21,7 @@
     "@hono/trpc-server": "catalog:",
     "@myleaper/database": "workspace:*",
     "@myleaper/env": "workspace:*",
+    "@myleaper/redis": "workspace:*",
     "@myleaper/logger": "workspace:*",
     "@trpc/server": "catalog:",
     "superjson": "catalog:"

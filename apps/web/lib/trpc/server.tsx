@@ -9,8 +9,8 @@ import {
 } from "@trpc/tanstack-react-query"
 import { cache } from "react"
 import SuperJSON from "superjson"
-import { StringService } from "@/lib/services/string-service"
 import { makeQueryClient } from "@/lib/tanstack/query-client"
+import { URLS } from "@/utils/urls"
 
 export const getQueryClient = cache(makeQueryClient)
 
@@ -19,7 +19,7 @@ export const trpc = createTRPCOptionsProxy({
     links: [
       httpBatchLink({
         transformer: SuperJSON,
-        url: StringService.getBackendUrl(),
+        url: URLS.SERVER,
       }),
     ],
   }),

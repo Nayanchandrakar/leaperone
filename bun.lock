@@ -173,6 +173,7 @@
         "@myleaper/database": "workspace:*",
         "@myleaper/env": "workspace:*",
         "@myleaper/logger": "workspace:*",
+        "@myleaper/redis": "workspace:*",
         "@trpc/server": "catalog:",
         "superjson": "catalog:",
       },
