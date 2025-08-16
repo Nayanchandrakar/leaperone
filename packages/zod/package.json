@@ -7,7 +7,8 @@
   "exports": {
     "./server/*": "./src/schema/server/*.ts",
     "./common/*": "./src/schema/common/*.ts",
-    "./client/*": "./src/schema/client/*.ts"
+    "./client/*": "./src/schema/client/*.ts",
+    "./utils": "./src/schema/utils/index.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",
