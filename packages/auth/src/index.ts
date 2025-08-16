@@ -1,10 +1,11 @@
-import { APP_NAME } from "@myleaper/constants/server"
+import { APP_NAME, USERNAME_HASH } from "@myleaper/constants/server"
 import { dbHttp } from "@myleaper/database"
 import { account, users, verification } from "@myleaper/database/schema"
+import { redis } from "@myleaper/redis"
 import { RedisStorage } from "@myleaper/redis/utils/auth-storage"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { beforeRequestHook } from "./middleware/check-username"
+import { beforeRequestMiddleware } from "./middleware/check-username"
 
 export const auth = betterAuth({
   appName: APP_NAME,
@@ -31,7 +32,21 @@ export const auth = betterAuth({
   },
 
   hooks: {
-    before: beforeRequestHook,
+    before: beforeRequestMiddleware,
+  },
+
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (_, ctx) => {
+          if (ctx?.body) {
+            await redis.hset(USERNAME_HASH, {
+              [ctx?.body.username]: "1",
+            })
+          }
+        },
+      },
+    },
   },
 
   // Enable email and password authentication

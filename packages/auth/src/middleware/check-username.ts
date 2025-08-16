@@ -2,18 +2,19 @@ import { isUserNameTaken } from "@myleaper/database/services/users"
 import { userNameSchema } from "@myleaper/zod/utils"
 import { APIError, createAuthMiddleware } from "better-auth/api"
 
-export const beforeRequestHook = createAuthMiddleware(async (ctx) => {
+export const beforeRequestMiddleware = createAuthMiddleware(async (ctx) => {
   if (ctx.path !== "/sign-up/email") return
 
-  const { success, data } = userNameSchema.safeParse(
-    ctx.body.username as string,
-  )
+  const { success, data } = userNameSchema.safeParse({
+    username: ctx.body.username,
+  })
 
   if (!success) {
     throw new APIError("EXPECTATION_FAILED", {
       message: "Invalid username format",
     })
   }
+
   const exists = await isUserNameTaken(data.username)
 
   if (exists) {
