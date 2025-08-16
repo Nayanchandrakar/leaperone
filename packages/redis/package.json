@@ -19,7 +19,8 @@
   "description": "A package for upstash/redis",
   "dependencies": {
     "@upstash/redis": "catalog:",
-    "@upstash/ratelimit": "catalog:"
+    "@upstash/ratelimit": "catalog:",
+    "@myleaper/constants": "workspace:*"
   },
   "devDependencies": {
     "@myleaper/tsconfig": "workspace:*"

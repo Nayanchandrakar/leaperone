@@ -50,7 +50,7 @@
       },
       "complexity": {
         "noUselessCatch": "error",
-        "noUselessConstructor": "error",
+        "noUselessConstructor": "off",
         "noUselessEmptyExport": "error",
         "noUselessThisAlias": "error",
         "noUselessTypeConstraint": "error"

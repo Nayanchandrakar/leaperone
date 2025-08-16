@@ -1,4 +1,4 @@
-import { APP_NAME } from "@myleaper/constants/config"
+import { APP_NAME } from "@myleaper/constants/server"
 import { dbHttp } from "@myleaper/database"
 import { account, users, verification } from "@myleaper/database/schema"
 import { RedisStorage } from "@myleaper/redis/utils/auth-storage"

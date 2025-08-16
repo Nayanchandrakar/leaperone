@@ -1,7 +1,6 @@
-import { createTRPCRouter, publicProcedure } from "../utils/init"
+import { createTRPCRouter } from "../utils/init"
+import { usersRouter } from "./users"
 
 export const appRouter = createTRPCRouter({
-  hello: publicProcedure.query(() => {
-    return "Hello World!"
-  }),
+  users: usersRouter,
 })
