@@ -7,60 +7,61 @@ import {
   timestamp,
   unique,
 } from "drizzle-orm/pg-core"
-import { dateCreation } from "../utils/index"
+import { timestamps } from "../utils"
 
 export const users = pgTable(
   "user",
   {
-    id: text("id")
+    id: text()
       .primaryKey()
       .$defaultFn(() => createId()),
-    name: text("name").notNull(),
-    email: text("email").notNull().unique(),
-    emailVerified: boolean("email_verified").notNull(),
-    image: text("image"),
-    ...dateCreation,
+    username: text().notNull().unique(),
+    name: text().notNull(),
+    email: text().notNull().unique(),
+    emailVerified: boolean().notNull(),
+    image: text(),
+    ...timestamps,
   },
   (t) => ({
-    emailUniqueIndex: unique("user_email_unique_index").on(t.email),
+    emailUniqueIndex: unique().on(t.email),
   }),
 )
 
 export const account = pgTable(
   "account",
   {
-    id: text("id")
+    id: text()
       .primaryKey()
       .$defaultFn(() => createId()),
-    accountId: text("account_id").notNull(),
-    providerId: text("provider_id").notNull(),
-    userId: text("user_id")
+    accountId: text().notNull(),
+    providerId: text().notNull(),
+    userId: text()
       .notNull()
       .references(() => users.id, {
         onDelete: "cascade",
       }),
-    accessToken: text("access_token"),
-    refreshToken: text("refresh_token"),
-    idToken: text("id_token"),
-    accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
-    scope: text("scope"),
-    password: text("password"),
-    ...dateCreation,
+    accessToken: text(),
+    refreshToken: text(),
+    idToken: text(),
+    accessTokenExpiresAt: timestamp(),
+    refreshTokenExpiresAt: timestamp(),
+    scope: text(),
+    password: text(),
+    ...timestamps,
   },
   (t) => ({
-    userIdIndex: index("account_user_id_index").on(t.userId),
-    accountIdIndex: index("account_id_indedx").on(t.accountId),
-    providerIdIndex: index("account_provider_id_index").on(t.providerId),
+    userIdIndex: index().on(t.userId),
+    accountIdIndex: index().on(t.accountId),
+    providerIdIndex: index().on(t.providerId),
   }),
 )
 
 export const verification = pgTable("verification", {
-  id: text("id")
+  id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
-  identifier: text("identifier").notNull(),
-  value: text("value").notNull(),
-  expiresAt: timestamp("expires_at").notNull(),
-  ...dateCreation,
+  identifier: text().notNull(),
+  value: text().notNull(),
+  expiresAt: timestamp().notNull(),
+  ...timestamps,
 })

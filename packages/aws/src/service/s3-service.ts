@@ -24,7 +24,6 @@ class S3Service {
   static getInstance(): S3Service {
     if (!S3Service.instance) {
       S3Service.instance = new S3Service()
-      return S3Service.instance
     }
     return S3Service.instance
   }

@@ -1,8 +1,8 @@
 import { timestamp } from "drizzle-orm/pg-core"
 
-export const dateCreation = {
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
+export const timestamps = {
+  createdAt: timestamp().notNull().defaultNow(),
+  updatedAt: timestamp()
     .defaultNow()
     .$onUpdate(() => new Date()),
 }

@@ -4,11 +4,11 @@ import { account, users, verification } from "@myleaper/database/schema"
 import { RedisStorage } from "@myleaper/redis/utils/auth-storage"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { beforeRequestHook } from "./middleware/check-username"
 
 export const auth = betterAuth({
   appName: APP_NAME,
 
-  // Drizzle adapter
   database: drizzleAdapter(dbHttp, {
     provider: "pg",
     schema: {
@@ -17,6 +17,22 @@ export const auth = betterAuth({
       verification,
     },
   }),
+
+  // Add additional database fields
+  user: {
+    additionalFields: {
+      username: {
+        type: "string",
+        required: true,
+        input: true,
+        unique: true,
+      },
+    },
+  },
+
+  hooks: {
+    before: beforeRequestHook,
+  },
 
   // Enable email and password authentication
   emailAndPassword: {
