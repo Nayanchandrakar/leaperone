@@ -9,10 +9,10 @@ const inputVariants = cva(
       variant: {
         default:
           "bg-transparent border border-input focus-visible:border-zinc-300",
-        gray: "bg-neutral-100 border border-zinc-100 focus-visible:border-zinc-200",
+        gray: "bg-muted border border-zinc-100 focus-visible:border-zinc-200",
       },
       size: {
-        default: "h-9 rounded-xl px-3 py-1 text-base",
+        default: "h-9 rounded-md px-3 py-1 text-base",
       },
     },
     defaultVariants: {

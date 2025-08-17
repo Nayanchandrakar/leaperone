@@ -12,6 +12,7 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
+    "@hookform/resolvers": "catalog:",
     "@myleaper/database": "workspace:*",
     "@myleaper/env": "workspace:*",
     "@myleaper/trpc": "workspace:*",
@@ -20,15 +21,18 @@
     "@tanstack/react-query": "catalog:",
     "@trpc/client": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
-    "client-only": "catalog:",
     "better-auth": "catalog:",
+    "client-only": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-error-boundary": "catalog:",
+    "react-hook-form": "catalog:",
     "server-only": "catalog:",
-    "superjson": "catalog:"
+    "superjson": "catalog:",
+    "usehooks-ts": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@myleaper/tsconfig": "workspace:*",

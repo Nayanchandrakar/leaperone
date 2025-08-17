@@ -38,10 +38,10 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
-        before: async (_, ctx) => {
-          if (ctx?.body) {
+        after: async (_, ctx) => {
+          if (ctx?.body.username) {
             await redis.hset(USERNAME_HASH, {
-              [ctx?.body.username]: "1",
+              [ctx.body.username]: "1",
             })
           }
         },
@@ -69,6 +69,7 @@ export const auth = betterAuth({
     cookiePrefix: APP_NAME,
     crossSubDomainCookies: {
       enabled: true,
+      domain: ".leapercrm.com",
     },
     useSecureCookies: true,
     database: {

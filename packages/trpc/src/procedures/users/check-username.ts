@@ -1,6 +1,6 @@
 import { USERNAME_HASH } from "@myleaper/constants/server"
 import { redis } from "@myleaper/redis"
-import { userNameSchema } from "@myleaper/zod/utils"
+import { userNameSchema } from "@myleaper/zod/common/index"
 import { baseProcedure } from "../../utils/init"
 
 export const checkUserName = baseProcedure

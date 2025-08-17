@@ -1,5 +1,5 @@
 import { isUserNameTaken } from "@myleaper/database/services/users"
-import { userNameSchema } from "@myleaper/zod/utils"
+import { userNameSchema } from "@myleaper/zod/common/index"
 import { APIError, createAuthMiddleware } from "better-auth/api"
 
 export const beforeRequestMiddleware = createAuthMiddleware(async (ctx) => {
