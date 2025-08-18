@@ -9,13 +9,13 @@ export const patterns = {
 // utils
 export const username = z
   .string()
-  .min(3)
-  .max(20)
-  .toLowerCase()
+  .min(3, { message: "Username must be at least 3 characters" })
+  .max(20, { message: "Username must be at most 20 characters" })
   .regex(patterns.username, {
     message:
       "Username can only contain letters, no numbers, special characters, or symbols",
   })
+  .toLowerCase()
 
 export const password = z
   .string()

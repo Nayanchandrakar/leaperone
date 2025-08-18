@@ -15,9 +15,9 @@ import { createAccountSchema } from "@myleaper/zod/client/auth-schema"
 import Link from "next/link"
 import { useCallback, useMemo } from "react"
 import { useForm, useWatch } from "react-hook-form"
+import { toast } from "sonner"
 import { useDebounceValue } from "usehooks-ts"
 import type { z } from "zod"
-
 import { UsernameStatus } from "@/components/pages/create-account/elements/username-status"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import {
@@ -60,13 +60,6 @@ export const CreateAccountForm = () => {
   })
   const isUsernameTaken = useMemo(() => Boolean(data?.exists), [data?.exists])
 
-  const onSubmit = useCallback(async (values: FormSchema) => {
-    await authClient.signUp.email(values, {
-      onSuccess: () => {},
-      onError: () => {},
-    })
-  }, [])
-
   useUsernameError({
     isPending,
     error: usernameError,
@@ -75,13 +68,24 @@ export const CreateAccountForm = () => {
     clearErrors,
   })
 
+  const onSubmit = useCallback(async (values: FormSchema) => {
+    await authClient.signUp.email(values, {
+      onSuccess: () => {
+        toast.success("Account Created Succefully")
+      },
+      onError: ({ error }) => {
+        toast.error(error.message)
+      },
+    })
+  }, [])
+
   const isSubmissionDisabled = useMemo(
     () => isSubmitting || !isValid || isPending || isUsernameTaken,
     [isSubmitting, isValid, isPending, isUsernameTaken],
   )
 
   return (
-    <div className="flex size-full items-center justify-center p-4">
+    <div className="flex size-full items-center justify-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -94,8 +98,8 @@ export const CreateAccountForm = () => {
           />
 
           <FormField
-            control={control}
             name="username"
+            control={control}
             disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
@@ -185,11 +189,11 @@ export const CreateAccountForm = () => {
           />
 
           <div className="text-center text-xs text-muted-foreground">
-            By creating an account, you agree to our{" "}
+            By creating an account, you agree to our&nbsp;
             <Link href="/" className="underline hover:text-primary">
               Terms of Service
-            </Link>{" "}
-            and{" "}
+            </Link>
+            &nbsp;and&nbsp;
             <Link href="/" className="underline hover:text-primary">
               Privacy Policy
             </Link>
@@ -204,8 +208,9 @@ export const CreateAccountForm = () => {
             >
               Create Account
             </Button>
+
             <p className="text-center text-sm">
-              Already have an account?{" "}
+              Already have an account?&nbsp;
               <Link href="/login" className="underline text-primary">
                 Log in
               </Link>

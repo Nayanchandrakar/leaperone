@@ -1,5 +1,6 @@
 import "@myleaper/ui/globals.css"
 
+import { Toaster } from "@myleaper/ui/components/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Provider } from "@/components/providers"
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <Provider>
         <body className={`${inter.className} antialiased`}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </Provider>
     </html>

@@ -66,6 +66,7 @@
         "react-error-boundary": "catalog:",
         "react-hook-form": "catalog:",
         "server-only": "catalog:",
+        "sonner": "catalog:",
         "superjson": "catalog:",
         "usehooks-ts": "catalog:",
         "zod": "catalog:",
