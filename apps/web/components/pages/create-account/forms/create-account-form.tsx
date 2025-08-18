@@ -13,20 +13,24 @@ import {
 import { Input } from "@myleaper/ui/components/input"
 import { createAccountSchema } from "@myleaper/zod/client/auth-schema"
 import Link from "next/link"
+import { useCallback, useMemo } from "react"
 import { useForm, useWatch } from "react-hook-form"
 import { useDebounceValue } from "usehooks-ts"
 import type { z } from "zod"
+
 import { UsernameStatus } from "@/components/pages/create-account/elements/username-status"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import {
   useUsernameCheck,
   useUsernameError,
 } from "@/hooks/trpc/users/check-username"
+import { authClient } from "@/lib/auth"
 
 type FormSchema = z.infer<typeof createAccountSchema>
 
 export const CreateAccountForm = () => {
   const form = useForm<FormSchema>({
+    mode: "onChange",
     resolver: zodResolver(createAccountSchema),
     defaultValues: {
       username: "",
@@ -34,36 +38,54 @@ export const CreateAccountForm = () => {
       name: "",
       password: "",
     },
-    mode: "onChange",
   })
 
-  const username = useWatch({ control: form.control, name: "username" })
+  const {
+    control,
+    formState: { isValid, errors, isSubmitting },
+    setError,
+    clearErrors,
+  } = form
+
+  const username = useWatch({ control, name: "username" })
   const [debouncedUsername] = useDebounceValue(username, 400)
-  const usernameError = form.formState.errors.username
+  const usernameError = useMemo(() => errors.username, [errors.username])
+  const isUsernameCheckEnabled = Boolean(
+    debouncedUsername.length && !usernameError,
+  )
 
   const { data, isPending } = useUsernameCheck({
     username: debouncedUsername,
-    enabled: Boolean(debouncedUsername.length && !usernameError),
+    enabled: isUsernameCheckEnabled,
   })
+  const isUsernameTaken = useMemo(() => Boolean(data?.exists), [data?.exists])
+
+  const onSubmit = useCallback(async (values: FormSchema) => {
+    await authClient.signUp.email(values, {
+      onSuccess: () => {},
+      onError: () => {},
+    })
+  }, [])
 
   useUsernameError({
-    exists: data?.exists,
     isPending,
     error: usernameError,
-    setError: form.setError,
-    clearErrors: form.clearErrors,
+    exists: isUsernameTaken,
+    setError,
+    clearErrors,
   })
 
-  const onSubmit = (values: FormSchema) => {
-    console.log(values)
-  }
+  const isSubmissionDisabled = useMemo(
+    () => isSubmitting || !isValid || isPending || isUsernameTaken,
+    [isSubmitting, isValid, isPending, isUsernameTaken],
+  )
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex size-full items-center justify-center p-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full max-w-md space-y-6 p-4 sm:p-0"
+          className="w-full max-w-md space-y-6"
         >
           <HeadingShortner
             title="Create Your Account"
@@ -72,8 +94,9 @@ export const CreateAccountForm = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="username"
+            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="data-[error=true]:text-black">
@@ -86,25 +109,25 @@ export const CreateAccountForm = () => {
                     </span>
                     <Input
                       variant="gray"
-                      className="peer pl-32"
+                      className="pl-32"
                       placeholder="Enter your username"
+                      disabled={isSubmitting}
                       {...field}
                     />
                   </div>
                 </FormControl>
-
                 <UsernameStatus
                   username={username}
                   isPending={isPending}
                   error={usernameError}
-                  exists={Boolean(data?.exists)}
+                  exists={isUsernameTaken}
                 />
               </FormItem>
             )}
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="name"
             render={({ field }) => (
               <FormItem>
@@ -113,6 +136,7 @@ export const CreateAccountForm = () => {
                   <Input
                     variant="gray"
                     placeholder="Enter your full name"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -122,7 +146,7 @@ export const CreateAccountForm = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -132,6 +156,7 @@ export const CreateAccountForm = () => {
                     variant="gray"
                     type="email"
                     placeholder="Enter your email address"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -141,7 +166,7 @@ export const CreateAccountForm = () => {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="password"
             render={({ field }) => (
               <FormItem>
@@ -150,6 +175,7 @@ export const CreateAccountForm = () => {
                   <Input
                     variant="gray"
                     placeholder="Enter your password"
+                    disabled={isSubmitting}
                     {...field}
                   />
                 </FormControl>
@@ -158,7 +184,7 @@ export const CreateAccountForm = () => {
             )}
           />
 
-          <div className="mb-4 text-center text-xs text-muted-foreground">
+          <div className="text-center text-xs text-muted-foreground">
             By creating an account, you agree to our{" "}
             <Link href="/" className="underline hover:text-primary">
               Terms of Service
@@ -167,7 +193,6 @@ export const CreateAccountForm = () => {
             <Link href="/" className="underline hover:text-primary">
               Privacy Policy
             </Link>
-            .
           </div>
 
           <div className="flex flex-col items-center gap-4">
@@ -175,16 +200,16 @@ export const CreateAccountForm = () => {
               type="submit"
               className="w-full"
               size="lg"
-              disabled={form.formState.isSubmitting || !form.formState.isValid}
+              disabled={isSubmissionDisabled}
             >
               Create Account
             </Button>
-            <span className="text-center text-sm">
+            <p className="text-center text-sm">
               Already have an account?{" "}
               <Link href="/login" className="underline text-primary">
                 Log in
               </Link>
-            </span>
+            </p>
           </div>
         </form>
       </Form>

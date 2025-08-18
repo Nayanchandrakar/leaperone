@@ -4,7 +4,7 @@ import { CreateAccountForm } from "@/components/pages/create-account/forms/creat
 
 export default function CreateAccountPage() {
   return (
-    <div className="grid min-h-svh lg:grid-cols-2 ">
+    <div className="grid min-h-screen lg:grid-cols-2 ">
       <AuthContainer className="relative">
         <BackButton />
         <CreateAccountForm />
