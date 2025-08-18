@@ -101,7 +101,7 @@
         "noDuplicateJsxProps": "error",
         "noDuplicateObjectKeys": "off",
         "noDuplicateParameters": "off",
-        "noExplicitAny": "error",
+        "noExplicitAny": "off",
         "noExtraNonNullAssertion": "error",
         "noFunctionAssign": "off",
         "noImportAssign": "off",

@@ -5,7 +5,7 @@ import { baseProcedure } from "../../utils/init"
 
 export const checkUserName = baseProcedure
   .input(userNameSchema)
-  .mutation(async ({ input }) => {
+  .query(async ({ input }) => {
     const { username } = input
     // TODO: add ratelimiting here
     const exists = await redis.hexists(USERNAME_HASH, username)
