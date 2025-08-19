@@ -1,14 +1,15 @@
 import type { Metadata } from "next"
+import { AuthLayout } from "@/components/layouts/auth-layout"
 
 export const metadata: Metadata = {
   title: "Welcome to myleaper",
   description: "Created by myleaper",
 }
 
-export default function AuthLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return children
+  return <AuthLayout>{children}</AuthLayout>
 }

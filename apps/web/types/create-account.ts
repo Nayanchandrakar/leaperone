@@ -3,24 +3,29 @@ import type { UseFormClearErrors, UseFormSetError } from "react-hook-form"
 import type z from "zod"
 
 export type FormSchema = z.infer<typeof createAccountSchema>
-export type StatusState = "error" | "empty" | "pending" | "available"
+export type UserStatusState = "error" | "empty" | "pending" | "available"
 
-export interface StatusConfig {
-  className: string
-  Icon?: React.ReactNode
-  text: (error?: string) => string
-}
-
-export interface UsernameCheckParams {
+export interface IUsernameCheckParams {
   username: string
   enabled: boolean
 }
 
-export interface UsernameErrorParams {
-  error: any
+export interface IGetUserNameStatus {
+  queryError: unknown
+  errorMessage: string | undefined
   isPending: boolean
-  exists: boolean | undefined
-  userNameErrorType: string | undefined
+  exists: boolean
+  username: string
+}
+
+export interface ISetUserNameError {
+  error: any
+  usernameErrorType: any
+  isUserNameTaken: boolean
+}
+
+export interface IUserNameError extends ISetUserNameError {
+  isPending: boolean
   setError: UseFormSetError<{ username: string }>
   clearErrors: UseFormClearErrors<{ username: string }>
 }

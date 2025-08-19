@@ -1,18 +1,25 @@
-import { AuthContainer } from "@/components/containers/auth/auth-container"
+import * as React from "react"
+import {
+  AuthContent,
+  AuthForm,
+  AuthWrapper,
+} from "@/components/layouts/auth-layout"
 import { BackButton } from "@/components/pages/create-account/elements/back-button"
 import { CreateAccountForm } from "@/components/pages/create-account/forms/create-account-form"
 
 export default function CreateAccountPage() {
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 ">
-      <AuthContainer className="relative">
+    <React.Fragment>
+      <AuthWrapper>
         <BackButton />
-        <CreateAccountForm />
-      </AuthContainer>
+        <AuthForm>
+          <CreateAccountForm />
+        </AuthForm>
+      </AuthWrapper>
 
-      <div className="bg-[linear-gradient(190.37deg,#16A50B_3.55%,#0D9815_54.67%,#0B701D_100%)] relative hidden lg:block">
-        content
-      </div>
-    </div>
+      <AuthContent>
+        <AuthWrapper>content</AuthWrapper>
+      </AuthContent>
+    </React.Fragment>
   )
 }
