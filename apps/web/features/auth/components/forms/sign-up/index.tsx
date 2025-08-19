@@ -11,21 +11,22 @@ import {
   FormMessage,
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
-import { createAccountSchema } from "@myleaper/zod/client/auth-schema"
+import { signupSchema } from "@myleaper/zod/client/auth-schema"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { RenderMessage } from "@/components/pages/create-account/elements/render-username-message"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
+import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
+import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import {
-  useAccountCreate,
   useAccountFormContext,
+  useCreateAccount,
   useUsernameError,
-} from "@/hooks/pages/create-account"
-import type { FormSchema } from "@/types/create-account"
+} from "@/features/auth/hooks/create-account"
+import type { ISignupFormSchema } from "@/types/zod-types"
 
-export const CreateAccountForm = () => {
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(createAccountSchema),
+export const SignupForm = () => {
+  const form = useForm<ISignupFormSchema>({
+    resolver: zodResolver(signupSchema),
     mode: "onChange",
     defaultValues: {
       username: "",
@@ -64,7 +65,7 @@ export const CreateAccountForm = () => {
     isUserNameTaken,
   ].some(Boolean)
 
-  const { onSubmit } = useAccountCreate()
+  const { onSubmit } = useCreateAccount()
 
   return (
     <Form {...form}>
@@ -189,12 +190,11 @@ export const CreateAccountForm = () => {
             Create Account
           </Button>
 
-          <p className="text-center text-sm">
-            Already have an account?&nbsp;
-            <Link href="/login" className="underline text-primary">
-              Log in
-            </Link>
-          </p>
+          <AuthRedirect
+            linkHref="/login"
+            linkMessage="Log In"
+            message="Already have an account?"
+          />
         </div>
       </form>
     </Form>

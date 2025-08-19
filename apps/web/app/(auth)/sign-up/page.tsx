@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import { LoginForm } from "@/features/auth/components/forms/login"
+import { SignupForm } from "@/features/auth/components/forms/sign-up"
 import {
   AuthContent,
   AuthForm,
@@ -13,12 +13,12 @@ export default function CreateAccountPage() {
       <AuthWrapper>
         <BackButton />
         <AuthForm>
-          <LoginForm />
+          <SignupForm />
         </AuthForm>
       </AuthWrapper>
 
       <AuthContent>
-        <AuthWrapper>login page content</AuthWrapper>
+        <AuthWrapper>content</AuthWrapper>
       </AuthContent>
     </Fragment>
   )

@@ -1,8 +1,5 @@
-import type { createAccountSchema } from "@myleaper/zod/client/auth-schema"
 import type { UseFormClearErrors, UseFormSetError } from "react-hook-form"
-import type z from "zod"
 
-export type FormSchema = z.infer<typeof createAccountSchema>
 export type UserStatusState = "error" | "empty" | "pending" | "available"
 
 export interface IUsernameCheckParams {

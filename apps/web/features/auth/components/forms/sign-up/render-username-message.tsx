@@ -6,8 +6,8 @@ import {
   UserNameEmpty,
   UserNameError,
   UserNameLoading,
-} from "@/components/pages/create-account/elements/username-states"
-import { getUserNameStatus } from "@/utils"
+} from "@/features/auth/components/forms/sign-up/username-states"
+import { getUserNameStatus } from "@/features/auth/utils"
 
 interface IRenderMessage {
   queryError: any

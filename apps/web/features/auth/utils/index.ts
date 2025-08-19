@@ -2,7 +2,7 @@ import type {
   IGetUserNameStatus,
   ISetUserNameError,
   UserStatusState,
-} from "@/types/create-account"
+} from "@/features/auth/types"
 
 export const getUserNameStatus = ({
   exists,

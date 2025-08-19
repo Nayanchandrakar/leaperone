@@ -4,14 +4,14 @@ import type { ErrorOption, UseFormReturn } from "react-hook-form"
 import { useWatch } from "react-hook-form"
 import { toast } from "sonner"
 import { useDebounceValue } from "usehooks-ts"
-import { authClient } from "@/lib/auth"
-import { useTRPC } from "@/lib/trpc/client"
 import type {
-  FormSchema,
   IUserNameError,
   IUsernameCheckParams,
-} from "@/types/create-account"
-import { setUserNameError } from "@/utils"
+} from "@/features/auth/types"
+import { setUserNameError } from "@/features/auth/utils"
+import { authClient } from "@/lib/auth"
+import { useTRPC } from "@/lib/trpc/client"
+import type { ISignupFormSchema } from "@/types/zod-types"
 
 export const useUsernameCheck = ({
   username,
@@ -91,8 +91,8 @@ export const useAccountFormContext = ({
   }
 }
 
-export const useAccountCreate = () => {
-  const onSubmit = useCallback(async (values: FormSchema) => {
+export const useCreateAccount = () => {
+  const onSubmit = useCallback(async (values: ISignupFormSchema) => {
     await authClient.signUp.email(values, {
       onSuccess: () => {
         toast.success("Account created Succesfully")
