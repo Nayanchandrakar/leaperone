@@ -13,25 +13,22 @@ import {
 import { Input } from "@myleaper/ui/components/input"
 import { createAccountSchema } from "@myleaper/zod/client/auth-schema"
 import Link from "next/link"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import { useForm, useWatch } from "react-hook-form"
-import { toast } from "sonner"
 import { useDebounceValue } from "usehooks-ts"
-import type { z } from "zod"
 import { UsernameStatus } from "@/components/pages/create-account/elements/username-status"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import {
+  useCreateAccount,
   useUsernameCheck,
   useUsernameError,
 } from "@/hooks/trpc/users/check-username"
-import { authClient } from "@/lib/auth"
-
-type FormSchema = z.infer<typeof createAccountSchema>
+import type { FormSchema } from "@/types/create-account"
 
 export const CreateAccountForm = () => {
   const form = useForm<FormSchema>({
-    mode: "onChange",
     resolver: zodResolver(createAccountSchema),
+    mode: "onChange",
     defaultValues: {
       username: "",
       email: "",
@@ -40,13 +37,10 @@ export const CreateAccountForm = () => {
     },
   })
 
-  const {
-    control,
-    formState: { isValid, errors, isSubmitting },
-    setError,
-    clearErrors,
-  } = form
+  const { control, setError, clearErrors, formState } = form
+  const { isValid, errors, isSubmitting } = formState
 
+  const { onSubmit } = useCreateAccount()
   const username = useWatch({ control, name: "username" })
   const [debouncedUsername] = useDebounceValue(username, 400)
   const usernameError = useMemo(() => errors.username, [errors.username])
@@ -54,35 +48,28 @@ export const CreateAccountForm = () => {
     debouncedUsername.length && !usernameError,
   )
 
-  const { data, isPending } = useUsernameCheck({
+  const { data, isError, isPending, error } = useUsernameCheck({
     username: debouncedUsername,
     enabled: isUsernameCheckEnabled,
   })
-  const isUsernameTaken = useMemo(() => Boolean(data?.exists), [data?.exists])
+  const isUsernameTaken = useMemo(() => Boolean(data?.exists), [data])
 
   useUsernameError({
-    isPending,
-    error: usernameError,
-    exists: isUsernameTaken,
+    error,
     setError,
+    isPending,
     clearErrors,
+    exists: isUsernameTaken,
+    userNameErrorType: usernameError?.type,
   })
 
-  const onSubmit = useCallback(async (values: FormSchema) => {
-    await authClient.signUp.email(values, {
-      onSuccess: () => {
-        toast.success("Account Created Succefully")
-      },
-      onError: ({ error }) => {
-        toast.error(error.message)
-      },
-    })
-  }, [])
-
-  const isSubmissionDisabled = useMemo(
-    () => isSubmitting || !isValid || isPending || isUsernameTaken,
-    [isSubmitting, isValid, isPending, isUsernameTaken],
-  )
+  const isSubmissionDisabled = [
+    isError,
+    !isValid,
+    isPending,
+    isSubmitting,
+    isUsernameTaken,
+  ].some(Boolean)
 
   return (
     <div className="flex size-full items-center justify-center">
@@ -100,7 +87,6 @@ export const CreateAccountForm = () => {
           <FormField
             name="username"
             control={control}
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="data-[error=true]:text-black">
@@ -120,11 +106,13 @@ export const CreateAccountForm = () => {
                     />
                   </div>
                 </FormControl>
+
                 <UsernameStatus
+                  error={error}
                   username={username}
                   isPending={isPending}
-                  error={usernameError}
                   exists={isUsernameTaken}
+                  fieldError={usernameError}
                 />
               </FormItem>
             )}

@@ -8,6 +8,7 @@ export const checkUserName = baseProcedure
   .query(async ({ input }) => {
     const { username } = input
     // TODO: add ratelimiting here
+
     const exists = await redis.hexists(USERNAME_HASH, username)
     return { query: username, exists: Boolean(exists) }
   })

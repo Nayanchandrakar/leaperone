@@ -1,34 +1,21 @@
 import { useQuery } from "@tanstack/react-query"
-import { useEffect } from "react"
-import type {
-  FieldError,
-  UseFormClearErrors,
-  UseFormSetError,
-} from "react-hook-form"
+import { useCallback, useEffect } from "react"
+import { toast } from "sonner"
+
+import { authClient } from "@/lib/auth"
 import { useTRPC } from "@/lib/trpc/client"
-
-interface UsernameCheckParams {
-  username: string
-  enabled: boolean
-}
-
-interface UsernameErrorParams {
-  exists: boolean | undefined
-  error: FieldError | undefined
-  isPending: boolean
-  setError: UseFormSetError<{ username: string }>
-  clearErrors: UseFormClearErrors<{ username: string }>
-}
+import type {
+  FormSchema,
+  UsernameCheckParams,
+  UsernameErrorParams,
+} from "@/types/create-account"
 
 export const useUsernameCheck = ({
   username,
   enabled,
 }: UsernameCheckParams) => {
   const trpc = useTRPC()
-  return useQuery({
-    ...trpc.users.username.queryOptions({ username }),
-    enabled,
-  })
+  return useQuery(trpc.users.username.queryOptions({ username }, { enabled }))
 }
 
 export const useUsernameError = ({
@@ -37,17 +24,47 @@ export const useUsernameError = ({
   error,
   setError,
   clearErrors,
+  userNameErrorType,
 }: UsernameErrorParams) => {
   useEffect(() => {
     if (isPending || exists === undefined) return
+
+    if (error) {
+      setError("username", {
+        type: "query",
+        message: error.message,
+      })
+      return
+    }
 
     if (exists) {
       setError("username", {
         type: "available",
         message: "Username is already taken",
       })
-    } else if (error?.type === "available") {
+      return
+    }
+
+    if (
+      userNameErrorType &&
+      ["available", "query"].includes(userNameErrorType)
+    ) {
       clearErrors("username")
     }
-  }, [exists, isPending, error?.type, setError, clearErrors])
+  }, [exists, isPending, error, userNameErrorType, setError, clearErrors])
+}
+
+export const useCreateAccount = () => {
+  const onSubmit = useCallback(async (values: FormSchema) => {
+    await authClient.signUp.email(values, {
+      onSuccess: () => {
+        toast.success("Account created successfully")
+      },
+      onError: ({ error }) => {
+        toast.error(error.message)
+      },
+    })
+  }, [])
+
+  return { onSubmit }
 }

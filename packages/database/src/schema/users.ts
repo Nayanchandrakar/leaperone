@@ -1,31 +1,18 @@
 import { createId } from "@paralleldrive/cuid2"
-import {
-  boolean,
-  index,
-  pgTable,
-  text,
-  timestamp,
-  unique,
-} from "drizzle-orm/pg-core"
+import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
 
-export const users = pgTable(
-  "user",
-  {
-    id: text()
-      .primaryKey()
-      .$defaultFn(() => createId()),
-    username: text().notNull().unique(),
-    name: text().notNull(),
-    email: text().notNull().unique(),
-    emailVerified: boolean().notNull(),
-    image: text(),
-    ...timestamps,
-  },
-  (t) => ({
-    emailUniqueIndex: unique().on(t.email),
-  }),
-)
+export const users = pgTable("user", {
+  id: text()
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  image: text(),
+  name: text().notNull(),
+  email: text().notNull().unique(),
+  emailVerified: boolean().notNull(),
+  username: text().notNull().unique(),
+  ...timestamps,
+})
 
 export const account = pgTable(
   "account",

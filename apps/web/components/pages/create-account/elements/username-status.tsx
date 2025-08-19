@@ -26,22 +26,29 @@ export const STATUS_CONFIG: Record<StatusState, StatusConfig> = {
 } as const
 
 export interface UsernameStatusProps {
+  error: any
   username: string
   isPending: boolean
-  error: FieldError | undefined
   exists: boolean | undefined
+  fieldError: FieldError | undefined
 }
 
 export const UsernameStatus = ({
   username,
-  error,
+  fieldError,
   isPending,
   exists,
+  error,
 }: UsernameStatusProps) => {
   let state: StatusState = "available"
-  if (error?.message || (!isPending && !!exists)) state = "error"
-  else if (!username.length) state = "empty"
-  else if (isPending) state = "pending"
+
+  if (error || fieldError?.message || (!isPending && !!exists)) {
+    state = "error"
+  } else if (!username.length) {
+    state = "empty"
+  } else if (isPending) {
+    state = "pending"
+  }
 
   const { Icon, text, className } = STATUS_CONFIG[state]
 
@@ -53,7 +60,7 @@ export const UsernameStatus = ({
       )}
     >
       {Icon}
-      <span>{text(error?.message)}</span>
+      <span>{text(fieldError?.message)}</span>
     </div>
   )
 }

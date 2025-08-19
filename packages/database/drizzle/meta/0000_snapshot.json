@@ -1,5 +1,5 @@
 {
-  "id": "024ab53c-e852-438b-880c-6d5863cda2fa",
+  "id": "365f5bfb-f50d-42e5-87fe-d3e672458737",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -105,8 +105,8 @@
           "method": "btree",
           "with": {}
         },
-        "account_id_indedx": {
-          "name": "account_id_indedx",
+        "account_account_id_index": {
+          "name": "account_account_id_index",
           "columns": [
             {
               "expression": "account_id",
@@ -163,6 +163,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "name": {
           "name": "name",
           "type": "text",
@@ -181,11 +187,11 @@
           "primaryKey": false,
           "notNull": true
         },
-        "image": {
-          "name": "image",
+        "username": {
+          "name": "username",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -211,10 +217,10 @@
           "nullsNotDistinct": false,
           "columns": ["email"]
         },
-        "user_email_unique_index": {
-          "name": "user_email_unique_index",
+        "user_username_unique": {
+          "name": "user_username_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": ["username"]
         }
       },
       "policies": {},
