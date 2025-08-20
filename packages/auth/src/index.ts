@@ -49,7 +49,6 @@ export const auth = betterAuth({
     },
   },
 
-  // Enable email and password authentication
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,
@@ -69,7 +68,7 @@ export const auth = betterAuth({
     cookiePrefix: APP_NAME,
     crossSubDomainCookies: {
       enabled: true,
-      domain: ".leapercrm.com",
+      domain: "localhost",
     },
     useSecureCookies: true,
     database: {

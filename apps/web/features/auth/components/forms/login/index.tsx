@@ -12,9 +12,10 @@ import {
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
 import { loginFormSchema } from "@myleaper/zod/client/auth-schema"
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
-
+import { useLoginUser } from "@/features/auth/hooks/login-user"
 import type { ILoginFormSchema } from "@/types/zod-types"
 import { AuthRedirect } from "../../ui/auth-redirect"
 
@@ -27,12 +28,8 @@ export const LoginForm = () => {
     },
   })
 
-  const onSubmit = (values: ILoginFormSchema) => {
-    console.log(values)
-  }
-
-  const isSubmitting = false
-  const isSubmissionDisabled = false
+  const { onSubmit } = useLoginUser()
+  const isSubmitting = form.formState.isSubmitting
 
   return (
     <Form {...form}>
@@ -67,7 +64,15 @@ export const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>
+                Password
+                <Link
+                  href="/forgot-password"
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </Link>
+              </FormLabel>
               <FormControl>
                 <Input
                   variant="gray"
@@ -86,7 +91,7 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
             size="lg"
-            disabled={isSubmissionDisabled}
+            disabled={isSubmitting}
           >
             Log In
           </Button>

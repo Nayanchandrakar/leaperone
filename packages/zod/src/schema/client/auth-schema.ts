@@ -12,3 +12,7 @@ export const loginFormSchema = z.object({
   email: z.email(),
   password,
 })
+
+export const forgotPasswordFormSchema = z.object({
+  email: z.email(),
+})

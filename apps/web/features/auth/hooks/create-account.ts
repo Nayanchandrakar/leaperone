@@ -4,6 +4,7 @@ import type { ErrorOption, UseFormReturn } from "react-hook-form"
 import { useWatch } from "react-hook-form"
 import { toast } from "sonner"
 import { useDebounceValue } from "usehooks-ts"
+import { MESSAGES } from "@/constants/messages"
 import type {
   IUserNameError,
   IUsernameCheckParams,
@@ -95,7 +96,7 @@ export const useCreateAccount = () => {
   const onSubmit = useCallback(async (values: ISignupFormSchema) => {
     await authClient.signUp.email(values, {
       onSuccess: () => {
-        toast.success("Account created Succesfully")
+        toast.success(MESSAGES.AUTH.SIGNUP_SUCCESS)
       },
       onError: ({ error }) => {
         toast.error(error.message)

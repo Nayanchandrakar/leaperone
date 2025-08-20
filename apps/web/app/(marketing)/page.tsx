@@ -1,21 +1,33 @@
 "use client"
 import { Button } from "@myleaper/ui/components/button"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { authClient } from "@/lib/auth"
 
 export default function HomePage() {
+  const router = useRouter()
+  const { data } = authClient.useSession()
+
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen relative">
+      <div className="absolute top-0">{JSON.stringify(data)}</div>
       <Button
         onClick={async () => {
-          await authClient.signUp.email({
-            username: "check",
-            email: "helo@gmail.com",
-            name: "nihal",
-            password: "Hello234234",
+          await authClient.signOut({
+            fetchOptions: {
+              onSuccess: () => {
+                router.push("/sign-up")
+                toast.success("Logout succefully")
+              },
+
+              onError: ({ error }) => {
+                toast.success(error.message)
+              },
+            },
           })
         }}
       >
-        Submit
+        Logout
       </Button>
     </div>
   )
