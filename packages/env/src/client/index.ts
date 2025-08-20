@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-core"
 import { z } from "zod"
 
-export const clientEnv = createEnv({
+export const CLIENT_ENV = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
   client: {
     NEXT_PUBLIC_SERVER_URL: z.string().default("http://localhost:8080"),

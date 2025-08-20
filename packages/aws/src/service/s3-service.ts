@@ -5,7 +5,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { serverEnv } from "@myleaper/env/server/index"
+import { SERVER_ENV } from "@myleaper/env/server/index"
 
 class S3Service {
   private static instance: S3Service
@@ -13,10 +13,10 @@ class S3Service {
 
   private constructor() {
     this.client = new S3Client({
-      region: serverEnv.AWS_REGION,
+      region: SERVER_ENV.AWS_REGION,
       credentials: {
-        accessKeyId: serverEnv.AWS_ACCESS_KEY_ID,
-        secretAccessKey: serverEnv.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: SERVER_ENV.AWS_ACCESS_KEY_ID,
+        secretAccessKey: SERVER_ENV.AWS_SECRET_ACCESS_KEY,
       },
     })
   }
@@ -41,7 +41,7 @@ class S3Service {
   async deleteObjectCommand(key: string) {
     await this.client.send(
       new DeleteObjectCommand({
-        Bucket: serverEnv.S3_UPLOAD_BUCKET,
+        Bucket: SERVER_ENV.S3_UPLOAD_BUCKET,
         Key: key,
       }),
     )

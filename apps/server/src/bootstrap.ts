@@ -1,5 +1,5 @@
 import { auth } from "@myleaper/auth"
-import { serverEnv } from "@myleaper/env/server"
+import { SERVER_ENV } from "@myleaper/env/server"
 import { Logger } from "@myleaper/logger"
 import { trpcHonoMiddleware } from "@myleaper/trpc/server"
 import { Hono } from "hono"
@@ -10,7 +10,7 @@ import { startDevServer } from "@/hono/server"
 import type { ServerConfig } from "@/types"
 
 const DEFAULT_CONFIG: Required<ServerConfig> = {
-  port: serverEnv.PORT,
+  port: SERVER_ENV.PORT,
   trpcEndpoint: "/api/trpc/*",
   authEndpoint: "/api/auth/**",
 }
