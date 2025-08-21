@@ -2,6 +2,7 @@ import { APP_NAME, USERNAME_HASH } from "@myleaper/constants/server"
 import { AUTH_LIMITS } from "@myleaper/constants/server/rate-limit"
 import { dbHttp } from "@myleaper/database"
 import { account, users, verification } from "@myleaper/database/schema"
+import { SERVER_ENV } from "@myleaper/env/server"
 import { redis } from "@myleaper/redis"
 import { RedisStorage } from "@myleaper/redis/utils/auth-storage"
 import { betterAuth } from "better-auth"
@@ -10,6 +11,7 @@ import { beforeRequestMiddleware } from "./middleware/check-username"
 
 export const auth = betterAuth({
   appName: APP_NAME,
+  trustedOrigins: [SERVER_ENV.APP_URL],
 
   database: drizzleAdapter(dbHttp, {
     provider: "pg",
@@ -53,6 +55,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,
+    requireEmailVerification: true,
     resetPasswordTokenExpiresIn: 300,
     revokeSessionsOnPasswordReset: true,
     async sendResetPassword({ token, url, user }) {
@@ -114,6 +117,7 @@ export const auth = betterAuth({
       console.log("Verification email sent: ", token, url, user)
     },
     sendOnSignUp: true,
+    sendOnSignIn: true,
     requireEmailVerification: true,
     autoSignInAfterVerification: true,
     expiresIn: 300,

@@ -24,11 +24,11 @@ export function bootStrapServer(config: ServerConfig = {}) {
     ...config,
   }
 
-  app.use("*", async (c, next) => {
-    const headers = c.req.raw.headers
-    headers.set("x-forwarded-for", "127.0.0.1")
-    await next()
-  })
+  // app.use("*", async (c, next) => {
+  //   const headers = c.req.raw.headers
+  //   headers.set("x-forwarded-for", "127.0.0.1")
+  //   await next()
+  // })
   app.use(secureHeaders())
   app.use(crossOriginRequest)
   app.use(csrf())

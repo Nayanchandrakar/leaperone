@@ -16,8 +16,9 @@
   "license": "ISC",
   "description": "A package for authentication using better0-auth",
   "dependencies": {
-    "@myleaper/database": "workspace:*",
+    "@myleaper/env": "workspace:*",
     "@myleaper/redis": "workspace:*",
+    "@myleaper/database": "workspace:*",
     "@myleaper/constants": "workspace:*",
     "better-auth": "catalog:"
   },

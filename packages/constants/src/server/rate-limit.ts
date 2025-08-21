@@ -1,7 +1,7 @@
 export const AUTH_LIMITS = {
   LOGIN: {
-    MAX_REQUESTS: 5,
-    WINDOW_MS: 15 * 60 * 1000, // 15 min
+    MAX_REQUESTS: 3,
+    WINDOW_MS: 30 * 60 * 1000, // 30 min
   },
 
   SIGNUP: {
@@ -15,7 +15,7 @@ export const AUTH_LIMITS = {
   },
 
   VERIFY_EMAIL: {
-    MAX_REQUESTS: 5,
+    MAX_REQUESTS: 3,
     WINDOW_MS: 60 * 60 * 1000, // 1 hr
   },
 } as const

@@ -9,8 +9,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@myleaper/database/*": ["../../packages/database/src/*"],
+      "@myleaper/env/*": ["../../packages/env/src/*"],
       "@myleaper/redis/*": ["../../packages/redis/src/*"],
+      "@myleaper/database/*": ["../../packages/database/src/*"],
       "@myleaper/constants/*": ["../../packages/constants/src/*"]
     }
   },

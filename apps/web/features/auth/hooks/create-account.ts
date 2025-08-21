@@ -4,7 +4,6 @@ import type { ErrorOption, UseFormReturn } from "react-hook-form"
 import { useWatch } from "react-hook-form"
 import { toast } from "sonner"
 import { useDebounceValue } from "usehooks-ts"
-import { MESSAGES } from "@/constants/messages"
 import type {
   IUserNameError,
   IUsernameCheckParams,
@@ -96,7 +95,16 @@ export const useCreateAccount = () => {
   const onSubmit = useCallback(async (values: ISignupFormSchema) => {
     await authClient.signUp.email(values, {
       onSuccess: () => {
-        toast.success(MESSAGES.AUTH.SIGNUP_SUCCESS)
+        toast.success(`We’ve sent a verification link to ${values.email}`, {
+          duration: 5000,
+          icon: "✉️",
+          action: {
+            label: "Open Gmail",
+            onClick: () => {
+              window.open("https://mail.google.com/mail/#inbox", "_blank")
+            },
+          },
+        })
       },
       onError: ({ error }) => {
         toast.error(error.message)

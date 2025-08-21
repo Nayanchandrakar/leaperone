@@ -13,13 +13,13 @@ export const SERVER_ENV = createEnv({
 
     PORT: z.coerce.number().default(8080),
 
-    HOST: z.string().default("localhost"),
-
     DATABASE_URL: z.string({
       error: "DATABASE_URL is required in environment variables",
     }),
 
-    BETTER_AUTH_URL: z.string().default("http://localhost:3000"),
+    APP_URL: z.string().default("http://localhost:3000"),
+
+    BETTER_AUTH_URL: z.string().default("http://localhost:8080"),
 
     BETTER_AUTH_SECRET: z.string({
       error: "BETTER_AUTH_SECRET is required in environment variables",
