@@ -1,4 +1,5 @@
 import { APP_NAME, USERNAME_HASH } from "@myleaper/constants/server"
+import { AUTH_LIMITS } from "@myleaper/constants/server/rate-limit"
 import { dbHttp } from "@myleaper/database"
 import { account, users, verification } from "@myleaper/database/schema"
 import { redis } from "@myleaper/redis"
@@ -55,17 +56,39 @@ export const auth = betterAuth({
     resetPasswordTokenExpiresIn: 300,
     revokeSessionsOnPasswordReset: true,
     async sendResetPassword({ token, url, user }) {
-      console.log(token, url, user)
+      console.log("Password reset token: ", token, url, user)
     },
   },
 
-  // Use Redis for ratelimiting
   secondaryStorage: RedisStorage,
-  rateLimit: { storage: "secondary-storage" },
+  rateLimit: {
+    enabled: true,
+    storage: "secondary-storage",
+    customRules: {
+      "/sign-in/email": {
+        window: AUTH_LIMITS.LOGIN.WINDOW_MS,
+        max: AUTH_LIMITS.LOGIN.MAX_REQUESTS,
+      },
+
+      "/sign-up/email": {
+        window: AUTH_LIMITS.SIGNUP.WINDOW_MS,
+        max: AUTH_LIMITS.SIGNUP.MAX_REQUESTS,
+      },
+
+      "/request-password-reset": {
+        window: AUTH_LIMITS.FORGOT_PWD.WINDOW_MS,
+        max: AUTH_LIMITS.FORGOT_PWD.MAX_REQUESTS,
+      },
+    },
+  },
 
   // Advance configuration options
   advanced: {
     cookiePrefix: APP_NAME,
+    ipAddress: {
+      ipAddressHeaders: ["x-forwarded-for"],
+      disableIpTracking: false,
+    },
     crossSubDomainCookies: {
       enabled: true,
       domain: "localhost",
@@ -76,7 +99,6 @@ export const auth = betterAuth({
     },
   },
 
-  // Enable cookie caching
   session: {
     cookieCache: {
       enabled: true,
@@ -89,7 +111,7 @@ export const auth = betterAuth({
 
   emailVerification: {
     async sendVerificationEmail({ user, token, url }) {
-      console.log(user, token, url)
+      console.log("Verification email sent: ", token, url, user)
     },
     sendOnSignUp: true,
     requireEmailVerification: true,

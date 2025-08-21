@@ -6,7 +6,8 @@
   "sideEffects": false,
   "exports": {
     "./client": "./src/client/index.ts",
-    "./server": "./src/server/index.ts"
+    "./server": "./src/server/index.ts",
+    "./server/rate-limit": "./src/server/rate-limit.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",

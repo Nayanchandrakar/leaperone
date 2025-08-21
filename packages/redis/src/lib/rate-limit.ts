@@ -1,4 +1,4 @@
-import { MAX_RELAX_WINDOW } from "@myleaper/constants/server"
+import { API_LIMITS } from "@myleaper/constants/server/rate-limit"
 import { Ratelimit as Limiter } from "@upstash/ratelimit"
 import { redis } from "../index"
 
@@ -9,7 +9,10 @@ class Ratelimit {
   private constructor() {
     this.relaxedWindow = new Limiter({
       redis,
-      limiter: Limiter.slidingWindow(MAX_RELAX_WINDOW, "5 m"),
+      limiter: Limiter.slidingWindow(
+        API_LIMITS.GENERAL.MAX_REQUESTS,
+        API_LIMITS.GENERAL.DURATION,
+      ),
     })
   }
 
