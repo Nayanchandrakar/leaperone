@@ -91,26 +91,31 @@ export const useAccountFormContext = ({
   }
 }
 
-export const useCreateAccount = () => {
-  const onSubmit = useCallback(async (values: ISignupFormSchema) => {
-    await authClient.signUp.email(values, {
-      onSuccess: () => {
-        toast.success(`We’ve sent a verification link to ${values.email}`, {
-          duration: 5000,
-          icon: "✉️",
-          action: {
-            label: "Open Gmail",
-            onClick: () => {
-              window.open("https://mail.google.com/mail/#inbox", "_blank")
+export const useCreateAccount = (callbackURL?: string) => {
+  const onSubmit = useCallback(
+    async (values: ISignupFormSchema) => {
+      const formData = { ...values, ...(callbackURL && { callbackURL }) }
+
+      await authClient.signUp.email(formData, {
+        onSuccess: () => {
+          toast.success(`We’ve sent a verification link to ${values.email}`, {
+            duration: 5000,
+            icon: "✉️",
+            action: {
+              label: "Open Gmail",
+              onClick: () => {
+                window.open("https://mail.google.com/mail/#inbox", "_blank")
+              },
             },
-          },
-        })
-      },
-      onError: ({ error }) => {
-        toast.error(error.message)
-      },
-    })
-  }, [])
+          })
+        },
+        onError: ({ error }) => {
+          toast.error(error.message)
+        },
+      })
+    },
+    [callbackURL],
+  )
 
   return {
     onSubmit,

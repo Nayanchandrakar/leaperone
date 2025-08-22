@@ -8,6 +8,7 @@ export const BackButton = () => {
   const router = useRouter()
   return (
     <Button
+      tabIndex={-1}
       onClick={() => router.back()}
       className="w-fit absolute"
       variant="secondary"

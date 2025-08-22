@@ -18,6 +18,7 @@ export const globalMiddlewares = {
         const data: AuthResponse = await res.json()
 
         event.storage.set("session", data)
+        return NextResponse.next()
       } catch {
         const response = NextResponse.redirect(loginUrl)
         response.cookies.delete("cookie")

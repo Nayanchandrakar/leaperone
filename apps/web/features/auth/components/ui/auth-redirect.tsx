@@ -17,7 +17,7 @@ export const AuthRedirect = ({
   return (
     <p className={cn("text-center text-sm", className)}>
       {message}&nbsp;
-      <Link href={linkHref} className="underline text-primary">
+      <Link tabIndex={-1} href={linkHref} className="underline text-primary">
         {linkMessage}
       </Link>
     </p>

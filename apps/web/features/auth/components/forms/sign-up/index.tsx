@@ -24,7 +24,11 @@ import {
 } from "@/features/auth/hooks/create-account"
 import type { ISignupFormSchema } from "@/types/zod-types"
 
-export const SignupForm = () => {
+interface ISignupForm {
+  callbackURL: string | undefined
+}
+
+export const SignupForm = ({ callbackURL }: ISignupForm) => {
   const form = useForm<ISignupFormSchema>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -65,7 +69,7 @@ export const SignupForm = () => {
     isUserNameTaken,
   ].some(Boolean)
 
-  const { onSubmit } = useCreateAccount()
+  const { onSubmit } = useCreateAccount(callbackURL)
 
   return (
     <Form {...form}>
@@ -171,11 +175,11 @@ export const SignupForm = () => {
 
         <div className="text-center text-xs text-muted-foreground">
           By creating an account, you agree to our&nbsp;
-          <Link href="/" className="underline hover:text-primary">
+          <Link tabIndex={-1} href="/" className="underline hover:text-primary">
             Terms of Service
           </Link>
           &nbsp;and&nbsp;
-          <Link href="/" className="underline hover:text-primary">
+          <Link tabIndex={-1} href="/" className="underline hover:text-primary">
             Privacy Policy
           </Link>
         </div>
