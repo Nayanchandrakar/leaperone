@@ -10,9 +10,6 @@ export const usePasswordReset = () => {
       onSuccess: ({ data }) => {
         toast.success(data.message ?? MESSAGES.PASSWORD.RESET_REQUEST_SUCCESS)
       },
-      onError: ({ error }) => {
-        toast.error(error.message)
-      },
     })
   }, [])
 

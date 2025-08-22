@@ -6,15 +6,12 @@ import type { ILoginFormSchema } from "@/types/zod-types"
 
 export const useLoginUser = (callbackURL: string | undefined) => {
   const onSubmit = useCallback(
-    async (values: ILoginFormSchema) => {
-      const formData = { ...values, ...(callbackURL && { callbackURL }) }
+    async (data: ILoginFormSchema) => {
+      const values = { ...data, ...(callbackURL && { callbackURL }) }
 
-      await authClient.signIn.email(formData, {
+      await authClient.signIn.email(values, {
         onSuccess: ({ data }) => {
           toast.success(data.message ?? MESSAGES.AUTH.LOGIN_SUCCESS)
-        },
-        onError: ({ error }) => {
-          toast.error(error.message)
         },
       })
     },

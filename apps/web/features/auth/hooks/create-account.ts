@@ -12,6 +12,7 @@ import { setUserNameError } from "@/features/auth/utils"
 import { authClient } from "@/lib/auth"
 import { useTRPC } from "@/lib/trpc/client"
 import type { ISignupFormSchema } from "@/types/zod-types"
+import { URLS } from "@/utils/urls"
 
 export const useUsernameCheck = ({
   username,
@@ -93,13 +94,15 @@ export const useAccountFormContext = ({
 
 export const useCreateAccount = (callbackURL?: string) => {
   const onSubmit = useCallback(
-    async (values: ISignupFormSchema) => {
-      const formData = { ...values, ...(callbackURL && { callbackURL }) }
+    async (data: ISignupFormSchema) => {
+      const values = {
+        ...data,
+        callbackURL: callbackURL ?? URLS.PRICING_PAGE,
+      }
 
-      await authClient.signUp.email(formData, {
+      await authClient.signUp.email(values, {
         onSuccess: () => {
           toast.success(`We’ve sent a verification link to ${values.email}`, {
-            duration: 5000,
             icon: "✉️",
             action: {
               label: "Open Gmail",
@@ -108,9 +111,6 @@ export const useCreateAccount = (callbackURL?: string) => {
               },
             },
           })
-        },
-        onError: ({ error }) => {
-          toast.error(error.message)
         },
       })
     },
