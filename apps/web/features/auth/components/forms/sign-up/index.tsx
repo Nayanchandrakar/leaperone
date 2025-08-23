@@ -17,18 +17,18 @@ import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
+import { useSignup } from "@/features/auth/hooks/sign-up/use-sign-up"
 import {
   useAccountFormContext,
-  useCreateAccount,
   useUsernameError,
-} from "@/features/auth/hooks/create-account"
+} from "@/features/auth/hooks/sign-up/use-username-check"
 import type { ISignupFormSchema } from "@/types/zod-types"
 
 interface ISignupForm {
-  callbackURL: string | undefined
+  redirect: string
 }
 
-export const SignupForm = ({ callbackURL }: ISignupForm) => {
+export const SignupForm = ({ redirect }: ISignupForm) => {
   const form = useForm<ISignupFormSchema>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -69,7 +69,7 @@ export const SignupForm = ({ callbackURL }: ISignupForm) => {
     isUserNameTaken,
   ].some(Boolean)
 
-  const { onSubmit } = useCreateAccount(callbackURL)
+  const { onSubmit } = useSignup({ redirect })
 
   return (
     <Form {...form}>

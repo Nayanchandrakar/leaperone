@@ -3,24 +3,25 @@ import { inferAdditionalFields } from "better-auth/client/plugins"
 import { createAuthClient } from "better-auth/react"
 import { toast } from "sonner"
 
-export const authClient = createAuthClient({
-  baseURL: CLIENT_ENV.NEXT_PUBLIC_SERVER_URL,
-  plugins: [
-    inferAdditionalFields({
-      user: {
-        username: {
-          type: "string",
-          required: true,
-          input: true,
-          unique: true,
+export const { signUp, signIn, signOut, useSession, requestPasswordReset } =
+  createAuthClient({
+    baseURL: CLIENT_ENV.NEXT_PUBLIC_SERVER_URL,
+    plugins: [
+      inferAdditionalFields({
+        user: {
+          username: {
+            type: "string",
+            required: true,
+            input: true,
+            unique: true,
+          },
         },
-      },
-    }),
-  ],
+      }),
+    ],
 
-  fetchOptions: {
-    onError: ({ error }) => {
-      toast.error(error.message)
+    fetchOptions: {
+      onError: ({ error }) => {
+        toast.error(error.message)
+      },
     },
-  },
-})
+  })

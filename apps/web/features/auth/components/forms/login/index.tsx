@@ -16,14 +16,14 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
-import { useLoginUser } from "@/features/auth/hooks/login-user"
+import { useLogin } from "@/features/auth/hooks/login/use-login"
 import type { ILoginFormSchema } from "@/types/zod-types"
 
 interface ILoginForm {
-  callbackURL: string | undefined
+  redirect: string
 }
 
-export const LoginForm = ({ callbackURL }: ILoginForm) => {
+export const LoginForm = ({ redirect }: ILoginForm) => {
   const form = useForm<ILoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -32,7 +32,7 @@ export const LoginForm = ({ callbackURL }: ILoginForm) => {
     },
   })
 
-  const { onSubmit } = useLoginUser(callbackURL)
+  const { onSubmit } = useLogin({ redirect })
   const isSubmitting = form.formState.isSubmitting
 
   return (

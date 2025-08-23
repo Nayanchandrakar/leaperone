@@ -8,17 +8,17 @@ import {
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
 interface ILoginPage {
-  searchParams: Promise<{ callbackURL: string | undefined }>
+  searchParams: Promise<{ callbackUrl: string }>
 }
 
 export default async function LoginPage({ searchParams }: ILoginPage) {
-  const { callbackURL } = await searchParams
+  const { callbackUrl } = await searchParams
   return (
     <Fragment>
       <AuthWrapper>
         <BackButton />
         <AuthForm>
-          <LoginForm callbackURL={callbackURL} />
+          <LoginForm redirect={callbackUrl} />
         </AuthForm>
       </AuthWrapper>
 

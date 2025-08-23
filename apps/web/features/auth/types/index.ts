@@ -26,3 +26,7 @@ export interface IUserNameError extends ISetUserNameError {
   setError: UseFormSetError<{ username: string }>
   clearErrors: UseFormClearErrors<{ username: string }>
 }
+
+export interface IUseSignUp {
+  redirect: string | undefined
+}

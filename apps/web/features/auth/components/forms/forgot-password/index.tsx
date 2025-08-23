@@ -14,7 +14,7 @@ import { Input } from "@myleaper/ui/components/input"
 import { forgotPasswordFormSchema } from "@myleaper/zod/client/auth-schema"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
-import { usePasswordReset } from "@/features/auth/hooks/password-reset"
+import { useForgotPassword } from "@/features/auth/hooks/forgot-password/use-forgot-password"
 import type { IForgotPasswordFormSchema } from "@/types/zod-types"
 
 export const ForgotPasswordForm = () => {
@@ -25,7 +25,7 @@ export const ForgotPasswordForm = () => {
     },
   })
 
-  const { onSubmit } = usePasswordReset()
+  const { onSubmit } = useForgotPassword()
   const isSubmitting = form.formState.isSubmitting
 
   return (

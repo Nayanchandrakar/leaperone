@@ -1,21 +1,22 @@
 import { useCallback } from "react"
 import { toast } from "sonner"
 import { MESSAGES } from "@/constants/messages"
-import { authClient } from "@/lib/auth"
+import type { IUseSignUp } from "@/features/auth/types"
+import { signIn } from "@/lib/auth"
 import type { ILoginFormSchema } from "@/types/zod-types"
 
-export const useLoginUser = (callbackURL: string | undefined) => {
+export const useLogin = ({ redirect }: IUseSignUp) => {
   const onSubmit = useCallback(
     async (data: ILoginFormSchema) => {
-      const values = { ...data, ...(callbackURL && { callbackURL }) }
+      const values = { ...data, ...(redirect && { callbackURL: redirect }) }
 
-      await authClient.signIn.email(values, {
+      await signIn.email(values, {
         onSuccess: ({ data }) => {
           toast.success(data.message ?? MESSAGES.AUTH.LOGIN_SUCCESS)
         },
       })
     },
-    [callbackURL],
+    [redirect],
   )
 
   return { onSubmit }

@@ -8,20 +8,20 @@ import {
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
 interface ICreateAccountPage {
-  searchParams: Promise<{ callbackURL: string | undefined }>
+  searchParams: Promise<{ callbackUrl: string }>
 }
 
 export default async function CreateAccountPage({
   searchParams,
 }: ICreateAccountPage) {
-  const { callbackURL } = await searchParams
+  const { callbackUrl } = await searchParams
 
   return (
     <Fragment>
       <AuthWrapper>
         <BackButton />
         <AuthForm>
-          <SignupForm callbackURL={callbackURL} />
+          <SignupForm redirect={callbackUrl} />
         </AuthForm>
       </AuthWrapper>
 

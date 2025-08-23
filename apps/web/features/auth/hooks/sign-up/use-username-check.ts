@@ -1,18 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useMemo } from "react"
-import type { ErrorOption, UseFormReturn } from "react-hook-form"
-import { useWatch } from "react-hook-form"
-import { toast } from "sonner"
+import { useEffect, useMemo } from "react"
+import { type ErrorOption, type UseFormReturn, useWatch } from "react-hook-form"
 import { useDebounceValue } from "usehooks-ts"
 import type {
   IUserNameError,
   IUsernameCheckParams,
 } from "@/features/auth/types"
 import { setUserNameError } from "@/features/auth/utils"
-import { authClient } from "@/lib/auth"
 import { useTRPC } from "@/lib/trpc/client"
-import type { ISignupFormSchema } from "@/types/zod-types"
-import { URLS } from "@/utils/urls"
 
 export const useUsernameCheck = ({
   username,
@@ -89,35 +84,5 @@ export const useAccountFormContext = ({
     isSubmitting,
     usernameError,
     isUserNameTaken,
-  }
-}
-
-export const useCreateAccount = (callbackURL?: string) => {
-  const onSubmit = useCallback(
-    async (data: ISignupFormSchema) => {
-      const values = {
-        ...data,
-        callbackURL: callbackURL ?? URLS.PRICING_PAGE,
-      }
-
-      await authClient.signUp.email(values, {
-        onSuccess: () => {
-          toast.success(`We’ve sent a verification link to ${values.email}`, {
-            icon: "✉️",
-            action: {
-              label: "Open Gmail",
-              onClick: () => {
-                window.open("https://mail.google.com/mail/#inbox", "_blank")
-              },
-            },
-          })
-        },
-      })
-    },
-    [callbackURL],
-  )
-
-  return {
-    onSubmit,
   }
 }
