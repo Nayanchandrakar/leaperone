@@ -4,7 +4,7 @@ import {
   AuthContent,
   AuthForm,
   AuthWrapper,
-} from "@/features/auth/components/layout/auth-layout"
+} from "@/features/auth/components/layouts/auth-layout"
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
 export default function ForgotPasswordPage() {

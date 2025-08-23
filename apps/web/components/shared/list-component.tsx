@@ -1,19 +1,19 @@
 import { cn } from "@myleaper/ui/lib/utils"
 
 interface ListComponentProps<T> {
-  data: T[]
+  items: T[]
   renderItem: (item: T, index: number) => React.ReactNode
   className?: string
 }
 
 const ListComponent = <T,>({
-  data,
+  items,
   renderItem,
   className,
 }: ListComponentProps<T>) => {
   return (
     <div className={cn(className)}>
-      {data?.map((item, index) => {
+      {items?.map((item, index) => {
         return renderItem(item, index)
       })}
     </div>

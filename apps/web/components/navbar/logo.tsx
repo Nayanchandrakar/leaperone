@@ -5,6 +5,7 @@ export const Logo = () => {
   return (
     <Link href="/">
       <Image
+        priority
         width={55}
         height={55}
         alt="logo"

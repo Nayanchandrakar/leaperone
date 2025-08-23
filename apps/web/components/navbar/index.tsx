@@ -1,13 +1,15 @@
 import { Logo } from "@/components/navbar/logo"
-import { Navigation } from "@/components/navbar/navigation"
+import { MainNav } from "@/components/navbar/main-nav"
+import { MobileNav } from "@/components/navbar/mobile-nav"
 import { Container } from "@/components/shared/container"
 
 export const Navbar = () => {
   return (
-    <header className="bg-primary border-b sticky top-0 h-16">
+    <header className="bg-primary sticky top-0 z-50 h-16">
       <Container className=" flex items-center justify-between">
         <Logo />
-        <Navigation />
+        <MainNav />
+        <MobileNav />
       </Container>
     </header>
   )

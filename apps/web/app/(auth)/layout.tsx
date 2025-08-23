@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { AuthLayout } from "@/features/auth/components/layout/auth-layout"
+import { AuthLayout } from "@/features/auth/components/layouts/auth-layout"
 
 export const metadata: Metadata = {
   title: "Welcome to myleaper",

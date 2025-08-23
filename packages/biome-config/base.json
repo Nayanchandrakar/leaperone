@@ -38,6 +38,7 @@
       "a11y": {
         "noAriaUnsupportedElements": "warn",
         "useAltText": "warn",
+        "noSvgWithoutTitle": "off",
         "useValidAriaProps": "warn",
         "useValidAriaValues": "warn",
         "useFocusableInteractive": "off",
