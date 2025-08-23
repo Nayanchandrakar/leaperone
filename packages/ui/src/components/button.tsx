@@ -11,15 +11,15 @@ const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         secondary:
-          "border-primary border bg-background shadow-xs hover:bg-primary/5 hover:text-primary/90 text-primary",
+          "bg-white text-primary shadow-xs hover:bg-white/90 hover:text-primary/90",
         destructive:
           "border-destructive border bg-background shadow-xs hover:bg-destructive/5 hover:text-destructive/90 text-destructive",
         outline:
-          "border-zinc-300 border bg-background shadow-xs hover:bg-zinc-300/10 hover:text-zinc-600/90 text-zinc-600",
+          "border border-white bg-none hover:border-white/90 hover:text-white/90 text-white font-semibold",
       },
       size: {
         default: "h-9 px-5 py-2",
-        sm: "h-8 rounded-full gap-1.5 px-5",
+        sm: "h-8 rounded-full gap-1.5 px-6",
         lg: "h-10 rounded-full px-10",
         xl: "h-12 rounded-full px-20 font-semibold",
         icon: "size-9",
