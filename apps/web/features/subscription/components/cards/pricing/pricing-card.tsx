@@ -10,7 +10,7 @@ export const PricingCard = ({ features, name, pricing, users }: IPlans) => {
   const { billingNote, price } = pricing[selectedPlan]
 
   return (
-    <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg">
+    <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
       <span className="border-b py-4 text-gray-500 text-sm flex items-center justify-center gap-2.5 ">
         <Icon className="size-5" />
         {title}
