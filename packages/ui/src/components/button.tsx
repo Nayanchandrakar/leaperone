@@ -16,12 +16,14 @@ const buttonVariants = cva(
           "border-destructive border bg-background shadow-xs hover:bg-destructive/5 hover:text-destructive/90 text-destructive",
         outline:
           "border border-white bg-none hover:border-white/90 hover:text-white/90 text-white font-semibold",
+        "green-outline":
+          "bg-background text-primary hover:bg-primary/5 hover:text-primary/90 border border-primary",
       },
       size: {
         default: "h-9 px-5 py-2",
         sm: "h-8 rounded-full gap-1.5 px-6",
         lg: "h-10 rounded-full px-10",
-        xl: "h-12 rounded-full px-20 font-semibold",
+        xl: "h-12 rounded-full font-semibold",
         icon: "size-9",
       },
     },

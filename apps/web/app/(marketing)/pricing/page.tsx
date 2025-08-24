@@ -1,6 +1,12 @@
-import { auth } from "@/features/auth/actions/auth"
+import { Fragment } from "react"
+import { PricingHero } from "@/features/subscription/components/pages/pricing/pricing-hero-section"
+import { PricingSection } from "@/features/subscription/components/pages/pricing/pricing-section"
 
 export default async function PricingPage() {
-  const session = await auth()
-  return <div>{JSON.stringify(session)}</div>
+  return (
+    <Fragment>
+      <PricingHero />
+      <PricingSection />
+    </Fragment>
+  )
 }

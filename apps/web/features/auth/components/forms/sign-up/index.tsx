@@ -175,11 +175,19 @@ export const SignupForm = ({ redirect }: ISignupForm) => {
 
         <div className="text-center text-xs text-muted-foreground">
           By creating an account, you agree to our&nbsp;
-          <Link tabIndex={-1} href="/" className="underline hover:text-primary">
+          <Link
+            tabIndex={-1}
+            href="/terms-and-condition"
+            className="underline hover:text-primary"
+          >
             Terms of Service
           </Link>
           &nbsp;and&nbsp;
-          <Link tabIndex={-1} href="/" className="underline hover:text-primary">
+          <Link
+            tabIndex={-1}
+            href="/privacy-policy"
+            className="underline hover:text-primary"
+          >
             Privacy Policy
           </Link>
         </div>

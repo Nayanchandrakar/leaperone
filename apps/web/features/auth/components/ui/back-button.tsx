@@ -10,8 +10,8 @@ export const BackButton = () => {
     <Button
       tabIndex={-1}
       onClick={() => router.back()}
-      className="w-fit absolute"
-      variant="secondary"
+      className="absolute"
+      variant="green-outline"
       size="sm"
     >
       <ArrowLeft className="size-4" />

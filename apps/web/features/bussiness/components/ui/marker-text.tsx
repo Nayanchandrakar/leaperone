@@ -13,7 +13,7 @@ export const MarkerText = ({
   src: string
 }) => {
   return (
-    <span className={cn("relative", className)} {...props}>
+    <span className={cn("relative pointer-events-none", className)} {...props}>
       <Image
         fill
         priority

@@ -25,6 +25,7 @@
     "better-auth": "catalog:",
     "client-only": "catalog:",
     "lucide-react": "catalog:",
+    "motion": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
