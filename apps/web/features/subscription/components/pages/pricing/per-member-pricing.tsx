@@ -12,14 +12,7 @@ import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing
 
 export const PerMemberPricing = () => {
   return (
-    <Container className="pt-32 mx-auto relative">
-      <div
-        className="absolute inset-0 z-[-1]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle 300px at 50% 150px, rgba(188, 255, 163, 0.44), transparent)",
-        }}
-      />
+    <Container className="mt-32">
       <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight ">
         <MarkerText
           alt="underline"
