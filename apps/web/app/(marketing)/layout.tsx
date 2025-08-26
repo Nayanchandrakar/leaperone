@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { Fragment } from "react"
+import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 
 export const metadata: Metadata = {
@@ -12,9 +14,10 @@ export default function MarketingLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div>
+    <Fragment>
       <Navbar />
       {children}
-    </div>
+      <Footer />
+    </Fragment>
   )
 }

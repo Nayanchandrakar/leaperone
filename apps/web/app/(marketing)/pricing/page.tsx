@@ -5,12 +5,12 @@ import { NetworkingSection } from "@/features/subscription/components/pages/pric
 import { PerMemberPricing } from "@/features/subscription/components/pages/pricing/per-member-pricing"
 import { PricingCards } from "@/features/subscription/components/pages/pricing/pricing-cards"
 import { PricingFaqSection } from "@/features/subscription/components/pages/pricing/pricing-faq-section"
-import { FadeGridPattern } from "@/features/subscription/components/ui/fade-grid"
+import { MeshGradient } from "@/features/subscription/components/ui/mesh-gradient"
 
 export default async function PricingPage() {
   return (
     <Fragment>
-      <FadeGridPattern />
+      <MeshGradient />
       <HeroSection />
       <PricingCards />
       <PerMemberPricing />

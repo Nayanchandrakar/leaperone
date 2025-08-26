@@ -1,4 +1,4 @@
-export const FadeGridPattern = () => {
+export const MeshGradient = () => {
   return (
     <div
       className="fixed inset-0 z-[-1]"
