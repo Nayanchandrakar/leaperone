@@ -4,7 +4,7 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: "Digital Card Maker",
-        href: "/digital-card-maker",
+        href: "/",
       },
       {
         title: "Pricing",
@@ -21,7 +21,7 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: "Contact us",
-        href: "/contact",
+        href: "/contact-us",
       },
       {
         title: "Support",
@@ -47,7 +47,7 @@ export const FOOTER_LINKS = [
     links: [
       {
         title: "Create Account",
-        href: "/create-account",
+        href: "/sign-up",
       },
       {
         title: "Log in",
