@@ -1,5 +1,12 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@myleaper/ui/components/accordion"
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
 export const PricingFaqSection = () => {
   return (
@@ -15,24 +22,24 @@ export const PricingFaqSection = () => {
         </MarkerText>
       </h2>
 
-      {/* <ListComponent
-        items={COMPARISION_PLANS}
-        className="relative z-20 py-8 grid lg:grid-cols-3 gap-4 divide-y lg:divide-x divide-zinc-400"
-        renderItem={({ buttonTexts, title, variants }) => {
-          const variant = "inactive"
-          return (
-            <div
-              key={title}
-              className="p-6 flex flex-col gap-3 items-center justify-center"
-            >
-              <span className="font-medium text-lg">{title}</span>
-              <Button variant={variants[variant] as any}>
-                {buttonTexts[variant]}
-              </Button>
-            </div>
-          )
-        }}
-      /> */}
+      <Accordion
+        type="single"
+        collapsible
+        className="max-w-5xl mx-auto my-4 mt-20 bg-background px-6 sm:px-8 py-0 sm:py-1 rounded-2xl border border-border"
+      >
+        {PLAN_FAQS.map(({ answer, question }, index) => (
+          <AccordionItem
+            key={question}
+            value={`item-${index}`}
+            className="py-3"
+          >
+            <AccordionTrigger className="text-base sm:text-lg cursor-pointer">
+              {question}
+            </AccordionTrigger>
+            <AccordionContent>{answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </Container>
   )
 }

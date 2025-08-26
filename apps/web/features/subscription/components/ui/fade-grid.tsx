@@ -4,14 +4,11 @@ export const FadeGridPattern = () => {
       className="fixed inset-0 z-[-1]"
       style={{
         backgroundImage: `
-        linear-gradient(to right, #d1d5db 1px, transparent 1px),
-        linear-gradient(to bottom, #d1d5db 1px, transparent 1px)
+        linear-gradient(to right, transparent 0px, transparent 0px),
+        linear-gradient(to bottom, transparent 0px, transparent 0px),
+        radial-gradient(circle 800px at 0% 200px, rgba(188, 255, 163, 0.3), transparent)
       `,
-        backgroundSize: "32px 32px",
-        WebkitMaskImage:
-          "radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)",
-        maskImage:
-          "radial-gradient(ellipse 80% 80% at 0% 0%, #000 50%, transparent 90%)",
+        backgroundSize: "96px 64px, 96px 64px, 100% 100%",
       }}
     />
   )
