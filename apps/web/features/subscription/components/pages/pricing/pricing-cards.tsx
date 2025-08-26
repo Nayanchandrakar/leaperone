@@ -3,7 +3,7 @@ import { ListComponent } from "@/components/shared/list-component"
 import { PricingCard } from "@/features/subscription/components/cards/pricing/pricing-card"
 import { PLANS } from "@/features/subscription/constants/pricing/plans"
 
-export const PricingSection = () => {
+export const PricingCards = () => {
   return (
     <Container className="mt-24">
       <ListComponent

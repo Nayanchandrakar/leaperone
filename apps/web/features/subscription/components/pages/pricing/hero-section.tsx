@@ -13,7 +13,7 @@ const DEFAULT_TABS = [
   },
 ]
 
-export const PricingHero = () => {
+export const HeroSection = () => {
   return (
     <Container className="space-y-8 mt-24 md:mt-28 lg:mt-36 mx-auto max-w-4xl flex items-center flex-col ">
       <h2 className="font-bold md:font-semibold text-4xl lg:text-5xl text-center  leading-tight ">

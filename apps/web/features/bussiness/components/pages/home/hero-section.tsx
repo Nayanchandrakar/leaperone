@@ -7,7 +7,7 @@ export const HeroSection = () => {
       <h1 className="font-bold md:font-semibold text-4xl lg:text-5xl text-center  leading-tight ">
         <MarkerText
           alt="marker"
-          src="/assets/markers/mark.svg"
+          src="/assets/markers/open-mark.svg"
           style={{ top: "-55%", left: "-85%" }}
           className="lg:inline-block hidden"
         >

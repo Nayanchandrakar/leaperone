@@ -4,7 +4,7 @@ import { ListComponent } from "@/components/shared/list-component"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { COMPARISION_PLANS } from "@/features/subscription/constants/pricing/plan-compare"
 
-export const ComparePlanPricing = () => {
+export const ComparePlanSection = () => {
   return (
     <Container className="mt-32">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">
