@@ -1,6 +1,7 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  typedRoutes: true,
   /**
    * Disables ESLint checks during production builds.
    * Linting is handled separately in the CI pipeline to speed up the build process.

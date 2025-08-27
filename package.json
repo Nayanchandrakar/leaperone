@@ -27,7 +27,7 @@
       "lint-staged": "^16.1.5",
       "@biomejs/biome": "^2.2.0",
       "@commitlint/config-conventional": "^19.8.1",
-      "next": "15.4.6",
+      "next": "^15.5.2",
       "react": "^19.1.1",
       "react-dom": "^19.1.1",
       "server-only": "^0.0.1",
