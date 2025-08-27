@@ -1,4 +1,4 @@
-export const COMPARISION_PLANS = [
+export const COMPARISON_PLANS = [
   {
     title: "Features",
     variants: {
@@ -40,7 +40,7 @@ export const COMPARISION_PLANS = [
   },
 ]
 
-export const PLAN_COMPARISION_DATA = [
+export const PLAN_COMPARISON_DATA = [
   {
     section: "Digital business card, NFC & QR code features",
     features: [
