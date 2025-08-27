@@ -56,17 +56,13 @@ export const ComparePlanSection = () => {
         className="max-w-5xl mx-auto bg-background rounded-3xl border border-border mt-12 p-4 space-y-3"
       >
         {PLAN_COMPARISON_DATA.map(({ features, section }, index) => (
-          <AccordionItem
-            key={section}
-            value={`compare-plan-${index}`}
-            className="border-none"
-          >
-            <AccordionTrigger className="bg-muted p-6 rounded-xl hover:no-underline border border-border">
+          <AccordionItem key={section} value={`compare-plan-${index}`}>
+            <AccordionTrigger>
               {section}
               <ChevronDown className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200" />
             </AccordionTrigger>
 
-            <AccordionContent className="py-4 space-y-4">
+            <AccordionContent className="space-y-4 px-0 py-4">
               {features.map((data) => (
                 <PriceCompareCard key={data.name} {...data} />
               ))}

@@ -26,17 +26,12 @@ export const PricingFaqSection = () => {
       <Accordion
         type="single"
         collapsible
-        className="max-w-5xl mx-auto my-4 mt-20 bg-background px-6 sm:px-8 py-0 sm:py-1 rounded-2xl border border-border"
+        className="max-w-5xl mx-auto bg-background rounded-3xl border border-border mt-12 p-4 space-y-3"
       >
         {PLAN_FAQS.map(({ question }, index) => (
-          <AccordionItem
-            key={question}
-            value={`item-${index}`}
-            className="py-3"
-          >
-            <AccordionTrigger className="text-base sm:text-lg">
+          <AccordionItem key={question} value={`item-${index}`}>
+            <AccordionTrigger>
               {question}
-
               <Plus className="text-muted-foreground pointer-events-none size-5 shrink-0 translate-y-0.5 transition-transform duration-200" />
             </AccordionTrigger>
             <AccordionContent>{question}</AccordionContent>
