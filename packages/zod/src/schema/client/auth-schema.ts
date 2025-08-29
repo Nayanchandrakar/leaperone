@@ -10,8 +10,9 @@ export const registerSchema = z.object({
 })
 
 export const loginFormSchema = z.object({
-  email: z.email(),
   password,
+  email: z.email(),
+  callbackUrl: z.string().optional(),
 })
 
 export const forgotPasswordFormSchema = z.object({

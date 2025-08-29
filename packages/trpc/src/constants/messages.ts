@@ -3,18 +3,17 @@ export const MESSAGES = {
     LOGIN_SUCCESS: "Login successful. Welcome back!",
     LOGOUT_SUCCESS: "You’ve been logged out successfully.",
     UNAUTHORIZED: "Your session has expired. Please log in again.",
-    REGISTER_SUCCESS: "We have sent you a verification link",
   },
 
   USER: {
     NOT_FOUND: "User not found",
-    USERNAME_EXISTS: "User name already in use. Use another username",
+    USERNAME_EXISTS: "User name already in use.",
     ALREADY_EXISTS: "User already exists. Use another email.",
     EMAIL_NOT_FOUND: "User email not found",
-    EMAIL_NOT_VERIFIED: "Email not verified",
     EMAIL_CANNOT_UPDATE: "Email can not be updated",
     FAILED_TO_CREATE: "Failed to create user",
     FAILED_TO_UPDATE: "Failed to update user",
+    EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
   },
 
   PASSWORD: {

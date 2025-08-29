@@ -15,7 +15,7 @@ export const users = pgTable("user", {
 })
 
 export const accounts = pgTable(
-  "account",
+  "accounts",
   {
     id: text()
       .primaryKey()

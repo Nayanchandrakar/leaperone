@@ -1,53 +1,74 @@
-import { createUser, getUserByEmail } from "@myleaper/database/services/users"
-import { SERVER_ENV } from "@myleaper/env/server"
-import { registerSchema } from "@myleaper/zod/client/auth-schema"
+import { getUserWithAccountsByEmail } from "@myleaper/database/services/users"
+import { loginFormSchema } from "@myleaper/zod/client/auth-schema"
 import { TRPCError } from "@trpc/server"
-import { hashPassword } from "src/utils/password"
+import { hashPassword, verifyPassword } from "src/utils/password"
+import { constructEmailVerificationUrl } from "src/utils/urls"
 import { MESSAGES } from "../../constants/messages"
 import { createEmailVerificationToken } from "../../lib/email/email-verification"
 import { baseProcedure } from "../../utils/init"
 
 export const login = baseProcedure
-  .input(registerSchema)
+  .input(loginFormSchema)
   .mutation(async ({ input }) => {
-    const existingUser = await getUserByEmail(input.email)
-    if (existingUser) {
-      throw new TRPCError({
-        code: "CONFLICT",
-        message: MESSAGES.USER.ALREADY_EXISTS,
-        cause: "Email already registered",
-      })
-    }
-
-    const hashedPassword = await hashPassword(input.password)
-
-    const user = await createUser({
-      ...input,
-      hash: hashedPassword,
-    })
+    const user = await getUserWithAccountsByEmail(input.email)
 
     if (!user) {
+      // Hash password to prevent timing attacks from revealing valid email addresses
+      // By hashing passwords for invalid emails, we ensure consistent response times
+      await hashPassword(input.password)
       throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: MESSAGES.USER.FAILED_TO_CREATE,
+        code: "UNAUTHORIZED",
+        message: MESSAGES.PASSWORD.INVALID_EMAIL_OR_PASSWORD,
       })
     }
 
-    const token = await createEmailVerificationToken(input.email)
+    const credentialAccount = user.accounts.find(
+      (a) => a.providerId === "credential",
+    )
 
-    const callbackUrl = input.callbackUrl || "/"
-    const verificationUrl = new URL("/verify-email", SERVER_ENV.SERVER_URL)
-    verificationUrl.searchParams.set("token", token)
-    verificationUrl.searchParams.set("callbackUrl", callbackUrl)
+    if (!credentialAccount) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: MESSAGES.ACCOUNT.CREDENTIAL_NOT_FOUND,
+      })
+    }
 
-    // TODO: Implement email service integration
-    console.info("Verification URL generated", {
-      email: input.email,
-      url: verificationUrl.toString(),
+    const currentPassword = credentialAccount.password
+    if (!currentPassword) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: MESSAGES.PASSWORD.INVALID,
+      })
+    }
+
+    const validPassword = await verifyPassword({
+      hash: currentPassword,
+      password: input.password,
     })
 
-    return {
-      message: MESSAGES.AUTH.REGISTER_SUCCESS,
-      data: { verificationUrl: verificationUrl.toString() },
+    if (!validPassword) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: MESSAGES.PASSWORD.INVALID,
+      })
     }
+
+    if (!user.user?.emailVerified) {
+      const token = await createEmailVerificationToken(input.email, undefined)
+      const verificationUrl = constructEmailVerificationUrl(
+        input.callbackUrl,
+        token,
+      )
+
+      console.info("Verification URL generated", {
+        email: input.email,
+        url: verificationUrl.toString(),
+      })
+
+      return { message: MESSAGES.USER.EMAIL_NOT_VERIFIED }
+    }
+
+    // TODO: Create session here
+
+    return { message: MESSAGES.AUTH.LOGIN_SUCCESS }
   })

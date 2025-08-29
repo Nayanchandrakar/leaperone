@@ -36,7 +36,7 @@ export const register = baseProcedure
 
     const user = await createUser({
       ...input,
-      hash: hashedPassword,
+      hashedPassword,
     })
 
     if (!user) {
@@ -46,7 +46,7 @@ export const register = baseProcedure
       })
     }
 
-    const token = await createEmailVerificationToken(input.email)
+    const token = await createEmailVerificationToken(input.email, undefined)
     const verificationUrl = constructEmailVerificationUrl(
       input.callbackUrl,
       token,
@@ -59,7 +59,7 @@ export const register = baseProcedure
     })
 
     return {
-      message: MESSAGES.AUTH.REGISTER_SUCCESS,
+      message: MESSAGES.USER.EMAIL_NOT_VERIFIED,
       data: { verificationUrl: verificationUrl.toString() },
     }
   })

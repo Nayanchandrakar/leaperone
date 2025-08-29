@@ -8,7 +8,27 @@ export async function getUserByEmail(email: string) {
     .from(users)
     .where(eq(users.email, email))
     .limit(1)
+    .$withCache()
   return user
+}
+
+export async function getUserWithAccountsByEmail(email: string) {
+  const data = await dbHttp
+    .select()
+    .from(users)
+    .innerJoin(accounts, eq(users.id, accounts.userId))
+    .where(eq(users.email, email))
+    .$withCache()
+
+  const formatted =
+    data.length > 0
+      ? {
+          user: data[0]?.user,
+          accounts: data.map((r) => r.accounts),
+        }
+      : null
+
+  return formatted
 }
 
 export async function isUserNameTaken(username: string) {
@@ -17,6 +37,7 @@ export async function isUserNameTaken(username: string) {
     .from(users)
     .where(eq(users.username, username))
     .limit(1)
+    .$withCache()
 
   return Boolean(data?.id)
 }
@@ -24,13 +45,13 @@ export async function isUserNameTaken(username: string) {
 export async function createUser({
   email,
   name,
-  hash,
+  hashedPassword,
   username,
 }: {
   username: string
   email: string
   name: string
-  hash: string
+  hashedPassword: string
 }) {
   try {
     await dbWs.transaction(async (tx) => {
@@ -47,7 +68,7 @@ export async function createUser({
       if (data) {
         await tx.insert(accounts).values({
           userId: data.id,
-          password: hash,
+          password: hashedPassword,
           providerId: "credential",
           accountId: data.id,
         })
