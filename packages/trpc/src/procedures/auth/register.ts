@@ -1,4 +1,8 @@
-import { createUser, getUserByEmail } from "@myleaper/database/services/users"
+import {
+  createUser,
+  getUserByEmail,
+  isUserNameTaken,
+} from "@myleaper/database/services/users"
 import { registerSchema } from "@myleaper/zod/client/auth-schema"
 import { TRPCError } from "@trpc/server"
 import { hashPassword } from "src/utils/password"
@@ -11,11 +15,20 @@ export const register = baseProcedure
   .input(registerSchema)
   .mutation(async ({ input }) => {
     const existingUser = await getUserByEmail(input.email)
+
     if (existingUser) {
       throw new TRPCError({
         code: "CONFLICT",
         message: MESSAGES.USER.ALREADY_EXISTS,
-        cause: "Email already registered",
+      })
+    }
+
+    const isExists = await isUserNameTaken(input.username)
+
+    if (isExists) {
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: MESSAGES.USER.USERNAME_EXISTS,
       })
     }
 

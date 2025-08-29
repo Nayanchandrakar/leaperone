@@ -3,7 +3,7 @@ import { redis } from "@myleaper/redis"
 import { userNameSchema } from "@myleaper/zod/common/index"
 import { baseProcedure } from "../../utils/init"
 
-export const checkUserName = baseProcedure
+export const username = baseProcedure
   .input(userNameSchema)
   .query(async ({ input }) => {
     const { username } = input

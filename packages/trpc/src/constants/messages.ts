@@ -8,6 +8,7 @@ export const MESSAGES = {
 
   USER: {
     NOT_FOUND: "User not found",
+    USERNAME_EXISTS: "User name already in use. Use another username",
     ALREADY_EXISTS: "User already exists. Use another email.",
     EMAIL_NOT_FOUND: "User email not found",
     EMAIL_NOT_VERIFIED: "Email not verified",

@@ -9,12 +9,9 @@ import type {
 import { setUserNameError } from "@/features/auth/utils"
 import { useTRPC } from "@/lib/trpc/client"
 
-export const useUsernameCheck = ({
-  username,
-  enabled,
-}: IUsernameCheckParams) => {
+const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
   const trpc = useTRPC()
-  return useQuery(trpc.users.username.queryOptions({ username }, { enabled }))
+  return useQuery(trpc.auth.username.queryOptions({ username }, { enabled }))
 }
 
 export const useUsernameError = ({

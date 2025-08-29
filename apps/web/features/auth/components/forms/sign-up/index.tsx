@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
-import { useSignup } from "@/features/auth/hooks/sign-up/use-sign-up"
+import { useRegister } from "@/features/auth/hooks/sign-up/use-register"
 import {
   useAccountFormContext,
   useUsernameError,
@@ -25,10 +25,12 @@ import {
 import type { IRegisterFormSchema } from "@/types/zod-types"
 
 interface ISignupForm {
-  redirect: string
+  callbackUrl: string
 }
 
-export const SignupForm = ({ redirect }: ISignupForm) => {
+export const SignupForm = ({ callbackUrl }: ISignupForm) => {
+  const { mutate } = useRegister()
+
   const form = useForm<IRegisterFormSchema>({
     resolver: zodResolver(registerSchema),
     mode: "onChange",
@@ -37,6 +39,7 @@ export const SignupForm = ({ redirect }: ISignupForm) => {
       email: "",
       name: "",
       password: "",
+      callbackUrl,
     },
   })
 
@@ -69,12 +72,10 @@ export const SignupForm = ({ redirect }: ISignupForm) => {
     isUserNameTaken,
   ].some(Boolean)
 
-  const { onSubmit } = useSignup({ redirect })
-
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
         <HeadingShortner

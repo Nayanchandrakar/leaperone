@@ -21,7 +21,7 @@ export default async function CreateAccountPage({
       <AuthWrapper>
         <BackButton />
         <AuthForm>
-          <SignupForm redirect={callbackUrl} />
+          <SignupForm callbackUrl={callbackUrl} />
         </AuthForm>
       </AuthWrapper>
 

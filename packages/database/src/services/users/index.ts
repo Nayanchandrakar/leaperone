@@ -11,7 +11,7 @@ export async function getUserByEmail(email: string) {
   return user
 }
 
-export const isUserNameTaken = async (username: string) => {
+export async function isUserNameTaken(username: string) {
   const [data] = await dbHttp
     .select({ id: users.id })
     .from(users)
@@ -55,7 +55,8 @@ export async function createUser({
     })
 
     return true
-  } catch {
+  } catch (e) {
+    console.log(e)
     return false
   }
 }
