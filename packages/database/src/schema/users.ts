@@ -14,7 +14,7 @@ export const users = pgTable("user", {
   ...timestamps,
 })
 
-export const account = pgTable(
+export const accounts = pgTable(
   "account",
   {
     id: text()

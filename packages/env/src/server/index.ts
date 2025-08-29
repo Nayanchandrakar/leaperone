@@ -17,12 +17,12 @@ export const SERVER_ENV = createEnv({
       error: "DATABASE_URL is required in environment variables",
     }),
 
-    APP_URL: z.string().default("http://localhost:3000"),
+    FRONTEND_URL: z.string().default("http://localhost:3000"),
 
-    BETTER_AUTH_URL: z.string().default("http://localhost:8080"),
+    SERVER_URL: z.string().default("http://localhost:8080"),
 
-    BETTER_AUTH_SECRET: z.string({
-      error: "BETTER_AUTH_SECRET is required in environment variables",
+    AUTH_SECRET: z.string({
+      error: "AUTH_SECRET is required in environment variables",
     }),
 
     AWS_ACCESS_KEY_ID: z.string({

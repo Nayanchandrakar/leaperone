@@ -6,7 +6,6 @@
     "paths": {
       "@/*": ["src/*"],
       "@myleaper/trpc/*": ["../../packages/trpc/src/*"],
-      "@myleaper/auth/*": ["../../packages/auth/src/*"],
       "@myleaper/logger/*": ["../../packages/logger/src/*"],
       "@myleaper/env/*": ["../../packages/env/src/*"]
     }

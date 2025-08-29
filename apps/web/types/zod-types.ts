@@ -1,10 +1,10 @@
 import type {
   forgotPasswordFormSchema,
   loginFormSchema,
-  signupSchema,
+  registerSchema,
 } from "@myleaper/zod/client/auth-schema"
 import type z from "zod"
 
 export type ILoginFormSchema = z.infer<typeof loginFormSchema>
-export type ISignupFormSchema = z.infer<typeof signupSchema>
+export type IRegisterFormSchema = z.infer<typeof registerSchema>
 export type IForgotPasswordFormSchema = z.infer<typeof forgotPasswordFormSchema>

@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
-import { signupSchema } from "@myleaper/zod/client/auth-schema"
+import { registerSchema } from "@myleaper/zod/client/auth-schema"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
@@ -22,15 +22,15 @@ import {
   useAccountFormContext,
   useUsernameError,
 } from "@/features/auth/hooks/sign-up/use-username-check"
-import type { ISignupFormSchema } from "@/types/zod-types"
+import type { IRegisterFormSchema } from "@/types/zod-types"
 
 interface ISignupForm {
   redirect: string
 }
 
 export const SignupForm = ({ redirect }: ISignupForm) => {
-  const form = useForm<ISignupFormSchema>({
-    resolver: zodResolver(signupSchema),
+  const form = useForm<IRegisterFormSchema>({
+    resolver: zodResolver(registerSchema),
     mode: "onChange",
     defaultValues: {
       username: "",

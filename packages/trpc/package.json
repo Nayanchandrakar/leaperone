@@ -21,10 +21,11 @@
     "@hono/trpc-server": "catalog:",
     "@myleaper/database": "workspace:*",
     "@myleaper/env": "workspace:*",
+    "@myleaper/logger": "workspace:*",
     "@myleaper/redis": "workspace:*",
     "@myleaper/zod": "workspace:*",
-    "@myleaper/logger": "workspace:*",
     "@trpc/server": "catalog:",
+    "jose": "workspace:*",
     "superjson": "catalog:"
   },
   "devDependencies": {
