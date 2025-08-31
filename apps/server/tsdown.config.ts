@@ -21,8 +21,6 @@ export default defineConfig(
         "@myleaper/logger",
         "@myleaper/trpc",
         "@myleaper/database",
-        "@myleaper/redis",
-        "@myleaper/constants",
         "@myleaper/env/server",
         "@myleaper/trpc/server",
         "@myleaper/database/schema",

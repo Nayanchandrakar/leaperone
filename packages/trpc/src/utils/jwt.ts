@@ -1,7 +1,7 @@
 import { SERVER_ENV } from "@myleaper/env/server"
 import { SignJWT } from "jose"
 
-export async function signJWT(payload: any, expiresIn = 3600): Promise<string> {
+export const signJwt = async (payload: any, expiresIn = 3600) => {
   const jwt = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()

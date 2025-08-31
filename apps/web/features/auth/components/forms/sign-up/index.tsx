@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
-import { registerSchema } from "@myleaper/zod/client/auth-schema"
+import { registerSchema } from "@myleaper/zod/client/auth"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"

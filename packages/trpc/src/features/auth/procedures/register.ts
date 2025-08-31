@@ -3,13 +3,13 @@ import {
   getUserByEmail,
   isUserNameTaken,
 } from "@myleaper/database/services/users"
-import { registerSchema } from "@myleaper/zod/client/auth-schema"
+import { registerSchema } from "@myleaper/zod/client/auth"
 import { TRPCError } from "@trpc/server"
-import { hashPassword } from "src/utils/password"
-import { constructEmailVerificationUrl } from "src/utils/urls"
-import { MESSAGES } from "../../constants/messages"
-import { createEmailVerificationToken } from "../../lib/email/email-verification"
-import { baseProcedure } from "../../utils/init"
+import { hash } from "bcryptjs"
+import { MESSAGES } from "../../../constants/messages"
+import { baseProcedure } from "../../../utils/init"
+import { createEmailVerificationToken } from "../services/email-verification"
+import { constructEmailVerificationUrl } from "../utils/urls"
 
 export const register = baseProcedure
   .input(registerSchema)
@@ -32,7 +32,7 @@ export const register = baseProcedure
       })
     }
 
-    const hashedPassword = await hashPassword(input.password)
+    const hashedPassword = await hash(input.password, 10)
 
     const user = await createUser({
       ...input,
@@ -46,11 +46,10 @@ export const register = baseProcedure
       })
     }
 
-    const token = await createEmailVerificationToken(input.email, undefined)
-    const verificationUrl = constructEmailVerificationUrl(
-      input.callbackUrl,
-      token,
-    )
+    const token = await createEmailVerificationToken(input.email)
+    const url = constructEmailVerificationUrl(input.callbackUrl, token)
+
+    const verificationUrl = url.toString()
 
     // TODO: Implement email service integration
     console.info("Verification URL generated", {
@@ -60,6 +59,6 @@ export const register = baseProcedure
 
     return {
       message: MESSAGES.USER.EMAIL_NOT_VERIFIED,
-      data: { verificationUrl: verificationUrl.toString() },
+      data: { verificationUrl },
     }
   })

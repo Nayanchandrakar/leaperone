@@ -1,23 +1,17 @@
-import { useCallback } from "react"
+import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { MESSAGES } from "@/constants/messages"
-import type { IUseSignUp } from "@/features/auth/types"
-import { signIn } from "@/lib/auth"
-import type { ILoginFormSchema } from "@/types/zod-types"
+import { useTRPC } from "@/lib/trpc/client"
 
-export const useLogin = ({ redirect }: IUseSignUp) => {
-  const onSubmit = useCallback(
-    async (data: ILoginFormSchema) => {
-      const values = { ...data, ...(redirect && { callbackURL: redirect }) }
-
-      await signIn.email(values, {
-        onSuccess: ({ data }) => {
-          toast.success(data.message ?? MESSAGES.AUTH.LOGIN_SUCCESS)
-        },
-      })
-    },
-    [redirect],
+export const useLogin = () => {
+  const trpc = useTRPC()
+  return useMutation(
+    trpc.auth.login.mutationOptions({
+      onSuccess: ({ message }) => {
+        toast.success(message)
+      },
+      onError: ({ message }) => {
+        toast.error(message)
+      },
+    }),
   )
-
-  return { onSubmit }
 }

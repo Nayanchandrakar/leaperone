@@ -18,7 +18,7 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
       <AuthWrapper>
         <BackButton />
         <AuthForm>
-          <LoginForm redirect={callbackUrl} />
+          <LoginForm callbackUrl={callbackUrl} />
         </AuthForm>
       </AuthWrapper>
 

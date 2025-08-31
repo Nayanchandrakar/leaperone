@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
-import { loginFormSchema } from "@myleaper/zod/client/auth-schema"
+import { loginFormSchema } from "@myleaper/zod/client/auth"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
@@ -20,25 +20,26 @@ import { useLogin } from "@/features/auth/hooks/login/use-login"
 import type { ILoginFormSchema } from "@/types/zod-types"
 
 interface ILoginForm {
-  redirect: string
+  callbackUrl: string
 }
 
-export const LoginForm = ({ redirect }: ILoginForm) => {
+export const LoginForm = ({ callbackUrl }: ILoginForm) => {
   const form = useForm<ILoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
+      callbackUrl,
     },
   })
 
-  const { onSubmit } = useLogin({ redirect })
+  const { mutate } = useLogin()
   const isSubmitting = form.formState.isSubmitting
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
         <HeadingShortner title="Welcome Back" className="mb-12 text-center" />

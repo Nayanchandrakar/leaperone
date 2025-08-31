@@ -22,11 +22,14 @@
     "@myleaper/database": "workspace:*",
     "@myleaper/env": "workspace:*",
     "@myleaper/logger": "workspace:*",
-    "@myleaper/redis": "workspace:*",
     "@myleaper/zod": "workspace:*",
+    "@paralleldrive/cuid2": "catalog:",
     "@trpc/server": "catalog:",
-    "jose": "workspace:*",
-    "superjson": "catalog:"
+    "bcryptjs": "catalog:",
+    "hono": "catalog:",
+    "jose": "catalog:",
+    "superjson": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@myleaper/tsconfig": "workspace:*",

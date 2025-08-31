@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "catalog:",
-    "@turbo/gen": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

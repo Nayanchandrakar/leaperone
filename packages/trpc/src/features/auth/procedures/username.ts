@@ -1,14 +1,12 @@
-import { USERNAME_HASH } from "@myleaper/constants/server"
-import { redis } from "@myleaper/redis"
 import { userNameSchema } from "@myleaper/zod/common/index"
+import { redis } from "../../lib/redis"
 import { baseProcedure } from "../../utils/init"
 
 export const username = baseProcedure
   .input(userNameSchema)
   .query(async ({ input }) => {
     const { username } = input
-    // TODO: add ratelimiting here
 
-    const exists = await redis.hexists(USERNAME_HASH, username)
+    const exists = await redis.hexists("username_records", username)
     return { query: username, exists: Boolean(exists) }
   })

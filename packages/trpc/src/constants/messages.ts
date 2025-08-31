@@ -1,7 +1,7 @@
 export const MESSAGES = {
   AUTH: {
-    LOGIN_SUCCESS: "Login successful. Welcome back!",
     LOGOUT_SUCCESS: "You’ve been logged out successfully.",
+    LOGIN_SUCCESS: "Welcome back! You’ve logged in successfully.",
     UNAUTHORIZED: "Your session has expired. Please log in again.",
   },
 

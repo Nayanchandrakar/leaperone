@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "@myleaper/ui/components/form"
 import { Input } from "@myleaper/ui/components/input"
-import { forgotPasswordFormSchema } from "@myleaper/zod/client/auth-schema"
+import { forgotPasswordFormSchema } from "@myleaper/zod/client/auth"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { useForgotPassword } from "@/features/auth/hooks/forgot-password/use-forgot-password"
