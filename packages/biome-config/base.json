@@ -47,6 +47,7 @@
         "useSemanticElements": "off"
       },
       "complexity": {
+        "noBannedTypes": "off",
         "noUselessCatch": "error",
         "noUselessConstructor": "off",
         "noUselessEmptyExport": "error",
@@ -93,6 +94,7 @@
         "noNonNullAssertion": "off"
       },
       "suspicious": {
+        "noConfusingVoidType": "off",
         "noClassAssign": "off",
         "noUnknownAtRules": "off",
         "noCommentText": "error",

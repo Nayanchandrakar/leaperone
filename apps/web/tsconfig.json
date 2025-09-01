@@ -8,9 +8,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@app/nstack/*": ["../../packages/nstack/src/*"],
       "@myleaper/ui/*": ["../../packages/ui/src/*"],
       "@myleaper/env/*": ["../../packages/env/src/*"],
-      "@myleaper/trpc/*": ["../../packages/trpc/src/*"],
+      "@app/nrpc/*": ["../../packages/nrpc/src/*"],
       "@myleaper/database/*": ["../../packages/database/src/*"]
     }
   },

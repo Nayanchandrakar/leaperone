@@ -12,6 +12,8 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
+    "@app/nstack": "workspace:*",
+    "@app/nrpc": "workspace:*",
     "@hookform/resolvers": "catalog:",
     "@myleaper/database": "workspace:*",
     "@myleaper/env": "workspace:*",

@@ -3,7 +3,7 @@ import "@myleaper/ui/globals.css"
 import { Toaster } from "@myleaper/ui/components/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { Provider } from "@/components/providers"
+import { QueryProvider } from "@/components/providers/query-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 
 const inter = Inter({
@@ -23,14 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Provider>
-        <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
+        <QueryProvider>
           <ThemeProvider>
             {children}
             <Toaster />
           </ThemeProvider>
-        </body>
-      </Provider>
+        </QueryProvider>
+      </body>
     </html>
   )
 }
