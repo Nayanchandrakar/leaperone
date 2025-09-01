@@ -35,6 +35,13 @@ export const TrpcNextProvider = ({ children }: TrpcNextProviderType) => {
         httpBatchLink({
           transformer: SuperJSON,
           url: URLS.SERVER,
+          fetch(url, options) {
+            return fetch(url, {
+              ...options,
+              credentials: "include",
+              signal: options?.signal ?? null,
+            })
+          },
         }),
       ],
     }),

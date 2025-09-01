@@ -1,3 +1,5 @@
+import type { User } from "@myleaper/database/types"
+
 export type Session = {
   userId: string
   expiresAt: Date
@@ -11,4 +13,9 @@ export type Session = {
 export type ActiveSession = {
   token: string
   expiresAt: number
+}
+
+export type ParsedSession = {
+  session: Session
+  user: User
 }

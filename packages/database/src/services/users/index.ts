@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../../index"
-import { accounts, users } from "../../schema/users"
+import { accounts, users } from "../../schema"
 
 export async function getUserByEmail(email: string) {
   try {

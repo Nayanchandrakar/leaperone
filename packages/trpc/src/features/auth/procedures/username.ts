@@ -1,6 +1,6 @@
 import { userNameSchema } from "@myleaper/zod/common/index"
-import { redis } from "../../lib/redis"
-import { baseProcedure } from "../../utils/init"
+import { redis } from "../../../lib/redis"
+import { baseProcedure } from "../../../utils/init"
 
 export const username = baseProcedure
   .input(userNameSchema)
