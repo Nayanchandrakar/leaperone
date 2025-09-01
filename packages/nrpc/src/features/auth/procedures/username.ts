@@ -1,4 +1,4 @@
-import { userNameSchema } from "@myleaper/zod/common/index"
+import { userNameSchema } from "@app/zod/common/index"
 import { redis } from "../../../lib/redis"
 import { baseProcedure } from "../../../utils/init"
 

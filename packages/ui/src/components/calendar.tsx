@@ -1,7 +1,7 @@
 "use client"
 
-import { Button, buttonVariants } from "@myleaper/ui/components/button"
-import { cn } from "@myleaper/ui/lib/utils"
+import { Button, buttonVariants } from "@app/ui/components/button"
+import { cn } from "@app/ui/lib/utils"
 import {
   ChevronDownIcon,
   ChevronLeftIcon,

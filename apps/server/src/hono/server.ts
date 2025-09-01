@@ -1,5 +1,5 @@
+import type { Logger } from "@app/logger/index"
 import { serve } from "@hono/node-server"
-import type { Logger } from "@myleaper/logger/index"
 import type { Hono } from "hono"
 
 type StartDevServerType = {

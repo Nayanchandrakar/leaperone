@@ -1,13 +1,13 @@
 {
-  "extends": "@myleaper/tsconfig/server.json",
+  "extends": "@app/tsconfig/server.json",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@myleaper/trpc/*": ["../../packages/trpc/src/*"],
-      "@myleaper/logger/*": ["../../packages/logger/src/*"],
-      "@myleaper/env/*": ["../../packages/env/src/*"]
+      "@app/trpc/*": ["../../packages/trpc/src/*"],
+      "@app/logger/*": ["../../packages/logger/src/*"],
+      "@app/env/*": ["../../packages/env/src/*"]
     }
   },
   "include": ["src/**/*"],

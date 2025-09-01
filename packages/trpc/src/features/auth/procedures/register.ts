@@ -2,8 +2,8 @@ import {
   createUser,
   getUserByEmail,
   isUserNameTaken,
-} from "@myleaper/database/services/users"
-import { registerSchema } from "@myleaper/zod/client/auth"
+} from "@app/database/services/users"
+import { registerSchema } from "@app/zod/client/auth"
 import { TRPCError } from "@trpc/server"
 import { hash } from "bcryptjs"
 import { MESSAGES } from "../../../constants/messages"

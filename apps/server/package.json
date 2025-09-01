@@ -18,15 +18,15 @@
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
-    "@myleaper/database": "workspace:*",
-    "@myleaper/trpc": "workspace:*",
-    "@myleaper/env": "workspace:*",
-    "@myleaper/logger": "workspace:*",
+    "@app/database": "workspace:*",
+    "@app/trpc": "workspace:*",
+    "@app/env": "workspace:*",
+    "@app/logger": "workspace:*",
     "dotenv": "catalog:",
     "hono": "catalog:"
   },
   "devDependencies": {
-    "@myleaper/tsconfig": "workspace:*",
+    "@app/tsconfig": "workspace:*",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/node": "catalog:",
     "tsdown": "^0.14.1",

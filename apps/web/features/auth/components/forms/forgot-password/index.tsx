@@ -1,7 +1,6 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@myleaper/ui/components/button"
+import { Button } from "@app/ui/components/button"
 import {
   Form,
   FormControl,
@@ -9,9 +8,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@myleaper/ui/components/form"
-import { Input } from "@myleaper/ui/components/input"
-import { forgotPasswordFormSchema } from "@myleaper/zod/client/auth"
+} from "@app/ui/components/form"
+import { Input } from "@app/ui/components/input"
+import { forgotPasswordFormSchema } from "@app/zod/client/auth"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { useForgotPassword } from "@/features/auth/hooks/forgot-password/use-forgot-password"

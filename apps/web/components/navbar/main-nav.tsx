@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@myleaper/ui/components/button"
+import { Button } from "@app/ui/components/button"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { NAV_LINKS } from "@/constants/nav-links"

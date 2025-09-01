@@ -1,4 +1,4 @@
-import { loginFormSchema } from "@myleaper/zod/client/auth"
+import { loginFormSchema } from "@app/zod/client/auth"
 import { baseProcedure } from "../../../utils/init"
 
 export const login = baseProcedure

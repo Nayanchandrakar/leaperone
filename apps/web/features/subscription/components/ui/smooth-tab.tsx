@@ -1,5 +1,5 @@
 "use client"
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import { motion } from "motion/react"
 import * as React from "react"
 import { ListComponent } from "@/components/shared/list-component"

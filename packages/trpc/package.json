@@ -1,5 +1,5 @@
 {
-  "name": "@myleaper/trpc",
+  "name": "@app/trpc",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
@@ -19,10 +19,10 @@
   "description": "A tRPC instance for hono server and nextjs client",
   "dependencies": {
     "@hono/trpc-server": "catalog:",
-    "@myleaper/database": "workspace:*",
-    "@myleaper/env": "workspace:*",
-    "@myleaper/logger": "workspace:*",
-    "@myleaper/zod": "workspace:*",
+    "@app/database": "workspace:*",
+    "@app/env": "workspace:*",
+    "@app/logger": "workspace:*",
+    "@app/zod": "workspace:*",
     "@paralleldrive/cuid2": "catalog:",
     "@trpc/server": "catalog:",
     "bcryptjs": "catalog:",
@@ -32,7 +32,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@myleaper/tsconfig": "workspace:*",
+    "@app/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

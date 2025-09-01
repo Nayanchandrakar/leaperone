@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 import { CircleIcon } from "lucide-react"
 import type * as React from "react"

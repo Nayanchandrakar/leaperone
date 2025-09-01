@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
 

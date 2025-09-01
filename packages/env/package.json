@@ -1,5 +1,5 @@
 {
-  "name": "@myleaper/env",
+  "name": "@app/env",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
@@ -19,7 +19,7 @@
     "@t3-oss/env-core": "^0.13.8"
   },
   "devDependencies": {
-    "@myleaper/tsconfig": "workspace:*",
+    "@app/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

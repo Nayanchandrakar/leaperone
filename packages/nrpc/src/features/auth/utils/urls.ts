@@ -1,4 +1,4 @@
-import { SERVER_ENV } from "@myleaper/env/server"
+import { SERVER_ENV } from "@app/env/server"
 
 export function constructEmailVerificationUrl(
   endpoint: string | undefined,

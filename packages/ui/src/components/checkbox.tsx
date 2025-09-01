@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
 import { CheckIcon } from "lucide-react"
 import type * as React from "react"

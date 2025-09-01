@@ -1,7 +1,7 @@
 "use client"
 
-import { buttonVariants } from "@myleaper/ui/components/button"
-import { cn } from "@myleaper/ui/lib/utils"
+import { buttonVariants } from "@app/ui/components/button"
+import { cn } from "@app/ui/lib/utils"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import type * as React from "react"
 

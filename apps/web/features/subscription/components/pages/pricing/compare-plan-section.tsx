@@ -3,8 +3,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@myleaper/ui/components/accordion"
-import { Button } from "@myleaper/ui/components/button"
+} from "@app/ui/components/accordion"
+import { Button } from "@app/ui/components/button"
 import { ChevronDown } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { ListComponent } from "@/components/shared/list-component"

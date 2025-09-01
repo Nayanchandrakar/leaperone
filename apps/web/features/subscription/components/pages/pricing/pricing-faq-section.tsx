@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@myleaper/ui/components/accordion"
+} from "@app/ui/components/accordion"
 import { Plus } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"

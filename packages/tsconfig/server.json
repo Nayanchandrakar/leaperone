@@ -1,5 +1,5 @@
 {
-  "extends": "@myleaper/tsconfig/base.json",
+  "extends": "@app/tsconfig/base.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",

@@ -1,4 +1,4 @@
-import { Button } from "@myleaper/ui/components/button"
+import { Button } from "@app/ui/components/button"
 import Image from "next/image"
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"

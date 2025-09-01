@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@myleaper/ui/components/button"
+import { Button } from "@app/ui/components/button"
 import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 

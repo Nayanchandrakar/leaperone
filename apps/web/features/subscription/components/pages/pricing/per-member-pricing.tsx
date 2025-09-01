@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@myleaper/ui/components/table"
+} from "@app/ui/components/table"
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing/teams-per-member-cost"

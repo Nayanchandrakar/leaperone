@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 import * as React from "react"
 

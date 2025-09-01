@@ -1,4 +1,4 @@
-import { CLIENT_ENV } from "@myleaper/env/client"
+import { CLIENT_ENV } from "@app/env/client"
 
 export const URLS = {
   SERVER: `${CLIENT_ENV.NEXT_PUBLIC_SERVER_URL}/api/trpc`,

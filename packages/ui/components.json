@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@myleaper/ui/components",
-    "utils": "@myleaper/ui/lib/utils",
-    "hooks": "@myleaper/ui/hooks",
-    "lib": "@myleaper/ui/lib",
-    "ui": "@myleaper/ui/components"
+    "components": "@app/ui/components",
+    "utils": "@app/ui/lib/utils",
+    "hooks": "@app/ui/hooks",
+    "lib": "@app/ui/lib",
+    "ui": "@app/ui/components"
   }
 }

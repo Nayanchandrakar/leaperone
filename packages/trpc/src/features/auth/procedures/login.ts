@@ -1,5 +1,5 @@
-import { getUserAndAccounts } from "@myleaper/database/services/users"
-import { loginFormSchema } from "@myleaper/zod/client/auth"
+import { getUserAndAccounts } from "@app/database/services/users"
+import { loginFormSchema } from "@app/zod/client/auth"
 import { TRPCError } from "@trpc/server"
 import { compare } from "bcryptjs"
 import { MESSAGES } from "../../../constants/messages"

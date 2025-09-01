@@ -1,4 +1,4 @@
-import type { User } from "@myleaper/database/types"
+import type { User } from "@app/database/types"
 import type { Context } from "hono"
 import { deleteCookie } from "hono/cookie"
 import { SESSION_KEY } from "src/constants/session"

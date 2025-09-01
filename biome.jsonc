@@ -1,3 +1,3 @@
 {
-  "extends": ["@myleaper/biome-config/base.json"]
+  "extends": ["@app/biome-config/base.json"]
 }

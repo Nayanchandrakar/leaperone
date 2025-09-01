@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
 import type * as React from "react"
 

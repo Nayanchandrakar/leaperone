@@ -2,8 +2,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@myleaper/ui/components/tooltip"
-import { cn } from "@myleaper/ui/lib/utils"
+} from "@app/ui/components/tooltip"
+import { cn } from "@app/ui/lib/utils"
 import { Info, type LucideIcon } from "lucide-react"
 
 interface IToolTipProvider {

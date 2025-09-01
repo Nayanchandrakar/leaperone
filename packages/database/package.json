@@ -1,5 +1,5 @@
 {
-  "name": "@myleaper/database",
+  "name": "@app/database",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -35,7 +35,7 @@
     "drizzle-orm": "catalog:"
   },
   "devDependencies": {
-    "@myleaper/tsconfig": "workspace:*",
+    "@app/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "drizzle-kit": "catalog:",
     "typescript": "catalog:"

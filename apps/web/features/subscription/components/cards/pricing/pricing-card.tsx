@@ -1,4 +1,4 @@
-import { Button } from "@myleaper/ui/components/button"
+import { Button } from "@app/ui/components/button"
 import { BadgeCheck } from "lucide-react"
 import { ListComponent } from "@/components/shared/list-component"
 import type { IPlans } from "@/features/subscription/constants/pricing/plans"

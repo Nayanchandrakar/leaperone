@@ -1,5 +1,5 @@
 {
-  "name": "@myleaper/aws",
+  "name": "@app/aws",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
@@ -17,10 +17,10 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.864.0",
     "@aws-sdk/s3-request-presigner": "^3.864.0",
-    "@myleaper/env": "workspace:*"
+    "@app/env": "workspace:*"
   },
   "devDependencies": {
-    "@myleaper/tsconfig": "workspace:*",
+    "@app/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

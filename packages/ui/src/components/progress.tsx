@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 import type * as React from "react"
 

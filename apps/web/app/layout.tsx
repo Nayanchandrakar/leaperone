@@ -1,6 +1,6 @@
-import "@myleaper/ui/globals.css"
+import "@app/ui/globals.css"
 
-import { Toaster } from "@myleaper/ui/components/sonner"
+import { Toaster } from "@app/ui/components/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { QueryProvider } from "@/components/providers/query-provider"

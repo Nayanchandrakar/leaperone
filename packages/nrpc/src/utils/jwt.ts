@@ -1,4 +1,4 @@
-import { SERVER_ENV } from "@myleaper/env/server"
+import { SERVER_ENV } from "@app/env/server"
 import { SignJWT } from "jose"
 
 export const signJwt = async (payload: any, expiresIn = 3600) => {

@@ -1,4 +1,4 @@
-import { registerSchema } from "@myleaper/zod/client/auth"
+import { registerSchema } from "@app/zod/client/auth"
 import { baseProcedure } from "../../../utils/init"
 
 export const register = baseProcedure

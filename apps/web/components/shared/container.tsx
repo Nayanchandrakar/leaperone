@@ -1,4 +1,4 @@
-import { cn } from "@myleaper/ui/lib/utils"
+import { cn } from "@app/ui/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
 import type React from "react"
 
