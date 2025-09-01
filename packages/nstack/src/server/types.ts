@@ -1,0 +1,111 @@
+import type { Context, TypedResponse } from "hono"
+import type { Env, Input } from "hono/types"
+import type { StatusCode } from "hono/utils/http-status"
+import type superjson from "superjson"
+import type { z } from "zod"
+
+type SuperJSONParsedType<T> = ReturnType<typeof superjson.parse<T>>
+
+export type SuperJSONTypedResponse<
+  T,
+  U extends StatusCode = StatusCode,
+> = TypedResponse<SuperJSONParsedType<T>, U, "json">
+
+export interface RouterConfig {
+  name?: string
+}
+
+export type SuperJSONHandler = {
+  superjson: <T>(data: T, status?: number) => SuperJSONTypedResponse<T>
+}
+
+export type ContextWithSuperJSON<
+  E extends Env = any,
+  P extends string = any,
+  I extends Input = {},
+> = Context<E, P, I> & SuperJSONHandler
+
+export type InferMiddlewareOutput<T> = T extends MiddlewareFunction<
+  any,
+  infer R,
+  any
+>
+  ? R
+  : unknown
+
+export type MiddlewareFunction<
+  T = {},
+  R = void,
+  E extends Env = any,
+> = (params: {
+  ctx: T
+  next: <B>(args?: B) => Promise<B & T>
+  c: ContextWithSuperJSON<E>
+}) => Promise<R>
+
+export type ResponseType<Output> =
+  | SuperJSONTypedResponse<Output>
+  | TypedResponse<Output, StatusCode, "text">
+  | Response
+  | void
+
+type UnwrapResponse<T> = Awaited<T> extends TypedResponse<infer U>
+  ? U
+  : Awaited<T> extends SuperJSONTypedResponse<infer U>
+    ? U
+    : Awaited<T> extends Response
+      ? any
+      : Awaited<T> extends void
+        ? void
+        : T
+
+export type GetOperation<
+  Schema extends Record<string, any> | void,
+  Return = OptionalPromise<ResponseType<any>>,
+  E extends Env = any,
+> = {
+  type: "get"
+  schema?: z.ZodType<Schema> | void
+  handler: <Input>({
+    c,
+    ctx,
+    input,
+  }: {
+    ctx: Input
+    c: ContextWithSuperJSON<E>
+    input: Schema extends Record<string, any> ? Schema : void
+  }) => UnwrapResponse<OptionalPromise<Return>>
+  middlewares: MiddlewareFunction<any, any, E>[]
+}
+
+type OptionalPromise<T> = T | Promise<T>
+
+export type PostOperation<
+  Schema extends Record<string, any> | void,
+  Return = OptionalPromise<ResponseType<any>>,
+  E extends Env = any,
+> = {
+  type: "post"
+  schema?: z.ZodType<Schema> | void
+  handler: <Input, _>({
+    ctx,
+    c,
+  }: {
+    ctx: Input
+    c: ContextWithSuperJSON<E>
+    input: Schema extends Record<string, any> ? Schema : void
+  }) => UnwrapResponse<OptionalPromise<Return>>
+  middlewares: MiddlewareFunction<any, any, E>[]
+}
+
+export type OperationType<
+  I extends Record<string, any>,
+  O extends Record<string, unknown>,
+  E extends Env = any,
+> = GetOperation<I, O, E> | PostOperation<I, O, E>
+
+export type InferInput<T> = T extends OperationType<infer I, any>
+  ? I extends z.ZodTypeAny
+    ? z.infer<I>
+    : I
+  : void
