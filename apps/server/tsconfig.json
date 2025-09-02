@@ -5,9 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@app/trpc/*": ["../../packages/trpc/src/*"],
-      "@app/logger/*": ["../../packages/logger/src/*"],
-      "@app/env/*": ["../../packages/env/src/*"]
+      "@app/env/*": ["../../packages/env/src/*"],
+      "@app/nrpc/*": ["../../packages/nrpc/src/*"]
     }
   },
   "include": ["src/**/*"],

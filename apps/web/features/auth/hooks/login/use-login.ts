@@ -1,17 +1,21 @@
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { useTRPC } from "@/lib/trpc/client"
+import { client } from "@/lib/hono/client"
+import type { InferInput } from "@/types"
+
+type Input = InferInput["auth"]["login"]
 
 export const useLogin = () => {
-  const trpc = useTRPC()
-  return useMutation(
-    trpc.auth.login.mutationOptions({
-      onSuccess: ({ message }) => {
-        toast.success(message)
-      },
-      onError: ({ message }) => {
-        toast.error(message)
-      },
-    }),
-  )
+  return useMutation({
+    mutationFn: async (data: Input) => {
+      const res = await client.auth.login.$post(data)
+      return await res.json()
+    },
+    onSuccess: ({ message }) => {
+      toast.success(message)
+    },
+    onError: ({ message }) => {
+      toast.error(message)
+    },
+  })
 }

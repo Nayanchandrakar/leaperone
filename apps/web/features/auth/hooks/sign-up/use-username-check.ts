@@ -7,11 +7,17 @@ import type {
   IUsernameCheckParams,
 } from "@/features/auth/types"
 import { setUserNameError } from "@/features/auth/utils"
-import { useTRPC } from "@/lib/trpc/client"
+import { client } from "@/lib/hono/client"
 
 const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
-  const trpc = useTRPC()
-  return useQuery(trpc.auth.username.queryOptions({ username }, { enabled }))
+  return useQuery({
+    enabled,
+    queryKey: ["username", username],
+    queryFn: async () => {
+      const res = await client.auth.username.$get({ username })
+      return await res.json()
+    },
+  })
 }
 
 export const useUsernameError = ({

@@ -3,7 +3,7 @@ import {
   getUserByEmail,
   isUserNameTaken,
 } from "@app/database/services/users"
-import { registerSchema } from "@app/zod/client/auth"
+import { registerFormSchema } from "@app/zod/client/auth"
 import { TRPCError } from "@trpc/server"
 import { hash } from "bcryptjs"
 import { MESSAGES } from "../../../constants/messages"
@@ -12,7 +12,7 @@ import { createEmailVerificationToken } from "../services/email-verification"
 import { constructEmailVerificationUrl } from "../utils/urls"
 
 export const register = baseProcedure
-  .input(registerSchema)
+  .input(registerFormSchema)
   .mutation(async ({ input }) => {
     const existingUser = await getUserByEmail(input.email)
 

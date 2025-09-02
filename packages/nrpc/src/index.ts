@@ -1,15 +1,11 @@
-import { authRouter } from "./features/auth/router"
+import { authRouter } from "./features/auth/modules/auth.routes"
 import { n } from "./utils/init"
 
 /**
  * This is your base API.
  * Here, you can handle errors, not-found responses, cors and more.
  */
-const api = n
-  .router()
-  .basePath("/api")
-  .use(n.defaults.cors)
-  .onError(n.defaults.errorHandler)
+const api = n.router().basePath("/api").onError(n.defaults.errorHandler)
 
 /**
  * This is the main router for your server.

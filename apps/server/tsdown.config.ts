@@ -18,11 +18,9 @@ export default defineConfig(
       skipNodeModulesBundle: isProduction,
       minify: isProduction,
       noExternal: [
-        "@app/logger",
-        "@app/trpc",
+        "@app/nrpc",
         "@app/database",
         "@app/env/server",
-        "@app/trpc/server",
         "@app/database/schema",
       ],
       ...options,

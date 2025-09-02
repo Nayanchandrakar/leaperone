@@ -18,13 +18,10 @@
   "license": "ISC",
   "description": "A tRPC instance for hono server and nextjs client",
   "dependencies": {
-    "@hono/trpc-server": "catalog:",
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
-    "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
     "@paralleldrive/cuid2": "catalog:",
-    "@trpc/server": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
     "jose": "catalog:",

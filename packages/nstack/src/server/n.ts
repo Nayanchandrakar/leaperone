@@ -96,6 +96,7 @@ class NStack {
           console.error("[API Error]", err)
 
           if (err instanceof HTTPException) {
+            console.log(err.getResponse())
             return err.getResponse()
           }
           if (err instanceof ZodError) {
