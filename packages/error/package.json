@@ -1,13 +1,13 @@
 {
-  "name": "@app/zod",
+  "name": "@app/error",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./schema/*": "./src/schema/*.ts",
-    "./types": "./src/types/index.ts",
-    "./utils": "./src/utils/index.ts"
+    "./error": "./src/index.ts",
+    "./http": "./src/http-config.ts",
+    "./error-codes": "./src/error-codes.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",
@@ -16,9 +16,9 @@
   },
   "author": "myleaper-organization",
   "license": "ISC",
-  "description": "Zod schema validation for web and hono server",
+  "description": "A package for handling errors in backend",
   "dependencies": {
-    "zod": "^4.0.5"
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*"

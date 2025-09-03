@@ -5,7 +5,7 @@ export const crossOriginRequest = cors({
   maxAge: 600,
   credentials: true,
   origin: [SERVER_ENV.FRONTEND_URL],
-  allowHeaders: ["Content-Type", "Authorization", "x-is-superjson"],
+  allowHeaders: ["Content-Type", "Authorization"],
   allowMethods: ["GET", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-  exposeHeaders: ["Content-Length", "x-is-superjson"],
+  exposeHeaders: ["Content-Length"],
 })

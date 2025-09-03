@@ -1,20 +1,8 @@
-import { authRouter } from "./features/auth/modules/auth.routes"
-import { n } from "./utils/init"
+import { Hono } from "hono"
+import authRouter from "./features/auth/modules/auth.routes"
 
-/**
- * This is your base API.
- * Here, you can handle errors, not-found responses, cors and more.
- */
-const api = n.router().basePath("/api").onError(n.defaults.errorHandler)
+const app = new Hono().basePath("/api")
+const routes = app.route("/auth", authRouter)
 
-/**
- * This is the main router for your server.
- * All routers in /server/routers should be added here manually.
- */
-const appRouter = n.mergeRouters(api, {
-  auth: authRouter,
-})
-
-export type AppRouter = typeof appRouter
-
-export default appRouter
+export type AppRouter = typeof routes
+export default app

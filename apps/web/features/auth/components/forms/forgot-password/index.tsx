@@ -10,15 +10,15 @@ import {
   FormMessage,
 } from "@app/ui/components/form"
 import { Input } from "@app/ui/components/input"
-import { forgotPasswordFormSchema } from "@app/zod/client/auth"
+import { forgotPasswordFormSchema } from "@app/zod/schema/auth"
+import type { ForgotPasswordFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { useForgotPassword } from "@/features/auth/hooks/forgot-password/use-forgot-password"
-import type { IForgotPasswordFormSchema } from "@/types/zod-types"
 
 export const ForgotPasswordForm = () => {
-  const form = useForm<IForgotPasswordFormSchema>({
+  const form = useForm<ForgotPasswordFormSchema>({
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
       email: "",

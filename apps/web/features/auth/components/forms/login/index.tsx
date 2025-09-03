@@ -10,21 +10,21 @@ import {
   FormMessage,
 } from "@app/ui/components/form"
 import { Input } from "@app/ui/components/input"
-import { loginFormSchema } from "@app/zod/client/auth"
+import { loginFormSchema } from "@app/zod/schema/auth"
+import type { LoginFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useLogin } from "@/features/auth/hooks/login/use-login"
-import type { ILoginFormSchema } from "@/types/zod-types"
 
 interface ILoginForm {
   callbackUrl: string
 }
 
 export const LoginForm = ({ callbackUrl }: ILoginForm) => {
-  const form = useForm<ILoginFormSchema>({
+  const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",

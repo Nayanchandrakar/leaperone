@@ -1,34 +1,38 @@
-import { loginFormSchema, registerFormSchema } from "@app/zod/client/auth"
-import { userNameSchema } from "@app/zod/common/index"
-import { redis } from "src/lib/redis"
-import { baseProcedure } from "src/utils/init"
+import { HTTPSTATUS } from "../../../config/http.config"
+import type {
+  LoginController,
+  RegisterController,
+  UserNameController,
+} from "../types"
 import type { AuthService } from "./auth.service"
 
 export class AuthController {
+  private static instance: AuthController | null = null
   private authService: AuthService
 
   constructor(authService: AuthService) {
     this.authService = authService
   }
 
-  public login = baseProcedure
-    .input(loginFormSchema)
-    .mutation(async ({ c }) => {
-      return c.json({ message: "Hello world program" })
-    })
+  public static init(authService: AuthService) {
+    if (!AuthController.instance) {
+      AuthController.instance = new AuthController(authService)
+    }
+    return AuthController.instance
+  }
 
-  public register = baseProcedure
-    .input(registerFormSchema)
-    .mutation(async ({ c }) => {
-      return c.json({ message: "Hello world program" })
-    })
+  async userName(c: UserNameController) {
+    const input = c.req.valid("param")
+    const exists = await this.authService.findUserName(input.username)
+    return c.json({ exists }, HTTPSTATUS.OK)
+  }
 
-  public username = baseProcedure
-    .input(userNameSchema)
-    .query(async ({ c, input }) => {
-      const { username } = input
+  async register(c: RegisterController) {
+    await this.authService.register(c)
+    return c.json({ message: "Account created successfully" })
+  }
 
-      const exists = await redis.hexists("username_records", username)
-      return c.json({ query: username, exists: Boolean(exists) })
-    })
+  async login(c: LoginController) {
+    return c.json({ message: "Hello world program" })
+  }
 }

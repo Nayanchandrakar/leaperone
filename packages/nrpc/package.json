@@ -16,15 +16,15 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
-    "@app/nstack": "workspace:*",
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
+    "@app/error": "workspace:*",
     "@app/zod": "workspace:*",
+    "@hono/zod-validator": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
     "jose": "catalog:",
-    "superjson": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {

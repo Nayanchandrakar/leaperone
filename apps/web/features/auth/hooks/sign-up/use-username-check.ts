@@ -14,7 +14,7 @@ const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
     enabled,
     queryKey: ["username", username],
     queryFn: async () => {
-      const res = await client.auth.username.$get({ username })
+      const res = await client.api.auth.username.$get({ param: { username } })
       return await res.json()
     },
   })

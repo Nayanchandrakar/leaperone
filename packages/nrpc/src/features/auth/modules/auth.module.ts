@@ -1,7 +1,9 @@
+import { UserRepository } from "@app/database/repository/user"
 import { AuthController } from "./auth.controller"
 import { AuthService } from "./auth.service"
 
-const authService = new AuthService()
-const authController = new AuthController(authService)
+const userRepository = UserRepository.init()
+const authService = AuthService.init(userRepository)
+const authController = AuthController.init(authService)
 
 export { authService, authController }

@@ -1,5 +1,6 @@
-import type { AppRouter } from "@app/nrpc/index"
-import type { InferRouterInputs, InferRouterOutputs } from "@app/nstack"
+import type { InferRequestType } from "hono"
+import type { client } from "@/lib/hono/client"
 
-export type InferInput = InferRouterInputs<AppRouter>
-export type InferOutput = InferRouterOutputs<AppRouter>
+export type LoginRequest = InferRequestType<typeof client.api.auth.login>
+export type RegistRequest = InferRequestType<typeof client.api.auth.register>
+export type UserNameRequest = InferRequestType<typeof client.api.auth.username>

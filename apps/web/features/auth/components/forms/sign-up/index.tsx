@@ -10,7 +10,8 @@ import {
   FormMessage,
 } from "@app/ui/components/form"
 import { Input } from "@app/ui/components/input"
-import { registerFormSchema } from "@app/zod/client/auth"
+import { registerFormSchema } from "@app/zod/schema/auth"
+import type { RegisterFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
@@ -22,7 +23,6 @@ import {
   useAccountFormContext,
   useUsernameError,
 } from "@/features/auth/hooks/sign-up/use-username-check"
-import type { IRegisterFormSchema } from "@/types/zod-types"
 
 interface ISignupForm {
   callbackUrl: string
@@ -31,7 +31,7 @@ interface ISignupForm {
 export const SignupForm = ({ callbackUrl }: ISignupForm) => {
   const { mutate } = useRegister()
 
-  const form = useForm<IRegisterFormSchema>({
+  const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerFormSchema),
     mode: "onChange",
     defaultValues: {

@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@app/nstack/*": ["../../packages/nstack/src/*"]
+      "@app/error/*": ["../../packages/error/src/*"]
     }
   },
   "include": ["src/**/*"],

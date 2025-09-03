@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { client } from "@/lib/hono/client"
-import type { InferInput } from "@/types"
-
-type Input = InferInput["auth"]["register"]
+import type { RegistRequest } from "@/types"
 
 export const useRegister = () => {
   return useMutation({
-    mutationFn: async (data: Input) => {
-      const res = await client.auth.register.$post(data)
+    mutationFn: async (data: RegistRequest) => {
+      const res = await client.api.auth.register.$post(data)
       return await res.json()
     },
     onSuccess: ({ message }) => {
