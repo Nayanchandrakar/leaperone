@@ -118,7 +118,7 @@ export class ApiError extends Error {
         error.message,
         HTTPSTATUS.INTERNAL_SERVER_ERROR,
         ErrorCode.INTERNAL_SERVER_ERROR,
-        { stack: error.stack },
+        { cause: error.cause },
       )
     }
 

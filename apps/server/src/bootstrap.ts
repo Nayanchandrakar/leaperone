@@ -5,6 +5,7 @@ import { logger } from "hono/logger"
 import { secureHeaders } from "hono/secure-headers"
 import { crossOriginRequest } from "@/config/cors"
 import { startServer } from "@/hono/server"
+import { ErrorHandler } from "./utils"
 
 export function bootStrapServer() {
   const server = new Hono()
@@ -14,6 +15,7 @@ export function bootStrapServer() {
   server.use(crossOriginRequest)
   server.use(csrf())
   server.route("/", router)
+  server.onError(ErrorHandler)
 
   startServer(server.fetch)
 }
