@@ -1,22 +1,37 @@
 import type { UserRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
-import { hash } from "bcryptjs"
+import { compare, hash } from "bcryptjs"
+import { MSG } from "src/constants/message"
 import { createRoute } from "src/utils/urls"
 import { redis } from "../../../lib/redis"
 import { signJwt } from "../lib/jwt"
-import type { RegisterController } from "../types"
+import type { LoginController, RegisterController } from "../types"
+import type { CookieManager } from "../utils/cookie"
+import type { SessionManager } from "../utils/session"
 
 export class AuthService {
-  private userRepository: UserRepository
   private static instance: AuthService | null = null
+  private userRepository: UserRepository
+  private session: SessionManager
+  private cookie: CookieManager
 
-  private constructor(userRepository: UserRepository) {
+  private constructor(
+    userRepository: UserRepository,
+    session: SessionManager,
+    cookie: CookieManager,
+  ) {
+    this.cookie = cookie
+    this.session = session
     this.userRepository = userRepository
   }
 
-  static init(userRepository: UserRepository) {
+  static init(
+    userRepository: UserRepository,
+    session: SessionManager,
+    cookie: CookieManager,
+  ) {
     if (!AuthService.instance) {
-      AuthService.instance = new AuthService(userRepository)
+      AuthService.instance = new AuthService(userRepository, session, cookie)
     }
     return AuthService.instance
   }
@@ -32,7 +47,7 @@ export class AuthService {
     const isUserExist = await this.userRepository.findUserByEmail(input.email)
 
     if (isUserExist) {
-      throw ApiError.conflict("Email is already registered")
+      throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
     const isUserNameTaken = await this.userRepository.findUserWithUserName(
@@ -40,7 +55,7 @@ export class AuthService {
     )
 
     if (isUserNameTaken) {
-      throw ApiError.conflict("Username has been already taken")
+      throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
     const hashedPassword = await hash(input.password, 10)
@@ -53,7 +68,7 @@ export class AuthService {
     )
 
     if (!newUser) {
-      throw ApiError.badRequest("Failed to create user account")
+      throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
     const token = await signJwt({ email: input.email.toLocaleLowerCase() }, 500)
@@ -68,4 +83,61 @@ export class AuthService {
       url: callbackString.toString(),
     })
   }
+
+  async login(c: LoginController) {
+    const input = c.req.valid("json")
+
+    const userWithAccounts = await this.userRepository.findUserWithAccount(
+      input.email,
+    )
+
+    if (!userWithAccounts) {
+      throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
+    }
+
+    const { user, accounts } = userWithAccounts
+
+    const credentialAccount = accounts.find(
+      (a) => a.providerId === "credential",
+    )
+
+    if (
+      !credentialAccount ||
+      !credentialAccount.password ||
+      !(await compare(input.password, credentialAccount.password))
+    ) {
+      throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
+    }
+
+    if (user?.emailVerified) {
+      const token = await signJwt(
+        { email: input.email.toLocaleLowerCase() },
+        500,
+      )
+      const callbackString = createRoute("/api/auth/email-verification", {
+        token,
+        callbackUrl: input.callbackUrl,
+      })
+
+      // TODO: send email verification link from here
+      console.info({
+        email: input.email,
+        url: callbackString.toString(),
+      })
+    }
+
+    const session = await this.session.create(c, user!)
+
+    if (!session) {
+      throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)
+    }
+
+    await this.cookie.set(c, "__myleap", session.session.token, {
+      expires: new Date(),
+    })
+
+    // await this.cookie.set(c, session)
+  }
+
+  async setSessionCookie() {}
 }

@@ -1,4 +1,4 @@
-export const MESSAGES = {
+export const MSG = {
   AUTH: {
     LOGOUT_SUCCESS: "You’ve been logged out successfully.",
     LOGIN_SUCCESS: "Welcome back! You’ve logged in successfully.",
@@ -7,7 +7,7 @@ export const MESSAGES = {
 
   USER: {
     NOT_FOUND: "User not found",
-    USERNAME_EXISTS: "User name already in use.",
+    USERNAME_EXISTS: "Username has been already taken",
     ALREADY_EXISTS: "User already exists. Use another email.",
     EMAIL_NOT_FOUND: "User email not found",
     EMAIL_CANNOT_UPDATE: "Email can not be updated",
@@ -17,7 +17,7 @@ export const MESSAGES = {
   },
 
   PASSWORD: {
-    INVALID_EMAIL_OR_PASSWORD: "Invalid email or password",
+    INVALID_PASSWORD: "Invalid email or password",
     INVALID: "Invalid password",
     TOO_SHORT: "Password too short",
     TOO_LONG: "Password too long",
@@ -52,5 +52,3 @@ export const MESSAGES = {
     PERMISSION_DENIED: "You don’t have permission to perform this action.",
   },
 } as const
-
-export default MESSAGES

@@ -1,13 +1,13 @@
 import type { Context } from "hono"
 
-export function getRequestIp(ctx: Context) {
-  const bindings = ctx.env.server ? ctx.env.server : ctx.env
-  const address = bindings.incoming.socket.remoteAddress
+const isDevelopment = true
 
-  const isDevelopment = true
+export function getRequestIp(c: Context) {
+  const bindings = c.env.server ? c.env.server : c.env
+  let address = bindings.incoming.socket.remoteAddress
 
   if (isDevelopment) {
-    return "127.0.0.1"
+    address = "127.0.0.1"
   }
 
   return address

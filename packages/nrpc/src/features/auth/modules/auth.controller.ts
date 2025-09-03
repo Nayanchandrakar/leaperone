@@ -29,10 +29,11 @@ export class AuthController {
 
   async register(c: RegisterController) {
     await this.authService.register(c)
-    return c.json({ message: "Account created successfully" })
+    return c.json({ message: "Account created Successfully" })
   }
 
   async login(c: LoginController) {
+    await this.authService.login(c)
     return c.json({ message: "Hello world program" })
   }
 }
