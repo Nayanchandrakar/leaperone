@@ -2,6 +2,7 @@ import { HTTPSTATUS } from "../../../config/http.config"
 import type {
   GetSessionController,
   LoginController,
+  LogoutController,
   RegisterController,
   UserNameController,
 } from "../types"
@@ -44,5 +45,10 @@ export class AuthController {
   async getSession(c: GetSessionController) {
     const session = await this.authService.getSession(c)
     return c.json(session)
+  }
+
+  async logout(c: LogoutController) {
+    await this.authService.logout(c)
+    return c.json({ message: "Logout successfully" })
   }
 }

@@ -25,3 +25,4 @@ export type UserNameController = Context<
 >
 
 export type GetSessionController = Context<{}, "/get-session">
+export type LogoutController = Context<{}, "/logout">

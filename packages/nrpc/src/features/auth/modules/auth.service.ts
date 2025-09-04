@@ -9,6 +9,7 @@ import { signJwt } from "../lib/jwt"
 import type {
   GetSessionController,
   LoginController,
+  LogoutController,
   RegisterController,
 } from "../types"
 import type { Cookie } from "../utils/cookie"
@@ -144,5 +145,17 @@ export class AuthService {
 
   async getSession(c: GetSessionController) {
     return await this.session.get(c)
+  }
+
+  async logout(c: LogoutController) {
+    const sessionCookieToken = await this.cookie.get(c, SESSION_COOKIE_NAME)
+
+    if (!sessionCookieToken) {
+      this.cookie.delete(c, SESSION_COOKIE_NAME)
+      throw ApiError.badRequest(MSG.SESSION.FAILED_TO_GET)
+    }
+
+    await this.session.delete(sessionCookieToken)
+    this.cookie.delete(c, SESSION_COOKIE_NAME)
   }
 }

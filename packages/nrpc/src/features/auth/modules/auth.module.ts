@@ -4,9 +4,9 @@ import { Session } from "../utils/session"
 import { AuthController } from "./auth.controller"
 import { AuthService } from "./auth.service"
 
-const userRepository = UserRepository.init()
 const cookie = Cookie.init()
 const session = Session.init(cookie)
+const userRepository = UserRepository.init()
 const authService = AuthService.init(userRepository, session, cookie)
 const authController = AuthController.init(authService)
 
