@@ -5,6 +5,7 @@ import type {
   LogoutController,
   RegisterController,
   UserNameController,
+  VerifyEmailController,
 } from "../types"
 import type { AuthService } from "./auth.service"
 
@@ -50,5 +51,10 @@ export class AuthController {
   async logout(c: LogoutController) {
     await this.authService.logout(c)
     return c.json({ message: "Logout successfully" })
+  }
+
+  async verifyEmail(c: VerifyEmailController) {
+    return await this.authService.verifyEmail(c)
+    // return c.json({ message: "Succefully verified user email" })
   }
 }

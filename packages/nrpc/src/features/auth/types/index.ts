@@ -2,6 +2,7 @@ import type {
   LoginFormSchema,
   RegisterFormSchema,
   UserNameFormSchema,
+  VerifyEmailSchema,
 } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO } from "src/types"
@@ -22,6 +23,12 @@ export type UserNameController = Context<
   {},
   "/username",
   ControllerIO<"param", UserNameFormSchema>
+>
+
+export type VerifyEmailController = Context<
+  {},
+  "/verify-email",
+  ControllerIO<"query", VerifyEmailSchema>
 >
 
 export type GetSessionController = Context<{}, "/get-session">

@@ -2,6 +2,7 @@ import {
   loginFormSchema,
   registerFormSchema,
   userNameSchema,
+  verifyEmailSchema,
 } from "@app/zod/schema/auth"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
@@ -22,6 +23,9 @@ const app = new Hono()
   })
   .get("/get-session", (opts) => {
     return authController.getSession(opts)
+  })
+  .get("/verify-email", zValidator("query", verifyEmailSchema), (opts) => {
+    return authController.verifyEmail(opts)
   })
 
 export default app

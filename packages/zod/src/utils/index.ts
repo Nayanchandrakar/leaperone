@@ -10,6 +10,7 @@ export const username = z
       "Username can only contain letters, no numbers, special characters, or symbols",
   })
   .toLowerCase()
+  .trim()
 
 export const password = z
   .string()
@@ -18,3 +19,7 @@ export const password = z
     message: "Password: 8+ chars, 1 upper, 1 lower, 1 number, 1 special",
   })
   .max(12)
+  .trim()
+
+export const callbackUrl = z.string().trim()
+export const email = z.email().trim()

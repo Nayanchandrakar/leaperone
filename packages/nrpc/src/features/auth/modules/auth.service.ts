@@ -1,6 +1,7 @@
 import type { UserRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
 import { compare, hash } from "bcryptjs"
+import { JwtTokenExpired } from "hono/utils/jwt/types"
 import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
 import { createRoute } from "../../../utils/urls"
@@ -11,6 +12,7 @@ import type {
   LoginController,
   LogoutController,
   RegisterController,
+  VerifyEmailController,
 } from "../types"
 import type { Cookie } from "../utils/cookie"
 import type { Session } from "../utils/session"
@@ -157,5 +159,19 @@ export class AuthService {
 
     await this.session.delete(sessionCookieToken)
     this.cookie.delete(c, SESSION_COOKIE_NAME)
+  }
+
+  async verifyEmail(c: VerifyEmailController) {
+    // const input = c.req.valid("query")
+
+    try {
+      // const payload = await verifyJwt(input.token)
+      return c.json({ mesage: "Verification succefull" })
+    } catch (err) {
+      if (err instanceof JwtTokenExpired) {
+        return c.redirect("/some-place")
+      }
+      return c.redirect("/some-other-place")
+    }
   }
 }
