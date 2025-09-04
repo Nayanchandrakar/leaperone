@@ -1,24 +1,29 @@
 import type { UserRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
 import { compare, hash } from "bcryptjs"
-import { MSG } from "src/constants/message"
-import { createRoute } from "src/utils/urls"
+import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
+import { createRoute } from "../../../utils/urls"
+import { SESSION_COOKIE_NAME } from "../constants"
 import { signJwt } from "../lib/jwt"
-import type { LoginController, RegisterController } from "../types"
-import type { CookieManager } from "../utils/cookie"
-import type { SessionManager } from "../utils/session"
+import type {
+  GetSessionController,
+  LoginController,
+  RegisterController,
+} from "../types"
+import type { Cookie } from "../utils/cookie"
+import type { Session } from "../utils/session"
 
 export class AuthService {
   private static instance: AuthService | null = null
   private userRepository: UserRepository
-  private session: SessionManager
-  private cookie: CookieManager
+  private session: Session
+  private cookie: Cookie
 
   private constructor(
     userRepository: UserRepository,
-    session: SessionManager,
-    cookie: CookieManager,
+    session: Session,
+    cookie: Cookie,
   ) {
     this.cookie = cookie
     this.session = session
@@ -27,8 +32,8 @@ export class AuthService {
 
   static init(
     userRepository: UserRepository,
-    session: SessionManager,
-    cookie: CookieManager,
+    session: Session,
+    cookie: Cookie,
   ) {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService(userRepository, session, cookie)
@@ -132,12 +137,12 @@ export class AuthService {
       throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)
     }
 
-    await this.cookie.set(c, "__myleap", session.session.token, {
-      expires: new Date(),
-    })
+    await this.cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
 
-    // await this.cookie.set(c, session)
+    return session
   }
 
-  async setSessionCookie() {}
+  async getSession(c: GetSessionController) {
+    return await this.session.get(c)
+  }
 }

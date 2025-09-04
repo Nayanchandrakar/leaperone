@@ -23,3 +23,5 @@ export type UserNameController = Context<
   "/username",
   ControllerIO<"param", UserNameFormSchema>
 >
+
+export type GetSessionController = Context<{}, "/get-session">

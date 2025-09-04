@@ -1,5 +1,6 @@
 import { HTTPSTATUS } from "../../../config/http.config"
 import type {
+  GetSessionController,
   LoginController,
   RegisterController,
   UserNameController,
@@ -33,7 +34,15 @@ export class AuthController {
   }
 
   async login(c: LoginController) {
-    await this.authService.login(c)
-    return c.json({ message: "Hello world program" })
+    const session = await this.authService.login(c)
+    return c.json({
+      message: "Hello world program",
+      data: { user: session.user },
+    })
+  }
+
+  async getSession(c: GetSessionController) {
+    const session = await this.authService.getSession(c)
+    return c.json(session)
   }
 }

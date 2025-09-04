@@ -1,36 +1,38 @@
 import { SERVER_ENV } from "@app/env/server"
 import type { Context } from "hono"
-import { setSignedCookie } from "hono/cookie"
+import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie"
 import type { CookieOptions } from "hono/utils/cookie"
+import { COOKIE_OPTIONS } from "../constants"
 
-export class CookieManager {
-  private static instance: CookieManager | null = null
-  private readonly cookieOptions: CookieOptions = {
-    domain: "localhost",
-    httpOnly: true,
-    path: "/",
-    sameSite: "Lax",
-    secure: true,
-  }
+export class Cookie {
+  private static instance: Cookie | null = null
 
   private constructor() {}
 
   public static init() {
-    if (!CookieManager.instance) {
-      CookieManager.instance = new CookieManager()
+    if (!Cookie.instance) {
+      Cookie.instance = new Cookie()
     }
-    return CookieManager.instance
+    return Cookie.instance
   }
 
   public async set(
     c: Context,
     name: string,
     value: string,
-    options: Partial<CookieOptions>,
+    overrides?: Partial<CookieOptions>,
   ) {
     await setSignedCookie(c, name, value, SERVER_ENV.AUTH_SECRET, {
-      ...this.cookieOptions,
-      ...options,
+      ...COOKIE_OPTIONS,
+      ...overrides,
     })
+  }
+
+  public async get(c: Context, key: string) {
+    return await getSignedCookie(c, SERVER_ENV.AUTH_SECRET, key)
+  }
+
+  public delete(c: Context, key: string) {
+    deleteCookie(c, key)
   }
 }

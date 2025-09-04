@@ -43,7 +43,7 @@ export class ApiError extends Error {
   }
 
   public static unauthorized(
-    message = "Unauthorized",
+    message = "Not authenticated",
     details?: unknown,
   ): ApiError {
     return new ApiError(

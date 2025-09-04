@@ -6,7 +6,7 @@ import type { LoginRequest } from "@/types"
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (data: LoginRequest) => {
-      const res = await client.api.auth.login.$post(data)
+      const res = await client.api.auth.login.$post({ json: data })
       return await res.json()
     },
     onSuccess: ({ message }) => {

@@ -12,10 +12,13 @@ const app = new Hono()
     return authController.register(opts)
   })
   .post("/login", zValidator("json", loginFormSchema), (opts) => {
-    return authController.register(opts)
+    return authController.login(opts)
   })
   .get("/username", zValidator("param", userNameSchema), (opts) => {
     return authController.userName(opts)
+  })
+  .get("/get-session", (opts) => {
+    return authController.getSession(opts)
   })
 
 export default app

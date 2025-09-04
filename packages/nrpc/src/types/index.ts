@@ -1,3 +1,4 @@
+import type { User } from "@app/database/types"
 import type { ValidationTargets } from "hono"
 
 export type Session = {
@@ -13,6 +14,11 @@ export type Session = {
 export type ActiveSession = {
   token: string
   expiresAt: number
+}
+
+export type FullSession = {
+  session: Session
+  user: User
 }
 
 export type ControllerIO<T extends keyof ValidationTargets, Schema> = {
