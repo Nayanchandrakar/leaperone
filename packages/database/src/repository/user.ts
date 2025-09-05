@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
 import { users } from "../schema/users"
+import type { User } from "../types"
 
 export class UserRepository {
   private static instance: UserRepository | null = null
@@ -102,6 +103,20 @@ export class UserRepository {
     } catch (error) {
       console.log(error)
       return false
+    }
+  }
+
+  async updateUserByEmail(email: string, overrides: Partial<User>) {
+    try {
+      const [user] = await dbHttp
+        .update(users)
+        .set(overrides)
+        .where(eq(users.email, email))
+        .returning()
+      return user
+    } catch (error) {
+      console.log(error)
+      return null
     }
   }
 }

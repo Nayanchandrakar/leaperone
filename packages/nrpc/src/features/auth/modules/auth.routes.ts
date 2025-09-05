@@ -6,7 +6,7 @@ import {
 } from "@app/zod/schema/auth"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
-import { authController } from "./auth.module"
+import { authController, authMiddleware } from "./auth.module"
 
 const app = new Hono()
   .post("/register", zValidator("json", registerFormSchema), (opts) => {
@@ -24,8 +24,11 @@ const app = new Hono()
   .get("/get-session", (opts) => {
     return authController.getSession(opts)
   })
-  .get("/verify-email", zValidator("query", verifyEmailSchema), (opts) => {
-    return authController.verifyEmail(opts)
-  })
+  .get(
+    "/verify-email",
+    zValidator("query", verifyEmailSchema),
+    authMiddleware.verifyToken,
+    (opts) => authController.verifyEmail(opts),
+  )
 
 export default app

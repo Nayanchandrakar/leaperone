@@ -25,5 +25,9 @@ export const userNameSchema = z.object({
 
 export const verifyEmailSchema = z.object({
   token: z.jwt().min(1),
-  callbackUrl: callbackUrl,
+  callbackUrl: z.string().min(1),
+})
+
+export const emailSchema = z.object({
+  email,
 })

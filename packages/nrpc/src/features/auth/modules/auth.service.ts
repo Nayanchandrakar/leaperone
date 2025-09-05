@@ -1,11 +1,11 @@
 import type { UserRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
+import { emailSchema } from "@app/zod/schema/auth"
 import { compare, hash } from "bcryptjs"
-import { JwtTokenExpired } from "hono/utils/jwt/types"
 import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
 import { createRoute } from "../../../utils/urls"
-import { SESSION_COOKIE_NAME } from "../constants"
+import { SESSION_COOKIE_NAME, SESSION_EXPIRY } from "../constants"
 import { signJwt } from "../lib/jwt"
 import type {
   GetSessionController,
@@ -79,7 +79,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
-    const token = await signJwt({ email: input.email.toLocaleLowerCase() }, 500)
+    const token = await signJwt({ email: input.email.toLowerCase() }, 500)
     const callbackString = createRoute("/api/auth/email-verification", {
       token,
       callbackUrl: input.callbackUrl,
@@ -162,16 +162,47 @@ export class AuthService {
   }
 
   async verifyEmail(c: VerifyEmailController) {
-    // const input = c.req.valid("query")
+    const payload = c.get("jwtPayload")
+    const { success, data } = emailSchema.safeParse(payload)
 
-    try {
-      // const payload = await verifyJwt(input.token)
-      return c.json({ mesage: "Verification succefull" })
-    } catch (err) {
-      if (err instanceof JwtTokenExpired) {
-        return c.redirect("/some-place")
-      }
-      return c.redirect("/some-other-place")
+    if (!success) {
+      throw ApiError.validationError()
     }
+
+    const user = await this.userRepository.findUserByEmail(data.email)
+
+    if (!user) {
+      throw ApiError.unauthorized()
+    }
+
+    const updatedUser = await this.userRepository.updateUserByEmail(
+      user.email,
+      {
+        emailVerified: true,
+      },
+    )
+
+    if (!updatedUser) {
+      throw ApiError.badRequest()
+    }
+
+    // Sign-in user automatically after verification
+    const currentSession = await this.session.get(c)
+
+    if (!currentSession || currentSession.user.email !== data.email) {
+      const session = await this.session.create(c, updatedUser)
+      await this.cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
+    } else {
+      const newSession = {
+        user: updatedUser,
+        session: currentSession.session,
+      }
+
+      await redis.set(currentSession.session.token, newSession, {
+        ex: SESSION_EXPIRY,
+      })
+    }
+
+    return c.redirect(c.req.valid("query").callbackUrl)
   }
 }

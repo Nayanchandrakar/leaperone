@@ -55,6 +55,5 @@ export class AuthController {
 
   async verifyEmail(c: VerifyEmailController) {
     return await this.authService.verifyEmail(c)
-    // return c.json({ message: "Succefully verified user email" })
   }
 }

@@ -3,7 +3,7 @@ import { ApiError } from "@app/error/index"
 import { createId } from "@paralleldrive/cuid2"
 import type { Context } from "hono"
 import { redis } from "../../../lib/redis"
-import type { Session as SessionType } from "../../../types/index"
+import type { FullSession } from "../../../types/index"
 import { getDate } from "../../../utils/date"
 import { getRequestIp } from "../../../utils/request-ip"
 import {
@@ -29,16 +29,13 @@ export class Session {
     return Session.instance
   }
 
-  public async create(
-    c: Context,
-    user: User,
-  ): Promise<{ user: User; session: SessionType }> {
+  public async create(c: Context, user: User): Promise<FullSession> {
     const token = createId()
     const ipAddress = getRequestIp(c)
     const userAgent = c.req.header("User-Agent")
     const expiresAt = getDate(SESSION_EXPIRY, "sec")
 
-    const session: SessionType = {
+    const session: FullSession["session"] = {
       token,
       ipAddress,
       userAgent,
@@ -112,7 +109,7 @@ export class Session {
       }
 
       const maxAge = (updatedSession.expiresAt.valueOf() - Date.now()) / 1000
-      const data = { sesion: updatedSession, user: session.user }
+      const data = { session: updatedSession, user: session.user }
 
       await redis.set(token, data, {
         ex: SESSION_EXPIRY,
@@ -130,13 +127,13 @@ export class Session {
 
   public async update(
     token: string,
-    overrides: Partial<SessionType>,
-  ): Promise<SessionType | null> {
+    overrides: Partial<FullSession["session"]>,
+  ): Promise<FullSession["session"] | null> {
     const fullSession = await getSessionByToken(token)
 
     if (!fullSession) return null
 
-    const updatedSession: SessionType = {
+    const updatedSession: FullSession["session"] = {
       ...fullSession.session,
       ...overrides,
     }

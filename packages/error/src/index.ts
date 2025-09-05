@@ -1,11 +1,13 @@
 import type { Context } from "hono"
+import { HTTPException } from "hono/http-exception"
+import type { ContentfulStatusCode } from "hono/utils/http-status"
 import { ErrorCode } from "./error-codes"
-import { HTTPSTATUS, type HttpStatusCode } from "./http-config"
+import { HTTPSTATUS } from "./http-config"
 
 export class ApiError extends Error {
   constructor(
     message: string,
-    public readonly status: HttpStatusCode,
+    public readonly status: ContentfulStatusCode,
     public readonly code: ErrorCode,
     public readonly details?: unknown | null,
   ) {
@@ -38,6 +40,18 @@ export class ApiError extends Error {
       message,
       HTTPSTATUS.BAD_REQUEST,
       ErrorCode.BAD_REQUEST,
+      details,
+    )
+  }
+
+  public static validationError(
+    message = "Validation error",
+    details?: unknown,
+  ): ApiError {
+    return new ApiError(
+      message,
+      HTTPSTATUS.BAD_REQUEST,
+      ErrorCode.VALIDATION_ERROR,
       details,
     )
   }
@@ -109,6 +123,15 @@ export class ApiError extends Error {
   }
 
   public static fromError(error: unknown): ApiError {
+    if (error instanceof HTTPException) {
+      return new ApiError(
+        "Http Exception Error",
+        error.status,
+        ErrorCode.INTERNAL_SERVER_ERROR,
+        { cause: error.cause },
+      )
+    }
+
     if (error instanceof ApiError) {
       return error
     }
