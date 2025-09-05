@@ -18,7 +18,7 @@ const app = new Hono()
   .post("/logout", (opts) => {
     return authController.logout(opts)
   })
-  .get("/username", zValidator("param", userNameSchema), (opts) => {
+  .get("/username", zValidator("query", userNameSchema), (opts) => {
     return authController.userName(opts)
   })
   .get("/get-session", (opts) => {

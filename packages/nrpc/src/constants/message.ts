@@ -5,6 +5,15 @@ export const MSG = {
     UNAUTHORIZED: "Your session has expired. Please log in again.",
   },
 
+  VERIFICATION: {
+    ALREADY_VERIFIED: "Your email is already verified.",
+    SUCCESS: "Your email has been verified successfully.",
+    FAILED: "Verification failed. Please try again.",
+    CODE_EXPIRED: "Verification code has expired. Request a new one.",
+    CODE_INVALID: "Invalid verification code. Please try again.",
+    LINK_SENT: "A verification link has been sent to your email.",
+  },
+
   USER: {
     NOT_FOUND: "User not found",
     USERNAME_EXISTS: "Username has been already taken",

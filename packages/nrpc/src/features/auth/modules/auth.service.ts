@@ -46,9 +46,9 @@ export class AuthService {
   }
 
   async findUserName(c: UserNameController) {
-    const input = c.req.valid("param")
+    const input = c.req.valid("query")
     const exists = await redis.hexists("username_records", input.username)
-    return Boolean(exists)
+    return c.json({ exists: Boolean(exists) })
   }
 
   async register(c: RegisterController) {
@@ -96,6 +96,8 @@ export class AuthService {
       email: input.email,
       url: callbackString.toString(),
     })
+
+    return c.json({ message: MSG.VERIFICATION.LINK_SENT })
   }
 
   async login(c: LoginController) {
@@ -135,6 +137,8 @@ export class AuthService {
         email: input.email,
         url: callbackString.toString(),
       })
+
+      return c.json({ message: MSG.VERIFICATION.LINK_SENT })
     }
 
     const session = await this.session.create(c, user!)
@@ -145,7 +149,10 @@ export class AuthService {
 
     await this.cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
 
-    return session
+    return c.json({
+      message: MSG.AUTH.LOGIN_SUCCESS,
+      data: { user: session.user },
+    })
   }
 
   async getSession(c: GetSessionController) {

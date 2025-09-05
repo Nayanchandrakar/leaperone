@@ -22,7 +22,7 @@ export type LoginController = Context<
 export type UserNameController = Context<
   {},
   "/username",
-  ControllerIO<"param", UserNameFormSchema>
+  ControllerIO<"query", UserNameFormSchema>
 >
 
 export type VerifyEmailController = Context<

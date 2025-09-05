@@ -24,21 +24,15 @@ export class AuthController {
   }
 
   async userName(c: UserNameController) {
-    const exists = await this.authService.findUserName(c)
-    return c.json({ exists })
+    return await this.authService.findUserName(c)
   }
 
   async register(c: RegisterController) {
-    await this.authService.register(c)
-    return c.json({ message: "Account created Successfully" })
+    return await this.authService.register(c)
   }
 
   async login(c: LoginController) {
-    const session = await this.authService.login(c)
-    return c.json({
-      message: "Login Successfully",
-      data: { user: session.user },
-    })
+    return await this.authService.login(c)
   }
 
   async getSession(c: GetSessionController) {

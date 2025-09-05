@@ -8,14 +8,21 @@ import type {
 } from "@/features/auth/types"
 import { setUserNameError } from "@/features/auth/utils"
 import { client } from "@/lib/hono/client"
+import { ResponseHandler } from "@/utils/response-handler"
 
 const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
   return useQuery({
     enabled,
     queryKey: ["username", username],
     queryFn: async () => {
-      const res = await client.api.auth.username.$get({ param: { username } })
-      return await res.json()
+      const req = await client.api.auth.username.$get({ query: { username } })
+      const response = await req.json()
+
+      if (!req.ok) {
+        throw ResponseHandler.error(response)
+      }
+
+      return response
     },
   })
 }
@@ -74,6 +81,8 @@ export const useAccountFormContext = ({
     username: value,
     enabled,
   })
+
+  console.log(error, isError, "From the server side")
 
   const isUserNameTaken = useMemo(() => Boolean(data?.exists), [data])
 
