@@ -5,14 +5,14 @@ export const registerFormSchema = z.object({
   email,
   password,
   username,
-  callbackUrl,
+  callbackUrl: callbackUrl.optional(),
   name: z.string().min(1, { error: "Name is required" }).max(30),
 })
 
 export const loginFormSchema = z.object({
   password,
   email,
-  callbackUrl,
+  callbackUrl: callbackUrl.optional(),
 })
 
 export const forgotPasswordFormSchema = z.object({
@@ -25,7 +25,7 @@ export const userNameSchema = z.object({
 
 export const verifyEmailSchema = z.object({
   token: z.jwt().min(1),
-  callbackUrl: z.string().min(1),
+  callbackUrl,
 })
 
 export const emailSchema = z.object({

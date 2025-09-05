@@ -82,8 +82,6 @@ export const useAccountFormContext = ({
     enabled,
   })
 
-  console.log(error, isError, "From the server side")
-
   const isUserNameTaken = useMemo(() => Boolean(data?.exists), [data])
 
   return {

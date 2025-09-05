@@ -1,8 +1,9 @@
 export class ResponseHandler {
   private constructor() {}
 
-  static error(error: unknown) {
-    // @ts-expect-error
-    throw new Error(error?.error?.message ?? "Something went wrong")
+  static error(error: any) {
+    if (!error.success) {
+      throw new Error(error?.error?.message ?? "Something went wrong")
+    }
   }
 }
