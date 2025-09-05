@@ -1,8 +1,8 @@
 import type { Next } from "hono"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
-import { createRoute } from "src/utils/urls"
-import { verifyJwt } from "../lib/jwt"
+import { createRoute } from "../../../utils/urls"
 import type { VerifyEmailController } from "../types"
+import { verifyJwt } from "../utils/jwt"
 
 export class AuthMiddleware {
   private static instance: AuthMiddleware | null = null

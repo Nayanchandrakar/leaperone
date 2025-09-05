@@ -62,7 +62,6 @@ export class UserRepository {
         .from(users)
         .where(eq(users.username, username))
         .limit(1)
-        .$withCache()
 
       return Boolean(data?.id)
     } catch (error) {
@@ -78,7 +77,7 @@ export class UserRepository {
     name: string,
   ) {
     try {
-      await dbWs.transaction(async (tx) => {
+      const newUser = await dbWs.transaction(async (tx) => {
         const [data] = await tx
           .insert(users)
           .values({
@@ -97,12 +96,13 @@ export class UserRepository {
             providerId: "credential",
           })
         }
+        return data
       })
 
-      return true
+      return newUser
     } catch (error) {
       console.log(error)
-      return false
+      return null
     }
   }
 

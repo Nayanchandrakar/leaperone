@@ -1,4 +1,3 @@
-import { HTTPSTATUS } from "../../../config/http.config"
 import type {
   GetSessionController,
   LoginController,
@@ -25,9 +24,8 @@ export class AuthController {
   }
 
   async userName(c: UserNameController) {
-    const input = c.req.valid("param")
-    const exists = await this.authService.findUserName(input.username)
-    return c.json({ exists }, HTTPSTATUS.OK)
+    const exists = await this.authService.findUserName(c)
+    return c.json({ exists })
   }
 
   async register(c: RegisterController) {
@@ -38,7 +36,7 @@ export class AuthController {
   async login(c: LoginController) {
     const session = await this.authService.login(c)
     return c.json({
-      message: "Hello world program",
+      message: "Login Successfully",
       data: { user: session.user },
     })
   }

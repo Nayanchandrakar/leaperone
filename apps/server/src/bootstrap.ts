@@ -1,9 +1,8 @@
 import router from "@app/nrpc"
 import { Hono } from "hono"
-import { csrf } from "hono/csrf"
 import { logger } from "hono/logger"
 import { secureHeaders } from "hono/secure-headers"
-import { crossOriginRequest } from "@/config/cors"
+import { crossOriginRequest, csrfProtection } from "@/config"
 import { startServer } from "@/hono/server"
 import { ErrorHandler } from "./utils"
 
@@ -13,7 +12,7 @@ export function bootStrapServer() {
   server.use(logger())
   server.use(secureHeaders())
   server.use(crossOriginRequest)
-  server.use(csrf())
+  server.use(csrfProtection)
   server.route("/", router)
   server.onError(ErrorHandler)
 

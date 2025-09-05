@@ -45,6 +45,7 @@ export class Session {
       updatedAt: new Date(),
     }
 
+    const sessionKey = `active_sessions_${user.id}`
     let currentSessions = await getActiveSessions(user.id)
 
     if (currentSessions.length > 0) {
@@ -59,13 +60,8 @@ export class Session {
     const fullSession = { user, session }
 
     await Promise.all([
-      redis.set(`active_sessions_${user.id}`, currentSessions, {
-        ex: SESSION_EXPIRY,
-      }),
-
-      redis.set(token, fullSession, {
-        ex: SESSION_EXPIRY,
-      }),
+      redis.set(sessionKey, currentSessions, { ex: SESSION_EXPIRY }),
+      redis.set(token, fullSession, { ex: SESSION_EXPIRY }),
     ])
 
     return fullSession
@@ -129,6 +125,7 @@ export class Session {
     token: string,
     overrides: Partial<FullSession["session"]>,
   ): Promise<FullSession["session"] | null> {
+    // Refetch Session to prevent race conditions
     const fullSession = await getSessionByToken(token)
 
     if (!fullSession) return null

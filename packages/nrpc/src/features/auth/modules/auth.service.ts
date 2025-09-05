@@ -6,15 +6,16 @@ import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
 import { createRoute } from "../../../utils/urls"
 import { SESSION_COOKIE_NAME, SESSION_EXPIRY } from "../constants"
-import { signJwt } from "../lib/jwt"
 import type {
   GetSessionController,
   LoginController,
   LogoutController,
   RegisterController,
+  UserNameController,
   VerifyEmailController,
 } from "../types"
 import type { Cookie } from "../utils/cookie"
+import { createEmailVerificationToken } from "../utils/email-verification"
 import type { Session } from "../utils/session"
 
 export class AuthService {
@@ -44,8 +45,9 @@ export class AuthService {
     return AuthService.instance
   }
 
-  async findUserName(username: string) {
-    const exists = await redis.hexists("username_records", username)
+  async findUserName(c: UserNameController) {
+    const input = c.req.valid("param")
+    const exists = await redis.hexists("username_records", input.username)
     return Boolean(exists)
   }
 
@@ -79,13 +81,17 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
-    const token = await signJwt({ email: input.email.toLowerCase() }, 500)
-    const callbackString = createRoute("/api/auth/email-verification", {
+    const [_, token] = await Promise.all([
+      redis.hset("username_records", { [input.username]: 1 }),
+      createEmailVerificationToken(input.email),
+    ])
+
+    const callbackString = createRoute("/api/auth/verify-email", {
       token,
       callbackUrl: input.callbackUrl,
     })
 
-    // TODO: send email verification link from here
+    // TODO: Trigger an email to users email from here
     console.info({
       email: input.email,
       url: callbackString.toString(),
@@ -100,7 +106,7 @@ export class AuthService {
     )
 
     if (!userWithAccounts) {
-      throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
+      throw ApiError.unauthorized(MSG.ACCOUNT.NOT_FOUND)
     }
 
     const { user, accounts } = userWithAccounts
@@ -118,11 +124,8 @@ export class AuthService {
     }
 
     if (user?.emailVerified) {
-      const token = await signJwt(
-        { email: input.email.toLocaleLowerCase() },
-        500,
-      )
-      const callbackString = createRoute("/api/auth/email-verification", {
+      const token = await createEmailVerificationToken(user.email)
+      const callbackString = createRoute("/api/auth/verify-email", {
         token,
         callbackUrl: input.callbackUrl,
       })
@@ -162,17 +165,18 @@ export class AuthService {
   }
 
   async verifyEmail(c: VerifyEmailController) {
+    const input = c.req.valid("query")
     const payload = c.get("jwtPayload")
     const { success, data } = emailSchema.safeParse(payload)
 
     if (!success) {
-      throw ApiError.validationError()
+      throw ApiError.validationError("Failed to parse payload data")
     }
 
     const user = await this.userRepository.findUserByEmail(data.email)
 
     if (!user) {
-      throw ApiError.unauthorized()
+      throw ApiError.unauthorized("User not found")
     }
 
     const updatedUser = await this.userRepository.updateUserByEmail(
@@ -183,7 +187,7 @@ export class AuthService {
     )
 
     if (!updatedUser) {
-      throw ApiError.badRequest()
+      throw ApiError.badRequest("Failed to update user")
     }
 
     // Sign-in user automatically after verification
@@ -203,6 +207,6 @@ export class AuthService {
       })
     }
 
-    return c.redirect(c.req.valid("query").callbackUrl)
+    return c.redirect(input.callbackUrl)
   }
 }
