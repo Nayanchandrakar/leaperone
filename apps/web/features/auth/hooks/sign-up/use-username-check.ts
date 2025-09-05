@@ -15,14 +15,14 @@ const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
     enabled,
     queryKey: ["username", username],
     queryFn: async () => {
-      const req = await client.api.auth.username.$get({ query: { username } })
-      const response = await req.json()
+      const res = await client.api.auth.username.$get({ query: { username } })
+      const data = await res.json()
 
-      if (!req.ok) {
-        throw ResponseHandler.error(response)
+      if (!res.ok) {
+        throw ResponseHandler.error(data)
       }
 
-      return response
+      return data
     },
   })
 }

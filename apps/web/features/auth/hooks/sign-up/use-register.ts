@@ -6,18 +6,18 @@ import { ResponseHandler } from "@/utils/response-handler"
 
 export const useRegister = () => {
   return useMutation({
-    mutationFn: async (data: RegistRequest) => {
-      const req = await client.api.auth.register.$post({ json: data })
-      const response = await req.json()
+    mutationFn: async (input: RegistRequest) => {
+      const res = await client.api.auth.register.$post({ json: input })
+      const data = await res.json()
 
-      if (!req.ok) {
-        throw ResponseHandler.error(response)
+      if (!res.ok) {
+        throw ResponseHandler.error(data)
       }
 
       return data
     },
-    onSuccess: () => {
-      toast.success("We have sent you an verification email")
+    onSuccess: ({ message }) => {
+      toast.success(message)
     },
     onError: ({ message }) => {
       toast.error(message)

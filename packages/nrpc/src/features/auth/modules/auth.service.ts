@@ -125,7 +125,7 @@ export class AuthService {
       throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
     }
 
-    if (user?.emailVerified) {
+    if (!user?.emailVerified && user) {
       const token = await createEmailVerificationToken(user.email)
       const callbackString = createRoute("/api/auth/verify-email", {
         token,
@@ -184,6 +184,10 @@ export class AuthService {
 
     if (!user) {
       throw ApiError.unauthorized("User not found")
+    }
+
+    if (user.emailVerified) {
+      throw ApiError.unauthorized("Email is already verified")
     }
 
     const updatedUser = await this.userRepository.updateUserByEmail(
