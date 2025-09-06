@@ -161,10 +161,9 @@ export class Session {
           requests.push(redis.del(sessionKey))
         }
       }
-    } else {
-      requests.push(redis.del(token))
     }
 
+    requests.push(redis.del(token))
     await Promise.all(requests)
   }
 }

@@ -19,9 +19,11 @@ export default defineConfig(
       minify: isProduction,
       noExternal: [
         "@app/nrpc",
+        "@app/error/index",
         "@app/database",
         "@app/env/server",
         "@app/database/schema",
+        "@app/database/repository/user",
       ],
       ...options,
     }) as Options,
