@@ -4,6 +4,7 @@ import type {
   LogoutController,
   PasswordResetController,
   RegisterController,
+  ResetPasswordController,
   UserNameController,
   VerifyEmailController,
 } from "../types"
@@ -52,5 +53,9 @@ export class AuthController {
 
   async requestPasswordReset(c: PasswordResetController) {
     return await this.authService.requestPasswordReset(c)
+  }
+
+  async resetPassword(c: ResetPasswordController) {
+    return await this.authService.resetPassword(c)
   }
 }

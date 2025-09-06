@@ -18,6 +18,7 @@ import type {
   LogoutController,
   PasswordResetController,
   RegisterController,
+  ResetPasswordController,
   UserNameController,
   VerifyEmailController,
 } from "../types"
@@ -260,5 +261,29 @@ export class AuthService {
     })
 
     return c.json({ status: true })
+  }
+
+  async resetPassword(c: ResetPasswordController) {
+    const { token } = c.req.valid("param")
+    const callbackUrl = c.req.query("callbackUrl")
+
+    const endpoint = createRoute(callbackUrl ?? "/")
+
+    if (!callbackUrl) {
+      endpoint.searchParams.set("error", "invalid_token")
+      return c.redirect(endpoint)
+    }
+
+    const identifier = `reset-password:${token}`
+    const verification =
+      await this.userRepository.findVerificationByIdentifier(identifier)
+
+    if (!verification || verification.expiresAt < new Date()) {
+      endpoint.searchParams.set("error", "invalid_token")
+      return c.redirect(endpoint)
+    }
+
+    endpoint.searchParams.set("token", token)
+    return c.redirect(endpoint)
   }
 }

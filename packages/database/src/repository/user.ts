@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
 import { verification } from "../schema/index"
@@ -127,6 +127,21 @@ export class UserRepository {
     try {
       await dbHttp.insert(verification).values(values)
       return true
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
+  public async findVerificationByIdentifier(identifier: string) {
+    try {
+      const [token] = await dbHttp
+        .select()
+        .from(verification)
+        .where(eq(verification.identifier, identifier))
+        .orderBy(desc(verification.createdAt))
+        .limit(1)
+      return token
     } catch (error) {
       console.log(error)
       return null

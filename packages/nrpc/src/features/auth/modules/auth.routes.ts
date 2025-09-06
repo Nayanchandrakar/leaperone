@@ -2,6 +2,7 @@ import {
   loginFormSchema,
   passwordResetSchema,
   registerFormSchema,
+  resetPasswordSchema,
   userNameSchema,
   verifyEmailSchema,
 } from "@app/zod/schema/auth"
@@ -23,7 +24,14 @@ const app = new Hono()
     "/request-password-reset",
     zValidator("json", passwordResetSchema),
     (opts) => {
-      return authController.logout(opts)
+      return authController.requestPasswordReset(opts)
+    },
+  )
+  .get(
+    "/reset-password/:token",
+    zValidator("param", resetPasswordSchema),
+    (opts) => {
+      return authController.resetPassword(opts)
     },
   )
   .get("/username", zValidator("query", userNameSchema), (opts) => {

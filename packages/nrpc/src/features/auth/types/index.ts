@@ -2,6 +2,7 @@ import type {
   LoginFormSchema,
   PasswordResetSchema,
   RegisterFormSchema,
+  ResetPasswordSchema,
   UserNameFormSchema,
   VerifyEmailSchema,
 } from "@app/zod/types"
@@ -28,8 +29,13 @@ export type UserNameController = Context<
 
 export type PasswordResetController = Context<
   {},
-  "/verify-email",
+  "/request-password-reset",
   ControllerIO<"json", PasswordResetSchema>
+>
+export type ResetPasswordController = Context<
+  {},
+  "/reset-password/:token",
+  ControllerIO<"param", ResetPasswordSchema>
 >
 
 export type VerifyEmailController = Context<

@@ -36,3 +36,7 @@ export const passwordResetSchema = z.object({
   email,
   redirectTo: callbackUrl.optional(),
 })
+
+export const resetPasswordSchema = z.object({
+  token: z.cuid2(),
+})
