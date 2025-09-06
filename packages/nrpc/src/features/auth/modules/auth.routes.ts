@@ -1,5 +1,6 @@
 import {
   loginFormSchema,
+  passwordResetSchema,
   registerFormSchema,
   userNameSchema,
   verifyEmailSchema,
@@ -18,6 +19,13 @@ const app = new Hono()
   .post("/logout", (opts) => {
     return authController.logout(opts)
   })
+  .post(
+    "/request-password-reset",
+    zValidator("json", passwordResetSchema),
+    (opts) => {
+      return authController.logout(opts)
+    },
+  )
   .get("/username", zValidator("query", userNameSchema), (opts) => {
     return authController.userName(opts)
   })

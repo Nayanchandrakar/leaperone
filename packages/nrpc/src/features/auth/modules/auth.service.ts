@@ -1,15 +1,22 @@
 import type { UserRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
 import { emailSchema } from "@app/zod/schema/auth"
+import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
 import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
+import { getDate } from "../../../utils/date"
 import { createRoute } from "../../../utils/urls"
-import { SESSION_COOKIE_NAME, SESSION_EXPIRY } from "../constants"
+import {
+  PASSWORD_RESET_EXPIRY,
+  SESSION_COOKIE_NAME,
+  SESSION_EXPIRY,
+} from "../constants"
 import type {
   GetSessionController,
   LoginController,
   LogoutController,
+  PasswordResetController,
   RegisterController,
   UserNameController,
   VerifyEmailController,
@@ -219,5 +226,39 @@ export class AuthService {
     }
 
     return c.redirect(input.callbackUrl)
+  }
+
+  async requestPasswordReset(c: PasswordResetController) {
+    const { email, redirectTo } = c.req.valid("json")
+
+    const user = await this.userRepository.findUserByEmail(email)
+
+    if (!user) {
+      return c.json({
+        succcess: true,
+        message: MSG.PASSWORD.USER_NOT_FOUND,
+      })
+    }
+
+    const identifier = `reset-password:${createId()}`
+    const expiresAt = getDate(PASSWORD_RESET_EXPIRY, "sec")
+
+    await this.userRepository.createVerification({
+      identifier,
+      expiresAt,
+      value: user.id!,
+    })
+
+    const callbackUrl = redirectTo ? encodeURIComponent(redirectTo) : undefined
+    const callbackString = createRoute(`/reset-password/${identifier}`, {
+      callbackUrl,
+    })
+
+    // TODO: send this callbackString to users email address
+    console.log({
+      callbackString,
+    })
+
+    return c.json({ status: true })
   }
 }

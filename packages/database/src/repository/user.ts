@@ -1,8 +1,9 @@
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
+import { verification } from "../schema/index"
 import { users } from "../schema/users"
-import type { User } from "../types"
+import type { User, Verification } from "../types"
 
 export class UserRepository {
   private static instance: UserRepository | null = null
@@ -114,6 +115,18 @@ export class UserRepository {
         .where(eq(users.email, email))
         .returning()
       return user
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
+  async createVerification(
+    values: Omit<Verification, "createdAt" | "updatedAt" | "id">,
+  ) {
+    try {
+      await dbHttp.insert(verification).values(values)
+      return true
     } catch (error) {
       console.log(error)
       return null

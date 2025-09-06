@@ -2,6 +2,7 @@ import type {
   GetSessionController,
   LoginController,
   LogoutController,
+  PasswordResetController,
   RegisterController,
   UserNameController,
   VerifyEmailController,
@@ -47,5 +48,9 @@ export class AuthController {
 
   async verifyEmail(c: VerifyEmailController) {
     return await this.authService.verifyEmail(c)
+  }
+
+  async requestPasswordReset(c: PasswordResetController) {
+    return await this.authService.requestPasswordReset(c)
   }
 }

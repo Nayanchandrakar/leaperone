@@ -1,5 +1,6 @@
 import type {
   LoginFormSchema,
+  PasswordResetSchema,
   RegisterFormSchema,
   UserNameFormSchema,
   VerifyEmailSchema,
@@ -23,6 +24,12 @@ export type UserNameController = Context<
   {},
   "/username",
   ControllerIO<"query", UserNameFormSchema>
+>
+
+export type PasswordResetController = Context<
+  {},
+  "/verify-email",
+  ControllerIO<"json", PasswordResetSchema>
 >
 
 export type VerifyEmailController = Context<

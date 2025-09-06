@@ -2,7 +2,7 @@ import type { Casing } from "drizzle-orm"
 import type { CacheConfig } from "drizzle-orm/cache/core/types"
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http"
 import type { NeonDatabase } from "drizzle-orm/neon-serverless"
-import type { accounts } from "src/schema"
+import type { accounts, verification } from "../schema/index"
 import type { users } from "../schema/users"
 
 export type HttpConnectionType = NeonHttpDatabase
@@ -21,3 +21,4 @@ export type ConfigOptions = {
 
 export type User = typeof users.$inferSelect
 export type Account = typeof accounts.$inferSelect
+export type Verification = typeof verification.$inferSelect

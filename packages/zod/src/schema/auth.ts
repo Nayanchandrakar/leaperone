@@ -31,3 +31,8 @@ export const verifyEmailSchema = z.object({
 export const emailSchema = z.object({
   email,
 })
+
+export const passwordResetSchema = z.object({
+  email,
+  redirectTo: callbackUrl.optional(),
+})
