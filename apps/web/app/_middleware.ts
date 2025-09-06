@@ -1,29 +1,31 @@
-// import type { GlobalMiddlewareConfig } from "@rescale/nemo"
-// import { NextResponse } from "next/server"
-// import type { AuthResponse } from "@/types/better-types"
-// import { URLS } from "@/utils/urls"
+import type { GlobalMiddlewareConfig } from "@rescale/nemo"
+import { NextResponse } from "next/server"
+import { SESSION_COOKIE_NAME } from "@/features/auth/constants"
+import { client } from "@/lib/hono/client"
 
-// export const globalMiddlewares = {
-//   before: [
-//     async (request, event) => {
-//       const cookie = request.headers.get("cookie")
-//       const loginUrl = new URL("/login", request.nextUrl)
+export const globalMiddlewares: GlobalMiddlewareConfig = {
+  before: [
+    async (request, event) => {
+      const cookie = request.cookies.get(SESSION_COOKIE_NAME)
 
-//       if (!cookie) {
-//         return NextResponse.redirect(loginUrl)
-//       }
+      if (!cookie) {
+        event.storage.set("session", null)
+        return NextResponse.next()
+      }
 
-//       try {
-//         const res = await fetch(URLS.AUTH_SERVER, { headers: { cookie } })
-//         const data: AuthResponse = await res.json()
+      // Note: headers and cookies are included by default here
+      const res = await client.api.auth["get-session"].$get(undefined, {
+        headers: { cookie: `${cookie.name}=${cookie.value}` },
+      })
 
-//         event.storage.set("session", data)
-//         return NextResponse.next()
-//       } catch {
-//         const response = NextResponse.redirect(loginUrl)
-//         response.cookies.delete("cookie")
-//         return response
-//       }
-//     },
-//   ],
-// } satisfies GlobalMiddlewareConfig
+      if (!res.ok) {
+        event.storage.set("session", null)
+        return NextResponse.next()
+      }
+
+      const session = await res.json()
+      event.storage.set("session", session)
+      return NextResponse.next()
+    },
+  ],
+}
