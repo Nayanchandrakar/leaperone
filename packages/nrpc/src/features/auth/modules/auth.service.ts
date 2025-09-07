@@ -230,7 +230,7 @@ export class AuthService {
   }
 
   async requestPasswordReset(c: PasswordResetController) {
-    const { email, redirectTo } = c.req.valid("json")
+    const { email } = c.req.valid("json")
 
     const user = await this.userRepository.findUserByEmail(email)
 
@@ -241,7 +241,8 @@ export class AuthService {
       })
     }
 
-    const identifier = `reset-password:${createId()}`
+    const token = createId()
+    const identifier = `reset-password:${token}`
     const expiresAt = getDate(PASSWORD_RESET_EXPIRY, "sec")
 
     await this.userRepository.createVerification({
@@ -250,40 +251,49 @@ export class AuthService {
       value: user.id!,
     })
 
-    const callbackUrl = redirectTo ? encodeURIComponent(redirectTo) : undefined
-    const callbackString = createRoute(`/reset-password/${identifier}`, {
-      callbackUrl,
-    })
+    const callbackString = createRoute(
+      `/reset-password/${token}`,
+      undefined,
+      false,
+    )
 
     // TODO: send this callbackString to users email address
     console.log({
       callbackString,
     })
 
-    return c.json({ status: true })
+    return c.json({
+      success: true,
+      message: MSG.PASSWORD.RESET_REQUEST_SUCCESS,
+    })
   }
 
   async resetPassword(c: ResetPasswordController) {
-    const { token } = c.req.valid("param")
-    const callbackUrl = c.req.query("callbackUrl")
-
-    const endpoint = createRoute(callbackUrl ?? "/")
-
-    if (!callbackUrl) {
-      endpoint.searchParams.set("error", "invalid_token")
-      return c.redirect(endpoint)
-    }
+    const { token, newPassword } = c.req.valid("json")
 
     const identifier = `reset-password:${token}`
     const verification =
       await this.userRepository.findVerificationByIdentifier(identifier)
 
     if (!verification || verification.expiresAt < new Date()) {
-      endpoint.searchParams.set("error", "invalid_token")
-      return c.redirect(endpoint)
+      throw ApiError.badRequest(MSG.PROVIDER.INVALID_TOKEN)
     }
 
-    endpoint.searchParams.set("token", token)
-    return c.redirect(endpoint)
+    const userId = verification.value
+    const verificationId = verification.id
+    const hashedPassword = await hash(newPassword, 10)
+
+    await this.userRepository.updateUserAndDeleteVerification(
+      userId,
+      verificationId,
+      {
+        password: hashedPassword,
+      },
+    )
+
+    // Revoke multiple other sessions for this user
+    await this.session.revoke(userId)
+
+    return c.json({ success: true, message: MSG.PASSWORD.RESET_SUCCESS })
   }
 }

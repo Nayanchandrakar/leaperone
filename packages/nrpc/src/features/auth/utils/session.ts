@@ -166,4 +166,24 @@ export class Session {
     requests.push(redis.del(token))
     await Promise.all(requests)
   }
+
+  public async revoke(
+    userIdOrSessionTokens: string | string[],
+  ): Promise<void | null> {
+    const requests: Array<Promise<unknown>> = []
+
+    if (typeof userIdOrSessionTokens === "string") {
+      const currentSessions = await getActiveSessions(userIdOrSessionTokens)
+      if (!currentSessions) return null
+      for (const session of currentSessions) {
+        requests.push(redis.del(session.token))
+      }
+    } else {
+      for (const sessionToken of userIdOrSessionTokens) {
+        requests.push(redis.del(sessionToken))
+      }
+    }
+
+    await Promise.all(requests)
+  }
 }

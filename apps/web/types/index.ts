@@ -11,4 +11,8 @@ export type RegistRequest = InferRequestType<
 
 export type UserNameRequest = InferRequestType<
   typeof client.api.auth.username.$get
->["param"]
+>["query"]
+
+export type RequestPasswordResetRequest = InferRequestType<
+  (typeof client.api.auth)["request-password-reset"]["$post"]
+>["json"]

@@ -10,28 +10,31 @@ import {
   FormMessage,
 } from "@app/ui/components/form"
 import { Input } from "@app/ui/components/input"
-import { forgotPasswordFormSchema } from "@app/zod/schema/auth"
-import type { ForgotPasswordFormSchema } from "@app/zod/types"
+import { emailSchema } from "@app/zod/schema/auth"
+import type { EmailSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { HeadingShortner } from "@/components/shared/heading-shortner"
-import { useForgotPassword } from "@/features/auth/hooks/forgot-password/use-forgot-password"
+import { useRequestPasswordReset } from "@/features/auth/hooks/forgot-password/use-forgot-password"
 
 export const ForgotPasswordForm = () => {
-  const form = useForm<ForgotPasswordFormSchema>({
-    resolver: zodResolver(forgotPasswordFormSchema),
+  const { mutate, isPending } = useRequestPasswordReset()
+
+  const form = useForm<EmailSchema>({
+    resolver: zodResolver(emailSchema),
     defaultValues: {
       email: "",
     },
   })
 
-  const { onSubmit } = useForgotPassword()
-  const isSubmitting = form.formState.isSubmitting
+  const isSubmissionDisabled = [isPending, !form.formState.isValid].some(
+    Boolean,
+  )
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
         <HeadingShortner
@@ -48,10 +51,10 @@ export const ForgotPasswordForm = () => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  variant="gray"
                   type="email"
+                  variant="gray"
+                  disabled={isPending}
                   placeholder="Enter your email address"
-                  disabled={isSubmitting}
                   {...field}
                 />
               </FormControl>
@@ -61,10 +64,10 @@ export const ForgotPasswordForm = () => {
         />
 
         <Button
+          size="lg"
           type="submit"
           className="w-full"
-          size="lg"
-          disabled={isSubmitting}
+          disabled={isSubmissionDisabled}
         >
           Submit
         </Button>

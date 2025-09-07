@@ -15,10 +15,6 @@ export const loginFormSchema = z.object({
   callbackUrl: callbackUrl.default("/").optional(),
 })
 
-export const forgotPasswordFormSchema = z.object({
-  email,
-})
-
 export const userNameSchema = z.object({
   username,
 })
@@ -32,11 +28,7 @@ export const emailSchema = z.object({
   email,
 })
 
-export const passwordResetSchema = z.object({
-  email,
-  redirectTo: callbackUrl.optional(),
-})
-
 export const resetPasswordSchema = z.object({
   token: z.cuid2(),
+  newPassword: password,
 })

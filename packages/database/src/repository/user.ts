@@ -3,7 +3,7 @@ import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
 import { verification } from "../schema/index"
 import { users } from "../schema/users"
-import type { User, Verification } from "../types"
+import type { Account, User, Verification } from "../types"
 
 export class UserRepository {
   private static instance: UserRepository | null = null
@@ -133,7 +133,7 @@ export class UserRepository {
     }
   }
 
-  public async findVerificationByIdentifier(identifier: string) {
+  async findVerificationByIdentifier(identifier: string) {
     try {
       const [token] = await dbHttp
         .select()
@@ -142,6 +142,34 @@ export class UserRepository {
         .orderBy(desc(verification.createdAt))
         .limit(1)
       return token
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
+  async updateUserAndDeleteVerification(
+    userId: string,
+    verificationId: string,
+    overrides: Partial<Account>,
+  ) {
+    try {
+      const udpatedAccount = await dbWs.transaction(async (tx) => {
+        const [data] = await tx
+          .update(accounts)
+          .set(overrides)
+          .where(eq(accounts.userId, userId))
+          .returning()
+
+        if (data) {
+          await tx
+            .delete(verification)
+            .where(eq(verification.id, verificationId))
+        }
+        return data
+      })
+
+      return udpatedAccount
     } catch (error) {
       console.log(error)
       return null
