@@ -12,10 +12,7 @@ export const useRequestPasswordReset = () => {
       })
       const data = await res.json()
 
-      if (!res.ok) {
-        throw ResponseHandler.error(data)
-      }
-
+      if (!res.ok) throw ResponseHandler.error(data)
       return data
     },
     onSuccess: ({ message }) => {

@@ -27,9 +27,8 @@ export const ForgotPasswordForm = () => {
     },
   })
 
-  const isSubmissionDisabled = [isPending, !form.formState.isValid].some(
-    Boolean,
-  )
+  const formState = form.formState
+  const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
 
   return (
     <Form {...form}>
