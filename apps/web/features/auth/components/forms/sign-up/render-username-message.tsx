@@ -11,13 +11,13 @@ import { getUserNameStatus } from "@/features/auth/utils"
 
 interface IRenderMessage {
   queryError: any
-  isPending: boolean
+  isLoading: boolean
   exists: boolean
 }
 
 export const RenderMessage = ({
   exists,
-  isPending,
+  isLoading,
   queryError,
 }: IRenderMessage) => {
   const { control, formState } = useFormContext<{
@@ -30,7 +30,7 @@ export const RenderMessage = ({
   const status = getUserNameStatus({
     exists,
     queryError,
-    isPending,
+    isLoading,
     username,
     errorMessage,
   })

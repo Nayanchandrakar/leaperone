@@ -31,12 +31,12 @@ export const useUsernameError = ({
   error,
   setError,
   clearErrors,
-  isPending,
+  isLoading,
   isUserNameTaken,
   usernameErrorType,
 }: IUserNameError) => {
   useEffect(() => {
-    if (isPending || isUserNameTaken === undefined) return
+    if (isLoading || isUserNameTaken === undefined) return
 
     const result = setUserNameError({
       error,
@@ -56,7 +56,7 @@ export const useUsernameError = ({
     }
   }, [
     isUserNameTaken,
-    isPending,
+    isLoading,
     error,
     usernameErrorType,
     setError,
@@ -70,14 +70,14 @@ export const useAccountFormContext = ({
   clearErrors,
   setError,
 }: UseFormReturn<any>) => {
-  const { isValid, errors, isSubmitting } = formState
+  const { isValid, errors } = formState
 
   const username = useWatch({ control, name: "username" })
   const [value] = useDebounceValue(username, 400)
   const usernameError = useMemo(() => errors.username, [errors.username])
   const enabled = Boolean(value.length && !usernameError)
 
-  const { data, isError, isPending, error } = useUsernameCheck({
+  const { data, isError, error, isLoading } = useUsernameCheck({
     username: value,
     enabled,
   })
@@ -89,9 +89,8 @@ export const useAccountFormContext = ({
     isValid,
     isError,
     setError,
-    isPending,
+    isLoading,
     clearErrors,
-    isSubmitting,
     usernameError,
     isUserNameTaken,
   }

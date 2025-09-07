@@ -4,16 +4,23 @@ import { Button } from "@app/ui/components/button"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { NAV_LINKS } from "@/constants/nav-links"
+import { useLogout } from "@/features/auth/hooks/logout/use-logout"
+import type { FullSession } from "@/types"
 
-export const MainNav = () => {
+interface MainNavProps {
+  session: FullSession | null
+}
+
+export const MainNav = ({ session }: MainNavProps) => {
   const pathname = usePathname()
+  const { mutate, isPending } = useLogout()
 
   return (
     <nav className="hidden items-center gap-x-6 lg:flex">
       {NAV_LINKS.map(({ name, href }) => (
         <Link
           key={name}
-          href={href}
+          href={href as any}
           data-state={pathname === href}
           className="data-[state=true]:font-semibold text-sm font-medium text-white transition-colors hover:text-white/80"
         >
@@ -26,9 +33,20 @@ export const MainNav = () => {
           Start Free Trial
         </Button>
 
-        <Button asChild size="sm" variant="outline">
-          <Link href="/login">Login</Link>
-        </Button>
+        {session ? (
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={isPending}
+            onClick={() => mutate()}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button asChild size="sm" variant="outline">
+            <Link href="/login">Login</Link>
+          </Button>
+        )}
       </div>
     </nav>
   )

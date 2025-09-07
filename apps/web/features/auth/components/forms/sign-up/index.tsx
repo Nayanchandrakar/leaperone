@@ -29,7 +29,7 @@ interface ISignupForm {
 }
 
 export const SignupForm = ({ callbackUrl }: ISignupForm) => {
-  const { mutate } = useRegister()
+  const { mutate, isPending } = useRegister()
 
   const form = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerFormSchema),
@@ -48,8 +48,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
     isValid,
     isError,
     setError,
-    isPending,
-    isSubmitting,
+    isLoading,
     usernameError,
     isUserNameTaken,
     clearErrors,
@@ -58,7 +57,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
   useUsernameError({
     error,
     setError,
-    isPending,
+    isLoading,
     clearErrors,
     isUserNameTaken,
     usernameErrorType: usernameError?.type,
@@ -67,10 +66,12 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
   const isSubmissionDisabled = [
     isError,
     !isValid,
+    isLoading,
     isPending,
-    isSubmitting,
     isUserNameTaken,
   ].some(Boolean)
+
+  const isSubmitting = [isLoading, isPending].some(Boolean)
 
   return (
     <Form {...form}>
@@ -109,7 +110,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
 
               <RenderMessage
                 queryError={error}
-                isPending={isPending}
+                isLoading={isLoading}
                 exists={isUserNameTaken}
               />
             </FormItem>
@@ -195,9 +196,9 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
 
         <div className="flex flex-col items-center gap-4">
           <Button
+            size="lg"
             type="submit"
             className="w-full"
-            size="lg"
             disabled={isSubmissionDisabled}
           >
             Create Account

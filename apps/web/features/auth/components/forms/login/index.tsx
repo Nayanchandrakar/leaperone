@@ -24,6 +24,8 @@ interface ILoginForm {
 }
 
 export const LoginForm = ({ callbackUrl }: ILoginForm) => {
+  const { mutate, isPending } = useLogin()
+
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -33,8 +35,8 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
     },
   })
 
-  const { mutate } = useLogin()
-  const isSubmitting = form.formState.isSubmitting
+  const formState = form.formState
+  const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
 
   return (
     <Form {...form}>
@@ -55,7 +57,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
                   variant="gray"
                   type="email"
                   placeholder="Enter your email address"
-                  disabled={isSubmitting}
+                  disabled={isPending}
                   {...field}
                 />
               </FormControl>
@@ -83,7 +85,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
                 <Input
                   variant="gray"
                   placeholder="Enter your password"
-                  disabled={isSubmitting}
+                  disabled={isPending}
                   {...field}
                 />
               </FormControl>
@@ -94,10 +96,10 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
 
         <div className="flex flex-col items-center gap-4">
           <Button
+            size="lg"
             type="submit"
             className="w-full"
-            size="lg"
-            disabled={isSubmitting}
+            disabled={isSubmissionDisabled}
           >
             Log In
           </Button>

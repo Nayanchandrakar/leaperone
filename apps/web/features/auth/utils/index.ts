@@ -6,18 +6,18 @@ import type {
 
 export const getUserNameStatus = ({
   exists,
-  isPending,
+  isLoading,
   queryError,
   errorMessage,
   username,
 }: IGetUserNameStatus): UserStatusState => {
   let state: UserStatusState = "available"
 
-  if (queryError || errorMessage || (!isPending && exists)) {
+  if (queryError || errorMessage || (!isLoading && exists)) {
     state = "error"
   } else if (!username.length) {
     state = "empty"
-  } else if (isPending) {
+  } else if (isLoading) {
     state = "pending"
   }
 

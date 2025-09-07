@@ -146,7 +146,7 @@ export class AuthService {
         url: callbackString.toString(),
       })
 
-      return c.json({ message: MSG.VERIFICATION.LINK_SENT })
+      return c.json({ message: MSG.VERIFICATION.LINK_SENT, success: false })
     }
 
     const session = await this.session.create(c, user!)
@@ -158,6 +158,7 @@ export class AuthService {
     await this.cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
 
     return c.json({
+      success: true,
       message: MSG.AUTH.LOGIN_SUCCESS,
       data: { user: session.user },
     })

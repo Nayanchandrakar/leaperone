@@ -10,7 +10,7 @@ export interface IUsernameCheckParams {
 export interface IGetUserNameStatus {
   queryError: unknown
   errorMessage: string | undefined
-  isPending: boolean
+  isLoading: boolean
   exists: boolean
   username: string
 }
@@ -22,7 +22,7 @@ export interface ISetUserNameError {
 }
 
 export interface IUserNameError extends ISetUserNameError {
-  isPending: boolean
+  isLoading: boolean
   setError: UseFormSetError<{ username: string }>
   clearErrors: UseFormClearErrors<{ username: string }>
 }
