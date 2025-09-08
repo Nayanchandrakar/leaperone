@@ -14,3 +14,11 @@ export async function getSessionByToken(
   const session = await redis.get(token)
   return session as FullSession
 }
+
+export async function deleteActiveSessions(userId: string) {
+  return await redis.del(`active_sessions_${userId}`)
+}
+
+export async function deleteSessionByToken(token: string) {
+  return await redis.del(token)
+}

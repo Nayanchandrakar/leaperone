@@ -5,8 +5,9 @@
   "type": "module",
   "private": true,
   "exports": {
+    "./web": "./src/web/index.ts",
     "./server": "./src/server/index.ts",
-    "./client": "./src/client/index.ts"
+    "./web/server": "./src/web/server.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",

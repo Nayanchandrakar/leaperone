@@ -1,4 +1,4 @@
-import { SERVER_ENV } from "@app/env/server"
+import { ENV } from "@app/env/server"
 import { sign, verify } from "hono/jwt"
 import type { JWTPayload } from "hono/utils/jwt/types"
 
@@ -11,9 +11,9 @@ export async function signJwt(
     exp: Math.floor(Date.now() / 1000) + expiresIn,
     iss: "leapercrm",
   }
-  return await sign(payload, SERVER_ENV.AUTH_SECRET)
+  return await sign(payload, ENV.AUTH_SECRET)
 }
 
 export async function verifyJwt(token: string) {
-  return await verify(token, SERVER_ENV.AUTH_SECRET)
+  return await verify(token, ENV.AUTH_SECRET)
 }

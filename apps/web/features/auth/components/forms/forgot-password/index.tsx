@@ -37,7 +37,7 @@ export const ForgotPasswordForm = () => {
         className="w-full max-w-md space-y-6"
       >
         <HeadingShortner
-          title="Reset Password"
+          title="Forgot Password"
           description="Enter the email you used to create your account, and we’ll send you a link to reset it."
           className="mb-12 text-center"
         />

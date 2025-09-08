@@ -211,7 +211,7 @@ export class AuthService {
     }
 
     // Sign-in user automatically after verification
-    const currentSession = await this.session.get(c)
+    const currentSession = await this.session.ctx(c)
 
     if (!currentSession || currentSession.user.email !== data.email) {
       const session = await this.session.create(c, updatedUser)

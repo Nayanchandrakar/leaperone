@@ -17,6 +17,10 @@ export type RequestPasswordResetRequest = InferRequestType<
   (typeof client.api.auth)["request-password-reset"]["$post"]
 >["json"]
 
+export type ResetPasswordRequest = InferRequestType<
+  (typeof client.api.auth)["reset-password"]["$post"]
+>["json"]
+
 export type FullSession = InferResponseType<
   (typeof client.api.auth)["get-session"]["$get"]
 >

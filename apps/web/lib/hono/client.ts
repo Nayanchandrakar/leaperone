@@ -1,4 +1,4 @@
-import { CLIENT_ENV } from "@app/env/client"
+import { CLIENT_ENV } from "@app/env/web/client"
 import type { AppRouter } from "@app/nrpc"
 import { hc } from "hono/client"
 

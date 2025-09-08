@@ -30,3 +30,7 @@ export interface IUserNameError extends ISetUserNameError {
 export interface IUseSignUp {
   redirect: string | undefined
 }
+
+export interface IResetPasswordPage {
+  params: Promise<{ token: string }>
+}

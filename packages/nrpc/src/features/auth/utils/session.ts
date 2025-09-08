@@ -11,7 +11,12 @@ import {
   SESSION_EXPIRY,
   SESSSION_UPDATE_AGE,
 } from "../constants"
-import { getActiveSessions, getSessionByToken } from "../helpers"
+import {
+  deleteActiveSessions,
+  deleteSessionByToken,
+  getActiveSessions,
+  getSessionByToken,
+} from "../helpers"
 import type { Cookie } from "./cookie"
 
 export class Session {
@@ -167,23 +172,25 @@ export class Session {
     await Promise.all(requests)
   }
 
-  public async revoke(
-    userIdOrSessionTokens: string | string[],
-  ): Promise<void | null> {
+  public async revoke(userId: string): Promise<void | null> {
     const requests: Array<Promise<unknown>> = []
 
-    if (typeof userIdOrSessionTokens === "string") {
-      const currentSessions = await getActiveSessions(userIdOrSessionTokens)
-      if (!currentSessions) return null
-      for (const session of currentSessions) {
-        requests.push(redis.del(session.token))
-      }
-    } else {
-      for (const sessionToken of userIdOrSessionTokens) {
-        requests.push(redis.del(sessionToken))
-      }
+    const currentSessions = await getActiveSessions(userId)
+    if (!currentSessions) return null
+
+    for (const session of currentSessions) {
+      requests.push(deleteSessionByToken(session.token))
     }
 
+    requests.push(deleteActiveSessions(userId))
     await Promise.all(requests)
+  }
+
+  public async ctx(c: Context) {
+    try {
+      return await this.get(c)
+    } catch {
+      return null
+    }
   }
 }

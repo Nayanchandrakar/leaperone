@@ -1,7 +1,7 @@
 import { createEnv } from "@t3-oss/env-core"
 import { z } from "zod"
 
-export const SERVER_ENV = createEnv({
+export const ENV = createEnv({
   server: {
     NODE_ENV: z
       .enum(["development", "production", "test"])

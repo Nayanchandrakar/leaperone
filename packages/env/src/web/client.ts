@@ -7,5 +7,7 @@ export const CLIENT_ENV = createEnv({
     NEXT_PUBLIC_APP_URL: z.string().default("http://localhost:3000"),
     NEXT_PUBLIC_SERVER_URL: z.string().default("http://localhost:8080"),
   },
+
+  emptyStringAsUndefined: true,
   runtimeEnv: process.env,
 })

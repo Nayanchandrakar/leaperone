@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { APP_URL } from "@/constants/app"
 import { SignupForm } from "@/features/auth/components/forms/sign-up"
 import {
   AuthContent,
@@ -14,7 +15,7 @@ interface ICreateAccountPage {
 export default async function CreateAccountPage({
   searchParams,
 }: ICreateAccountPage) {
-  const { callbackUrl } = await searchParams
+  const { callbackUrl = APP_URL } = await searchParams
 
   return (
     <Fragment>

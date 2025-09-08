@@ -1,4 +1,3 @@
-import { SERVER_ENV } from "@app/env/server/index"
 import {
   DeleteObjectCommand,
   type PutObjectAclCommandInput,
@@ -13,10 +12,10 @@ class S3Service {
 
   private constructor() {
     this.client = new S3Client({
-      region: SERVER_ENV.AWS_REGION,
+      region: process.env.AWS_REGION!,
       credentials: {
-        accessKeyId: SERVER_ENV.AWS_ACCESS_KEY_ID,
-        secretAccessKey: SERVER_ENV.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
       },
     })
   }
@@ -41,7 +40,7 @@ class S3Service {
   async deleteObjectCommand(key: string) {
     await this.client.send(
       new DeleteObjectCommand({
-        Bucket: SERVER_ENV.S3_UPLOAD_BUCKET,
+        Bucket: process.env.S3_UPLOAD_BUCKET!,
         Key: key,
       }),
     )

@@ -1,4 +1,4 @@
-import { SERVER_ENV } from "@app/env/server"
+import { ENV } from "@app/env/server"
 import type { Context } from "hono"
 import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie"
 import type { CookieOptions } from "hono/utils/cookie"
@@ -22,14 +22,14 @@ export class Cookie {
     value: string,
     overrides?: Partial<CookieOptions>,
   ) {
-    await setSignedCookie(c, name, value, SERVER_ENV.AUTH_SECRET, {
+    await setSignedCookie(c, name, value, ENV.AUTH_SECRET, {
       ...COOKIE_OPTIONS,
       ...overrides,
     })
   }
 
   public async get(c: Context, key: string) {
-    return await getSignedCookie(c, SERVER_ENV.AUTH_SECRET, key)
+    return await getSignedCookie(c, ENV.AUTH_SECRET, key)
   }
 
   public delete(c: Context, key: string) {

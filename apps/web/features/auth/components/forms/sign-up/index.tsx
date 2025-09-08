@@ -71,8 +71,6 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
     isUserNameTaken,
   ].some(Boolean)
 
-  const isSubmitting = [isLoading, isPending].some(Boolean)
-
   return (
     <Form {...form}>
       <form
@@ -102,7 +100,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
                     variant="gray"
                     className="pl-32"
                     placeholder="Enter your username"
-                    disabled={isSubmitting}
+                    disabled={isPending}
                     {...field}
                   />
                 </div>
@@ -127,7 +125,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
                 <Input
                   variant="gray"
                   placeholder="Enter your full name"
-                  disabled={isSubmitting}
+                  disabled={isPending}
                   {...field}
                 />
               </FormControl>
@@ -147,7 +145,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
                   variant="gray"
                   type="email"
                   placeholder="Enter your email address"
-                  disabled={isSubmitting}
+                  disabled={isPending}
                   {...field}
                 />
               </FormControl>
@@ -166,7 +164,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
                 <Input
                   variant="gray"
                   placeholder="Enter your password"
-                  disabled={isSubmitting}
+                  disabled={isPending}
                   {...field}
                 />
               </FormControl>

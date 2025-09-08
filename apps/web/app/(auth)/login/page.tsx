@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { APP_URL } from "@/constants/app"
 import { LoginForm } from "@/features/auth/components/forms/login"
 import {
   AuthContent,
@@ -12,7 +13,7 @@ interface ILoginPage {
 }
 
 export default async function LoginPage({ searchParams }: ILoginPage) {
-  const { callbackUrl } = await searchParams
+  const { callbackUrl = APP_URL } = await searchParams
   return (
     <Fragment>
       <AuthWrapper>
