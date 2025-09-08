@@ -22,4 +22,4 @@ export const password = z
   .trim()
 
 export const callbackUrl = z.string().trim()
-export const email = z.email().trim()
+export const email = z.email().toLowerCase().trim()
