@@ -28,6 +28,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
 
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
+    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",

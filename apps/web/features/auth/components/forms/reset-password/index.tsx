@@ -26,6 +26,7 @@ export const ResetPasswordForm = ({ token }: IResetPasswordForm) => {
 
   const form = useForm<SetNewPasswordSchema>({
     resolver: zodResolver(setNewPasswordSchema),
+    mode: "onChange",
     defaultValues: {
       token,
       newPassword: "",
