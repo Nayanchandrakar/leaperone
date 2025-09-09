@@ -1,7 +1,18 @@
 import { createId } from "@paralleldrive/cuid2"
-import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { subscriptionPlan, subscriptionStatus } from "../constants"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
+
+export const subscriptionStatusEnum = pgEnum(
+  "subscription_status",
+  subscriptionStatus,
+)
+
+export const subscriptionPlanEnum = pgEnum(
+  "subscription_plan",
+  subscriptionPlan,
+)
 
 export const subscription = pgTable("subscription", {
   id: text()
@@ -9,12 +20,13 @@ export const subscription = pgTable("subscription", {
     .$defaultFn(() => createId()),
   workspaceId: text().references(() => workspace.id, { onDelete: "cascade" }),
 
-  customerId: text().notNull(),
-  subscriptionId: text().notNull(),
+  customerId: text().notNull().unique(),
+  subscriptionId: text().notNull().unique(),
 
-  planId: text().notNull(),
+  plan: subscriptionPlanEnum().default("individual").notNull(),
+  priceId: text().notNull(),
 
-  status: text().notNull(),
+  status: subscriptionStatusEnum().default("active").notNull(),
 
   periodStart: timestamp().notNull(),
   periodEnd: timestamp().notNull(),
