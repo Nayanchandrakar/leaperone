@@ -1,5 +1,5 @@
 export * from "./accounts"
-export * from "./members"
+export * from "./member"
 export * from "./permissions"
 export * from "./role-permissions"
 export * from "./roles"
