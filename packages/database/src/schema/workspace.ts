@@ -3,7 +3,7 @@ import { pgTable, text } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
 import { users } from "./users"
 
-export const workspaces = pgTable("workspace", {
+export const workspace = pgTable("workspace", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),

@@ -3,7 +3,7 @@ import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
 import { roles } from "./roles"
 import { users } from "./users"
-import { workspaces } from "./workspace"
+import { workspace } from "./workspace"
 
 export const invitations = pgTable("invitation", {
   id: text()
@@ -11,7 +11,7 @@ export const invitations = pgTable("invitation", {
     .$defaultFn(() => createId()),
   email: text().notNull(),
   workspaceId: text()
-    .references(() => workspaces.id, { onDelete: "cascade" })
+    .references(() => workspace.id, { onDelete: "cascade" })
     .notNull(),
   roleId: text()
     .references(() => roles.id)
