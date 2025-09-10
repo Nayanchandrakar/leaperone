@@ -28,6 +28,9 @@ export type User = typeof users.$inferSelect
 export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
 
+// Insert types
+export type InsertUser = typeof users.$inferInsert
+
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]
 export type InvitationStatus = (typeof invitationStatus)[number]

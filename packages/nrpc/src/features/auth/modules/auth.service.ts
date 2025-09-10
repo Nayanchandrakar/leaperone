@@ -7,6 +7,7 @@ import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
 import { getDate } from "../../../utils/date"
 import { createRoute } from "../../../utils/urls"
+import type { Stripe } from "../../subscription/lib/stripe"
 import {
   PASSWORD_RESET_EXPIRY,
   SESSION_COOKIE_NAME,
@@ -31,24 +32,33 @@ export class AuthService {
   private userRepository: UserRepository
   private session: Session
   private cookie: Cookie
+  private stripe: Stripe
 
   private constructor(
     userRepository: UserRepository,
     session: Session,
     cookie: Cookie,
+    stripe: Stripe,
   ) {
     this.cookie = cookie
     this.session = session
     this.userRepository = userRepository
+    this.stripe = stripe
   }
 
   static init(
     userRepository: UserRepository,
     session: Session,
     cookie: Cookie,
+    stripe: Stripe,
   ) {
     if (!AuthService.instance) {
-      AuthService.instance = new AuthService(userRepository, session, cookie)
+      AuthService.instance = new AuthService(
+        userRepository,
+        session,
+        cookie,
+        stripe,
+      )
     }
     return AuthService.instance
   }
@@ -60,48 +70,70 @@ export class AuthService {
   }
 
   async register(c: RegisterController) {
-    const input = c.req.valid("json")
+    const { username, email, password, name, callbackUrl } = c.req.valid("json")
 
-    const isUserExist = await this.userRepository.findUserByEmail(input.email)
+    const isUserExist = await this.userRepository.findUserByEmail(email)
 
     if (isUserExist) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
-    const isUserNameTaken = await this.userRepository.findUserWithUserName(
-      input.username,
-    )
+    const isUserNameTaken =
+      await this.userRepository.findUserWithUserName(username)
 
     if (isUserNameTaken) {
       throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
-    const hashedPassword = await hash(input.password, 10)
+    const hashedPassword = await hash(password, 10)
+    const creatdUser = await this.userRepository.bootStrapUser({
+      name,
+      email,
+      username,
+      image: null,
+      emailVerified: false,
+      password: hashedPassword,
+    })
 
-    const newUser = await this.userRepository.createUser(
-      input.email,
-      input.username,
-      hashedPassword,
-      input.name,
-    )
-
-    if (!newUser) {
+    if (!creatdUser) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
+    // Create a stripe customer after successful user creation
+    const stripeCustomer = await this.stripe.createCustomer({
+      email,
+      name,
+      metadata: {
+        userId: creatdUser.userId,
+        workspaceId: creatdUser.workspaceId,
+      },
+    })
+
+    // Update user stripeCustomerId
+    const updatedUser = await this.userRepository.updateUserById(
+      creatdUser.userId,
+      {
+        stripeCustomerId: stripeCustomer.id,
+      },
+    )
+
+    if (!updatedUser) {
+      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
+    }
+
     const [_, token] = await Promise.all([
-      redis.hset("username_records", { [input.username]: 1 }),
-      createEmailVerificationToken(input.email),
+      redis.hset("username_records", { [username]: 1 }),
+      createEmailVerificationToken(email),
     ])
 
     const callbackString = createRoute("/api/auth/verify-email", {
       token,
-      callbackUrl: input.callbackUrl,
+      callbackUrl,
     })
 
     // TODO: Trigger an email to users email from here
     console.info({
-      email: input.email,
+      email,
       url: callbackString.toString(),
     })
 

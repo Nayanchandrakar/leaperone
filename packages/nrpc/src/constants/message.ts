@@ -14,6 +14,10 @@ export const MSG = {
     LINK_SENT: "A verification link has been sent to your email.",
   },
 
+  SUBSCRIPTION: {
+    MISSING_SIGNATURE: "Missing stripe signature",
+  },
+
   USER: {
     NOT_FOUND: "User not found",
     USERNAME_EXISTS: "Username has been already taken",

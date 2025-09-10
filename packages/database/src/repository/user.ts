@@ -1,9 +1,9 @@
 import { desc, eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
-import { verification } from "../schema/index"
+import { member, verification, workspace } from "../schema/index"
 import { users } from "../schema/users"
-import type { Account, User, Verification } from "../types"
+import type { Account, InsertUser, User, Verification } from "../types"
 
 export class UserRepository {
   private static instance: UserRepository | null = null
@@ -71,38 +71,59 @@ export class UserRepository {
     }
   }
 
-  async createUser(
-    email: string,
-    username: string,
-    password: string,
-    name: string,
-  ) {
+  async bootStrapUser({
+    email,
+    name,
+    username,
+    image,
+    password,
+  }: InsertUser & { password: string }) {
     try {
-      const newUser = await dbWs.transaction(async (tx) => {
-        const [data] = await tx
+      const data = await dbWs.transaction(async (tx) => {
+        const [user] = await tx
           .insert(users)
           .values({
             email,
             name,
             username,
-            emailVerified: false,
+            image,
+          })
+          .returning({ id: users.id })
+
+        // Rollback the transaction if no user is created
+        if (!user) tx.rollback()
+        const userId = user?.id as string
+
+        await tx.insert(accounts).values({
+          password,
+          userId: userId,
+          accountId: userId,
+          providerId: "credential",
+        })
+
+        const [userWorkspace] = await tx
+          .insert(workspace)
+          .values({
+            ownerId: userId,
           })
           .returning()
 
-        if (data) {
-          await tx.insert(accounts).values({
-            password,
-            userId: data.id,
-            accountId: data.id,
-            providerId: "credential",
-          })
-        }
-        return data
+        // Rollback the transaction if no workspace is created
+        if (!userWorkspace) tx.rollback()
+        const workspaceId = userWorkspace?.id as string
+
+        await tx.insert(member).values({
+          roleId: "unknown",
+          workspaceId,
+          userId,
+        })
+
+        return { userId, workspaceId }
       })
 
-      return newUser
+      return data
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return null
     }
   }
@@ -117,6 +138,23 @@ export class UserRepository {
       return user
     } catch (error) {
       console.log(error)
+      return null
+    }
+  }
+
+  async updateUserById(id: string, overrides: Partial<User>) {
+    try {
+      const [user] = await dbHttp
+        .update(users)
+        .set(overrides)
+        .where(eq(users.id, id))
+        .returning({
+          id: users.id,
+        })
+
+      return user
+    } catch (error) {
+      console.error(error)
       return null
     }
   }
