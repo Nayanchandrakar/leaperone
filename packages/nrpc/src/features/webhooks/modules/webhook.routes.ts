@@ -1,6 +1,8 @@
 import { Hono } from "hono"
-import { webhookController } from "./webhook.module"
+import { subscriptionController } from "../../subscription/modules/subscription.module"
 
-const app = new Hono().post("/stripe", (opts) => webhookController.stripe(opts))
+const app = new Hono().post("/stripe", (opts) =>
+  subscriptionController.stripe(opts),
+)
 
 export default app

@@ -1,4 +1,3 @@
-import type { StripeController } from "../types"
 import type { WebhookService } from "./webhook.service"
 
 export class WebhookController {
@@ -15,9 +14,5 @@ export class WebhookController {
     }
 
     return WebhookController.instance
-  }
-
-  async stripe(c: StripeController) {
-    return await this.webhookService.stripe(c)
   }
 }
