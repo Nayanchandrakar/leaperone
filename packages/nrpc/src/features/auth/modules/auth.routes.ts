@@ -8,9 +8,10 @@ import {
 } from "@app/zod/schema/auth"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
+import type { AuthEnv } from "../types"
 import { authController, authMiddleware } from "./auth.module"
 
-const app = new Hono()
+const app = new Hono<AuthEnv>()
   .post("/register", zValidator("json", registerFormSchema), (opts) => {
     return authController.register(opts)
   })

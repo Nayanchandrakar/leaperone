@@ -1,29 +1,23 @@
-import type { SubscriptionRepository } from "@app/database/repository/subscription"
 import { ApiError } from "@app/error/index"
 import type { Stripe as StripeClient } from "stripe"
 import { MSG } from "../../../constants/message"
 import type { Stripe } from "../lib/stripe"
-import type { StripeController } from "../types/index"
+import type {
+  CheckoutSessionController,
+  StripeController,
+} from "../types/index"
 
 export class SubscriptionService {
   private static instance: SubscriptionService | null = null
-  private subscriptionRepository: SubscriptionRepository
   private stripe: Stripe
 
-  private constructor(
-    subscriptionRepository: SubscriptionRepository,
-    stripe: Stripe,
-  ) {
+  private constructor(stripe: Stripe) {
     this.stripe = stripe
-    this.subscriptionRepository = subscriptionRepository
   }
 
-  static init(subscriptionRepository: SubscriptionRepository, stripe: Stripe) {
+  static init(stripe: Stripe) {
     if (!SubscriptionService.instance) {
-      SubscriptionService.instance = new SubscriptionService(
-        subscriptionRepository,
-        stripe,
-      )
+      SubscriptionService.instance = new SubscriptionService(stripe)
     }
 
     return SubscriptionService.instance
@@ -68,5 +62,18 @@ export class SubscriptionService {
       console.error("Error processing webhook: ", err)
       throw ApiError.badRequest("Error processing webhook")
     }
+  }
+
+  async checkoutSession(c: CheckoutSessionController) {
+    // const { seats, priceId } = c.req.valid("json")
+    // const session = c.get("session")
+
+    // const user = await this
+
+    return c.json(200)
+  }
+
+  async billingPortal(c: CheckoutSessionController) {
+    return c.json(200)
   }
 }

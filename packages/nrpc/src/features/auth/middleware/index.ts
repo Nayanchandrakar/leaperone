@@ -1,22 +1,28 @@
-import type { Next } from "hono"
+import { ApiError } from "@app/error/index"
+import type { Context, Next } from "hono"
+import { createMiddleware } from "hono/factory"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
 import { createRoute } from "../../../utils/urls"
 import type { VerifyEmailController } from "../types"
 import { verifyJwt } from "../utils/jwt"
+import type { Session } from "../utils/session"
 
 export class AuthMiddleware {
   private static instance: AuthMiddleware | null = null
+  private session: Session
 
-  private constructor() {}
+  private constructor(session: Session) {
+    this.session = session
+  }
 
-  public static init() {
+  static init(session: Session) {
     if (!AuthMiddleware.instance) {
-      AuthMiddleware.instance = new AuthMiddleware()
+      AuthMiddleware.instance = new AuthMiddleware(session)
     }
     return AuthMiddleware.instance
   }
 
-  public async verifyToken(c: VerifyEmailController, next: Next) {
+  verifyToken = createMiddleware(async (c: VerifyEmailController, next) => {
     const input = c.req.valid("query")
     const endpoint = createRoute(input.callbackUrl)
 
@@ -33,5 +39,12 @@ export class AuthMiddleware {
       endpoint.searchParams.set("error", "invalid_token")
       return c.redirect(endpoint.href)
     }
-  }
+  })
+
+  isAuthenticated = createMiddleware(async (c: Context, next: Next) => {
+    const session = await this.session.ctx(c)
+    if (!session) throw ApiError.unauthorized()
+    c.set("session", session)
+    await next()
+  })
 }

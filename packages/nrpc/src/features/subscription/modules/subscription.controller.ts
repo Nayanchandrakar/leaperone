@@ -1,4 +1,4 @@
-import type { StripeController } from "../types"
+import type { CheckoutSessionController, StripeController } from "../types"
 import type { SubscriptionService } from "./subscription.service"
 
 export class SubscriptionController {
@@ -21,5 +21,13 @@ export class SubscriptionController {
 
   async stripe(c: StripeController) {
     return await this.subscriptionService.constructWebhook(c)
+  }
+
+  async checkoutSession(c: CheckoutSessionController) {
+    return await this.subscriptionService.checkoutSession(c)
+  }
+
+  async billingPortal(c: CheckoutSessionController) {
+    return await this.subscriptionService.billingPortal(c)
   }
 }
