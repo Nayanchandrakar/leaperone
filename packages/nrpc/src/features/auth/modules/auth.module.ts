@@ -1,4 +1,4 @@
-import { AuthRepository } from "@app/database/repository/user"
+import { AuthRepository } from "@app/database/repository/auth"
 import { Stripe } from "../../subscription/lib/stripe"
 import { AuthMiddleware } from "../middlewares"
 import { Cookie } from "../utils/cookie"

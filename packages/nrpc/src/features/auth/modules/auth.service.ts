@@ -1,4 +1,4 @@
-import type { AuthRepository } from "@app/database/repository/user"
+import type { AuthRepository } from "@app/database/repository/auth"
 import { ApiError } from "@app/error/index"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"

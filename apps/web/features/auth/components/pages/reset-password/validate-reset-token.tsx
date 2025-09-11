@@ -1,5 +1,5 @@
 import { ResetPasswordForm } from "@/features/auth/components/forms/reset-password"
-import { authRepository } from "@/features/auth/repository/user"
+import { authRepository } from "@/features/auth/repository/auth"
 import type { IResetPasswordPage } from "@/features/auth/types"
 
 // TODO: improve the ui part here for errors
