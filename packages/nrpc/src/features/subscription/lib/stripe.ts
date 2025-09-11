@@ -1,3 +1,4 @@
+import type { InsertSubscription } from "@app/database/types"
 import { ENV } from "@app/env/server"
 import type { Context } from "hono"
 import { Stripe as Client } from "stripe"
@@ -37,11 +38,36 @@ export class Stripe {
   }
 
   public async onCheckoutSessionComplete(c: Context, event: Client.Event) {
-    const checkoutSession = event.data.object as CheckoutSession
-    const userId = checkoutSession.metadata.userId
-    const workspaceId = checkoutSession.metadata.workspaceId
+    const session = event.data.object as CheckoutSession
+    const userId = session.metadata.userId
+    const workspaceId = session.metadata.workspaceId
 
     if (userId && workspaceId) {
+      const subscription = await this.client.subscriptions.retrieve(
+        session.subscription as string,
+      )
+      const item = subscription.items.data[0]!
+
+      const values: InsertSubscription = {
+        customerId: subscription.customer as string,
+        cancelAtPeriodEnd: subscription.cancel_at_period_end,
+        periodEnd: new Date(item.current_period_end * 1000),
+        periodStart: new Date(item.current_period_start * 1000),
+        priceId: item.price.id,
+        status: subscription.status,
+        subscriptionId: session.subscription as string,
+        plan: "team",
+        seats: item.quantity,
+        ...(subscription.trial_end && {
+          trialEnd: new Date(subscription.trial_end * 1000),
+        }),
+        ...(subscription.trial_start && {
+          trialStart: new Date(subscription.trial_start * 1000),
+        }),
+        workspaceId,
+      }
+
+      console.log(values)
     }
   }
 
