@@ -1,5 +1,7 @@
 import { ENV } from "@app/env/server"
+import type { Context } from "hono"
 import { Stripe as Client } from "stripe"
+import type { CheckoutSession } from "../types"
 
 export class Stripe {
   private static instance: Stripe | null = null
@@ -33,4 +35,17 @@ export class Stripe {
       ENV.STRIPE_WEBHOOK,
     )
   }
+
+  public async onCheckoutSessionComplete(c: Context, event: Client.Event) {
+    const checkoutSession = event.data.object as CheckoutSession
+    const userId = checkoutSession.metadata.userId
+    const workspaceId = checkoutSession.metadata.workspaceId
+
+    if (userId && workspaceId) {
+    }
+  }
+
+  public async onSubscriptionUpdated(c: Context, event: Client.Event) {}
+
+  public async onSubscriptionDeleted(c: Context, event: Client.Event) {}
 }

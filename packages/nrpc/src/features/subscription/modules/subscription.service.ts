@@ -1,5 +1,6 @@
 import type { SubscriptionRepository } from "@app/database/repository/subscription"
 import { ApiError } from "@app/error/index"
+import type { Stripe as StripeClient } from "stripe"
 import { MSG } from "../../../constants/message"
 import type { Stripe } from "../lib/stripe"
 import type { StripeController } from "../types/index"
@@ -29,37 +30,43 @@ export class SubscriptionService {
   }
 
   async constructWebhook(c: StripeController) {
+    const buffer = await c.req.text()
     const signature = c.req.header("stripe-signature")
 
     if (!signature) {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.MISSING_SIGNATURE)
     }
 
+    let event: StripeClient.Event
     try {
-      const buffer = await c.req.text()
-      const event = await this.stripe.constructWebhookEvent(buffer, signature)
+      event = await this.stripe.constructWebhookEvent(buffer, signature)
+    } catch (err: any) {
+      console.error("Webhook signature verification failed: ", err)
+      throw ApiError.badRequest("Invalid Signature")
+    }
 
+    try {
       switch (event.type) {
         case "checkout.session.completed":
-          console.log(event.data.object)
-          break
-        case "customer.subscription.created":
-          console.log(event.data.object)
+          await this.stripe.onCheckoutSessionComplete(c, event)
           break
 
         case "customer.subscription.deleted":
-          console.log(event.data.object)
+          await this.stripe.onSubscriptionDeleted(c, event)
           break
 
         case "customer.subscription.updated":
-          console.log(event.data.object)
+          await this.stripe.onSubscriptionUpdated(c, event)
           break
+
+        default:
+          console.warn(`Unhandled event type:${event.type}`)
       }
 
       return c.json({ success: true })
     } catch (err: any) {
-      console.log(err?.message)
-      throw ApiError.badRequest(`Webhook Error:${err?.message}`)
+      console.error("Error processing webhook: ", err)
+      throw ApiError.badRequest("Error processing webhook")
     }
   }
 }

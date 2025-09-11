@@ -1,4 +1,4 @@
-import type { UserRepository } from "@app/database/repository/user"
+import type { AuthRepository } from "@app/database/repository/user"
 import { ApiError } from "@app/error/index"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
@@ -29,32 +29,32 @@ import type { Session } from "../utils/session"
 
 export class AuthService {
   private static instance: AuthService | null = null
-  private userRepository: UserRepository
+  private authRepository: AuthRepository
   private session: Session
   private cookie: Cookie
   private stripe: Stripe
 
   private constructor(
-    userRepository: UserRepository,
+    authRepository: AuthRepository,
     session: Session,
     cookie: Cookie,
     stripe: Stripe,
   ) {
     this.cookie = cookie
     this.session = session
-    this.userRepository = userRepository
+    this.authRepository = authRepository
     this.stripe = stripe
   }
 
   static init(
-    userRepository: UserRepository,
+    authRepository: AuthRepository,
     session: Session,
     cookie: Cookie,
     stripe: Stripe,
   ) {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService(
-        userRepository,
+        authRepository,
         session,
         cookie,
         stripe,
@@ -72,21 +72,21 @@ export class AuthService {
   async register(c: RegisterController) {
     const { username, email, password, name, callbackUrl } = c.req.valid("json")
 
-    const isUserExist = await this.userRepository.findUserByEmail(email)
+    const isUserExist = await this.authRepository.findUserByEmail(email)
 
     if (isUserExist) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
     const isUserNameTaken =
-      await this.userRepository.findUserWithUserName(username)
+      await this.authRepository.findUserWithUserName(username)
 
     if (isUserNameTaken) {
       throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
     const hashedPassword = await hash(password, 10)
-    const creatdUser = await this.userRepository.bootStrapUser({
+    const data = await this.authRepository.bootStrapUser({
       name,
       email,
       username,
@@ -95,27 +95,24 @@ export class AuthService {
       password: hashedPassword,
     })
 
-    if (!creatdUser) {
+    if (!data) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
-    // Create a stripe customer after successful user creation
+    // Create a stripe customer after creating a user successfully
     const stripeCustomer = await this.stripe.createCustomer({
       email,
       name,
       metadata: {
-        userId: creatdUser.userId,
-        workspaceId: creatdUser.workspaceId,
+        userId: data.user.id,
+        workspaceId: data.user.workspaceId,
       },
     })
 
-    // Update user stripeCustomerId
-    const updatedUser = await this.userRepository.updateUserById(
-      creatdUser.userId,
-      {
-        stripeCustomerId: stripeCustomer.id,
-      },
-    )
+    // Update user with stripe customer id
+    const updatedUser = await this.authRepository.updateUserById(data.user.id, {
+      stripeCustomerId: stripeCustomer.id,
+    })
 
     if (!updatedUser) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
@@ -143,7 +140,7 @@ export class AuthService {
   async login(c: LoginController) {
     const input = c.req.valid("json")
 
-    const userWithAccounts = await this.userRepository.findUserWithAccount(
+    const userWithAccounts = await this.authRepository.findUserWithAccount(
       input.email,
     )
 
@@ -221,7 +218,7 @@ export class AuthService {
       throw ApiError.validationError("Failed to parse payload data")
     }
 
-    const user = await this.userRepository.findUserByEmail(data.email)
+    const user = await this.authRepository.findUserByEmail(data.email)
 
     if (!user) {
       throw ApiError.unauthorized("User not found")
@@ -231,7 +228,7 @@ export class AuthService {
       throw ApiError.unauthorized("Email is already verified")
     }
 
-    const updatedUser = await this.userRepository.updateUserByEmail(
+    const updatedUser = await this.authRepository.updateUserByEmail(
       user.email,
       {
         emailVerified: true,
@@ -265,7 +262,7 @@ export class AuthService {
   async requestPasswordReset(c: PasswordResetController) {
     const { email } = c.req.valid("json")
 
-    const user = await this.userRepository.findUserByEmail(email)
+    const user = await this.authRepository.findUserByEmail(email)
 
     if (!user) {
       return c.json({
@@ -278,7 +275,7 @@ export class AuthService {
     const identifier = `reset-password:${token}`
     const expiresAt = getDate(PASSWORD_RESET_EXPIRY, "sec")
 
-    await this.userRepository.createVerification({
+    await this.authRepository.createVerification({
       identifier,
       expiresAt,
       value: user.id!,
@@ -306,7 +303,7 @@ export class AuthService {
 
     const identifier = `reset-password:${token}`
     const verification =
-      await this.userRepository.findVerificationByIdentifier(identifier)
+      await this.authRepository.findVerificationByIdentifier(identifier)
 
     if (!verification || verification.expiresAt < new Date()) {
       throw ApiError.badRequest(MSG.PROVIDER.INVALID_TOKEN)
@@ -316,7 +313,7 @@ export class AuthService {
     const verificationId = verification.id
     const hashedPassword = await hash(newPassword, 10)
 
-    await this.userRepository.updateUserAndDeleteVerification(
+    await this.authRepository.updateUserAndDeleteVerification(
       userId,
       verificationId,
       {

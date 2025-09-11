@@ -1,3 +1,3 @@
-import { UserRepository } from "@app/database/repository/user"
+import { AuthRepository } from "@app/database/repository/user"
 
-export const userRepository = UserRepository.init()
+export const authRepository = AuthRepository.init()

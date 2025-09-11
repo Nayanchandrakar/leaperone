@@ -1,4 +1,4 @@
-import { UserRepository } from "@app/database/repository/user"
+import { AuthRepository } from "@app/database/repository/user"
 import { Stripe } from "../../subscription/lib/stripe"
 import { AuthMiddleware } from "../middlewares"
 import { Cookie } from "../utils/cookie"
@@ -9,9 +9,9 @@ import { AuthService } from "./auth.service"
 const cookie = Cookie.init()
 const stripe = Stripe.init()
 const session = Session.init(cookie)
-const userRepository = UserRepository.init()
+const authRepository = AuthRepository.init()
 const authMiddleware = AuthMiddleware.init()
-const authService = AuthService.init(userRepository, session, cookie, stripe)
+const authService = AuthService.init(authRepository, session, cookie, stripe)
 const authController = AuthController.init(authService)
 
 export { authService, authController, authMiddleware }

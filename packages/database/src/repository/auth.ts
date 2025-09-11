@@ -5,15 +5,15 @@ import { member, verification, workspace } from "../schema/index"
 import { users } from "../schema/users"
 import type { Account, InsertUser, User, Verification } from "../types"
 
-export class UserRepository {
-  private static instance: UserRepository | null = null
+export class AuthRepository {
+  private static instance: AuthRepository | null = null
   private constructor() {}
 
   public static init() {
-    if (!UserRepository.instance) {
-      UserRepository.instance = new UserRepository()
+    if (!AuthRepository.instance) {
+      AuthRepository.instance = new AuthRepository()
     }
-    return UserRepository.instance
+    return AuthRepository.instance
   }
 
   public async findUserByEmail(email: string) {
@@ -118,7 +118,12 @@ export class UserRepository {
           userId,
         })
 
-        return { userId, workspaceId }
+        return {
+          user: {
+            id: user?.id!,
+            workspaceId,
+          },
+        }
       })
 
       return data

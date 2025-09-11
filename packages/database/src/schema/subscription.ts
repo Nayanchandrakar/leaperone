@@ -1,5 +1,12 @@
 import { createId } from "@paralleldrive/cuid2"
-import { integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import {
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core"
 import { subscriptionPlan, subscriptionStatus } from "../constants"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
@@ -26,7 +33,7 @@ export const subscription = pgTable("subscription", {
   plan: subscriptionPlanEnum().default("individual").notNull(),
   priceId: text().notNull(),
 
-  status: subscriptionStatusEnum().default("active").notNull(),
+  status: subscriptionStatusEnum().notNull(),
 
   periodStart: timestamp().notNull(),
   periodEnd: timestamp().notNull(),
@@ -35,5 +42,7 @@ export const subscription = pgTable("subscription", {
   trialEnd: timestamp(),
 
   seats: integer().default(1).notNull(),
+  cancelAtPeriodEnd: boolean().default(false).notNull(),
+
   ...timestamps,
 })
