@@ -19,15 +19,15 @@ export class SubscriptionController {
     return SubscriptionController.instance
   }
 
-  async stripe(c: StripeController) {
+  stripe = async (c: StripeController) => {
     return await this.subscriptionService.constructWebhook(c)
   }
 
-  async checkoutSession(c: CheckoutSessionController) {
+  checkoutSession = async (c: CheckoutSessionController) => {
     return await this.subscriptionService.checkoutSession(c)
   }
 
-  async billingPortal(c: CheckoutSessionController) {
+  billingPortal = async (c: CheckoutSessionController) => {
     return await this.subscriptionService.billingPortal(c)
   }
 }

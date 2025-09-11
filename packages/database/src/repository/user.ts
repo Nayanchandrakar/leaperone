@@ -181,3 +181,18 @@ export async function updateUserAndDeleteVerification(
     return null
   }
 }
+
+export async function getUserById(userId: string) {
+  try {
+    const [user] = await dbHttp
+      .select()
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1)
+
+    return user
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

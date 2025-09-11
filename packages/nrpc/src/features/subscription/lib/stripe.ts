@@ -26,6 +26,10 @@ export class Stripe {
     return await this.client.customers.create(params)
   }
 
+  public async getCustomerByEmail(params: Client.CustomerListParams) {
+    return await this.client.customers.list(params)
+  }
+
   public async constructWebhookEvent(
     buffer: string | Buffer,
     signature: string | Buffer | Array<string>,

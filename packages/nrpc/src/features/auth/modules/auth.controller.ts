@@ -25,37 +25,37 @@ export class AuthController {
     return AuthController.instance
   }
 
-  async userName(c: UserNameController) {
+  userName = async (c: UserNameController) => {
     return await this.authService.findUserName(c)
   }
 
-  async register(c: RegisterController) {
+  register = async (c: RegisterController) => {
     return await this.authService.register(c)
   }
 
-  async login(c: LoginController) {
+  login = async (c: LoginController) => {
     return await this.authService.login(c)
   }
 
-  async getSession(c: GetSessionController) {
+  getSession = async (c: GetSessionController) => {
     const session = await this.authService.getSession(c)
     return c.json(session)
   }
 
-  async logout(c: LogoutController) {
+  logout = async (c: LogoutController) => {
     await this.authService.logout(c)
     return c.json({ message: "Logout successfully" })
   }
 
-  async verifyEmail(c: VerifyEmailController) {
+  verifyEmail = async (c: VerifyEmailController) => {
     return await this.authService.verifyEmail(c)
   }
 
-  async requestPasswordReset(c: PasswordResetController) {
+  requestPasswordReset = async (c: PasswordResetController) => {
     return await this.authService.requestPasswordReset(c)
   }
 
-  async resetPassword(c: ResetPasswordController) {
+  resetPassword = async (c: ResetPasswordController) => {
     return await this.authService.resetPassword(c)
   }
 }

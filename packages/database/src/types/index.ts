@@ -7,7 +7,7 @@ import type {
   subscriptionPlan,
   subscriptionStatus,
 } from "../constants"
-import type { accounts, verification } from "../schema/index"
+import type { accounts, subscription, verification } from "../schema/index"
 import type { users } from "../schema/users"
 
 export type HttpConnectionType = NeonHttpDatabase
@@ -30,6 +30,7 @@ export type Verification = typeof verification.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert
+export type InsertSubscription = typeof subscription.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

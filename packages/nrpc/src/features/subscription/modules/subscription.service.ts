@@ -65,11 +65,6 @@ export class SubscriptionService {
   }
 
   async checkoutSession(c: CheckoutSessionController) {
-    // const { seats, priceId } = c.req.valid("json")
-    // const session = c.get("session")
-
-    // const user = await this
-
     return c.json(200)
   }
 
