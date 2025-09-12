@@ -9,7 +9,12 @@ import type {
 } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
-import type { accounts, subscription, verification } from "../schema/index"
+import type {
+  accounts,
+  subscription,
+  verification,
+  workspace,
+} from "../schema/index"
 import type { users } from "../schema/users"
 
 export type HttpConnectionType = NeonHttpDatabase
@@ -30,6 +35,8 @@ export type ConfigOptions = {
 export type User = typeof users.$inferSelect
 export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
+export type Workspace = typeof workspace.$inferSelect
+export type Subscription = typeof subscription.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert

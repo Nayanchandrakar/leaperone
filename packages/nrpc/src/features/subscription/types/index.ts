@@ -1,16 +1,16 @@
 import type { CheckoutSessionSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type Stripe from "stripe"
-import type { ControllerIO, FullSession } from "../../../types"
+import type { ControllerIO, HonoEnv } from "../../../types"
 
 export type CheckoutSessionController = Context<
-  SubscriptionEnv,
+  HonoEnv,
   "/checkout",
   ControllerIO<"json", CheckoutSessionSchema>
 >
 
 export type StripeController = Context<
-  SubscriptionEnv,
+  HonoEnv,
   "/stripe",
   ControllerIO<"json", {}>
 >
@@ -22,8 +22,14 @@ export type CheckoutSession = Stripe.Checkout.Session & {
   }
 }
 
-export type SubscriptionEnv = {
-  Variables: {
-    session: FullSession
-  }
+export type IsSubscriptionActive = {
+  active: boolean
+  trial: boolean
+  plan: string | null
+  priceId: string | null
+  expiresAt: Date | null
+  seats: number
+  cancelAtPeriodEnd: boolean
+  customerId: string | null
+  subscriptionId: string | null
 }

@@ -9,10 +9,10 @@ import {
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
 import { middleware } from "../../../middleware"
-import type { AuthEnv } from "../types"
+import type { HonoEnv } from "../../../types/index"
 import { authController } from "./auth.module"
 
-const app = new Hono<AuthEnv>()
+const app = new Hono<HonoEnv>()
   .post(
     "/register",
     zValidator("json", registerFormSchema),

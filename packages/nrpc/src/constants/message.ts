@@ -62,6 +62,10 @@ export const MSG = {
     FAILED_TO_UNLINK_LAST: "You can't unlink your last account",
   },
 
+  WORKSPACE: {
+    NOT_FOUND: "Workspace not found",
+  },
+
   PROVIDER: {
     NOT_FOUND: "Provider not found",
     INVALID_TOKEN: "Invalid token",
@@ -72,6 +76,6 @@ export const MSG = {
   GENERAL: {
     SUCCESS: "Action completed successfully.",
     ERROR: "Something went wrong. Please try again later.",
-    PERMISSION_DENIED: "You don’t have permission to perform this action.",
+    PERMISSION_DENIED: "You do not have permission to perform this action.",
   },
 } as const

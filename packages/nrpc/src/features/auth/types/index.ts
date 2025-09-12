@@ -7,48 +7,42 @@ import type {
   VerifyEmailSchema,
 } from "@app/zod/types"
 import type { Context } from "hono"
-import type { ControllerIO, FullSession } from "../../../types"
+import type { ControllerIO, HonoEnv } from "../../../types"
 
 export type RegisterController = Context<
-  AuthEnv,
+  HonoEnv,
   "/register",
   ControllerIO<"json", RegisterFormSchema>
 >
 
 export type LoginController = Context<
-  AuthEnv,
+  HonoEnv,
   "/login",
   ControllerIO<"json", LoginFormSchema>
 >
 
 export type UserNameController = Context<
-  AuthEnv,
+  HonoEnv,
   "/username",
   ControllerIO<"query", UserNameFormSchema>
 >
 
 export type PasswordResetController = Context<
-  AuthEnv,
+  HonoEnv,
   "/request-password-reset",
   ControllerIO<"json", EmailSchema>
 >
 export type ResetPasswordController = Context<
-  AuthEnv,
+  HonoEnv,
   "/reset-password",
   ControllerIO<"json", ResetPasswordSchema>
 >
 
 export type VerifyEmailController = Context<
-  AuthEnv,
+  HonoEnv,
   "/verify-email",
   ControllerIO<"query", VerifyEmailSchema>
 >
 
-export type GetSessionController = Context<AuthEnv, "/get-session">
-export type LogoutController = Context<AuthEnv, "/logout">
-
-export type AuthEnv = {
-  Variables: {
-    session: FullSession
-  }
-}
+export type GetSessionController = Context<HonoEnv, "/get-session">
+export type LogoutController = Context<HonoEnv, "/logout">
