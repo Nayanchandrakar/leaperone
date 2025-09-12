@@ -23,7 +23,7 @@ export default defineConfig(
         "@app/database",
         "@app/env/server",
         "@app/database/schema",
-        "@app/database/repository/user",
+        "@app/database/repository/auth",
       ],
       ...options,
     }) as Options,

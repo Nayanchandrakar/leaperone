@@ -6,8 +6,15 @@ import type {
   invitationStatus,
   subscriptionPlan,
   subscriptionStatus,
-} from "../constants"
-import type { accounts, verification } from "../schema/index"
+} from "../constants/enums"
+import type { PERMISSIONS } from "../constants/permissions"
+import type { DEFAULT_ROLES } from "../constants/roles"
+import type {
+  accounts,
+  subscription,
+  verification,
+  workspace,
+} from "../schema/index"
 import type { users } from "../schema/users"
 
 export type HttpConnectionType = NeonHttpDatabase
@@ -24,11 +31,29 @@ export type ConfigOptions = {
   }
 }
 
+// Select types
 export type User = typeof users.$inferSelect
 export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
+export type Workspace = typeof workspace.$inferSelect
+export type Subscription = typeof subscription.$inferSelect
+
+// Insert types
+export type InsertUser = typeof users.$inferInsert
+export type InsertSubscription = typeof subscription.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]
 export type InvitationStatus = (typeof invitationStatus)[number]
 export type SubscriptionStatus = (typeof subscriptionStatus)[number]
+
+// Constants
+export type Permissions = keyof typeof PERMISSIONS
+export type PermissionType = (typeof PERMISSIONS)[Permissions]
+export type RoleType = (typeof DEFAULT_ROLES)[number]["name"]
+
+// Types
+export type BootStrapUser = InsertUser & {
+  password: string
+  defaultRole: RoleType
+}

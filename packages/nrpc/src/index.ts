@@ -1,8 +1,13 @@
 import { Hono } from "hono"
 import authRouter from "./features/auth/modules/auth.routes"
+import subscriptionRouter from "./features/subscription/modules/subscription.route"
+import webhookRouter from "./features/webhooks/modules/webhook.routes"
 
 const app = new Hono().basePath("/api")
-const routes = app.route("/auth", authRouter)
+const routes = app
+  .route("/auth", authRouter)
+  .route("/webhooks", webhookRouter)
+  .route("/subscription", subscriptionRouter)
 
 export type AppRouter = typeof routes
 export default app

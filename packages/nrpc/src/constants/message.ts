@@ -14,6 +14,18 @@ export const MSG = {
     LINK_SENT: "A verification link has been sent to your email.",
   },
 
+  SUBSCRIPTION: {
+    MISSING_SIGNATURE: "Missing stripe signature",
+    SUBSCRIPTION_NOT_FOUND: "Subscription not found",
+    SUBSCRIPTION_PLAN_NOT_FOUND: "Subscription plan not found",
+    ALREADY_SUBSCRIBED_PLAN: "You're already subscribed to this plan",
+    UNABLE_TO_CREATE_CUSTOMER: "Unable to create customer",
+    FAILED_TO_FETCH_PLANS: "Failed to fetch plans",
+    EMAIL_VERIFICATION_REQUIRED:
+      "Email verification is required before you can subscribe to a plan",
+    SUBSCRIPTION_NOT_ACTIVE: "Subscription is not active",
+  },
+
   USER: {
     NOT_FOUND: "User not found",
     USERNAME_EXISTS: "Username has been already taken",
@@ -50,6 +62,10 @@ export const MSG = {
     FAILED_TO_UNLINK_LAST: "You can't unlink your last account",
   },
 
+  WORKSPACE: {
+    NOT_FOUND: "Workspace not found",
+  },
+
   PROVIDER: {
     NOT_FOUND: "Provider not found",
     INVALID_TOKEN: "Invalid token",
@@ -60,6 +76,6 @@ export const MSG = {
   GENERAL: {
     SUCCESS: "Action completed successfully.",
     ERROR: "Something went wrong. Please try again later.",
-    PERMISSION_DENIED: "You don’t have permission to perform this action.",
+    PERMISSION_DENIED: "You do not have permission to perform this action.",
   },
 } as const

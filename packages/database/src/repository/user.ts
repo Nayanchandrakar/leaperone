@@ -1,178 +1,212 @@
-import { desc, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
-import { verification } from "../schema/index"
+import {
+  roles,
+  verification,
+  workspace,
+  workspaceMembers,
+} from "../schema/index"
 import { users } from "../schema/users"
-import type { Account, User, Verification } from "../types"
+import type { Account, BootStrapUser, User } from "../types"
 
-export class UserRepository {
-  private static instance: UserRepository | null = null
-  private constructor() {}
-
-  public static init() {
-    if (!UserRepository.instance) {
-      UserRepository.instance = new UserRepository()
-    }
-    return UserRepository.instance
+export async function getUserByEmail(email: string) {
+  try {
+    const [user] = await dbHttp
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1)
+      .$withCache()
+    return user
+  } catch (error) {
+    console.log(error)
+    return null
   }
+}
 
-  public async findUserByEmail(email: string) {
-    try {
-      const [user] = await dbHttp
-        .select()
-        .from(users)
-        .where(eq(users.email, email))
-        .limit(1)
-        .$withCache()
-      return user
-    } catch (error) {
-      console.log(error)
+export async function getUserWithAccount(email: string) {
+  try {
+    const data = await dbHttp
+      .select()
+      .from(users)
+      .innerJoin(accounts, eq(users.id, accounts.userId))
+      .where(eq(users.email, email))
+      .$withCache()
+
+    if (data.length === 0) {
       return null
     }
-  }
 
-  async findUserWithAccount(email: string) {
-    try {
-      const data = await dbHttp
-        .select()
-        .from(users)
-        .innerJoin(accounts, eq(users.id, accounts.userId))
-        .where(eq(users.email, email))
-        .$withCache()
-
-      if (data.length === 0) {
-        return null
-      }
-
-      const formatted = {
-        user: data[0]?.user,
-        accounts: data.map((a) => a.account),
-      }
-
-      return formatted
-    } catch (error) {
-      console.log(error)
-      return null
+    const formatted = {
+      user: data[0]?.user,
+      accounts: data.map((a) => a.account),
     }
+
+    return formatted
+  } catch (error) {
+    console.log(error)
+    return null
   }
+}
 
-  async findUserWithUserName(username: string) {
-    try {
-      const [data] = await dbHttp
-        .select({ id: users.id })
-        .from(users)
-        .where(eq(users.username, username))
-        .limit(1)
+export async function getUserByUserName(username: string) {
+  try {
+    const [data] = await dbHttp
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
 
-      return Boolean(data?.id)
-    } catch (error) {
-      console.log(error)
-      return false
-    }
+    return Boolean(data?.id)
+  } catch (error) {
+    console.log(error)
+    return false
   }
+}
 
-  async createUser(
-    email: string,
-    username: string,
-    password: string,
-    name: string,
-  ) {
-    try {
-      const newUser = await dbWs.transaction(async (tx) => {
-        const [data] = await tx
-          .insert(users)
-          .values({
-            email,
-            name,
-            username,
-            emailVerified: false,
-          })
-          .returning()
+export async function bootStrapUser({
+  email,
+  name,
+  username,
+  image,
+  password,
+  defaultRole,
+}: BootStrapUser) {
+  try {
+    const data = await dbWs.transaction(async (tx) => {
+      const [user] = await tx
+        .insert(users)
+        .values({
+          email,
+          name,
+          username,
+          image,
+        })
+        .returning({ id: users.id })
 
-        if (data) {
-          await tx.insert(accounts).values({
-            password,
-            userId: data.id,
-            accountId: data.id,
-            providerId: "credential",
-          })
-        }
-        return data
+      // Rollback the transaction if no user is created
+      if (!user) tx.rollback()
+      const userId = user?.id as string
+
+      await tx.insert(accounts).values({
+        password,
+        userId: userId,
+        accountId: userId,
+        providerId: "credential",
       })
 
-      return newUser
-    } catch (error) {
-      console.log(error)
-      return null
-    }
-  }
-
-  async updateUserByEmail(email: string, overrides: Partial<User>) {
-    try {
-      const [user] = await dbHttp
-        .update(users)
-        .set(overrides)
-        .where(eq(users.email, email))
+      const [userWorkspace] = await tx
+        .insert(workspace)
+        .values({
+          ownerId: userId,
+        })
         .returning()
-      return user
-    } catch (error) {
-      console.log(error)
-      return null
-    }
-  }
 
-  async createVerification(
-    values: Omit<Verification, "createdAt" | "updatedAt" | "id">,
-  ) {
-    try {
-      await dbHttp.insert(verification).values(values)
-      return true
-    } catch (error) {
-      console.log(error)
-      return null
-    }
-  }
-
-  async findVerificationByIdentifier(identifier: string) {
-    try {
-      const [token] = await dbHttp
+      // Rollback the transaction if no workspace is created
+      if (!userWorkspace) tx.rollback()
+      const workspaceId = userWorkspace?.id as string
+      const [role] = await tx
         .select()
-        .from(verification)
-        .where(eq(verification.identifier, identifier))
-        .orderBy(desc(verification.createdAt))
+        .from(roles)
+        .where(eq(roles.name, defaultRole))
         .limit(1)
-      return token
-    } catch (error) {
-      console.log(error)
-      return null
-    }
-  }
 
-  async updateUserAndDeleteVerification(
-    userId: string,
-    verificationId: string,
-    overrides: Partial<Account>,
-  ) {
-    try {
-      const udpatedAccount = await dbWs.transaction(async (tx) => {
-        const [data] = await tx
-          .update(accounts)
-          .set(overrides)
-          .where(eq(accounts.userId, userId))
-          .returning()
+      // Rollback the transaction if no role is found
+      if (!role) tx.rollback()
 
-        if (data) {
-          await tx
-            .delete(verification)
-            .where(eq(verification.id, verificationId))
-        }
-        return data
+      await tx.insert(workspaceMembers).values({
+        roleId: role?.id!,
+        workspaceId,
+        userId,
       })
 
-      return udpatedAccount
-    } catch (error) {
-      console.log(error)
-      return null
-    }
+      return {
+        user: {
+          id: user?.id!,
+          workspaceId,
+        },
+      }
+    })
+
+    return data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export async function updateUserByEmail(
+  email: string,
+  overrides: Partial<User>,
+) {
+  try {
+    const [user] = await dbHttp
+      .update(users)
+      .set(overrides)
+      .where(eq(users.email, email))
+      .returning()
+    return user
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export async function updateUserById(id: string, overrides: Partial<User>) {
+  try {
+    const [user] = await dbHttp
+      .update(users)
+      .set(overrides)
+      .where(eq(users.id, id))
+      .returning({
+        id: users.id,
+      })
+
+    return user
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export async function updateUserAndDeleteVerification(
+  userId: string,
+  verificationId: string,
+  overrides: Partial<Account>,
+) {
+  try {
+    const udpatedAccount = await dbWs.transaction(async (tx) => {
+      const [data] = await tx
+        .update(accounts)
+        .set(overrides)
+        .where(eq(accounts.userId, userId))
+        .returning()
+
+      if (data) {
+        await tx.delete(verification).where(eq(verification.id, verificationId))
+      }
+      return data
+    })
+
+    return udpatedAccount
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+export async function getUserById(userId: string) {
+  try {
+    const [user] = await dbHttp
+      .select()
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1)
+
+    return user
+  } catch (error) {
+    console.log(error)
+    return null
   }
 }
