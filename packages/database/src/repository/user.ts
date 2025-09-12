@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
-import { member, verification, workspace } from "../schema/index"
+import { verification, workspace, workspaceMembers } from "../schema/index"
 import { users } from "../schema/users"
 import type { Account, InsertUser, User } from "../types"
 
@@ -101,7 +101,7 @@ export async function bootStrapUser({
       if (!userWorkspace) tx.rollback()
       const workspaceId = userWorkspace?.id as string
 
-      await tx.insert(member).values({
+      await tx.insert(workspaceMembers).values({
         roleId: "unknown",
         workspaceId,
         userId,
