@@ -8,6 +8,7 @@ import type {
   subscriptionStatus,
 } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
+import type { DEFAULT_ROLES } from "../constants/roles"
 import type { accounts, subscription, verification } from "../schema/index"
 import type { users } from "../schema/users"
 
@@ -25,6 +26,7 @@ export type ConfigOptions = {
   }
 }
 
+// Select types
 export type User = typeof users.$inferSelect
 export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
@@ -41,3 +43,10 @@ export type SubscriptionStatus = (typeof subscriptionStatus)[number]
 // Constants
 export type Permissions = keyof typeof PERMISSIONS
 export type PermissionType = (typeof PERMISSIONS)[Permissions]
+export type RoleType = (typeof DEFAULT_ROLES)[number]["name"]
+
+// Types
+export type BootStrapUser = InsertUser & {
+  password: string
+  defaultRole: RoleType
+}

@@ -86,6 +86,7 @@ export class AuthService {
       username,
       image: null,
       emailVerified: false,
+      defaultRole: "owner",
       password: hashedPassword,
     })
 

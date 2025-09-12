@@ -1,9 +1,14 @@
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
-import { verification, workspace, workspaceMembers } from "../schema/index"
+import {
+  roles,
+  verification,
+  workspace,
+  workspaceMembers,
+} from "../schema/index"
 import { users } from "../schema/users"
-import type { Account, InsertUser, User } from "../types"
+import type { Account, BootStrapUser, User } from "../types"
 
 export async function getUserByEmail(email: string) {
   try {
@@ -66,7 +71,8 @@ export async function bootStrapUser({
   username,
   image,
   password,
-}: InsertUser & { password: string }) {
+  defaultRole,
+}: BootStrapUser) {
   try {
     const data = await dbWs.transaction(async (tx) => {
       const [user] = await tx
@@ -100,9 +106,17 @@ export async function bootStrapUser({
       // Rollback the transaction if no workspace is created
       if (!userWorkspace) tx.rollback()
       const workspaceId = userWorkspace?.id as string
+      const [role] = await tx
+        .select()
+        .from(roles)
+        .where(eq(roles.name, defaultRole))
+        .limit(1)
+
+      // Rollback the transaction if no role is found
+      if (!role) tx.rollback()
 
       await tx.insert(workspaceMembers).values({
-        roleId: "unknown",
+        roleId: role?.id!,
         workspaceId,
         userId,
       })

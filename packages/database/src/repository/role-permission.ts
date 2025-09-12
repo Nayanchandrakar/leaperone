@@ -6,7 +6,7 @@ import {
   roles,
   workspaceMembers,
 } from "../schema"
-import type { PermissionType } from "../types"
+import type { PermissionType, RoleType } from "../types"
 
 export async function hasPermissions(
   userId: string,
@@ -36,11 +36,25 @@ export async function hasPermissions(
         ),
       )
       .limit(1)
-      .$withCache()
 
     return result.length > 0
   } catch (error) {
     console.error(error)
     return false
+  }
+}
+
+export async function getRoleByName(role: RoleType) {
+  try {
+    const [data] = await dbHttp
+      .select()
+      .from(roles)
+      .where(eq(roles.name, role))
+      .limit(1)
+
+    return data
+  } catch (error) {
+    console.error(error)
+    return null
   }
 }
