@@ -6,9 +6,9 @@ import { ApiError } from "@app/error/index"
 import type { Context } from "hono"
 import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
+import { stripe } from "../../../lib/stripe"
 import { TRIAL_PERIOD_DAYS } from "../constants"
 import { isSubscriptionActive } from "../helpers"
-import { stripe } from "../lib/stripe"
 import type {
   CheckoutSession,
   CheckoutSessionController,
@@ -129,7 +129,6 @@ export class SubscriptionService {
           name: "auto",
           address: "auto",
         },
-        customer_email: user.email,
         payment_method_types: ["card"],
         line_items: [
           {

@@ -16,4 +16,4 @@ export const DEFAULT_ROLES = [
       PERMISSIONS.UPDATE_CARDS,
     ],
   },
-] as const
+]

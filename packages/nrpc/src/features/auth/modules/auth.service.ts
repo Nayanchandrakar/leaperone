@@ -17,9 +17,9 @@ import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
 import { MSG } from "../../../constants/message"
 import { redis } from "../../../lib/redis"
+import { stripe } from "../../../lib/stripe"
 import { getDate } from "../../../utils/date"
 import { createRoute } from "../../../utils/urls"
-import type { Stripe } from "../../subscription/lib/stripe"
 import {
   PASSWORD_RESET_EXPIRY,
   SESSION_COOKIE_NAME,
@@ -43,17 +43,15 @@ export class AuthService {
   private static instance: AuthService | null = null
   private session: Session
   private cookie: Cookie
-  private stripe: Stripe
 
-  private constructor(session: Session, cookie: Cookie, stripe: Stripe) {
+  private constructor(session: Session, cookie: Cookie) {
     this.cookie = cookie
     this.session = session
-    this.stripe = stripe
   }
 
-  static init(session: Session, cookie: Cookie, stripe: Stripe) {
+  static init(session: Session, cookie: Cookie) {
     if (!AuthService.instance) {
-      AuthService.instance = new AuthService(session, cookie, stripe)
+      AuthService.instance = new AuthService(session, cookie)
     }
     return AuthService.instance
   }
@@ -95,7 +93,7 @@ export class AuthService {
     }
 
     // Create a stripe customer after creating a user successfully
-    const stripeCustomer = await this.stripe.createCustomer({
+    const stripeCustomer = await stripe.customers.create({
       email,
       name,
       metadata: {
