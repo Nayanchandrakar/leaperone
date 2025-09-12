@@ -8,8 +8,9 @@ import {
 } from "@app/zod/schema/auth"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
+import { middleware } from "../../../middleware"
 import type { AuthEnv } from "../types"
-import { authController, authMiddleware } from "./auth.module"
+import { authController } from "./auth.module"
 
 const app = new Hono<AuthEnv>()
   .post(
@@ -38,7 +39,7 @@ const app = new Hono<AuthEnv>()
   .get(
     "/verify-email",
     zValidator("query", verifyEmailSchema),
-    authMiddleware.verifyToken,
+    middleware.verifyToken,
     authController.verifyEmail,
   )
 

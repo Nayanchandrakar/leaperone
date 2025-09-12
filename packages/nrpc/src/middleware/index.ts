@@ -2,24 +2,17 @@ import { ApiError } from "@app/error/index"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
-import { createRoute } from "../../../utils/urls"
-import type { VerifyEmailController } from "../types"
-import { verifyJwt } from "../utils/jwt"
-import type { Session } from "../utils/session"
+import { session } from "../features/auth/modules/auth.module"
+import type { VerifyEmailController } from "../features/auth/types/index"
+import { verifyJwt } from "../features/auth/utils/jwt"
+import type { Session } from "../features/auth/utils/session"
+import { createRoute } from "../utils/urls"
 
-export class AuthMiddleware {
-  private static instance: AuthMiddleware | null = null
+export class Middleware {
   private session: Session
 
-  private constructor(session: Session) {
+  constructor(session: Session) {
     this.session = session
-  }
-
-  static init(session: Session) {
-    if (!AuthMiddleware.instance) {
-      AuthMiddleware.instance = new AuthMiddleware(session)
-    }
-    return AuthMiddleware.instance
   }
 
   verifyToken = createMiddleware(async (c: VerifyEmailController, next) => {
@@ -48,3 +41,5 @@ export class AuthMiddleware {
     await next()
   })
 }
+
+export const middleware = new Middleware(session)
