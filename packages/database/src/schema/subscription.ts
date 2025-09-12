@@ -7,7 +7,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core"
-import { subscriptionPlan, subscriptionStatus } from "../constants"
+import { subscriptionPlan, subscriptionStatus } from "../constants/enums"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
 

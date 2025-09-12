@@ -1,6 +1,6 @@
 import { createId } from "@paralleldrive/cuid2"
 import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
-import { invitationStatus } from "src/constants"
+import { invitationStatus } from "../constants/enums"
 import { timestamps } from "../utils"
 import { roles } from "./roles"
 import { users } from "./users"

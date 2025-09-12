@@ -6,7 +6,8 @@ import type {
   invitationStatus,
   subscriptionPlan,
   subscriptionStatus,
-} from "../constants"
+} from "../constants/enums"
+import type { PERMISSIONS } from "../constants/permissions"
 import type { accounts, subscription, verification } from "../schema/index"
 import type { users } from "../schema/users"
 
@@ -36,3 +37,7 @@ export type InsertSubscription = typeof subscription.$inferInsert
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]
 export type InvitationStatus = (typeof invitationStatus)[number]
 export type SubscriptionStatus = (typeof subscriptionStatus)[number]
+
+// Constants
+export type Permissions = keyof typeof PERMISSIONS
+export type PermissionType = (typeof PERMISSIONS)[Permissions]
