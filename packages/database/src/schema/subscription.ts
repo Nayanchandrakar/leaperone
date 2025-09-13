@@ -26,6 +26,7 @@ export const subscription = pgTable("subscription", {
     .primaryKey()
     .$defaultFn(() => createId()),
   workspaceId: text()
+    .unique()
     .references(() => workspace.id, { onDelete: "cascade" })
     .notNull(),
 
