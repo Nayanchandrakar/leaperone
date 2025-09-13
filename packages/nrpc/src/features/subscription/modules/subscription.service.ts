@@ -7,7 +7,6 @@ import {
 import { updateUserById } from "@app/database/repository/user"
 import { ENV } from "@app/env/server"
 import { ApiError } from "@app/error/index"
-import type { Context } from "hono"
 import { createAbsoluteRoute } from "src/utils/urls"
 import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
@@ -22,7 +21,6 @@ import type {
 
 export class SubscriptionService {
   private static instance: SubscriptionService | null = null
-
   private constructor() {}
 
   static init() {
@@ -56,15 +54,15 @@ export class SubscriptionService {
     try {
       switch (event.type) {
         case "checkout.session.completed":
-          await this.onCheckoutSessionComplete(c, event)
+          await this.onCheckoutSessionComplete(event)
           break
 
         case "customer.subscription.deleted":
-          await this.onSubscriptionDeleted(c, event)
+          await this.onSubscriptionDeleted(event)
           break
 
         case "customer.subscription.updated":
-          await this.onSubscriptionUpdated(c, event)
+          await this.onSubscriptionUpdated(event)
           break
 
         default:
@@ -133,8 +131,12 @@ export class SubscriptionService {
     const successUrl = createAbsoluteRoute("/dashboard")
     const subscription = await getSubscriptionByWorkspaceId(workspace.id)
 
-    // Create a chekout session
-    if (!subscription) {
+    // Create a chekout session only when
+    if (
+      !subscription?.priceId &&
+      !subscription?.subscriptionId &&
+      !subscription?.customerId
+    ) {
       const checkoutSession = await stripe.checkout.sessions.create({
         mode: "subscription",
         customer: customerId,
@@ -177,70 +179,85 @@ export class SubscriptionService {
     return c.json(200)
   }
 
-  public async onCheckoutSessionComplete(c: Context, event: Stripe.Event) {
+  async onCheckoutSessionComplete(event: Stripe.Event) {
     const session = event.data.object as CheckoutSession
     const userId = session.metadata.userId
     const workspaceId = session.metadata.workspaceId
+    const subscriptionId = session.subscription?.toString()
 
-    if (userId && workspaceId) {
-      // Retrieve the subscription details from Stripe.
-      const subscription = await stripe.subscriptions.retrieve(
-        session.subscription as string,
-      )
+    if (userId && workspaceId && subscriptionId) {
+      try {
+        const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+        const item = subscription.items.data[0]!
 
-      const item = subscription.items.data[0]!
-      const plan = getPlanFromQuantity(item.quantity!)
-
-      await upsertSubscription({
-        plan,
-        workspaceId,
-        seats: item.quantity,
-        priceId: item.price.id,
-        status: subscription.status,
-        subscriptionId: subscription.id as string,
-        customerId: subscription.customer as string,
-        cancelAtPeriodEnd: subscription.cancel_at_period_end,
-        periodEnd: new Date(item.current_period_end * 1000),
-        periodStart: new Date(item.current_period_start * 1000),
-        ...(subscription.trial_end && {
-          trialEnd: new Date(subscription.trial_end * 1000),
-        }),
-        ...(subscription.trial_start && {
-          trialStart: new Date(subscription.trial_start * 1000),
-        }),
-      })
+        if (subscription && item) {
+          const plan = getPlanFromQuantity(item.quantity!)
+          await upsertSubscription({
+            plan,
+            workspaceId,
+            seats: item.quantity,
+            priceId: item.price.id,
+            status: subscription.status,
+            subscriptionId: subscription.id as string,
+            customerId: subscription.customer as string,
+            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            periodEnd: new Date(item.current_period_end * 1000),
+            periodStart: new Date(item.current_period_start * 1000),
+            ...(subscription.trial_end && {
+              trialEnd: new Date(subscription.trial_end * 1000),
+            }),
+            ...(subscription.trial_start && {
+              trialStart: new Date(subscription.trial_start * 1000),
+            }),
+          })
+        }
+      } catch (err: any) {
+        console.error(`Stripe webhook failed. Error: ${err?.message}`)
+      }
     }
   }
 
-  public async onSubscriptionUpdated(c: Context, event: Stripe.Event) {
+  async onSubscriptionUpdated(event: Stripe.Event) {
     const subscription = event.data.object as Stripe.Subscription
-
     const item = subscription.items.data[0]!
-    const plan = getPlanFromQuantity(item.quantity!)
 
-    await updateSubscriptionBySubscriptionId(subscription.id, {
-      plan,
-      seats: item.quantity,
-      priceId: item.price.id,
-      status: subscription.status,
-      subscriptionId: subscription.id as string,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
-      periodEnd: new Date(item.current_period_end * 1000),
-      periodStart: new Date(item.current_period_start * 1000),
-      ...(subscription.trial_end && {
-        trialEnd: new Date(subscription.trial_end * 1000),
-      }),
-      ...(subscription.trial_start && {
-        trialStart: new Date(subscription.trial_start * 1000),
-      }),
-    })
+    try {
+      if (subscription.customer && subscription.id && item) {
+        const plan = getPlanFromQuantity(item.quantity!)
+
+        await updateSubscriptionBySubscriptionId(subscription.id, {
+          plan,
+          seats: item.quantity,
+          priceId: item.price.id,
+          status: subscription.status,
+          subscriptionId: subscription.id as string,
+          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          periodEnd: new Date(item.current_period_end * 1000),
+          periodStart: new Date(item.current_period_start * 1000),
+          ...(subscription.trial_end && {
+            trialEnd: new Date(subscription.trial_end * 1000),
+          }),
+          ...(subscription.trial_start && {
+            trialStart: new Date(subscription.trial_start * 1000),
+          }),
+        })
+      }
+    } catch (err: any) {
+      console.error(`Stripe webhook failed. Error: ${err?.message}`)
+    }
   }
 
-  public async onSubscriptionDeleted(c: Context, event: Stripe.Event) {
+  async onSubscriptionDeleted(event: Stripe.Event) {
     const subscription = event.data.object as Stripe.Subscription
 
-    await updateSubscriptionBySubscriptionId(subscription.id, {
-      status: subscription.status,
-    })
+    try {
+      if (subscription.customer && subscription.id) {
+        await updateSubscriptionBySubscriptionId(subscription.id, {
+          status: subscription.status,
+        })
+      }
+    } catch (err: any) {
+      console.error(`Stripe webhook failed. Error: ${err?.message}`)
+    }
   }
 }

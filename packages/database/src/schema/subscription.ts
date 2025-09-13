@@ -30,8 +30,8 @@ export const subscription = pgTable("subscription", {
     .references(() => workspace.id, { onDelete: "cascade" })
     .notNull(),
 
-  customerId: text().notNull().unique(),
-  subscriptionId: text().notNull().unique(),
+  customerId: text().unique().notNull(),
+  subscriptionId: text().unique().notNull(),
 
   plan: subscriptionPlanEnum().default("individual").notNull(),
   priceId: text().notNull(),
