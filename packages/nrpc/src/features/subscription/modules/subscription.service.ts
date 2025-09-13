@@ -1,5 +1,6 @@
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
+  getSubscriptionByWorkspaceId,
   updateSubscriptionBySubscriptionId,
   upsertSubscription,
 } from "@app/database/repository/subscription"
@@ -12,11 +13,7 @@ import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
 import { stripe } from "../../../lib/stripe"
 import { TRIAL_PERIOD_DAYS } from "../constants"
-import {
-  getPlanDurationByPriceId,
-  getPlanFromQuantity,
-  isSubscriptionActive,
-} from "../helpers"
+import { getPlanDurationByPriceId, getPlanFromQuantity } from "../helpers"
 import type {
   CheckoutSession,
   CheckoutSessionController,
@@ -134,14 +131,10 @@ export class SubscriptionService {
 
     const cancelUrl = createAbsoluteRoute("/")
     const successUrl = createAbsoluteRoute("/dashboard")
-    const subscription = await isSubscriptionActive(workspace.id)
+    const subscription = await getSubscriptionByWorkspaceId(workspace.id)
 
     // Create a chekout session
-    if (
-      !subscription.priceId &&
-      !subscription.customerId &&
-      !subscription.subscriptionId
-    ) {
+    if (!subscription) {
       const checkoutSession = await stripe.checkout.sessions.create({
         mode: "subscription",
         customer: customerId,

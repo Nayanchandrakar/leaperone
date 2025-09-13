@@ -8,6 +8,7 @@ export const workspace = pgTable("workspace", {
     .primaryKey()
     .$defaultFn(() => createId()),
   ownerId: text()
+    .unique()
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
   ...timestamps,
