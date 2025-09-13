@@ -149,6 +149,11 @@ export class SubscriptionService {
           {
             price: priceId,
             quantity: seats,
+            adjustable_quantity: {
+              enabled: true,
+              maximum: 12,
+              minimum: 1,
+            },
           },
         ],
         subscription_data: {
