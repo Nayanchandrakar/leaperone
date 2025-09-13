@@ -56,6 +56,14 @@ export const ENV = createEnv({
     STRIPE_WEBHOOK: z.string({
       error: "STRIPE_WEBHOOK is required in environment variables",
     }),
+
+    STRIPE_ANNUAL_PRICE_ID: z.string({
+      error: "STRIPE_ANNUAL_PRICE_ID is required in environment variables",
+    }),
+
+    STRIPE_MONTHLY_PRICE_ID: z.string({
+      error: "STRIPE_MONTHLY_PRICE_ID is required in environment variables",
+    }),
   },
 
   runtimeEnv: process.env,

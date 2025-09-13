@@ -1,14 +1,22 @@
 import { hasPermissions } from "@app/database/repository/role-permission"
+import {
+  updateSubscriptionBySubscriptionId,
+  upsertSubscription,
+} from "@app/database/repository/subscription"
 import { updateUserById } from "@app/database/repository/user"
-import type { InsertSubscription } from "@app/database/types"
 import { ENV } from "@app/env/server"
 import { ApiError } from "@app/error/index"
 import type { Context } from "hono"
+import { createAbsoluteRoute } from "src/utils/urls"
 import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
 import { stripe } from "../../../lib/stripe"
 import { TRIAL_PERIOD_DAYS } from "../constants"
-import { isSubscriptionActive } from "../helpers"
+import {
+  getPlanDurationByPriceId,
+  getPlanFromQuantity,
+  isSubscriptionActive,
+} from "../helpers"
 import type {
   CheckoutSession,
   CheckoutSessionController,
@@ -77,6 +85,11 @@ export class SubscriptionService {
     const user = c.get("session").user
     const workspace = c.get("workspace")
     const { priceId, seats } = c.req.valid("json")
+    const planDuration = getPlanDurationByPriceId(priceId)
+
+    if (!planDuration) {
+      throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_PLAN_NOT_FOUND)
+    }
 
     const canPurchase = await hasPermissions(user.id, workspace.id, [
       "manage:subscription",
@@ -119,9 +132,16 @@ export class SubscriptionService {
       }
     }
 
+    const cancelUrl = createAbsoluteRoute("/")
+    const successUrl = createAbsoluteRoute("/dashboard")
     const subscription = await isSubscriptionActive(workspace.id)
 
-    if (!subscription.priceId && !subscription.customerId) {
+    // Create a chekout session
+    if (
+      !subscription.priceId &&
+      !subscription.customerId &&
+      !subscription.subscriptionId
+    ) {
       const checkoutSession = await stripe.checkout.sessions.create({
         mode: "subscription",
         customer: customerId,
@@ -141,18 +161,23 @@ export class SubscriptionService {
         },
         metadata: {
           userId: user.id,
-          priceId: priceId,
           workspaceId: workspace.id,
         },
         client_reference_id: workspace.id,
-        cancel_url: `${ENV.FRONTEND_URL}/`,
-        success_url: `${ENV.FRONTEND_URL}/dashboard`,
+        cancel_url: cancelUrl,
+        success_url: successUrl,
       })
 
       return c.json({ url: checkoutSession.url })
     }
 
-    return c.json(200)
+    // Create a billing session for existing customers
+    const billingSession = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: successUrl,
+    })
+
+    return c.json({ url: billingSession.url })
   }
 
   async billingPortal(c: CheckoutSessionController) {
@@ -165,35 +190,64 @@ export class SubscriptionService {
     const workspaceId = session.metadata.workspaceId
 
     if (userId && workspaceId) {
+      // Retrieve the subscription details from Stripe.
       const subscription = await stripe.subscriptions.retrieve(
         session.subscription as string,
       )
-      const item = subscription.items.data[0]!
 
-      const values: InsertSubscription = {
+      const item = subscription.items.data[0]!
+      const plan = getPlanFromQuantity(item.quantity!)
+
+      await upsertSubscription({
+        plan,
+        workspaceId,
+        seats: item.quantity,
+        priceId: item.price.id,
+        status: subscription.status,
+        subscriptionId: subscription.id as string,
         customerId: subscription.customer as string,
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         periodEnd: new Date(item.current_period_end * 1000),
         periodStart: new Date(item.current_period_start * 1000),
-        priceId: item.price.id,
-        status: subscription.status,
-        subscriptionId: session.subscription as string,
-        plan: "team",
-        seats: item.quantity,
         ...(subscription.trial_end && {
           trialEnd: new Date(subscription.trial_end * 1000),
         }),
         ...(subscription.trial_start && {
           trialStart: new Date(subscription.trial_start * 1000),
         }),
-        workspaceId,
-      }
-
-      console.log(values)
+      })
     }
   }
 
-  public async onSubscriptionUpdated(c: Context, event: Stripe.Event) {}
+  public async onSubscriptionUpdated(c: Context, event: Stripe.Event) {
+    const subscription = event.data.object as Stripe.Subscription
 
-  public async onSubscriptionDeleted(c: Context, event: Stripe.Event) {}
+    const item = subscription.items.data[0]!
+    const plan = getPlanFromQuantity(item.quantity!)
+
+    await updateSubscriptionBySubscriptionId(subscription.id, {
+      plan,
+      seats: item.quantity,
+      priceId: item.price.id,
+      status: subscription.status,
+      subscriptionId: subscription.id as string,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      periodEnd: new Date(item.current_period_end * 1000),
+      periodStart: new Date(item.current_period_start * 1000),
+      ...(subscription.trial_end && {
+        trialEnd: new Date(subscription.trial_end * 1000),
+      }),
+      ...(subscription.trial_start && {
+        trialStart: new Date(subscription.trial_start * 1000),
+      }),
+    })
+  }
+
+  public async onSubscriptionDeleted(c: Context, event: Stripe.Event) {
+    const subscription = event.data.object as Stripe.Subscription
+
+    await updateSubscriptionBySubscriptionId(subscription.id, {
+      status: subscription.status,
+    })
+  }
 }

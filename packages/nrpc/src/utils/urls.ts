@@ -27,3 +27,7 @@ export function createRoute<T extends RouteParams>(
 
   return endpoint
 }
+
+export function createAbsoluteRoute(path: `/${string}`) {
+  return ENV.FRONTEND_URL + path
+}

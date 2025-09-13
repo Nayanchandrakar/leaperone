@@ -2,6 +2,7 @@ import type { CheckoutSessionSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type Stripe from "stripe"
 import type { ControllerIO, HonoEnv } from "../../../types"
+import type { PLANS } from "../constants"
 
 export type CheckoutSessionController = Context<
   HonoEnv,
@@ -33,3 +34,5 @@ export type IsSubscriptionActive = {
   customerId: string | null
   subscriptionId: string | null
 }
+
+export type PlansKey = keyof typeof PLANS
