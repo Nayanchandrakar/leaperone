@@ -25,7 +25,7 @@ export async function upsertSubscription(values: InsertSubscription) {
       .insert(subscription)
       .values(values)
       .onConflictDoUpdate({
-        target: subscription.subscriptionId,
+        target: subscription.workspaceId,
         set: values,
       })
       .returning({ id: subscription.id })
