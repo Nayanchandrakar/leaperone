@@ -11,7 +11,7 @@ import { createAbsoluteRoute } from "src/utils/urls"
 import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
 import { stripe } from "../../../lib/stripe"
-import { TRIAL_PERIOD_DAYS } from "../constants"
+import { CHECKOUT_STATUSES, TRIAL_PERIOD_DAYS } from "../constants"
 import { getPlanDurationByPriceId, getPlanFromQuantity } from "../helpers"
 import type {
   CheckoutSession,
@@ -132,7 +132,7 @@ export class SubscriptionService {
     const subscription = await getSubscriptionByWorkspaceId(workspace.id)
 
     // Create a checkout session only when there is no user subscription found or subscription is cancelled
-    if (!subscription || subscription.status === "canceled") {
+    if (!subscription || CHECKOUT_STATUSES.includes(subscription.status)) {
       const checkoutSession = await stripe.checkout.sessions.create({
         mode: "subscription",
         customer: customerId,
@@ -178,7 +178,28 @@ export class SubscriptionService {
   }
 
   async billingPortal(c: CheckoutSessionController) {
-    return c.json(200)
+    const user = c.get("session").user
+    const workspace = c.get("workspace")
+
+    const canPurchase = await hasPermissions(user.id, workspace.id, [
+      "manage:subscription",
+    ])
+
+    if (!canPurchase) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    const subscription = await getSubscriptionByWorkspaceId(workspace.id)
+    if (!subscription || CHECKOUT_STATUSES.includes(subscription.status)) {
+      throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
+    }
+
+    const billingPortal = await stripe.billingPortal.sessions.create({
+      customer: subscription.customerId,
+      return_url: createAbsoluteRoute("/dashboard"),
+    })
+
+    return c.json({ url: billingPortal.url })
   }
 
   async onCheckoutSessionComplete(event: Stripe.Event) {
