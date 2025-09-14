@@ -7,12 +7,17 @@ import { subscriptionController } from "./subscription.module"
 
 const app = new Hono<HonoEnv>()
   .post(
-    "/checkout",
+    "/upgrade",
     zValidator("json", checkoutSessionSchema),
     middleware.isAuthenticated,
     middleware.hasWorkspace,
     subscriptionController.checkoutSession,
   )
-  .post("/billing-portal", subscriptionController.billingPortal)
+  .post(
+    "/billing-portal",
+    middleware.isAuthenticated,
+    middleware.hasWorkspace,
+    subscriptionController.billingPortal,
+  )
 
 export default app

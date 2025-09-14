@@ -23,3 +23,4 @@ export const password = z
 
 export const callbackUrl = z.string().trim()
 export const email = z.email().toLowerCase().trim()
+export const seats = z.number().default(1)
