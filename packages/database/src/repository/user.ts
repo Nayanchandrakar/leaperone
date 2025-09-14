@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
@@ -20,8 +21,8 @@ export async function getUserByEmail(email: string) {
       .$withCache()
     return user
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }
 
@@ -45,8 +46,8 @@ export async function getUserWithAccount(email: string) {
 
     return formatted
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }
 
@@ -60,7 +61,7 @@ export async function getUserByUserName(username: string) {
 
     return Boolean(data?.id)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return false
   }
 }
@@ -132,7 +133,7 @@ export async function bootStrapUser({
     return data
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 
@@ -148,8 +149,8 @@ export async function updateUserByEmail(
       .returning()
     return user
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }
 
@@ -166,7 +167,7 @@ export async function updateUserById(id: string, overrides: Partial<User>) {
     return user
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 
@@ -191,8 +192,8 @@ export async function updateUserAndDeleteVerification(
 
     return udpatedAccount
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }
 
@@ -206,7 +207,7 @@ export async function getUserById(userId: string) {
 
     return user
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }

@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { dbHttp } from "src"
 import {
@@ -40,7 +41,7 @@ export async function hasPermissions(
     return result.length > 0
   } catch (error) {
     console.error(error)
-    return false
+    throw ApiError.internalServerError()
   }
 }
 
@@ -55,6 +56,6 @@ export async function getRoleByName(role: RoleType) {
     return data
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }

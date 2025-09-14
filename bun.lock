@@ -95,6 +95,7 @@
       "name": "@app/database",
       "version": "1.0.0",
       "dependencies": {
+        "@app/error": "workspace:*",
         "@neondatabase/serverless": "catalog:",
         "@paralleldrive/cuid2": "catalog:",
         "@upstash/redis": "catalog:",

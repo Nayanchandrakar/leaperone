@@ -131,12 +131,8 @@ export class SubscriptionService {
     const successUrl = createAbsoluteRoute("/dashboard")
     const subscription = await getSubscriptionByWorkspaceId(workspace.id)
 
-    // Create a chekout session only when
-    if (
-      !subscription?.priceId &&
-      !subscription?.subscriptionId &&
-      !subscription?.customerId
-    ) {
+    // Create a checkout session only when there is no user subscription found or subscription is cancelled
+    if (!subscription || subscription.status === "canceled") {
       const checkoutSession = await stripe.checkout.sessions.create({
         mode: "subscription",
         customer: customerId,
@@ -156,9 +152,10 @@ export class SubscriptionService {
             },
           },
         ],
-        subscription_data: {
-          trial_period_days: TRIAL_PERIOD_DAYS,
-        },
+        subscription_data:
+          subscription?.trialStart && subscription?.trialEnd
+            ? {}
+            : { trial_period_days: TRIAL_PERIOD_DAYS },
         metadata: {
           userId: user.id,
           workspaceId: workspace.id,

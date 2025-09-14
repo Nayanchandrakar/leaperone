@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { eq } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { subscription } from "../schema"
@@ -32,7 +33,7 @@ export async function upsertSubscription(values: InsertSubscription) {
     return result
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 
@@ -50,6 +51,6 @@ export async function updateSubscriptionBySubscriptionId(
     return result
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
