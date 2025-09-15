@@ -1,4 +1,5 @@
 import type z from "zod"
+import type { preSignedUrlSchema } from "../schema/asset"
 import type {
   emailSchema,
   loginFormSchema,
@@ -18,3 +19,4 @@ export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>
 export type EmailSchema = z.infer<typeof emailSchema>
 export type SetNewPasswordSchema = z.infer<typeof setNewPasswordSchema>
 export type CheckoutSessionSchema = z.infer<typeof checkoutSessionSchema>
+export type PreSignedUrlSchema = z.infer<typeof preSignedUrlSchema>

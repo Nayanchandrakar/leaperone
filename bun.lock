@@ -92,6 +92,15 @@
       "name": "@app/biome-config",
       "version": "0.0.0",
     },
+    "packages/config": {
+      "name": "@app/config",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@app/tsconfig": "workspace:*",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
     "packages/database": {
       "name": "@app/database",
       "version": "1.0.0",
@@ -234,6 +243,7 @@
       "name": "@app/zod",
       "version": "1.0.0",
       "dependencies": {
+        "@app/config": "workspace:*",
         "zod": "^4.0.5",
       },
       "devDependencies": {
@@ -326,6 +336,8 @@
     "@app/aws": ["@app/aws@workspace:packages/aws"],
 
     "@app/biome-config": ["@app/biome-config@workspace:packages/biome-config"],
+
+    "@app/config": ["@app/config@workspace:packages/config"],
 
     "@app/database": ["@app/database@workspace:packages/database"],
 

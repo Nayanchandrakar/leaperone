@@ -54,6 +54,13 @@ export class Middleware {
       await next()
     },
   )
+
+  hasActiveSubscription = createMiddleware<HonoEnv>(
+    async (c: Context<HonoEnv>, next: Next) => {
+      // const session = c.get("session")
+      await next()
+    },
+  )
 }
 
 export const middleware = new Middleware(session)
