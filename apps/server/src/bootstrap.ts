@@ -1,10 +1,10 @@
 import router from "@app/nrpc"
 import { Hono } from "hono"
-import { logger } from "hono/logger"
 import { secureHeaders } from "hono/secure-headers"
 import { crossOriginRequest, csrfProtection } from "@/config"
 import { startServer } from "@/hono/server"
-import { ErrorHandler } from "./utils"
+import { logger } from "@/middleware/logger"
+import { ErrorHandler } from "@/utils"
 
 export function bootStrapServer() {
   const server = new Hono()
