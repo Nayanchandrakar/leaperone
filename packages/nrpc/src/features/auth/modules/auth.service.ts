@@ -12,6 +12,7 @@ import {
   findVerificationByIdentifier,
 } from "@app/database/repository/verification"
 import { ApiError } from "@app/error/index"
+import { logger } from "@app/logger/index"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
@@ -122,7 +123,7 @@ export class AuthService {
     })
 
     // TODO: Trigger an email to users email from here
-    console.info({
+    logger.info({
       email,
       url: callbackString.toString(),
     })
@@ -161,7 +162,7 @@ export class AuthService {
       })
 
       // TODO: send email verification link from here
-      console.info({
+      logger.info({
         email: input.email,
         url: callbackString.toString(),
       })
@@ -276,7 +277,7 @@ export class AuthService {
     )
 
     // TODO: send this callbackString to users email address
-    console.log({
+    logger.info({
       callbackString,
     })
 

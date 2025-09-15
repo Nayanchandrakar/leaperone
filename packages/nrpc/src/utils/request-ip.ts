@@ -1,6 +1,5 @@
 import type { Context } from "hono"
-
-const isDevelopment = true
+import { isDevelopment } from "../constants/runtime"
 
 export function getRequestIp(c: Context) {
   const bindings = c.env.server ? c.env.server : c.env

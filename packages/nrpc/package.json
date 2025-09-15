@@ -19,6 +19,7 @@
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
     "@app/error": "workspace:*",
+    "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
     "@hono/zod-validator": "catalog:",
     "@paralleldrive/cuid2": "catalog:",

@@ -7,6 +7,7 @@ import {
 import { updateUserById } from "@app/database/repository/user"
 import { ENV } from "@app/env/server"
 import { ApiError } from "@app/error/index"
+import { logger } from "@app/logger/index"
 import { createAbsoluteRoute } from "src/utils/urls"
 import type { Stripe } from "stripe"
 import { MSG } from "../../../constants/message"
@@ -47,7 +48,7 @@ export class SubscriptionService {
         ENV.STRIPE_WEBHOOK,
       )
     } catch (err: any) {
-      console.error("Webhook signature verification failed: ", err)
+      logger.error("Webhook signature verification failed: ", err)
       throw ApiError.badRequest("Invalid Signature")
     }
 
@@ -66,12 +67,12 @@ export class SubscriptionService {
           break
 
         default:
-          console.warn(`Unhandled event type:${event.type}`)
+          logger.warn(`Unhandled event type:${event.type}`)
       }
 
       return c.json({ success: true })
     } catch (err: any) {
-      console.error("Error processing webhook: ", err)
+      logger.error("Error processing webhook: ", err)
       throw ApiError.badRequest("Error processing webhook")
     }
   }
@@ -122,7 +123,7 @@ export class SubscriptionService {
           stripeCustomerId: customer.id,
         })
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         throw ApiError.badRequest(MSG.SUBSCRIPTION.UNABLE_TO_CREATE_CUSTOMER)
       }
     }
@@ -235,7 +236,7 @@ export class SubscriptionService {
           })
         }
       } catch (err: any) {
-        console.error(`Stripe webhook failed. Error: ${err?.message}`)
+        logger.error(`Stripe webhook failed. Error: ${err?.message}`)
       }
     }
   }
@@ -266,7 +267,7 @@ export class SubscriptionService {
         })
       }
     } catch (err: any) {
-      console.error(`Stripe webhook failed. Error: ${err?.message}`)
+      logger.error(`Stripe webhook failed. Error: ${err?.message}`)
     }
   }
 
@@ -280,7 +281,7 @@ export class SubscriptionService {
         })
       }
     } catch (err: any) {
-      console.error(`Stripe webhook failed. Error: ${err?.message}`)
+      logger.error(`Stripe webhook failed. Error: ${err?.message}`)
     }
   }
 }
