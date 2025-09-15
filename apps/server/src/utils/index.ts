@@ -12,3 +12,11 @@ export function formatTime(time: number) {
     ? `${Math.round(time)}ms`
     : `${Math.round(time / 10) / 100}s`
 }
+
+export function colorizeStatus(status: number): string {
+  if (status >= 500) return `\x1b[31m${status}\x1b[0m`
+  if (status >= 400) return `\x1b[33m${status}\x1b[0m`
+  if (status >= 300) return `\x1b[36m${status}\x1b[0m`
+  if (status >= 200) return `\x1b[32m${status}\x1b[0m`
+  return status.toString()
+}
