@@ -1,5 +1,5 @@
 import type { AssetService } from "../services/asset-service"
-import type { GeneratePreSignedController } from "../types/asset"
+import type { PreSignedUrlController } from "../types/asset"
 
 export class AssetController {
   private static instance: AssetController | null = null
@@ -16,7 +16,8 @@ export class AssetController {
     return AssetController.instance
   }
 
-  async generatePreSignedUrl(c: GeneratePreSignedController) {
-    return await this.assetService.generatePreSignedUrl(c)
+  async preSignedUrl(c: PreSignedUrlController) {
+    // return await this.assetService.preSignedUrl(c)
+    return c.json(200)
   }
 }

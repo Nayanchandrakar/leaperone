@@ -21,11 +21,14 @@
     "@app/error": "workspace:*",
     "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
+    "@aws-sdk/client-s3": "catalog:",
+    "@aws-sdk/s3-request-presigner": "catalog:",
     "@hono/zod-validator": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
     "stripe": "catalog:",
+    "uuid": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {

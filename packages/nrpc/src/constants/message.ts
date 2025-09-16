@@ -79,4 +79,8 @@ export const MSG = {
     ERROR: "Something went wrong. Please try again later.",
     PERMISSION_DENIED: "You do not have permission to perform this action.",
   },
+
+  STORAGE: {
+    NOT_FOUND: "Storage bucket not found",
+  },
 } as const

@@ -2,7 +2,7 @@ import type { PreSignedUrlSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "./index"
 
-export type GeneratePreSignedController = Context<
+export type PreSignedUrlController = Context<
   HonoEnv,
   "/pre-signed-url",
   ControllerIO<"json", PreSignedUrlSchema>
