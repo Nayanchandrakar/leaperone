@@ -4,7 +4,7 @@ import { bigint, pgTable, text } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
 
-export const assetManager = pgTable("asset_manager", {
+export const storage = pgTable("storage", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
