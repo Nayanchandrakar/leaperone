@@ -1,6 +1,6 @@
 import { ApiError } from "@app/error/index"
 import { and, eq, inArray, sql } from "drizzle-orm"
-import { dbHttp } from "src"
+import { dbHttp } from "../index"
 import {
   permissions as permissionTable,
   rolePermissions,

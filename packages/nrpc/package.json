@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./src/app.ts",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/app.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",
