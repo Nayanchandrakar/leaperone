@@ -11,6 +11,7 @@ export async function getSubscriptionByWorkspaceId(workspaceId: string) {
       .from(subscription)
       .where(eq(subscription.workspaceId, workspaceId))
       .limit(1)
+      .$withCache()
 
     return data
   } catch (error) {

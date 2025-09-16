@@ -4,6 +4,7 @@ import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
 import { MSG } from "src/constants/message"
+import { isSubscriptionActive } from "src/features/subscription/helpers"
 import type { HonoEnv } from "src/types"
 import { session } from "../features/auth/modules/auth.module"
 import type { VerifyEmailController } from "../features/auth/types/index"
@@ -49,7 +50,6 @@ export class Middleware {
       const session = c.get("session")
       const workspace = await getWorkspaceByOwnerId(session.user.id)
       if (!workspace) throw ApiError.badRequest(MSG.WORKSPACE.NOT_FOUND)
-
       c.set("workspace", workspace)
       await next()
     },
@@ -57,8 +57,11 @@ export class Middleware {
 
   hasActiveSubscription = createMiddleware<HonoEnv>(
     async (c: Context<HonoEnv>, next: Next) => {
-      // const session = c.get("session")
-      await next()
+      const workspace = c.get("workspace")
+      const { active } = await isSubscriptionActive(workspace.id)
+      if (active) await next()
+
+      throw ApiError.forbidden(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
     },
   )
 }
