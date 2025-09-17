@@ -1,8 +1,8 @@
 import { Hono } from "hono"
-import assetRouter from "./routes/asset-router"
-import authRouter from "./routes/auth-router"
-import subscriptionRouter from "./routes/subscription-router"
-import webhookRouter from "./routes/webhook-router"
+import assetRouter from "./features/asset/routes/asset-router"
+import authRouter from "./features/auth/routes/auth-router"
+import subscriptionRouter from "./features/subscription/routes/subscription-router"
+import webhookRouter from "./features/webhook/routes/webhook-router"
 
 const app = new Hono().basePath("/api")
 const routes = app

@@ -3,7 +3,7 @@ import { ApiError } from "@app/error/index"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { MSG } from "../constants/message"
-import { isSubscriptionActive } from "../helpers/subscription-helper"
+import { isSubscriptionActive } from "../features/subscription/helpers/subscription-helper"
 import type { HonoEnv } from "../types"
 
 export const hasWorkspace = createMiddleware<HonoEnv>(

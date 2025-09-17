@@ -2,9 +2,9 @@ import { ApiError } from "@app/error/index"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
-import { session } from "../modules/auth-module"
-import type { VerifyEmailController } from "../types/auth"
-import { verifyJwt } from "../utils/jwt"
+import { session } from "../features/auth/modules/auth-module"
+import type { VerifyEmailController } from "../features/auth/types/auth"
+import { verifyJwt } from "../features/auth/utils/jwt"
 import { createRoute } from "../utils/urls"
 
 export const verifyToken = createMiddleware(

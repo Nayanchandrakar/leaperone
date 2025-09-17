@@ -4,7 +4,7 @@ import type { Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { formatBytes } from "src/utils/format"
 import { MSG } from "../constants/message"
-import type { PreSignedUrlController } from "../types/asset"
+import type { PreSignedUrlController } from "../features/asset/types/asset"
 
 export const checkStorageAvailability = createMiddleware(
   async (c: PreSignedUrlController, next: Next) => {
