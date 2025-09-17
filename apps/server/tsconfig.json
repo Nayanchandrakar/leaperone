@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@app/env/*": ["../../packages/env/src/*"],
+      "@app/logger/*": ["../../packages/logger/src/*"],
       "@app/error/*": ["../../packages/error/src/*"],
       "@app/nrpc/*": ["../../packages/nrpc/src/*"]
     }

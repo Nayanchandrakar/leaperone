@@ -31,6 +31,8 @@
     "@neondatabase/serverless": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
     "@upstash/redis": "catalog:",
+    "@app/error": "workspace:*",
+    "@app/constants": "workspace:*",
     "dotenv": "catalog:",
     "drizzle-orm": "catalog:"
   },

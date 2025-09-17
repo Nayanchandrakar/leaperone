@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { eq } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { workspace } from "../schema"
@@ -13,6 +14,6 @@ export async function getWorkspaceByOwnerId(ownerId: string) {
     return data
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }

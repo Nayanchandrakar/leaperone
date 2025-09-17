@@ -19,6 +19,7 @@
   "dependencies": {
     "@hono/node-server": "catalog:",
     "@app/database": "workspace:*",
+    "@app/logger": "workspace:*",
     "@app/error": "workspace:*",
     "@app/nrpc": "workspace:*",
     "@app/env": "workspace:*",

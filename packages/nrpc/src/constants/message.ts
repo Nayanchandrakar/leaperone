@@ -23,7 +23,8 @@ export const MSG = {
     FAILED_TO_FETCH_PLANS: "Failed to fetch plans",
     EMAIL_VERIFICATION_REQUIRED:
       "Email verification is required before you can subscribe to a plan",
-    SUBSCRIPTION_NOT_ACTIVE: "Subscription is not active",
+    SUBSCRIPTION_NOT_ACTIVE:
+      "Your subscription is not active. Please update your billing to continue.",
   },
 
   USER: {
@@ -77,5 +78,9 @@ export const MSG = {
     SUCCESS: "Action completed successfully.",
     ERROR: "Something went wrong. Please try again later.",
     PERMISSION_DENIED: "You do not have permission to perform this action.",
+  },
+
+  STORAGE: {
+    NOT_FOUND: "Storage bucket not found",
   },
 } as const

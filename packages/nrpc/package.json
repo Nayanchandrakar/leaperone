@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./src/app.ts",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/app.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",
@@ -19,12 +19,16 @@
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
     "@app/error": "workspace:*",
+    "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
+    "@aws-sdk/client-s3": "catalog:",
+    "@aws-sdk/s3-request-presigner": "catalog:",
     "@hono/zod-validator": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
     "stripe": "catalog:",
+    "uuid": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {

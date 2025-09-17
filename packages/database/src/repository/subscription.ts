@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { eq } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { subscription } from "../schema"
@@ -10,6 +11,7 @@ export async function getSubscriptionByWorkspaceId(workspaceId: string) {
       .from(subscription)
       .where(eq(subscription.workspaceId, workspaceId))
       .limit(1)
+      .$withCache()
 
     return data
   } catch (error) {
@@ -24,7 +26,7 @@ export async function upsertSubscription(values: InsertSubscription) {
       .insert(subscription)
       .values(values)
       .onConflictDoUpdate({
-        target: subscription.subscriptionId,
+        target: subscription.workspaceId,
         set: values,
       })
       .returning({ id: subscription.id })
@@ -32,7 +34,7 @@ export async function upsertSubscription(values: InsertSubscription) {
     return result
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 
@@ -50,6 +52,6 @@ export async function updateSubscriptionBySubscriptionId(
     return result
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }

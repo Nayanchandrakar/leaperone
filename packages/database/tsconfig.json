@@ -7,8 +7,11 @@
     "strict": true,
     "moduleResolution": "Bundler",
     "outDir": "./dist",
-    "rootDir": "src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@app/error/*": ["../../packages/error/src/*"],
+      "@app/constants/*": ["../../packages/constants/src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]

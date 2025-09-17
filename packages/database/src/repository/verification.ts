@@ -1,3 +1,4 @@
+import { ApiError } from "@app/error/index"
 import { desc, eq } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { verification } from "../schema/index"
@@ -25,7 +26,7 @@ export async function createVerification(
     await dbHttp.insert(verification).values(values)
     return true
   } catch (error) {
-    console.log(error)
-    return null
+    console.error(error)
+    throw ApiError.internalServerError()
   }
 }
