@@ -11,6 +11,8 @@ import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
 import type {
   accounts,
+  file,
+  storage,
   subscription,
   verification,
   workspace,
@@ -37,10 +39,12 @@ export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
 export type Workspace = typeof workspace.$inferSelect
 export type Subscription = typeof subscription.$inferSelect
+export type Storage = typeof storage.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert
 export type InsertSubscription = typeof subscription.$inferInsert
+export type InsertFile = typeof file.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

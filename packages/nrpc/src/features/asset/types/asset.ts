@@ -7,3 +7,11 @@ export type PreSignedUrlController = Context<
   "/pre-signed-url",
   ControllerIO<"json", PreSignedUrlSchema>
 >
+
+export interface CreatePreSignedUrl {
+  key: string
+  bucket: string
+  expiresIn?: number
+  contentType: string
+  metadata?: Record<string, string>
+}

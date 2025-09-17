@@ -19,7 +19,7 @@ const app = new Hono<HonoEnv>()
     authController.register,
   )
   .post("/login", zValidator("json", loginFormSchema), authController.login)
-  .post("/logout", authController.logout)
+  .get("/logout", authController.logout)
   .post(
     "/request-password-reset",
     zValidator("json", emailSchema),

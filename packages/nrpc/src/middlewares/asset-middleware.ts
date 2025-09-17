@@ -26,6 +26,7 @@ export const checkStorageAvailability = createMiddleware(
       )
     }
 
+    c.set("storage", storage)
     await next()
   },
 )
