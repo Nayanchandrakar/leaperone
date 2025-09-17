@@ -169,7 +169,7 @@
         "bcryptjs": "catalog:",
         "hono": "catalog:",
         "stripe": "catalog:",
-        "uuid": "^13.0.0",
+        "uuid": "catalog:",
         "zod": "catalog:",
       },
       "devDependencies": {
@@ -332,6 +332,7 @@
     "tw-animate-css": "^1.3.6",
     "typescript": "^5.9.2",
     "usehooks-ts": "^3.1.1",
+    "uuid": "^13.0.0",
     "vaul": "^1.1.2",
     "zod": "^4.0.17",
     "zustand": "^5.0.8",
