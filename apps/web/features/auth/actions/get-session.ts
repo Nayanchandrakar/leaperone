@@ -1,5 +1,5 @@
+import { SESSION_COOKIE_NAME } from "@app/constants/auth"
 import { cookies } from "next/headers"
-import { SESSION_COOKIE_NAME } from "@/features/auth/constants"
 import { client } from "@/lib/hono/client"
 
 export async function getSession() {

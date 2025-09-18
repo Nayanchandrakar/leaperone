@@ -1,17 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
-import { SmoothTab } from "@/features/subscription/components/ui/smooth-tab"
-
-const DEFAULT_TABS = [
-  {
-    id: "Monthly",
-    title: "Monthly",
-  },
-  {
-    id: "Yearly",
-    title: "Yearly",
-  },
-]
+import { PricingIntervalButton } from "@/features/subscription/components/buttons/pricing/pricing-interval-button"
 
 export const HeroSection = () => {
   return (
@@ -31,7 +20,7 @@ export const HeroSection = () => {
         in order to use Leaper CRM.
       </p>
 
-      <SmoothTab items={DEFAULT_TABS} defaultTabId="Monthly" />
+      <PricingIntervalButton />
     </Container>
   )
 }

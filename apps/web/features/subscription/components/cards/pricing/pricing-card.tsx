@@ -1,13 +1,22 @@
 import { Button } from "@app/ui/components/button"
 import { BadgeCheck } from "lucide-react"
 import { ListComponent } from "@/components/shared/list-component"
-import type { IPlans } from "@/features/subscription/constants/pricing/plans"
+import { CountingNumber } from "@/features/subscription/components/ui/counting-number"
+import type { IPlans, PlanInterval } from "@/features/subscription/types"
 
-export const PricingCard = ({ features, name, pricing, users }: IPlans) => {
-  const selectedPlan = "monthly"
+interface IPricingCard extends IPlans {
+  currentInterval: PlanInterval
+}
 
+export const PricingCard = ({
+  feature,
+  name,
+  pricing,
+  users,
+  currentInterval,
+}: IPricingCard) => {
   const { title, Icon } = users
-  const { billingNote, price } = pricing[selectedPlan]
+  const { billingNote, price } = pricing[currentInterval]
 
   return (
     <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
@@ -22,16 +31,21 @@ export const PricingCard = ({ features, name, pricing, users }: IPlans) => {
         </div>
 
         <div className="flex my-7 gap-3 leading-tight items-center">
-          <strong className="text-5xl font-semibold text-black">
-            ${price}
-          </strong>
+          <CountingNumber
+            from={0}
+            to={price}
+            duration={1.5}
+            className="text-5xl font-semibold text-black"
+            format={(value) => `$${value.toFixed(2)}`}
+          />
+
           <p
             dangerouslySetInnerHTML={{ __html: billingNote }}
             className="font-normal text-sm text-muted-foreground text-start"
           />
         </div>
 
-        <div className="space-y-3 ">
+        <div className="space-y-3">
           <Button className="w-full font-semibold " size="xl">
             Start 7 days Free Trial
           </Button>
@@ -43,11 +57,11 @@ export const PricingCard = ({ features, name, pricing, users }: IPlans) => {
 
         <div className="mt-6 space-y-3">
           <span className="font-semibold text-lg text-gray-600">
-            Key Features:
+            {feature.title}
           </span>
 
           <ListComponent
-            items={features}
+            items={feature.details}
             className="space-y-3 mt-5"
             renderItem={(feature) => (
               <div key={feature} className="flex gap-3 items-start">

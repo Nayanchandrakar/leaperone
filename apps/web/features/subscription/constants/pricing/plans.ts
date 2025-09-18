@@ -8,7 +8,6 @@ export const PLANS = [
       title: "For 1 user",
       Icon: User,
     },
-    freeTrialDays: 7,
     pricing: {
       monthly: {
         price: 9.99,
@@ -19,17 +18,19 @@ export const PLANS = [
         billingNote: "per month,<br/> billed annually",
       },
     },
-    features: [
-      "Easy to use built-in CRM tools",
-      "Branded Digital Business Card with custom designed QR Code & NFC features",
-      "Unlimited sharing and scans of Digital Business Card",
-      "Lead capture via forms",
-      "Contact collection of leads and clients at one place",
-      "Advanced analytics",
-      "Unlimited usage of AI business card scanner",
-    ],
+    feature: {
+      title: "Key Features",
+      details: [
+        "Easy to use built-in CRM tools",
+        "Branded Digital Business Card with custom designed QR Code & NFC features",
+        "Unlimited sharing and scans of Digital Business Card",
+        "Lead capture via forms",
+        "Contact collection of leads and clients at one place",
+        "Advanced analytics",
+        "Unlimited usage of AI business card scanner",
+      ],
+    },
   },
-
   {
     id: "team",
     name: "Team Plan",
@@ -37,8 +38,6 @@ export const PLANS = [
       title: "Minimum 2 users",
       Icon: Users,
     },
-    freeTrialDays: 7,
-    Icon: Users,
     pricing: {
       monthly: {
         price: 14.99,
@@ -49,17 +48,18 @@ export const PLANS = [
         billingNote: "per user, per month,<br/> billed annually",
       },
     },
-    features: [
-      "Everything in Solo Plan, plus:",
-      "Team specific advanced CRM features",
-      "Each team member gets branded Digital Business Card with QR Code & NFC features",
-      "Multi-user login & permission control",
-      "Admin dashboard to manage team members",
-      "View CRM reports and team performance analytics",
-      "Access Form Responses of all team users",
-      "Assign leads and tasks across the team",
-    ],
+    feature: {
+      title: "Everything in Solo Plan, plus:",
+      details: [
+        "Everything in Solo Plan, plus:",
+        "Team specific advanced CRM features",
+        "Each team member gets branded Digital Business Card with QR Code & NFC features",
+        "Multi-user login & permission control",
+        "Admin dashboard to manage team members",
+        "View CRM reports and team performance analytics",
+        "Access Form Responses of all team users",
+        "Assign leads and tasks across the team",
+      ],
+    },
   },
 ]
-
-export type IPlans = (typeof PLANS)[0]
