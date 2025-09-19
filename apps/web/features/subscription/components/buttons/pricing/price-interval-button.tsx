@@ -6,15 +6,13 @@ import { PLAN_DURATIONS } from "@/features/subscription/constants/pricing/plan-d
 import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
 import type { PlanInterval } from "@/features/subscription/types"
 
-export const PricingIntervalButton = () => {
+export const PriceIntervalButton = () => {
   const { interval, setInterval } = usePricingStore(
     useShallow((state) => ({
       interval: state.interval,
       setInterval: state.setInterval,
     })),
   )
-
-  console.log(interval)
 
   return (
     <SmoothTab

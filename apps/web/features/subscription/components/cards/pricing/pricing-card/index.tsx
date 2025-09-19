@@ -1,8 +1,9 @@
 import { Button } from "@app/ui/components/button"
-import { BadgeCheck } from "lucide-react"
-import { ListComponent } from "@/components/shared/list-component"
-import { CountingNumber } from "@/features/subscription/components/ui/counting-number"
+import { DisplayPrice } from "@/features/subscription/components/cards/pricing/pricing-card/display-price"
+import { PricingTierSelect } from "@/features/subscription/components/cards/pricing/pricing-card/pricing-tier-select"
+import { RenderPlanFeatures } from "@/features/subscription/components/cards/pricing/pricing-card/render-plan-features"
 import type { IPlans, PlanInterval } from "@/features/subscription/types"
+import { isTeamPricing } from "@/features/subscription/utils"
 
 interface IPricingCard extends IPlans {
   currentInterval: PlanInterval
@@ -14,31 +15,29 @@ export const PricingCard = ({
   pricing,
   users,
   currentInterval,
+  id,
 }: IPricingCard) => {
-  const { title, Icon } = users
   const { billingNote, price } = pricing[currentInterval]
 
   return (
     <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
       <span className="border-b py-4 text-gray-500 text-sm flex items-center justify-center gap-2.5 ">
-        <Icon className="size-5" />
-        {title}
+        <users.Icon className="size-5" />
+        {users.title}
       </span>
 
       <div className="py-6 px-7 sm:px-10">
-        <div>
+        <div className="flex items-center justify-between gap-2">
           <h4 className="text-lg font-semibold text-gray-600">{name}</h4>
+          {isTeamPricing(id) && <PricingTierSelect />}
         </div>
 
         <div className="flex my-7 gap-3 leading-tight items-center">
-          <CountingNumber
-            from={0}
-            to={price}
-            duration={1.5}
-            className="text-5xl font-semibold text-black"
-            format={(value) => `$${value.toFixed(2)}`}
+          <DisplayPrice
+            planId={id}
+            individualPrice={price}
+            currentInterval={currentInterval}
           />
-
           <p
             dangerouslySetInnerHTML={{ __html: billingNote }}
             className="font-normal text-sm text-muted-foreground text-start"
@@ -59,17 +58,7 @@ export const PricingCard = ({
           <span className="font-semibold text-lg text-gray-600">
             {feature.title}
           </span>
-
-          <ListComponent
-            items={feature.details}
-            className="space-y-3 mt-5"
-            renderItem={(feature) => (
-              <div key={feature} className="flex gap-3 items-start">
-                <BadgeCheck className="size-7 shrink-0 -mt-0.5 fill-primary stroke-white " />
-                <p className="font-normal text-base text-gray-600">{feature}</p>
-              </div>
-            )}
-          />
+          <RenderPlanFeatures feature={feature} />
         </div>
       </div>
     </div>

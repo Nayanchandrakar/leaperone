@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
-import { PricingIntervalButton } from "@/features/subscription/components/buttons/pricing/pricing-interval-button"
+import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
 
 export const HeroSection = () => {
   return (
@@ -20,7 +20,7 @@ export const HeroSection = () => {
         in order to use Leaper CRM.
       </p>
 
-      <PricingIntervalButton />
+      <PriceIntervalButton />
     </Container>
   )
 }
