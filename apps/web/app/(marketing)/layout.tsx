@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Fragment } from "react"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
+import { MeshGradient } from "@/features/subscription/components/ui/mesh-gradient"
 
 export const metadata: Metadata = {
   title: "Welcome to myleaper",
@@ -18,6 +19,7 @@ export default function MarketingLayout({
       <Navbar />
       {children}
       <Footer />
+      <MeshGradient />
     </Fragment>
   )
 }

@@ -15,8 +15,12 @@ import type { RegisterFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { HeadingShortner } from "@/components/shared/heading-shortner"
 import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
+import {
+  AuthDescription,
+  AuthHeader,
+  AuthTitle,
+} from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useRegister } from "@/features/auth/hooks/sign-up/use-register"
 import {
@@ -77,11 +81,12 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <HeadingShortner
-          title="Create Your Account"
-          description="Unlock Leaper CRM with a paid plan, your first 7 days are free!"
-          className="mb-12 text-center"
-        />
+        <AuthHeader className="mb-12 text-center">
+          <AuthTitle>Create Your Account</AuthTitle>
+          <AuthDescription>
+            Unlock Leaper CRM with a paid plan, your first 7 days are free!
+          </AuthDescription>
+        </AuthHeader>
 
         <FormField
           name="username"

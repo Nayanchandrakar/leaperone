@@ -1,11 +1,15 @@
-import { Container } from "@/components/shared/container"
+import {
+  MarketingDescription,
+  MarketingIntro,
+  MarketingTitle,
+} from "@/components/ui/marketing-intro"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
 
-export const HeroSection = () => {
+export const PricingHeroSection = () => {
   return (
-    <Container className="space-y-8 mt-24 md:mt-28 lg:mt-36 mx-auto max-w-4xl flex items-center flex-col ">
-      <h2 className="font-bold md:font-semibold text-4xl lg:text-5xl text-center  leading-tight ">
+    <MarketingIntro>
+      <MarketingTitle>
         <MarkerText
           alt="underline"
           style={{ top: "63%" }}
@@ -14,13 +18,14 @@ export const HeroSection = () => {
         >
           Plans and Pricing
         </MarkerText>
-      </h2>
-      <p className="text-base md:text-lg font-normal text-muted-foreground text-center mx-auto max-w-2xl">
+      </MarketingTitle>
+
+      <MarketingDescription>
         Get a 7 day free trial with any of the plan. Buying a plan is mandatory
         in order to use Leaper CRM.
-      </p>
+      </MarketingDescription>
 
       <PriceIntervalButton />
-    </Container>
+    </MarketingIntro>
   )
 }

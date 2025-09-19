@@ -15,7 +15,10 @@ import type { LoginFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { HeadingShortner } from "@/components/shared/heading-shortner"
+import {
+  AuthHeader,
+  AuthTitle,
+} from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useLogin } from "@/features/auth/hooks/login/use-login"
 
@@ -45,7 +48,9 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <HeadingShortner title="Welcome Back" className="mb-12 text-center" />
+        <AuthHeader className="mb-12 text-center">
+          <AuthTitle>Welcome Back</AuthTitle>
+        </AuthHeader>
 
         <FormField
           control={form.control}

@@ -14,7 +14,11 @@ import { setNewPasswordSchema } from "@app/zod/schema/auth"
 import type { SetNewPasswordSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { HeadingShortner } from "@/components/shared/heading-shortner"
+import {
+  AuthDescription,
+  AuthHeader,
+  AuthTitle,
+} from "@/features/auth/components/ui/auth-header"
 import { useResetPassword } from "@/features/auth/hooks/reset-password/use-reset-password"
 
 interface IResetPasswordForm {
@@ -43,11 +47,12 @@ export const ResetPasswordForm = ({ token }: IResetPasswordForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <HeadingShortner
-          title="Reset Password"
-          description="Change your old password with the new one if you forgot it."
-          className="mb-12 text-center"
-        />
+        <AuthHeader className="mb-12 text-center">
+          <AuthTitle>Reset Password</AuthTitle>
+          <AuthDescription>
+            Change your old password with the new one if you forgot it.
+          </AuthDescription>
+        </AuthHeader>
 
         <FormField
           control={form.control}
