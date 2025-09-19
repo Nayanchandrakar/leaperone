@@ -10,6 +10,7 @@ import type {
   verifyEmailSchema,
 } from "../schema/auth"
 import type { checkoutSessionSchema } from "../schema/subscription"
+import type { supportFormSchema } from "../schema/support"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>
 export type LoginFormSchema = z.infer<typeof loginFormSchema>
@@ -20,3 +21,4 @@ export type EmailSchema = z.infer<typeof emailSchema>
 export type SetNewPasswordSchema = z.infer<typeof setNewPasswordSchema>
 export type CheckoutSessionSchema = z.infer<typeof checkoutSessionSchema>
 export type PreSignedUrlSchema = z.infer<typeof preSignedUrlSchema>
+export type SupportFormSchema = z.infer<typeof supportFormSchema>
