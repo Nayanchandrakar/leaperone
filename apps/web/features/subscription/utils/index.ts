@@ -1,6 +1,6 @@
 import { TEAM_PRICING_TIERS } from "@/features/subscription/constants/pricing/team-pricing-tiers"
 
-export function isTeamPricing(id: string) {
+export function isTeamPlan(id: string) {
   return id === "team"
 }
 

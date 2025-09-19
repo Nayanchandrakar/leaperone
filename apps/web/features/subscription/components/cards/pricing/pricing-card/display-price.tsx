@@ -5,7 +5,7 @@ import { useShallow } from "zustand/react/shallow"
 import { CountingNumber } from "@/features/subscription/components/ui/counting-number"
 import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
 import type { PlanInterval } from "@/features/subscription/types"
-import { isTeamPricing } from "@/features/subscription/utils"
+import { isTeamPlan } from "@/features/subscription/utils"
 import { formatCurrency } from "@/utils"
 
 interface IDisplayPrice {
@@ -22,7 +22,7 @@ export const DisplayPrice = ({
   const pricingTier = usePricingStore(useShallow((state) => state.pricingTier))
 
   const price = useMemo(() => {
-    return isTeamPricing(planId)
+    return isTeamPlan(planId)
       ? pricingTier.pricing[currentInterval]
       : individualPrice
   }, [currentInterval, pricingTier, individualPrice, planId])

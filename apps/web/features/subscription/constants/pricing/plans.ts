@@ -18,6 +18,10 @@ export const PLANS = [
         billingNote: "per month,<br/> billed annually",
       },
     },
+    buttonLink: {
+      label: "Compare Solo & Team Plans",
+      href: "#compare-pricing",
+    },
     feature: {
       title: "Key Features",
       details: [
@@ -47,6 +51,10 @@ export const PLANS = [
         price: 11.99,
         billingNote: "per user, per month,<br/> billed annually",
       },
+    },
+    buttonLink: {
+      label: "See Pricing by Team Size",
+      href: "#plan-pricing",
     },
     feature: {
       title: "Everything in Solo Plan, plus:",
