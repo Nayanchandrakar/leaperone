@@ -11,7 +11,7 @@ import {
 } from "@app/ui/components/form"
 import { Input } from "@app/ui/components/input"
 import { Textarea } from "@app/ui/components/textarea"
-import { supportFormSchema } from "@app/zod/schema/support"
+import { supportFormSchema } from "@app/zod/schema/marketing"
 import type { SupportFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
