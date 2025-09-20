@@ -1,10 +1,10 @@
-import z from "zod"
-import { email } from "../utils"
+import { z } from "zod"
+import { email, phoneNumber } from "../utils"
 
 export const supportFormSchema = z.object({
-  firstName: z.string().min(1).max(30),
-  lastName: z.string().min(1).max(40),
+  firstName: z.string().trim().min(1).max(30),
+  lastName: z.string().trim().min(1).max(40),
   email,
-  phoneNumber: z.e164({ error: "Invalid phone number" }).optional(),
-  message: z.string().min(1).max(250),
+  phoneNumber,
+  message: z.string().trim().min(1).max(250),
 })

@@ -37,7 +37,7 @@ export const AskSupportForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => console.log(data))}
-        className="w-full max-w-lg space-y-6 mx-auto"
+        className="w-full max-w-xl space-y-6 mx-auto bg-background backdrop-blur-md rounded-2xl border border-border p-5 sm:p-6"
       >
         <FormField
           control={form.control}
