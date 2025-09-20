@@ -9,18 +9,17 @@ interface SmoothTabProps {
     id: string
     title: string
   }[]
-  defaultTabId: string
   className?: string
-  onChange?: (tabId: string) => void
+  selected: string
+  onChange: (tabId: string) => void
 }
 
 export const SmoothTab = ({
   items,
-  defaultTabId,
   className,
   onChange,
+  selected,
 }: SmoothTabProps) => {
-  const [selected, setSelected] = React.useState<string>(defaultTabId)
   const [dimensions, setDimensions] = React.useState({ width: 0, left: 0 })
 
   // Reference for the selected button
@@ -54,18 +53,13 @@ export const SmoothTab = ({
     return () => window.removeEventListener("resize", updateDimensions)
   }, [selected])
 
-  const handleTabClick = (tabId: string) => {
-    setSelected(tabId)
-    onChange?.(tabId)
-  }
-
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
     tabId: string,
   ) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
-      handleTabClick(tabId)
+      onChange(tabId)
     }
   }
 
@@ -115,7 +109,7 @@ export const SmoothTab = ({
               aria-controls={`panel-${id}`}
               id={`tab-${id}`}
               tabIndex={isSelected ? 0 : -1}
-              onClick={() => handleTabClick(id)}
+              onClick={() => onChange(id)}
               onKeyDown={(e) => handleKeyDown(e, id)}
               className={cn(
                 "relative flex items-center justify-center gap-0.5 rounded-full px-2 py-1.5 cursor-pointer",

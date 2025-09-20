@@ -6,7 +6,11 @@ import {
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
 
-export const PricingHeroSection = () => {
+interface ISubscriptionInfo {
+  priceId: string | null
+}
+
+export const PricingHeroSection = ({ priceId }: ISubscriptionInfo) => {
   return (
     <MarketingIntro>
       <MarketingTitle>
@@ -25,7 +29,7 @@ export const PricingHeroSection = () => {
         in order to use Leaper CRM.
       </MarketingDescription>
 
-      <PriceIntervalButton />
+      <PriceIntervalButton priceId={priceId} />
     </MarketingIntro>
   )
 }

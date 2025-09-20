@@ -1,6 +1,4 @@
-import type { FaqSupportMode } from "@/features/marketing/types"
-
-export const FAQ_SUPPORT_MODES: Array<FaqSupportMode> = [
+export const FAQ_SUPPORT_MODES = [
   {
     id: "faq",
     title: "FAQs",

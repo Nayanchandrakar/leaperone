@@ -1,13 +1,15 @@
-import { Button, buttonVariants } from "@app/ui/components/button"
+import { buttonVariants } from "@app/ui/components/button"
 import Link from "next/link"
+import { PriceActionButton } from "@/features/subscription/components/buttons/pricing/price-action-button"
 import { DisplayPrice } from "@/features/subscription/components/cards/pricing/pricing-card/display-price"
 import { PricingTierSelect } from "@/features/subscription/components/cards/pricing/pricing-card/pricing-tier-select"
 import { RenderPlanFeatures } from "@/features/subscription/components/cards/pricing/pricing-card/render-plan-features"
-import type { IPlans, PlanInterval } from "@/features/subscription/types"
+import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
+import type { IPlans } from "@/features/subscription/types"
 import { isTeamPlan } from "@/features/subscription/utils"
 
 interface IPricingCard extends IPlans {
-  currentInterval: PlanInterval
+  subscriptionInfo: any
 }
 
 export const PricingCard = ({
@@ -15,11 +17,12 @@ export const PricingCard = ({
   name,
   pricing,
   users,
-  currentInterval,
   id,
   buttonLink,
+  subscriptionInfo,
 }: IPricingCard) => {
-  const { billingNote, price } = pricing[currentInterval]
+  const currentInterval = usePricingStore((state) => state.planInterval)
+  const { billingNote, price } = pricing[currentInterval.duration]
 
   return (
     <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
@@ -35,11 +38,7 @@ export const PricingCard = ({
         </div>
 
         <div className="flex my-7 gap-3 leading-tight items-center">
-          <DisplayPrice
-            planId={id}
-            individualPrice={price}
-            currentInterval={currentInterval}
-          />
+          <DisplayPrice planId={id} individualPrice={price} />
           <p
             dangerouslySetInnerHTML={{ __html: billingNote }}
             className="font-normal text-sm text-muted-foreground text-start"
@@ -47,12 +46,10 @@ export const PricingCard = ({
         </div>
 
         <div className="space-y-3">
-          <Button className="w-full font-semibold " size="xl">
-            Start 7 days Free Trial
-          </Button>
+          <PriceActionButton subscriptionInfo={subscriptionInfo} />
 
           <Link
-            href={buttonLink.href}
+            href={buttonLink.href as any}
             className={buttonVariants({
               size: "xl",
               className: "w-full",

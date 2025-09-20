@@ -1,4 +1,6 @@
-export const TEAM_PRICING_TIERS = [
+import type { TeamPricingTiers } from "@/features/subscription/types"
+
+export const TEAM_PRICING_TIERS: Array<TeamPricingTiers> = [
   {
     id: "a1f9b2d8",
     label: "For 2 users",

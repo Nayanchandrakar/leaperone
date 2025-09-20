@@ -1,10 +1,9 @@
 import { create } from "zustand"
 import { FAQ_SUPPORT_MODES } from "@/features/marketing/constants/faq-support/faq-support-modes"
-import type { SupportMode } from "@/features/marketing/types"
 
 type FaqStore = {
-  mode: SupportMode
-  setMode: (newMode: SupportMode) => void
+  mode: string
+  setMode: (newMode: string) => void
 }
 
 export const useFaqStore = create<FaqStore>()((set) => ({

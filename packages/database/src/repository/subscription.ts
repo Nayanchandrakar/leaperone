@@ -1,7 +1,7 @@
 import { ApiError } from "@app/error/index"
 import { eq } from "drizzle-orm"
 import { dbHttp } from "../index"
-import { subscription } from "../schema"
+import { subscription, workspace } from "../schema"
 import type { InsertSubscription } from "../types"
 
 export async function getSubscriptionByWorkspaceId(workspaceId: string) {
@@ -10,6 +10,30 @@ export async function getSubscriptionByWorkspaceId(workspaceId: string) {
       .select()
       .from(subscription)
       .where(eq(subscription.workspaceId, workspaceId))
+      .limit(1)
+      .$withCache()
+
+    return data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export async function getSubscriptionByUserId(userId: string) {
+  try {
+    const [data] = await dbHttp
+      .select({
+        id: subscription.id,
+        plan: subscription.plan,
+        seats: subscription.seats,
+        status: subscription.status,
+        priceId: subscription.priceId,
+        workspaceId: subscription.workspaceId,
+      })
+      .from(workspace)
+      .leftJoin(subscription, eq(workspace.id, subscription.workspaceId))
+      .where(eq(workspace.ownerId, userId))
       .limit(1)
       .$withCache()
 

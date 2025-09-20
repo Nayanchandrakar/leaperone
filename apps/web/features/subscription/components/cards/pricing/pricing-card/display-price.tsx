@@ -4,28 +4,27 @@ import { useMemo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { CountingNumber } from "@/features/subscription/components/ui/counting-number"
 import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
-import type { PlanInterval } from "@/features/subscription/types"
 import { isTeamPlan } from "@/features/subscription/utils"
 import { formatCurrency } from "@/utils"
 
 interface IDisplayPrice {
   planId: string
   individualPrice: number
-  currentInterval: PlanInterval
 }
 
-export const DisplayPrice = ({
-  currentInterval,
-  individualPrice,
-  planId,
-}: IDisplayPrice) => {
-  const pricingTier = usePricingStore(useShallow((state) => state.pricingTier))
+export const DisplayPrice = ({ individualPrice, planId }: IDisplayPrice) => {
+  const { pricingTier, planInterval } = usePricingStore(
+    useShallow((state) => ({
+      pricingTier: state.pricingTier,
+      planInterval: state.planInterval,
+    })),
+  )
 
   const price = useMemo(() => {
     return isTeamPlan(planId)
-      ? pricingTier.pricing[currentInterval]
+      ? pricingTier.pricing[planInterval.duration]
       : individualPrice
-  }, [currentInterval, pricingTier, individualPrice, planId])
+  }, [planInterval, pricingTier, individualPrice, planId])
 
   return (
     <CountingNumber

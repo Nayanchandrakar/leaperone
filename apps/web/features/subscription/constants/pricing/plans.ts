@@ -2,7 +2,7 @@ import { User, Users } from "lucide-react"
 
 export const PLANS = [
   {
-    id: "solo",
+    id: "individual",
     name: "Solo Plan",
     users: {
       title: "For 1 user",

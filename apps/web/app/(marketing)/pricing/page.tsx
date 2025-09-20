@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { getWorkspaceSubscription } from "@/features/subscription/actions/pricing/get-workspace-subscription"
 import { ComparePlanSection } from "@/features/subscription/components/pages/pricing/compare-plan-section"
 import { NetworkingSection } from "@/features/subscription/components/pages/pricing/networking-section"
 import { PerMemberPricing } from "@/features/subscription/components/pages/pricing/per-member-pricing"
@@ -7,10 +8,13 @@ import { PricingHeroSection } from "@/features/subscription/components/pages/pri
 import { PricingSection } from "@/features/subscription/components/pages/pricing/pricing-section"
 
 export default async function PricingPage() {
+  const subscriptionInfo = await getWorkspaceSubscription()
+  const priceId = subscriptionInfo?.priceId!
+
   return (
     <Fragment>
-      <PricingHeroSection />
-      <PricingSection />
+      <PricingHeroSection priceId={priceId} />
+      <PricingSection subscriptionInfo={subscriptionInfo} />
       <PerMemberPricing />
       <ComparePlanSection />
       <PricingFaqSection />

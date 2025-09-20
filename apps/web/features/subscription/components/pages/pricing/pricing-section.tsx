@@ -1,10 +1,14 @@
 import { Container } from "@/components/shared/container"
-import { RenderPriceCards } from "./render-price-cards"
+import { RenderPriceCards } from "@/features/subscription/components/pages/pricing/render-price-cards"
 
-export const PricingSection = () => {
+interface IPricingSection {
+  subscriptionInfo: any
+}
+
+export const PricingSection = ({ subscriptionInfo }: IPricingSection) => {
   return (
     <Container className="mt-24">
-      <RenderPriceCards />
+      <RenderPriceCards subscriptionInfo={subscriptionInfo} />
     </Container>
   )
 }
