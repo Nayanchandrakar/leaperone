@@ -107,7 +107,7 @@ export const AskSupportForm = () => {
               <FormLabel>Phone Number (optional)</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
+                  type="tel"
                   variant="gray"
                   disabled={isPending}
                   placeholder="Enter your phone number"
