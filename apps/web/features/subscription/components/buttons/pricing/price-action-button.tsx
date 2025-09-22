@@ -23,7 +23,7 @@ export const PriceActionButton = ({ subscriptionInfo }: IPriceActionButton) => {
   return (
     <Button
       onClick={async () => {
-        const res = await client.api.subscription["billing-portal"].$post({
+        const res = await client.api.subscription.upgrade.$post({
           json: {
             priceId: planInterval.stripeId,
             seats: pricingTier.seat,

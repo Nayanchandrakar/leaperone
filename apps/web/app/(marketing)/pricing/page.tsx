@@ -11,6 +11,8 @@ export default async function PricingPage() {
   const subscriptionInfo = await getWorkspaceSubscription()
   const priceId = subscriptionInfo?.priceId!
 
+  console.log(subscriptionInfo)
+
   return (
     <Fragment>
       <PricingHeroSection priceId={priceId} />
