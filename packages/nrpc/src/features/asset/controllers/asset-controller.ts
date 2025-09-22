@@ -16,8 +16,7 @@ export class AssetController {
     return AssetController.instance
   }
 
-  async preSignedUrl(c: PreSignedUrlController) {
-    // return await this.assetService.preSignedUrl(c)
-    return c.json(200)
+  preSignedUrl = async (c: PreSignedUrlController) => {
+    return await this.assetService.preSignedUrl(c)
   }
 }

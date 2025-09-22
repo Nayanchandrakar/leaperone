@@ -15,6 +15,7 @@
     "@app/nrpc": "workspace:*",
     "@hookform/resolvers": "catalog:",
     "@app/database": "workspace:*",
+    "@app/error": "workspace:*",
     "@app/env": "workspace:*",
     "@app/ui": "workspace:*",
     "@app/zod": "workspace:*",

@@ -21,6 +21,12 @@ export const password = z
   .max(12)
   .trim()
 
+export const phoneNumber = z
+  .e164({ error: "Invalid phone number" })
+  .trim()
+  .or(z.literal(""))
+  .optional()
+
 export const callbackUrl = z.string().trim()
 export const email = z.email().toLowerCase().trim()
 export const seats = z.number().default(1)

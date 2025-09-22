@@ -1,14 +1,11 @@
-// import path from "node:path"
-import { SIGNED_URL_EXPIRY } from "@app/constants/file"
+import path from "node:path"
+import { createFile } from "@app/database/repository/file"
 import { ENV } from "@app/env/server"
-import { ApiError } from "@app/error/index"
-import { logger } from "@app/logger/index"
-import { PutObjectCommand } from "@aws-sdk/client-s3"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { s3 } from "../../../config/s3"
-// import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid"
+import { isProduction } from "../../../config/env"
+import { sanitize } from "../../../utils/sanitize"
 import type { PreSignedUrlController } from "../types/asset"
-// import { sanitizeFilename } from "../utils/sanitize"
+import { createPreSignedUrl } from "../utils/create-pre-signed-url"
 
 export class AssetService {
   private static instance: AssetService | null = null
@@ -22,28 +19,33 @@ export class AssetService {
   }
 
   async preSignedUrl(c: PreSignedUrlController) {
-    // const file = c.req.valid("json")
-    // const workspace = c.get("workspace")
+    const storage = c.get("storage")
+    const { name, type } = c.req.valid("json")
+    const workspace = c.get("workspace")
 
-    // const ext = path.extname(file.name)
-    // const baseName = path.basename(file.name, ext)
-    // const cleanName = sanitizeFilename(baseName)
+    const ext = path.extname(name)
+    const baseName = path.basename(name, ext)
+    const cleanName = sanitize(baseName).substring(0, 64)
 
-    // const key = `asset-manager/${workspace.id}/${uuidv4()}-${cleanName}${ext}`
+    const key = `asset-manager/${workspace.id}/${uuidv4()}-${cleanName}${ext}`
+    const url = await createPreSignedUrl({
+      key,
+      contentType: type,
+      bucket: ENV.S3_UPLOAD_BUCKET,
+      metadata: { storageId: storage.id },
+    })
 
-    try {
-      const command = new PutObjectCommand({
-        Bucket: ENV.S3_UPLOAD_BUCKET,
-        Key: "",
-        ContentType: "",
+    // Only for local development and testing
+    if (!isProduction) {
+      await createFile({
+        ext,
+        key,
+        name,
+        mime: type,
+        storageId: storage.id,
       })
-
-      return getSignedUrl(s3, command, {
-        expiresIn: SIGNED_URL_EXPIRY,
-      })
-    } catch (error) {
-      logger.error(error)
-      throw ApiError.badRequest("Failed to generate pre-signed-url")
     }
+
+    return c.json({ url })
   }
 }

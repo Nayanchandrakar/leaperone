@@ -1,4 +1,4 @@
-import type { User, Workspace } from "@app/database/types"
+import type { Storage, User, Workspace } from "@app/database/types"
 import type { ValidationTargets } from "hono"
 
 export type Session = {
@@ -15,6 +15,7 @@ export type HonoEnv = {
   Variables: {
     session: FullSession
     workspace: Workspace
+    storage: Storage
   }
 }
 

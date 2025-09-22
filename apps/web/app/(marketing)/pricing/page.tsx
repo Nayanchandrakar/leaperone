@@ -1,18 +1,22 @@
 import { Fragment } from "react"
+import { getWorkspaceSubscription } from "@/features/subscription/actions/pricing/get-workspace-subscription"
 import { ComparePlanSection } from "@/features/subscription/components/pages/pricing/compare-plan-section"
-import { HeroSection } from "@/features/subscription/components/pages/pricing/hero-section"
 import { NetworkingSection } from "@/features/subscription/components/pages/pricing/networking-section"
 import { PerMemberPricing } from "@/features/subscription/components/pages/pricing/per-member-pricing"
-import { PricingCards } from "@/features/subscription/components/pages/pricing/pricing-cards"
 import { PricingFaqSection } from "@/features/subscription/components/pages/pricing/pricing-faq-section"
-import { MeshGradient } from "@/features/subscription/components/ui/mesh-gradient"
+import { PricingHeroSection } from "@/features/subscription/components/pages/pricing/pricing-hero-section"
+import { PricingSection } from "@/features/subscription/components/pages/pricing/pricing-section"
 
 export default async function PricingPage() {
+  const subscriptionInfo = await getWorkspaceSubscription()
+  const priceId = subscriptionInfo?.priceId!
+
+  console.log(subscriptionInfo)
+
   return (
     <Fragment>
-      <MeshGradient />
-      <HeroSection />
-      <PricingCards />
+      <PricingHeroSection priceId={priceId} />
+      <PricingSection subscriptionInfo={subscriptionInfo} />
       <PerMemberPricing />
       <ComparePlanSection />
       <PricingFaqSection />

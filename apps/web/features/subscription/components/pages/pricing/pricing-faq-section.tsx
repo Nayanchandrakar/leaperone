@@ -12,7 +12,7 @@ import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 export const PricingFaqSection = () => {
   return (
     <Container className="mt-28">
-      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight ">
+      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}

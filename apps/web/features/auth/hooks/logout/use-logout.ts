@@ -9,7 +9,7 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: async () => {
-      const res = await client.api.auth.logout.$post()
+      const res = await client.api.auth.logout.$get()
       const data = await res.json()
 
       if (!res.ok) throw ResponseHandler.error(data)

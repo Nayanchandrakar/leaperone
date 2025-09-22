@@ -1,6 +1,6 @@
+import { SESSION_COOKIE_NAME } from "@app/constants/auth"
 import type { GlobalMiddlewareConfig } from "@rescale/nemo"
 import { NextResponse } from "next/server"
-import { SESSION_COOKIE_NAME } from "@/features/auth/constants"
 import { client } from "@/lib/hono/client"
 
 export const globalMiddlewares: GlobalMiddlewareConfig = {

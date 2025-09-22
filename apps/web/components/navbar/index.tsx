@@ -1,8 +1,8 @@
+import { getSession } from "@/actions/global/get-session"
 import { Logo } from "@/components/navbar/logo"
 import { MainNav } from "@/components/navbar/main-nav"
 import { MobileNav } from "@/components/navbar/mobile-nav"
 import { Container } from "@/components/shared/container"
-import { getSession } from "@/features/auth/actions/get-session"
 
 export const Navbar = async () => {
   const session = await getSession()

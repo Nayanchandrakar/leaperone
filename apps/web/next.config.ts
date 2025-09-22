@@ -1,8 +1,6 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  typedRoutes: true,
-
   /**
    * Disables ESLint checks during production builds.
    * Linting is handled separately in the CI pipeline to speed up the build process.
@@ -20,7 +18,13 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  transpilePackages: ["@app/database", "@app/env", "@app/ui", "@app/zod"],
+  transpilePackages: [
+    "@app/database",
+    "@app/error",
+    "@app/env",
+    "@app/ui",
+    "@app/zod",
+  ],
 }
 
 export default nextConfig

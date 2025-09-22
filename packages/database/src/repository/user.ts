@@ -4,6 +4,7 @@ import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
 import {
   roles,
+  storage,
   verification,
   workspace,
   workspaceMembers,
@@ -120,6 +121,10 @@ export async function bootStrapUser({
         roleId: role?.id!,
         workspaceId,
         userId,
+      })
+
+      await tx.insert(storage).values({
+        workspaceId,
       })
 
       return {
