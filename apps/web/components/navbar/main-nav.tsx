@@ -38,12 +38,13 @@ export const MainNav = ({ session }: MainNavProps) => {
             size="sm"
             variant="outline"
             disabled={isPending}
+            className="font-semibold"
             onClick={() => mutate()}
           >
             Logout
           </Button>
         ) : (
-          <Button asChild size="sm" variant="outline">
+          <Button asChild size="sm" variant="outline" className="font-semibold">
             <Link href="/login">Login</Link>
           </Button>
         )}

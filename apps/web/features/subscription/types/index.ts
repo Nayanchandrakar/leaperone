@@ -1,6 +1,10 @@
-import type { PLANS } from "@/features/subscription/constants/pricing/plans"
+import type { SubscriptionPlan } from "@app/database/types"
+import type { LucideIcon } from "lucide-react"
+import type { Nullable } from "@/types"
 
 export type PlanDuration = "monthly" | "yearly"
+export type PlanPricing = Record<PlanDuration, number>
+export type BillingNoteType = Record<PlanDuration, string>
 
 export type PlanInterval = {
   id: string
@@ -9,11 +13,31 @@ export type PlanInterval = {
   duration: PlanDuration
 }
 
-export type TeamPricingTiers = {
+export type TeamPricing = {
   id: string
-  label: string
   seat: number
-  pricing: Record<PlanDuration, number>
+  label: string
+  pricing: PlanPricing
 }
 
-export type IPlans = (typeof PLANS)[0]
+export type Plan = {
+  id: number
+  title: string
+  pricing: PlanPricing
+  type: SubscriptionPlan
+  billingNote: BillingNoteType
+  buttonLink: { label: string; href: string }
+  feature: { title: string; details: string[] }
+  header: { title: string; Icon: LucideIcon }
+}
+
+export type SubscriptionInfo = {
+  plan: Nullable<SubscriptionPlan>
+  seats: Nullable<number>
+  priceId: Nullable<string>
+}
+
+export type ComparisonPlans = {
+  title: string
+  type: SubscriptionPlan | undefined
+}

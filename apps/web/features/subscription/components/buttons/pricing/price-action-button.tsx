@@ -1,42 +1,38 @@
 "use client"
 
+import type { SubscriptionPlan } from "@app/database/types"
 import { Button } from "@app/ui/components/button"
-import { useRouter } from "next/navigation"
-import { useShallow } from "zustand/react/shallow"
-import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
-import { client } from "@/lib/hono/client"
+import { usePriceAction } from "@/features/subscription/hooks/pricing/use-price-action"
+import type { SubscriptionInfo } from "@/features/subscription/types"
+import {
+  getPriceActionButtonText,
+  hasPurchased,
+} from "@/features/subscription/utils"
 
 interface IPriceActionButton {
-  subscriptionInfo: any
+  subscription: SubscriptionInfo
+  type: SubscriptionPlan
 }
 
-export const PriceActionButton = ({ subscriptionInfo }: IPriceActionButton) => {
-  const router = useRouter()
-  const { pricingTier, planInterval } = usePricingStore(
-    useShallow((state) => ({
-      pricingTier: state.pricingTier,
-      planInterval: state.planInterval,
-    })),
-  )
+export const PriceActionButton = ({
+  subscription,
+  type,
+}: IPriceActionButton) => {
+  const isActive = type === subscription?.plan
+  const { trigger, isPending } = usePriceAction(isActive)
 
-  // console.log(planInterval, pricingTier, subscriptionInfo)
+  const hasPurchase = hasPurchased(subscription)
+  const buttonText = getPriceActionButtonText({ type, isActive, hasPurchase })
+
   return (
     <Button
-      onClick={async () => {
-        const res = await client.api.subscription.upgrade.$post({
-          json: {
-            priceId: planInterval.stripeId,
-            seats: pricingTier.seat,
-          },
-        })
-
-        const data = await res.json()
-        router.push(data.url as any)
-      }}
-      className="w-full font-semibold "
       size="xl"
+      onClick={trigger}
+      disabled={isActive || isPending}
+      variant={isActive ? "gray-outline" : undefined}
+      className="w-full font-medium disabled:opacity-90"
     >
-      Start 7 days Free Trial
+      {buttonText}
     </Button>
   )
 }

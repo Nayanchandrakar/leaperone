@@ -1,23 +1,20 @@
 import { User, Users } from "lucide-react"
+import type { Plan } from "@/features/subscription/types"
 
-export const PLANS = [
+export const PLANS: Plan[] = [
   {
-    id: "individual",
-    name: "Solo Plan",
-    users: {
+    id: 34534534,
+    type: "individual",
+    title: "Solo Plan",
+    header: {
       title: "For 1 user",
       Icon: User,
     },
-    pricing: {
-      monthly: {
-        price: 9.99,
-        billingNote: "per month,<br/> billed monthly",
-      },
-      yearly: {
-        price: 7.99,
-        billingNote: "per month,<br/> billed annually",
-      },
+    billingNote: {
+      monthly: "per month,<br/> billed monthly",
+      yearly: "per month,<br/> billed annually",
     },
+    pricing: { monthly: 9.99, yearly: 7.99 },
     buttonLink: {
       label: "Compare Solo & Team Plans",
       href: "#compare-pricing",
@@ -36,22 +33,18 @@ export const PLANS = [
     },
   },
   {
-    id: "team",
-    name: "Team Plan",
-    users: {
+    id: 45645645,
+    type: "team",
+    title: "Team Plan",
+    header: {
       title: "Minimum 2 users",
       Icon: Users,
     },
-    pricing: {
-      monthly: {
-        price: 14.99,
-        billingNote: "per user, per month,<br/> billed monthly",
-      },
-      yearly: {
-        price: 11.99,
-        billingNote: "per user, per month,<br/> billed annually",
-      },
+    billingNote: {
+      monthly: "per user, per month,<br/> billed monthly",
+      yearly: "per user, per month,<br/> billed annually",
     },
+    pricing: { monthly: 14.99, yearly: 11.99 },
     buttonLink: {
       label: "See Pricing by Team Size",
       href: "#plan-pricing",

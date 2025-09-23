@@ -14,8 +14,14 @@ import {
   COMPARISON_PLANS,
   PLAN_COMPARISON_DATA,
 } from "@/features/subscription/constants/pricing/plan-compare"
+import type { SubscriptionInfo } from "@/features/subscription/types"
 
-export const ComparePlanSection = () => {
+interface IComparePlanSection {
+  subscription: SubscriptionInfo
+}
+
+export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
+  console.log(subscription)
   return (
     <Container className="mt-32" id="compare-pricing">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">
@@ -32,16 +38,15 @@ export const ComparePlanSection = () => {
       <ListComponent
         className="grid sm:grid-cols-2 lg:grid-cols-3 mt-20 border border-border lg:max-w-5xl mx-auto rounded-3xl bg-background divide-y lg:divide-y-0 sm:divide-x divide-x-0 divide-border"
         items={COMPARISON_PLANS}
-        renderItem={({ buttonTexts, title, variants }) => {
-          const variant = "inactive"
+        renderItem={({ title }) => {
           return (
             <div
               key={title}
               className="py-14 flex flex-col gap-3 items-center justify-center lg:nth-[1]:flex nth-[1]:hidden"
             >
               <span className="font-medium text-lg">{title}</span>
-              <Button variant={variants[variant] as any} size="lg">
-                {buttonTexts[variant]}
+              <Button variant={undefined} size="lg">
+                Choose Plan
               </Button>
             </div>
           )

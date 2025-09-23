@@ -8,17 +8,14 @@ import { PricingHeroSection } from "@/features/subscription/components/pages/pri
 import { PricingSection } from "@/features/subscription/components/pages/pricing/pricing-section"
 
 export default async function PricingPage() {
-  const subscriptionInfo = await getWorkspaceSubscription()
-  const priceId = subscriptionInfo?.priceId!
-
-  console.log(subscriptionInfo)
+  const subscription = await getWorkspaceSubscription()
 
   return (
     <Fragment>
-      <PricingHeroSection priceId={priceId} />
-      <PricingSection subscriptionInfo={subscriptionInfo} />
+      <PricingHeroSection subscription={subscription!} />
+      <PricingSection subscription={subscription!} />
       <PerMemberPricing />
-      <ComparePlanSection />
+      <ComparePlanSection subscription={subscription!} />
       <PricingFaqSection />
       <NetworkingSection />
     </Fragment>

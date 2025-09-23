@@ -1,42 +1,19 @@
-export const COMPARISON_PLANS = [
+import type { ComparisonPlans } from "@/features/subscription/types"
+
+export const COMPARISON_PLANS: ComparisonPlans[] = [
   {
     title: "Features",
-    variants: {
-      active: "green-outline",
-      inactive: "green-outline",
-    },
-
-    buttonTexts: {
-      active: "Back to Plan Pricing",
-      inactive: "Back to Plan Pricing",
-      current: "Back to Plan Pricing",
-    },
+    type: undefined,
   },
 
   {
     title: "Solo Plan",
-    variants: {
-      active: "block",
-      inactive: "default",
-    },
-    buttonTexts: {
-      active: "Choose Plan",
-      inactive: "Start Free trial",
-      current: "Back to Plan Pricing",
-    },
+    type: "individual",
   },
 
   {
     title: "Team Plan",
-    variants: {
-      active: "block",
-      inactive: "default",
-    },
-    buttonTexts: {
-      active: "Choose Plan",
-      inactive: "Start Free trial",
-      current: "Back to Plan Pricing",
-    },
+    type: "team",
   },
 ]
 

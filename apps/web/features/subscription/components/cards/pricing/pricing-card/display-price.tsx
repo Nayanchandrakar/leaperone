@@ -1,30 +1,28 @@
 "use client"
 
+import type { SubscriptionPlan } from "@app/database/types"
 import { useMemo } from "react"
-import { useShallow } from "zustand/react/shallow"
 import { CountingNumber } from "@/features/subscription/components/ui/counting-number"
-import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
+import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
+import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
+import type { PlanPricing } from "@/features/subscription/types"
 import { isTeamPlan } from "@/features/subscription/utils"
 import { formatCurrency } from "@/utils"
 
 interface IDisplayPrice {
-  planId: string
-  individualPrice: number
+  type: SubscriptionPlan
+  pricing: PlanPricing
 }
 
-export const DisplayPrice = ({ individualPrice, planId }: IDisplayPrice) => {
-  const { pricingTier, planInterval } = usePricingStore(
-    useShallow((state) => ({
-      pricingTier: state.pricingTier,
-      planInterval: state.planInterval,
-    })),
-  )
+export const DisplayPrice = ({ type, pricing }: IDisplayPrice) => {
+  const teamPricing = useTeamPricingStore((state) => state.teamPricing)
+  const planInterval = usePricingIntervalStore((state) => state.planInterval)
 
   const price = useMemo(() => {
-    return isTeamPlan(planId)
-      ? pricingTier.pricing[planInterval.duration]
-      : individualPrice
-  }, [planInterval, pricingTier, individualPrice, planId])
+    return isTeamPlan(type)
+      ? teamPricing.pricing[planInterval.duration]
+      : pricing[planInterval.duration]
+  }, [teamPricing, planInterval, pricing, type])
 
   return (
     <CountingNumber

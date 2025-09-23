@@ -21,9 +21,18 @@ export type ResetPasswordRequest = InferRequestType<
   (typeof client.api.auth)["reset-password"]["$post"]
 >["json"]
 
+export type SubscriptionUpgradeRequest = InferRequestType<
+  typeof client.api.subscription.upgrade.$post
+>["json"]
+
+export type SubscriptionBillingRequest = InferRequestType<
+  (typeof client.api.subscription)["billing-portal"]["$post"]
+>["json"]
+
 export type FullSession = InferResponseType<
   (typeof client.api.auth)["get-session"]["$get"]
 >
-
 export type Session = FullSession["session"]
 export type User = FullSession["user"]
+
+export type Nullable<T> = T | null
