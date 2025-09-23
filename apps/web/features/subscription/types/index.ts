@@ -1,5 +1,6 @@
 import type { SubscriptionPlan } from "@app/database/types"
 import type { LucideIcon } from "lucide-react"
+import type { Nullable } from "@/types"
 
 export type PlanDuration = "monthly" | "yearly"
 export type PlanPricing = Record<PlanDuration, number>
@@ -28,4 +29,15 @@ export type Plan = {
   buttonLink: { label: string; href: string }
   feature: { title: string; details: string[] }
   header: { title: string; Icon: LucideIcon }
+}
+
+export type SubscriptionInfo = {
+  plan: Nullable<SubscriptionPlan>
+  seats: Nullable<number>
+  priceId: Nullable<string>
+}
+
+export type ComparisonPlans = {
+  title: string
+  type: SubscriptionPlan | undefined
 }

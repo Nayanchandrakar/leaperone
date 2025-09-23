@@ -1,39 +1,38 @@
 "use client"
 
+import type { SubscriptionPlan } from "@app/database/types"
 import { Button } from "@app/ui/components/button"
-import { useRouter } from "next/navigation"
-import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
-import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
-import { client } from "@/lib/hono/client"
+import { usePriceAction } from "@/features/subscription/hooks/pricing/use-price-action"
+import type { SubscriptionInfo } from "@/features/subscription/types"
+import {
+  getPriceActionButtonText,
+  hasPurchased,
+} from "@/features/subscription/utils"
 
 interface IPriceActionButton {
-  subscription: any
+  subscription: SubscriptionInfo
+  type: SubscriptionPlan
 }
 
-export const PriceActionButton = ({ subscription }: IPriceActionButton) => {
-  const router = useRouter()
-  const teamPricing = useTeamPricingStore((state) => state.teamPricing)
-  const planInterval = usePricingIntervalStore((state) => state.planInterval)
+export const PriceActionButton = ({
+  subscription,
+  type,
+}: IPriceActionButton) => {
+  const isActive = type === subscription?.plan
+  const { trigger, isPending } = usePriceAction(isActive)
 
-  console.log(subscription)
+  const hasPurchase = hasPurchased(subscription)
+  const buttonText = getPriceActionButtonText({ type, isActive, hasPurchase })
 
   return (
     <Button
-      onClick={async () => {
-        const res = await client.api.subscription.upgrade.$post({
-          json: {
-            priceId: planInterval.stripeId,
-            seats: teamPricing.seat,
-          },
-        })
-
-        const data = await res.json()
-        router.push(data.url as any)
-      }}
-      className="w-full font-semibold "
       size="xl"
+      onClick={trigger}
+      disabled={isActive || isPending}
+      variant={isActive ? "gray-outline" : undefined}
+      className="w-full font-medium disabled:opacity-90"
     >
-      Start 7 days Free Trial
+      {buttonText}
     </Button>
   )
 }

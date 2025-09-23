@@ -9,14 +9,13 @@ import { PricingSection } from "@/features/subscription/components/pages/pricing
 
 export default async function PricingPage() {
   const subscription = await getWorkspaceSubscription()
-  console.log(subscription)
 
   return (
     <Fragment>
-      <PricingHeroSection subscription={subscription} />
-      <PricingSection subscription={subscription} />
+      <PricingHeroSection subscription={subscription!} />
+      <PricingSection subscription={subscription!} />
       <PerMemberPricing />
-      <ComparePlanSection />
+      <ComparePlanSection subscription={subscription!} />
       <PricingFaqSection />
       <NetworkingSection />
     </Fragment>

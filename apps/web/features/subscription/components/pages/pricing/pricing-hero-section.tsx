@@ -5,9 +5,10 @@ import {
 } from "@/components/ui/marketing-intro"
 import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
+import type { SubscriptionInfo } from "@/features/subscription/types"
 
 interface ISubscriptionInfo {
-  subscription: any
+  subscription: SubscriptionInfo
 }
 
 export const PricingHeroSection = ({ subscription }: ISubscriptionInfo) => {

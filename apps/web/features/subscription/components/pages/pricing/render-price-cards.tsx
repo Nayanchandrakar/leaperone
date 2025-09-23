@@ -3,9 +3,10 @@
 import { ListComponent } from "@/components/shared/list-component"
 import { PricingCard } from "@/features/subscription/components/cards/pricing/pricing-card"
 import { PLANS } from "@/features/subscription/constants/pricing/plans"
+import type { SubscriptionInfo } from "@/features/subscription/types"
 
 interface IRenderPriceCards {
-  subscription: any
+  subscription: SubscriptionInfo
 }
 
 export const RenderPriceCards = ({ subscription }: IRenderPriceCards) => {

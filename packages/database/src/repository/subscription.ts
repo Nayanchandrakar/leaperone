@@ -26,9 +26,7 @@ export async function getSubscriptionByUserId(userId: string) {
       .select({
         plan: subscription.plan,
         seats: subscription.seats,
-        status: subscription.status,
         priceId: subscription.priceId,
-        workspaceId: subscription.workspaceId,
       })
       .from(workspace)
       .leftJoin(subscription, eq(workspace.id, subscription.workspaceId))

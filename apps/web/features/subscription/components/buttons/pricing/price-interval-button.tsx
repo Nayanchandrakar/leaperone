@@ -5,9 +5,10 @@ import { SmoothTab } from "@/features/subscription/components/ui/smooth-tab"
 import { PLAN_INTERVALS } from "@/features/subscription/constants/pricing/plan-durations"
 import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
 import { useSubscriptionSync } from "@/features/subscription/hooks/pricing/use-subscription-sync"
+import type { SubscriptionInfo } from "@/features/subscription/types"
 
 interface IPriceIntervalButton {
-  subscription: any
+  subscription: SubscriptionInfo
 }
 
 export const PriceIntervalButton = ({ subscription }: IPriceIntervalButton) => {

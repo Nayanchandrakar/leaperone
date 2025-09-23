@@ -7,11 +7,11 @@ import { BillingNote } from "@/features/subscription/components/cards/pricing/pr
 import { DisplayPrice } from "@/features/subscription/components/cards/pricing/pricing-card/display-price"
 import { RenderPlanFeatures } from "@/features/subscription/components/cards/pricing/pricing-card/render-plan-features"
 import { TeamPricingOptions } from "@/features/subscription/components/cards/pricing/pricing-card/team-pricing-options"
-import type { Plan } from "@/features/subscription/types"
+import type { Plan, SubscriptionInfo } from "@/features/subscription/types"
 import { isTeamPlan } from "@/features/subscription/utils"
 
 interface IPricingCard extends Plan {
-  subscription: any
+  subscription: SubscriptionInfo
 }
 
 export const PricingCard = ({
@@ -43,7 +43,8 @@ export const PricingCard = ({
         </div>
 
         <div className="space-y-3">
-          <PriceActionButton subscription={subscription} />
+          <PriceActionButton type={type} subscription={subscription} />
+
           <Link
             href={buttonLink.href as any}
             className={buttonVariants({
