@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react"
 
 export type PlanDuration = "monthly" | "yearly"
 export type PlanPricing = Record<PlanDuration, number>
+export type BillingNoteType = Record<PlanDuration, string>
 
 export type PlanInterval = {
   id: string
@@ -13,27 +14,18 @@ export type PlanInterval = {
 
 export type TeamPricing = {
   id: string
-  label: string
   seat: number
+  label: string
   pricing: PlanPricing
 }
 
 export type Plan = {
   id: number
-  type: SubscriptionPlan
   title: string
-  header: {
-    title: string
-    Icon: LucideIcon
-  }
-  billingNote: Record<PlanDuration, string>
   pricing: PlanPricing
-  buttonLink: {
-    label: string
-    href: string
-  }
-  feature: {
-    title: string
-    details: string[]
-  }
+  type: SubscriptionPlan
+  billingNote: BillingNoteType
+  buttonLink: { label: string; href: string }
+  feature: { title: string; details: string[] }
+  header: { title: string; Icon: LucideIcon }
 }

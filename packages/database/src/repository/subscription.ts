@@ -16,7 +16,7 @@ export async function getSubscriptionByWorkspaceId(workspaceId: string) {
     return data
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 
@@ -24,7 +24,6 @@ export async function getSubscriptionByUserId(userId: string) {
   try {
     const [data] = await dbHttp
       .select({
-        id: subscription.id,
         plan: subscription.plan,
         seats: subscription.seats,
         status: subscription.status,
@@ -40,7 +39,7 @@ export async function getSubscriptionByUserId(userId: string) {
     return data
   } catch (error) {
     console.error(error)
-    return null
+    throw ApiError.internalServerError()
   }
 }
 

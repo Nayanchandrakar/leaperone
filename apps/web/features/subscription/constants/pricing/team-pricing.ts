@@ -1,6 +1,6 @@
 import type { TeamPricing } from "@/features/subscription/types"
 
-export const TEAM_PRICING: Array<TeamPricing> = [
+export const TEAM_PRICING: TeamPricing[] = [
   {
     id: "a1f9b2d8",
     label: "For 2 users",

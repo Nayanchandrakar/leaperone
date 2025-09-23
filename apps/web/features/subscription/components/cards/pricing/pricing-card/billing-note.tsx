@@ -1,15 +1,20 @@
 "use client"
 
+import { useMemo } from "react"
 import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
-import type { PlanDuration } from "@/features/subscription/types"
+import type { BillingNoteType } from "@/features/subscription/types"
 
 interface IBillingNote {
-  billingNote: Record<PlanDuration, string>
+  billingNote: BillingNoteType
 }
 
 export const BillingNote = ({ billingNote }: IBillingNote) => {
   const planInterval = usePricingIntervalStore((state) => state.planInterval)
-  const note = billingNote[planInterval.duration]
+
+  const note = useMemo(
+    () => billingNote[planInterval.duration],
+    [billingNote, planInterval.duration],
+  )
 
   return (
     <p
