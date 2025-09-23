@@ -2,13 +2,13 @@ import { Container } from "@/components/shared/container"
 import { RenderPriceCards } from "@/features/subscription/components/pages/pricing/render-price-cards"
 
 interface IPricingSection {
-  subscriptionInfo: any
+  subscription: any
 }
 
-export const PricingSection = ({ subscriptionInfo }: IPricingSection) => {
+export const PricingSection = ({ subscription }: IPricingSection) => {
   return (
     <Container className="mt-24">
-      <RenderPriceCards subscriptionInfo={subscriptionInfo} />
+      <RenderPriceCards subscription={subscription} />
     </Container>
   )
 }

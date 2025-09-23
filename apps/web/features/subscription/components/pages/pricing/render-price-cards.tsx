@@ -5,20 +5,16 @@ import { PricingCard } from "@/features/subscription/components/cards/pricing/pr
 import { PLANS } from "@/features/subscription/constants/pricing/plans"
 
 interface IRenderPriceCards {
-  subscriptionInfo: any
+  subscription: any
 }
 
-export const RenderPriceCards = ({ subscriptionInfo }: IRenderPriceCards) => {
+export const RenderPriceCards = ({ subscription }: IRenderPriceCards) => {
   return (
     <ListComponent
       items={PLANS}
       className="grid lg:grid-cols-2 gap-10 lg:gap-7 mx-auto max-w-5xl"
       renderItem={(props) => (
-        <PricingCard
-          key={props.id}
-          subscriptionInfo={subscriptionInfo}
-          {...props}
-        />
+        <PricingCard key={props.id} subscription={subscription} {...props} />
       )}
     />
   )

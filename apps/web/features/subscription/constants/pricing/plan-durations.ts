@@ -1,7 +1,7 @@
 import { CLIENT_ENV } from "@app/env/web/client"
 import type { PlanInterval } from "@/features/subscription/types"
 
-export const PLAN_INTERVALS: Array<PlanInterval> = [
+export const PLAN_INTERVALS: PlanInterval[] = [
   {
     id: "d92e4a81c7f54b3f",
     title: "monthly",

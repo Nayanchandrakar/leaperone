@@ -2,31 +2,28 @@
 
 import { Button } from "@app/ui/components/button"
 import { useRouter } from "next/navigation"
-import { useShallow } from "zustand/react/shallow"
-import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
+import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
+import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
 import { client } from "@/lib/hono/client"
 
 interface IPriceActionButton {
-  subscriptionInfo: any
+  subscription: any
 }
 
-export const PriceActionButton = ({ subscriptionInfo }: IPriceActionButton) => {
+export const PriceActionButton = ({ subscription }: IPriceActionButton) => {
   const router = useRouter()
-  const { pricingTier, planInterval } = usePricingStore(
-    useShallow((state) => ({
-      pricingTier: state.pricingTier,
-      planInterval: state.planInterval,
-    })),
-  )
+  const teamPricing = useTeamPricingStore((state) => state.teamPricing)
+  const planInterval = usePricingIntervalStore((state) => state.planInterval)
 
-  // console.log(planInterval, pricingTier, subscriptionInfo)
+  console.log(subscription)
+
   return (
     <Button
       onClick={async () => {
         const res = await client.api.subscription.upgrade.$post({
           json: {
             priceId: planInterval.stripeId,
-            seats: pricingTier.seat,
+            seats: teamPricing.seat,
           },
         })
 

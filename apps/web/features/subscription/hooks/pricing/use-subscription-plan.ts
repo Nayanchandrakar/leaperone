@@ -1,28 +1,19 @@
-import { useEffect, useMemo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { PLAN_INTERVALS } from "@/features/subscription/constants/pricing/plan-durations"
-import { usePricingStore } from "@/features/subscription/hooks/pricing/use-pricing-store"
+import { useEffect } from "react"
+import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/use-pricing-interval-store"
+import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
+import { deriveSubscriptionState } from "@/features/subscription/utils"
 
-export const useSubscriptionPlan = (priceId: string | null) => {
-  const { planInterval, setPlan, setPlanIntervalById } = usePricingStore(
-    useShallow((state) => ({
-      setPlan: state.setPlan,
-      planInterval: state.planInterval,
-      setPlanIntervalById: state.setPlanIntervalById,
-    })),
-  )
-
-  const plan = useMemo(
-    () => PLAN_INTERVALS.find((i) => i.stripeId === priceId),
-    [priceId],
+export const useSubscriptionSync = (subscription: any) => {
+  const setTeamPricing = useTeamPricingStore((state) => state.setTeamPricing)
+  const setPlanIntervalById = usePricingIntervalStore(
+    (state) => state.setPlanIntervalById,
   )
 
   useEffect(() => {
-    if (plan) setPlan(plan!)
-  }, [plan, setPlan])
-
-  return {
-    planInterval,
-    setPlanIntervalById,
-  }
+    const data = subscription && deriveSubscriptionState(subscription)
+    if (data) {
+      setPlanIntervalById(data.planInterval.id)
+      setTeamPricing(data.teamPricing)
+    }
+  }, [subscription, setPlanIntervalById, setTeamPricing])
 }
