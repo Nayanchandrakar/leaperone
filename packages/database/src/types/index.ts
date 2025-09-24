@@ -9,6 +9,7 @@ import type {
 } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
+import type { contactUs } from "../schema/contact-us"
 import type {
   accounts,
   file,
@@ -17,6 +18,7 @@ import type {
   verification,
   workspace,
 } from "../schema/index"
+import type { support } from "../schema/support"
 import type { users } from "../schema/users"
 
 export type HttpConnectionType = NeonHttpDatabase
@@ -45,6 +47,8 @@ export type Storage = typeof storage.$inferSelect
 export type InsertUser = typeof users.$inferInsert
 export type InsertSubscription = typeof subscription.$inferInsert
 export type InsertFile = typeof file.$inferInsert
+export type InsertContactUs = typeof contactUs.$inferInsert
+export type InsertSupport = typeof support.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

@@ -84,4 +84,12 @@ export const MSG = {
   STORAGE: {
     NOT_FOUND: "Storage bucket not found",
   },
+
+  CONTACTUS: {
+    SUBMIT_SUCCESS: "Message received. We’ll be in touch soon.",
+  },
+
+  SUPPORT: {
+    SUBMIT_SUCCESS: "Support request submitted. Our team will respond shortly.",
+  },
 } as const
