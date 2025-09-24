@@ -36,6 +36,7 @@ export const MSG = {
     FAILED_TO_CREATE: "Failed to create user",
     FAILED_TO_UPDATE: "Failed to update user",
     EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
+    RESTRICTED_USER: "Your account has been restricted.",
   },
 
   PASSWORD: {

@@ -144,6 +144,10 @@ export class AuthService {
 
     const { user, accounts } = userWithAccounts
 
+    if (user?.isRestricted) {
+      throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
+    }
+
     const credentialAccount = accounts.find(
       (a) => a.providerId === "credential",
     )
