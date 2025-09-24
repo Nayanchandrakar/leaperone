@@ -3,12 +3,20 @@ import {
   loginFormSchema,
   registerFormSchema,
   resetPasswordSchema,
+  restrictUserSchema,
   userNameSchema,
   verifyEmailSchema,
 } from "@app/zod/schema/auth"
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
-import { verifyToken } from "../../../middlewares/auth-middleware"
+import {
+  isAuthenticated,
+  verifyToken,
+} from "../../../middlewares/auth-middleware"
+import {
+  hasActiveSubscription,
+  hasWorkspace,
+} from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
 import { authController } from "../modules/auth-module"
 
@@ -41,6 +49,20 @@ const app = new Hono<HonoEnv>()
     zValidator("query", verifyEmailSchema),
     verifyToken,
     authController.verifyEmail,
+  )
+  .post(
+    "/restrict-user",
+    zValidator("json", restrictUserSchema),
+    isAuthenticated,
+    hasWorkspace,
+    hasActiveSubscription,
+  )
+  .post(
+    "/unrestrict-user",
+    zValidator("json", restrictUserSchema),
+    isAuthenticated,
+    hasWorkspace,
+    hasActiveSubscription,
   )
 
 export default app

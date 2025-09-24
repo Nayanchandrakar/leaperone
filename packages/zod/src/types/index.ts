@@ -5,6 +5,7 @@ import type {
   loginFormSchema,
   registerFormSchema,
   resetPasswordSchema,
+  restrictUserSchema,
   setNewPasswordSchema,
   userNameSchema,
   verifyEmailSchema,
@@ -26,3 +27,4 @@ export type CheckoutSessionSchema = z.infer<typeof checkoutSessionSchema>
 export type PreSignedUrlSchema = z.infer<typeof preSignedUrlSchema>
 export type SupportFormSchema = z.infer<typeof supportFormSchema>
 export type ContactUsFormSchema = z.infer<typeof contactUsFormSchema>
+export type RestrictUserSchema = z.infer<typeof restrictUserSchema>
