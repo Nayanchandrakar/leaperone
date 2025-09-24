@@ -9,11 +9,6 @@ export const DEFAULT_ROLES = [
   {
     name: "member",
     description: "Regular workspace member",
-    permissions: [
-      PERMISSIONS.CREATE_CARDS,
-      PERMISSIONS.MANAGE_ASSETS,
-      PERMISSIONS.MANAGE_NFC,
-      PERMISSIONS.UPDATE_CARDS,
-    ],
+    permissions: [PERMISSIONS.MANAGE_NFC],
   },
 ]
