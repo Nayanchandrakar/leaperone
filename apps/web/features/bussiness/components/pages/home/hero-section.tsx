@@ -15,7 +15,7 @@ export const HeroSection = () => {
           style={{ top: "-55%", left: "-85%" }}
           className="lg:inline-block hidden"
         >
-          open-mark.svg Create
+          Create
         </MarkerText>
         &nbsp;Digital Business Cards in 3 Easy Steps. Then Capture Leads &
         Manage Clients.&nbsp;
