@@ -25,6 +25,6 @@ export class MarketingController {
   }
 
   askSupport = async (c: AskSupportController) => {
-    return await this.marketingService.contactUs(c)
+    return await this.marketingService.askSupport(c)
   }
 }

@@ -1,6 +1,10 @@
 import { createContact } from "@app/database/repository/contact-us"
+import { createSupport } from "@app/database/repository/support"
 import { MSG } from "../../../constants/message"
-import type { ContactUsController } from "../types/marketing"
+import type {
+  AskSupportController,
+  ContactUsController,
+} from "../types/marketing"
 
 export class MarketingService {
   private static instance: MarketingService | null = null
@@ -18,5 +22,11 @@ export class MarketingService {
     const values = c.req.valid("json")
     await createContact(values)
     return c.json({ message: MSG.CONTACTUS.SUBMIT_SUCCESS })
+  }
+
+  async askSupport(c: AskSupportController) {
+    const values = c.req.valid("json")
+    await createSupport(values)
+    return c.json({ message: MSG.SUPPORT.SUBMIT_SUCCESS })
   }
 }
