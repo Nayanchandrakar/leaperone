@@ -15,6 +15,13 @@
       "when": 1758781066472,
       "tag": "0001_zippy_the_order",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1758782942240,
+      "tag": "0002_hard_vapor",
+      "breakpoints": true
     }
   ]
 }
