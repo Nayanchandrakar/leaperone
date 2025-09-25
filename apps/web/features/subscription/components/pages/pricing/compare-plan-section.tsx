@@ -29,7 +29,7 @@ export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
           alt="underline"
           style={{ top: "80%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Compare plans with all features
         </MarkerText>

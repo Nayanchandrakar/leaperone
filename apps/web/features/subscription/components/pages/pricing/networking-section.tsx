@@ -12,7 +12,7 @@ export const NetworkingSection = () => {
           alt="underline"
           style={{ top: "50%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Networking
         </MarkerText>
@@ -21,7 +21,7 @@ export const NetworkingSection = () => {
           alt="underline"
           style={{ top: "50%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Client management
         </MarkerText>
@@ -33,7 +33,7 @@ export const NetworkingSection = () => {
           width={50}
           height={50}
           alt="marker"
-          src="/assets/markers/open-mark.svg"
+          src="/assets/svg/open-mark.svg"
           className="absolute -top-6 -left-16 hidden sm:inline-block pointer-events-none"
         />
 
@@ -41,7 +41,7 @@ export const NetworkingSection = () => {
           width={50}
           height={50}
           alt="marker"
-          src="/assets/markers/close-mark.svg"
+          src="/assets/svg/close-mark.svg"
           className="absolute -bottom-6 -right-16 hidden sm:inline-block pointer-events-none"
         />
 

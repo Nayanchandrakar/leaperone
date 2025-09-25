@@ -13,7 +13,7 @@ export const ContactUsHeroSection = () => {
           alt="underline"
           style={{ top: "63%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Get in touch
         </MarkerText>

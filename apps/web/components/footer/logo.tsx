@@ -9,7 +9,7 @@ export const Logo = () => {
         width={80}
         height={80}
         alt="logo"
-        src="/assets/logo/green-logo.svg"
+        src="/assets/svg/green-logo.svg"
       />
     </Link>
   )

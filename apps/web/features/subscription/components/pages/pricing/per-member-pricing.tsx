@@ -18,7 +18,7 @@ export const PerMemberPricing = () => {
           alt="underline"
           style={{ top: "80%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Team Plan Pricing By Team Size
         </MarkerText>

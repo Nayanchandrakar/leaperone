@@ -17,7 +17,7 @@ export const PricingFaqSection = () => {
           alt="underline"
           style={{ top: "80%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           FAQs About Plans & Pricing
         </MarkerText>

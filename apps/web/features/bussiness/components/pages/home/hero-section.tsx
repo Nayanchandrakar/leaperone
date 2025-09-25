@@ -11,11 +11,11 @@ export const HeroSection = () => {
       <MarketingTitle>
         <MarkerText
           alt="marker"
-          src="/assets/markers/open-mark.svg"
+          src="/assets/svg/open-mark.svg"
           style={{ top: "-55%", left: "-85%" }}
           className="lg:inline-block hidden"
         >
-          Create
+          open-mark.svg Create
         </MarkerText>
         &nbsp;Digital Business Cards in 3 Easy Steps. Then Capture Leads &
         Manage Clients.&nbsp;
@@ -23,7 +23,7 @@ export const HeroSection = () => {
           alt="underline"
           className="inline-flex"
           style={{ top: "55%" }}
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           All in 1 Place!
         </MarkerText>

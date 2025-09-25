@@ -19,7 +19,7 @@ export const PricingHeroSection = ({ subscription }: ISubscriptionInfo) => {
           alt="underline"
           style={{ top: "63%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Plans and Pricing
         </MarkerText>
