@@ -3,8 +3,8 @@ import {
   MarketingIntro,
   MarketingTitle,
 } from "@/components/ui/marketing-intro"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { FaqSupportButton } from "@/features/marketing/components/buttons/faq-support/faq-support-button"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const FaqHeroSection = () => {
   return (

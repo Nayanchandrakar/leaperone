@@ -8,7 +8,8 @@ import {
   MarketingIntro,
   MarketingTitle,
 } from "@/components/ui/marketing-intro"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { Marker } from "@/features/marketing/components/ui/marker"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export default function NotFound() {
   return (
@@ -17,11 +18,11 @@ export default function NotFound() {
 
       <MarketingIntro className="!mt-0">
         <Image
-          width={300}
-          height={300}
+          priority
+          width={270}
+          height={270}
           src="/assets/svg/404.svg"
           alt="not-found"
-          priority
         />
 
         <MarketingTitle>
@@ -42,20 +43,16 @@ export default function NotFound() {
         </MarketingDescription>
 
         <div className="relative w-full flex items-center justify-center flex-col gap-4 mx-auto max-w-lg">
-          <Image
-            width={50}
-            height={50}
+          <Marker
             alt="marker"
             src="/assets/svg/open-mark.svg"
-            className="absolute -top-6 -left-16 hidden sm:inline-block pointer-events-none"
+            className="-top-6 -left-16"
           />
 
-          <Image
-            width={50}
-            height={50}
+          <Marker
             alt="marker"
             src="/assets/svg/close-mark.svg"
-            className="absolute -bottom-6 -right-16 hidden sm:inline-block pointer-events-none"
+            className="-bottom-6 -right-16"
           />
 
           <Link

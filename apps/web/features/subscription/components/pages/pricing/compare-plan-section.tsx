@@ -8,7 +8,7 @@ import { Button } from "@app/ui/components/button"
 import { ChevronDown } from "lucide-react"
 import { Container } from "@/components/shared/container"
 import { ListComponent } from "@/components/shared/list-component"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { PriceCompareCard } from "@/features/subscription/components/cards/pricing/price-compare-card"
 import {
   COMPARISON_PLANS,

@@ -1,7 +1,7 @@
 import { Button } from "@app/ui/components/button"
-import Image from "next/image"
 import { Container } from "@/components/shared/container"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { Marker } from "@/features/marketing/components/ui/marker"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const NetworkingSection = () => {
   return (
@@ -29,20 +29,16 @@ export const NetworkingSection = () => {
       </h2>
 
       <div className="flex items-center justify-center flex-col gap-4 mt-8 mx-auto max-w-sm relative">
-        <Image
-          width={50}
-          height={50}
+        <Marker
           alt="marker"
           src="/assets/svg/open-mark.svg"
-          className="absolute -top-6 -left-16 hidden sm:inline-block pointer-events-none"
+          className="-top-6 -left-16"
         />
 
-        <Image
-          width={50}
-          height={50}
+        <Marker
           alt="marker"
           src="/assets/svg/close-mark.svg"
-          className="absolute -bottom-6 -right-16 hidden sm:inline-block pointer-events-none"
+          className="-bottom-6 -right-16"
         />
 
         <Button size="xl" className="w-full">

@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@app/ui/components/table"
 import { Container } from "@/components/shared/container"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing/teams-per-member-cost"
 
 export const PerMemberPricing = () => {

@@ -6,7 +6,7 @@ import {
 } from "@app/ui/components/accordion"
 import { Plus } from "lucide-react"
 import { Container } from "@/components/shared/container"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
 export const PricingFaqSection = () => {

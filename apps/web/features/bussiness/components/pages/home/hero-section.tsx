@@ -3,7 +3,7 @@ import {
   MarketingIntro,
   MarketingTitle,
 } from "@/components/ui/marketing-intro"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const HeroSection = () => {
   return (
