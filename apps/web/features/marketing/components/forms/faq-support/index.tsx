@@ -15,8 +15,10 @@ import { supportFormSchema } from "@app/zod/schema/marketing"
 import type { SupportFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useAskSupport } from "@/features/marketing/hooks/faq-support/use-ask-suppor"
 
 export const AskSupportForm = () => {
+  const { mutate, isPending } = useAskSupport()
   const form = useForm<SupportFormSchema>({
     resolver: zodResolver(supportFormSchema),
     mode: "onChange",
@@ -29,14 +31,16 @@ export const AskSupportForm = () => {
     },
   })
 
-  const isPending = false // from mutation query
   const formState = form.formState
   const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => console.log(data))}
+        onSubmit={form.handleSubmit((data) => {
+          mutate(data)
+          form.reset()
+        })}
         className="w-full max-w-xl space-y-6 mx-auto bg-background backdrop-blur-md rounded-2xl border border-border p-5 sm:p-6"
       >
         <FormField
