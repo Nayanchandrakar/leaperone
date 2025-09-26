@@ -5,14 +5,13 @@ import {
   AccordionTrigger,
 } from "@app/ui/components/accordion"
 import { Plus } from "lucide-react"
-import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
 export const PricingFaqSection = () => {
   return (
-    <Container className="mt-28">
-      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight">
+    <div className="container mt-28">
+      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}
@@ -38,6 +37,6 @@ export const PricingFaqSection = () => {
           </AccordionItem>
         ))}
       </Accordion>
-    </Container>
+    </div>
   )
 }

@@ -30,7 +30,7 @@ export const DisplayPrice = ({ type, pricing }: IDisplayPrice) => {
       to={price}
       duration={1.5}
       format={formatCurrency}
-      className="text-5xl font-semibold text-black tabular-nums"
+      className="text-5xl font-bold text-foreground tracking-tighter tabular-nums"
     />
   )
 }

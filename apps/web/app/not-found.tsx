@@ -1,7 +1,6 @@
 import { buttonVariants } from "@app/ui/components/button"
 import Image from "next/image"
 import Link from "next/link"
-import { Container } from "@/components/shared/container"
 import { RadialMesh } from "@/components/shared/mesh"
 import { Marker } from "@/features/marketing/components/ui/marker"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
@@ -13,7 +12,7 @@ import {
 
 export default function NotFound() {
   return (
-    <Container className="relative w-full min-h-[calc(100vh_-_64px)] flex items-center justify-center">
+    <section className="container relative w-full min-h-[calc(100vh_-_64px)] flex items-center justify-center">
       <RadialMesh />
 
       <MarketingHeader className="!mt-0">
@@ -74,6 +73,6 @@ export default function NotFound() {
           </Link>
         </div>
       </MarketingHeader>
-    </Container>
+    </section>
   )
 }
