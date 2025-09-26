@@ -12,16 +12,16 @@ type IFooterSection = {
 }
 
 export const FooterSection = ({ title, links }: IFooterSection) => (
-  <div className="text-muted-foreground">
+  <div className="text-foreground">
     <h6 className="font-semibold sm:text-base text-sm">{title}</h6>
     <ListComponent
       items={links}
-      className="mt-4 sm:mt-6 flex flex-col gap-y-2.5 sm:gap-y-4"
+      className="mt-4 sm:mt-6 flex flex-col gap-y-2.5 sm:gap-y-3"
       renderItem={({ title, href }) => (
         <Link
           key={title}
           href={href}
-          className="hover:text-primary transition-colors sm:text-base text-sm"
+          className="hover:text-primary transition-colors sm:text-base text-sm text-balance"
         >
           {title}
         </Link>
