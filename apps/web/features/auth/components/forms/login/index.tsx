@@ -48,7 +48,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <AuthHeader className="mb-12 text-center">
+        <AuthHeader className="mb-12">
           <AuthTitle>Welcome Back</AuthTitle>
         </AuthHeader>
 

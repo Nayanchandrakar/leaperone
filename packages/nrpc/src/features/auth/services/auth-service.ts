@@ -3,6 +3,7 @@ import {
   SESSION_COOKIE_NAME,
   SESSION_EXPIRY,
 } from "@app/constants/auth"
+import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   bootStrapUser,
   getUserByEmail,
@@ -33,6 +34,7 @@ import type {
   PasswordResetController,
   RegisterController,
   ResetPasswordController,
+  RestrictUserController,
   UserNameController,
   VerifyEmailController,
 } from "../types/auth"
@@ -141,6 +143,10 @@ export class AuthService {
     }
 
     const { user, accounts } = userWithAccounts
+
+    if (user?.isRestricted) {
+      throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
+    }
 
     const credentialAccount = accounts.find(
       (a) => a.providerId === "credential",
@@ -309,5 +315,62 @@ export class AuthService {
     await this.session.revoke(userId)
 
     return c.json({ success: true, message: MSG.PASSWORD.RESET_SUCCESS })
+  }
+
+  async restrictUser(c: RestrictUserController) {
+    const body = c.req.valid("json")
+    const session = c.get("session")
+    const workspace = c.get("workspace")
+
+    if (body.userId === session.user.id) {
+      throw ApiError.badRequest("You can not restrict yourself")
+    }
+
+    const canRestrict = await hasPermissions(session.user.id, workspace.id, [
+      "manage:members",
+    ])
+
+    if (!canRestrict) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    const updatedUser = await updateUserById(body.userId, {
+      isRestricted: true,
+    })
+
+    if (!updatedUser) {
+      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
+    }
+
+    await this.session.revoke(updatedUser.id)
+    return c.json({ userId: updatedUser.id })
+  }
+
+  async unRestrictUser(c: RestrictUserController) {
+    const body = c.req.valid("json")
+    const session = c.get("session")
+    const workspace = c.get("workspace")
+
+    if (body.userId === session.user.id) {
+      throw ApiError.badRequest("You can unrestrict yourself")
+    }
+
+    const canRestrict = await hasPermissions(session.user.id, workspace.id, [
+      "manage:members",
+    ])
+
+    if (!canRestrict) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    const updatedUser = await updateUserById(body.userId, {
+      isRestricted: false,
+    })
+
+    if (!updatedUser) {
+      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
+    }
+
+    return c.json({ userId: session.user.id })
   }
 }

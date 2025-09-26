@@ -1,33 +1,33 @@
-import {
-  MarketingDescription,
-  MarketingIntro,
-  MarketingTitle,
-} from "@/components/ui/marketing-intro"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
 import { FaqSupportButton } from "@/features/marketing/components/buttons/faq-support/faq-support-button"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
+import {
+  MarketingHeader,
+  MarketingHeaderDescription,
+  MarketingHeaderTitle,
+} from "@/features/marketing/ui/marketing-header"
 
 export const FaqHeroSection = () => {
   return (
-    <MarketingIntro>
-      <MarketingTitle>
+    <MarketingHeader>
+      <MarketingHeaderTitle>
         How can&nbsp;
         <MarkerText
           alt="underline"
           style={{ top: "63%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           we help you
         </MarkerText>
         &nbsp;today?
-      </MarketingTitle>
+      </MarketingHeaderTitle>
 
-      <MarketingDescription>
+      <MarketingHeaderDescription>
         You’ll find quick answers to common questions in our FAQs and if you
         need more help, feel free to reach out to us.
-      </MarketingDescription>
+      </MarketingHeaderDescription>
 
       <FaqSupportButton />
-    </MarketingIntro>
+    </MarketingHeader>
   )
 }

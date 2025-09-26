@@ -29,6 +29,14 @@ export type SubscriptionBillingRequest = InferRequestType<
   (typeof client.api.subscription)["billing-portal"]["$post"]
 >["json"]
 
+export type ContactUsRequest = InferRequestType<
+  (typeof client.api.marketing)["ask-support"]["$post"]
+>["json"]
+
+export type AskSupportRequest = InferRequestType<
+  (typeof client.api.marketing)["contact-us"]["$post"]
+>["json"]
+
 export type FullSession = InferResponseType<
   (typeof client.api.auth)["get-session"]["$get"]
 >

@@ -1,16 +1,11 @@
-import Image from "next/image"
 import Link from "next/link"
+import { Icons } from "@/components/shared/icons"
 
 export const Logo = () => {
   return (
     <Link href="/">
-      <Image
-        priority
-        width={55}
-        height={55}
-        alt="logo"
-        src="/assets/logo/white-logo.svg"
-      />
+      <Icons.logo className="size-12" />
+      <span className="sr-only">leapercrm</span>
     </Link>
   )
 }

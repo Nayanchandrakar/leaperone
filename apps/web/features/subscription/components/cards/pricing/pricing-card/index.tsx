@@ -26,18 +26,20 @@ export const PricingCard = ({
 }: IPricingCard) => {
   return (
     <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
-      <span className="border-b py-4 text-gray-500 text-sm flex items-center justify-center gap-2.5 ">
+      <span className="border-b py-4 text-muted-foreground text-sm flex items-center justify-center gap-2.5">
         <header.Icon className="size-5" />
         {header.title}
       </span>
 
       <div className="py-6 px-7 sm:px-10">
         <div className="flex items-center justify-between gap-2 min-h-9">
-          <h4 className="text-lg font-semibold text-gray-600 h-fit">{title}</h4>
+          <h4 className="text-lg font-medium text-muted-foreground h-fit">
+            {title}
+          </h4>
           {isTeamPlan(type) && <TeamPricingOptions />}
         </div>
 
-        <div className="flex my-7 gap-3 leading-tight items-center">
+        <div className="flex my-7 gap-4 items-center">
           <DisplayPrice type={type} pricing={pricing} />
           <BillingNote billingNote={billingNote} />
         </div>
@@ -57,8 +59,8 @@ export const PricingCard = ({
           </Link>
         </div>
 
-        <div className="mt-6 space-y-3">
-          <span className="font-semibold text-lg text-gray-600">
+        <div className="mt-6">
+          <span className="font-semibold text-base tracking-tight text-muted-foreground">
             {feature.title}
           </span>
           <RenderPlanFeatures feature={feature} />

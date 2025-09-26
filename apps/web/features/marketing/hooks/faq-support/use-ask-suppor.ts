@@ -1,0 +1,20 @@
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "sonner"
+import { client } from "@/lib/hono/client"
+import type { AskSupportRequest } from "@/types"
+import { ResponseHandler } from "@/utils/response-handler"
+
+export const useAskSupport = () => {
+  return useMutation({
+    mutationFn: async (json: AskSupportRequest) => {
+      const res = await client.api.marketing["ask-support"].$post({ json })
+      const data = await res.json()
+
+      if (!res.ok) throw ResponseHandler.error(data)
+      return data
+    },
+
+    onSuccess: ({ message }) => toast.success(message),
+    onError: ({ message }) => toast.error(message),
+  })
+}

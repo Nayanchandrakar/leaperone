@@ -81,7 +81,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <AuthHeader className="mb-12 text-center">
+        <AuthHeader className="mb-12">
           <AuthTitle>Create Your Account</AuthTitle>
           <AuthDescription>
             Unlock Leaper CRM with a paid plan, your first 7 days are free!

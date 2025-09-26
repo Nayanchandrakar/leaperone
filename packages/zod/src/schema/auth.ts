@@ -43,3 +43,7 @@ export const setNewPasswordSchema = z
     path: ["confirmPassword"],
     error: "Passwords does not match",
   })
+
+export const restrictUserSchema = z.object({
+  userId: z.cuid2(),
+})

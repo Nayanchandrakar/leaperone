@@ -6,6 +6,7 @@ import type {
   PasswordResetController,
   RegisterController,
   ResetPasswordController,
+  RestrictUserController,
   UserNameController,
   VerifyEmailController,
 } from "../types/auth"
@@ -57,5 +58,13 @@ export class AuthController {
 
   resetPassword = async (c: ResetPasswordController) => {
     return await this.authService.resetPassword(c)
+  }
+
+  restrictUser = async (c: RestrictUserController) => {
+    return await this.authService.restrictUser(c)
+  }
+
+  unRestrictUser = async (c: RestrictUserController) => {
+    return await this.authService.unRestrictUser(c)
   }
 }

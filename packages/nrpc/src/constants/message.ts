@@ -36,6 +36,7 @@ export const MSG = {
     FAILED_TO_CREATE: "Failed to create user",
     FAILED_TO_UPDATE: "Failed to update user",
     EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
+    RESTRICTED_USER: "Your account has been restricted.",
   },
 
   PASSWORD: {
@@ -82,5 +83,13 @@ export const MSG = {
 
   STORAGE: {
     NOT_FOUND: "Storage bucket not found",
+  },
+
+  CONTACTUS: {
+    SUBMIT_SUCCESS: "Message received. We’ll be in touch soon.",
+  },
+
+  SUPPORT: {
+    SUBMIT_SUCCESS: "Support request submitted. Our team will respond shortly.",
   },
 } as const

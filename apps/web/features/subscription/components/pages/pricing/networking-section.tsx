@@ -1,18 +1,17 @@
 import { Button } from "@app/ui/components/button"
-import Image from "next/image"
-import { Container } from "@/components/shared/container"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { Marker } from "@/features/marketing/components/ui/marker"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const NetworkingSection = () => {
   return (
-    <Container className="my-32 sm:my-40 mx-auto max-w-lg">
-      <h2 className="font-bold md:font-semibold text-3xl text-center leading-normal">
+    <div className="container my-32 sm:my-40 flex items-center justify-center flex-col gap-8">
+      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight max-w-lg">
         Ready to take your&nbsp;
         <MarkerText
           alt="underline"
           style={{ top: "50%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Networking
         </MarkerText>
@@ -21,28 +20,24 @@ export const NetworkingSection = () => {
           alt="underline"
           style={{ top: "50%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Client management
         </MarkerText>
         &nbsp; to the next level?
       </h2>
 
-      <div className="flex items-center justify-center flex-col gap-4 mt-8 mx-auto max-w-sm relative">
-        <Image
-          width={50}
-          height={50}
+      <div className="flex items-center justify-center flex-col gap-4 max-w-sm relative w-full">
+        <Marker
           alt="marker"
-          src="/assets/markers/open-mark.svg"
-          className="absolute -top-6 -left-16 hidden sm:inline-block pointer-events-none"
+          src="/assets/svg/open-mark.svg"
+          className="-top-6 -left-16"
         />
 
-        <Image
-          width={50}
-          height={50}
+        <Marker
           alt="marker"
-          src="/assets/markers/close-mark.svg"
-          className="absolute -bottom-6 -right-16 hidden sm:inline-block pointer-events-none"
+          src="/assets/svg/close-mark.svg"
+          className="-bottom-6 -right-16"
         />
 
         <Button size="xl" className="w-full">
@@ -53,6 +48,6 @@ export const NetworkingSection = () => {
           Get in Touch with us
         </Button>
       </div>
-    </Container>
+    </div>
   )
 }

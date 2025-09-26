@@ -3,6 +3,7 @@ import type {
   LoginFormSchema,
   RegisterFormSchema,
   ResetPasswordSchema,
+  RestrictUserSchema,
   UserNameFormSchema,
   VerifyEmailSchema,
 } from "@app/zod/types"
@@ -36,6 +37,12 @@ export type ResetPasswordController = Context<
   HonoEnv,
   "/reset-password",
   ControllerIO<"json", ResetPasswordSchema>
+>
+
+export type RestrictUserController = Context<
+  HonoEnv,
+  "/reset-password",
+  ControllerIO<"json", RestrictUserSchema>
 >
 
 export type VerifyEmailController = Context<

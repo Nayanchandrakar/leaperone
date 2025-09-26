@@ -6,9 +6,8 @@ import {
 } from "@app/ui/components/accordion"
 import { Button } from "@app/ui/components/button"
 import { ChevronDown } from "lucide-react"
-import { Container } from "@/components/shared/container"
 import { ListComponent } from "@/components/shared/list-component"
-import { MarkerText } from "@/features/bussiness/components/ui/marker-text"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { PriceCompareCard } from "@/features/subscription/components/cards/pricing/price-compare-card"
 import {
   COMPARISON_PLANS,
@@ -23,13 +22,13 @@ interface IComparePlanSection {
 export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
   console.log(subscription)
   return (
-    <Container className="mt-32" id="compare-pricing">
-      <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">
+    <section className="mt-32 container" id="compare-pricing">
+      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}
           className="inline-flex"
-          src="/assets/markers/dash.svg"
+          src="/assets/svg/dash.svg"
         >
           Compare plans with all features
         </MarkerText>
@@ -75,6 +74,6 @@ export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
           </AccordionItem>
         ))}
       </Accordion>
-    </Container>
+    </section>
   )
 }

@@ -41,7 +41,7 @@ export const ForgotPasswordForm = () => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <AuthHeader className="mb-12 text-center">
+        <AuthHeader className="mb-12">
           <AuthTitle>Forgot Password</AuthTitle>
           <AuthDescription>
             Enter the email you used to create your account, and we’ll send you
