@@ -5,7 +5,7 @@ import { MainNav } from "@/components/navbar/main-nav"
 export const Navbar = async () => {
   const session = await getSession()
   return (
-    <header className="bg-primary sticky top-0 z-50">
+    <header className="bg-primary h-14 sticky top-0 z-50">
       <div className="container flex items-center justify-between">
         <Logo />
         <MainNav session={session} />
