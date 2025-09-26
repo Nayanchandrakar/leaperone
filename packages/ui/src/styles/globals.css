@@ -177,9 +177,36 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border
+  }
+  html {
+    @apply scroll-smooth
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overscroll-none;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 5px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+}
+
+
+@layer utilities {
+  .container {
+    @apply max-w-[1400px] min-[1800px]:max-w-screen-2xl mx-auto size-full px-4 xl:px-6
   }
 }
