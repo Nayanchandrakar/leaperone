@@ -6,11 +6,8 @@ import type {
 
 export class MarketingController {
   private static instance: MarketingController | null = null
-  private marketingService: MarketingService
 
-  private constructor(marketingService: MarketingService) {
-    this.marketingService = marketingService
-  }
+  private constructor(private readonly marketingService: MarketingService) {}
 
   static init(marketingService: MarketingService) {
     if (!MarketingController.instance) {

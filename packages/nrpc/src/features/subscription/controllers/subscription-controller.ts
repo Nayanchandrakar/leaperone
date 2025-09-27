@@ -6,11 +6,10 @@ import type {
 
 export class SubscriptionController {
   private static instance: SubscriptionController | null = null
-  private subscriptionService: SubscriptionService
 
-  private constructor(subscriptionService: SubscriptionService) {
-    this.subscriptionService = subscriptionService
-  }
+  private constructor(
+    private readonly subscriptionService: SubscriptionService,
+  ) {}
 
   static init(subscriptionService: SubscriptionService) {
     if (!SubscriptionController.instance) {

@@ -13,11 +13,8 @@ import type {
 
 export class AuthController {
   private static instance: AuthController | null = null
-  private authService: AuthService
 
-  constructor(authService: AuthService) {
-    this.authService = authService
-  }
+  constructor(private readonly authService: AuthService) {}
 
   public static init(authService: AuthService) {
     if (!AuthController.instance) {

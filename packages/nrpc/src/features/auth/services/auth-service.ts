@@ -44,13 +44,11 @@ import type { Session } from "../utils/session"
 
 export class AuthService {
   private static instance: AuthService | null = null
-  private session: Session
-  private cookie: Cookie
 
-  private constructor(session: Session, cookie: Cookie) {
-    this.cookie = cookie
-    this.session = session
-  }
+  private constructor(
+    private readonly session: Session,
+    private readonly cookie: Cookie,
+  ) {}
 
   static init(session: Session, cookie: Cookie) {
     if (!AuthService.instance) {
