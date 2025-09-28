@@ -18,7 +18,7 @@ import {
   hasWorkspace,
 } from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
-import { authController } from "../modules/auth-module"
+import { authController } from "./auth.module"
 
 const app = new Hono<HonoEnv>()
   .post(

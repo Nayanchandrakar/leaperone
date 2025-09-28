@@ -1,8 +1,8 @@
-import type { SubscriptionService } from "../services/subscription-service"
 import type {
   CheckoutSessionController,
   StripeController,
 } from "../types/subscription"
+import type { SubscriptionService } from "./subscription.service"
 
 export class SubscriptionController {
   private static instance: SubscriptionController | null = null

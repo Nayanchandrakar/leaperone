@@ -4,9 +4,10 @@ import { Hono } from "hono"
 import { isAuthenticated } from "../../../middlewares/auth-middleware"
 import { hasWorkspace } from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
-import { subscriptionController } from "../modules/subscription-module"
+import { subscriptionController } from "./subscription.module"
 
 const app = new Hono<HonoEnv>()
+  .post("/webhook/stripe", subscriptionController.stripe)
   .post(
     "/upgrade",
     zValidator("json", checkoutSessionSchema),

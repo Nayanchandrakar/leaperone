@@ -7,16 +7,16 @@ import { HTTPSTATUS } from "./http-config"
 export class ApiError extends Error {
   constructor(
     message: string,
-    public readonly status: ContentfulStatusCode,
-    public readonly code: ErrorCode,
-    public readonly details?: unknown | null,
+    readonly status: ContentfulStatusCode,
+    readonly code: ErrorCode,
+    readonly details?: unknown | null,
   ) {
     super(message)
     this.name = "ApiError"
     Error.captureStackTrace?.(this, this.constructor)
   }
 
-  public toResponse(c: Context) {
+  toResponse(c: Context) {
     return c.json(
       {
         success: false,
@@ -32,10 +32,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static badRequest(
-    message = "Bad request",
-    details?: unknown,
-  ): ApiError {
+  static badRequest(message = "Bad request", details?: unknown): ApiError {
     return new ApiError(
       message,
       HTTPSTATUS.BAD_REQUEST,
@@ -44,7 +41,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static validationError(
+  static validationError(
     message = "Validation error",
     details?: unknown,
   ): ApiError {
@@ -56,7 +53,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static unauthorized(
+  static unauthorized(
     message = "Not authenticated",
     details?: unknown,
   ): ApiError {
@@ -68,7 +65,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static forbidden(message = "Forbidden", details?: unknown): ApiError {
+  static forbidden(message = "Forbidden", details?: unknown): ApiError {
     return new ApiError(
       message,
       HTTPSTATUS.FORBIDDEN,
@@ -77,10 +74,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static notFound(
-    message = "Resource not found",
-    details?: unknown,
-  ): ApiError {
+  static notFound(message = "Resource not found", details?: unknown): ApiError {
     return new ApiError(
       message,
       HTTPSTATUS.NOT_FOUND,
@@ -89,7 +83,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static conflict(message = "Conflict", details?: unknown): ApiError {
+  static conflict(message = "Conflict", details?: unknown): ApiError {
     return new ApiError(
       message,
       HTTPSTATUS.CONFLICT,
@@ -98,7 +92,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static tooManyRequests(
+  static tooManyRequests(
     message = "Too many requests",
     details?: unknown,
   ): ApiError {
@@ -110,7 +104,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static internalServerError(
+  static internalServerError(
     message = "An unexpected error occurred",
     details?: unknown,
   ): ApiError {
@@ -122,7 +116,7 @@ export class ApiError extends Error {
     )
   }
 
-  public static fromError(error: unknown): ApiError {
+  static fromError(error: unknown): ApiError {
     if (error instanceof HTTPException) {
       return new ApiError(
         "Http Exception Error",

@@ -1,4 +1,3 @@
-import type { AuthService } from "../services/auth-service"
 import type {
   GetSessionController,
   LoginController,
@@ -10,13 +9,14 @@ import type {
   UserNameController,
   VerifyEmailController,
 } from "../types/auth"
+import type { AuthService } from "./auth.service"
 
 export class AuthController {
   private static instance: AuthController | null = null
 
   constructor(private readonly authService: AuthService) {}
 
-  public static init(authService: AuthService) {
+  static init(authService: AuthService) {
     if (!AuthController.instance) {
       AuthController.instance = new AuthController(authService)
     }

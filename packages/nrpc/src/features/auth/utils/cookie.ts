@@ -9,14 +9,14 @@ export class Cookie {
 
   private constructor() {}
 
-  public static init() {
+  static init() {
     if (!Cookie.instance) {
       Cookie.instance = new Cookie()
     }
     return Cookie.instance
   }
 
-  public async set(
+  async set(
     c: Context,
     name: string,
     value: string,
@@ -28,11 +28,11 @@ export class Cookie {
     })
   }
 
-  public async get(c: Context, key: string) {
+  async get(c: Context, key: string) {
     return await getSignedCookie(c, ENV.AUTH_SECRET, key)
   }
 
-  public delete(c: Context, key: string) {
+  delete(c: Context, key: string) {
     deleteCookie(c, key)
   }
 }

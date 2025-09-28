@@ -1,8 +1,8 @@
-import type { MarketingService } from "../services/marketing-service"
 import type {
   AskSupportController,
   ContactUsController,
 } from "../types/marketing"
+import type { MarketingService } from "./marketing.service"
 
 export class MarketingController {
   private static instance: MarketingController | null = null

@@ -1,5 +1,5 @@
-import { MarketingController } from "../controllers/marketing-controller"
-import { MarketingService } from "../services/marketing-service"
+import { MarketingController } from "./marketing.controller"
+import { MarketingService } from "./marketing.service"
 
 const marketingService = MarketingService.init()
 const marketingController = MarketingController.init(marketingService)
