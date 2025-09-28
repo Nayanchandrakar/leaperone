@@ -47,7 +47,7 @@ export const ResetPasswordForm = ({ token }: IResetPasswordForm) => {
         onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
       >
-        <AuthHeader className="mb-12">
+        <AuthHeader className="mb-12 text-center">
           <AuthTitle>Reset Password</AuthTitle>
           <AuthDescription>
             Change your old password with the new one if you forgot it.
