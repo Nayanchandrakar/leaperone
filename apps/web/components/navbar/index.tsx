@@ -1,7 +1,6 @@
 import { getSession } from "@/actions/global/get-session"
 import { Logo } from "@/components/navbar/logo"
 import { MainNav } from "@/components/navbar/main-nav"
-import { MobileNav } from "@/components/navbar/mobile-nav"
 
 export const Navbar = async () => {
   const session = await getSession()
@@ -10,7 +9,6 @@ export const Navbar = async () => {
       <div className="container flex items-center justify-between">
         <Logo />
         <MainNav session={session} />
-        <MobileNav />
       </div>
     </header>
   )
