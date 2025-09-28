@@ -1,15 +1,15 @@
+import {
+  MarketingDescription,
+  MarketingIntro,
+  MarketingTitle,
+} from "@/components/ui/marketing-intro"
 import { FaqSupportButton } from "@/features/marketing/components/buttons/faq-support/faq-support-button"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
-import {
-  MarketingHeader,
-  MarketingHeaderDescription,
-  MarketingHeaderTitle,
-} from "@/features/marketing/ui/marketing-header"
 
 export const FaqHeroSection = () => {
   return (
-    <MarketingHeader>
-      <MarketingHeaderTitle>
+    <MarketingIntro>
+      <MarketingTitle>
         How can&nbsp;
         <MarkerText
           alt="underline"
@@ -20,14 +20,14 @@ export const FaqHeroSection = () => {
           we help you
         </MarkerText>
         &nbsp;today?
-      </MarketingHeaderTitle>
+      </MarketingTitle>
 
-      <MarketingHeaderDescription>
+      <MarketingDescription>
         You’ll find quick answers to common questions in our FAQs and if you
         need more help, feel free to reach out to us.
-      </MarketingHeaderDescription>
+      </MarketingDescription>
 
       <FaqSupportButton />
-    </MarketingHeader>
+    </MarketingIntro>
   )
 }

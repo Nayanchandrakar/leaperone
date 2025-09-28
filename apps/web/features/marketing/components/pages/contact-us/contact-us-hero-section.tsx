@@ -1,14 +1,14 @@
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import {
-  MarketingHeader,
-  MarketingHeaderDescription,
-  MarketingHeaderTitle,
-} from "@/features/marketing/ui/marketing-header"
+  MarketingDescription,
+  MarketingIntro,
+  MarketingTitle,
+} from "@/components/ui/marketing-intro"
+import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const ContactUsHeroSection = () => {
   return (
-    <MarketingHeader>
-      <MarketingHeaderTitle>
+    <MarketingIntro>
+      <MarketingTitle>
         <MarkerText
           alt="underline"
           style={{ top: "63%" }}
@@ -18,13 +18,13 @@ export const ContactUsHeroSection = () => {
           Get in touch
         </MarkerText>
         &nbsp;with us!
-      </MarketingHeaderTitle>
+      </MarketingTitle>
 
-      <MarketingHeaderDescription>
+      <MarketingDescription>
         Whether you have a question, need support, or want to know how Leaper
         CRM can boost your business, feel free to reach out to us and we will
         get back to you as soon as possible .
-      </MarketingHeaderDescription>
-    </MarketingHeader>
+      </MarketingDescription>
+    </MarketingIntro>
   )
 }

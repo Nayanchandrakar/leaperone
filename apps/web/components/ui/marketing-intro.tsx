@@ -1,13 +1,14 @@
 import { cn } from "@app/ui/lib/utils"
+import { Container } from "@/components/shared/container"
 
-export const MarketingHeader = ({
+export const MarketingIntro = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
   return (
-    <div
+    <Container
       className={cn(
-        "container flex items-center justify-center flex-col gap-7 py-16 text-center md:py-24",
+        "space-y-8 mt-24 md:mt-28 lg:mt-36 mx-auto max-w-4xl flex items-center flex-col",
         className,
       )}
       {...props}
@@ -15,14 +16,14 @@ export const MarketingHeader = ({
   )
 }
 
-export const MarketingHeaderTitle = ({
+export const MarketingTitle = ({
   className,
   ...props
 }: React.ComponentProps<"h1">) => {
   return (
     <h1
       className={cn(
-        "text-4xl xl:text-5xl font-semibold lg:font-bold tracking-tight xl:tracking-tighter leading-tight xl:leading-[1.1] max-w-4xl",
+        "font-bold md:font-semibold text-4xl lg:text-5xl text-center  leading-tight",
         className,
       )}
       {...props}
@@ -30,14 +31,14 @@ export const MarketingHeaderTitle = ({
   )
 }
 
-export const MarketingHeaderDescription = ({
+export const MarketingDescription = ({
   className,
   ...props
 }: React.ComponentProps<"p">) => {
   return (
     <p
       className={cn(
-        "text-foreground max-w-2xl text-base text-balance sm:text-lg",
+        "text-base md:text-lg font-normal text-muted-foreground text-center mx-auto max-w-2xl",
         className,
       )}
       {...props}
