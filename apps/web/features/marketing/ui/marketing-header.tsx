@@ -22,7 +22,7 @@ export const MarketingHeaderTitle = ({
   return (
     <h1
       className={cn(
-        "text-4xl xl:text-5xl font-semibold lg:font-bold tracking-tight xl:tracking-tighter leading-tight xl:leading-[1.1] max-w-4xl",
+        "text-4xl xl:text-5xl font-semibold tracking-tight xl:tracking-tighter leading-tight xl:leading-[1.1] max-w-4xl",
         className,
       )}
       {...props}
