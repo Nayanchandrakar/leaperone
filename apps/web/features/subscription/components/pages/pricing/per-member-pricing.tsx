@@ -12,7 +12,7 @@ import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing
 export const PerMemberPricing = () => {
   return (
     <section className="container mt-32" id="plan-pricing">
-      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight">
+      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight ">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}

@@ -10,8 +10,8 @@ import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
 export const PricingFaqSection = () => {
   return (
-    <div className="container mt-28">
-      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight">
+    <section className="container mt-28">
+      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}
@@ -37,6 +37,6 @@ export const PricingFaqSection = () => {
           </AccordionItem>
         ))}
       </Accordion>
-    </div>
+    </section>
   )
 }

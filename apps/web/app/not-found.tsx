@@ -8,11 +8,11 @@ import {
   MarketingHeader,
   MarketingHeaderDescription,
   MarketingHeaderTitle,
-} from "@/features/marketing/ui/marketing-header"
+} from "@/features/marketing/components/ui/marketing-intro"
 
 export default function NotFound() {
   return (
-    <section className="container relative w-full min-h-[calc(100vh_-_64px)] flex items-center justify-center">
+    <div className="container relative w-full min-h-[calc(100vh_-_64px)] flex items-center justify-center">
       <RadialMesh />
 
       <MarketingHeader className="!mt-0">
@@ -73,6 +73,6 @@ export default function NotFound() {
           </Link>
         </div>
       </MarketingHeader>
-    </section>
+    </div>
   )
 }

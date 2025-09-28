@@ -3,7 +3,7 @@ import {
   MarketingHeader,
   MarketingHeaderDescription,
   MarketingHeaderTitle,
-} from "@/features/marketing/ui/marketing-header"
+} from "@/features/marketing/components/ui/marketing-intro"
 
 export const ContactUsHeroSection = () => {
   return (

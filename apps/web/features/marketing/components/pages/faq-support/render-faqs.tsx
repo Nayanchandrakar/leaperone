@@ -17,13 +17,11 @@ interface IRenderFaqs {
 export const RenderFaqs = ({ data, title }: IRenderFaqs) => {
   return (
     <div className="flex flex-col items-center justify-center last:mb-24">
-      <h2 className="font-semibold tracking-tight text-2xl md:text-3xl">
-        {title}
-      </h2>
+      <h2 className="font-medium text-2xl md:text-3xl">{title}</h2>
       <Accordion
         type="single"
         collapsible
-        className="max-w-4xl mx-auto bg-background rounded-3xl border border-border my-12 p-4 space-y-3"
+        className="max-w-4xl mx-auto bg-background rounded-3xl border border-border my-12 sm:my-14 p-4 space-y-3"
       >
         {data.map(({ question }, index) => (
           <AccordionItem key={question} value={`item-${index}`}>

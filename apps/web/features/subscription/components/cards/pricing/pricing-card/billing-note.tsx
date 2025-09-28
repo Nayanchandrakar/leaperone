@@ -19,7 +19,7 @@ export const BillingNote = ({ billingNote }: IBillingNote) => {
   return (
     <p
       dangerouslySetInnerHTML={{ __html: note }}
-      className="text-muted-foreground text-sm text-balance tracking-tight"
+      className="font-normal text-sm text-muted-foreground text-start"
     />
   )
 }

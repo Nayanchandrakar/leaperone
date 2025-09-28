@@ -3,7 +3,7 @@ import {
   MarketingHeader,
   MarketingHeaderDescription,
   MarketingHeaderTitle,
-} from "@/features/marketing/ui/marketing-header"
+} from "@/features/marketing/components/ui/marketing-intro"
 import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
 import type { SubscriptionInfo } from "@/features/subscription/types"
 

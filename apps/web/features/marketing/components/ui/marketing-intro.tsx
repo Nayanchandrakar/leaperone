@@ -7,7 +7,7 @@ export const MarketingHeader = ({
   return (
     <div
       className={cn(
-        "container flex items-center justify-center flex-col gap-7 py-16 lg:py-20 text-center",
+        "container !max-w-4xl space-y-8 mt-24 md:mt-28 lg:mt-36 flex items-center flex-col",
         className,
       )}
       {...props}
@@ -22,7 +22,7 @@ export const MarketingHeaderTitle = ({
   return (
     <h1
       className={cn(
-        "text-4xl xl:text-5xl font-semibold lg:font-bold tracking-tight xl:tracking-tighter leading-tight xl:leading-[1.1] max-w-4xl",
+        "font-bold md:font-semibold text-4xl lg:text-5xl text-center  leading-tight",
         className,
       )}
       {...props}
@@ -37,7 +37,7 @@ export const MarketingHeaderDescription = ({
   return (
     <p
       className={cn(
-        "text-foreground max-w-2xl text-base text-balance sm:text-lg",
+        "text-base md:text-lg font-normal text-muted-foreground text-center mx-auto max-w-2xl",
         className,
       )}
       {...props}

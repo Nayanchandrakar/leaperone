@@ -2,7 +2,7 @@ import { SelectedSection } from "@/features/marketing/components/pages/faq-suppo
 
 export const RenderSection = () => {
   return (
-    <section className="container">
+    <section className="container mt-20">
       <SelectedSection />
     </section>
   )

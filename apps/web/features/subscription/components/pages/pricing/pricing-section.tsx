@@ -7,7 +7,7 @@ interface IPricingSection {
 
 export const PricingSection = ({ subscription }: IPricingSection) => {
   return (
-    <section className="container">
+    <section className="container mt-24">
       <RenderPriceCards subscription={subscription} />
     </section>
   )

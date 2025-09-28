@@ -4,8 +4,8 @@ import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const NetworkingSection = () => {
   return (
-    <div className="container my-32 sm:my-40 flex items-center justify-center flex-col gap-8">
-      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight max-w-lg">
+    <section className="container !max-w-lg my-32 sm:my-40 ">
+      <h2 className="font-bold md:font-semibold text-3xl text-center leading-normal">
         Ready to take your&nbsp;
         <MarkerText
           alt="underline"
@@ -27,7 +27,7 @@ export const NetworkingSection = () => {
         &nbsp; to the next level?
       </h2>
 
-      <div className="flex items-center justify-center flex-col gap-4 max-w-sm relative w-full">
+      <div className="flex items-center justify-center flex-col gap-4 mt-8 mx-auto max-w-sm relative">
         <Marker
           alt="marker"
           src="/assets/svg/open-mark.svg"
@@ -48,6 +48,6 @@ export const NetworkingSection = () => {
           Get in Touch with us
         </Button>
       </div>
-    </div>
+    </section>
   )
 }
