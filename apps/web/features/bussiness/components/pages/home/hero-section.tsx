@@ -1,14 +1,14 @@
-import {
-  MarketingDescription,
-  MarketingIntro,
-  MarketingTitle,
-} from "@/components/ui/marketing-intro"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
+import {
+  MarketingHeader,
+  MarketingHeaderDescription,
+  MarketingHeaderTitle,
+} from "@/features/marketing/components/ui/marketing-intro"
 
 export const HeroSection = () => {
   return (
-    <MarketingIntro>
-      <MarketingTitle>
+    <MarketingHeader>
+      <MarketingHeaderTitle>
         <MarkerText
           alt="marker"
           src="/assets/svg/open-mark.svg"
@@ -27,12 +27,12 @@ export const HeroSection = () => {
         >
           All in 1 Place!
         </MarkerText>
-      </MarketingTitle>
+      </MarketingHeaderTitle>
 
-      <MarketingDescription className="font-medium max-w-3xl">
+      <MarketingHeaderDescription className="font-medium max-w-3xl">
         Create smart digital business cards in minutes, capture leads & manage
         clients with built-in CRM tools, all in 1 place for you & your team.
-      </MarketingDescription>
-    </MarketingIntro>
+      </MarketingHeaderDescription>
+    </MarketingHeader>
   )
 }

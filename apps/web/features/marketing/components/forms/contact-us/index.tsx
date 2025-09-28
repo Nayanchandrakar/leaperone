@@ -15,7 +15,6 @@ import { contactUsFormSchema } from "@app/zod/schema/marketing"
 import type { ContactUsFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Container } from "@/components/shared/container"
 import { useContactUs } from "@/features/marketing/hooks/contact-us/use-contact-us"
 
 export const ContactUsForm = () => {
@@ -37,7 +36,7 @@ export const ContactUsForm = () => {
   const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
 
   return (
-    <Container className="max-w-xl my-12 md:my-16">
+    <div className="container !max-w-xl my-12 md:my-16">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit((data) => {
@@ -156,6 +155,6 @@ export const ContactUsForm = () => {
           </Button>
         </form>
       </Form>
-    </Container>
+    </div>
   )
 }

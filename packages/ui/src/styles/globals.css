@@ -207,6 +207,6 @@
 
 @layer utilities {
   .container {
-    @apply max-w-[1400px] min-[1800px]:max-w-screen-2xl mx-auto size-full px-4 xl:px-6
+    @apply max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-8 size-full
   }
-}
+};

@@ -1,11 +1,10 @@
 import { Button } from "@app/ui/components/button"
-import { Container } from "@/components/shared/container"
 import { Marker } from "@/features/marketing/components/ui/marker"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const NetworkingSection = () => {
   return (
-    <Container className="my-32 sm:my-40 mx-auto max-w-lg">
+    <section className="container !max-w-lg my-32 sm:my-40 ">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-normal">
         Ready to take your&nbsp;
         <MarkerText
@@ -49,6 +48,6 @@ export const NetworkingSection = () => {
           Get in Touch with us
         </Button>
       </div>
-    </Container>
+    </section>
   )
 }

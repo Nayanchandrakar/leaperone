@@ -1,8 +1,10 @@
 "use client"
 
+import { Button } from "@app/ui/components/button"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { NAV_LINKS } from "@/constants/nav-links"
+import { useLogout } from "@/features/auth/hooks/logout/use-logout"
 import type { FullSession } from "@/types"
 
 interface MainNavProps {
@@ -11,10 +13,10 @@ interface MainNavProps {
 
 export const MainNav = ({ session }: MainNavProps) => {
   const pathname = usePathname()
-  console.dir(session)
+  const { mutate, isPending } = useLogout()
 
   return (
-    <nav className="hidden items-center gap-x-2.5 lg:flex">
+    <nav className="hidden items-center gap-x-6 lg:flex">
       {NAV_LINKS.map(({ name, href }) => (
         <Link
           key={name}
@@ -25,6 +27,28 @@ export const MainNav = ({ session }: MainNavProps) => {
           {name}
         </Link>
       ))}
+
+      <div className="flex items-center gap-4">
+        <Button size="sm" variant="secondary">
+          Start Free Trial
+        </Button>
+
+        {session ? (
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={isPending}
+            className="font-semibold"
+            onClick={() => mutate()}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button asChild size="sm" variant="outline" className="font-semibold">
+            <Link href="/login">Login</Link>
+          </Button>
+        )}
+      </div>
     </nav>
   )
 }
