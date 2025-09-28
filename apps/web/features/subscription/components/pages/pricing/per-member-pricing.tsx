@@ -6,13 +6,14 @@ import {
   TableHeader,
   TableRow,
 } from "@app/ui/components/table"
+import { Container } from "@/components/shared/container"
 import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing/teams-per-member-cost"
 
 export const PerMemberPricing = () => {
   return (
-    <section className="container mt-32" id="plan-pricing">
-      <h2 className="font-semibold tracking-tight text-3xl text-center leading-tight">
+    <Container className="mt-32" id="plan-pricing">
+      <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight ">
         <MarkerText
           alt="underline"
           style={{ top: "80%" }}
@@ -55,6 +56,6 @@ export const PerMemberPricing = () => {
           </TableBody>
         </Table>
       </div>
-    </section>
+    </Container>
   )
 }

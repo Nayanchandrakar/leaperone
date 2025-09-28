@@ -7,7 +7,7 @@ export const MarketingHeader = ({
   return (
     <div
       className={cn(
-        "container flex items-center justify-center flex-col gap-7 py-16 lg:py-20 text-center",
+        "container flex items-center justify-center flex-col gap-7 py-16 text-center md:py-24",
         className,
       )}
       {...props}
