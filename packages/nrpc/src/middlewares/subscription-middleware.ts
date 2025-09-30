@@ -1,5 +1,5 @@
 import { getWorkspaceByOwnerId } from "@app/database/repository/workspace"
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { MSG } from "../constants/message"

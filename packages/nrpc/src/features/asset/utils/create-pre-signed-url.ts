@@ -1,6 +1,6 @@
 import { SIGNED_URL_EXPIRY } from "@app/constants/file"
-import { ApiError } from "@app/error/index"
-import { logger } from "@app/logger/index"
+import { ApiError } from "@app/error"
+import { logger } from "@app/logger"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { s3Client } from "../../../config/s3"

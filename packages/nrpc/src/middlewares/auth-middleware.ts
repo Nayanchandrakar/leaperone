@@ -1,4 +1,4 @@
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { JwtTokenExpired } from "hono/utils/jwt/types"

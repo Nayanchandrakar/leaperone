@@ -1,4 +1,4 @@
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import { dbHttp } from "../index"
 import { contactUs } from "../schema/contact-us"
 import type { InsertContactUs } from "../types"

@@ -4,7 +4,7 @@ import {
   SESSSION_UPDATE_AGE,
 } from "@app/constants/auth"
 import type { User } from "@app/database/types"
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import { createId } from "@paralleldrive/cuid2"
 import type { Context } from "hono"
 import { redis } from "../../../config/redis"

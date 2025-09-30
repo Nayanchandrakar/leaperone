@@ -1,4 +1,4 @@
-import { logger as pino } from "@app/logger/index"
+import { logger as pino } from "@app/logger"
 import type { Context, Next } from "hono"
 import { colorizeStatus, formatTime } from "@/utils"
 

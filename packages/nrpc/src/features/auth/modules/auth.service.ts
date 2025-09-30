@@ -17,8 +17,8 @@ import {
   createVerification,
   findVerificationByIdentifier,
 } from "@app/database/repository/verification"
-import { ApiError } from "@app/error/index"
-import { logger } from "@app/logger/index"
+import { ApiError } from "@app/error"
+import { logger } from "@app/logger"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"

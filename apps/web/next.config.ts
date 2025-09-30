@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
 
   transpilePackages: [
     "@app/database",
-    "@app/error/index",
+    "@app/error",
     "@app/env",
     "@app/ui",
     "@app/zod",

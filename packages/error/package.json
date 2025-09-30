@@ -5,7 +5,7 @@
   "type": "module",
   "sideEffects": false,
   "exports": {
-    "./error": "./src/index.ts",
+    ".": "./src/index.ts",
     "./http": "./src/http-config.ts",
     "./error-codes": "./src/error-codes.ts"
   },

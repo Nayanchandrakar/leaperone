@@ -1,5 +1,5 @@
 import { ENV } from "@app/env/server"
-import { logger } from "@app/logger/index"
+import { logger } from "@app/logger"
 import { serve } from "@hono/node-server"
 import type { Hono } from "hono"
 

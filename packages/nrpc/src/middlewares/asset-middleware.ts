@@ -1,10 +1,10 @@
 import { getStorageByWorkspaceId } from "@app/database/repository/storage"
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import type { Next } from "hono"
 import { createMiddleware } from "hono/factory"
-import { formatBytes } from "src/utils/format"
 import { MSG } from "../constants/message"
 import type { PreSignedUrlController } from "../features/asset/types/asset"
+import { formatBytes } from "../utils/format"
 
 export const checkStorageAvailability = createMiddleware(
   async (c: PreSignedUrlController, next: Next) => {
