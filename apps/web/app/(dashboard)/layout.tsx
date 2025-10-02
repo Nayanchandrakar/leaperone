@@ -5,10 +5,15 @@ export const metadata: Metadata = {
   description: "Created by myleaper",
 }
 
-export default function OnboardingLayout({
+export default function WorkspaceLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <div>Onboarding Layout:{children}</div>
+  return (
+    <div>
+      <div className="h-14 bg-primary w-full" />
+      {children}
+    </div>
+  )
 }
