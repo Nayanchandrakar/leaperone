@@ -2,7 +2,7 @@ import {
   PASSWORD_RESET_EXPIRY,
   SESSION_COOKIE_NAME,
   SESSION_EXPIRY,
-} from "@app/constants/auth"
+} from "@app/core/constants"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   bootStrapUser,

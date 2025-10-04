@@ -1,4 +1,4 @@
-import { SIGNED_URL_EXPIRY } from "@app/constants/file"
+import { SIGNED_URL_EXPIRY } from "@app/core/constants"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger"
 import { PutObjectCommand } from "@aws-sdk/client-s3"

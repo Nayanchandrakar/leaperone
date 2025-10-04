@@ -1,4 +1,4 @@
-import { SESSION_COOKIE_NAME } from "@app/constants/auth"
+import { SESSION_COOKIE_NAME } from "@app/core/constants"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { client } from "@/lib/hono/client"
@@ -23,13 +23,13 @@ export async function getSession() {
 
 export async function handleAuth({
   path,
-  mode = "require",
+  mode,
 }: {
   path?: string
-  mode?: "require" | "block"
-} = {}) {
+  mode: "require" | "block"
+}) {
   const session = await getSession()
   if (mode === "require" && !session) redirect(path ?? "/login")
   if (mode === "block" && session) redirect(path ?? "/")
-  return session
+  return session!
 }

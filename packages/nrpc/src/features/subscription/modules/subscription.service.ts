@@ -1,4 +1,4 @@
-import { TRIAL_PERIOD_DAYS } from "@app/constants/subscription"
+import { TRIAL_PERIOD_DAYS } from "@app/core/constants"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   getSubscriptionByWorkspaceId,

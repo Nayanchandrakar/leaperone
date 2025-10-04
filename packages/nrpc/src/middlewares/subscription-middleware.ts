@@ -1,9 +1,9 @@
+import { isSubscriptionActive } from "@app/core/utils"
 import { getWorkspaceByOwnerId } from "@app/database/repository/workspace"
 import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
 import { createMiddleware } from "hono/factory"
 import { MSG } from "../constants/message"
-import { isSubscriptionActive } from "../features/subscription/helpers/subscription-helper"
 import type { HonoEnv } from "../types"
 
 export const hasWorkspace = createMiddleware<HonoEnv>(

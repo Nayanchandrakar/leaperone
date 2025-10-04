@@ -23,16 +23,4 @@ export type CheckoutSession = Stripe.Checkout.Session & {
   }
 }
 
-export type IsSubscriptionActive = {
-  active: boolean
-  trial: boolean
-  plan: string | null
-  priceId: string | null
-  expiresAt: Date | null
-  seats: number
-  cancelAtPeriodEnd: boolean
-  customerId: string | null
-  subscriptionId: string | null
-}
-
 export type PlansKey = keyof typeof PLANS

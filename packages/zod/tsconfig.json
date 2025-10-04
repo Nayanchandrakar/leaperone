@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "@app/zod/*": ["../../packages/zod/src/*"],
-      "@app/constants/*": ["../../packages/constants/src/*"]
+      "@app/core/*": ["../../packages/core/src/*"]
     }
   },
   "include": ["src/**/*"],

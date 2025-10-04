@@ -47,6 +47,7 @@
       "name": "web",
       "version": "0.1.0",
       "dependencies": {
+        "@app/core": "workspace:*",
         "@app/database": "workspace:*",
         "@app/env": "workspace:*",
         "@app/error": "workspace:*",
@@ -78,9 +79,12 @@
       "name": "@app/biome-config",
       "version": "0.0.0",
     },
-    "packages/constants": {
-      "name": "@app/constants",
+    "packages/core": {
+      "name": "@app/core",
       "version": "1.0.0",
+      "dependencies": {
+        "@app/database": "workspace:*",
+      },
       "devDependencies": {
         "@app/tsconfig": "workspace:*",
         "@types/node": "catalog:",
@@ -91,7 +95,7 @@
       "name": "@app/database",
       "version": "1.0.0",
       "dependencies": {
-        "@app/constants": "workspace:*",
+        "@app/core": "workspace:*",
         "@app/error": "workspace:*",
         "@neondatabase/serverless": "catalog:",
         "@paralleldrive/cuid2": "catalog:",
@@ -143,6 +147,7 @@
       "name": "@app/nrpc",
       "version": "1.0.0",
       "dependencies": {
+        "@app/core": "workspace:*",
         "@app/database": "workspace:*",
         "@app/env": "workspace:*",
         "@app/error": "workspace:*",
@@ -233,7 +238,7 @@
       "name": "@app/zod",
       "version": "1.0.0",
       "dependencies": {
-        "@app/constants": "workspace:*",
+        "@app/core": "workspace:*",
         "zod": "^4.0.5",
       },
       "devDependencies": {
@@ -327,7 +332,7 @@
 
     "@app/biome-config": ["@app/biome-config@workspace:packages/biome-config"],
 
-    "@app/constants": ["@app/constants@workspace:packages/constants"],
+    "@app/core": ["@app/core@workspace:packages/core"],
 
     "@app/database": ["@app/database@workspace:packages/database"],
 

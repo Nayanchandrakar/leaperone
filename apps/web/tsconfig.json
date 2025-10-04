@@ -10,6 +10,7 @@
       "@/*": ["./*"],
       "@app/ui/*": ["../../packages/ui/src/*"],
       "@app/env/*": ["../../packages/env/src/*"],
+      "@app/core/*": ["../../packages/core/src/*"],
       "@app/nrpc/*": ["../../packages/nrpc/src/*"],
       "@app/error/*": ["../../packages/error/src/*"],
       "@app/database/*": ["../../packages/database/src/*"]

@@ -19,7 +19,7 @@
   "description": "Zod schema validation for web and hono server",
   "dependencies": {
     "zod": "^4.0.5",
-    "@app/constants": "workspace:*"
+    "@app/core": "workspace:*"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*"

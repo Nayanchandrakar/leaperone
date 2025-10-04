@@ -1,4 +1,4 @@
-import { SESSION_EXPIRY } from "@app/constants/auth"
+import { SESSION_EXPIRY } from "@app/core/constants"
 import type { CookieOptions } from "hono/utils/cookie"
 import { getDate } from "../../../utils/date"
 
