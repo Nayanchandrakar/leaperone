@@ -19,7 +19,6 @@
     "@app/env": "workspace:*",
     "@app/ui": "workspace:*",
     "@app/zod": "workspace:*",
-    "@rescale/nemo": "catalog:",
     "@tanstack/react-query": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",

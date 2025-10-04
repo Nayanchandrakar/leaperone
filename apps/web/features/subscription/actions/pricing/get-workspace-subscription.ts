@@ -1,5 +1,5 @@
 import { getSubscriptionByUserId } from "@app/database/repository/subscription"
-import { getSession } from "@/actions/global/get-session"
+import { getSession } from "@/actions/utils"
 
 export async function getWorkspaceSubscription() {
   const session = await getSession()

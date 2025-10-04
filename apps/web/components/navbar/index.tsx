@@ -1,4 +1,4 @@
-import { getSession } from "@/actions/global/get-session"
+import { getSession } from "@/actions/utils"
 import { Logo } from "@/components/navbar/logo"
 import { MainNav } from "@/components/navbar/main-nav"
 import { MobileNav } from "@/components/navbar/mobile-nav"

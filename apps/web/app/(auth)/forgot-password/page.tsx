@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { handleAuth } from "@/actions/utils"
 import { ForgotPasswordForm } from "@/features/auth/components/forms/forgot-password"
 import {
   AuthContent,
@@ -7,7 +8,9 @@ import {
 } from "@/features/auth/components/layouts/auth-layout"
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
-export default function ForgotPasswordPage() {
+export default async function ForgotPasswordPage() {
+  await handleAuth({ mode: "block" })
+
   return (
     <Fragment>
       <AuthWrapper>
