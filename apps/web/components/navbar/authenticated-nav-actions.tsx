@@ -1,30 +1,21 @@
-import { getWorkspaceIdByOwnerId } from "@app/database/repository/workspace"
-import { buttonVariants } from "@app/ui/components/button"
-import Link from "next/link"
-import type { FullSession } from "@/types"
+import { getLatestWorkspaceIdByUserId } from "@app/database/repository/workspace"
+import * as React from "react"
 
-type AuthenticatedNavActionProps = {
-  session: FullSession
+import { DashboardLinkButton } from "@/components/navbar/dashboard-link"
+import { NavSettings } from "@/components/navbar/nav-settings"
+import type { User } from "@/types"
+
+type Props = {
+  user: User
 }
 
-export const AuthenticatedNavActions = async ({
-  session,
-}: AuthenticatedNavActionProps) => {
-  const workspace = await getWorkspaceIdByOwnerId(session.user.id)
+export const AuthenticatedNavActions = async ({ user }: Props) => {
+  const workspace = await getLatestWorkspaceIdByUserId(user.id)
 
   return (
-    workspace && (
-      <Link
-        prefetch
-        className={buttonVariants({
-          size: "sm",
-          variant: "outline",
-          className: "font-semibold",
-        })}
-        href={`/${workspace.id}/dashboard`}
-      >
-        Dashboard
-      </Link>
-    )
+    <React.Fragment>
+      <DashboardLinkButton workspaceId={workspace?.id!} />
+      <NavSettings user={user} />
+    </React.Fragment>
   )
 }

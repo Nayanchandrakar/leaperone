@@ -1,16 +1,16 @@
 import { AuthenticatedNavActions } from "@/components/navbar/authenticated-nav-actions"
 import { UnauthenticatedNavActions } from "@/components/navbar/unauthenticated-nav-actions"
-import type { FullSession } from "@/types"
+import type { User } from "@/types"
 
-type NavActionProps = {
-  session: FullSession | null
+type Props = {
+  user: User
 }
 
-export const NavActions = ({ session }: NavActionProps) => {
+export const NavActions = ({ user }: Props) => {
   return (
-    <div className="flex items-center gap-4">
-      {session ? (
-        <AuthenticatedNavActions session={session} />
+    <div className="flex items-center gap-3.5">
+      {user ? (
+        <AuthenticatedNavActions user={user} />
       ) : (
         <UnauthenticatedNavActions />
       )}

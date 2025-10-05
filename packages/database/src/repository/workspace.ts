@@ -1,5 +1,5 @@
 import { ApiError } from "@app/error"
-import { eq } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { workspace } from "../schema"
 
@@ -18,12 +18,13 @@ export async function getWorkspaceByOwnerId(ownerId: string) {
   }
 }
 
-export async function getWorkspaceIdByOwnerId(ownerId: string) {
+export async function getLatestWorkspaceIdByUserId(userId: string) {
   try {
     const [data] = await dbHttp
       .select({ id: workspace.id })
       .from(workspace)
-      .where(eq(workspace.ownerId, ownerId))
+      .where(eq(workspace.ownerId, userId))
+      .orderBy(desc(workspace.createdAt))
       .limit(1)
 
     return data

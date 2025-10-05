@@ -19,7 +19,7 @@ export const Navbar = async () => {
         <MobileNav />
         <HeaderNavigation>
           <Navigation />
-          <NavActions session={session} />
+          <NavActions user={session?.user!} />
         </HeaderNavigation>
       </HeaderContainer>
     </Header>

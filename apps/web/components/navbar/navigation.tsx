@@ -11,7 +11,7 @@ export const Navigation = () => {
   return (
     <ListComponent
       items={NAV_LINKS}
-      className="flex items-center gap-x-6"
+      className="flex items-center gap-x-4"
       renderItem={({ name, href }) => (
         <HeaderNavLink key={name} href={href} data-state={pathname === href}>
           {name}
