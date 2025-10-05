@@ -1,4 +1,6 @@
+import { SidebarInset, SidebarProvider } from "@app/ui/components/sidebar"
 import type { Metadata } from "next"
+import { DashboardSidebar } from "@/features/dashboard/components/sidebars/dashboard/dashboard-sidebar"
 
 export const metadata: Metadata = {
   title: "Welcome to myleaper",
@@ -11,9 +13,12 @@ export default function WorkspaceLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div>
-      <div className="h-14 bg-primary w-full" />
-      {children}
-    </div>
+    <SidebarProvider>
+      <DashboardSidebar />
+      <SidebarInset>
+        <div className="h-14 bg-primary w-full" />
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
