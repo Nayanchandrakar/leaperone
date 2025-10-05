@@ -8,18 +8,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        secondary:
-          "bg-white text-primary shadow-xs hover:bg-white/90 hover:text-primary/90",
+        default: "bg-primary hover:bg-primary/90 text-primary-foreground",
         destructive:
-          "border-destructive border bg-background shadow-xs hover:bg-destructive/5 hover:text-destructive/90 text-destructive",
-        outline:
-          "border border-white bg-none hover:border-white/90 hover:text-white/90 text-white",
+          "bg-none hover:bg-destructive/10 text-destructive hover:text-destructive/90 border border-destructive",
+        "green-ghost":
+          "bg-white hover:bg-white/90 text-primary hover:text-primary/90",
+        "white-outline":
+          "bg-none text-white hover:text-white/90 border border-white",
         "green-outline":
-          "bg-background text-primary hover:bg-primary/5 hover:text-primary/90 border border-primary",
+          "bg-none hover:bg-primary/5 text-primary hover:text-primary/90 border border-primary",
         "gray-outline":
-          "border-border border bg-background hover:bg-zinc-50 hover:text-muted-foreground/90 text-muted-foreground",
+          "bg-neon hover:bg-zinc-50 text-muted-foreground hover:text-muted-foreground/90 border border-border",
       },
       size: {
         default: "h-9 px-5 py-2",
@@ -27,6 +26,8 @@ const buttonVariants = cva(
         lg: "h-10 rounded-full px-10",
         xl: "h-12 rounded-full font-semibold",
         icon: "size-9",
+        "icon-sm": "size-8",
+        "icon-lg": "size-10",
       },
     },
     defaultVariants: {

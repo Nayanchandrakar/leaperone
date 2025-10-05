@@ -13,7 +13,7 @@ export const DashboardLinkButton = ({ workspaceId }: Props) => {
       prefetch
       className={buttonVariants({
         size: "sm",
-        variant: "outline",
+        variant: "white-outline",
         className: "font-semibold",
       })}
       href={`/${workspaceId}/dashboard`}

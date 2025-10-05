@@ -11,7 +11,7 @@ export const UnauthenticatedNavActions = () => {
         href="/pricing"
         className={buttonVariants({
           size: "sm",
-          variant: "secondary",
+          variant: "green-ghost",
         })}
       >
         Start Free Trial
@@ -21,7 +21,7 @@ export const UnauthenticatedNavActions = () => {
         href="/login"
         className={buttonVariants({
           size: "sm",
-          variant: "outline",
+          variant: "white-outline",
           className: "font-semibold",
         })}
       >
