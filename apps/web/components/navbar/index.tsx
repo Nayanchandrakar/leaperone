@@ -1,17 +1,27 @@
 import { getSession } from "@/actions/utils"
-import { Logo } from "@/components/navbar/logo"
-import { MainNav } from "@/components/navbar/main-nav"
 import { MobileNav } from "@/components/navbar/mobile-nav"
+import { NavActions } from "@/components/navbar/nav-actions"
+import { Navigation } from "@/components/navbar/navigation"
+import {
+  Header,
+  HeaderContainer,
+  HeaderLogo,
+  HeaderNavigation,
+} from "@/components/ui/header"
 
 export const Navbar = async () => {
   const session = await getSession()
+
   return (
-    <header className="bg-primary sticky h-14 top-0 z-50">
-      <div className="container flex items-center justify-between">
-        <Logo />
-        <MainNav session={session} />
+    <Header>
+      <HeaderContainer>
+        <HeaderLogo />
         <MobileNav />
-      </div>
-    </header>
+        <HeaderNavigation>
+          <Navigation />
+          <NavActions session={session} />
+        </HeaderNavigation>
+      </HeaderContainer>
+    </Header>
   )
 }
