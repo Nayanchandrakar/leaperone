@@ -1,4 +1,4 @@
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"

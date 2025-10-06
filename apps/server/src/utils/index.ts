@@ -1,4 +1,4 @@
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import type { Context } from "hono"
 import type { HTTPResponseError } from "hono/types"
 

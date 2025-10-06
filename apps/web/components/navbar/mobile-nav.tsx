@@ -1,5 +1,18 @@
-import { Menu } from "lucide-react"
+"use client"
+
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 
 export const MobileNav = () => {
-  return <Menu className="lg:hidden size-6 text-white cursor-pointer" />
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <button
+      type="button"
+      onClick={() => setIsOpen((prev) => !prev)}
+      className=" lg:hidden size-8 bg-green-700/60 transition-colors hover:bg-green-700/50 flex items-center justify-center rounded-md text-white cursor-pointer"
+    >
+      {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+    </button>
+  )
 }

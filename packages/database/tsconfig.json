@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "@app/error/*": ["../../packages/error/src/*"],
-      "@app/constants/*": ["../../packages/constants/src/*"]
+      "@app/core/*": ["../../packages/core/src/*"]
     }
   },
   "include": ["src/**/*"],

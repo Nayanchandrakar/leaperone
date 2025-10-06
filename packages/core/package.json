@@ -1,0 +1,28 @@
+{
+  "name": "@app/core",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "main": "./src/index.ts",
+  "private": true,
+  "exports": {
+    "./constants": "./src/constants/index.ts",
+    "./types": "./src/types/index.ts",
+    "./utils": "./src/utils/index.ts"
+  },
+  "scripts": {
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "myleaper-organization",
+  "license": "ISC",
+  "dependencies": {
+    "@app/database": "workspace:*"
+  },
+  "devDependencies": {
+    "@app/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

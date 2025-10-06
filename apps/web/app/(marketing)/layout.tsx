@@ -5,8 +5,8 @@ import { Navbar } from "@/components/navbar"
 import { CornerMesh } from "@/components/shared/mesh"
 
 export const metadata: Metadata = {
-  title: "Welcome to myleaper",
-  description: "Created by myleaper",
+  title: "leaperone marketing",
+  description: "Created by leaperone",
 }
 
 export default function MarketingLayout({

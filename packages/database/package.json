@@ -30,11 +30,11 @@
   "dependencies": {
     "@neondatabase/serverless": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
+    "@app/core": "workspace:*",
     "@upstash/redis": "catalog:",
     "@app/error": "workspace:*",
-    "@app/constants": "workspace:*",
-    "dotenv": "catalog:",
-    "drizzle-orm": "catalog:"
+    "drizzle-orm": "catalog:",
+    "dotenv": "catalog:"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",

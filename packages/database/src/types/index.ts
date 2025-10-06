@@ -17,6 +17,7 @@ import type {
   subscription,
   verification,
   workspace,
+  workspaceMembers,
 } from "../schema/index"
 import type { support } from "../schema/support"
 import type { users } from "../schema/users"
@@ -42,6 +43,7 @@ export type Verification = typeof verification.$inferSelect
 export type Workspace = typeof workspace.$inferSelect
 export type Subscription = typeof subscription.$inferSelect
 export type Storage = typeof storage.$inferSelect
+export type WorkspaceMember = typeof workspaceMembers.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert

@@ -1,10 +1,8 @@
 import "@app/ui/globals.css"
 
-import { Toaster } from "@app/ui/components/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { QueryProvider } from "@/components/providers/query-provider"
-import { ThemeProvider } from "@/components/providers/theme-provider"
+import { Provider } from "@/components/providers"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,12 +28,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <QueryProvider>
-          <ThemeProvider>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </QueryProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   )

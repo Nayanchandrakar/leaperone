@@ -2,9 +2,9 @@ import {
   SESSION_COOKIE_NAME,
   SESSION_EXPIRY,
   SESSSION_UPDATE_AGE,
-} from "@app/constants/auth"
+} from "@app/core/constants"
 import type { User } from "@app/database/types"
-import { ApiError } from "@app/error/index"
+import { ApiError } from "@app/error"
 import { createId } from "@paralleldrive/cuid2"
 import type { Context } from "hono"
 import { redis } from "../../../config/redis"
@@ -21,20 +21,17 @@ import type { Cookie } from "./cookie"
 
 export class Session {
   private static instance: Session | null = null
-  private cookie: Cookie
 
-  private constructor(cookie: Cookie) {
-    this.cookie = cookie
-  }
+  private constructor(private readonly cookie: Cookie) {}
 
-  public static init(cookie: Cookie) {
+  static init(cookie: Cookie) {
     if (!Session.instance) {
       Session.instance = new Session(cookie)
     }
     return Session.instance
   }
 
-  public async create(c: Context, user: User): Promise<FullSession> {
+  async create(c: Context, user: User): Promise<FullSession> {
     const token = createId()
     const ipAddress = getRequestIp(c)
     const userAgent = c.req.header("User-Agent")
@@ -72,7 +69,7 @@ export class Session {
     return fullSession
   }
 
-  public async get(c: Context) {
+  async get(c: Context) {
     const token = await this.cookie.get(c, SESSION_COOKIE_NAME)
 
     if (!token) {
@@ -126,7 +123,7 @@ export class Session {
     return session
   }
 
-  public async update(
+  async update(
     token: string,
     overrides: Partial<FullSession["session"]>,
   ): Promise<FullSession["session"] | null> {
@@ -143,7 +140,7 @@ export class Session {
     return updatedSession
   }
 
-  public async delete(token: string) {
+  async delete(token: string) {
     // network requests
     const requests: Array<Promise<unknown>> = []
     const session = await getSessionByToken(token)
@@ -172,7 +169,7 @@ export class Session {
     await Promise.all(requests)
   }
 
-  public async revoke(userId: string): Promise<void | null> {
+  async revoke(userId: string): Promise<void | null> {
     const requests: Array<Promise<unknown>> = []
 
     const currentSessions = await getActiveSessions(userId)
@@ -186,7 +183,7 @@ export class Session {
     await Promise.all(requests)
   }
 
-  public async ctx(c: Context) {
+  async ctx(c: Context) {
     try {
       return await this.get(c)
     } catch {
