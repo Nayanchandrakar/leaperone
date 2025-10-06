@@ -1,5 +1,8 @@
 import { WifiPen } from "lucide-react"
-
+import {
+  QuickActionCard,
+  QuickActionCardLabel,
+} from "@/features/dashboard/components/cards/dashboard/quick-actions-card"
 import {
   DashboardStats,
   DashboardStatsGrid,
@@ -12,16 +15,11 @@ export const DashboardQuickActions = () => {
       <DashboardStatsTitle>Quick Actions</DashboardStatsTitle>
 
       <DashboardStatsGrid>
-        {Array.from({ length: 4 }).map((key) => (
-          <div
-            key={`sdsdf3-${key}`}
-            className="border border-zinc-400 rounded-xl p-7 flex flex-col gap-3 items-center"
-          >
+        {Array.from({ length: 4 }).map((_, index) => (
+          <QuickActionCard href={"/"} key={`sdfsdf-${index}`}>
             <WifiPen className="size-6 text-primary" />
-            <p className="text-muted-foreground font-normal text-sm">
-              Buy NFC Items
-            </p>
-          </div>
+            <QuickActionCardLabel>Buy Nfc Card</QuickActionCardLabel>
+          </QuickActionCard>
         ))}
       </DashboardStatsGrid>
     </DashboardStats>
