@@ -1,0 +1,11 @@
+import { TeamManagementButtons } from "@/features/dashboard/components/buttons/teams/team-management-buttons"
+import { TeamMemberSearchBar } from "@/features/dashboard/components/pages/teams/team-member-search-bar"
+
+export const TeamsControlBar = () => {
+  return (
+    <div className="mt-8 grid grid-cols-2 gap-6">
+      <TeamMemberSearchBar />
+      <TeamManagementButtons />
+    </div>
+  )
+}

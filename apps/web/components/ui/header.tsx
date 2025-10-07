@@ -30,7 +30,7 @@ export const HeaderLogo = () => {
   return (
     <Link href="/">
       <Icons.logo className="size-12" />
-      <span className="sr-only">leapercrm</span>
+      <span className="sr-only">leaperone</span>
     </Link>
   )
 }

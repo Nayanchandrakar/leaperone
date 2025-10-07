@@ -19,7 +19,7 @@ export const ToolTipProvider = ({
 }: IToolTipProvider) => {
   return (
     <Tooltip>
-      <TooltipTrigger className="cursor-help">
+      <TooltipTrigger>
         <Icon className={cn("size-4", iconClassName)} />
       </TooltipTrigger>
       <TooltipContent>{content}</TooltipContent>
