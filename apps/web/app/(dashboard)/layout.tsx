@@ -1,6 +1,7 @@
 import { SidebarInset, SidebarProvider } from "@app/ui/components/sidebar"
 import type { Metadata } from "next"
 import { DashboardSidebar } from "@/features/dashboard/components/sidebars/dashboard/dashboard-sidebar"
+import { DashboardFooter } from "@/features/dashboard/components/ui/dashboard-footer"
 
 export const metadata: Metadata = {
   title: "Welcome to myleaper",
@@ -18,6 +19,7 @@ export default function WorkspaceLayout({
       <SidebarInset>
         <div className="h-14 bg-primary w-full" />
         {children}
+        <DashboardFooter />
       </SidebarInset>
     </SidebarProvider>
   )
