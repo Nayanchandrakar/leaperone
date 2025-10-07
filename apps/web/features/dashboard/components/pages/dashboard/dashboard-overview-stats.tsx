@@ -14,12 +14,25 @@ export const DashboardOverviewStats = () => {
     <DashboardStats>
       <DashboardStatsTitle>Overview</DashboardStatsTitle>
       <DashboardStatsGrid>
-        {Array.from({ length: 4 }).map((data) => (
-          <MetricCard key={`metric=1-${data}`}>
-            <MetricCardLabel>Total scans of your card</MetricCardLabel>
-            <MetricCardValue>5689</MetricCardValue>
-          </MetricCard>
-        ))}
+        <MetricCard>
+          <MetricCardLabel>Total scans of your card</MetricCardLabel>
+          <MetricCardValue>5689</MetricCardValue>
+        </MetricCard>
+
+        <MetricCard>
+          <MetricCardLabel>Current Month Scans</MetricCardLabel>
+          <MetricCardValue>426</MetricCardValue>
+        </MetricCard>
+
+        <MetricCard>
+          <MetricCardLabel>Number of forms submited</MetricCardLabel>
+          <MetricCardValue>73</MetricCardValue>
+        </MetricCard>
+
+        <MetricCard>
+          <MetricCardLabel>Leaper One seats in use</MetricCardLabel>
+          <MetricCardValue>4/5</MetricCardValue>
+        </MetricCard>
       </DashboardStatsGrid>
     </DashboardStats>
   )
