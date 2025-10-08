@@ -3,7 +3,7 @@ import { TeamMemberSearchBar } from "@/features/dashboard/components/pages/teams
 
 export const TeamsControlBar = () => {
   return (
-    <div className="mt-8 grid grid-cols-2 gap-6">
+    <div className="mt-8 grid grid-cols-1 min-[1100px]:grid-cols-2 gap-6">
       <TeamMemberSearchBar />
       <TeamManagementButtons />
     </div>

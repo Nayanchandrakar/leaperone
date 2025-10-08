@@ -4,25 +4,21 @@ export const DashboardFooter = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border">
-      <div className="w-full p-4">
-        <nav className="flex flex-col md:flex-row items-center justify-center text-xs md:text-sm text-muted-foreground font-normal gap-1 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-border text-center">
-          <p className="px-0 py-1 md:px-4 md:py-0">
-            &copy; {currentYear} Leaper One. All Rights Reserved.
-          </p>
-          <Link
-            className="px-0 py-1 md:px-4 md:py-0 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-            href="/privacy-policy"
-          >
+    <footer className="container !h-fit border-t border-border p-4 ">
+      <div className=" flex items-center flex-col min-[924px]:flex-row justify-between gap-3 min-[924px]:gap-4 text-xs sm:text-sm text-muted-foreground font-normal">
+        <p className="">
+          &copy; {currentYear} Leaper One. All Rights Reserved.
+        </p>
+
+        <div className="flex items-center gap-2.5">
+          <Link href="/" className="hover:text-primary">
             Privacy Policy
           </Link>
-          <Link
-            className="px-0 py-1 md:px-4 md:py-0 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
-            href="/terms-and-conditions"
-          >
+
+          <Link href="/" className="hover:text-primary">
             Terms and Conditions
           </Link>
-        </nav>
+        </div>
       </div>
     </footer>
   )
