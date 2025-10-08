@@ -1,5 +1,6 @@
 "use client"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@app/ui/components/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +11,6 @@ import {
 } from "@app/ui/components/dropdown-menu"
 import { LogOutIcon, Settings } from "lucide-react"
 import Link from "next/link"
-import { UserAvatar } from "@/components/ui/user-avatar"
 import { useLogout } from "@/features/auth/hooks/logout/use-logout"
 import type { User } from "@/types"
 
@@ -24,7 +24,12 @@ export const NavSettings = ({ user }: NavSettingProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <UserAvatar name={user?.name} src={user?.image!} />
+        <Avatar>
+          <AvatarImage src={user?.image!} alt={user?.name} />
+          <AvatarFallback className="text-primary font-semibold bg-green-50">
+            {user?.name.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="max-w-64" align="end">

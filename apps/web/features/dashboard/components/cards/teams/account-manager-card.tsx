@@ -1,4 +1,4 @@
-import { UserAvatar } from "@/components/ui/user-avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@app/ui/components/avatar"
 import {
   TeamOverviewCard,
   TeamOverviewCardLabel,
@@ -15,7 +15,12 @@ export const AccountManagerCard = ({ user }: Props) => {
       <TeamOverviewCardLabel>Account Manager</TeamOverviewCardLabel>
 
       <div className="flex items-center gap-3">
-        <UserAvatar name={user?.name} src={user?.image!} className="size-14" />
+        <Avatar className="size-14">
+          <AvatarImage src={user?.image!} alt={user?.name} />
+          <AvatarFallback className="text-primary font-semibold bg-green-50">
+            {user?.name.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
 
         <div className="space-y-0.5 text-muted-foreground">
           <p className="font-semibold text-base">Andrew Sain</p>
