@@ -48,5 +48,25 @@ export const DASHBOARD_NAV_MAIN = [
     name: "Settings",
     url: "/teams",
     icon: Settings,
+    items: [
+      {
+        title: "Account Settings",
+        url: "/",
+      },
+      {
+        title: "Manage Subscriptions",
+        url: "/",
+      },
+
+      {
+        title: "Notifications",
+        url: "/",
+      },
+
+      {
+        title: "Form Terms & Privacy",
+        url: "/",
+      },
+    ],
   },
 ]
