@@ -5,34 +5,35 @@ import {
   Home,
   UsersRound,
 } from "lucide-react"
+import type { DashboardNavMain } from "@/features/dashboard/types"
 
-export const DASHBOARD_NAV_MAIN = [
+export const DASHBOARD_NAV_MAIN: DashboardNavMain[] = [
   {
     name: "Home",
-    url: "/dashboard",
+    url: "dashboard",
     icon: Home,
   },
   {
     name: "Team",
-    url: "/teams",
+    url: "teams",
     icon: UsersRound,
+    teamOnly: true,
   },
-
   {
     name: "Analytics",
-    url: "/analytics",
+    url: "analytics",
     icon: ChartNoAxesCombined,
   },
 
   {
     name: "Form Responses",
-    url: "/teams",
+    url: "form-responses",
     icon: FileText,
   },
 
   {
     name: "File/Asset Manager",
-    url: "/teams",
+    url: "asset-manager",
     icon: Folders,
   },
 

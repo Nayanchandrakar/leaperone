@@ -6,21 +6,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@app/ui/components/sidebar"
-import type { LucideIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import type { DashboardNavMain } from "@/features/dashboard/types"
 import { createRoute, isRouteActive } from "@/features/dashboard/utils"
 
-type DashboardNavProps = {
-  data: {
-    name: string
-    url: string
-    icon: LucideIcon
-  }[]
+type DashboardNavGroupProps = {
+  data: DashboardNavMain[]
   workspaceId: string
 }
 
-export function DashboardNav({ data, workspaceId }: DashboardNavProps) {
+export const DashboardNavGroup = ({
+  data,
+  workspaceId,
+}: DashboardNavGroupProps) => {
   const currentPath = usePathname()
 
   return (
