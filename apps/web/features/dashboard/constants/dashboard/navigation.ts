@@ -3,8 +3,6 @@ import {
   FileText,
   Folders,
   Home,
-  Settings,
-  SmartphoneNfc,
   UsersRound,
 } from "lucide-react"
 
@@ -38,35 +36,44 @@ export const DASHBOARD_NAV_MAIN = [
     icon: Folders,
   },
 
-  {
-    name: "NFC Hardware",
-    url: "/teams",
-    icon: SmartphoneNfc,
-  },
+  // {
+  //   name: "NFC Hardware",
+  //   url: "/teams",
+  //   icon: SmartphoneNfc,
+  //   items: [
+  //     {
+  //       title: "Shop NFC Kits",
+  //       url: "/",
+  //     },
+  //     {
+  //       title: "Activate NFC items",
+  //       url: "/",
+  //     },
+  //   ],
+  // },
 
-  {
-    name: "Settings",
-    url: "/teams",
-    icon: Settings,
-    items: [
-      {
-        title: "Account Settings",
-        url: "/",
-      },
-      {
-        title: "Manage Subscriptions",
-        url: "/",
-      },
+  // {
+  //   name: "Settings",
+  //   url: "/teams",
+  //   icon: Settings,
+  //   items: [
+  //     {
+  //       title: "Account Settings",
+  //       url: "/",
+  //     },
+  //     {
+  //       title: "Manage Subscriptions",
+  //       url: "/",
+  //     },
 
-      {
-        title: "Notifications",
-        url: "/",
-      },
-
-      {
-        title: "Form Terms & Privacy",
-        url: "/",
-      },
-    ],
-  },
+  //     {
+  //       title: "Notifications",
+  //       url: "/",
+  //     },
+  //     {
+  //       title: "Form Terms & Privacy",
+  //       url: "/",
+  //     },
+  //   ],
+  // },
 ]
