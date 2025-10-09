@@ -5,6 +5,7 @@ import {
   HeaderContainer,
   HeaderNavigation,
 } from "@/components/ui/header"
+import { DashboardSidebarToogle } from "@/features/dashboard/components/buttons/dashboard/dashboard-sidebar-toogle"
 import type { User } from "@/types"
 
 type Props = {
@@ -14,8 +15,8 @@ type Props = {
 export const TopNavigation = ({ user }: Props) => {
   return (
     <Header className="static">
-      <HeaderContainer>
-        <span />
+      <HeaderContainer className="md:justify-end">
+        <DashboardSidebarToogle />
         <HeaderNavigation className="flex gap-x-4">
           <Navigation className="hidden lg:flex" />
           <NavSettings user={user} />
