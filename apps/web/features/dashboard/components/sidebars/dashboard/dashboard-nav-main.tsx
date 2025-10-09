@@ -2,28 +2,30 @@
 
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@app/ui/components/sidebar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import type { DashboardNavMain } from "@/features/dashboard/types"
+import type { SidebarNavItems } from "@/features/dashboard/types"
 import { createRoute, isRouteActive } from "@/features/dashboard/utils"
 
-type DashboardNavGroupProps = {
-  data: DashboardNavMain[]
+type DashboardNavMainProps = {
+  data: SidebarNavItems[]
   workspaceId: string
 }
 
-export const DashboardNavGroup = ({
+export const DashboardNavMain = ({
   data,
   workspaceId,
-}: DashboardNavGroupProps) => {
+}: DashboardNavMainProps) => {
   const currentPath = usePathname()
 
   return (
     <SidebarGroup>
+      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {data?.map((item) => {
           const href = createRoute(`${workspaceId}/${item.url}`)

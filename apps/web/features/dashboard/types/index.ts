@@ -8,7 +8,7 @@ export type isRouteActiveProps = {
   depth?: number
 }
 
-export type DashboardNavMain = {
+export type SidebarNavItems = {
   name: string
   url: string
   icon: LucideIcon

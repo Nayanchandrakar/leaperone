@@ -5,9 +5,9 @@ import {
   Home,
   UsersRound,
 } from "lucide-react"
-import type { DashboardNavMain } from "@/features/dashboard/types"
+import type { SidebarNavItems } from "@/features/dashboard/types"
 
-export const DASHBOARD_NAV_MAIN: DashboardNavMain[] = [
+export const DASHBOARD_NAV_MAIN: SidebarNavItems[] = [
   {
     name: "Home",
     url: "dashboard",

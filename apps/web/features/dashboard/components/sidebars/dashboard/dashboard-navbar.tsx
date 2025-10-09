@@ -12,7 +12,7 @@ type Props = {
   user: User
 }
 
-export const TopNavigation = ({ user }: Props) => {
+export const DashboardNavbar = ({ user }: Props) => {
   return (
     <Header className="static">
       <HeaderContainer className="md:justify-end">
