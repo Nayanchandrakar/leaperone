@@ -9,8 +9,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@app/error/*": ["../../packages/error/src/*"],
-      "@app/core/*": ["../../packages/core/src/*"]
+      "@app/error/*": ["../../packages/error/src/*"]
     }
   },
   "include": ["src/**/*"],
