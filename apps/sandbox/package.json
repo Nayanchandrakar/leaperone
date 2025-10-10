@@ -1,0 +1,29 @@
+{
+  "name": "sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack -p 8080",
+    "build": "next build --turbopack",
+    "start": "next start -p 8080",
+    "lint": "biome lint --write .",
+    "format": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next .turbo"
+  },
+  "dependencies": {
+    "@app/database": "workspace:*",
+    "@app/logger": "workspace:*",
+    "@app/error": "workspace:*",
+    "@app/nrpc": "workspace:*",
+    "@app/env": "workspace:*",
+    "hono": "catalog:",
+    "next": "catalog:"
+  },
+  "devDependencies": {
+    "@app/tsconfig": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "extends": "@app/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@app/env/*": ["../../packages/env/src/*"],
+      "@app/nrpc/*": ["../../packages/nrpc/src/*"],
+      "@app/error/*": ["../../packages/error/src/*"],
+      "@app/logger/*": ["../../packages/logger/src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
