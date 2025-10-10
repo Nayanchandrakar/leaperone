@@ -1,3 +1,10 @@
+import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
+import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
+
 export default function AssetManagerPage() {
-  return <div className="">Asset Manager page</div>
+  return (
+    <DashboardContainer>
+      <DashboardTitle>Files Upload Manager</DashboardTitle>
+    </DashboardContainer>
+  )
 }
