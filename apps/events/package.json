@@ -8,12 +8,14 @@
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --write .",
-    "deploy": "bun run-s build zip",
+    "deploy": "bun run build && bun run zip",
     "format": "biome check --write .",
     "clean": "rm -rf dist .turbo lambda.zip",
-    "zip": "zip -j lambda.zip dist/index.js"
+    "zip": "zip -j lambda.zip dist/index.cjs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@app/database": "workspace:*"
+  },
   "devDependencies": {
     "tsdown": "catalog:",
     "typescript": "catalog:",
