@@ -1,0 +1,26 @@
+{
+  "name": "events",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome lint --write .",
+    "deploy": "bun run-s build zip",
+    "format": "biome check --write .",
+    "clean": "rm -rf dist .turbo lambda.zip",
+    "zip": "zip -j lambda.zip dist/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "@app/tsconfig": "workspace:*"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
