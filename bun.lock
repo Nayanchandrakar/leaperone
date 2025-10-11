@@ -26,6 +26,9 @@
     "apps/events": {
       "name": "events",
       "version": "1.0.0",
+      "dependencies": {
+        "@app/database": "workspace:*",
+      },
       "devDependencies": {
         "@app/tsconfig": "workspace:*",
         "@types/node": "catalog:",
