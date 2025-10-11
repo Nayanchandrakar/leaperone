@@ -114,7 +114,6 @@
       "name": "@app/database",
       "version": "1.0.0",
       "dependencies": {
-        "@app/core": "workspace:*",
         "@app/error": "workspace:*",
         "@neondatabase/serverless": "catalog:",
         "@paralleldrive/cuid2": "catalog:",
