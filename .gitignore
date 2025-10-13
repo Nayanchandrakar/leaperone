@@ -17,6 +17,7 @@ build/
 dist/
 build/Release/
 next-env.d.ts
+lambda.zip
 
 # -----------------------------------------------------------------------------
 # Vercel

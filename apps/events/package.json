@@ -4,14 +4,16 @@
   "private": true,
   "version": "1.0.0",
   "sideEffects": false,
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --write .",
-    "deploy": "bun run build && bun run zip",
     "format": "biome check --write .",
-    "clean": "rm -rf dist .turbo lambda.zip",
-    "zip": "zip -j lambda.zip dist/index.cjs"
+    "deploy": "run-s build zip update",
+    "clean": "rimraf dist .turbo lambda.zip",
+    "zip": "zip -j lambda.zip dist/index.js package.json",
+    "update": "aws lambda update-function-code --function-name hello --zip-file fileb://lambda.zip"
   },
   "dependencies": {
     "@app/database": "workspace:*"
@@ -20,6 +22,7 @@
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "@types/node": "catalog:",
+    "npm-run-all2": "catalog:",
     "@app/tsconfig": "workspace:*"
   },
   "engines": {
