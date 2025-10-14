@@ -27,7 +27,7 @@ export class S3LambdaConstruct extends Construct {
     this.fn = new NodejsFunction(this, `lambda-${stage}`, {
       memorySize: 128,
       handler: "handler",
-      entry: "lambda/index.ts",
+      entry: "src/lambda/index.ts",
       timeout: Duration.seconds(3),
       environment: { STAGE: stage },
       runtime: lambda.Runtime.NODEJS_22_X,

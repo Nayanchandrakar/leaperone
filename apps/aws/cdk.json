@@ -1,5 +1,5 @@
 {
-  "app": "bun bin/app.ts",
+  "app": "bun src/bin/app.ts",
   "watch": {
     "include": ["**"],
     "exclude": [

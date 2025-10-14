@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { App } from "aws-cdk-lib"
-import { S3LambdaStack } from "@/lib/stacks/s3-lambda-stack"
+import { S3LambdaStack } from "@/stacks/s3-lambda-stack"
 import { getStagingEnv } from "@/utils"
 
 const app = new App()

@@ -7,8 +7,8 @@
   "scripts": {
     "cdk": "cdk",
     "build": "tsc",
-    "test": "jest",
     "watch": "tsc -w",
+    "test": "bun test",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --write .",
     "format": "biome check --write ."

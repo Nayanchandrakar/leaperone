@@ -1,7 +1,7 @@
 import { Stack, type StackProps } from "aws-cdk-lib"
 
 import type { Construct } from "constructs"
-import { S3LambdaConstruct } from "@/lib/constructs/s3-lambda-construct"
+import { S3LambdaConstruct } from "@/constructs/s3-lambda-construct"
 import type { Stage } from "@/types"
 
 interface S3LambdaStackProps extends StackProps {
