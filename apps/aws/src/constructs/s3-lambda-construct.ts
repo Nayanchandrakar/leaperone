@@ -18,7 +18,6 @@ export class S3LambdaConstruct extends Construct {
     const isProd = stage === "prod"
 
     this.bucket = new s3.Bucket(this, `AppBucket-${stage}`, {
-      autoDeleteObjects: !isProd,
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
@@ -41,8 +40,6 @@ export class S3LambdaConstruct extends Construct {
       },
       depsLockFilePath: join(__dirname, "../../../../bun.lock"),
     })
-
-    this.fn.logGroup.applyRemovalPolicy(RemovalPolicy.DESTROY)
 
     this.bucket.grantRead(this.fn)
     this.bucket.addEventNotification(

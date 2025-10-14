@@ -6,3 +6,8 @@ export type EnvConfig = {
 }
 
 export type Environments = Record<Stage, EnvConfig>
+
+export type StagingEnv = {
+  stage: Stage
+  env: EnvConfig
+}
