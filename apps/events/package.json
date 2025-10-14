@@ -1,31 +1,31 @@
 {
   "name": "events",
-  "type": "module",
-  "private": true,
-  "version": "1.0.0",
-  "sideEffects": false,
-  "main": "dist/index.js",
+  "version": "0.1.0",
+  "bin": {
+    "build": "bin/app.js"
+  },
   "scripts": {
-    "build": "tsdown",
+    "cdk": "cdk",
+    "build": "tsc",
+    "test": "jest",
+    "watch": "tsc -w",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --write .",
-    "format": "biome check --write .",
-    "deploy": "run-s build zip update",
-    "clean": "rimraf dist .turbo lambda.zip",
-    "zip": "zip -j lambda.zip dist/index.js package.json",
-    "update": "aws lambda update-function-code --function-name hello --zip-file fileb://lambda.zip"
+    "format": "biome check --write ."
   },
   "dependencies": {
+    "aws-cdk-lib": "2.214.0",
+    "constructs": "^10.0.0",
     "@app/database": "workspace:*"
   },
   "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:",
-    "@types/node": "catalog:",
-    "npm-run-all2": "catalog:",
-    "@app/tsconfig": "workspace:*"
-  },
-  "engines": {
-    "node": ">=22"
+    "@app/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.14",
+    "@types/node": "22.7.9",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "aws-cdk": "2.1029.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.6.3"
   }
 }
