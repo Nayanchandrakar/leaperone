@@ -4,10 +4,16 @@ import { patterns } from "../constants"
 export const username = z
   .string()
   .min(3, { message: "Username must be at least 3 characters" })
-  .max(20, { message: "Username must be at most 20 characters" })
-  .regex(patterns.username, {
+  .max(30, { message: "Username must be at most 30 characters" })
+  .regex(patterns.userNameStart, {
+    message: "Username must start with a letter or number.",
+  })
+  .regex(patterns.userNameEnd, {
+    message: "Username must end with a letter or number.",
+  })
+  .regex(patterns.userName, {
     message:
-      "Username can only contain letters, no numbers, special characters, or symbols",
+      "Username can only contain letters, numbers, underscores, and periods.",
   })
   .toLowerCase()
   .trim()

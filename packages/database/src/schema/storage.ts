@@ -1,6 +1,6 @@
-import { STORAGE_QUOTA } from "@app/core/constants"
 import { createId } from "@paralleldrive/cuid2"
 import { bigint, pgTable, text } from "drizzle-orm/pg-core"
+import { STORAGE_QUOTA } from "../constants/storage"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
 

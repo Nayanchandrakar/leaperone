@@ -47,7 +47,7 @@ export class ApiError extends Error {
   ): ApiError {
     return new ApiError(
       message,
-      HTTPSTATUS.BAD_REQUEST,
+      HTTPSTATUS.UNPROCESSABLE_ENTITY,
       ErrorCode.VALIDATION_ERROR,
       details,
     )

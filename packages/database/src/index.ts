@@ -21,10 +21,7 @@ class Database {
       cacheConfig: {
         url: process.env.UPSTASH_REDIS_REST_URL as string,
         token: process.env.UPSTASH_REDIS_REST_TOKEN as string,
-        global: false,
-        config: {
-          ex: 600,
-        },
+        global: true,
       },
     }
   }

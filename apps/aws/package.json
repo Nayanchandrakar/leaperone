@@ -1,0 +1,29 @@
+{
+  "name": "events",
+  "version": "0.1.0",
+  "bin": {
+    "build": "bin/app.js"
+  },
+  "scripts": {
+    "cdk": "cdk",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome lint --write .",
+    "format": "biome check --write ."
+  },
+  "dependencies": {
+    "aws-cdk-lib": "catalog:",
+    "constructs": "catalog:",
+    "@app/database": "workspace:*",
+    "@aws-sdk/client-s3": "catalog:"
+  },
+  "devDependencies": {
+    "@app/tsconfig": "workspace:*",
+    "@types/aws-lambda": "catalog:",
+    "@types/bun": "catalog:",
+    "aws-cdk": "catalog:",
+    "typescript": "catalog:"
+  }
+}

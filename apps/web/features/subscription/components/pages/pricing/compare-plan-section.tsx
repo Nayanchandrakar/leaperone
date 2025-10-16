@@ -20,7 +20,6 @@ interface IComparePlanSection {
 }
 
 export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
-  console.log(subscription)
   return (
     <section className="container mt-32" id="compare-pricing">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">

@@ -1,6 +1,7 @@
 import { ApiError } from "@app/error"
-import { dbHttp } from "../index"
-import { file } from "../schema/index"
+import { eq, sql } from "drizzle-orm"
+import { dbHttp, dbWs } from "../index"
+import { file, storage } from "../schema/index"
 import type { InsertFile } from "../types"
 
 export async function createFile(params: InsertFile) {
@@ -9,5 +10,20 @@ export async function createFile(params: InsertFile) {
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
+  }
+}
+
+export async function bootStrapFile(params: InsertFile) {
+  try {
+    await dbWs.transaction(async (tx) => {
+      await tx.insert(file).values(params)
+      await tx
+        .update(storage)
+        .set({ usage: sql`${storage.usage} + ${params.size}` })
+        .where(eq(storage.id, params.storageId))
+    })
+  } catch (error) {
+    console.error(error)
+    throw new Error("Database Error Ocurred")
   }
 }

@@ -1,0 +1,13 @@
+{
+  "extends": "@app/tsconfig/server.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@app/database/*": ["../../packages/database/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "cdk.out"]
+}

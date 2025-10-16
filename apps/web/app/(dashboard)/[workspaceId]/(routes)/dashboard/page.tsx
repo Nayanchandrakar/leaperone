@@ -2,6 +2,7 @@ import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeli
 import { DashboardBussinessCard } from "@/features/dashboard/components/pages/dashboard/dashboard-bussiness-card"
 import { DashboardOverviewStats } from "@/features/dashboard/components/pages/dashboard/dashboard-overview-stats"
 import { DashboardQuickActions } from "@/features/dashboard/components/pages/dashboard/dashboard-quick-actions"
+import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
 import { DashboardGreeting } from "@/features/dashboard/components/ui/dashboard-greeting"
 
 interface Props {
@@ -17,11 +18,11 @@ export default async function DashboardPage({ params }: Props) {
   const user = context.session.user
 
   return (
-    <section className="container my-10">
+    <DashboardContainer>
       <DashboardGreeting name={user.name} />
       <DashboardOverviewStats />
       <DashboardBussinessCard />
       <DashboardQuickActions />
-    </section>
+    </DashboardContainer>
   )
 }

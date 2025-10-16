@@ -8,7 +8,7 @@ export const Header = ({
 }: React.ComponentProps<"header">) => {
   return (
     <header
-      className={cn("bg-primary sticky h-14 top-0 z-50", className)}
+      className={cn("bg-primary sticky h-16 top-0 z-50", className)}
       {...props}
     />
   )
@@ -26,11 +26,14 @@ export const HeaderContainer = ({
   )
 }
 
-export const HeaderLogo = () => {
+export const HeaderLogo = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => {
   return (
     <Link href="/">
-      <Icons.logo className="size-12" />
-      <span className="sr-only">leapercrm</span>
+      <Icons.logo className={cn("size-12", className)} {...props} />
+      <span className="sr-only">leaperone</span>
     </Link>
   )
 }

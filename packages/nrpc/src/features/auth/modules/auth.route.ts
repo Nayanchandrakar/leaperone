@@ -7,7 +7,6 @@ import {
   userNameSchema,
   verifyEmailSchema,
 } from "@app/zod/schema/auth"
-import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
 import {
   isAuthenticated,
@@ -18,6 +17,7 @@ import {
   hasWorkspace,
 } from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
+import { zValidator } from "../../../utils/zod-validator"
 import { authController } from "./auth.module"
 
 const app = new Hono<HonoEnv>()

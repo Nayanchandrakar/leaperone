@@ -3,21 +3,28 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
+  SidebarHeader,
   SidebarRail,
 } from "@app/ui/components/sidebar"
-import type * as React from "react"
-import { DashboardNav } from "@/features/dashboard/components/sidebars/dashboard/dashboard-nav"
+import { HeaderLogo } from "@/components/ui/header"
+import { DashboardNavSecondary } from "@/features/dashboard/components/sidebars/dashboard/dashboard-nav-secondary"
+import { DashboardRoutesFilter } from "@/features/dashboard/components/sidebars/dashboard/dashboard-routes-filter"
 
-type DashboardSidebarProps = React.ComponentProps<typeof Sidebar>
+type DashboardSidebarProps = {
+  teamOnly: boolean
+  workspaceId: string
+}
 
-export function DashboardSidebar(props: DashboardSidebarProps) {
+export const DashboardSidebar = (props: DashboardSidebarProps) => {
   return (
-    <Sidebar {...props}>
+    <Sidebar>
+      <SidebarHeader className="items-center py-0.5">
+        <HeaderLogo className="fill-primary" />
+      </SidebarHeader>
       <SidebarContent>
-        <DashboardNav />
+        <DashboardRoutesFilter {...props} />
+        <DashboardNavSecondary />
       </SidebarContent>
-      <SidebarFooter className="p-0">sidebar footer content</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

@@ -15,6 +15,7 @@ import type { RegisterFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
+import { PasswordInput } from "@/components/ui/password-input"
 import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
 import {
   AuthDescription,
@@ -160,13 +161,13 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
         />
 
         <FormField
-          control={form.control}
           name="password"
+          control={form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
+                <PasswordInput
                   variant="gray"
                   placeholder="Enter your password"
                   disabled={isPending}

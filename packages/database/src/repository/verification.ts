@@ -14,7 +14,7 @@ export async function findVerificationByIdentifier(identifier: string) {
       .limit(1)
     return token
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return null
   }
 }

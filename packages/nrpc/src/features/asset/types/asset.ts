@@ -8,10 +8,8 @@ export type PreSignedUrlController = Context<
   ControllerIO<"json", PreSignedUrlSchema>
 >
 
-export interface CreatePreSignedUrl {
-  key: string
-  bucket: string
-  expiresIn?: number
+export type GeneratePreSignedUrl = {
+  storageKey: string
   contentType: string
   metadata?: Record<string, string>
 }
