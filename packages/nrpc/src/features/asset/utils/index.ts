@@ -4,7 +4,7 @@ import { ApiError } from "@app/error/index"
 import { logger } from "@app/logger/index"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { s3Client } from "src/config/s3"
+import { s3Client } from "../../../config/s3"
 import type { GeneratePreSignedUrl } from "../types/asset"
 
 export async function generatePreSignedUrl({

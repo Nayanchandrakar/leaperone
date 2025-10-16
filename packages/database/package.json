@@ -32,8 +32,7 @@
     "@paralleldrive/cuid2": "catalog:",
     "@upstash/redis": "catalog:",
     "@app/error": "workspace:*",
-    "drizzle-orm": "catalog:",
-    "dotenv": "catalog:"
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",

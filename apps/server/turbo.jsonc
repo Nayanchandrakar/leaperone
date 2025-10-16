@@ -1,0 +1,26 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": [
+        "NODE_ENV",
+        "LOG_LEVEL",
+        "SERVER_URL",
+        "AWS_REGION",
+        "AUTH_SECRET",
+        "DATABASE_URL",
+        "FRONTEND_URL",
+        "STRIPE_WEBHOOK",
+        "S3_UPLOAD_BUCKET",
+        "STRIPE_SECRET_KEY",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "STRIPE_ANNUAL_PRICE_ID",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN",
+        "STRIPE_MONTHLY_PRICE_ID"
+      ],
+      "outputs": ["dist/**"]
+    }
+  }
+}
