@@ -42,6 +42,7 @@ export type Account = typeof accounts.$inferSelect
 export type Verification = typeof verification.$inferSelect
 export type Workspace = typeof workspace.$inferSelect
 export type Subscription = typeof subscription.$inferSelect
+export type File = typeof file.$inferSelect
 export type Storage = typeof storage.$inferSelect
 export type WorkspaceMember = typeof workspaceMembers.$inferSelect
 

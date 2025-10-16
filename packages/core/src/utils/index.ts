@@ -5,6 +5,14 @@ export function isWithinRange(now: Date, start: Date | null, end: Date | null) {
   return !!(start && end && now >= start && now <= end)
 }
 
+export function sanitizeString(input: string) {
+  return input
+    .replace(/[^a-zA-Z0-9-_.]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .trim()
+}
+
 export async function isSubscriptionActive(
   workspaceId: string,
 ): Promise<SubscriptionActive> {

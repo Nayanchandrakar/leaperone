@@ -21,7 +21,6 @@ export const hasActiveSubscription = createMiddleware<HonoEnv>(
     const workspace = c.get("workspace")
     const { active } = await isSubscriptionActive(workspace.id)
     if (active) await next()
-
     throw ApiError.forbidden(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
   },
 )

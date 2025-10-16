@@ -20,6 +20,7 @@ export class S3LambdaConstruct extends Construct {
     this.bucket = new s3.Bucket(this, `AppBucket-${stage}`, {
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
     })
 
@@ -27,8 +28,13 @@ export class S3LambdaConstruct extends Construct {
       memorySize: 128,
       handler: "handler",
       entry: "src/lambda/index.ts",
-      timeout: Duration.seconds(3),
-      environment: { STAGE: stage },
+      timeout: Duration.seconds(10),
+      environment: {
+        STAGE: stage,
+        DATABASE_URL: process.env.DATABASE_URL!,
+        UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL!,
+        UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      },
       runtime: lambda.Runtime.NODEJS_22_X,
       bundling: {
         esbuildArgs: {
@@ -43,10 +49,10 @@ export class S3LambdaConstruct extends Construct {
 
     this.bucket.grantRead(this.fn)
     this.bucket.addEventNotification(
-      s3.EventType.OBJECT_CREATED_PUT,
+      s3.EventType.OBJECT_CREATED,
       new s3n.LambdaDestination(this.fn),
       {
-        prefix: "asset-manager/",
+        prefix: "asset-manager",
       },
     )
   }
