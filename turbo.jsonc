@@ -11,9 +11,6 @@
       "dependsOn": ["^lint"],
       "inputs": ["$TURBO_DEFAULT$", "!CHANGELOG.md"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
     "dev": {
       "cache": false,
       "persistent": true,
