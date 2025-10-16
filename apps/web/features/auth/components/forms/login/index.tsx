@@ -15,6 +15,7 @@ import type { LoginFormSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
+import { PasswordInput } from "@/components/ui/password-input"
 import {
   AuthHeader,
   AuthTitle,
@@ -82,13 +83,13 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
                 <Link
                   tabIndex={-1}
                   href="/forgot-password"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-accent-foreground"
                 >
                   Forgot your password?
                 </Link>
               </FormLabel>
               <FormControl>
-                <Input
+                <PasswordInput
                   variant="gray"
                   placeholder="Enter your password"
                   disabled={isPending}
