@@ -40,6 +40,7 @@ import type {
 } from "../types/auth"
 import type { Cookie } from "../utils/cookie"
 import { createEmailVerificationToken } from "../utils/email-verification"
+import { sendMail } from "../utils/mail"
 import type { Session } from "../utils/session"
 
 export class AuthService {
@@ -128,6 +129,12 @@ export class AuthService {
       url: callbackString.toString(),
     })
 
+    await sendMail({
+      to: email,
+      subject: "Your leaperone email verification link",
+      html: callbackString.toString(),
+    })
+
     return c.json({ message: MSG.VERIFICATION.LINK_SENT })
   }
 
@@ -169,6 +176,12 @@ export class AuthService {
       logger.info({
         email: input.email,
         url: callbackString.toString(),
+      })
+
+      await sendMail({
+        to: input.email,
+        subject: "Your leaperone email verification link",
+        html: callbackString.toString(),
       })
 
       return c.json({ message: MSG.VERIFICATION.LINK_SENT, success: false })
@@ -283,6 +296,12 @@ export class AuthService {
     // TODO: send this callbackString to users email address
     logger.info({
       callbackString,
+    })
+
+    await sendMail({
+      to: email,
+      subject: "Your leaperone password reset verification link",
+      html: callbackString.toString(),
     })
 
     return c.json({

@@ -25,6 +25,14 @@ export const ENV = createEnv({
       error: "AUTH_SECRET is required in environment variables",
     }),
 
+    RESEND_API_KEY: z.string({
+      error: "RESEND_API_KEY is required in environment variables",
+    }),
+
+    RESEND_MAIL: z.string({
+      error: "RESEND_MAIL is required in environment variables",
+    }),
+
     AWS_ACCESS_KEY_ID: z.string({
       error: "AWS_ACCESS_KEY_ID is required in environment variables",
     }),

@@ -16,10 +16,10 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
+    "@app/core": "workspace:*",
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
     "@app/error": "workspace:*",
-    "@app/core": "workspace:*",
     "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
     "@aws-sdk/client-s3": "catalog:",
@@ -28,6 +28,7 @@
     "@paralleldrive/cuid2": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
+    "resend": "catalog:",
     "stripe": "catalog:",
     "uuid": "catalog:",
     "zod": "catalog:"
