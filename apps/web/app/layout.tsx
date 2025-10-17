@@ -3,6 +3,7 @@ import "@app/ui/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Provider } from "@/components/providers"
+import { ReactScan } from "@/components/ui/react-scan"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,10 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <script
-          crossOrigin="anonymous"
-          src="//unpkg.com/react-scan/dist/auto.global.js"
-        />
+        <ReactScan />
       </head>
       <body className={`${inter.className} antialiased`}>
         <Provider>{children}</Provider>
