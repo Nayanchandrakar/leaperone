@@ -26,6 +26,7 @@
     "@aws-sdk/s3-request-presigner": "catalog:",
     "@hono/zod-validator": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
+    "@react-email/render": "catalog:",
     "bcryptjs": "catalog:",
     "hono": "catalog:",
     "resend": "catalog:",
