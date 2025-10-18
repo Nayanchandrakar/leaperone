@@ -12,7 +12,6 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
-    "@app/nrpc": "workspace:*",
     "@hookform/resolvers": "catalog:",
     "@app/database": "workspace:*",
     "@app/error": "workspace:*",
