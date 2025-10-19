@@ -1,5 +1,5 @@
 import { Hono } from "hono"
-import assetRouter from "./features/asset/routes/asset-router"
+import assetRouter from "./features/asset/modules/asset.route"
 import authRouter from "./features/auth/modules/auth.route"
 import marketingRouter from "./features/marketing/modules/marketing.route"
 import subscriptionRouter from "./features/subscription/modules/subscription.route"

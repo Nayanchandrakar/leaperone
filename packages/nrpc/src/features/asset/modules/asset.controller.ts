@@ -1,13 +1,9 @@
-import type { AssetService } from "../services/asset-service"
 import type { PreSignedUrlController } from "../types/asset"
+import type { AssetService } from "./asset.service"
 
 export class AssetController {
   private static instance: AssetController | null = null
-  private assetService: AssetService
-
-  private constructor(assetService: AssetService) {
-    this.assetService = assetService
-  }
+  private constructor(private readonly assetService: AssetService) {}
 
   static init(assetService: AssetService) {
     if (!AssetController.instance) {

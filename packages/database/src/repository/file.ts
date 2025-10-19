@@ -13,14 +13,19 @@ export async function createFile(params: InsertFile) {
   }
 }
 
-export async function bootStrapFile(params: InsertFile) {
+export async function bootStrapFile(params: InsertFile[]) {
   try {
     await dbWs.transaction(async (tx) => {
+      // create a new file entry
       await tx.insert(file).values(params)
-      await tx
-        .update(storage)
-        .set({ usage: sql`${storage.usage} + ${params.size}` })
-        .where(eq(storage.id, params.storageId))
+
+      // update the storage usage
+      for (const { storageId, size } of params) {
+        await tx
+          .update(storage)
+          .set({ usage: sql`${storage.usage} + ${size}` })
+          .where(eq(storage.id, storageId))
+      }
     })
   } catch (error) {
     console.error(error)

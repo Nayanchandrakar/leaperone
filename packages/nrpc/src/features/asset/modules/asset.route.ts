@@ -8,7 +8,7 @@ import {
 } from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
 import { zValidator } from "../../../utils/zod-validator"
-import { assetController } from "../modules/asset-module"
+import { assetController } from "../modules/asset.module"
 
 const app = new Hono<HonoEnv>().post(
   "/pre-signed-url",

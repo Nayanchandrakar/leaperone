@@ -1,3 +1,4 @@
+import { basename, extname } from "node:path"
 import { HeadObjectCommand } from "@aws-sdk/client-s3"
 import type { App } from "aws-cdk-lib"
 import { envConfig } from "@/config/env"
@@ -16,11 +17,23 @@ export function getStagingEnv(app: App): StagingEnv {
   return { stage, env }
 }
 
-export async function getObjectMetadata(bucketName: string, objectKey: string) {
-  const command = new HeadObjectCommand({
-    Bucket: bucketName,
-    Key: objectKey,
-  })
+export async function getEventData(bucket: string, key: string, size: number) {
+  const command = new HeadObjectCommand({ Bucket: bucket, Key: key })
+  const { ContentType, Metadata } = await s3Client.send(command)
 
-  return await s3Client.send(command)
+  // Not a user uploaded file
+  if (!Metadata?.storageid) return null
+
+  const mime = ContentType ?? "application/octet-stream"
+  const ext = extname(key)
+
+  return {
+    size,
+    mime,
+    key,
+    ext,
+    bucket,
+    name: basename(key, ext),
+    storageId: Metadata.storageid,
+  }
 }
