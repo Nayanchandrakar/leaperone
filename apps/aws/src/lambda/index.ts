@@ -8,9 +8,7 @@ export const handler = async (event: S3Event): Promise<void> => {
 
   try {
     const eventRequests = await Promise.allSettled(
-      event.Records.map(({ s3 }) =>
-        getEventData(s3.bucket.name, s3.object.key, s3.object.size),
-      ),
+      event.Records.map(({ s3 }) => getEventData(s3.bucket.name, s3.object.key, s3.object.size)),
     )
 
     const data = eventRequests.reduce<InsertFile[]>((acc, promise) => {

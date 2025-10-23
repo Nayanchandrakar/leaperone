@@ -14,12 +14,7 @@ interface SmoothTabProps {
   onChange: (tabId: string) => void
 }
 
-export const SmoothTab = ({
-  items,
-  className,
-  onChange,
-  selected,
-}: SmoothTabProps) => {
+export const SmoothTab = ({ items, className, onChange, selected }: SmoothTabProps) => {
   const [dimensions, setDimensions] = React.useState({ width: 0, left: 0 })
 
   // Reference for the selected button
@@ -53,10 +48,7 @@ export const SmoothTab = ({
     return () => window.removeEventListener("resize", updateDimensions)
   }, [selected])
 
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLButtonElement>,
-    tabId: string,
-  ) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, tabId: string) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
       onChange(tabId)

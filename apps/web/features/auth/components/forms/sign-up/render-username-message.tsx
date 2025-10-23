@@ -15,11 +15,7 @@ interface IRenderMessage {
   exists: boolean
 }
 
-export const RenderMessage = ({
-  exists,
-  isLoading,
-  queryError,
-}: IRenderMessage) => {
+export const RenderMessage = ({ exists, isLoading, queryError }: IRenderMessage) => {
   const { control, formState } = useFormContext<{
     username: string
   }>()

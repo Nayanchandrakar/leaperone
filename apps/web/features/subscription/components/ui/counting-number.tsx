@@ -1,13 +1,7 @@
 "use client"
 
 import { cn } from "@app/ui/lib/utils"
-import {
-  animate,
-  motion,
-  type UseInViewOptions,
-  useInView,
-  useMotionValue,
-} from "motion/react"
+import { animate, motion, type UseInViewOptions, useInView, useMotionValue } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 
 interface CountingNumberProps {

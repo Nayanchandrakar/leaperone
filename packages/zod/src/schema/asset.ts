@@ -1,8 +1,4 @@
-import {
-  ALLOWED_MIME_TYPES,
-  MAX_FILE_SIZE,
-  MIN_FILE_SIZE,
-} from "@app/core/constants"
+import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE, MIN_FILE_SIZE } from "@app/core/constants"
 import { z } from "zod"
 
 export const preSignedUrlSchema = z.object({

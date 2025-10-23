@@ -10,11 +10,7 @@ export type CheckoutSessionController = Context<
   ControllerIO<"json", CheckoutSessionSchema>
 >
 
-export type StripeController = Context<
-  HonoEnv,
-  "/stripe",
-  ControllerIO<"json", {}>
->
+export type StripeController = Context<HonoEnv, "/stripe", ControllerIO<"json", {}>>
 
 export type CheckoutSession = Stripe.Checkout.Session & {
   metadata: {

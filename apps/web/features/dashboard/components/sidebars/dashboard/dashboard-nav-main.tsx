@@ -17,10 +17,7 @@ type DashboardNavMainProps = {
   workspaceId: string
 }
 
-export const DashboardNavMain = ({
-  data,
-  workspaceId,
-}: DashboardNavMainProps) => {
+export const DashboardNavMain = ({ data, workspaceId }: DashboardNavMainProps) => {
   const currentPath = usePathname()
 
   return (

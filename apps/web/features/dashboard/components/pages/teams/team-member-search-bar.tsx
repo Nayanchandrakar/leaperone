@@ -1,8 +1,4 @@
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@app/ui/components/input-group"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@app/ui/components/input-group"
 import { SearchIcon } from "lucide-react"
 
 export const TeamMemberSearchBar = () => {

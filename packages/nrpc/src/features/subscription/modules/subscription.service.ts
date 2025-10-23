@@ -14,10 +14,7 @@ import { stripe } from "../../../config/stripe"
 import { MSG } from "../../../constants/message"
 import { createAbsoluteRoute } from "../../../utils/urls"
 import { CHECKOUT_STATUSES } from "../constants"
-import {
-  getPlanDurationByPriceId,
-  getPlanFromQuantity,
-} from "../helpers/subscription-helper"
+import { getPlanDurationByPriceId, getPlanFromQuantity } from "../helpers/subscription-helper"
 import type {
   CheckoutSession,
   CheckoutSessionController,
@@ -46,11 +43,7 @@ export class SubscriptionService {
 
     let event: Stripe.Event
     try {
-      event = await stripe.webhooks.constructEventAsync(
-        buffer,
-        signature,
-        ENV.STRIPE_WEBHOOK,
-      )
+      event = await stripe.webhooks.constructEventAsync(buffer, signature, ENV.STRIPE_WEBHOOK)
     } catch (err: any) {
       logger.error("Webhook signature verification failed: ", err)
       throw ApiError.badRequest("Invalid Signature")
@@ -91,9 +84,7 @@ export class SubscriptionService {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_PLAN_NOT_FOUND)
     }
 
-    const canPurchase = await hasPermissions(user.id, workspace.id, [
-      "manage:subscription",
-    ])
+    const canPurchase = await hasPermissions(user.id, workspace.id, ["manage:subscription"])
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -186,9 +177,7 @@ export class SubscriptionService {
     const user = c.get("session").user
     const workspace = c.get("workspace")
 
-    const canPurchase = await hasPermissions(user.id, workspace.id, [
-      "manage:subscription",
-    ])
+    const canPurchase = await hasPermissions(user.id, workspace.id, ["manage:subscription"])
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

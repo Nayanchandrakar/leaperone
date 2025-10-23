@@ -58,9 +58,7 @@ export const PricingCard = ({
         </div>
 
         <div className="mt-6 space-y-3">
-          <span className="font-semibold text-lg text-gray-600">
-            {feature.title}
-          </span>
+          <span className="font-semibold text-lg text-gray-600">{feature.title}</span>
           <RenderPlanFeatures feature={feature} />
         </div>
       </div>

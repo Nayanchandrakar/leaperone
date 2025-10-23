@@ -16,10 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { PasswordInput } from "@/components/ui/password-input"
-import {
-  AuthHeader,
-  AuthTitle,
-} from "@/features/auth/components/ui/auth-header"
+import { AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useLogin } from "@/features/auth/hooks/login/use-login"
 
@@ -102,12 +99,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
         />
 
         <div className="flex flex-col items-center gap-4">
-          <Button
-            size="lg"
-            type="submit"
-            className="w-full"
-            disabled={isSubmissionDisabled}
-          >
+          <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
             Log In
           </Button>
 

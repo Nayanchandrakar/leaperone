@@ -1,8 +1,4 @@
-import {
-  SESSION_COOKIE_NAME,
-  SESSION_EXPIRY,
-  SESSSION_UPDATE_AGE,
-} from "@app/core/constants"
+import { SESSION_COOKIE_NAME, SESSION_EXPIRY, SESSSION_UPDATE_AGE } from "@app/core/constants"
 import type { User } from "@app/database/types"
 import { ApiError } from "@app/error"
 import { createId } from "@paralleldrive/cuid2"

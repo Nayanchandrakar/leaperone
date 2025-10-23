@@ -21,9 +21,7 @@ export const checkStorageAvailability = createMiddleware(
 
     if (!hasSpace) {
       const shortFall = totalFileSize - storage.quota
-      throw ApiError.badRequest(
-        `Insufficient storage. ${formatBytes(shortFall)} needed`,
-      )
+      throw ApiError.badRequest(`Insufficient storage. ${formatBytes(shortFall)} needed`)
     }
 
     c.set("storage", storage)

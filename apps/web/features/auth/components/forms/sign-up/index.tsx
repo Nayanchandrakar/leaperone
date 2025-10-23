@@ -17,11 +17,7 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { PasswordInput } from "@/components/ui/password-input"
 import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
-import {
-  AuthDescription,
-  AuthHeader,
-  AuthTitle,
-} from "@/features/auth/components/ui/auth-header"
+import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useRegister } from "@/features/auth/hooks/sign-up/use-register"
 import {
@@ -68,13 +64,9 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
     usernameErrorType: usernameError?.type,
   })
 
-  const isSubmissionDisabled = [
-    isError,
-    !isValid,
-    isLoading,
-    isPending,
-    isUserNameTaken,
-  ].some(Boolean)
+  const isSubmissionDisabled = [isError, !isValid, isLoading, isPending, isUserNameTaken].some(
+    Boolean,
+  )
 
   return (
     <Form {...form}>
@@ -94,9 +86,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="data-[error=true]:text-black">
-                Username
-              </FormLabel>
+              <FormLabel className="data-[error=true]:text-black">Username</FormLabel>
               <FormControl>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 flex items-center border-r px-3 text-sm font-normal text-muted-foreground">
@@ -112,11 +102,7 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
                 </div>
               </FormControl>
 
-              <RenderMessage
-                queryError={error}
-                isLoading={isLoading}
-                exists={isUserNameTaken}
-              />
+              <RenderMessage queryError={error} isLoading={isLoading} exists={isUserNameTaken} />
             </FormItem>
           )}
         />
@@ -181,38 +167,21 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
 
         <div className="text-center text-xs text-muted-foreground">
           By creating an account, you agree to our&nbsp;
-          <Link
-            tabIndex={-1}
-            href="/terms-and-condition"
-            className="underline hover:text-primary"
-          >
+          <Link tabIndex={-1} href="/terms-and-condition" className="underline hover:text-primary">
             Terms of Service
           </Link>
           &nbsp;and&nbsp;
-          <Link
-            tabIndex={-1}
-            href="/privacy-policy"
-            className="underline hover:text-primary"
-          >
+          <Link tabIndex={-1} href="/privacy-policy" className="underline hover:text-primary">
             Privacy Policy
           </Link>
         </div>
 
         <div className="flex flex-col items-center gap-4">
-          <Button
-            size="lg"
-            type="submit"
-            className="w-full"
-            disabled={isSubmissionDisabled}
-          >
+          <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
             Create Account
           </Button>
 
-          <AuthRedirect
-            linkHref="/login"
-            linkMessage="Log In"
-            message="Already have an account?"
-          />
+          <AuthRedirect linkHref="/login" linkMessage="Log In" message="Already have an account?" />
         </div>
       </form>
     </Form>

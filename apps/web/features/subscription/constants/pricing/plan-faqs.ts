@@ -21,8 +21,7 @@ export const PLAN_FAQS = [
     answer: "",
   },
   {
-    question:
-      "What is the process of switching plans, from solo to team or vice versa?",
+    question: "What is the process of switching plans, from solo to team or vice versa?",
     answer: "",
   },
   {

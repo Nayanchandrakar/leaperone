@@ -15,11 +15,6 @@ const app = new Hono<HonoEnv>()
     hasWorkspace,
     subscriptionController.checkoutSession,
   )
-  .post(
-    "/billing-portal",
-    isAuthenticated,
-    hasWorkspace,
-    subscriptionController.billingPortal,
-  )
+  .post("/billing-portal", isAuthenticated, hasWorkspace, subscriptionController.billingPortal)
 
 export default app

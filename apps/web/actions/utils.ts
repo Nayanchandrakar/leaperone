@@ -21,13 +21,7 @@ export async function getSession() {
   }
 }
 
-export async function handleAuth({
-  path,
-  mode,
-}: {
-  path?: string
-  mode: "require" | "block"
-}) {
+export async function handleAuth({ path, mode }: { path?: string; mode: "require" | "block" }) {
   const session = await getSession()
   if (mode === "require" && !session) redirect(path ?? "/login")
   if (mode === "block" && session) redirect(path ?? "/")

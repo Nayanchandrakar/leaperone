@@ -6,10 +6,7 @@ import { roles } from "./roles"
 import { users } from "./users"
 import { workspace } from "./workspace"
 
-export const invitationStatusEnum = pgEnum(
-  "invitation_status",
-  invitationStatus,
-)
+export const invitationStatusEnum = pgEnum("invitation_status", invitationStatus)
 
 export const invitations = pgTable("invitation", {
   id: text()

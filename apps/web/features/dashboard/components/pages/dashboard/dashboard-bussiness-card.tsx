@@ -13,8 +13,8 @@ export const DashboardBussinessCard = () => {
     <DashboardStats>
       <DashboardStatsTitle>My Bussiness card</DashboardStatsTitle>
       <PromptMessage>
-        No digital business card created yet. Start your smart networking
-        journey by creating one now!
+        No digital business card created yet. Start your smart networking journey by creating one
+        now!
       </PromptMessage>
       <PromptAction>
         <Plus className="size-4" />

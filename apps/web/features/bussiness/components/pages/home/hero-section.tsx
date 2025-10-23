@@ -17,8 +17,7 @@ export const HeroSection = () => {
         >
           Create
         </MarkerText>
-        &nbsp;Digital Business Cards in 3 Easy Steps. Then Capture Leads &
-        Manage Clients.&nbsp;
+        &nbsp;Digital Business Cards in 3 Easy Steps. Then Capture Leads & Manage Clients.&nbsp;
         <MarkerText
           alt="underline"
           className="inline-flex"
@@ -30,8 +29,8 @@ export const HeroSection = () => {
       </MarketingHeaderTitle>
 
       <MarketingHeaderDescription className="font-medium max-w-3xl">
-        Create smart digital business cards in minutes, capture leads & manage
-        clients with built-in CRM tools, all in 1 place for you & your team.
+        Create smart digital business cards in minutes, capture leads & manage clients with built-in
+        CRM tools, all in 1 place for you & your team.
       </MarketingHeaderDescription>
     </MarketingHeader>
   )

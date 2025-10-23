@@ -37,9 +37,7 @@ export const NavSettings = ({ user }: NavSettingProps) => {
           <span className="text-foreground first-letter:uppercase truncate text-sm font-medium">
             {user?.name}
           </span>
-          <span className="text-muted-foreground truncate text-xs font-normal">
-            {user?.email}
-          </span>
+          <span className="text-muted-foreground truncate text-xs font-normal">{user?.email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 

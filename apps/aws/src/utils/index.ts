@@ -6,8 +6,7 @@ import { s3Client } from "@/config/s3"
 import type { Stage, StagingEnv } from "@/types"
 
 export function getStagingEnv(app: App): StagingEnv {
-  const stage: Stage =
-    app.node.tryGetContext("stage") ?? process?.env?.STAGE ?? "dev"
+  const stage: Stage = app.node.tryGetContext("stage") ?? process?.env?.STAGE ?? "dev"
   const env = envConfig[stage]
 
   if (!env) {

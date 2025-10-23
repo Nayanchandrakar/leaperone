@@ -24,10 +24,7 @@ export class RBACService {
         .returning()
 
       for (const role of DEFAULT_ROLES) {
-        const [insertedRole] = await tx
-          .insert(roleTable)
-          .values(role)
-          .returning()
+        const [insertedRole] = await tx.insert(roleTable).values(role).returning()
         const permissionsToAssign = role.permissions.includes("*")
           ? permissions
           : permissions.filter((perm) => role.permissions.includes(perm.name))

@@ -16,13 +16,7 @@ export default function NotFound() {
       <RadialMesh />
 
       <MarketingHeader className="!mt-0">
-        <Image
-          priority
-          width={270}
-          height={270}
-          src="/assets/svg/404.svg"
-          alt="not-found"
-        />
+        <Image priority width={270} height={270} src="/assets/svg/404.svg" alt="not-found" />
 
         <MarketingHeaderTitle>
           Oops!&nbsp;
@@ -37,27 +31,15 @@ export default function NotFound() {
         </MarketingHeaderTitle>
 
         <MarketingHeaderDescription className="max-w-lg">
-          Sorry, we could not find the page you are looking for but you might
-          want to:
+          Sorry, we could not find the page you are looking for but you might want to:
         </MarketingHeaderDescription>
 
         <div className="relative w-full flex items-center justify-center flex-col gap-4 mx-auto max-w-lg">
-          <Marker
-            alt="marker"
-            src="/assets/svg/open-mark.svg"
-            className="-top-6 -left-16"
-          />
+          <Marker alt="marker" src="/assets/svg/open-mark.svg" className="-top-6 -left-16" />
 
-          <Marker
-            alt="marker"
-            src="/assets/svg/close-mark.svg"
-            className="-bottom-6 -right-16"
-          />
+          <Marker alt="marker" src="/assets/svg/close-mark.svg" className="-bottom-6 -right-16" />
 
-          <Link
-            href="/"
-            className={buttonVariants({ size: "xl", className: "w-full" })}
-          >
+          <Link href="/" className={buttonVariants({ size: "xl", className: "w-full" })}>
             Create a Digital Business Card
           </Link>
 

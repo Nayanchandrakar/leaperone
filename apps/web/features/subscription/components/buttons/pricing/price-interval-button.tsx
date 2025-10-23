@@ -23,10 +23,6 @@ export const PriceIntervalButton = ({ subscription }: IPriceIntervalButton) => {
   )
 
   return (
-    <SmoothTab
-      items={PLAN_INTERVALS}
-      selected={planInterval.id}
-      onChange={setPlanIntervalById}
-    />
+    <SmoothTab items={PLAN_INTERVALS} selected={planInterval.id} onChange={setPlanIntervalById} />
   )
 }

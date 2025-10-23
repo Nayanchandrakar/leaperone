@@ -21,9 +21,8 @@ export const ContactUsHeroSection = () => {
       </MarketingHeaderTitle>
 
       <MarketingHeaderDescription>
-        Whether you have a question, need support, or want to know how Leaper
-        CRM can boost your business, feel free to reach out to us and we will
-        get back to you as soon as possible .
+        Whether you have a question, need support, or want to know how Leaper CRM can boost your
+        business, feel free to reach out to us and we will get back to you as soon as possible .
       </MarketingHeaderDescription>
     </MarketingHeader>
   )

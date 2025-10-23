@@ -28,17 +28,9 @@ export const NetworkingSection = () => {
       </h2>
 
       <div className="flex items-center justify-center flex-col gap-4 mt-8 mx-auto max-w-sm relative">
-        <Marker
-          alt="marker"
-          src="/assets/svg/open-mark.svg"
-          className="-top-6 -left-16"
-        />
+        <Marker alt="marker" src="/assets/svg/open-mark.svg" className="-top-6 -left-16" />
 
-        <Marker
-          alt="marker"
-          src="/assets/svg/close-mark.svg"
-          className="-bottom-6 -right-16"
-        />
+        <Marker alt="marker" src="/assets/svg/close-mark.svg" className="-bottom-6 -right-16" />
 
         <Button size="xl" className="w-full">
           Start 7 days Free Trial

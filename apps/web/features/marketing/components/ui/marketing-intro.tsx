@@ -1,9 +1,6 @@
 import { cn } from "@app/ui/lib/utils"
 
-export const MarketingHeader = ({
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const MarketingHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={cn(
@@ -15,10 +12,7 @@ export const MarketingHeader = ({
   )
 }
 
-export const MarketingHeaderTitle = ({
-  className,
-  ...props
-}: React.ComponentProps<"h1">) => {
+export const MarketingHeaderTitle = ({ className, ...props }: React.ComponentProps<"h1">) => {
   return (
     <h1
       className={cn(
@@ -30,10 +24,7 @@ export const MarketingHeaderTitle = ({
   )
 }
 
-export const MarketingHeaderDescription = ({
-  className,
-  ...props
-}: React.ComponentProps<"p">) => {
+export const MarketingHeaderDescription = ({ className, ...props }: React.ComponentProps<"p">) => {
   return (
     <p
       className={cn(

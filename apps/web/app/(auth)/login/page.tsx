@@ -2,11 +2,7 @@ import { Fragment } from "react"
 import { handleAuth } from "@/actions/utils"
 import { APP_URL } from "@/constants/app"
 import { LoginForm } from "@/features/auth/components/forms/login"
-import {
-  AuthContent,
-  AuthForm,
-  AuthWrapper,
-} from "@/features/auth/components/layouts/auth-layout"
+import { AuthContent, AuthForm, AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
 interface ILoginPage {

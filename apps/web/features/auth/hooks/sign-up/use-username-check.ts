@@ -2,10 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useEffect, useMemo } from "react"
 import { type ErrorOption, type UseFormReturn, useWatch } from "react-hook-form"
 import { useDebounceValue } from "usehooks-ts"
-import type {
-  IUserNameError,
-  IUsernameCheckParams,
-} from "@/features/auth/types"
+import type { IUserNameError, IUsernameCheckParams } from "@/features/auth/types"
 import { setUserNameError } from "@/features/auth/utils"
 import { client } from "@/lib/hono/client"
 import { ResponseHandler } from "@/utils/response-handler"
@@ -54,14 +51,7 @@ export const useUsernameError = ({
       case "none":
         break
     }
-  }, [
-    isUserNameTaken,
-    isLoading,
-    error,
-    usernameErrorType,
-    setError,
-    clearErrors,
-  ])
+  }, [isUserNameTaken, isLoading, error, usernameErrorType, setError, clearErrors])
 }
 
 export const useAccountFormContext = ({

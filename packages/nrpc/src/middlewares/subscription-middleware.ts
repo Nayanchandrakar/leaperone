@@ -6,15 +6,13 @@ import { createMiddleware } from "hono/factory"
 import { MSG } from "../constants/message"
 import type { HonoEnv } from "../types"
 
-export const hasWorkspace = createMiddleware<HonoEnv>(
-  async (c: Context<HonoEnv>, next: Next) => {
-    const session = c.get("session")
-    const workspace = await getWorkspaceByOwnerId(session.user.id)
-    if (!workspace) throw ApiError.badRequest(MSG.WORKSPACE.NOT_FOUND)
-    c.set("workspace", workspace)
-    await next()
-  },
-)
+export const hasWorkspace = createMiddleware<HonoEnv>(async (c: Context<HonoEnv>, next: Next) => {
+  const session = c.get("session")
+  const workspace = await getWorkspaceByOwnerId(session.user.id)
+  if (!workspace) throw ApiError.badRequest(MSG.WORKSPACE.NOT_FOUND)
+  c.set("workspace", workspace)
+  await next()
+})
 
 export const hasActiveSubscription = createMiddleware<HonoEnv>(
   async (c: Context<HonoEnv>, next: Next) => {

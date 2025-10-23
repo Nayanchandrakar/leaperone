@@ -143,12 +143,7 @@ export const AskSupportForm = () => {
           )}
         />
 
-        <Button
-          size="lg"
-          type="submit"
-          className="w-full"
-          disabled={isSubmissionDisabled}
-        >
+        <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
           Submit
         </Button>
       </form>

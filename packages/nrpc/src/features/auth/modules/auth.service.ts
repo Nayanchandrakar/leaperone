@@ -1,8 +1,4 @@
-import {
-  PASSWORD_RESET_EXPIRY,
-  SESSION_COOKIE_NAME,
-  SESSION_EXPIRY,
-} from "@app/core/constants"
+import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   bootStrapUser,
@@ -153,9 +149,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
     }
 
-    const credentialAccount = accounts.find(
-      (a) => a.providerId === "credential",
-    )
+    const credentialAccount = accounts.find((a) => a.providerId === "credential")
 
     if (
       !credentialAccount ||
@@ -287,11 +281,7 @@ export class AuthService {
       value: user.id!,
     })
 
-    const callbackString = createRoute(
-      `/reset-password/${token}`,
-      undefined,
-      false,
-    )
+    const callbackString = createRoute(`/reset-password/${token}`, undefined, false)
 
     // TODO: send this callbackString to users email address
     logger.info({
@@ -343,9 +333,7 @@ export class AuthService {
       throw ApiError.badRequest("You can not restrict yourself")
     }
 
-    const canRestrict = await hasPermissions(session.user.id, workspace.id, [
-      "manage:members",
-    ])
+    const canRestrict = await hasPermissions(session.user.id, workspace.id, ["manage:members"])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -372,9 +360,7 @@ export class AuthService {
       throw ApiError.badRequest("You can unrestrict yourself")
     }
 
-    const canRestrict = await hasPermissions(session.user.id, workspace.id, [
-      "manage:members",
-    ])
+    const canRestrict = await hasPermissions(session.user.id, workspace.id, ["manage:members"])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

@@ -44,8 +44,7 @@ export const MSG = {
     INVALID: "Invalid password",
     TOO_SHORT: "Password too short",
     TOO_LONG: "Password too long",
-    USER_NOT_FOUND:
-      "If this email exists in our system, check your email for the reset link",
+    USER_NOT_FOUND: "If this email exists in our system, check your email for the reset link",
     CHANGE_SUCCESS: "Your password has been updated successfully.",
     RESET_REQUEST_SUCCESS: "Password reset link sent to your email.",
     RESET_SUCCESS: "Your password has been reset successfully.",

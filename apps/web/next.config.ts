@@ -18,13 +18,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  transpilePackages: [
-    "@app/database",
-    "@app/error",
-    "@app/env",
-    "@app/ui",
-    "@app/zod",
-  ],
+  transpilePackages: ["@app/database", "@app/error", "@app/env", "@app/ui", "@app/zod"],
 }
 
 export default nextConfig

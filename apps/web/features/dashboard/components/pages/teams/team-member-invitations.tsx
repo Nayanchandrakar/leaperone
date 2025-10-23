@@ -10,8 +10,7 @@ export const TeamMemberInvitations = () => {
     <section className="mt-8">
       <DashboardSubtitle>Your Team Members</DashboardSubtitle>
       <PromptMessage>
-        Take full advantage of Leaper One by adding multiple members for your
-        team!
+        Take full advantage of Leaper One by adding multiple members for your team!
       </PromptMessage>
       <PromptAction>
         <Plus className="size-4" />

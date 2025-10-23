@@ -7,8 +7,7 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-transparent border border-input focus-visible:border-zinc-300",
+        default: "bg-transparent border border-input focus-visible:border-zinc-300",
         gray: "bg-muted border border-zinc-100 focus-visible:border-zinc-200",
       },
       size: {
@@ -22,8 +21,7 @@ const inputVariants = cva(
   },
 )
 
-type InputProps = React.ComponentProps<"input"> &
-  VariantProps<typeof inputVariants>
+type InputProps = React.ComponentProps<"input"> & VariantProps<typeof inputVariants>
 
 function Input({ className, type, variant, size, ...props }: InputProps) {
   return (

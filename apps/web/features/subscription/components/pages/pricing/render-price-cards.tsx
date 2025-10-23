@@ -14,9 +14,7 @@ export const RenderPriceCards = ({ subscription }: IRenderPriceCards) => {
     <ListComponent
       items={PLANS}
       className="grid lg:grid-cols-2 gap-10 lg:gap-7 mx-auto max-w-5xl"
-      renderItem={(props) => (
-        <PricingCard key={props.id} subscription={subscription} {...props} />
-      )}
+      renderItem={(props) => <PricingCard key={props.id} subscription={subscription} {...props} />}
     />
   )
 }

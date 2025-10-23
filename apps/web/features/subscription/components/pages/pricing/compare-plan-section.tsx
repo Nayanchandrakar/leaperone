@@ -20,6 +20,7 @@ interface IComparePlanSection {
 }
 
 export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
+  console.log(subscription)
   return (
     <section className="container mt-32" id="compare-pricing">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">
@@ -52,9 +53,7 @@ export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
       />
 
       <Accordion
-        defaultValue={PLAN_COMPARISON_DATA.map(
-          (_, index) => `compare-plan-${index}`,
-        )}
+        defaultValue={PLAN_COMPARISON_DATA.map((_, index) => `compare-plan-${index}`)}
         type="multiple"
         className="max-w-5xl mx-auto bg-background rounded-3xl border border-border mt-12 p-4 space-y-3"
       >

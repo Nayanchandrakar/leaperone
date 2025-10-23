@@ -1,10 +1,4 @@
-import {
-  ChartNoAxesCombined,
-  FileText,
-  Folders,
-  Home,
-  UsersRound,
-} from "lucide-react"
+import { ChartNoAxesCombined, FileText, Folders, Home, UsersRound } from "lucide-react"
 import type { SidebarNavItems } from "@/features/dashboard/types"
 
 export const DASHBOARD_NAV_MAIN: SidebarNavItems[] = [

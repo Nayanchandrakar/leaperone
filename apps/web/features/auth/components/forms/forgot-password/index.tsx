@@ -14,11 +14,7 @@ import { emailSchema } from "@app/zod/schema/auth"
 import type { EmailSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import {
-  AuthDescription,
-  AuthHeader,
-  AuthTitle,
-} from "@/features/auth/components/ui/auth-header"
+import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { useRequestPasswordReset } from "@/features/auth/hooks/forgot-password/use-forgot-password"
 
 export const ForgotPasswordForm = () => {
@@ -44,8 +40,7 @@ export const ForgotPasswordForm = () => {
         <AuthHeader className="mb-12 text-center">
           <AuthTitle>Forgot Password</AuthTitle>
           <AuthDescription>
-            Enter the email you used to create your account, and we’ll send you
-            a link to reset it.
+            Enter the email you used to create your account, and we’ll send you a link to reset it.
           </AuthDescription>
         </AuthHeader>
 
@@ -69,12 +64,7 @@ export const ForgotPasswordForm = () => {
           )}
         />
 
-        <Button
-          size="lg"
-          type="submit"
-          className="w-full"
-          disabled={isSubmissionDisabled}
-        >
+        <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
           Submit
         </Button>
       </form>

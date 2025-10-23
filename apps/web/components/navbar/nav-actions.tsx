@@ -9,11 +9,7 @@ type Props = {
 export const NavActions = ({ user }: Props) => {
   return (
     <div className="flex items-center gap-3.5">
-      {user ? (
-        <AuthenticatedNavActions user={user} />
-      ) : (
-        <UnauthenticatedNavActions />
-      )}
+      {user ? <AuthenticatedNavActions user={user} /> : <UnauthenticatedNavActions />}
     </div>
   )
 }

@@ -4,13 +4,7 @@ export function getRootDomain(url: string) {
     const parts = hostname.split(".")
 
     if (parts.length < 2) return null
-    const multiLevelTlds = new Set([
-      "co.in",
-      "com.au",
-      "co.uk",
-      "org.in",
-      "net.in",
-    ])
+    const multiLevelTlds = new Set(["co.in", "com.au", "co.uk", "org.in", "net.in"])
 
     if (parts.length >= 3 && multiLevelTlds.has(parts.slice(-2).join("."))) {
       return `.${parts.slice(-3).join(".")}`

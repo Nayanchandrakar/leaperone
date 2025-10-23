@@ -4,9 +4,7 @@ import { cn } from "@app/ui/lib/utils"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
 import type * as React from "react"
 
-function Accordion({
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
+function Accordion({ ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />
 }
 
@@ -14,13 +12,7 @@ function AccordionItem({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
-  return (
-    <AccordionPrimitive.Item
-      data-slot="accordion-item"
-      className={cn(className)}
-      {...props}
-    />
-  )
+  return <AccordionPrimitive.Item data-slot="accordion-item" className={cn(className)} {...props} />
 }
 
 function AccordionTrigger({

@@ -27,9 +27,7 @@ export const PerMemberPricing = () => {
         <Table className="text-base selection:bg-primary selection:text-white bg-background">
           <TableHeader>
             <TableRow>
-              <TableHead className="text-left p-5 pl-7 font-semibold">
-                Team Size
-              </TableHead>
+              <TableHead className="text-left p-5 pl-7 font-semibold">Team Size</TableHead>
               <TableHead className="text-left border-l border-border p-5 font-semibold">
                 Monthly, per user
               </TableHead>
@@ -41,15 +39,9 @@ export const PerMemberPricing = () => {
           <TableBody>
             {TEAMS_PER_MEMBER_COST.map(({ monthly, teamSize, yearly }) => (
               <TableRow key={teamSize}>
-                <TableCell className="font-medium p-5 pl-7">
-                  {teamSize}
-                </TableCell>
-                <TableCell className="text-left border-l border-border p-5">
-                  {monthly}
-                </TableCell>
-                <TableCell className="text-left border-l border-border p-5">
-                  {yearly}
-                </TableCell>
+                <TableCell className="font-medium p-5 pl-7">{teamSize}</TableCell>
+                <TableCell className="text-left border-l border-border p-5">{monthly}</TableCell>
+                <TableCell className="text-left border-l border-border p-5">{yearly}</TableCell>
               </TableRow>
             ))}
           </TableBody>

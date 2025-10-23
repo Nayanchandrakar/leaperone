@@ -1,12 +1,7 @@
 import { ApiError } from "@app/error"
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { dbHttp } from "../index"
-import {
-  permissions as permissionTable,
-  rolePermissions,
-  roles,
-  workspaceMembers,
-} from "../schema"
+import { permissions as permissionTable, rolePermissions, roles, workspaceMembers } from "../schema"
 import type { PermissionType, RoleType } from "../types"
 
 export async function hasPermissions(
@@ -25,10 +20,7 @@ export async function hasPermissions(
       .from(workspaceMembers)
       .innerJoin(roles, eq(workspaceMembers.roleId, roles.id))
       .innerJoin(rolePermissions, eq(roles.id, rolePermissions.roleId))
-      .innerJoin(
-        permissionTable,
-        eq(rolePermissions.permissionId, permissionTable.id),
-      )
+      .innerJoin(permissionTable, eq(rolePermissions.permissionId, permissionTable.id))
       .where(
         and(
           eq(workspaceMembers.workspaceId, workspaceId),
@@ -47,11 +39,7 @@ export async function hasPermissions(
 
 export async function getRoleByName(role: RoleType) {
   try {
-    const [data] = await dbHttp
-      .select()
-      .from(roles)
-      .where(eq(roles.name, role))
-      .limit(1)
+    const [data] = await dbHttp.select().from(roles).where(eq(roles.name, role)).limit(1)
 
     return data
   } catch (error) {

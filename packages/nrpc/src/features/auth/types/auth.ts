@@ -16,11 +16,7 @@ export type RegisterController = Context<
   ControllerIO<"json", RegisterFormSchema>
 >
 
-export type LoginController = Context<
-  HonoEnv,
-  "/login",
-  ControllerIO<"json", LoginFormSchema>
->
+export type LoginController = Context<HonoEnv, "/login", ControllerIO<"json", LoginFormSchema>>
 
 export type UserNameController = Context<
   HonoEnv,

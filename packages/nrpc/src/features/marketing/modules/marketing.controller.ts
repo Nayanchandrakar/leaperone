@@ -1,7 +1,4 @@
-import type {
-  AskSupportController,
-  ContactUsController,
-} from "../types/marketing"
+import type { AskSupportController, ContactUsController } from "../types/marketing"
 import type { MarketingService } from "./marketing.service"
 
 export class MarketingController {

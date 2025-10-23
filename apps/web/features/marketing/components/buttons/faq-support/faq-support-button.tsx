@@ -13,7 +13,5 @@ export const FaqSupportButton = () => {
     })),
   )
 
-  return (
-    <SmoothTab selected={mode} items={FAQ_SUPPORT_MODES} onChange={setMode} />
-  )
+  return <SmoothTab selected={mode} items={FAQ_SUPPORT_MODES} onChange={setMode} />
 }

@@ -16,12 +16,7 @@ export class Cookie {
     return Cookie.instance
   }
 
-  async set(
-    c: Context,
-    name: string,
-    value: string,
-    overrides?: Partial<CookieOptions>,
-  ) {
+  async set(c: Context, name: string, value: string, overrides?: Partial<CookieOptions>) {
     await setSignedCookie(c, name, value, ENV.AUTH_SECRET, {
       ...COOKIE_OPTIONS,
       ...overrides,

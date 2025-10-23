@@ -6,11 +6,7 @@ interface ListComponentProps<T> {
   className?: string
 }
 
-const ListComponent = <T,>({
-  items,
-  renderItem,
-  className,
-}: ListComponentProps<T>) => {
+const ListComponent = <T,>({ items, renderItem, className }: ListComponentProps<T>) => {
   return (
     <div className={cn(className)}>
       {items?.map((item, index) => {

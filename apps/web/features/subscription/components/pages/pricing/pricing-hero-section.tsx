@@ -26,8 +26,8 @@ export const PricingHeroSection = ({ subscription }: ISubscriptionInfo) => {
       </MarketingHeaderTitle>
 
       <MarketingHeaderDescription>
-        Get a 7 day free trial with any of the plan. Buying a plan is mandatory
-        in order to use Leaper CRM.
+        Get a 7 day free trial with any of the plan. Buying a plan is mandatory in order to use
+        Leaper CRM.
       </MarketingHeaderDescription>
 
       <PriceIntervalButton subscription={subscription} />

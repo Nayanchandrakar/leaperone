@@ -12,8 +12,7 @@ export const username = z
     message: "Username must end with a letter or number.",
   })
   .regex(patterns.userName, {
-    message:
-      "Username can only contain letters, numbers, underscores, and periods.",
+    message: "Username can only contain letters, numbers, underscores, and periods.",
   })
   .toLowerCase()
   .trim()

@@ -1,10 +1,4 @@
-import {
-  FileSearch,
-  IdCard,
-  ShoppingCart,
-  SmartphoneNfc,
-  UserRoundPlus,
-} from "lucide-react"
+import { FileSearch, IdCard, ShoppingCart, SmartphoneNfc, UserRoundPlus } from "lucide-react"
 
 export const QUICK_ACTIONS = [
   {

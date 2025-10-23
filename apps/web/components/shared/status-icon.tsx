@@ -38,10 +38,7 @@ export const StatusIcon = ({
   ...props
 }: StatusIconProps) => {
   return (
-    <div
-      className={cn(statusIconVariants({ variant, size }), className)}
-      {...props}
-    >
+    <div className={cn(statusIconVariants({ variant, size }), className)} {...props}>
       <Icon className={cn(iconClassName)} strokeWidth={2.5} />
     </div>
   )

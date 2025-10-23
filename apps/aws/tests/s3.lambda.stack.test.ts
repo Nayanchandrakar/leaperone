@@ -56,9 +56,7 @@ describe("Development stage", () => {
             Resource: [
               {
                 "Fn::GetAtt": [
-                  Match.stringLikeRegexp(
-                    `${constructName}${bucketName}${stage}`,
-                  ),
+                  Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
                   "Arn",
                 ],
               },
@@ -68,9 +66,7 @@ describe("Development stage", () => {
                   [
                     {
                       "Fn::GetAtt": [
-                        Match.stringLikeRegexp(
-                          `${constructName}${bucketName}${stage}`,
-                        ),
+                        Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
                         "Arn",
                       ],
                     },
@@ -101,17 +97,11 @@ describe("Development stage", () => {
     template.hasResourceProperties("AWS::Lambda::Permission", {
       Action: "lambda:InvokeFunction",
       FunctionName: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`), "Arn"],
       },
       Principal: "s3.amazonaws.com",
       SourceArn: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`), "Arn"],
       },
     })
   })
@@ -119,10 +109,7 @@ describe("Development stage", () => {
   test("Triggers Lambda only for uploads to /asset-manager/ path in S3", () => {
     template.hasResourceProperties("Custom::S3BucketNotifications", {
       ServiceToken: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp("BucketNotificationsHandler"),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp("BucketNotificationsHandler"), "Arn"],
       },
       BucketName: {
         Ref: Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
@@ -143,9 +130,7 @@ describe("Development stage", () => {
             },
             LambdaFunctionArn: {
               "Fn::GetAtt": [
-                Match.stringLikeRegexp(
-                  `${constructName}${lambdaFnName}${stage}`,
-                ),
+                Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`),
                 "Arn",
               ],
             },
@@ -205,9 +190,7 @@ describe("Production stage", () => {
             Resource: [
               {
                 "Fn::GetAtt": [
-                  Match.stringLikeRegexp(
-                    `${constructName}${bucketName}${stage}`,
-                  ),
+                  Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
                   "Arn",
                 ],
               },
@@ -217,9 +200,7 @@ describe("Production stage", () => {
                   [
                     {
                       "Fn::GetAtt": [
-                        Match.stringLikeRegexp(
-                          `${constructName}${bucketName}${stage}`,
-                        ),
+                        Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
                         "Arn",
                       ],
                     },
@@ -250,17 +231,11 @@ describe("Production stage", () => {
     template.hasResourceProperties("AWS::Lambda::Permission", {
       Action: "lambda:InvokeFunction",
       FunctionName: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`), "Arn"],
       },
       Principal: "s3.amazonaws.com",
       SourceArn: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`), "Arn"],
       },
     })
   })
@@ -268,10 +243,7 @@ describe("Production stage", () => {
   test("Triggers Lambda only for uploads to /asset-manager/ path in S3", () => {
     template.hasResourceProperties("Custom::S3BucketNotifications", {
       ServiceToken: {
-        "Fn::GetAtt": [
-          Match.stringLikeRegexp("BucketNotificationsHandler"),
-          "Arn",
-        ],
+        "Fn::GetAtt": [Match.stringLikeRegexp("BucketNotificationsHandler"), "Arn"],
       },
       BucketName: {
         Ref: Match.stringLikeRegexp(`${constructName}${bucketName}${stage}`),
@@ -292,9 +264,7 @@ describe("Production stage", () => {
             },
             LambdaFunctionArn: {
               "Fn::GetAtt": [
-                Match.stringLikeRegexp(
-                  `${constructName}${lambdaFnName}${stage}`,
-                ),
+                Match.stringLikeRegexp(`${constructName}${lambdaFnName}${stage}`),
                 "Arn",
               ],
             },

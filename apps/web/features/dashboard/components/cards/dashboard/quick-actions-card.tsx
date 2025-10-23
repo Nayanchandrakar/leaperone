@@ -20,16 +20,10 @@ export const QuickActionCard = ({
   )
 }
 
-export const QuickActionCardLabel = ({
-  className,
-  ...props
-}: React.ComponentProps<"p">) => {
+export const QuickActionCardLabel = ({ className, ...props }: React.ComponentProps<"p">) => {
   return (
     <p
-      className={cn(
-        "text-muted-foreground text-center font-normal text-sm",
-        className,
-      )}
+      className={cn("text-muted-foreground text-center font-normal text-sm", className)}
       {...props}
     />
   )

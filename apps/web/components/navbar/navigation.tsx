@@ -18,11 +18,7 @@ export const Navigation = ({ className }: Props) => {
       items={NAV_LINKS}
       className={`flex items-center gap-x-4 ${className}`}
       renderItem={({ name, url }) => (
-        <HeaderNavLink
-          key={name}
-          href={createRoute(url)}
-          data-state={pathname === url}
-        >
+        <HeaderNavLink key={name} href={createRoute(url)} data-state={pathname === url}>
           {name}
         </HeaderNavLink>
       )}

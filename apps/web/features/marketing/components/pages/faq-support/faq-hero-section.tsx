@@ -23,8 +23,8 @@ export const FaqHeroSection = () => {
       </MarketingHeaderTitle>
 
       <MarketingHeaderDescription>
-        You’ll find quick answers to common questions in our FAQs and if you
-        need more help, feel free to reach out to us.
+        You’ll find quick answers to common questions in our FAQs and if you need more help, feel
+        free to reach out to us.
       </MarketingHeaderDescription>
 
       <FaqSupportButton />

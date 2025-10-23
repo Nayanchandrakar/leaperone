@@ -1,11 +1,7 @@
 import { upstashCache } from "drizzle-orm/cache/upstash"
 import { drizzle } from "drizzle-orm/neon-http"
 import { drizzle as drizzleWs } from "drizzle-orm/neon-serverless"
-import type {
-  ConfigOptions,
-  HttpConnectionType,
-  WsConnectionType,
-} from "./types"
+import type { ConfigOptions, HttpConnectionType, WsConnectionType } from "./types"
 
 class Database {
   private static instance: Database | null = null

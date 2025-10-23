@@ -19,8 +19,7 @@ export const TeamSeatAllocationCard = () => {
       </div>
 
       <p className="font-normal text-muted-foreground text-start text-xs">
-        Note: All invited users and the account manager each need a seat to use
-        Leaper One.
+        Note: All invited users and the account manager each need a seat to use Leaper One.
       </p>
     </div>
   )

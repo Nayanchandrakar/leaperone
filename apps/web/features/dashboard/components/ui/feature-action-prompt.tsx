@@ -1,9 +1,6 @@
 import { cn } from "@app/ui/lib/utils"
 
-export const PromptMessage = ({
-  className,
-  ...props
-}: React.ComponentProps<"p">) => {
+export const PromptMessage = ({ className, ...props }: React.ComponentProps<"p">) => {
   return (
     <p
       className={cn(
@@ -15,10 +12,7 @@ export const PromptMessage = ({
   )
 }
 
-export const PromptAction = ({
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const PromptAction = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={cn(

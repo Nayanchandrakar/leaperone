@@ -8,24 +8,14 @@ import {
   verifyEmailSchema,
 } from "@app/zod/schema/auth"
 import { Hono } from "hono"
-import {
-  isAuthenticated,
-  verifyToken,
-} from "../../../middlewares/auth-middleware"
-import {
-  hasActiveSubscription,
-  hasWorkspace,
-} from "../../../middlewares/subscription-middleware"
+import { isAuthenticated, verifyToken } from "../../../middlewares/auth-middleware"
+import { hasActiveSubscription, hasWorkspace } from "../../../middlewares/subscription-middleware"
 import type { HonoEnv } from "../../../types"
 import { zValidator } from "../../../utils/zod-validator"
 import { authController } from "./auth.module"
 
 const app = new Hono<HonoEnv>()
-  .post(
-    "/register",
-    zValidator("json", registerFormSchema),
-    authController.register,
-  )
+  .post("/register", zValidator("json", registerFormSchema), authController.register)
   .post("/login", zValidator("json", loginFormSchema), authController.login)
   .get("/logout", authController.logout)
   .post(
@@ -33,16 +23,8 @@ const app = new Hono<HonoEnv>()
     zValidator("json", emailSchema),
     authController.requestPasswordReset,
   )
-  .post(
-    "/reset-password",
-    zValidator("json", resetPasswordSchema),
-    authController.resetPassword,
-  )
-  .get(
-    "/username",
-    zValidator("query", userNameSchema),
-    authController.userName,
-  )
+  .post("/reset-password", zValidator("json", resetPasswordSchema), authController.resetPassword)
+  .get("/username", zValidator("query", userNameSchema), authController.userName)
   .get("/get-session", authController.getSession)
   .get(
     "/verify-email",

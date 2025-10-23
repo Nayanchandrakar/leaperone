@@ -3,10 +3,10 @@ import { zValidator as zv } from "@hono/zod-validator"
 import type { ValidationTargets } from "hono"
 import type { ZodType } from "zod"
 
-export function zValidator<
-  T extends ZodType,
-  Target extends keyof ValidationTargets,
->(target: Target, schema: T) {
+export function zValidator<T extends ZodType, Target extends keyof ValidationTargets>(
+  target: Target,
+  schema: T,
+) {
   return zv(target, schema, (result) => {
     if (!result.success) {
       const errorMessages = result.error.issues.map((i) => i.message)

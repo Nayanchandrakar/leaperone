@@ -8,12 +8,7 @@ interface AuthRedirectProps {
   linkMessage: string
 }
 
-export const AuthRedirect = ({
-  message,
-  linkMessage,
-  linkHref,
-  className,
-}: AuthRedirectProps) => {
+export const AuthRedirect = ({ message, linkMessage, linkHref, className }: AuthRedirectProps) => {
   return (
     <p className={cn("text-center text-sm", className)}>
       {message}&nbsp;

@@ -33,18 +33,10 @@ export class ApiError extends Error {
   }
 
   static badRequest(message = "Bad request", details?: unknown): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.BAD_REQUEST,
-      ErrorCode.BAD_REQUEST,
-      details,
-    )
+    return new ApiError(message, HTTPSTATUS.BAD_REQUEST, ErrorCode.BAD_REQUEST, details)
   }
 
-  static validationError(
-    message = "Validation error",
-    details?: unknown,
-  ): ApiError {
+  static validationError(message = "Validation error", details?: unknown): ApiError {
     return new ApiError(
       message,
       HTTPSTATUS.UNPROCESSABLE_ENTITY,
@@ -53,55 +45,24 @@ export class ApiError extends Error {
     )
   }
 
-  static unauthorized(
-    message = "Not authenticated",
-    details?: unknown,
-  ): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.UNAUTHORIZED,
-      ErrorCode.UNAUTHORIZED,
-      details,
-    )
+  static unauthorized(message = "Not authenticated", details?: unknown): ApiError {
+    return new ApiError(message, HTTPSTATUS.UNAUTHORIZED, ErrorCode.UNAUTHORIZED, details)
   }
 
   static forbidden(message = "Forbidden", details?: unknown): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.FORBIDDEN,
-      ErrorCode.FORBIDDEN,
-      details,
-    )
+    return new ApiError(message, HTTPSTATUS.FORBIDDEN, ErrorCode.FORBIDDEN, details)
   }
 
   static notFound(message = "Resource not found", details?: unknown): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.NOT_FOUND,
-      ErrorCode.NOT_FOUND,
-      details,
-    )
+    return new ApiError(message, HTTPSTATUS.NOT_FOUND, ErrorCode.NOT_FOUND, details)
   }
 
   static conflict(message = "Conflict", details?: unknown): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.CONFLICT,
-      ErrorCode.CONFLICT,
-      details,
-    )
+    return new ApiError(message, HTTPSTATUS.CONFLICT, ErrorCode.CONFLICT, details)
   }
 
-  static tooManyRequests(
-    message = "Too many requests",
-    details?: unknown,
-  ): ApiError {
-    return new ApiError(
-      message,
-      HTTPSTATUS.TOO_MANY_REQUESTS,
-      ErrorCode.TOO_MANY_REQUESTS,
-      details,
-    )
+  static tooManyRequests(message = "Too many requests", details?: unknown): ApiError {
+    return new ApiError(message, HTTPSTATUS.TOO_MANY_REQUESTS, ErrorCode.TOO_MANY_REQUESTS, details)
   }
 
   static internalServerError(
@@ -118,12 +79,9 @@ export class ApiError extends Error {
 
   static fromError(error: unknown): ApiError {
     if (error instanceof HTTPException) {
-      return new ApiError(
-        "Http Exception Error",
-        error.status,
-        ErrorCode.INTERNAL_SERVER_ERROR,
-        { cause: error.cause },
-      )
+      return new ApiError("Http Exception Error", error.status, ErrorCode.INTERNAL_SERVER_ERROR, {
+        cause: error.cause,
+      })
     }
 
     if (error instanceof ApiError) {

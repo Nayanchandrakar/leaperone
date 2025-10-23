@@ -1,8 +1,4 @@
-import type {
-  IGetUserNameStatus,
-  ISetUserNameError,
-  UserStatusState,
-} from "@/features/auth/types"
+import type { IGetUserNameStatus, ISetUserNameError, UserStatusState } from "@/features/auth/types"
 
 export const getUserNameStatus = ({
   exists,

@@ -2,13 +2,7 @@ import { ApiError } from "@app/error"
 import { eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
-import {
-  roles,
-  storage,
-  verification,
-  workspace,
-  workspaceMembers,
-} from "../schema/index"
+import { roles, storage, verification, workspace, workspaceMembers } from "../schema/index"
 import { users } from "../schema/users"
 import type { Account, BootStrapUser, User } from "../types"
 
@@ -108,11 +102,7 @@ export async function bootStrapUser({
       // Rollback the transaction if no workspace is created
       if (!userWorkspace) tx.rollback()
       const workspaceId = userWorkspace?.id as string
-      const [role] = await tx
-        .select()
-        .from(roles)
-        .where(eq(roles.name, defaultRole))
-        .limit(1)
+      const [role] = await tx.select().from(roles).where(eq(roles.name, defaultRole)).limit(1)
 
       // Rollback the transaction if no role is found
       if (!role) tx.rollback()
@@ -142,10 +132,7 @@ export async function bootStrapUser({
   }
 }
 
-export async function updateUserByEmail(
-  email: string,
-  overrides: Partial<User>,
-) {
+export async function updateUserByEmail(email: string, overrides: Partial<User>) {
   try {
     const [user] = await dbHttp
       .update(users)
@@ -161,13 +148,9 @@ export async function updateUserByEmail(
 
 export async function updateUserById(id: string, overrides: Partial<User>) {
   try {
-    const [user] = await dbHttp
-      .update(users)
-      .set(overrides)
-      .where(eq(users.id, id))
-      .returning({
-        id: users.id,
-      })
+    const [user] = await dbHttp.update(users).set(overrides).where(eq(users.id, id)).returning({
+      id: users.id,
+    })
 
     return user
   } catch (error) {
@@ -204,11 +187,7 @@ export async function updateUserAndDeleteVerification(
 
 export async function getUserById(userId: string) {
   try {
-    const [user] = await dbHttp
-      .select()
-      .from(users)
-      .where(eq(users.id, userId))
-      .limit(1)
+    const [user] = await dbHttp.select().from(users).where(eq(users.id, userId)).limit(1)
 
     return user
   } catch (error) {

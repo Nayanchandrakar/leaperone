@@ -13,10 +13,7 @@ export async function isMemberOfWorkspace(userId: string, workspaceId: string) {
       })
       .from(workspaceMembers)
       .where(
-        and(
-          eq(workspaceMembers.workspaceId, workspaceId),
-          eq(workspaceMembers.userId, userId),
-        ),
+        and(eq(workspaceMembers.workspaceId, workspaceId), eq(workspaceMembers.userId, userId)),
       )
       .limit(1)
 

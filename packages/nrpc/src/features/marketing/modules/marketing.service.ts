@@ -1,10 +1,7 @@
 import { createContact } from "@app/database/repository/contact-us"
 import { createSupport } from "@app/database/repository/support"
 import { MSG } from "../../../constants/message"
-import type {
-  AskSupportController,
-  ContactUsController,
-} from "../types/marketing"
+import type { AskSupportController, ContactUsController } from "../types/marketing"
 
 export class MarketingService {
   private static instance: MarketingService | null = null

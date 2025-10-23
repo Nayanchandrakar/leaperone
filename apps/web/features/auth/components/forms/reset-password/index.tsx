@@ -14,11 +14,7 @@ import { setNewPasswordSchema } from "@app/zod/schema/auth"
 import type { SetNewPasswordSchema } from "@app/zod/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import {
-  AuthDescription,
-  AuthHeader,
-  AuthTitle,
-} from "@/features/auth/components/ui/auth-header"
+import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { useResetPassword } from "@/features/auth/hooks/reset-password/use-reset-password"
 
 interface IResetPasswordForm {
@@ -94,12 +90,7 @@ export const ResetPasswordForm = ({ token }: IResetPasswordForm) => {
           )}
         />
 
-        <Button
-          size="lg"
-          type="submit"
-          className="w-full"
-          disabled={isSubmissionDisabled}
-        >
+        <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
           Reset Password
         </Button>
       </form>

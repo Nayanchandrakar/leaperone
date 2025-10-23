@@ -1,10 +1,6 @@
 import { NavSettings } from "@/components/navbar/nav-settings"
 import { Navigation } from "@/components/navbar/navigation"
-import {
-  Header,
-  HeaderContainer,
-  HeaderNavigation,
-} from "@/components/ui/header"
+import { Header, HeaderContainer, HeaderNavigation } from "@/components/ui/header"
 import { DashboardSidebarToogle } from "@/features/dashboard/components/buttons/dashboard/dashboard-sidebar-toogle"
 import type { User } from "@/types"
 

@@ -1,25 +1,14 @@
 import { cn } from "@app/ui/lib/utils"
 
-export const AuthLayout = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const AuthLayout = ({ children, className, ...props }: React.ComponentProps<"div">) => {
   return (
-    <section
-      className={cn("grid min-h-screen lg:grid-cols-2", className)}
-      {...props}
-    >
+    <section className={cn("grid min-h-screen lg:grid-cols-2", className)} {...props}>
       {children}
     </section>
   )
 }
 
-export const AuthWrapper = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const AuthWrapper = ({ children, className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div className={cn("p-6 sm:sm:p-7 md:p-8 relative", className)} {...props}>
       {children}
@@ -27,26 +16,15 @@ export const AuthWrapper = ({
   )
 }
 
-export const AuthForm = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const AuthForm = ({ children, className, ...props }: React.ComponentProps<"div">) => {
   return (
-    <div
-      className={cn("flex size-full items-center justify-center", className)}
-      {...props}
-    >
+    <div className={cn("flex size-full items-center justify-center", className)} {...props}>
       {children}
     </div>
   )
 }
 
-export const AuthContent = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div">) => {
+export const AuthContent = ({ children, className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={cn(

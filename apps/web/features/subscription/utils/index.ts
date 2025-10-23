@@ -19,9 +19,7 @@ export function getTeamPricingBySeat(seat = 0) {
 }
 
 export function deriveSubscriptionState(subscription: SubscriptionInfo) {
-  const planInterval = PLAN_INTERVALS.find(
-    (p) => p.stripeId === subscription.priceId,
-  )
+  const planInterval = PLAN_INTERVALS.find((p) => p.stripeId === subscription.priceId)
 
   if (!planInterval) return null
 

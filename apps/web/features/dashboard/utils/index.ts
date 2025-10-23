@@ -1,13 +1,6 @@
-import type {
-  isRouteActiveProps,
-  RouteParams,
-} from "@/features/dashboard/types"
+import type { isRouteActiveProps, RouteParams } from "@/features/dashboard/types"
 
-export function isRouteActive({
-  currentPath,
-  targetPath,
-  depth = 1,
-}: isRouteActiveProps): boolean {
+export function isRouteActive({ currentPath, targetPath, depth = 1 }: isRouteActiveProps): boolean {
   const normalizePath = (path: string) =>
     (path.split("?")[0]!.replace(/\/$/, "") || "/").toLowerCase()
 
@@ -19,17 +12,10 @@ export function isRouteActive({
   }
 
   const currentSegments =
-    normalizedCurrent === "/"
-      ? []
-      : normalizedCurrent.split("/").filter(Boolean)
-  const targetSegments =
-    normalizedTarget === "/" ? [] : normalizedTarget.split("/").filter(Boolean)
+    normalizedCurrent === "/" ? [] : normalizedCurrent.split("/").filter(Boolean)
+  const targetSegments = normalizedTarget === "/" ? [] : normalizedTarget.split("/").filter(Boolean)
 
-  const effectiveDepth = Math.min(
-    depth,
-    targetSegments.length,
-    currentSegments.length,
-  )
+  const effectiveDepth = Math.min(depth, targetSegments.length, currentSegments.length)
 
   return targetSegments
     .slice(0, effectiveDepth)
@@ -42,10 +28,7 @@ export function isRouteActive({
  * @param params - Optional query parameters
  * @returns Formatted route string
  */
-export function createRoute<T extends RouteParams>(
-  basePath: string,
-  params?: T,
-): string {
+export function createRoute<T extends RouteParams>(basePath: string, params?: T): string {
   const normalizedPath = basePath.replace(/^\/+|\/+$/g, "")
 
   if (!params) {

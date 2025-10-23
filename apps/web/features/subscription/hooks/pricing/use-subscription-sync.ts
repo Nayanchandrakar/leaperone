@@ -6,9 +6,7 @@ import { deriveSubscriptionState } from "@/features/subscription/utils"
 
 export const useSubscriptionSync = (subscription: SubscriptionInfo) => {
   const setTeamPricing = useTeamPricingStore((state) => state.setTeamPricing)
-  const setPlanIntervalById = usePricingIntervalStore(
-    (state) => state.setPlanIntervalById,
-  )
+  const setPlanIntervalById = usePricingIntervalStore((state) => state.setPlanIntervalById)
 
   useEffect(() => {
     const data = subscription && deriveSubscriptionState(subscription)

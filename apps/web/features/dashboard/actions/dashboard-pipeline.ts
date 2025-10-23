@@ -23,18 +23,12 @@ export class DashboardPipeline {
   }
 
   static async init(params: Promise<Record<string, string>>) {
-    const [param, session] = await Promise.all([
-      params,
-      handleAuth({ mode: "require" }),
-    ])
+    const [param, session] = await Promise.all([params, handleAuth({ mode: "require" })])
     return new DashboardPipeline(param, session)
   }
 
   async checkMembership() {
-    const member = await isMemberOfWorkspace(
-      this.ctx.session.user.id,
-      this.ctx.param.workspaceId!,
-    )
+    const member = await isMemberOfWorkspace(this.ctx.session.user.id, this.ctx.param.workspaceId!)
     if (!member) redirect("/not-found")
     this.ctx.member = member
   }

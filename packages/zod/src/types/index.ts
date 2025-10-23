@@ -10,10 +10,7 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
-import type {
-  contactUsFormSchema,
-  supportFormSchema,
-} from "../schema/marketing"
+import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>

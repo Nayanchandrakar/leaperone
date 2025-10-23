@@ -4,20 +4,14 @@ import type { SubscriptionPlan } from "@app/database/types"
 import { Button } from "@app/ui/components/button"
 import { usePriceAction } from "@/features/subscription/hooks/pricing/use-price-action"
 import type { SubscriptionInfo } from "@/features/subscription/types"
-import {
-  getPriceActionButtonText,
-  hasPurchased,
-} from "@/features/subscription/utils"
+import { getPriceActionButtonText, hasPurchased } from "@/features/subscription/utils"
 
 interface IPriceActionButton {
   subscription: SubscriptionInfo
   type: SubscriptionPlan
 }
 
-export const PriceActionButton = ({
-  subscription,
-  type,
-}: IPriceActionButton) => {
+export const PriceActionButton = ({ subscription, type }: IPriceActionButton) => {
   const isActive = type === subscription?.plan
   const { trigger, isPending } = usePriceAction(isActive)
 

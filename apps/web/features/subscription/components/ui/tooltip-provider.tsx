@@ -1,8 +1,4 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@app/ui/components/tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@app/ui/components/tooltip"
 import { cn } from "@app/ui/lib/utils"
 import { Info, type LucideIcon } from "lucide-react"
 
@@ -12,11 +8,7 @@ interface IToolTipProvider {
   content: React.ReactNode
 }
 
-export const ToolTipProvider = ({
-  Icon = Info,
-  content,
-  iconClassName,
-}: IToolTipProvider) => {
+export const ToolTipProvider = ({ Icon = Info, content, iconClassName }: IToolTipProvider) => {
   return (
     <Tooltip>
       <TooltipTrigger>

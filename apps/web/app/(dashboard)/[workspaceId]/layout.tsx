@@ -9,10 +9,7 @@ type DashboardLayoutProps = {
   params: Promise<{ workspaceId: string }>
 }
 
-export default async function DashboardLayout({
-  children,
-  params,
-}: DashboardLayoutProps) {
+export default async function DashboardLayout({ children, params }: DashboardLayoutProps) {
   const pipeline = await DashboardPipeline.init(params)
   await pipeline.checkMembership()
   await pipeline.checkPermissions(["manage:members"])
@@ -21,10 +18,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <DashboardSidebar
-        teamOnly={!!hasPermission}
-        workspaceId={param.workspaceId!}
-      />
+      <DashboardSidebar teamOnly={!!hasPermission} workspaceId={param.workspaceId!} />
       <SidebarInset>
         <DashboardNavbar user={session.user} />
         {children}

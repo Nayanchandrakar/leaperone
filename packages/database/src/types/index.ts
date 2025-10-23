@@ -2,11 +2,7 @@ import type { Casing } from "drizzle-orm"
 import type { CacheConfig } from "drizzle-orm/cache/core/types"
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http"
 import type { NeonDatabase } from "drizzle-orm/neon-serverless"
-import type {
-  invitationStatus,
-  subscriptionPlan,
-  subscriptionStatus,
-} from "../constants/enums"
+import type { invitationStatus, subscriptionPlan, subscriptionStatus } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
 import type { contactUs } from "../schema/contact-us"

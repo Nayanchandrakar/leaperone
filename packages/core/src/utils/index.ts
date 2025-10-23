@@ -13,9 +13,7 @@ export function sanitizeString(input: string) {
     .trim()
 }
 
-export async function isSubscriptionActive(
-  workspaceId: string,
-): Promise<SubscriptionActive> {
+export async function isSubscriptionActive(workspaceId: string): Promise<SubscriptionActive> {
   const sub = await getSubscriptionByWorkspaceId(workspaceId)
 
   if (!sub) {
@@ -35,13 +33,9 @@ export async function isSubscriptionActive(
   const now = new Date()
   const { status, trialStart, trialEnd, periodStart, periodEnd, ...base } = sub
 
-  const isTrial = Boolean(
-    status === "trialing" && isWithinRange(now, trialStart, trialEnd),
-  )
+  const isTrial = Boolean(status === "trialing" && isWithinRange(now, trialStart, trialEnd))
 
-  const isActive = Boolean(
-    status === "active" && isWithinRange(now, periodStart, periodEnd),
-  )
+  const isActive = Boolean(status === "active" && isWithinRange(now, periodStart, periodEnd))
 
   return {
     ...base,

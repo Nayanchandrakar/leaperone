@@ -2,10 +2,7 @@ import { ENV } from "@app/env/server"
 import { sign, verify } from "hono/jwt"
 import type { JWTPayload } from "hono/utils/jwt/types"
 
-export async function signJwt(
-  data: Omit<JWTPayload, "exp" | "iss">,
-  expiresIn = 3600,
-) {
+export async function signJwt(data: Omit<JWTPayload, "exp" | "iss">, expiresIn = 3600) {
   const payload = {
     ...data,
     exp: Math.floor(Date.now() / 1000) + expiresIn,

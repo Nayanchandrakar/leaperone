@@ -1,25 +1,12 @@
 import { createId } from "@paralleldrive/cuid2"
-import {
-  boolean,
-  integer,
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core"
+import { boolean, integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 import { subscriptionPlan, subscriptionStatus } from "../constants/enums"
 import { timestamps } from "../utils"
 import { workspace } from "./workspace"
 
-export const subscriptionStatusEnum = pgEnum(
-  "subscription_status",
-  subscriptionStatus,
-)
+export const subscriptionStatusEnum = pgEnum("subscription_status", subscriptionStatus)
 
-export const subscriptionPlanEnum = pgEnum(
-  "subscription_plan",
-  subscriptionPlan,
-)
+export const subscriptionPlanEnum = pgEnum("subscription_plan", subscriptionPlan)
 
 export const subscription = pgTable("subscription", {
   id: text()
