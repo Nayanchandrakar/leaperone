@@ -25,6 +25,7 @@
       "dotenv": "^17.2.1",
       "lint-staged": "^16.2.3",
       "@biomejs/biome": "^2.2.0",
+      "axios": "^1.12.2",
       "@commitlint/config-conventional": "^20.0.0",
       "next": "^15.5.2",
       "react": "^19.1.1",

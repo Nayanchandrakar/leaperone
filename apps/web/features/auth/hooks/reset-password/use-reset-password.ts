@@ -1,27 +1,23 @@
+import type { ResetPasswordSchema } from "@app/zod/types"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { client } from "@/lib/hono/client"
-import type { ResetPasswordRequest } from "@/types"
-import { ResponseHandler } from "@/utils/response-handler"
+import { resetPasswordMutation } from "@/lib/api"
 
 export const useResetPassword = () => {
   const router = useRouter()
 
   return useMutation({
-    mutationFn: async (input: ResetPasswordRequest) => {
-      const res = await client.api.auth["reset-password"].$post({
-        json: input,
-      })
-      const data = await res.json()
-
-      if (!res.ok) throw ResponseHandler.error(data)
+    mutationFn: async (input: ResetPasswordSchema) => {
+      const { data } = await resetPasswordMutation(input)
       return data
     },
+
     onSuccess: ({ message }) => {
       router.push("/login")
       toast.success(message)
     },
+
     onError: ({ message }) => {
       toast.error(message)
     },

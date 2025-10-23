@@ -1,38 +1,29 @@
-import type { InferRequestType, InferResponseType } from "hono"
-import type { client } from "@/lib/hono/client"
+export type FullSession = {
+  session: {
+    token: string
+    userId: string
+    createdAt: string
+    updatedAt: string
+    expiresAt: string
+    ipAddress: string | undefined
+    userAgent: string | undefined
+  }
+  user: {
+    id: string
+    email: string
+    name: string
+    username: string
+    createdAt: string
+    image: string | null
+    isRestricted: boolean
+    emailVerified: boolean
+    updatedAt: string | null
+    stripeCustomerId: string | null
+  }
+}
 
-export type LoginRequest = InferRequestType<typeof client.api.auth.login.$post>["json"]
-
-export type RegistRequest = InferRequestType<typeof client.api.auth.register.$post>["json"]
-
-export type UserNameRequest = InferRequestType<typeof client.api.auth.username.$get>["query"]
-
-export type RequestPasswordResetRequest = InferRequestType<
-  (typeof client.api.auth)["request-password-reset"]["$post"]
->["json"]
-
-export type ResetPasswordRequest = InferRequestType<
-  (typeof client.api.auth)["reset-password"]["$post"]
->["json"]
-
-export type SubscriptionUpgradeRequest = InferRequestType<
-  typeof client.api.subscription.upgrade.$post
->["json"]
-
-export type SubscriptionBillingRequest = InferRequestType<
-  (typeof client.api.subscription)["billing-portal"]["$post"]
->["json"]
-
-export type ContactUsRequest = InferRequestType<
-  (typeof client.api.marketing)["ask-support"]["$post"]
->["json"]
-
-export type AskSupportRequest = InferRequestType<
-  (typeof client.api.marketing)["contact-us"]["$post"]
->["json"]
-
-export type FullSession = InferResponseType<(typeof client.api.auth)["get-session"]["$get"]>
 export type Session = FullSession["session"]
+
 export type User = FullSession["user"]
 
 export type Nullable<T> = T | null

@@ -1,21 +1,19 @@
 import { SESSION_COOKIE_NAME } from "@app/core/constants"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { client } from "@/lib/hono/client"
+import { API } from "@/config/axios"
+import type { FullSession } from "@/types"
 
 export async function getSession() {
   try {
     const cookie = (await cookies()).get(SESSION_COOKIE_NAME)
     if (!cookie) return null
-
-    const response = await client.api.auth["get-session"].$get(undefined, {
+    const { data } = await API.get<FullSession>("/auth/get-session", {
       headers: {
         cookie: `${cookie.name}=${cookie.value}`,
       },
     })
-
-    if (!response.ok) return null
-    return await response.json()
+    return data
   } catch {
     return null
   }

@@ -1,21 +1,18 @@
+import type { LoginFormSchema } from "@app/zod/types"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { client } from "@/lib/hono/client"
-import type { LoginRequest } from "@/types"
-import { ResponseHandler } from "@/utils/response-handler"
+import { loginMutation } from "@/lib/api"
 
 export const useLogin = () => {
   const router = useRouter()
   return useMutation({
-    mutationFn: async (input: LoginRequest) => {
-      const res = await client.api.auth.login.$post({ json: input })
-      const data = await res.json()
-
-      if (!res.ok) throw ResponseHandler.error(data)
+    mutationFn: async (input: LoginFormSchema) => {
+      const { data } = await loginMutation(input)
       return data
     },
-    onSuccess: ({ message, success }) => {
+
+    onSuccess: ({ success, message }) => {
       if (success) router.push("/")
       toast.success(message)
     },

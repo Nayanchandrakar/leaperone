@@ -1,23 +1,19 @@
+import type { EmailSchema } from "@app/zod/types"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { client } from "@/lib/hono/client"
-import type { RequestPasswordResetRequest } from "@/types"
-import { ResponseHandler } from "@/utils/response-handler"
+import { requestPasswordResetMutation } from "@/lib/api"
 
 export const useRequestPasswordReset = () => {
   return useMutation({
-    mutationFn: async (input: RequestPasswordResetRequest) => {
-      const res = await client.api.auth["request-password-reset"].$post({
-        json: input,
-      })
-      const data = await res.json()
-
-      if (!res.ok) throw ResponseHandler.error(data)
+    mutationFn: async (input: EmailSchema) => {
+      const { data } = await requestPasswordResetMutation(input)
       return data
     },
+
     onSuccess: ({ message }) => {
       toast.success(message)
     },
+
     onError: ({ message }) => {
       toast.error(message)
     },

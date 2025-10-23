@@ -4,21 +4,14 @@ import { type ErrorOption, type UseFormReturn, useWatch } from "react-hook-form"
 import { useDebounceValue } from "usehooks-ts"
 import type { IUserNameError, IUsernameCheckParams } from "@/features/auth/types"
 import { setUserNameError } from "@/features/auth/utils"
-import { client } from "@/lib/hono/client"
-import { ResponseHandler } from "@/utils/response-handler"
+import { getUserName } from "@/lib/api"
 
 const useUsernameCheck = ({ username, enabled }: IUsernameCheckParams) => {
   return useQuery({
     enabled,
     queryKey: ["username", username],
     queryFn: async () => {
-      const res = await client.api.auth.username.$get({ query: { username } })
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw ResponseHandler.error(data)
-      }
-
+      const { data } = await getUserName({ username })
       return data
     },
   })
