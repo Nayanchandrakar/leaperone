@@ -28,7 +28,7 @@
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 80,
+    "lineWidth": 100,
     "lineEnding": "lf"
   },
   "linter": {
@@ -128,7 +128,7 @@
       "quoteStyle": "double",
       "semicolons": "asNeeded",
       "indentStyle": "space",
-      "lineWidth": 80,
+      "lineWidth": 100,
       "trailingCommas": "all"
     },
     "globals": [
@@ -238,7 +238,7 @@
       "enabled": true,
       "indentStyle": "space",
       "indentWidth": 2,
-      "lineWidth": 80,
+      "lineWidth": 100,
       "trailingCommas": "none"
     }
   }
