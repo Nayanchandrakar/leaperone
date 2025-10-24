@@ -17,7 +17,8 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
-    "@t3-oss/env-core": "^0.13.8"
+    "zod": "catalog:",
+    "@t3-oss/env-core": "catalog:"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",

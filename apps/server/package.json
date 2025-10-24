@@ -1,37 +1,45 @@
 {
   "name": "server",
-  "author": "myleaper-organization",
-  "version": "1.0.0",
   "type": "module",
-  "sideEffects": false,
   "private": true,
-  "description": "A Hono server used in web application",
+  "version": "2.0.0",
+  "sideEffects": false,
+  "main": "./dist/server.js",
+  "module": "./dist/server.js",
+  "description": "leaperone server",
   "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "start": "bun ./dist/index.js",
     "build": "tsdown",
-    "node:start": "node -r dotenv/config ./dist/index.js",
+    "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist .turbo",
     "lint": "biome lint --write .",
+    "start": "bun ./dist/server.js",
+    "dev": "bun --hot src/server.ts",
     "format": "biome check --write .",
-    "typecheck": "tsc --noEmit"
+    "node:start": "node -r dotenv/config ./dist/server.js"
   },
+  "license": "ISC",
   "dependencies": {
-    "@hono/node-server": "catalog:",
+    "@app/core": "workspace:*",
     "@app/database": "workspace:*",
-    "@app/logger": "workspace:*",
-    "@app/error": "workspace:*",
-    "@app/nrpc": "workspace:*",
     "@app/env": "workspace:*",
+    "@app/error": "workspace:*",
+    "@app/logger": "workspace:*",
+    "@app/zod": "workspace:*",
+    "@aws-sdk/client-s3": "catalog:",
+    "@aws-sdk/s3-request-presigner": "catalog:",
+    "@hono/node-server": "catalog:",
+    "@react-email/render": "catalog:",
+    "bcryptjs": "catalog:",
     "dotenv": "catalog:",
-    "hono": "catalog:"
+    "hono": "catalog:",
+    "resend": "catalog:",
+    "stripe": "catalog:",
+    "uuid": "catalog:"
   },
   "devDependencies": {
-    "@app/tsconfig": "workspace:*",
-    "@types/node": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:"
-  },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js"
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "@app/tsconfig": "workspace:*"
+  }
 }

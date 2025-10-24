@@ -1,20 +1,44 @@
-import router from "@app/nrpc"
+import { ENV } from "@app/env/server"
+import { logger } from "@app/logger"
+import { serve } from "@hono/node-server"
 import { Hono } from "hono"
 import { secureHeaders } from "hono/secure-headers"
-import { crossOriginRequest, csrfProtection } from "@/config"
-import { startServer } from "@/hono/server"
-import { logger } from "@/middleware/logger"
-import { ErrorHandler } from "@/utils"
+import { corsConfig } from "@/config/cors"
+import { csrfConfig } from "@/config/csrf"
+import type { HttpController } from "@/features/shared/controllers/http.controller"
+import { errorMiddleware } from "@/middlewares/error.middleware"
+import { requestLogger } from "@/middlewares/logger.middleware"
 
-export function bootStrapServer() {
-  const server = new Hono()
+export class BootStrap {
+  private server: Hono
 
-  server.use(logger())
-  server.use(secureHeaders())
-  server.use(crossOriginRequest)
-  server.use(csrfProtection)
-  server.route("/", router)
-  server.onError(ErrorHandler)
+  constructor(httpControllers: HttpController[]) {
+    this.server = new Hono().basePath("/api")
+    this.intializeMiddlewares()
+    this.initializeControllers(httpControllers)
+    this.server.onError(errorMiddleware)
+  }
 
-  startServer(server.fetch)
+  private intializeMiddlewares() {
+    this.server.use(requestLogger())
+    this.server.use(secureHeaders())
+    this.server.use(corsConfig)
+    this.server.use(csrfConfig)
+  }
+
+  private initializeControllers(httpControllers: HttpController[]) {
+    httpControllers.forEach((controller) => {
+      this.server.route(controller.path, controller.router)
+    })
+  }
+
+  listen() {
+    serve({ fetch: this.server.fetch, port: ENV.PORT }, (info) => {
+      logger.info(`Server listening at: http://localhost:${info.port}`)
+    })
+  }
+
+  get instance() {
+    return this.server
+  }
 }

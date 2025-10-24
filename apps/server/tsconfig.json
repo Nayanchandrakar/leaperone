@@ -5,10 +5,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@app/zod/*": ["../../packages/zod/src/*"],
       "@app/env/*": ["../../packages/env/src/*"],
-      "@app/logger/*": ["../../packages/logger/src/*"],
+      "@app/core/*": ["../../packages/core/src/*"],
       "@app/error/*": ["../../packages/error/src/*"],
-      "@app/nrpc/*": ["../../packages/nrpc/src/*"]
+      "@app/logger/*": ["../../packages/logger/src/*"],
+      "@app/database/*": ["../../packages/database/src/*"]
     }
   },
   "include": ["src/**/*"],
