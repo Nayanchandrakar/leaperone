@@ -1,7 +1,7 @@
 import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
-import { sessionService } from "@/features/auth/modules/auth.module"
+import { sessionService } from "@/features/auth/modules/session.module"
 import type { VerifyEmailContext } from "@/types/auth.types"
 import { RouteUtils } from "@/utils/route.utils"
 import { TokenUtils } from "@/utils/token.utils"

@@ -27,6 +27,7 @@ import type {
 export class AuthController extends HttpController {
   constructor(private readonly authService: AuthService) {
     super("/auth")
+    this.initializeRoutes()
   }
 
   protected override initializeRoutes() {

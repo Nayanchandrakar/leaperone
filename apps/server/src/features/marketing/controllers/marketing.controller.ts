@@ -8,6 +8,7 @@ import type { AskSupportContext, ContactUsContext } from "@/types/marketing.type
 export class MarketingController extends HttpController {
   constructor(private readonly marketingService: MarketingService) {
     super("/marketing")
+    this.initializeRoutes()
   }
 
   protected override initializeRoutes(): void {

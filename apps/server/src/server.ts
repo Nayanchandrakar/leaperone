@@ -14,4 +14,4 @@ const server = new BootStrap([
 server.listen()
 
 // Exporting the instance for vercel deployment
-export default server.instance
+// export default server.instance

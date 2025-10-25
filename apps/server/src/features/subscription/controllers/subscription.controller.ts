@@ -9,6 +9,7 @@ import type { CheckoutSessionContext, StripeContext } from "@/types/subscription
 export class SubscriptionController extends HttpController {
   constructor(private readonly subscriptionService: SubscriptionService) {
     super("/subscription")
+    this.initializeRoutes()
   }
 
   protected override initializeRoutes(): void {

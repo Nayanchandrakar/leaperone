@@ -6,3 +6,9 @@ export const preSignedUrlSchema = z.object({
   type: z.enum(ALLOWED_MIME_TYPES),
   size: z.number().min(MIN_FILE_SIZE).max(MAX_FILE_SIZE),
 })
+
+export const filesQuerySchema = z.object({
+  // cursor: z.string().optional(),
+  // limit: z.string().transform((val) => parseInt(val, 10)).optional(),
+  workspaceId: z.cuid2(),
+})
