@@ -12,14 +12,12 @@ export const PromptMessage = ({ className, ...props }: React.ComponentProps<"p">
   )
 }
 
-export const PromptAction = ({ className, ...props }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center border-2 border-dashed w-full rounded-lg text-primary gap-1.5 text-sm p-8 cursor-pointer hover:border-primary/80 transition-colors",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+export const PromptAction = ({ className, ...props }: React.ComponentProps<"div">) => (
+  <div
+    className={cn(
+      "flex items-center justify-center border-2 border-dashed w-full rounded-lg text-primary gap-1.5 text-sm p-8 cursor-pointer hover:border-primary/80 transition-colors",
+      className,
+    )}
+    {...props}
+  />
+)

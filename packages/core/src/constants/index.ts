@@ -1,6 +1,6 @@
 // file
 export const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 MB
-export const MIN_FILE_SIZE = 100 * 1024 // 100 KB
+export const MIN_FILE_SIZE = 5 * 1024 // 100 KB
 export const SIGNED_URL_EXPIRY = 120 // 2 minutes
 export const ALLOWED_MIME_TYPES = [
   "image/jpeg",

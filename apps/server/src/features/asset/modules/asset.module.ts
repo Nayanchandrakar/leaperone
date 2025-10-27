@@ -6,4 +6,4 @@ const storagService = StorageService.init()
 const assetService = new AssetService(storagService)
 const assetController = new AssetController(assetService)
 
-export { assetController, storagService, assetService }
+export { storagService, assetService, assetController }

@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
   },
 
   transpilePackages: ["@app/database", "@app/error", "@app/env", "@app/ui", "@app/zod"],
+
+  images: {
+    domains: ["ui.shadcn.com"],
+  },
 }
 
 export default nextConfig
