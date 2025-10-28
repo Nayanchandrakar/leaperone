@@ -3,6 +3,7 @@ import type {
   ContactUsFormSchema,
   EmailSchema,
   LoginFormSchema,
+  PreSignedUrlSchema,
   RegisterFormSchema,
   ResetPasswordSchema,
   SupportFormSchema,
@@ -13,6 +14,7 @@ import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
   ContactUsMutationRes,
+  GetPresignedUrlRes,
   GetUserNameRes,
   LoginMutationRes,
   LogoutMutationRes,
@@ -59,4 +61,8 @@ export async function billingPortalMutation(params: CheckoutSessionSchema) {
 
 export async function subscriptionUpgradeMutation(params: CheckoutSessionSchema) {
   return await API.post<BillingPortalMutationRes>("/subscription/upgrade", params)
+}
+
+export async function getPreSignedUrl(params: PreSignedUrlSchema) {
+  return await API.post<GetPresignedUrlRes>("/asset/pre-signed-url", params)
 }

@@ -1,14 +1,9 @@
 // file
-export const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10 MB
+export const MAX_FILES = 10
+export const MAX_FILE_SIZE = 4 * 1024 * 1024 // 1 MB
 export const MIN_FILE_SIZE = 5 * 1024 // 100 KB
 export const SIGNED_URL_EXPIRY = 120 // 2 minutes
-export const ALLOWED_MIME_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/svg+xml",
-  "image/gif",
-]
+export const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"]
 
 // session
 export const SESSION_EXPIRY = 60 * 60 * 24 * 7

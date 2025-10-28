@@ -1,5 +1,7 @@
 import { join } from "node:path"
 import { Duration, RemovalPolicy } from "aws-cdk-lib"
+import * as cloudfront from "aws-cdk-lib/aws-cloudfront"
+import * as cloudfrontOrigins from "aws-cdk-lib/aws-cloudfront-origins"
 import * as lambda from "aws-cdk-lib/aws-lambda"
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
 import * as s3 from "aws-cdk-lib/aws-s3"
@@ -10,6 +12,7 @@ import type { Stage } from "@/types"
 export class S3LambdaConstruct extends Construct {
   public readonly bucket: s3.Bucket
   public readonly fn: lambda.Function
+  public readonly distribution: cloudfront.Distribution
 
   constructor(scope: Construct, id: string, stage: Stage) {
     super(scope, id)
@@ -22,6 +25,16 @@ export class S3LambdaConstruct extends Construct {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
       removalPolicy: isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
+    })
+
+    this.distribution = new cloudfront.Distribution(this, `AppCdn-${stage}`, {
+      defaultBehavior: {
+        origin: new cloudfrontOrigins.S3Origin(this.bucket),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      },
+      defaultRootObject: "",
+      comment: `CDN for ${stage} bucket`,
     })
 
     this.fn = new NodejsFunction(this, `lambda-${stage}`, {
@@ -47,7 +60,7 @@ export class S3LambdaConstruct extends Construct {
       depsLockFilePath: join(__dirname, "../../../../bun.lock"),
     })
 
-    this.bucket.grantRead(this.fn)
+    this.bucket.grantReadWrite(this.fn)
     this.bucket.addEventNotification(
       s3.EventType.OBJECT_CREATED,
       new s3n.LambdaDestination(this.fn),

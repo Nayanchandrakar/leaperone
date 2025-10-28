@@ -36,3 +36,7 @@ export type AskSupportMutationRes = {
 export type BillingPortalMutationRes = {
   url: string
 }
+
+export type GetPresignedUrlRes = {
+  url: string
+}

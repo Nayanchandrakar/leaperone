@@ -44,7 +44,9 @@
         "useFocusableInteractive": "off",
         "noRedundantRoles": "off",
         "useAriaPropsForRole": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
       },
       "complexity": {
         "noBannedTypes": "off",

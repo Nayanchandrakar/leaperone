@@ -5,13 +5,14 @@ import { AssetCardImage } from "./asset-card-image"
 import { AssetCardSelectionIndicator } from "./asset-card-selection-indicator"
 import { AssetCardWrapper } from "./asset-card-wrapper"
 
-export const AssetManagerCard = () => {
+export const AssetManagerCard = ({ file }: any) => {
   const isSelected = false
+  const imageSrc = `https://d1xz2wkhdcnu3k.cloudfront.net/${file.key}`
 
   return (
     <AssetCardWrapper className={cn(isSelected && "outline-primary")}>
       {isSelected && <AssetCardSelectionIndicator />}
-      <AssetCardImage />
+      <AssetCardImage src={imageSrc} />
       <Checkbox defaultChecked className="absolute top-2 right-2" />
       <AssetCardFooter />
     </AssetCardWrapper>
