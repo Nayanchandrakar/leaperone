@@ -4,7 +4,12 @@ import { dbHttp } from "@app/database/index"
 import { file, storage } from "@app/database/schema"
 import { desc, eq } from "drizzle-orm"
 
+// async function block() {
+//   return new Promise((resolve) => setTimeout(() => resolve("something"), 6000))
+// }
+
 export const getFiles = async (workspaceId: string) => {
+  // await block()
   const [data] = await dbHttp
     .select()
     .from(storage)

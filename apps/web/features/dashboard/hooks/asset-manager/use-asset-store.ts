@@ -8,7 +8,7 @@ type StoreProps = {
   setFileUploadProgress: (uploadProgress: FileUploadProgress) => void
 }
 
-export const useAssetStore = create<StoreProps>()((set) => ({
+export const useAssetStore = create<StoreProps>()((set, get) => ({
   fileUploadProgress: [],
 
   updateUploadProgress(id, progress) {
