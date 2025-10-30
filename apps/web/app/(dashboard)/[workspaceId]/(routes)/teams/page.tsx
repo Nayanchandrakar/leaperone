@@ -18,7 +18,7 @@ export default async function TeamsPage({ params }: Props) {
     <DashboardContainer>
       <DashboardTitle>Team Zone</DashboardTitle>
       <TeamsControlBar />
-      {/* <TeamDashboardOverview user={user} /> */}
+      {/* <TeamDashboardOverview user={session.user} /> */}
       <TeamMemberInvitations />
     </DashboardContainer>
   )
