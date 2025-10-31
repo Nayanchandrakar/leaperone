@@ -1,4 +1,4 @@
-import { basename, extname } from "node:path"
+import { extname } from "node:path"
 import { HeadObjectCommand } from "@aws-sdk/client-s3"
 import type { App } from "aws-cdk-lib"
 import { envConfig } from "@/config/env"
@@ -32,7 +32,7 @@ export async function getEventData(bucket: string, key: string, size: number) {
     key,
     ext,
     bucket,
-    name: basename(key, ext),
+    name: Metadata?.name!,
     storageId: Metadata.storageid,
   }
 }

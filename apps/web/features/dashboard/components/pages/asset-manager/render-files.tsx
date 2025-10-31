@@ -5,5 +5,5 @@ type RenderFileProps = {
 }
 
 export const RenderFiles = ({ data }: RenderFileProps) => {
-  return data.map((file) => <FileCard key={file.id} file={file} />)
+  return data.map((file) => <FileCard key={`asset-files-${file.id}`} file={file} />)
 }

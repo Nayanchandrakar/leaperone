@@ -13,7 +13,7 @@ export class AssetService {
     return await this.storageService.generatePreSignedUrl({
       storageKey,
       contentType: params.type,
-      metadata: { storageid: storage.id },
+      metadata: { storageid: storage.id, name: params.name },
     })
   }
 

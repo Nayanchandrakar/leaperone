@@ -2,11 +2,22 @@ import { Checkbox } from "@app/ui/components/checkbox"
 import { cn } from "@app/ui/lib/utils"
 import { Check, EllipsisVertical, ImageIcon } from "lucide-react"
 import Image from "next/image"
+import { useShallow } from "zustand/react/shallow"
+import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
 export const FileCard = ({ file }: any) => {
-  const isSelected = false
+  const { showCheckboxes, selectedCards, removeSelectedCard, addSelectedCard } = useAssetStore(
+    useShallow((state) => ({
+      showCheckboxes: state.showCheckboxes,
+      selectedCards: state.selectedCards,
+      setSelectedCards: state.setSelectedCards,
+      removeSelectedCard: state.removeSelectedCard,
+      addSelectedCard: state.addSelectedCard,
+    })),
+  )
   const imageSrc = `https://d1xz2wkhdcnu3k.cloudfront.net/${file.key}`
 
+  const isSelected = false
   return (
     <div
       className={cn(
@@ -28,7 +39,21 @@ export const FileCard = ({ file }: any) => {
         className="size-full object-contain"
       />
 
-      <Checkbox defaultChecked className="absolute top-2 right-2" />
+      {showCheckboxes && (
+        <Checkbox
+          checked={selectedCards.includes(file.id)}
+          onCheckedChange={(value) => {
+            if (!file.id) return
+
+            if (value) {
+              addSelectedCard(file.id)
+            } else {
+              removeSelectedCard(file.id)
+            }
+          }}
+          className="absolute top-2 right-2"
+        />
+      )}
 
       <div className="bg-muted w-full p-4 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 text-muted-foreground ">

@@ -81,6 +81,7 @@
         "@app/error": "workspace:*",
         "@app/ui": "workspace:*",
         "@app/zod": "workspace:*",
+        "@aws-sdk/client-s3": "catalog:",
         "@hookform/resolvers": "catalog:",
         "@tanstack/react-query": "catalog:",
         "axios": "catalog:",

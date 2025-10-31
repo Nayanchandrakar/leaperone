@@ -12,6 +12,7 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "catalog:",
     "@app/core": "workspace:*",
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",

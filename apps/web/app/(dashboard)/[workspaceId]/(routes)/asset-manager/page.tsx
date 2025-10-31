@@ -1,4 +1,3 @@
-import { AssetManagerActions } from "@/features/dashboard/components/pages/asset-manager/asset-manager-actions"
 import { AssetManagerFiles } from "@/features/dashboard/components/pages/asset-manager/asset-manager-files"
 import { AssetManagerToolbar } from "@/features/dashboard/components/pages/asset-manager/asset-manager-toolbar"
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
@@ -6,11 +5,12 @@ import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-hea
 
 // import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeline"
 
-// interface Props {
-//   params: Promise<{ workspaceId: string }>
-// }
+interface Props {
+  params: Promise<{ workspaceId: string }>
+}
 
-export default function AssetManagerPage() {
+export default async function AssetManagerPage({ params }: Props) {
+  const { workspaceId } = await params
   // const pipeline = await DashboardPipeline.init(params)
   // await pipeline.checkMembership()
   // await pipeline.checkPermissions(["manage:members"])
@@ -20,8 +20,7 @@ export default function AssetManagerPage() {
     <DashboardContainer>
       <DashboardTitle>Files Upload Manager</DashboardTitle>
       <AssetManagerToolbar />
-      <AssetManagerActions />
-      <AssetManagerFiles />
+      <AssetManagerFiles workspaceId={workspaceId} />
     </DashboardContainer>
   )
 }
