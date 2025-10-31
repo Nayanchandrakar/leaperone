@@ -1,3 +1,5 @@
+//  biome-ignore-all lint/correctness/noUnusedImports: vercel deployment
+import { Hono } from "hono"
 import { BootStrap } from "@/bootstrap"
 import { assetController } from "@/features/asset/modules/asset.module"
 import { authController } from "@/features/auth/modules/auth.module"
@@ -11,7 +13,7 @@ const server = new BootStrap([
   subscriptionController,
 ])
 
-// server.listen()
+server.listen()
 
 // Exporting the instance for vercel deployment
 export default server.instance
