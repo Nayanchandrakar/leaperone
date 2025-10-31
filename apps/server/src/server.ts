@@ -13,7 +13,7 @@ const server = new BootStrap([
   subscriptionController,
 ])
 
-server.listen()
+// server.listen()
 
 // Exporting the instance for vercel deployment
 export default server.instance
