@@ -15,7 +15,7 @@ export const FileCard = ({ file }: any) => {
       addSelectedCard: state.addSelectedCard,
     })),
   )
-  const imageSrc = `https://d1xz2wkhdcnu3k.cloudfront.net/${file.key}`
+  const imageSrc = `https://d3h5nh9ihnfcrz.cloudfront.net/${file.key}`
 
   const isSelected = false
   return (

@@ -94,8 +94,8 @@ export const AssetUploadButton = () => {
   }, [errors])
 
   return (
-    <Button type="button" variant="green-outline" onClick={openFileDialog}>
-      <PlusIcon className="size-4" />
+    <Button variant="green-outline" onClick={openFileDialog}>
+      <PlusIcon />
       <span>New Upload</span>
       <input {...getInputProps()} hidden />
     </Button>
