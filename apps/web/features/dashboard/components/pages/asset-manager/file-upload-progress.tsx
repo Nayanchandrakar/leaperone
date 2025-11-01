@@ -2,7 +2,7 @@ import { FileUploadProgressCard } from "@/features/dashboard/components/cards/as
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
 export const FileUploadProgress = () => {
-  const uploads = useAssetStore((state) => state.fileUploadProgress)
+  const uploads = useAssetStore((state) => state.uploadProgressList)
   const uploadingFiles = uploads.filter((file) => file.status === "uploading")
 
   if (!uploadingFiles.length) return null

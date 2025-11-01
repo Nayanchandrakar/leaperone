@@ -38,5 +38,8 @@ export type BillingPortalMutationRes = {
 }
 
 export type GetPresignedUrlRes = {
-  url: string
+  data: {
+    fileId: string
+    url: string
+  }[]
 }

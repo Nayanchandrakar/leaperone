@@ -8,6 +8,13 @@ export type PreSignedUrlContext = Context<
   ControllerIO<"json", PreSignedUrlSchema>
 >
 
+export type GenerateBulkPreSignedUrl = {
+  fileId: string
+  storageKey: string
+  contentType: string
+  metadata?: Record<string, string>
+}
+
 export type GeneratePreSignedUrl = {
   storageKey: string
   contentType: string

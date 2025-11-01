@@ -1,64 +1,67 @@
 import { create } from "zustand"
-import type { FileStatus, FileUploadProgress } from "@/features/dashboard/types"
+import type { FileStatus, uploadProgressList } from "@/features/dashboard/types"
 
-type StoreProps = {
-  showCheckboxes: boolean
-  selectedCards: string[]
-  addSelectedCard: (id: string) => void
-  fileUploadProgress: FileUploadProgress[]
-  removeSelectedCard: (id: string) => void
-  setShowCheckboxes: (value: boolean) => void
-  setSelectedCards: (values: string[]) => void
-  updateUploadStatus: (fileId: string, status: FileStatus) => void
+type AssetStore = {
+  isSelectionMode: boolean
+  selectedAssetIds: string[]
+  uploadProgressList: uploadProgressList[]
+
+  clearSelectedAssetIds: () => void
+  addSelectedAssetId: (id: string) => void
+  removeSelectedAssetId: (id: string) => void
+  setSelectedAssetIds: (ids: string[]) => void
+  toggleSelectionMode: (value: boolean) => void
+  addUploadProgress: (progress: uploadProgressList) => void
   updateUploadProgress: (fileId: string, progress: number) => void
-  setFileUploadProgress: (uploadProgress: FileUploadProgress) => void
-  removeAllSelectedCards: () => void
+  updateUploadStatus: (fileId: string, status: FileStatus) => void
 }
 
-export const useAssetStore = create<StoreProps>()((set) => ({
-  selectedCards: [],
-  fileUploadProgress: [],
-  showCheckboxes: false,
+export const useAssetStore = create<AssetStore>()((set) => ({
+  isSelectionMode: false,
+  selectedAssetIds: [],
+  uploadProgressList: [],
 
-  updateUploadProgress: (id: string, progress: number) => {
+  toggleSelectionMode: (value) => {
+    set({ isSelectionMode: value })
+  },
+
+  setSelectedAssetIds: (ids) => {
+    set({ selectedAssetIds: ids })
+  },
+
+  addSelectedAssetId: (id) => {
+    set((state) => ({ selectedAssetIds: [...state.selectedAssetIds, id] }))
+  },
+
+  removeSelectedAssetId: (id) => {
     set((state) => ({
-      fileUploadProgress: state.fileUploadProgress.map((item) =>
-        item.fileId === id ? { ...item, progress } : item,
+      selectedAssetIds: state.selectedAssetIds.filter((selectedId) => selectedId !== id),
+    }))
+  },
+
+  clearSelectedAssetIds: () => {
+    set({ selectedAssetIds: [] })
+  },
+
+  addUploadProgress: (progress) => {
+    set((state) => ({
+      uploadProgressList: [...state.uploadProgressList, progress],
+    }))
+  },
+
+  updateUploadProgress: (fileId, progress) => {
+    set((state) => ({
+      uploadProgressList: state.uploadProgressList.map((item) =>
+        item.fileId === fileId ? { ...item, progress } : item,
       ),
     }))
   },
 
-  updateUploadStatus: (id: string, status: FileStatus) => {
+  updateUploadStatus: (fileId, status) => {
     set((state) => ({
-      fileUploadProgress: state.fileUploadProgress.map((item) =>
-        item.fileId === id ? { ...item, status } : item,
+      uploadProgressList: state.uploadProgressList.map((item) =>
+        item.fileId === fileId ? { ...item, status } : item,
       ),
     }))
-  },
-
-  setFileUploadProgress: (uploadProgress: FileUploadProgress) => {
-    set((state) => ({
-      fileUploadProgress: [...state.fileUploadProgress, uploadProgress],
-    }))
-  },
-
-  setShowCheckboxes: (value: boolean) => {
-    set(() => ({ showCheckboxes: value }))
-  },
-
-  setSelectedCards: (value: string[]) => {
-    set(() => ({ selectedCards: value }))
-  },
-
-  removeSelectedCard: (id) => {
-    set((state) => ({ selectedCards: state.selectedCards.filter((c) => c !== id) }))
-  },
-
-  addSelectedCard: (id: string) => {
-    set((state) => ({ selectedCards: [...state.selectedCards, id] }))
-  },
-
-  removeAllSelectedCards: () => {
-    set(() => ({ selectedCards: [] }))
   },
 }))

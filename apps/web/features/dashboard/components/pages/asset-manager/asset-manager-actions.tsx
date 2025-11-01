@@ -18,40 +18,40 @@ import {
   SortFilterBarLabel,
 } from "@/features/dashboard/components/ui/sort-filter-bar"
 import {
-  FILE_SORTING_OPTIONS,
-  FILE_TYPE_OPTIONS,
+  FILE_CATEGORIES,
+  FILE_SORTS,
 } from "@/features/dashboard/constants/asset-manager/filter-options"
+import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/use-asset-file-store"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
-import { useFileStorage } from "@/features/dashboard/hooks/asset-manager/use-file-store"
-import type { FileType, SortBy } from "@/features/dashboard/types"
+import type { FileCategory, SortOptions } from "@/features/dashboard/types"
 
 interface AssetManagerActionProps {
   data: any[]
 }
 
 export const AssetManagerActions = ({ data }: AssetManagerActionProps) => {
-  const { fileType, setFileType, setSortBy, sortBy } = useFileStorage(
+  const { fileCategory, setFileCategory, setSortOptions, sortOptions } = useAssetFilterStore(
     useShallow((state) => ({
-      sortBy: state.sortBy,
-      fileType: state.fileType,
-      setSortBy: state.setSortBy,
-      setFileType: state.setFileType,
+      sortOptions: state.sortOptions,
+      fileCategory: state.fileCategory,
+      setSortOptions: state.setSortOptions,
+      setFileCategory: state.setFileCategory,
     })),
   )
 
   const {
-    setShowCheckboxes,
-    selectedCards,
-    setSelectedCards,
-    showCheckboxes,
-    removeAllSelectedCards,
+    selectedAssetIds,
+    toggleSelectionMode,
+    setSelectedAssetIds,
+    isSelectionMode,
+    clearSelectedAssetIds,
   } = useAssetStore(
     useShallow((state) => ({
-      removeAllSelectedCards: state.removeAllSelectedCards,
-      showCheckboxes: state.showCheckboxes,
-      selectedCards: state.selectedCards,
-      setSelectedCards: state.setSelectedCards,
-      setShowCheckboxes: state.setShowCheckboxes,
+      clearSelectedAssetIds: state.clearSelectedAssetIds,
+      isSelectionMode: state.isSelectionMode,
+      selectedAssetIds: state.selectedAssetIds,
+      toggleSelectionMode: state.toggleSelectionMode,
+      setSelectedAssetIds: state.setSelectedAssetIds,
     })),
   )
 
@@ -61,7 +61,7 @@ export const AssetManagerActions = ({ data }: AssetManagerActionProps) => {
     mutationFn: async (ids: string[]) => await deleteFiles(ids),
     onSuccess: ({ count }) => {
       queryClient.invalidateQueries({ queryKey: ["files"] })
-      removeAllSelectedCards()
+      clearSelectedAssetIds()
       toast.success(`Succefully deleted ${count} files`)
     },
   })
@@ -70,13 +70,16 @@ export const AssetManagerActions = ({ data }: AssetManagerActionProps) => {
     <div className="mt-8 flex items-center gap-4">
       <SortFilterBar>
         <SortFilterBarLabel>Type:</SortFilterBarLabel>
-        <Select defaultValue={fileType} onValueChange={(type: FileType) => setFileType(type)}>
+        <Select
+          defaultValue={fileCategory}
+          onValueChange={(type: FileCategory) => setFileCategory(type)}
+        >
           <SelectTrigger className="w-40 rounded-full bg-muted border-zinc-200">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {FILE_TYPE_OPTIONS.map(({ title, value }) => (
+              {FILE_CATEGORIES.map(({ title, value }) => (
                 <SelectItem key={value} value={value}>
                   {title} (5)
                 </SelectItem>
@@ -88,13 +91,16 @@ export const AssetManagerActions = ({ data }: AssetManagerActionProps) => {
 
       <SortFilterBar>
         <SortFilterBarLabel>Sort by:</SortFilterBarLabel>
-        <Select defaultValue={sortBy} onValueChange={(type: SortBy) => setSortBy(type)}>
+        <Select
+          defaultValue={sortOptions}
+          onValueChange={(type: SortOptions) => setSortOptions(type)}
+        >
           <SelectTrigger className="w-40 rounded-full bg-muted border-zinc-200">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {FILE_SORTING_OPTIONS.map(({ title, value }) => (
+              {FILE_SORTS.map(({ title, value }) => (
                 <SelectItem key={value} value={value}>
                   {title}
                 </SelectItem>
@@ -104,35 +110,37 @@ export const AssetManagerActions = ({ data }: AssetManagerActionProps) => {
         </Select>
       </SortFilterBar>
 
-      {!showCheckboxes && (
-        <Button variant="gray-outline" onClick={() => setShowCheckboxes(true)}>
+      {!isSelectionMode && (
+        <Button variant="gray-outline" onClick={() => toggleSelectionMode(true)}>
           Select Multiple Files
         </Button>
       )}
 
-      {selectedCards?.length > 0 && (
-        <span className="font-normal text-base text-primary">{selectedCards?.length} selected</span>
+      {selectedAssetIds?.length > 0 && (
+        <span className="font-normal text-base text-primary">
+          {selectedAssetIds?.length} selected
+        </span>
       )}
 
-      {selectedCards?.length > 0 && (
+      {selectedAssetIds?.length > 0 && (
         <Button
           variant="destructive"
           className="min-w-32"
-          onClick={() => mutateAsync(selectedCards)}
+          onClick={() => mutateAsync(selectedAssetIds)}
           disabled={isPending}
         >
           Delete
         </Button>
       )}
 
-      {selectedCards?.length > 0 && (
-        <Button variant="gray-outline" onClick={() => removeAllSelectedCards()}>
+      {selectedAssetIds?.length > 0 && (
+        <Button variant="gray-outline" onClick={() => clearSelectedAssetIds()}>
           Unselect
         </Button>
       )}
 
-      {showCheckboxes && selectedCards?.length < data?.length && (
-        <Button variant="gray-outline" onClick={() => setSelectedCards(data.map((f) => f?.id))}>
+      {isSelectionMode && selectedAssetIds?.length < data?.length && (
+        <Button variant="gray-outline" onClick={() => setSelectedAssetIds(data.map((f) => f?.id))}>
           Select All
         </Button>
       )}

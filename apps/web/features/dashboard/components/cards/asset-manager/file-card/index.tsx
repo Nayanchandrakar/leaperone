@@ -6,11 +6,11 @@ import { useShallow } from "zustand/react/shallow"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
 export const FileCard = ({ file }: any) => {
-  const { showCheckboxes, selectedCards, removeSelectedCard, addSelectedCard } = useAssetStore(
+  const { isSelectionMode, selectedAssetIds, removeSelectedCard, addSelectedCard } = useAssetStore(
     useShallow((state) => ({
-      showCheckboxes: state.showCheckboxes,
-      selectedCards: state.selectedCards,
-      setSelectedCards: state.setSelectedCards,
+      isSelectionMode: state.isSelectionMode,
+      selectedAssetIds: state.selectedAssetIds,
+      setselectedAssetIds: state.setselectedAssetIds,
       removeSelectedCard: state.removeSelectedCard,
       addSelectedCard: state.addSelectedCard,
     })),
@@ -39,9 +39,9 @@ export const FileCard = ({ file }: any) => {
         className="size-full object-contain"
       />
 
-      {showCheckboxes && (
+      {isSelectionMode && (
         <Checkbox
-          checked={selectedCards.includes(file.id)}
+          checked={selectedAssetIds.includes(file.id)}
           onCheckedChange={(value) => {
             if (!file.id) return
 

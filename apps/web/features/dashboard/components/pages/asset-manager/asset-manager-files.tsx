@@ -1,58 +1,46 @@
 "use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query"
+import React from "react"
 import { useShallow } from "zustand/react/shallow"
 import { InfiniteScrollContainer } from "@/components/shared/infinite-scroll-container"
-import { getFiles } from "@/features/dashboard/actions/get-files"
-import { FileUploadProgress } from "@/features/dashboard/components/pages/asset-manager/file-upload-progress"
 import { RenderFileCardSkeletons } from "@/features/dashboard/components/pages/asset-manager/render-file-card-skeletons"
 import { RenderFiles } from "@/features/dashboard/components/pages/asset-manager/render-files"
-import { FILE_TYPE_OPTIONS } from "@/features/dashboard/constants/asset-manager/filter-options"
-import { useFileStorage } from "@/features/dashboard/hooks/asset-manager/use-file-store"
+import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/use-asset-file-store"
+import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-infinite-files"
 import { AssetManagerActions } from "./asset-manager-actions"
+import { FileUploadProgress } from "./file-upload-progress"
 
 interface AssetManagerFileProps {
   workspaceId: string
 }
 
 export const AssetManagerFiles = ({ workspaceId }: AssetManagerFileProps) => {
-  const { fileType, sortBy, searchQuery } = useFileStorage(
+  const { fileCategory, sortOptions, query } = useAssetFilterStore(
     useShallow((state) => ({
-      sortBy: state.sortBy,
-      fileType: state.fileType,
-      setSortBy: state.setSortBy,
-      setFileType: state.setFileType,
-      searchQuery: state.searchQuery,
+      query: state.query,
+      sortOptions: state.sortOptions,
+      fileCategory: state.fileCategory,
     })),
   )
 
   const { data, isPending, hasNextPage, isFetchingNextPage, fetchNextPage, isError } =
-    useInfiniteQuery({
-      initialPageParam: 1,
-      queryKey: ["files", fileType, sortBy, searchQuery],
-      queryFn: async ({ pageParam }) => {
-        return await getFiles(
-          workspaceId,
-          pageParam,
-          8,
-          FILE_TYPE_OPTIONS.find((f) => f.value === fileType)?.types!,
-          sortBy,
-          searchQuery,
-        )
-      },
-      getNextPageParam: ({ nextPage }) => nextPage,
+    useInfiniteFiles({
+      workspaceId,
+      fileCategory,
+      query,
+      sortOptions,
     })
 
   const isContainerHidden = [!hasNextPage, isFetchingNextPage, isError].some(Boolean)
   const files = data?.pages.flatMap((p) => p.results)
 
   return (
-    <>
+    <React.Fragment>
       <AssetManagerActions data={files!} />
       <InfiniteScrollContainer
         hidden={isContainerHidden}
         onIntersect={() => fetchNextPage()}
-        className="mt-8 overflow-y-scroll no-scrollbar size-full max-h-screen p-3"
+        className="mt-8 overflow-y-scroll no-scrollbar size-full max-h-screen p-3 scroll-smooth"
       >
         <div className="grid grid-cols-4 gap-6">
           <FileUploadProgress />
@@ -60,6 +48,6 @@ export const AssetManagerFiles = ({ workspaceId }: AssetManagerFileProps) => {
           {((hasNextPage && isFetchingNextPage) || isPending) && <RenderFileCardSkeletons />}
         </div>
       </InfiniteScrollContainer>
-    </>
+    </React.Fragment>
   )
 }

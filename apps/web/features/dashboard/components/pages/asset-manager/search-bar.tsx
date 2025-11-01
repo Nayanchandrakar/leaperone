@@ -3,16 +3,15 @@
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@app/ui/components/input-group"
 import { SearchIcon } from "lucide-react"
 import { useDebounceCallback } from "usehooks-ts"
-import { useFileStorage } from "@/features/dashboard/hooks/asset-manager/use-file-store"
+import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/use-asset-file-store"
 
-export const AssetManagerSearchBar = () => {
-  const setSearchQuery = useFileStorage((state) => state.setSearchQuery)
-  const debounced = useDebounceCallback(setSearchQuery, 400)
+export const SearchBar = () => {
+  const setQuery = useAssetFilterStore((state) => state.setQuery)
+  const debounced = useDebounceCallback(setQuery, 400)
 
   return (
-    <InputGroup className="rounded-full max-w-lg">
+    <InputGroup className="rounded-full sm:max-w-lg">
       <InputGroupInput
-        type="text"
         placeholder="Search your uploaded images"
         onChange={(e) => debounced(e?.target?.value)}
       />

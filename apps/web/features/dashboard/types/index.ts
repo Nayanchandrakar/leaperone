@@ -5,9 +5,9 @@ import type { LucideIcon } from "lucide-react"
 export type RouteParams = Record<string, string | number | boolean>
 
 // Filters
-export type SortBy = "newest" | "oldest" | "a-to-z" | "z-to-a"
+export type FileCategory = "all" | "image" | "pdf"
 export type FileStatus = "uploaded" | "uploading" | "error"
-export type FileType = "all" | "image" | "pdf"
+export type SortOptions = "newest" | "oldest" | "a-to-z" | "z-to-a"
 
 export type isRouteActiveProps = {
   currentPath: string
@@ -22,20 +22,20 @@ export type SidebarNavItems = {
   teamOnly?: boolean
 }
 
-export type FileUploadProgress = {
+export type uploadProgressList = {
   fileId: string
   progress: number
   status: FileStatus
   cancelToken: CancelTokenSource
 }
 
-export type FileTypeOption = {
+export type FileCategories = {
   title: string
   types: string[]
-  value: FileType
+  value: FileCategory
 }
 
-export type FileSortingOption = {
+export type FileSortOptions = {
   title: string
-  value: SortBy
+  value: SortOptions
 }

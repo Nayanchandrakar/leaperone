@@ -27,8 +27,8 @@ export class AssetController extends HttpController {
   }
 
   generateSignedUrl = async (c: PreSignedUrlContext) => {
-    const url = await this.assetService.generateSignedUrl(c.get("storage"), c.req.valid("json"))
-    return c.json({ url })
+    const data = await this.assetService.generateSignedUrls(c.get("storage"), c.req.valid("json"))
+    return c.json({ data })
   }
 
   listFilest = async (c: FileQueryContext) => {

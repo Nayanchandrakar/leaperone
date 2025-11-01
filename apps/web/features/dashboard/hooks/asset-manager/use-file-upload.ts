@@ -40,16 +40,16 @@ export type FileUploadState = {
 }
 
 export type FileUploadActions = {
-  addFiles: (files: FileList | File[]) => void
-  removeFile: (id: string) => void
   clearFiles: () => void
   clearErrors: () => void
+  openFileDialog: () => void
+  removeFile: (id: string) => void
+  addFiles: (files: FileList | File[]) => void
+  handleDrop: (e: DragEvent<HTMLElement>) => void
   handleDragEnter: (e: DragEvent<HTMLElement>) => void
   handleDragLeave: (e: DragEvent<HTMLElement>) => void
   handleDragOver: (e: DragEvent<HTMLElement>) => void
-  handleDrop: (e: DragEvent<HTMLElement>) => void
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void
-  openFileDialog: () => void
   getInputProps: (
     props?: InputHTMLAttributes<HTMLInputElement>,
   ) => InputHTMLAttributes<HTMLInputElement> & {

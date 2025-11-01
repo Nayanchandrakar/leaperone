@@ -1,5 +1,5 @@
 import { AssetManagerFiles } from "@/features/dashboard/components/pages/asset-manager/asset-manager-files"
-import { AssetManagerToolbar } from "@/features/dashboard/components/pages/asset-manager/asset-manager-toolbar"
+import { Toolbar } from "@/features/dashboard/components/pages/asset-manager/toolbar"
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
 import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
 
@@ -19,7 +19,7 @@ export default async function AssetManagerPage({ params }: Props) {
   return (
     <DashboardContainer>
       <DashboardTitle>Files Upload Manager</DashboardTitle>
-      <AssetManagerToolbar />
+      <Toolbar />
       <AssetManagerFiles workspaceId={workspaceId} />
     </DashboardContainer>
   )
