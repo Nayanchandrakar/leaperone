@@ -1,6 +1,6 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 
-export const FileCardSkeleton = () => {
+export const FileSkeleton = () => {
   return (
     <div className="h-74 border rounded-xl flex flex-col">
       <Skeleton className="h-full rounded-t-xl rounded-b-none" />

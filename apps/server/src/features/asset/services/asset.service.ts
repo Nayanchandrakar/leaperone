@@ -35,8 +35,8 @@ export class AssetService {
     workspaceId: string,
     params: PreSignedUrlSchema,
   ) {
-    return params.map(async ({ name, fileId, type }) => ({
-      fileId,
+    return params.map(async ({ name, type, id }) => ({
+      id,
       url: await this.storageService.generatePreSignedUrl({
         contentType: type,
         metadata: { storageid: storageId, name },

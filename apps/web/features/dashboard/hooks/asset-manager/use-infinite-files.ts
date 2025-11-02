@@ -30,5 +30,8 @@ export const useInfiniteFiles = ({
       )
     },
     getNextPageParam: ({ nextPage }) => nextPage,
+    select(data) {
+      return data?.pages?.flatMap((p) => p.results)
+    },
   })
 }

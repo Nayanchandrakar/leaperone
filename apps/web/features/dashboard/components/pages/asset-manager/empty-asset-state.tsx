@@ -1,6 +1,6 @@
 "use client"
 
-import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from "@app/core/constants"
+import { FILE_TYPES, MAX_FILE_SIZE } from "@app/core/constants"
 import { useEffect } from "react"
 import { toast } from "sonner"
 import {
@@ -18,7 +18,7 @@ export const EmptyAssetState = () => {
     maxFiles: 10,
     multiple: true,
     maxSize: MAX_FILE_SIZE,
-    accept: ALLOWED_MIME_TYPES.join(","),
+    accept: FILE_TYPES.join(","),
   })
 
   useEffect(() => {

@@ -11,7 +11,7 @@ export const checkStorageQuota = async (c: PreSignedUrlContext, next: Next) => {
   const storage = await getStorageByWorkspaceId(workspace.id)
   if (!storage) throw ApiError.notFound()
 
-  const totalFileSize = file.reduce((acc, file) => acc + (file.size || 0), 0)
+  const totalFileSize = file.reduce((acc, { size }) => acc + size, 0)
   const hasEnoughSpace = totalFileSize <= storage.quota
 
   if (!hasEnoughSpace) {

@@ -63,6 +63,6 @@ export async function subscriptionUpgradeMutation(params: CheckoutSessionSchema)
   return await API.post<BillingPortalMutationRes>("/subscription/upgrade", params)
 }
 
-export async function getPreSignedUrl(params: PreSignedUrlSchema) {
+export async function generatePreSignedUrl(params: PreSignedUrlSchema) {
   return await API.post<GetPresignedUrlRes>("/asset/pre-signed-url", params)
 }

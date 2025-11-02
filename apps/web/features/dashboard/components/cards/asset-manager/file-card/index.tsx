@@ -6,15 +6,16 @@ import { useShallow } from "zustand/react/shallow"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
 export const FileCard = ({ file }: any) => {
-  const { isSelectionMode, selectedAssetIds, removeSelectedCard, addSelectedCard } = useAssetStore(
-    useShallow((state) => ({
-      isSelectionMode: state.isSelectionMode,
-      selectedAssetIds: state.selectedAssetIds,
-      setselectedAssetIds: state.setselectedAssetIds,
-      removeSelectedCard: state.removeSelectedCard,
-      addSelectedCard: state.addSelectedCard,
-    })),
-  )
+  const { isSelectionMode, selectedAssetIds, removeSelectedAssetId, addSelectedAssetId } =
+    useAssetStore(
+      useShallow((state) => ({
+        isSelectionMode: state.isSelectionMode,
+        selectedAssetIds: state.selectedAssetIds,
+        setSelectedAssetIds: state.setSelectedAssetIds,
+        removeSelectedAssetId: state.removeSelectedAssetId,
+        addSelectedAssetId: state.addSelectedAssetId,
+      })),
+    )
   const imageSrc = `https://d3h5nh9ihnfcrz.cloudfront.net/${file.key}`
 
   const isSelected = false
@@ -46,9 +47,9 @@ export const FileCard = ({ file }: any) => {
             if (!file.id) return
 
             if (value) {
-              addSelectedCard(file.id)
+              addSelectedAssetId(file.id)
             } else {
-              removeSelectedCard(file.id)
+              removeSelectedAssetId(file.id)
             }
           }}
           className="absolute top-2 right-2"
