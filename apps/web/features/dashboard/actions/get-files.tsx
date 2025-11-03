@@ -3,7 +3,7 @@
 import { dbHttp } from "@app/database/index"
 import { file, storage } from "@app/database/schema"
 import { and, asc, desc, eq, ilike, inArray } from "drizzle-orm"
-import type { SortBy } from "../types"
+import type { SortOptions } from "../types"
 
 // async function block() {
 // const delay = Math.floor(Math.random() * 700) + 300
@@ -16,10 +16,11 @@ export const getFiles = async (
   page: number,
   pageSize: number,
   types: string[],
-  sortBy: SortBy,
+  sortBy: SortOptions,
   searchQuery?: string,
 ) => {
   // await block()
+
   const offset = (page - 1) * pageSize
 
   const [data] = await dbHttp
@@ -66,6 +67,8 @@ export const getFiles = async (
   }
 
   const results = await dynamicQuery
+
+  console.log(results.length, "From server")
 
   return {
     results,

@@ -6,6 +6,7 @@ type AssetStore = {
   selectedAssetIds: string[]
   uploadProgressList: uploadProgressList[]
 
+  hasActiveUploads: () => boolean
   clearSelectedAssetIds: () => void
   addSelectedAssetId: (id: string) => void
   removeSelectedAssetId: (id: string) => void
@@ -16,7 +17,7 @@ type AssetStore = {
   updateUploadStatus: (fileId: string, status: FileStatus) => void
 }
 
-export const useAssetStore = create<AssetStore>()((set) => ({
+export const useAssetStore = create<AssetStore>()((set, get) => ({
   isSelectionMode: false,
   selectedAssetIds: [],
   uploadProgressList: [],
@@ -63,5 +64,9 @@ export const useAssetStore = create<AssetStore>()((set) => ({
         item.fileId === fileId ? { ...item, status } : item,
       ),
     }))
+  },
+
+  hasActiveUploads: () => {
+    return get().uploadProgressList.some(({ status }) => status === "uploading")
   },
 }))

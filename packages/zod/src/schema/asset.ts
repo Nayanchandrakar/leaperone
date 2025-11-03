@@ -11,7 +11,16 @@ export const preSignedUrlSchema = z.array(
 )
 
 export const filesQuerySchema = z.object({
-  // cursor: z.string().optional(),
-  // limit: z.string().transform((val) => parseInt(val, 10)).optional(),
   workspaceId: z.cuid2(),
+  cursor: z.string().optional(),
+  limit: z.number().min(8).max(40).default(40).optional(),
+})
+
+export const WorkspaceQuerySchema = z.object({
+  workspaceId: z.cuid2(),
+  page: z.int().positive(),
+  types: z.array(z.string()).min(1),
+  query: z.string().trim().min(2).max(40).optional(),
+  pageSize: z.int().positive().min(8).max(80).default(40),
+  // sortBy: SortOptionsSchema,
 })

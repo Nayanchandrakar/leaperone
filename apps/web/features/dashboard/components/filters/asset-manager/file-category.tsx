@@ -1,5 +1,3 @@
-"use client"
-
 import {
   Select,
   SelectContent,
@@ -17,7 +15,11 @@ import { FILE_CATEGORIES } from "@/features/dashboard/constants/asset-manager/fi
 import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/use-asset-file-store"
 import type { FileCategory } from "@/features/dashboard/types"
 
-export const FileCategoryFilter = () => {
+interface FileCategoryFilterProps {
+  isDisabled: boolean
+}
+
+export const FileCategoryFilter = ({ isDisabled }: FileCategoryFilterProps) => {
   const { fileCategory, setFileCategory } = useAssetFilterStore(
     useShallow((state) => ({
       fileCategory: state.fileCategory,
@@ -29,6 +31,7 @@ export const FileCategoryFilter = () => {
     <SortFilterBar>
       <SortFilterBarLabel>Type:</SortFilterBarLabel>
       <Select
+        disabled={isDisabled}
         defaultValue={fileCategory}
         onValueChange={(type: FileCategory) => setFileCategory(type)}
       >

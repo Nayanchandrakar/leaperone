@@ -1,33 +1,31 @@
-"use client"
-
-import { FILE_TYPES, MAX_FILE_SIZE } from "@app/core/constants"
-import { useEffect } from "react"
-import { toast } from "sonner"
+import { FILE_TYPES, MAX_FILE_SIZE, MAX_FILES } from "@app/core/constants"
 import {
   AssetPromptAction,
   AssetPromptDescription,
   AssetPromptTitle,
 } from "@/features/dashboard/components/ui/asset-prompt-action"
+import { useAssetUpload } from "@/features/dashboard/hooks/asset-manager/use-asset-upload"
+import { useFileErrorNotify } from "@/features/dashboard/hooks/asset-manager/use-file-error-notify"
 import { useFileUpload } from "@/features/dashboard/hooks/asset-manager/use-file-upload"
 
-export const EmptyAssetState = () => {
+export const FileDropzone = () => {
+  /** Upload files to S3 Bucket */
+  const onFilesAdded = useAssetUpload()
+
+  /** File validation hook */
   const [
-    { isDragging, errors },
-    { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, getInputProps },
+    { errors, isDragging },
+    { openFileDialog, getInputProps, handleDragEnter, handleDragLeave, handleDrop, handleDragOver },
   ] = useFileUpload({
-    maxFiles: 10,
+    onFilesAdded,
     multiple: true,
+    maxFiles: MAX_FILES,
     maxSize: MAX_FILE_SIZE,
     accept: FILE_TYPES.join(","),
   })
 
-  useEffect(() => {
-    if (errors.length > 0) {
-      errors.forEach((message) => {
-        toast.error(message)
-      })
-    }
-  }, [errors])
+  /** Notify file error */
+  useFileErrorNotify(errors)
 
   return (
     <div className="flex items-center justify-center h-full">

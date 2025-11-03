@@ -1,5 +1,3 @@
-"use client"
-
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
 export const SelectedAssetIds = () => {

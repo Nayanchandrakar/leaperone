@@ -1,5 +1,3 @@
-"use client"
-
 import {
   Select,
   SelectContent,
@@ -17,7 +15,11 @@ import { FILE_SORTS } from "@/features/dashboard/constants/asset-manager/filter-
 import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/use-asset-file-store"
 import type { SortOptions } from "@/features/dashboard/types"
 
-export const FileSortFilter = () => {
+interface FileSortFilterProps {
+  isDisabled: boolean
+}
+
+export const FileSortFilter = ({ isDisabled }: FileSortFilterProps) => {
   const { setSortOptions, sortOptions } = useAssetFilterStore(
     useShallow((state) => ({
       sortOptions: state.sortOptions,
@@ -29,6 +31,7 @@ export const FileSortFilter = () => {
     <SortFilterBar>
       <SortFilterBarLabel>Sort by:</SortFilterBarLabel>
       <Select
+        disabled={isDisabled}
         defaultValue={sortOptions}
         onValueChange={(type: SortOptions) => setSortOptions(type)}
       >

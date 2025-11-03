@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@app/ui/components/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
@@ -7,7 +5,11 @@ import { useShallow } from "zustand/react/shallow"
 import { deleteFiles } from "@/features/dashboard/actions/delete-files"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 
-export const DeleteFilesButton = () => {
+interface DeleteFilesButton {
+  isActionDisabled: boolean
+}
+
+export const DeleteFilesButton = ({ isActionDisabled }: DeleteFilesButton) => {
   const queryClient = useQueryClient()
 
   const { clearSelectedAssetIds, selectedAssetIds } = useAssetStore(
@@ -33,7 +35,7 @@ export const DeleteFilesButton = () => {
       variant="destructive"
       className="min-w-32"
       onClick={() => mutateAsync(selectedAssetIds)}
-      disabled={isPending}
+      disabled={isPending || isActionDisabled}
     >
       Delete
     </Button>
