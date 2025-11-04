@@ -18,12 +18,12 @@ export function getStagingEnv(app: App): StagingEnv {
 
 export async function getEventData(bucket: string, key: string, size: number) {
   const command = new HeadObjectCommand({ Bucket: bucket, Key: key })
-  const { ContentType, Metadata } = await s3Client.send(command)
+  const { Metadata } = await s3Client.send(command)
 
   // Not a user uploaded file
   if (!Metadata?.storageid) return null
 
-  const mime = ContentType ?? "application/octet-stream"
+  const mime = Metadata?.type ?? "application/octet-stream"
   const ext = extname(key)
 
   return {
