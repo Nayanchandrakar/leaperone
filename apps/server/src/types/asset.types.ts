@@ -1,4 +1,4 @@
-import type { FileQuerySchema, PreSignedUrlSchema } from "@app/zod/types"
+import type { GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
@@ -21,4 +21,4 @@ export type GeneratePreSignedUrl = {
   metadata?: Record<string, string>
 }
 
-export type FileQueryContext = Context<HonoEnv, "/files", ControllerIO<"param", FileQuerySchema>>
+export type GetFileContext = Context<HonoEnv, "/files", ControllerIO<"json", GetFileSchema>>

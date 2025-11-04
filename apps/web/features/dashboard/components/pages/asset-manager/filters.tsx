@@ -9,12 +9,8 @@ import { FileSortFilter } from "@/features/dashboard/components/filters/asset-ma
 import { SelectedAssetIds } from "@/features/dashboard/components/pages/asset-manager/selected-asset-ids"
 import { useFilterState } from "@/features/dashboard/hooks/asset-manager/use-filter-state"
 
-interface FiltersProps {
-  workspaceId: string
-}
-
-export const Filters = ({ workspaceId }: FiltersProps) => {
-  const { data, isFetching, isFilterDisabled, isActionDisabled } = useFilterState({ workspaceId })
+export const Filters = () => {
+  const { data, isFetching, isFilterDisabled, isActionDisabled } = useFilterState()
 
   return (
     <div className="mt-8 flex flex-wrap items-center gap-4">

@@ -1,11 +1,11 @@
-import { preSignedUrlSchema } from "@app/zod/schema/asset"
+import { getFileSchema, preSignedUrlSchema } from "@app/zod/schema/asset"
 import type { AssetService } from "@/features/asset/services/asset.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { checkStorageQuota } from "@/middlewares/asset.middleware"
 import { isAuth } from "@/middlewares/auth.middleware"
 import { hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
-import type { FileQueryContext, PreSignedUrlContext } from "@/types/asset.types"
+import type { GetFileContext, PreSignedUrlContext } from "@/types/asset.types"
 
 export class AssetController extends HttpController {
   constructor(private readonly assetService: AssetService) {
@@ -23,7 +23,15 @@ export class AssetController extends HttpController {
       checkStorageQuota,
       this.generateSignedUrl,
     )
-    this.router.get("/files", isAuth, this.listFilest)
+
+    this.router.post(
+      "/files",
+      zodValidator("json", getFileSchema),
+      isAuth,
+      hasWorkspace,
+      // hasActiveSubscription, ↓
+      this.getFiles,
+    )
   }
 
   generateSignedUrl = async (c: PreSignedUrlContext) => {
@@ -31,7 +39,8 @@ export class AssetController extends HttpController {
     return c.json({ data })
   }
 
-  listFilest = async (c: FileQueryContext) => {
-    return c.json({ files: [] })
+  getFiles = async (c: GetFileContext) => {
+    const result = await this.assetService.getFiles(c.get("workspace"), c.req.valid("json"))
+    return c.json(result)
   }
 }

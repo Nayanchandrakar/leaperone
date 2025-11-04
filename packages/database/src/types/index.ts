@@ -64,3 +64,12 @@ export type BootStrapUser = InsertUser & {
   password: string
   defaultRole: RoleType
 }
+
+export type GetFilesByStorageId = {
+  offset: number
+  sortBy: string
+  types: string[]
+  pageSize: number
+  storageId: string
+  searchQuery?: string | undefined
+}

@@ -6,7 +6,7 @@ import {
 import type { FileCategory, SortOptions } from "@/features/dashboard/types"
 
 type StoreProps = {
-  query: string
+  query?: string | undefined
   sortOptions: SortOptions
   fileCategory: FileCategory
   setQuery: (query: string) => void
@@ -16,8 +16,8 @@ type StoreProps = {
 
 export const useAssetFilterStore = create<StoreProps>()((set) => ({
   query: "",
-  sortOptions: FILE_SORTS[2].value,
   fileCategory: FILE_CATEGORIES[0].value,
+  sortOptions: FILE_SORTS[2].value as SortOptions,
 
   setQuery: (query: string) => set({ query: query }),
   setSortOptions: (sort: SortOptions) => set({ sortOptions: sort }),

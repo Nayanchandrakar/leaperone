@@ -1,4 +1,4 @@
-import { FILE_TYPES, MAX_FILE_SIZE, MIN_FILE_SIZE } from "@app/core/constants"
+import { FILE_TYPES, MAX_FILE_SIZE, MIN_FILE_SIZE, SORT_OPTIONS } from "@app/core/constants"
 import { z } from "zod"
 
 export const preSignedUrlSchema = z.array(
@@ -10,17 +10,10 @@ export const preSignedUrlSchema = z.array(
   }),
 )
 
-export const filesQuerySchema = z.object({
-  workspaceId: z.cuid2(),
-  cursor: z.string().optional(),
-  limit: z.number().min(8).max(40).default(40).optional(),
-})
-
-export const WorkspaceQuerySchema = z.object({
-  workspaceId: z.cuid2(),
-  page: z.int().positive(),
-  types: z.array(z.string()).min(1),
-  query: z.string().trim().min(2).max(40).optional(),
+export const getFileSchema = z.object({
+  page: z.int().positive().default(1),
+  types: z.array(z.enum(FILE_TYPES)).default([]),
+  sortBy: z.enum(SORT_OPTIONS).default(SORT_OPTIONS[2]!),
   pageSize: z.int().positive().min(8).max(80).default(40),
-  // sortBy: SortOptionsSchema,
+  query: z.string().trim().toLowerCase().max(40).optional(),
 })

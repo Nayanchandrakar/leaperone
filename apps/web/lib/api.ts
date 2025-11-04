@@ -2,6 +2,7 @@ import type {
   CheckoutSessionSchema,
   ContactUsFormSchema,
   EmailSchema,
+  GetFileSchema,
   LoginFormSchema,
   PreSignedUrlSchema,
   RegisterFormSchema,
@@ -14,6 +15,7 @@ import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
   ContactUsMutationRes,
+  GetFilesRes,
   GetPresignedUrlRes,
   GetUserNameRes,
   LoginMutationRes,
@@ -65,4 +67,8 @@ export async function subscriptionUpgradeMutation(params: CheckoutSessionSchema)
 
 export async function generatePreSignedUrl(params: PreSignedUrlSchema) {
   return await API.post<GetPresignedUrlRes>("/asset/pre-signed-url", params)
+}
+
+export async function getFiles(params: GetFileSchema) {
+  return await API.post<GetFilesRes>("/asset/files", params)
 }

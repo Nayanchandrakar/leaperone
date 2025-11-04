@@ -8,11 +8,7 @@ import { FileError } from "@/features/dashboard/components/pages/asset-manager/f
 import { UploadProgress } from "@/features/dashboard/components/pages/asset-manager/upload-progress"
 import { useRenderFiles } from "@/features/dashboard/hooks/asset-manager/user-render-files"
 
-interface RenderFilesProps {
-  workspaceId: string
-}
-
-export const RenderFiles = ({ workspaceId }: RenderFilesProps) => {
+export const RenderFiles = () => {
   const {
     data,
     isError,
@@ -21,9 +17,7 @@ export const RenderFiles = ({ workspaceId }: RenderFilesProps) => {
     handleFetchNextPage,
     shouldShowFileDropzone,
     shouldShowFileCardSkeleton,
-  } = useRenderFiles({
-    workspaceId,
-  })
+  } = useRenderFiles()
 
   if (isError) return <FileError />
   if (shouldShowFileDropzone) return <FileDropzone />

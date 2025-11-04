@@ -1,11 +1,7 @@
 import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-infinite-files"
 
-interface useFilterStateProps {
-  workspaceId: string
-}
-
-export const useFilterState = ({ workspaceId }: useFilterStateProps) => {
-  const { data, isFetching } = useInfiniteFiles({ workspaceId })
+export const useFilterState = () => {
+  const { data, isFetching } = useInfiniteFiles()
 
   const isAllCategory = data?.fileCategory === "all"
   const totalFiles = data?.totalFiles ?? 0

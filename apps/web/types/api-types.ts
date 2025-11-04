@@ -1,3 +1,5 @@
+import type { File } from "@app/database/types"
+
 export type LogoutMutationRes = {
   message: string
 }
@@ -42,4 +44,9 @@ export type GetPresignedUrlRes = {
     id: string
     url: string
   }[]
+}
+
+export type GetFilesRes = {
+  results: Omit<File, "storageId">[]
+  nextPage: number | undefined
 }

@@ -4,16 +4,12 @@ import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/us
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-infinite-files"
 
-interface useRenderFileProps {
-  workspaceId: string
-}
-
-export const useRenderFiles = ({ workspaceId }: useRenderFileProps) => {
+export const useRenderFiles = () => {
   const searchQuery = useAssetFilterStore(useShallow((state) => state.query))
   const hasActiveUploads = useAssetStore(useShallow((state) => state.hasActiveUploads()))
 
   const { data, isPending, hasNextPage, isFetchingNextPage, fetchNextPage, isError } =
-    useInfiniteFiles({ workspaceId })
+    useInfiniteFiles()
 
   const filesCount = data?.totalFiles ?? 0
   const hasFiles = filesCount > 0

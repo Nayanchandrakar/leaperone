@@ -6,12 +6,7 @@ import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-hea
 
 // import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeline"
 
-interface Props {
-  params: Promise<{ workspaceId: string }>
-}
-
-export default async function AssetManagerPage({ params }: Props) {
-  const { workspaceId } = await params
+export default function AssetManagerPage() {
   // const pipeline = await DashboardPipeline.init(params)
   // await pipeline.checkMembership()
   // await pipeline.checkPermissions(["manage:members"])
@@ -21,8 +16,8 @@ export default async function AssetManagerPage({ params }: Props) {
     <DashboardContainer>
       <DashboardTitle>Files Upload Manager</DashboardTitle>
       <Toolbar />
-      <Filters workspaceId={workspaceId} />
-      <RenderFiles workspaceId={workspaceId} />
+      <Filters />
+      <RenderFiles />
     </DashboardContainer>
   )
 }
