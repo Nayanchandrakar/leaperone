@@ -17,3 +17,5 @@ export const getFileSchema = z.object({
   pageSize: z.int().positive().min(8).max(80).default(40),
   query: z.string().trim().toLowerCase().max(40).optional(),
 })
+
+export const deleteFilesSchema = z.array(z.cuid2()).min(1)

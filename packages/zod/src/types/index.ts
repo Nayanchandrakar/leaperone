@@ -1,5 +1,5 @@
 import type z from "zod"
-import type { getFileSchema, preSignedUrlSchema } from "../schema/asset"
+import type { deleteFilesSchema, getFileSchema, preSignedUrlSchema } from "../schema/asset"
 import type {
   emailSchema,
   loginFormSchema,
@@ -26,3 +26,4 @@ export type SupportFormSchema = z.infer<typeof supportFormSchema>
 export type ContactUsFormSchema = z.infer<typeof contactUsFormSchema>
 export type RestrictUserSchema = z.infer<typeof restrictUserSchema>
 export type GetFileSchema = z.infer<typeof getFileSchema>
+export type DeleteFilesSchema = z.infer<typeof deleteFilesSchema>

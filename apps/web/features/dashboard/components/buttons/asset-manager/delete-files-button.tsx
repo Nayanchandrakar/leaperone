@@ -1,43 +1,57 @@
+"use client"
+
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@app/ui/components/alert-dialog"
 import { Button } from "@app/ui/components/button"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { toast } from "sonner"
-import { useShallow } from "zustand/react/shallow"
-import { deleteFiles } from "@/features/dashboard/actions/delete-files"
-import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
+import { useState } from "react"
+import { useDeleteFiles } from "@/features/dashboard/hooks/asset-manager/use-delete-files"
 
 interface DeleteFilesButton {
   isActionDisabled: boolean
 }
 
 export const DeleteFilesButton = ({ isActionDisabled }: DeleteFilesButton) => {
-  const queryClient = useQueryClient()
+  const [isOpen, setIsOpen] = useState(false)
+  const { fileCounts, isPending, mutateAsync } = useDeleteFiles()
 
-  const { clearSelectedAssetIds, selectedAssetIds } = useAssetStore(
-    useShallow((state) => ({
-      selectedAssetIds: state.selectedAssetIds,
-      clearSelectedAssetIds: state.clearSelectedAssetIds,
-    })),
-  )
+  if (!fileCounts) {
+    return null
+  }
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (ids: string[]) => await deleteFiles(ids),
-    onSuccess: ({ count }) => {
-      queryClient.invalidateQueries({ queryKey: ["files"] })
-      clearSelectedAssetIds()
-      toast.success(`Succefully deleted ${count} files`)
-    },
-  })
-
-  if (!selectedAssetIds?.length) return null
+  async function handleDelete() {
+    await mutateAsync()
+    setIsOpen(false)
+  }
 
   return (
-    <Button
-      variant="destructive"
-      className="min-w-32"
-      onClick={() => mutateAsync(selectedAssetIds)}
-      disabled={isPending || isActionDisabled}
-    >
-      Delete
-    </Button>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" className="min-w-32" disabled={isPending || isActionDisabled}>
+          Delete files
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete {fileCounts} Files?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your files from asset manager
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <Button onClick={handleDelete} disabled={isPending}>
+            {isPending ? "Deleting..." : "Delete"}
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

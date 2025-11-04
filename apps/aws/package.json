@@ -16,8 +16,7 @@
   "dependencies": {
     "aws-cdk-lib": "catalog:",
     "constructs": "catalog:",
-    "@app/database": "workspace:*",
-    "@aws-sdk/client-s3": "catalog:"
+    "@app/database": "workspace:*"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",

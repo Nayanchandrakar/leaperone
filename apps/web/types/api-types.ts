@@ -50,3 +50,7 @@ export type GetFilesRes = {
   results: Omit<File, "storageId">[]
   nextPage: number | undefined
 }
+
+export type DeleteFilesRes = {
+  count: number
+}

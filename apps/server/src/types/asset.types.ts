@@ -1,4 +1,4 @@
-import type { GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
+import type { DeleteFilesSchema, GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
@@ -22,3 +22,4 @@ export type GeneratePreSignedUrl = {
 }
 
 export type GetFileContext = Context<HonoEnv, "/files", ControllerIO<"json", GetFileSchema>>
+export type DeleteFilesContext = Context<HonoEnv, "/files", ControllerIO<"json", DeleteFilesSchema>>

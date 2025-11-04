@@ -1,11 +1,11 @@
-import { getFileSchema, preSignedUrlSchema } from "@app/zod/schema/asset"
+import { deleteFilesSchema, getFileSchema, preSignedUrlSchema } from "@app/zod/schema/asset"
 import type { AssetService } from "@/features/asset/services/asset.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { checkStorageQuota } from "@/middlewares/asset.middleware"
 import { isAuth } from "@/middlewares/auth.middleware"
-import { hasWorkspace } from "@/middlewares/subscription.middleware"
+import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
-import type { GetFileContext, PreSignedUrlContext } from "@/types/asset.types"
+import type { DeleteFilesContext, GetFileContext, PreSignedUrlContext } from "@/types/asset.types"
 
 export class AssetController extends HttpController {
   constructor(private readonly assetService: AssetService) {
@@ -19,7 +19,7 @@ export class AssetController extends HttpController {
       zodValidator("json", preSignedUrlSchema),
       isAuth,
       hasWorkspace,
-      // hasActiveSubscription,
+      hasActiveSubscription,
       checkStorageQuota,
       this.generateSignedUrl,
     )
@@ -29,8 +29,17 @@ export class AssetController extends HttpController {
       zodValidator("json", getFileSchema),
       isAuth,
       hasWorkspace,
-      // hasActiveSubscription, ↓
+      hasActiveSubscription,
       this.getFiles,
+    )
+
+    this.router.delete(
+      "/files",
+      zodValidator("json", deleteFilesSchema),
+      isAuth,
+      hasWorkspace,
+      hasActiveSubscription,
+      this.deleteFiles,
     )
   }
 
@@ -41,6 +50,11 @@ export class AssetController extends HttpController {
 
   getFiles = async (c: GetFileContext) => {
     const result = await this.assetService.getFiles(c.get("workspace"), c.req.valid("json"))
+    return c.json(result)
+  }
+
+  deleteFiles = async (c: DeleteFilesContext) => {
+    const result = await this.assetService.deleteFiles(c.get("workspace"), c.req.valid("json"))
     return c.json(result)
   }
 }

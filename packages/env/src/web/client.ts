@@ -15,10 +15,13 @@ export const CLIENT_ENV = createEnv({
     NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID: z.string({
       error: "NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID is required in environment variables",
     }),
+
+    NEXT_PUBLIC_ASSET_CDN: z.string().default("https://d3h5nh9ihnfcrz.cloudfront.net"),
   },
 
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_ASSET_CDN: process.env.NEXT_PUBLIC_ASSET_CDN,
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
     NEXT_PUBLIC_STRIPE_ANNUAL_PRICE_ID: process.env.NEXT_PUBLIC_STRIPE_ANNUAL_PRICE_ID,
     NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID,

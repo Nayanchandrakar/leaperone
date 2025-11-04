@@ -1,6 +1,7 @@
 import type {
   CheckoutSessionSchema,
   ContactUsFormSchema,
+  DeleteFilesSchema,
   EmailSchema,
   GetFileSchema,
   LoginFormSchema,
@@ -15,6 +16,7 @@ import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
   ContactUsMutationRes,
+  DeleteFilesRes,
   GetFilesRes,
   GetPresignedUrlRes,
   GetUserNameRes,
@@ -71,4 +73,8 @@ export async function generatePreSignedUrl(params: PreSignedUrlSchema) {
 
 export async function getFiles(params: GetFileSchema) {
   return await API.post<GetFilesRes>("/asset/files", params)
+}
+
+export async function deleteFilesMutation(params: DeleteFilesSchema) {
+  return await API.delete<DeleteFilesRes>("/asset/files", { data: params })
 }

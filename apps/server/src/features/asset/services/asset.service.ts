@@ -1,9 +1,10 @@
 import { basename, extname } from "node:path"
 import { sanitizeString } from "@app/core/utils"
-import { getFilesByStorageId, getStorageIdByWorkspaceId } from "@app/database/repository/storage"
+import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
+import { getStorageIdByWorkspaceId } from "@app/database/repository/storage"
 import type { Storage, Workspace } from "@app/database/types"
 import { ApiError } from "@app/error/index"
-import type { GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
+import type { DeleteFilesSchema, GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
 import { v4 as uuidv4 } from "uuid"
 import { MSG } from "@/constants/message"
 import type { StorageService } from "@/features/shared/services/storage.service"
@@ -11,12 +12,34 @@ import type { StorageService } from "@/features/shared/services/storage.service"
 export class AssetService {
   constructor(private readonly storageService: StorageService) {}
 
-  async getFiles(workspace: Workspace, { page, pageSize, sortBy, types, query }: GetFileSchema) {
-    const offset = (page - 1) * pageSize
+  async deleteFiles(workspace: Workspace, ids: DeleteFilesSchema) {
+    const storage = await getStorageIdByWorkspaceId(workspace.id)
+    if (!storage) throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
 
+    let count = 0
+    const results = await Promise.allSettled(
+      (await deleteFilesByStorageIdAndIds(storage.id, ids)).map(({ key }) =>
+        this.storageService.deleteObject(key),
+      ),
+    )
+
+    for (const result of results) {
+      if (result.status === "fulfilled") {
+        count++
+      }
+    }
+
+    return { count }
+  }
+
+  async getFiles(workspace: Workspace, { page, pageSize, sortBy, types, query }: GetFileSchema) {
     const storage = await getStorageIdByWorkspaceId(workspace.id)
 
-    if (!storage) throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
+    if (!storage) {
+      throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
+    }
+
+    const offset = (page - 1) * pageSize
 
     const results = await getFilesByStorageId({
       offset,
