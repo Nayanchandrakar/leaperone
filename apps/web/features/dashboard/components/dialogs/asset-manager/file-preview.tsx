@@ -39,10 +39,12 @@ export const FilePreviewDialog = () => {
         </VisuallyHidden>
 
         {/* File preview header */}
-        <div className="flex items-center justify-between gap-2 px-8 py-6 h-fit border-b">
+        <div className="flex items-center justify-between gap-2 px-6 sm:px-8 py-4 h-fit border-b">
           <div className="flex items-center gap-2.5">
             <FileCardIcon type="image" />
-            <p className="text-sm font-normal text-muted-foreground">{asset?.name}</p>
+            <p className="text-sm max-w-24 min-[470px]:max-w-40 truncate font-normal text-muted-foreground">
+              {asset?.name}sdsdfsdfsdfsdfsdf
+            </p>
           </div>
 
           <div className="flex items-center gap-3">

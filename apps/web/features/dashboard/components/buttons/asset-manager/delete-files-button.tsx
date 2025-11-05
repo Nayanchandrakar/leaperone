@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@app/ui/components/alert-dialog"
 import { Button } from "@app/ui/components/button"
+import { Spinner } from "@app/ui/components/spinner"
 import { useBulkDeleteFiles } from "@/features/dashboard/hooks/asset-manager/use-bulk-delete-files"
 
 interface DeleteFilesButton {
@@ -39,7 +40,8 @@ export const DeleteFilesButton = ({ isActionDisabled }: DeleteFilesButton) => {
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
           <Button onClick={handleDelete} disabled={isPending}>
-            {isPending ? "Deleting..." : "Delete"}
+            {isPending && <Spinner />}
+            Delete
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
