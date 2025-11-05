@@ -28,7 +28,7 @@ export const RenderFiles = () => {
       onIntersect={handleFetchNextPage}
       className="mt-8 overflow-y-scroll no-scrollbar max-h-screen p-3"
     >
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <UploadProgress />
         {hasFiles && data?.files.map((file) => <FileCard key={file.id} file={file} />)}
         {shouldShowFileCardSkeleton && <FileCardSkeleton />}

@@ -7,8 +7,9 @@ interface UnSelectFilesButtonProps {
 }
 
 export const UnSelectFilesButton = ({ isActionDisabled }: UnSelectFilesButtonProps) => {
-  const { clearSelectedAssetIds, selectedAssetIds } = useAssetStore(
+  const { clearSelectedAssetIds, selectedAssetIds, toggleSelectionMode } = useAssetStore(
     useShallow((state) => ({
+      toggleSelectionMode: state.toggleSelectionMode,
       selectedAssetIds: state.selectedAssetIds,
       clearSelectedAssetIds: state.clearSelectedAssetIds,
     })),
@@ -16,12 +17,13 @@ export const UnSelectFilesButton = ({ isActionDisabled }: UnSelectFilesButtonPro
 
   if (!selectedAssetIds?.length) return null
 
+  const handleClick = () => {
+    clearSelectedAssetIds()
+    toggleSelectionMode(false)
+  }
+
   return (
-    <Button
-      variant="gray-outline"
-      disabled={isActionDisabled}
-      onClick={() => clearSelectedAssetIds()}
-    >
+    <Button variant="gray-outline" disabled={isActionDisabled} onClick={handleClick}>
       Unselect
     </Button>
   )

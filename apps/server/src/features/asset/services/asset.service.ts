@@ -85,7 +85,7 @@ export class AssetService {
       id,
       url: await this.storageService.generatePreSignedUrl({
         contentType: type,
-        metadata: { storageid: storageId, name },
+        metadata: { storageid: storageId, name, type },
         storageKey: this.createStorageKey(name, workspaceId),
       }),
     }))

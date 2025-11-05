@@ -1,3 +1,4 @@
+import { FilePreviewDialog } from "@/features/dashboard/components/dialogs/asset-manager/file-preview"
 import { Filters } from "@/features/dashboard/components/pages/asset-manager/filters"
 import { RenderFiles } from "@/features/dashboard/components/pages/asset-manager/render-files"
 import { Toolbar } from "@/features/dashboard/components/pages/asset-manager/toolbar"
@@ -18,6 +19,7 @@ export default function AssetManagerPage() {
       <Toolbar />
       <Filters />
       <RenderFiles />
+      <FilePreviewDialog />
     </DashboardContainer>
   )
 }

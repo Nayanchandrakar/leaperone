@@ -76,5 +76,5 @@ export async function getFiles(params: GetFileSchema) {
 }
 
 export async function deleteFilesMutation(params: DeleteFilesSchema) {
-  return await API.delete<DeleteFilesRes>("/asset/files", { data: params })
+  return await API.delete<DeleteFilesRes>("/asset/files", { data: params, timeout: 10000 })
 }

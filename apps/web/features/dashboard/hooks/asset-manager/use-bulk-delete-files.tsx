@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useCallback, useState } from "react"
 import { toast } from "sonner"
 import { useShallow } from "zustand/react/shallow"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 import { deleteFilesMutation } from "@/lib/api"
 
-export const useDeleteFiles = () => {
+export const useBulkDeleteFiles = () => {
   const queryClient = useQueryClient()
+  const [isOpen, setIsOpen] = useState(false)
 
   const { clearSelectedAssetIds, selectedAssetIds } = useAssetStore(
     useShallow((state) => ({
@@ -28,9 +30,18 @@ export const useDeleteFiles = () => {
 
   const fileCounts = selectedAssetIds?.length ?? 0
 
+  const handleDelete = useCallback(async () => {
+    if (fileCounts > 0) {
+      await mutateAsync()
+      setIsOpen(false)
+    }
+  }, [fileCounts, mutateAsync])
+
   return {
+    isOpen,
+    setIsOpen,
     isPending,
     fileCounts,
-    mutateAsync,
+    handleDelete,
   }
 }

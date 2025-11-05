@@ -88,7 +88,7 @@ export const useAssetUpload = () => {
         setTimeout(() => {
           for (const id of ids) updateUploadStatus(id, "uploaded")
           queryClient.invalidateQueries({ queryKey: ["files"] })
-        }, 3000)
+        }, 4000)
       }
     },
     [uploadFile, updateUploadStatus, queryClient],

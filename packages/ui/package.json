@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "catalog:",
+    "@radix-ui/react-visually-hidden": "catalog:",
     "@radix-ui/react-accordion": "catalog:",
     "@radix-ui/react-alert-dialog": "catalog:",
     "@radix-ui/react-aspect-ratio": "catalog:",

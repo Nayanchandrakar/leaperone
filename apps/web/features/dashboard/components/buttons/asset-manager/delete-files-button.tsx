@@ -11,25 +11,16 @@ import {
   AlertDialogTrigger,
 } from "@app/ui/components/alert-dialog"
 import { Button } from "@app/ui/components/button"
-import { useState } from "react"
-import { useDeleteFiles } from "@/features/dashboard/hooks/asset-manager/use-delete-files"
+import { useBulkDeleteFiles } from "@/features/dashboard/hooks/asset-manager/use-bulk-delete-files"
 
 interface DeleteFilesButton {
   isActionDisabled: boolean
 }
 
 export const DeleteFilesButton = ({ isActionDisabled }: DeleteFilesButton) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const { fileCounts, isPending, mutateAsync } = useDeleteFiles()
+  const { fileCounts, isPending, handleDelete, isOpen, setIsOpen } = useBulkDeleteFiles()
 
-  if (!fileCounts) {
-    return null
-  }
-
-  async function handleDelete() {
-    await mutateAsync()
-    setIsOpen(false)
-  }
+  if (fileCounts === 0) return null
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>

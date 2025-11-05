@@ -1,3 +1,4 @@
+import type { File } from "@app/database/types"
 import type { CancelTokenSource } from "axios"
 import type { LucideIcon } from "lucide-react"
 
@@ -39,3 +40,5 @@ export type FileSortOptions = {
   title: string
   value: SortOptions
 }
+
+export type AssetFile = Omit<File, "storageId">
