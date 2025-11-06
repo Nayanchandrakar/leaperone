@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import { Plus } from "lucide-react"
 import { getTeamInvitations } from "@/features/dashboard/actions/get-team-invitations"
 import { DashboardSubtitle } from "@/features/dashboard/components/ui/dashboard-heading"
@@ -11,9 +11,9 @@ import {
 import { InvitedMembersList } from "./invited-members-list"
 
 export const TeamMemberInvitations = () => {
-  const { data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["team-invitations"],
-    queryFn: getTeamInvitations,
+    queryFn: async () => await getTeamInvitations(),
   })
 
   return (
