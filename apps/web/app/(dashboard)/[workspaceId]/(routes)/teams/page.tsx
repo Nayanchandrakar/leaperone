@@ -1,5 +1,5 @@
 // import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeline"
-import { TeamMemberInvitations } from "@/features/dashboard/components/pages/teams/team-member-invitations"
+import { TeamMemberInvitations } from "@/features/dashboard/components/pages/teams/member-invitations"
 import { TeamsControlBar } from "@/features/dashboard/components/pages/teams/teams-controls-bar"
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
 import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
