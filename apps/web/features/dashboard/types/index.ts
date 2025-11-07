@@ -1,3 +1,4 @@
+import type { SORT_OPTIONS } from "@app/core/constants"
 import type { File } from "@app/database/types"
 import type { CancelTokenSource } from "axios"
 import type { LucideIcon } from "lucide-react"
@@ -6,9 +7,9 @@ import type { LucideIcon } from "lucide-react"
 export type RouteParams = Record<string, string | number | boolean>
 
 // Filters
-export type FileCategory = "all" | "image" | "pdf"
+export type FileCategory = "all" | "image"
 export type FileStatus = "uploaded" | "uploading" | "error"
-export type SortOptions = "newest" | "oldest" | "a-to-z" | "z-to-a"
+export type SortOptions = (typeof SORT_OPTIONS)[number]
 
 export type isRouteActiveProps = {
   currentPath: string

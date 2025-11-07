@@ -4,7 +4,7 @@ import { TotalScansCard } from "@/features/analytics/cards/analytics/total-scans
 
 export const ScanInfo = () => {
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       <TotalScansCard />
       <TopLocationsCard />
       <FormsSubmittedCard />

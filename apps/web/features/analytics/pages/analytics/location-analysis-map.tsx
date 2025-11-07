@@ -1,8 +1,9 @@
+import { Skeleton } from "@app/ui/components/skeleton"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
-export const LocationAnalysisChart = () => {
+export const LocationAnalysisMap = () => {
   return (
-    <section className="flex flex-col gap-5 w-full col-span-2">
+    <section className="flex flex-col gap-5 w-full xl:col-span-2">
       <ChartHeading>
         <ChartTitle>Location Analysis</ChartTitle>
         <ChartDescription>
@@ -10,7 +11,7 @@ export const LocationAnalysisChart = () => {
         </ChartDescription>
       </ChartHeading>
 
-      <div className="h-100 bg-amber-400 rounded-lg" />
+      <Skeleton className="h-100 rounded-xl" />
     </section>
   )
 }
