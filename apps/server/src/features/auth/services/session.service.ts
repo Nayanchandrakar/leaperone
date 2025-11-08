@@ -99,7 +99,7 @@ export class SessionService {
         maxAge,
       })
 
-      return data
+      return { ...data }
     }
 
     return session

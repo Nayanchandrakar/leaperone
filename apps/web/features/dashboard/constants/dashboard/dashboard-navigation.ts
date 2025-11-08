@@ -1,74 +1,84 @@
-import { ChartNoAxesCombined, FileText, Folders, Home, UsersRound } from "lucide-react"
-import type { SidebarNavItems } from "@/features/dashboard/types"
+import {
+  ChartNoAxesCombined,
+  FileText,
+  Folders,
+  Home,
+  Settings,
+  SmartphoneNfc,
+  UsersRound,
+} from "lucide-react"
+import type { DashboardNavMainItem, DashboardNavSettingItem } from "@/features/dashboard/types"
 
-export const DASHBOARD_NAV_MAIN: SidebarNavItems[] = [
+export const DASHBOARD_NAV_MAIN: DashboardNavMainItem[] = [
   {
-    name: "Home",
+    title: "Home",
     url: "dashboard",
     icon: Home,
   },
   {
-    name: "Team",
+    title: "Team",
     url: "teams",
     icon: UsersRound,
     teamOnly: true,
   },
   {
-    name: "Analytics",
+    title: "Analytics",
     url: "analytics",
     icon: ChartNoAxesCombined,
   },
 
   {
-    name: "Form Responses",
+    title: "Form Responses",
     url: "form-responses",
     icon: FileText,
   },
 
   {
-    name: "File/Asset Manager",
+    title: "File/Asset Manager",
     url: "asset-manager",
     icon: Folders,
   },
+]
 
-  // {
-  //   name: "NFC Hardware",
-  //   url: "/teams",
-  //   icon: SmartphoneNfc,
-  //   items: [
-  //     {
-  //       title: "Shop NFC Kits",
-  //       url: "/",
-  //     },
-  //     {
-  //       title: "Activate NFC items",
-  //       url: "/",
-  //     },
-  //   ],
-  // },
+export const DASHBOARD_NAV_SETTINGS: DashboardNavSettingItem[] = [
+  {
+    title: "NFC Hardware",
+    url: "nfc-hardware",
+    icon: SmartphoneNfc,
+    items: [
+      {
+        title: "Shop NFC Kits",
+        url: "shop-nfc",
+      },
+      {
+        title: "Activate NFC items",
+        url: "activate-nfc",
+      },
+    ],
+  },
 
-  // {
-  //   name: "Settings",
-  //   url: "/teams",
-  //   icon: Settings,
-  //   items: [
-  //     {
-  //       title: "Account Settings",
-  //       url: "/",
-  //     },
-  //     {
-  //       title: "Manage Subscriptions",
-  //       url: "/",
-  //     },
+  {
+    title: "Settings",
+    url: "settings",
+    icon: Settings,
+    items: [
+      {
+        title: "Account Settings",
+        url: "account-settings",
+      },
+      {
+        title: "Manage Subscriptions",
+        url: "subscription",
+      },
 
-  //     {
-  //       title: "Notifications",
-  //       url: "/",
-  //     },
-  //     {
-  //       title: "Form Terms & Privacy",
-  //       url: "/",
-  //     },
-  //   ],
-  // },
+      {
+        title: "Notifications",
+        url: "notifications",
+      },
+      {
+        title: "Form Terms & Privacy",
+        url: "terms-and-privacy",
+      },
+    ],
+  },
 ]

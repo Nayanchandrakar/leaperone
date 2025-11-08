@@ -17,11 +17,18 @@ export type isRouteActiveProps = {
   depth?: number
 }
 
-export type SidebarNavItems = {
-  name: string
+export type DashboardNavMainItem = {
+  title: string
   url: string
   icon: LucideIcon
   teamOnly?: boolean
+}
+
+export type DashboardNavSettingItem = Omit<DashboardNavMainItem, "teamOnly"> & {
+  items: {
+    title: string
+    url: string
+  }[]
 }
 
 export type uploadProgressList = {

@@ -3,7 +3,9 @@
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@app/ui/components/sidebar"
 import { HeaderLogo } from "@/components/ui/header"
 import { DashboardNavSecondary } from "@/features/dashboard/components/sidebars/dashboard/dashboard-nav-secondary"
+import { DashboardNavSettings } from "@/features/dashboard/components/sidebars/dashboard/dashboard-nav-settings"
 import { DashboardRoutesFilter } from "@/features/dashboard/components/sidebars/dashboard/dashboard-routes-filter"
+import { DASHBOARD_NAV_SETTINGS } from "@/features/dashboard/constants/dashboard/dashboard-navigation"
 
 type DashboardSidebarProps = {
   teamOnly: boolean
@@ -18,6 +20,7 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
       </SidebarHeader>
       <SidebarContent>
         <DashboardRoutesFilter {...props} />
+        <DashboardNavSettings items={DASHBOARD_NAV_SETTINGS} />
         <DashboardNavSecondary />
       </SidebarContent>
       <SidebarRail />

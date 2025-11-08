@@ -11,7 +11,9 @@ import type {
   SupportFormSchema,
   UserNameFormSchema,
 } from "@app/zod/types"
+import type { AxiosRequestConfig } from "axios"
 import { API } from "@/config/axios"
+import type { FullSession } from "@/types"
 import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
@@ -26,6 +28,10 @@ import type {
   requestPasswordResetMutRes,
   resetPasswordMutationRes,
 } from "@/types/api-types"
+
+export async function fetchSession(config?: AxiosRequestConfig) {
+  return await API.get<FullSession>("/auth/get-session", config)
+}
 
 export async function logoutMutation() {
   return await API.get<LogoutMutationRes>("/auth/logout")

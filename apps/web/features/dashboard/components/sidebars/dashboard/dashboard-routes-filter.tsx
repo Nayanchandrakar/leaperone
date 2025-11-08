@@ -14,5 +14,5 @@ export const DashboardRoutesFilter = ({ teamOnly, workspaceId }: DashboardRoutes
     () => DASHBOARD_NAV_MAIN.filter((route) => !(route?.teamOnly && !teamOnly)),
     [teamOnly],
   )
-  return <DashboardNavMain data={ROUTES} workspaceId={workspaceId} />
+  return <DashboardNavMain items={ROUTES} workspaceId={workspaceId} />
 }

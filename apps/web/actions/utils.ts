@@ -1,14 +1,13 @@
 import { SESSION_COOKIE_NAME } from "@app/core/constants"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { API } from "@/config/axios"
-import type { FullSession } from "@/types"
+import { fetchSession } from "@/lib/api"
 
 export async function getSession() {
   try {
     const cookie = (await cookies()).get(SESSION_COOKIE_NAME)
     if (!cookie) return null
-    const { data } = await API.get<FullSession>("/auth/get-session", {
+    const { data } = await fetchSession({
       headers: {
         cookie: `${cookie.name}=${cookie.value}`,
       },
