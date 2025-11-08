@@ -72,6 +72,11 @@ export const DASHBOARD_NAV_SETTINGS: DashboardNavSettingItem[] = [
       },
 
       {
+        title: "Team Settings",
+        url: "team-settings",
+      },
+
+      {
         title: "Notifications",
         url: "notifications",
       },
