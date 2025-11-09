@@ -9,11 +9,11 @@ import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard
 import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
 import { getQueryClient } from "@/utils/query-client"
 
-interface Props {
-  params: Promise<{ workspaceId: string }>
-}
+// interface Props {
+//   params: Promise<{ workspaceId: string }>
+// }
 
-export default async function TeamsPage({ params }: Props) {
+export default async function TeamsPage() {
   // const pipeline = await DashboardPipeline.init(params)
   // await pipeline.checkMembership()
   // await pipeline.checkPermissions(["manage:members"])

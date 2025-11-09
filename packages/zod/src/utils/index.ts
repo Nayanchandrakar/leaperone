@@ -35,3 +35,8 @@ export const phoneNumber = z
 export const callbackUrl = z.string().trim()
 export const email = z.email().toLowerCase().trim()
 export const seats = z.number().default(1)
+export const name = z
+  .string()
+  .trim()
+  .min(3, { message: "Name is required" })
+  .max(30, { message: "Name must be less than 30 characters" })

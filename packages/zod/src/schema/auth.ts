@@ -1,12 +1,12 @@
 import z from "zod"
-import { callbackUrl, email, password, username } from "../utils"
+import { callbackUrl, email, name, password, username } from "../utils"
 
 export const registerFormSchema = z.object({
+  name,
   email,
   password,
   username,
   callbackUrl: callbackUrl.default("/").optional(),
-  name: z.string().min(1, { error: "Name is required" }).max(30),
 })
 
 export const loginFormSchema = z.object({

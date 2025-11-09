@@ -95,6 +95,7 @@
       "@neondatabase/serverless": "^1.0.1",
       "@hono/node-server": "^1.18.2",
       "bcryptjs": "^3.0.2",
+      "@tanstack/react-form": "^1.23.8",
       "@aws-sdk/client-s3": "^3.888.0",
       "@react-email/render": "1.4.0",
       "@aws-sdk/s3-request-presigner": "^3.888.0",

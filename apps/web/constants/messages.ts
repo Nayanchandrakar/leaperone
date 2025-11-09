@@ -16,4 +16,8 @@ export const MESSAGES = {
     ERROR: "Something went wrong. Please try again later.",
     PERMISSION_DENIED: "You don’t have permission to perform this action.",
   },
+
+  ACCOUNT: {
+    NAME_CHANGE_SUCCESS: "Name changed successfully.",
+  },
 } as const
