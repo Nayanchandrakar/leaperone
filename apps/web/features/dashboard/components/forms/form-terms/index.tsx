@@ -1,3 +1,3 @@
 export const TermsAndPrivacyForm = () => {
-  return <div className="">Tiome</div>
+  return <div className="">Time</div>
 }
