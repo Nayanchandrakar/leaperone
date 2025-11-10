@@ -9,8 +9,5 @@ export const DashboardSubtitle = ({ className, ...props }: React.ComponentProps<
 )
 
 export const DashboardDescription = ({ className, ...props }: React.ComponentProps<"p">) => (
-  <p
-    className={cn("text-start text-muted-foreground text-sm font-normal mt-3", className)}
-    {...props}
-  />
+  <p className={cn("text-start text-muted-foreground text-sm font-normal", className)} {...props} />
 )

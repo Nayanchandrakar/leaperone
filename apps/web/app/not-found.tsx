@@ -12,10 +12,10 @@ import {
 
 export default function NotFound() {
   return (
-    <div className="container relative w-full min-h-[calc(100vh_-_64px)] flex items-center justify-center">
+    <div className="container relative w-full min-h-[calc(100vh-64px)] flex items-center justify-center">
       <RadialMesh />
 
-      <MarketingHeader className="!mt-0">
+      <MarketingHeader className="mt-0!">
         <Image priority width={270} height={270} src="/assets/svg/404.svg" alt="not-found" />
 
         <MarketingHeaderTitle>

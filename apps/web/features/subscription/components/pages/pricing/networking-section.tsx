@@ -4,7 +4,7 @@ import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 
 export const NetworkingSection = () => {
   return (
-    <section className="container !max-w-lg my-32 sm:my-40 ">
+    <section className="container max-w-lg! my-32 sm:my-40 ">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-normal">
         Ready to take your&nbsp;
         <MarkerText
