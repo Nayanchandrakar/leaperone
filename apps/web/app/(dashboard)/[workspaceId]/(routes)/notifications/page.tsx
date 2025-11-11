@@ -1,55 +1,140 @@
 "use client"
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@app/ui/components/smooth-accordion"
 import { ChevronDown } from "lucide-react"
+import { createContext, useContext, useRef, useState } from "react"
 
-export default function SmoothAccordion() {
+type PanelRootProps = {
+  type?: "single" | "multiple"
+  collapsible?: boolean
+  children: React.ReactNode
+}
+
+type PanelContextValue = {
+  openItems: string[]
+  toggleItem: (key: string) => void
+  type: "single" | "multiple"
+  collapsible: boolean
+}
+
+const PanelContext = createContext<PanelContextValue | null>(null)
+
+function usePanelContext() {
+  const ctx = useContext(PanelContext)
+  if (!ctx) throw new Error("Panel components must be used within Panel")
+  return ctx
+}
+
+const PanelRoot = ({ type = "multiple", collapsible = false, children }: PanelRootProps) => {
+  const [openItems, setOpenItems] = useState<string[]>([])
+
+  const toggleItem = (key: string) => {
+    setOpenItems((prev) => {
+      const isOpen = prev.includes(key)
+      if (type === "multiple") {
+        return isOpen ? prev.filter((item) => item !== key) : [...prev, key]
+      }
+      if (isOpen) {
+        return collapsible ? [] : prev
+      }
+      return [key]
+    })
+  }
+
+  return (
+    <PanelContext.Provider value={{ openItems, toggleItem, type, collapsible }}>
+      {children}
+    </PanelContext.Provider>
+  )
+}
+
+type PanelItemProps = {
+  itemKey: string
+  children: React.ReactNode
+}
+
+const PanelItem = ({ itemKey, children }: PanelItemProps) => {
+  return (
+    <div data-panel-item={itemKey} className="border rounded-xl overflow-hidden">
+      {children}
+    </div>
+  )
+}
+
+type PanelTriggerProps = {
+  itemKey: string
+  children: React.ReactNode
+  disabled?: boolean
+}
+
+const PanelTrigger = ({ itemKey, children, disabled }: PanelTriggerProps) => {
+  const { openItems, toggleItem } = usePanelContext()
+  const isOpen = openItems.includes(itemKey)
+  return (
+    <button
+      type="button"
+      data-state={isOpen}
+      onClick={disabled ? undefined : () => toggleItem(itemKey)}
+      className="w-full bg-muted p-5 flex items-center justify-between cursor-pointer data-[state=true]:border-b"
+    >
+      {children}
+      <ChevronDown
+        data-state={isOpen}
+        className="size-4 transition-transform duration-200 data-[state=true]:rotate-180"
+      />
+    </button>
+  )
+}
+
+type PanelContentProps = {
+  itemKey: string
+  children: React.ReactNode
+}
+
+const PanelContent = ({ itemKey, children }: PanelContentProps) => {
+  const { openItems } = usePanelContext()
+  const isOpen = openItems.includes(itemKey)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  return (
+    <div
+      ref={contentRef}
+      className="transition-[max-height] duration-200 ease-in-out overflow-hidden"
+      style={{
+        maxHeight: isOpen ? `${contentRef.current?.scrollHeight ?? 0}px` : "0px",
+      }}
+    >
+      <div className="p-5">{children}</div>
+    </div>
+  )
+}
+
+const Panel = Object.assign(PanelRoot, {
+  Item: PanelItem,
+  Trigger: PanelTrigger,
+  Content: PanelContent,
+})
+
+// Usage example
+const items = [
+  { title: "Is it accessible?", content: "..." },
+  { title: "Is it styled?", content: "..." },
+  { title: "Is it animated?", content: "..." },
+]
+
+export default function NotificationsPage() {
   return (
     <section className="mt-8 container space-y-4">
-      <Accordion type="single" collapsible>
-        <AccordionItem value="email-report">
-          <AccordionTrigger>
-            Email me Scan Report of my card
-            <ChevronDown className="size-4 transition-transform duration-200" />
-          </AccordionTrigger>
-          <AccordionContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos quam nulla
-            pariatur harum quibusdam! Cumque id qui adipisci nisi enim, itaque nesciunt. Asperiores
-            ullam quod nostrum commodi ducimus? Cumque unde ad doloribus reprehenderit sequi
-            veritatis pariatur neque amet. Repellat obcaecati veniam distinctio blanditiis quas
-            dignissimos aspernatur nihil aperiam assumenda minus dolores ex velit magni tempora ea
-            illo neque voluptas asperiores sunt suscipit deserunt deleniti, a nam. Minima cumque
-            quia eveniet animi amet esse voluptatum! Animi expedita assumenda voluptatum eum ad
-            voluptatem et. Exercitationem ut aliquam reprehenderit aperiam, quos alias vel sint
-            numquam similique eaque temporibus minus asperiores possimus mollitia dolores tempora
-            aspernatur dignissimos! Suscipit quo assumenda sed aliquam aperiam
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="email-test">
-          <AccordionTrigger>
-            Email me Scan Report of my card
-            <ChevronDown className="size-4 transition-transform duration-200" />
-          </AccordionTrigger>
-          <AccordionContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quos quam nulla
-            pariatur harum quibusdam! Cumque id qui adipisci nisi enim, itaque nesciunt. Asperiores
-            ullam quod nostrum commodi ducimus? Cumque unde ad doloribus reprehenderit sequi
-            veritatis pariatur neque amet. Repellat obcaecati veniam distinctio blanditiis quas
-            dignissimos aspernatur nihil aperiam assumenda minus dolores ex velit magni tempora ea
-            illo neque voluptas asperiores sunt suscipit deserunt deleniti, a nam. Minima cumque
-            quia eveniet animi amet esse voluptatum! Animi expedita assumenda voluptatum eum ad
-            voluptatem et. Exercitationem ut aliquam reprehenderit aperiam, quos alias vel sint
-            numquam similique eaque temporibus minus asperiores possimus mollitia dolores tempora
-            aspernatur dignissimos! Suscipit quo assumenda sed aliquam aperiam
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <Panel>
+        {items.map(({ title, content }, index) => {
+          const key = `item-${index}`
+          return (
+            <Panel.Item key={key} itemKey={key}>
+              <Panel.Trigger itemKey={key}>{title}</Panel.Trigger>
+              <Panel.Content itemKey={key}>{content}</Panel.Content>
+            </Panel.Item>
+          )
+        })}
+      </Panel>
     </section>
   )
 }

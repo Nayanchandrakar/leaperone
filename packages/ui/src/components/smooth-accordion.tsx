@@ -1,132 +1,111 @@
 "use client"
-
 import { cn } from "@app/ui/lib/utils"
-import { createContext, useContext, useRef, useState } from "react"
+import { createContext, useCallback, useContext, useRef, useState } from "react"
 
-type AccordionType = "single" | "multiple"
-type AccordionMode = "accordion" | "switch"
+type type = "single" | "multiple"
 
-type AccordionContextValue = {
-  type: AccordionType
+interface PanelProps {
+  type: type
+  trigger?: boolean
   collapsible?: boolean
-  value: Array<string> | string | undefined
-  onValueChange?: (value: Array<string> | string) => void
 }
 
-type AccordionItemContextValue = {
+interface PanelContextType extends PanelProps {
+  items: string[]
+  setItems: React.Dispatch<React.SetStateAction<string[]>>
+}
+
+interface PanelItemContextType {
   value: string
-  isOpen: boolean
-  onToggle: () => void
+  setValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-type AccordionProps = {
-  className?: string
-  type?: AccordionType
-  collapsible?: boolean
-  children: React.ReactNode
-  value?: Array<string> | string
-  defaultValue?: Array<string> | string
-  onValueChange?: (value: Array<string> | string) => void
+interface PanelTriggerProps extends Omit<React.ComponentProps<"button">, "onClick"> {
+  value: string
 }
 
-type AccordionContentProps = React.ComponentProps<"div">
+const PanelContext = createContext<PanelContextType | null>(null)
+const panelItemContext = createContext<PanelItemContextType | null>(null)
 
-type AccordionTriggerProps = React.ComponentProps<"div"> & { mode?: AccordionMode }
-
-const AccordionContext = createContext<AccordionContextValue | null>(null)
-const AccordionItemContext = createContext<AccordionItemContextValue | null>(null)
-
-const useAccordionContext = () => {
-  const context = useContext(AccordionContext)
+const usePanel = () => {
+  const context = useContext(PanelContext)
   if (!context) {
-    throw new Error("Accordion components must be used within Accordion")
+    throw new Error("usePanel must be used within a Panel")
   }
   return context
 }
 
-const useAccordionItemContext = () => {
-  const context = useContext(AccordionItemContext)
+const usePanelItem = () => {
+  const context = useContext(panelItemContext)
   if (!context) {
-    throw new Error("AccordionItem components must be used within AccordionItem")
+    throw new Error("usePanelItem must be used within a PanelItem")
   }
   return context
 }
 
-export const Accordion = ({
+export const Panel = ({
   children,
-  defaultValue,
-  onValueChange,
+  trigger = true,
   type = "single",
-  collapsible = false,
-  value: controlledValue,
-}: AccordionProps) => {
-  const [uncontrolledValue, setUncontrolledValue] = useState<string | string[]>(
-    defaultValue ?? (type === "multiple" ? [] : ""),
-  )
-
-  const value = controlledValue ?? uncontrolledValue
-  const handleValueChange = (newValue: string | string[]) => {
-    if (!controlledValue) {
-      setUncontrolledValue(newValue)
-    }
-    onValueChange?.(newValue)
-  }
+  collapsible = true,
+}: PanelProps & { children: React.ReactNode }) => {
+  const [items, setItems] = useState<string[]>([])
 
   return (
-    <AccordionContext.Provider
-      value={{ value, type, collapsible, onValueChange: handleValueChange }}
-    >
-      {children}
-    </AccordionContext.Provider>
+    <PanelContext.Provider
+      value={{ type, trigger, collapsible, items, setItems }}
+      children={children}
+    />
   )
 }
 
-export const AccordionItem = ({
-  value,
+export const PanelItem = ({
   className,
+  children,
+  value: initialValue,
   ...props
-}: React.ComponentProps<"div"> & {
-  value: string
-}) => {
-  const { value: accordionValue, onValueChange, type, collapsible } = useAccordionContext()
-
-  const isOpen =
-    type === "multiple"
-      ? Array.isArray(accordionValue) && accordionValue.includes(value)
-      : accordionValue === value
-
-  const onToggle = () => {
-    if (type === "multiple") {
-      const currentValue = (accordionValue as string[]) ?? []
-      const newValue = isOpen ? currentValue.filter((v) => v !== value) : [...currentValue, value]
-      onValueChange?.(newValue)
-    } else {
-      if (isOpen && !collapsible) return
-      onValueChange?.(isOpen ? "" : value)
-    }
-  }
-
+}: React.ComponentProps<"div"> & { value: string }) => {
+  const [value, setValue] = useState<string>(initialValue)
   return (
-    <AccordionItemContext.Provider value={{ value, isOpen, onToggle }}>
-      <div className={cn("rounded-xl border overflow-hidden", className)} {...props} />
-    </AccordionItemContext.Provider>
+    <panelItemContext.Provider value={{ value, setValue }}>
+      <div className={cn("border rounded-xl overflow-hidden", className)} {...props}>
+        {children}
+      </div>
+    </panelItemContext.Provider>
   )
 }
 
-export const AccordionTrigger = ({
-  mode = "accordion",
-  className,
-  ...props
-}: AccordionTriggerProps) => {
-  const { isOpen, onToggle } = useAccordionItemContext()
-  const isAccordion = mode === "accordion"
+export const PanelTrigger = ({ className, children, ...props }: PanelTriggerProps) => {
+  const { value } = usePanelItem()
+  const { items, type, trigger, collapsible, setItems } = usePanel()
+  const isOpen = items?.includes(value)
+
+  const handleClick = useCallback(() => {
+    switch (type) {
+      case "multiple":
+        if (isOpen) {
+          setItems((prev) => prev.filter((item) => item !== value))
+        } else {
+          setItems((prev) => [...prev, value])
+        }
+        break
+      case "single":
+        if (isOpen) {
+          collapsible && setItems([])
+        } else {
+          setItems([value])
+        }
+        break
+    }
+  }, [type, collapsible, setItems, value, isOpen])
 
   return (
-    <div
+    <button
+      type="button"
       data-state={isOpen}
-      onClick={isAccordion ? onToggle : undefined}
+      onClick={trigger ? handleClick : undefined}
       className={cn(
-        "flex items-center justify-between bg-muted p-5 cursor-pointer data-[state=true]:border-b [&[data-state=true]>svg]:rotate-180",
+        "w-full bg-muted p-5 flex items-center justify-between cursor-pointer data-[state=true]:border-b",
         className,
       )}
       {...props}
@@ -134,19 +113,19 @@ export const AccordionTrigger = ({
   )
 }
 
-export const AccordionContent = ({ className, ...props }: AccordionContentProps) => {
-  const { isOpen } = useAccordionItemContext()
-  const contentRef = useRef<React.ComponentRef<"div">>(null)
-
+export const PanelContent = ({ className, children, ...props }: React.ComponentProps<"div">) => {
+  const { items } = usePanel()
+  const { value } = usePanelItem()
+  const isOpen = items?.includes(value)
+  const ref = useRef<React.ComponentRef<"div">>(null)
   return (
     <div
-      ref={contentRef}
-      className="transition-[max-height] duration-200 ease-in-out overflow-hidden"
+      ref={ref}
+      className={cn("transition-[max-height] duration-200 ease-in-out overflow-hidden", className)}
       style={{
-        maxHeight: isOpen ? `${contentRef.current?.scrollHeight ?? 0}px` : "0px",
+        maxHeight: isOpen ? `${ref.current?.scrollHeight ?? 0}px` : "0px",
       }}
-    >
-      <div className={cn("p-5", className)} {...props} />
-    </div>
+      {...props}
+    />
   )
 }
