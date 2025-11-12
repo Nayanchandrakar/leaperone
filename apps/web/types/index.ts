@@ -22,6 +22,8 @@ export type FullSession = {
   }
 }
 
+export type PanelType = "single" | "multiple"
+
 export type Session = FullSession["session"]
 
 export type User = FullSession["user"]
