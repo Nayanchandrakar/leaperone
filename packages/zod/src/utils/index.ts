@@ -32,11 +32,22 @@ export const phoneNumber = z
   .or(z.literal(""))
   .optional()
 
-export const callbackUrl = z.string().trim()
+export const agreementHeading = z.string().min(5).max(40)
 export const email = z.email().toLowerCase().trim()
+export const callbackUrl = z.string().trim()
 export const seats = z.number().default(1)
 export const name = z
   .string()
   .trim()
   .min(3, { message: "Name is required" })
   .max(30, { message: "Name must be less than 30 characters" })
+
+export const termsLinkSchema = z.object({
+  type: z.literal("url"),
+  content: z.url().max(200),
+})
+
+export const termsContentSchema = z.object({
+  type: z.literal("content"),
+  content: z.string().min(10).max(100),
+})
