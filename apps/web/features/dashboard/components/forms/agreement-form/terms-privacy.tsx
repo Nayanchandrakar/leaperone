@@ -10,7 +10,7 @@ import { Textarea } from "@app/ui/components/textarea"
 import { agreementFormSchema } from "@app/zod/schema/bussiness"
 import { useForm } from "@tanstack/react-form"
 import { toast } from "sonner"
-import { AgreementContentChoice } from "@/features/dashboard/components/pages/agreement-form/agreement-content-choice"
+import { AgreementContentChoice } from "@/features/dashboard/components/cards/agreement-form/agreement-content-choice"
 import {
   AgreementDescription,
   AgreementHeading,
