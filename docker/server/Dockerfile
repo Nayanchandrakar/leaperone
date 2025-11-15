@@ -1,37 +1,47 @@
-# Bun version 
+# Bun version
 ARG VERSION=latest
 
-# Base image 
+# Base image
 FROM oven/bun:${VERSION} AS base
 
 # Install turbo globally
 FROM base AS turbo-cli
 RUN bun add -g turbo
 
-# Pruner 
+# Pruning unnecessary files for server build
 FROM turbo-cli AS pruner
 WORKDIR /app
 COPY . .
 RUN turbo prune server --docker
 
-# Builder 
-FROM base AS builder
+# Install dependencies using only exact lockfile
+FROM base AS deps
 WORKDIR /app
 COPY --from=pruner /app/out/json/ .
-COPY --from=pruner /app/out/full/ .
-RUN bun install
+RUN bun install --frozen-lockfile
 
-# Build in production mode 
+# Build server
+FROM deps AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=pruner /app/out/full/ .
 ENV NODE_ENV=production
 RUN bun run build
 
-# Runner 
+# Runtime image
 FROM base AS runner
 WORKDIR /app
-COPY --from=builder /app/node_modules node_modules
-COPY --from=builder /app/apps/server/dist dist
-COPY --from=builder /app/apps/server/package.json package.json
+
+# Add non-root user
+RUN addgroup --system --gid 1001 bunjs 
+RUN adduser --system --uid 1001 leaperone
+USER leaperone
+
+# Copy built app to final image with correct permissions
+COPY --from=builder --chown=leaperone:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=leaperone:nodejs /app/apps/server/dist ./dist
+COPY --from=builder --chown=leaperone:nodejs /app/apps/server/package.json ./package.json
+
 EXPOSE 8080
 
-# Start server 
+# Start server
 CMD ["bun", "run", "start"]

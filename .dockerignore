@@ -1,4 +1,4 @@
-# Node modules
+# Dependencies
 node_modules
 
 # Logs
@@ -9,22 +9,19 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Local environment files
+# Environment files
 .env
 .env.*
 
-# Build outputs and coverage
+# Build outputs
 .next
 out
 dist
 coverage
+coverage*
 .wrangler
 
-# Other app directories not needed for API
-apps/web
-apps/cloudflare
-
-# Test files and configs
+# Test files
 *.test.js
 *.test.ts
 *.test.tsx
@@ -34,24 +31,32 @@ apps/cloudflare
 jest.config.js
 jest.config.ts
 
-# Git and Editor configs
+# Git
 .git
 .gitignore
+
+# IDE / Editor
 .vscode
 .idea
+.editorconfig
 
-# OS system files
+# System files
 .DS_Store
 Thumbs.db
 
-# Docker
-Dockerfile
+# Docker-related (don’t send Docker config to build context)
 Dockerfile*
 docker-compose*
 .dockerignore
 
-# Miscellaneous
+# Temp files
 *.swp
 *.swo
 *.bak
 *.tmp
+
+# Documentation / misc
+README.md
+LICENSE
+Makefile
+helm-charts
