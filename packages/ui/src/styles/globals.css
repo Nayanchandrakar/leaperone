@@ -209,4 +209,8 @@
   .container {
     @apply max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-8 size-full
   }
+
+  .border-container {
+    @apply border-2 border-dashed border-red-500;
+  }
 }
