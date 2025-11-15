@@ -1,3 +1,4 @@
+import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeline"
 import { FilePreviewDialog } from "@/features/dashboard/components/dialogs/asset-manager/file-preview"
 import { Filters } from "@/features/dashboard/components/pages/asset-manager/filters"
 import { RenderFiles } from "@/features/dashboard/components/pages/asset-manager/render-files"
@@ -5,13 +6,15 @@ import { Toolbar } from "@/features/dashboard/components/pages/asset-manager/too
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
 import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
 
-// import { DashboardPipeline } from "@/features/dashboard/actions/dashboard-pipeline"
+interface Props {
+  params: Promise<{ workspaceId: string }>
+}
 
-export default function AssetManagerPage() {
-  // const pipeline = await DashboardPipeline.init(params)
-  // await pipeline.checkMembership()
-  // await pipeline.checkPermissions(["manage:members"])
-  // await pipeline.checkSubscription()
+export default async function AssetManagerPage({ params }: Props) {
+  const pipeline = await DashboardPipeline.init(params)
+  await pipeline.checkMembership()
+  await pipeline.checkPermissions(["manage:members"])
+  await pipeline.checkSubscription()
 
   return (
     <DashboardContainer>
