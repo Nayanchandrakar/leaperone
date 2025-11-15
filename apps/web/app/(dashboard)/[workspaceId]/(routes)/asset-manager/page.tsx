@@ -9,7 +9,6 @@ import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-hea
 interface Props {
   params: Promise<{ workspaceId: string }>
 }
-
 export default async function AssetManagerPage({ params }: Props) {
   const pipeline = await DashboardPipeline.init(params)
   await pipeline.checkMembership()
