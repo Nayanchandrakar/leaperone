@@ -5,21 +5,14 @@ import {
   AccordionTrigger,
 } from "@app/ui/components/accordion"
 import { Plus } from "lucide-react"
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
+import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
 export const PricingFaqSection = () => {
   return (
     <section className="container mt-28">
       <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight">
-        <MarkerText
-          alt="underline"
-          style={{ top: "80%" }}
-          className="inline-flex"
-          src="/assets/svg/dash.svg"
-        >
-          FAQs About Plans & Pricing
-        </MarkerText>
+        <UnderlineText>FAQs About Plans & Pricing</UnderlineText>
       </h2>
 
       <Accordion

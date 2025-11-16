@@ -1,35 +1,28 @@
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import {
+  MarketingDescription,
   MarketingHeader,
-  MarketingHeaderDescription,
-  MarketingHeaderTitle,
+  MarketingTitle,
 } from "@/features/marketing/components/ui/marketing-intro"
+import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 import { PriceIntervalButton } from "@/features/subscription/components/buttons/pricing/price-interval-button"
 import type { SubscriptionInfo } from "@/features/subscription/types"
 
-interface ISubscriptionInfo {
+interface PricingHeroSectionProps {
   subscription: SubscriptionInfo
 }
 
-export const PricingHeroSection = ({ subscription }: ISubscriptionInfo) => {
+export const PricingHeroSection = ({ subscription }: PricingHeroSectionProps) => {
   return (
     <MarketingHeader>
-      <MarketingHeaderTitle>
-        <MarkerText
-          alt="underline"
-          style={{ top: "63%" }}
-          className="inline-flex"
-          src="/assets/svg/dash.svg"
-        >
-          Plans and Pricing
-        </MarkerText>
-      </MarketingHeaderTitle>
+      <MarketingTitle>
+        <UnderlineText>Plans and Pricing</UnderlineText>
+        &nbsp;for your business
+      </MarketingTitle>
 
-      <MarketingHeaderDescription>
+      <MarketingDescription>
         Get a 7 day free trial with any of the plan. Buying a plan is mandatory in order to use
         Leaper CRM.
-      </MarketingHeaderDescription>
-
+      </MarketingDescription>
       <PriceIntervalButton subscription={subscription} />
     </MarketingHeader>
   )

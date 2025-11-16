@@ -7,7 +7,7 @@ import {
 import { Button } from "@app/ui/components/button"
 import { ChevronDown } from "lucide-react"
 import { ListComponent } from "@/components/shared/list-component"
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
+import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 import { PriceCompareCard } from "@/features/subscription/components/cards/pricing/price-compare-card"
 import {
   COMPARISON_PLANS,
@@ -24,14 +24,7 @@ export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
   return (
     <section className="container mt-32" id="compare-pricing">
       <h2 className="font-bold md:font-semibold text-3xl text-center leading-tight">
-        <MarkerText
-          alt="underline"
-          style={{ top: "80%" }}
-          className="inline-flex"
-          src="/assets/svg/dash.svg"
-        >
-          Compare plans with all features
-        </MarkerText>
+        <UnderlineText>Compare plans with all features</UnderlineText>
       </h2>
 
       <ListComponent

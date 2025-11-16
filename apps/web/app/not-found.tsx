@@ -3,12 +3,12 @@ import Image from "next/image"
 import Link from "next/link"
 import { RadialMesh } from "@/components/shared/mesh"
 import { Marker } from "@/features/marketing/components/ui/marker"
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
 import {
+  MarketingDescription,
   MarketingHeader,
-  MarketingHeaderDescription,
-  MarketingHeaderTitle,
+  MarketingTitle,
 } from "@/features/marketing/components/ui/marketing-intro"
+import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 
 export default function NotFound() {
   return (
@@ -18,21 +18,14 @@ export default function NotFound() {
       <MarketingHeader className="mt-0!">
         <Image priority width={270} height={270} src="/assets/svg/404.svg" alt="not-found" />
 
-        <MarketingHeaderTitle>
+        <MarketingTitle>
           Oops!&nbsp;
-          <MarkerText
-            alt="underline"
-            style={{ top: "63%" }}
-            className="inline-flex"
-            src="/assets/svg/dash.svg"
-          >
-            Page Not Found
-          </MarkerText>
-        </MarketingHeaderTitle>
+          <UnderlineText>Page Not Found</UnderlineText>
+        </MarketingTitle>
 
-        <MarketingHeaderDescription className="max-w-lg">
+        <MarketingDescription className="max-w-lg">
           Sorry, we could not find the page you are looking for but you might want to:
-        </MarketingHeaderDescription>
+        </MarketingDescription>
 
         <div className="relative w-full flex items-center justify-center flex-col gap-4 mx-auto max-w-lg">
           <Marker alt="marker" src="/assets/svg/open-mark.svg" className="-top-6 -left-16" />

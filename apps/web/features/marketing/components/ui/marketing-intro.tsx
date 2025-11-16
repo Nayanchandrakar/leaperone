@@ -12,7 +12,7 @@ export const MarketingHeader = ({ className, ...props }: React.ComponentProps<"d
   )
 }
 
-export const MarketingHeaderTitle = ({ className, ...props }: React.ComponentProps<"h1">) => {
+export const MarketingTitle = ({ className, ...props }: React.ComponentProps<"h1">) => {
   return (
     <h1
       className={cn(
@@ -24,7 +24,7 @@ export const MarketingHeaderTitle = ({ className, ...props }: React.ComponentPro
   )
 }
 
-export const MarketingHeaderDescription = ({ className, ...props }: React.ComponentProps<"p">) => {
+export const MarketingDescription = ({ className, ...props }: React.ComponentProps<"p">) => {
   return (
     <p
       className={cn(

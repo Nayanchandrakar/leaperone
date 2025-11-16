@@ -1,41 +1,21 @@
 import { Button } from "@app/ui/components/button"
-import { Marker } from "@/features/marketing/components/ui/marker"
-import { MarkerText } from "@/features/marketing/components/ui/marker-text"
+import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 
 export const NetworkingSection = () => {
   return (
-    <section className="container max-w-lg! my-32 sm:my-40 ">
-      <h2 className="font-bold md:font-semibold text-3xl text-center leading-normal">
+    <section className="container max-w-2xl! my-32 sm:my-40 space-y-8 md:space-y-12">
+      <h2 className="font-semibold text-3xl text-center leading-normal">
         Ready to take your&nbsp;
-        <MarkerText
-          alt="underline"
-          style={{ top: "50%" }}
-          className="inline-flex"
-          src="/assets/svg/dash.svg"
-        >
-          Networking
-        </MarkerText>
+        <UnderlineText className="before:-bottom-6">Team's Networking</UnderlineText>
         &nbsp; &&nbsp;
-        <MarkerText
-          alt="underline"
-          style={{ top: "50%" }}
-          className="inline-flex"
-          src="/assets/svg/dash.svg"
-        >
-          Client management
-        </MarkerText>
+        <UnderlineText className="before:-bottom-6">Client management</UnderlineText>
         &nbsp; to the next level?
       </h2>
 
-      <div className="flex items-center justify-center flex-col gap-4 mt-8 mx-auto max-w-sm relative">
-        <Marker alt="marker" src="/assets/svg/open-mark.svg" className="-top-6 -left-16" />
-
-        <Marker alt="marker" src="/assets/svg/close-mark.svg" className="-bottom-6 -right-16" />
-
+      <div className="space-y-3 relative before:content-[''] before:absolute before:size-10 before:bg-[url('/assets/svg/open-mark.svg')] before:bg-no-repeat before:-top-6 before:-left-14 before:bg-contain before:bg-center after:content-[''] after:absolute after:size-10 after:bg-[url('/assets/svg/close-mark.svg')] after:bg-no-repeat after:-bottom-6 after:-right-12 after:bg-contain after:bg-center after:hidden before:hidden sm:after:inline-block sm:before:inline-block max-w-[400px] mx-auto">
         <Button size="xl" className="w-full">
           Start 7 days Free Trial
         </Button>
-
         <Button size="xl" className="w-full" variant="green-outline">
           Get in Touch with us
         </Button>
