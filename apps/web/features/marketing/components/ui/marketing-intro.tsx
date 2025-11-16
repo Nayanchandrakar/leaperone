@@ -4,7 +4,7 @@ export const MarketingHeader = ({ className, ...props }: React.ComponentProps<"d
   return (
     <div
       className={cn(
-        "container max-w-4xl! space-y-8 mt-24 md:mt-28 lg:mt-36 flex items-center flex-col",
+        "container max-w-4xl! space-y-8 mt-24 md:mt-28 flex items-center flex-col",
         className,
       )}
       {...props}
