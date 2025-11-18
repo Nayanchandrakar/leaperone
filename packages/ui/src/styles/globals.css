@@ -213,4 +213,9 @@
   .border-container {
     @apply border-2 border-dashed border-red-500;
   }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
 }
+

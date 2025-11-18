@@ -13,8 +13,8 @@ export const CardScanPanel = ({ value, onTrigger, checkIsOpen }: CardScanPanelPr
   const isOpen = checkIsOpen(value)
 
   return (
-    <PanelItem>
-      <PanelTrigger data-state={isOpen}>
+    <PanelItem open={isOpen}>
+      <PanelTrigger>
         <div className="space-y-1 text-muted-foreground text-start">
           <p className="text-sm font-medium">Email me Scan Report of my card</p>
           <p className="text-xs font-normal">
@@ -25,7 +25,7 @@ export const CardScanPanel = ({ value, onTrigger, checkIsOpen }: CardScanPanelPr
         <Switch checked={isOpen} onCheckedChange={() => onTrigger(value)} />
       </PanelTrigger>
 
-      <PanelContent data-state={isOpen}>
+      <PanelContent>
         <NotificationDuration
           title="What type of Scan reports do you want?"
           defaultValue={REPORT_OPTIONS[0].value}
