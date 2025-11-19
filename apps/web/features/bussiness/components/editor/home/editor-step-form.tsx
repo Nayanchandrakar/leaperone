@@ -1,10 +1,9 @@
 import { LazyContentEditor, LazyDesignEditor, LazyQrCodeEditor } from "@/components/shared/dynamic"
+import { useStepper } from "@/features/bussiness/hooks/home/use-stepper"
 
-type EditorStepFormProps = {
-  selectedStep: number
-}
+export const EditorStepForm = () => {
+  const { selectedStep } = useStepper()
 
-export const EditorStepForm = ({ selectedStep }: EditorStepFormProps) => {
   switch (selectedStep) {
     case 0:
       return <LazyContentEditor />

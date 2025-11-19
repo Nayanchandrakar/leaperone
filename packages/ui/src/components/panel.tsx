@@ -1,4 +1,5 @@
 import { cn } from "@app/ui/lib/utils"
+import { ChevronDown } from "lucide-react"
 
 export const Panel = ({ className, ...props }: React.ComponentProps<"div">) => {
   return <div data-slot="panel" className={cn("space-y-3", className)} {...props} />
@@ -26,11 +27,41 @@ export const PanelTrigger = ({ className, ...props }: React.ComponentProps<"div"
     <div
       data-slot="panel-trigger"
       className={cn(
-        "w-full bg-muted p-5 flex items-start sm:items-center gap-2 justify-between group-data-[state=open]/panel-item:border-b",
+        "w-full bg-muted p-5 flex items-center gap-2 justify-between group-data-[state=open]/panel-item:border-b",
         className,
       )}
       {...props}
     />
+  )
+}
+
+export const PanelTitle = ({ className, ...props }: React.ComponentProps<"span">) => {
+  return (
+    <span
+      data-slot="panel-title"
+      className={cn("text-base font-medium text-muted-foreground", className)}
+      {...props}
+    />
+  )
+}
+
+export const PanelSet = ({ className, ...props }: React.ComponentProps<"div">) => {
+  return (
+    <div data-slot="panel-header" className={cn("flex items-center gap-2", className)} {...props} />
+  )
+}
+
+export const PanelToogle = ({ className, children, ...props }: React.ComponentProps<"button">) => {
+  return (
+    <button
+      type="button"
+      className="size-8 bg-white border  border-gray-300 rounded-full flex-center [&_svg:not([class*='size-'])]:size-5 [&_svg]:shrink-0 [&_svg]:text-muted-foreground"
+      {...props}
+    >
+      {children ?? (
+        <ChevronDown className="transition-transform group-data-[state=open]/panel-item:rotate-180" />
+      )}
+    </button>
   )
 }
 
@@ -42,17 +73,5 @@ export const PanelContent = ({ className, children, ...props }: React.ComponentP
     >
       <div className={cn("p-5", className)}>{children}</div>
     </div>
-  )
-}
-
-export const PanelIconButton = ({ className, ...props }: React.ComponentProps<"button">) => {
-  return (
-    <button
-      className={cn(
-        "size-8 bg-white border  border-gray-300 rounded-full flex-center [&_svg:not([class*='size-'])]:size-5",
-        className,
-      )}
-      {...props}
-    />
   )
 }
