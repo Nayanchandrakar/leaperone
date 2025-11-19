@@ -27,6 +27,8 @@
     "motion": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
+    "@dnd-kit/core": "catalog:",
+    "@dnd-kit/sortable": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
     "sonner": "catalog:",

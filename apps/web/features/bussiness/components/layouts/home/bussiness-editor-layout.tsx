@@ -1,9 +1,9 @@
 "use client"
 
-import { useForm, useStore } from "@tanstack/react-form"
-import { useState } from "react"
-import { CardEditorStepper } from "@/features/bussiness/components/editor/home/card-editor-stepper"
-import { CardPreview } from "@/features/bussiness/components/preview/home/card-preview"
+// import { useForm, useStore } from "@tanstack/react-form"
+// import z from "zod"
+import { Editor } from "@/features/bussiness/components/editor/home"
+import { EditorPreviewPanel } from "@/features/bussiness/components/editor/home/editor-preview-panel"
 
 // const formSchema = z.object({
 //   templateId: z.string(),
@@ -80,85 +80,54 @@ import { CardPreview } from "@/features/bussiness/components/preview/home/card-p
 //   ),
 // })
 
-export const BussinessCardSection = () => {
-  const [selectedStep, setSelectedStep] = useState(0)
-  // const formRef = useRef<HTMLFormElement>(null)
-
-  const form = useForm({
-    defaultValues: {
-      // templateId: "sdfsdfsdfsdf",
-      // container: [
-      //   {
-      //     enabled: true,
-      //     photo: { enabled: true, url: "https://picsum.photos/200" },
-      //     logo: { enabled: true, url: "https://picsum.photos/200" },
-      //     name: "Micheal Jordan",
-      //     info: {
-      //       infoOne: { enabled: true, value: "Sales Representative" },
-      //       infoTwo: { enabled: true, value: "Electrica  Automobiles " },
-      //     },
-      //     contact: {
-      //       enabled: true,
-      //       links: [
-      //         { type: "phone", value: "+1234567890" },
-      //         { type: "email", value: "john.doe@example.com" },
-      //         { type: "website", value: "https://www.example.com" },
-      //         {
-      //           type: "location",
-      //           value: "https://www.google.com/maps/place/123+Main+St,+Anytown,+USA",
-      //         },
-      //         { type: "sms", value: "+1234567890" },
-      //         { type: "whatsapp", value: "+1234567890" },
-      //         { type: "webchat", value: "https://www.example.com" },
-      //       ],
-      //     },
-      //   },
-      // ],
-    },
-    // validators: {
-    //   onSubmit: formSchema,
-    //   onChange: formSchema,
-    // },
-  })
-
-  const handleStepClick = (index: number) => {
-    if (selectedStep === index) return
-    setSelectedStep(index)
-  }
-
-  // const handleNextStep = () => {
-  //   if (selectedStep < CARD_STEPS.length - 1) {
-  //     setSelectedStep((prev) => prev + 1)
-  //   }
-  // }
-
-  // const handlePreviousStep = () => {
-  //   if (selectedStep > 0) {
-  //     setSelectedStep((prev) => prev - 1)
-  //   }
-  // }
-
-  // const { onTrigger, checkIsOpen } = usePanel({
-  //   type: "multiple",
-  //   collapsible: true,
-  //   defaultOpen: ["card-profile"],
+export const BusinessEditorLayout = () => {
+  // const form = useForm({
+  //   defaultValues: {
+  //     templateId: "sdfsdfsdfsdf",
+  //     container: [
+  //       {
+  //         enabled: true,
+  //         photo: { enabled: true, url: "https://picsum.photos/200" },
+  //         logo: { enabled: true, url: "https://picsum.photos/200" },
+  //         name: "Micheal Jordan",
+  //         info: {
+  //           infoOne: { enabled: true, value: "Sales Representative" },
+  //           infoTwo: { enabled: true, value: "Electrica  Automobiles " },
+  //         },
+  //         contact: {
+  //           enabled: true,
+  //           links: [
+  //             { type: "phone", value: "+1234567890" },
+  //             { type: "email", value: "john.doe@example.com" },
+  //             { type: "website", value: "https://www.example.com" },
+  //             {
+  //               type: "location",
+  //               value: "https://www.google.com/maps/place/123+Main+St,+Anytown,+USA",
+  //             },
+  //             { type: "sms", value: "+1234567890" },
+  //             { type: "whatsapp", value: "+1234567890" },
+  //             { type: "webchat", value: "https://www.example.com" },
+  //           ],
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   validators: {
+  //     onSubmit: formSchema,
+  //     onChange: formSchema,
+  //   },
   // })
 
-  // const value = "card-profile"
-  // const isOpen = checkIsOpen(value)
-
-  const formData = useStore(form.store, (state) => state.values)
-  console.log(formData)
-
   return (
-    <div className="container my-28 grid grid-cols-1 min-[860px]:grid-cols-[1.6fr_minmax(355px,0.4fr)] gap-9">
-      {/* <CardEditor /> */}
+    <div className="container my-20 grid grid-cols-1 md:grid-cols-[1.6fr_minmax(330px,0.4fr)] gap-6 md:gap-8">
+      <Editor />
+      <EditorPreviewPanel />
+    </div>
+  )
+}
 
-      <section className="">
-        <CardEditorStepper selectedStep={selectedStep} onStepClick={handleStepClick} />
-
-        {/* Content */}
-        {/* <form
+{
+  /* <form
           ref={formRef}
           id="myform"
           className="my-12 bg-zinc-50 border-gray-300 border rounded-4xl p-8"
@@ -333,28 +302,5 @@ export const BussinessCardSection = () => {
           )}
           {selectedStep === 1 && <div className="">Design settings</div>}
           {selectedStep === 2 && <div className="">Qr code settings</div>}
-        </form> */}
-
-        {/* Navigation buttons */}
-      </section>
-
-      {/* <div className="bg-muted p-4 justify-between flex items-center">
-          {selectedStep > 0 && (
-            <Button variant="green-outline" onClick={handlePreviousStep}>
-              <ArrowLeft />
-              Previous Step
-            </Button>
-          )}
-
-          {selectedStep < CARD_STEPS.length - 1 && (
-            <Button className="px-8" onClick={handleNextStep}>
-              Next Step
-              <ArrowRight />
-            </Button>
-          )}
-        </div> */}
-
-      <CardPreview />
-    </div>
-  )
+        </form> */
 }

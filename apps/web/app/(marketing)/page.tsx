@@ -1,12 +1,12 @@
 import { Fragment } from "react"
-import { BussinessCardSection } from "@/features/bussiness/components/pages/home/bussiness-card-section"
+import { BusinessEditorLayout } from "@/features/bussiness/components/layouts/home/bussiness-editor-layout"
 import { HeroSection } from "@/features/bussiness/components/pages/home/hero-section"
 
 export default function HomePage() {
   return (
     <Fragment>
       <HeroSection />
-      <BussinessCardSection />
+      <BusinessEditorLayout />
 
       {/* Checks that parent contains a slot or state or anythign attribute */}
       {/* */}
