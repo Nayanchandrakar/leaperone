@@ -1,6 +1,6 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 
-export const FormLoadingSkeleton = () => {
+export const EditorLoadingSkeleton = () => {
   return Array.from({ length: 10 }).map((_, index) => (
     <div
       key={index}
