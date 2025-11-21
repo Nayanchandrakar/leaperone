@@ -1,19 +1,49 @@
+import { cn } from "@app/ui/lib/utils"
 import { ChevronDown, GripVertical } from "lucide-react"
+import { createContext, type SetStateAction, useContext, useState } from "react"
 
-export const EditorBlock = ({ className, ...props }: React.ComponentProps<"ul">) => {
-  return <ul className={`space-y-3 ${className}`} {...props} />
+type EditorBlockContextProps = {
+  item: string
+  setItem: React.Dispatch<SetStateAction<string>>
+}
+
+const EditorBlockContext = createContext<EditorBlockContextProps | null>(null)
+
+export const useEditorBlockContext = () => {
+  return useContext(EditorBlockContext)!
+}
+
+export const EditorBlock = ({
+  className,
+  children,
+  defaultValue,
+  ...props
+}: React.ComponentProps<"ul"> & {
+  defaultValue?: string
+}) => {
+  const [item, setItem] = useState(defaultValue ?? "")
+  return (
+    <EditorBlockContext.Provider value={{ item, setItem }}>
+      <ul className={`space-y-3 ${className}`} {...props}>
+        {children}
+      </ul>
+    </EditorBlockContext.Provider>
+  )
 }
 
 export const EditorBlockItem = ({
-  open,
   className,
+  isDragging = false,
   ...props
-}: React.ComponentProps<"li"> & { open: boolean }) => {
+}: React.ComponentProps<"li"> & { isDragging?: boolean }) => {
   return (
     <li
+      data-dragging={isDragging}
       data-slot="editor-block-item"
-      data-state={open ? "open" : "closed"}
-      className={`border rounded-xl overflow-hidden group/editor-block-item ${className}`}
+      className={cn(
+        "border rounded-xl bg-background overflow-hidden data-[dragging=true]:border-primary",
+        className,
+      )}
       {...props}
     />
   )
@@ -66,18 +96,26 @@ export const EditorBlockGrip = ({
 }
 
 export const EditorBlockTrigger = ({
+  value,
   className,
   children,
   ...props
-}: React.ComponentProps<"button">) => {
+}: Omit<React.ComponentProps<"button">, "onClick"> & { value: string }) => {
+  const { item, setItem } = useEditorBlockContext()
+  const open = item === value
+
   return (
     <button
+      onClick={() => setItem(value)}
       data-slot="editor-block-trigger"
       className={`size-8 bg-white border  border-gray-300 rounded-full flex-center ${className}`}
       {...props}
     >
       {children ?? (
-        <ChevronDown className="transition-transform group-data-[state=open]/editor-block-item:rotate-180 text-muted-foreground" />
+        <ChevronDown
+          data-state={open}
+          className="transition-transform data-[state=ture]:rotate-180 text-muted-foreground"
+        />
       )}
     </button>
   )

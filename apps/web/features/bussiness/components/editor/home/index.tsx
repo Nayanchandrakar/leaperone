@@ -2,7 +2,7 @@ import { EditorStepForm } from "@/features/bussiness/components/editor/home/edit
 import { EditorStepper } from "@/features/bussiness/components/editor/home/editor-stepper"
 import { EditorWrapper } from "@/features/bussiness/components/ui/editor-wrapper"
 
-export const Editor = () => {
+export const CardEditor = () => {
   return (
     <section className="space-y-5">
       <EditorStepper />
