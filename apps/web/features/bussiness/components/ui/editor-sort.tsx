@@ -53,7 +53,7 @@ type EditorSortProviderProps<T extends EditorSortItemProps = EditorSortItemProps
 }
 
 type EditorSortGroupProps<T extends EditorSortItemProps = EditorSortItemProps> = {
-  children: (item: T) => React.ReactNode
+  children: (item: T, index: number) => React.ReactNode
 }
 
 type EditorEditorSortItemProps = {
