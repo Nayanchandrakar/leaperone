@@ -29,7 +29,7 @@ import {
   EditorBlockHeader,
   EditorBlockItem,
   EditorBlockTitle,
-  // EditorBlockTrigger,
+  EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 
 // Component type definitions
@@ -59,10 +59,8 @@ type EditorSortGroupProps<T extends EditorSortItemProps = EditorSortItemProps> =
 type EditorEditorSortItemProps = {
   id: string
   name: string
-  isOpen: boolean
   checked: boolean
   children: React.ReactNode
-  onTriggerClick: (id: string) => void
   onCheckedChange: (checked: boolean) => void
 }
 
@@ -152,10 +150,8 @@ export const EditorSortGroup = <T extends EditorSortItemProps = EditorSortItemPr
 export const EditorSortItem = ({
   id,
   name,
-  isOpen,
   checked,
   children,
-  onTriggerClick,
   onCheckedChange,
 }: EditorEditorSortItemProps) => {
   const { activeCardId } = useEditorSortContext()
@@ -171,8 +167,8 @@ export const EditorSortItem = ({
   return (
     <React.Fragment>
       <EditorBlockItem
+        value={id}
         style={style}
-        // open={isOpen}
         ref={setNodeRef}
         className={isDragging ? "pointer-events-none cursor-grabbing opacity-60" : undefined}
       >
@@ -183,7 +179,7 @@ export const EditorSortItem = ({
           </EditorBlockGroup>
           <EditorBlockGroup>
             <Switch checked={checked} onCheckedChange={onCheckedChange} />
-            {/* <EditorBlockTrigger onClick={() => onTriggerClick(id)} /> */}
+            <EditorBlockTrigger />
           </EditorBlockGroup>
         </EditorBlockHeader>
         <EditorBlockContent>{children}</EditorBlockContent>
@@ -191,10 +187,7 @@ export const EditorSortItem = ({
 
       {activeCardId === id && (
         <t.In>
-          <EditorBlockItem
-            //  open={isOpen}
-            isDragging={isDragging}
-          >
+          <EditorBlockItem value={id} isDragging={isDragging}>
             <EditorBlockHeader>
               <EditorBlockGroup>
                 <EditorBlockGrip />
@@ -202,7 +195,7 @@ export const EditorSortItem = ({
               </EditorBlockGroup>
               <EditorBlockGroup>
                 <Switch checked={checked} />
-                {/* <EditorBlockTrigger /> */}
+                <EditorBlockTrigger />
               </EditorBlockGroup>
             </EditorBlockHeader>
             <EditorBlockContent>{children}</EditorBlockContent>

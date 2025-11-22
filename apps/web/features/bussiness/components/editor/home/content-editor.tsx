@@ -2,10 +2,9 @@ import { useState } from "react"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
 import {
   EditorSortGroup,
-  // EditorSortItem,
+  EditorSortItem,
   EditorSortProvider,
 } from "@/features/bussiness/components/ui/editor-sort"
-// import { useEditorBlock } from "@/features/bussiness/hooks/home/use-editor-block"
 
 export default function ContentEditor() {
   const [data, setData] = useState([
@@ -19,27 +18,22 @@ export default function ContentEditor() {
     },
   ])
 
-  // const { currentItem, onToggle } = useEditorBlock("card-profile")
-
   return (
-    <EditorBlock>
+    <EditorBlock defaultValue="card-profile">
       <EditorSortProvider data={data} onDataChange={setData}>
         <EditorSortGroup>
           {(item) => (
-            // <EditorSortItem
-            //   id={item.id}
-            //   key={item.id}
-            //   name={item.name}
-            //   checked={false}
-            //   onTriggerClick={onToggle}
-            //   onCheckedChange={() => {}}
-            //   isOpen={currentItem === item.id}
-            // >
-            //   Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates error
-            //   temporibus omnis quos iure dolor corporis velit fugit totam quod suscipit quam
-            //   accusamus harum aliquid illum blanditiis, reprehenderit obcaecati.
-            // </EditorSortItem>
-            <div className="" />
+            <EditorSortItem
+              id={item.id}
+              key={item.id}
+              checked={false}
+              name={item.name}
+              onCheckedChange={() => {}}
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores voluptates error
+              temporibus omnis quos iure dolor corporis velit fugit totam quod suscipit quam
+              accusamus harum aliquid illum blanditiis, reprehenderit obcaecati.
+            </EditorSortItem>
           )}
         </EditorSortGroup>
       </EditorSortProvider>

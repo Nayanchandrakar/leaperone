@@ -7,10 +7,27 @@ type EditorBlockContextProps = {
   setItem: React.Dispatch<SetStateAction<string>>
 }
 
-const EditorBlockContext = createContext<EditorBlockContextProps | null>(null)
+type EditorBlockItemContextProps = {
+  value: string
+}
 
-export const useEditorBlockContext = () => {
-  return useContext(EditorBlockContext)!
+const EditorBlockContext = createContext<EditorBlockContextProps | null>(null)
+const EditorBlockItemContext = createContext<EditorBlockItemContextProps | null>(null)
+
+const useEditorBlockContext = () => {
+  const context = useContext(EditorBlockContext)
+  if (!context) {
+    throw new Error("useEditorBlockContext must be used within EditorBlock")
+  }
+  return context
+}
+
+const useEditorBlockItemContext = () => {
+  const context = useContext(EditorBlockItemContext)
+  if (!context) {
+    throw new Error("useEditorBlockItemContext must be used within EditorBlockItem")
+  }
+  return context
 }
 
 export const EditorBlock = ({
@@ -22,9 +39,10 @@ export const EditorBlock = ({
   defaultValue?: string
 }) => {
   const [item, setItem] = useState(defaultValue ?? "")
+
   return (
     <EditorBlockContext.Provider value={{ item, setItem }}>
-      <ul className={`space-y-3 ${className}`} {...props}>
+      <ul className={cn("space-y-3", className)} {...props}>
         {children}
       </ul>
     </EditorBlockContext.Provider>
@@ -32,20 +50,32 @@ export const EditorBlock = ({
 }
 
 export const EditorBlockItem = ({
+  value,
   className,
+  children,
   isDragging = false,
   ...props
-}: React.ComponentProps<"li"> & { isDragging?: boolean }) => {
+}: React.ComponentProps<"li"> & { isDragging?: boolean; value: string }) => {
+  const { item } = useEditorBlockContext()
+  const open = item === value
+
   return (
-    <li
-      data-dragging={isDragging}
-      data-slot="editor-block-item"
-      className={cn(
-        "border rounded-xl bg-background overflow-hidden data-[dragging=true]:border-primary",
-        className,
-      )}
-      {...props}
-    />
+    <EditorBlockItemContext.Provider value={{ value }}>
+      <li
+        data-dragging={isDragging}
+        data-slot="editor-block-item"
+        data-state={open ? "open" : "closed"}
+        className={cn(
+          "border rounded-xl bg-background overflow-hidden group/editor-block-item",
+          "data-[dragging=true]:border-primary",
+          "has-[data-slot=editor-block-content]:overflow-visible",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </li>
+    </EditorBlockItemContext.Provider>
   )
 }
 
@@ -53,7 +83,11 @@ export const EditorBlockHeader = ({ className, ...props }: React.ComponentProps<
   return (
     <div
       data-slot="editor-block-header"
-      className={`w-full bg-muted p-5 flex items-center gap-2 justify-between group-data-[state=open]/editor-block-item:border-b ${className}`}
+      className={cn(
+        "w-full bg-muted p-5 flex items-center gap-2 justify-between",
+        "group-data-[state=open]/editor-block-item:border-b",
+        className,
+      )}
       {...props}
     />
   )
@@ -63,7 +97,7 @@ export const EditorBlockGroup = ({ className, ...props }: React.ComponentProps<"
   return (
     <div
       data-slot="editor-block-group"
-      className={`flex items-center gap-2 ${className}`}
+      className={cn("flex items-center gap-2", className)}
       {...props}
     />
   )
@@ -73,7 +107,7 @@ export const EditorBlockTitle = ({ className, ...props }: React.ComponentProps<"
   return (
     <p
       data-slot="editor-block-title"
-      className={`text-sm font-medium text-muted-foreground ${className}`}
+      className={cn("text-sm font-medium text-muted-foreground", className)}
       {...props}
     />
   )
@@ -87,7 +121,10 @@ export const EditorBlockGrip = ({
   return (
     <span
       data-slot="editor-block-grip"
-      className={`size-8 bg-white border  border-gray-300 rounded-full cursor-grab flex-center ${className}`}
+      className={cn(
+        "size-8 bg-white border border-gray-300 rounded-full cursor-grab flex-center",
+        className,
+      )}
       {...props}
     >
       {children ?? <GripVertical className="size-5 shrink-0 text-muted-foreground" />}
@@ -96,25 +133,26 @@ export const EditorBlockGrip = ({
 }
 
 export const EditorBlockTrigger = ({
-  value,
-  className,
   children,
+  className,
   ...props
-}: Omit<React.ComponentProps<"button">, "onClick"> & { value: string }) => {
-  const { item, setItem } = useEditorBlockContext()
-  const open = item === value
+}: React.ComponentProps<"button">) => {
+  const { setItem } = useEditorBlockContext()
+  const { value } = useEditorBlockItemContext()
 
   return (
     <button
-      onClick={() => setItem(value)}
+      onClick={() => setItem((prev) => (prev === value ? "" : value))}
       data-slot="editor-block-trigger"
-      className={`size-8 bg-white border  border-gray-300 rounded-full flex-center ${className}`}
+      className={cn("size-8 bg-white border border-gray-300 rounded-full flex-center", className)}
       {...props}
     >
       {children ?? (
         <ChevronDown
-          data-state={open}
-          className="transition-transform data-[state=ture]:rotate-180 text-muted-foreground"
+          className={cn(
+            "transition-transform text-muted-foreground",
+            "group-data-[state=open]/editor-block-item:rotate-180",
+          )}
         />
       )}
     </button>
@@ -129,10 +167,14 @@ export const EditorBlockContent = ({
   return (
     <div
       data-slot="editor-block-content"
-      className="transition-[max-height] duration-200 ease-in-out overflow-hidden  group-data-[state=open]/editor-block-item:max-h-80 group-data-[state=closed]/editor-block-item:max-h-0"
+      className={cn(
+        "transition-[max-height] duration-200 ease-in-out overflow-hidden",
+        "group-data-[state=open]/editor-block-item:max-h-80",
+        "group-data-[state=closed]/editor-block-item:max-h-0",
+      )}
       {...props}
     >
-      <div className={`p-5 ${className}`}>{children}</div>
+      <div className={cn("p-5", className)}>{children}</div>
     </div>
   )
 }
