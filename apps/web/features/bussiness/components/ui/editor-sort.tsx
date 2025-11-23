@@ -31,6 +31,7 @@ import {
   EditorBlockTitle,
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
+import { EditorSubSortListItem } from "./editor-sub-sort-list-item"
 
 // Component type definitions
 
@@ -159,18 +160,16 @@ export const EditorSortItem = ({
     id,
   })
 
-  const style = {
-    transition,
-    transform: CSS.Transform.toString(transform),
-  }
-
   return (
     <React.Fragment>
       <EditorBlockItem
         value={id}
-        style={style}
+        style={{
+          transition,
+          transform: CSS.Transform.toString(transform),
+        }}
         ref={setNodeRef}
-        className={isDragging ? "pointer-events-none cursor-grabbing opacity-60" : undefined}
+        isGrabbing={isDragging}
       >
         <EditorBlockHeader>
           <EditorBlockGroup>
@@ -200,6 +199,45 @@ export const EditorSortItem = ({
             </EditorBlockHeader>
             <EditorBlockContent>{children}</EditorBlockContent>
           </EditorBlockItem>
+        </t.In>
+      )}
+    </React.Fragment>
+  )
+}
+
+export const EditorSubSortItem = ({
+  id,
+  onDelete,
+  children,
+}: {
+  id: string
+  onDelete?: () => void
+  children: React.ReactNode
+}) => {
+  const { activeCardId } = useEditorSortContext()
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id,
+  })
+
+  return (
+    <React.Fragment>
+      <EditorSubSortListItem
+        style={{
+          transition,
+          transform: CSS.Transform.toString(transform),
+        }}
+        ref={setNodeRef}
+        onDelete={onDelete!}
+        listeners={listeners!}
+        attributes={attributes}
+        isGrabbing={isDragging}
+      >
+        {children}
+      </EditorSubSortListItem>
+
+      {activeCardId === id && (
+        <t.In>
+          <EditorSubSortListItem isDragging={isDragging}>{children}</EditorSubSortListItem>
         </t.In>
       )}
     </React.Fragment>

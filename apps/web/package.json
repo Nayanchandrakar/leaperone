@@ -30,6 +30,7 @@
     "@dnd-kit/core": "catalog:",
     "tunnel-rat": "catalog:",
     "@dnd-kit/modifiers": "catalog:",
+    "@faker-js/faker": "catalog:",
     "@dnd-kit/sortable": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",

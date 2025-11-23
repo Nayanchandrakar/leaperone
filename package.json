@@ -97,6 +97,7 @@
       "hono": "^4.9.1",
       "@upstash/redis": "^1.35.3",
       "@neondatabase/serverless": "^1.0.1",
+      "@faker-js/faker": "^10.1.0",
       "@hono/node-server": "^1.18.2",
       "bcryptjs": "^3.0.2",
       "@tanstack/react-form": "^1.23.8",
@@ -112,10 +113,10 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@commitlint/config-conventional": "catalog:",
     "@app/biome-config": "workspace:*",
     "@app/tsconfig": "workspace:*",
+    "@biomejs/biome": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
     "husky": "catalog:",
     "lint-staged": "catalog:",
     "turbo": "catalog:",

@@ -53,9 +53,10 @@ export const EditorBlockItem = ({
   value,
   className,
   children,
+  isGrabbing = false,
   isDragging = false,
   ...props
-}: React.ComponentProps<"li"> & { isDragging?: boolean; value: string }) => {
+}: React.ComponentProps<"li"> & { isGrabbing?: boolean; isDragging?: boolean; value: string }) => {
   const { item } = useEditorBlockContext()
   const open = item === value
 
@@ -63,12 +64,14 @@ export const EditorBlockItem = ({
     <EditorBlockItemContext.Provider value={{ value }}>
       <li
         data-dragging={isDragging}
+        data-grabbing={isGrabbing}
         data-slot="editor-block-item"
         data-state={open ? "open" : "closed"}
         className={cn(
           "border rounded-xl bg-background overflow-hidden group/editor-block-item",
           "data-[dragging=true]:border-primary",
           "has-[data-slot=editor-block-content]:overflow-visible",
+          "data-[grabbing=true]:pointer-events-none data-[grabbing=true]:cursor-grabbing data-[grabbing=true]:opacity-60",
           className,
         )}
         {...props}
@@ -142,8 +145,8 @@ export const EditorBlockTrigger = ({
 
   return (
     <button
-      onClick={() => setItem((prev) => (prev === value ? "" : value))}
       data-slot="editor-block-trigger"
+      onClick={() => setItem((prev) => (prev === value ? "" : value))}
       className={cn("size-8 bg-white border border-gray-300 rounded-full flex-center", className)}
       {...props}
     >
@@ -168,13 +171,13 @@ export const EditorBlockContent = ({
     <div
       data-slot="editor-block-content"
       className={cn(
-        "transition-[max-height] duration-200 ease-in-out overflow-hidden",
-        "group-data-[state=open]/editor-block-item:max-h-200",
+        "group-data-[state=open]/editor-block-item:max-h-300",
         "group-data-[state=closed]/editor-block-item:max-h-0",
+        "transition-[max-height] duration-200 ease-in-out overflow-hidden",
       )}
       {...props}
     >
-      <div className={cn("p-5", className)}>{children}</div>
+      <div className={cn("@container/editor-block-content p-5", className)}>{children}</div>
     </div>
   )
 }

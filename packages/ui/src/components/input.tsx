@@ -7,7 +7,7 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-transparent border border-input focus-visible:border-zinc-300",
+        default: "bg-white border border-input focus-visible:border-zinc-300",
         gray: "bg-muted border border-zinc-100 focus-visible:border-zinc-200",
       },
       size: {

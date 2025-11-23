@@ -22,12 +22,9 @@ const textareaVariants = cva(
   },
 )
 
-function Textarea({
-  className,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<"textarea"> & VariantProps<typeof textareaVariants>) {
+export type TextareaProps = React.ComponentProps<"textarea"> & VariantProps<typeof textareaVariants>
+
+function Textarea({ className, variant, size, ...props }: TextareaProps) {
   return (
     <textarea
       data-slot="textarea"
