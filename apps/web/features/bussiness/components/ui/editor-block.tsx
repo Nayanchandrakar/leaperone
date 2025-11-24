@@ -145,6 +145,7 @@ export const EditorBlockTrigger = ({
 
   return (
     <button
+      type="button"
       data-slot="editor-block-trigger"
       onClick={() => setItem((prev) => (prev === value ? "" : value))}
       className={cn("size-8 bg-white border border-gray-300 rounded-full flex-center", className)}

@@ -11,6 +11,11 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
+import type {
+  contentEditorSchema,
+  headingTextSchema,
+  profileCardSchema,
+} from "../schema/content-editor"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
 
@@ -29,3 +34,6 @@ export type RestrictUserSchema = z.infer<typeof restrictUserSchema>
 export type GetFileSchema = z.infer<typeof getFileSchema>
 export type DeleteFilesSchema = z.infer<typeof deleteFilesSchema>
 export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
+export type ContentEditorSchema = z.infer<typeof contentEditorSchema>
+export type ProfileCardSchema = z.infer<typeof profileCardSchema>
+export type HeadingTextSchema = z.infer<typeof headingTextSchema>

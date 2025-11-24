@@ -42,7 +42,6 @@ type EditorSortContextProps<T extends EditorSortItemProps = EditorSortItemProps>
 
 type EditorSortItemProps = {
   id: string
-  name: string
 } & Record<string, any>
 
 type EditorSortProviderProps<T extends EditorSortItemProps = EditorSortItemProps> = {

@@ -18,8 +18,8 @@ export const TextField = ({ label, variant }: TextFieldProps) => {
         name={field.name}
         variant={variant}
         aria-invalid={isInvalid}
-        value={field.state.value}
         onBlur={field.handleBlur}
+        value={field.state.value ?? ""}
         onChange={(e) => field.handleChange(e.target.value)}
       />
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
