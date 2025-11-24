@@ -110,7 +110,7 @@ export const EditorBlockTitle = ({ className, ...props }: React.ComponentProps<"
   return (
     <p
       data-slot="editor-block-title"
-      className={cn("text-sm font-medium text-muted-foreground", className)}
+      className={cn("text-sm font-medium text-foreground", className)}
       {...props}
     />
   )

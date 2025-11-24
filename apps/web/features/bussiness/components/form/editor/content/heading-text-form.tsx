@@ -1,4 +1,7 @@
+import { FieldGroup, FieldSet } from "@app/ui/components/field"
 import type { ContentEditorSchema, HeadingTextSchema } from "@app/zod/types"
+import { ToggleTextField } from "@/components/form/toggle-text-field"
+import { ToggleTextareaField } from "@/components/form/toogle-textarea-field"
 import { withForm } from "@/components/ui/app-form"
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
 
@@ -16,14 +19,33 @@ export const HeadingTextForm = withForm({
         id={item.id}
         name="Heading + Text"
         checked={item.enabled}
-        onCheckedChange={() => {}}
+        onCheckedChange={(checked) => {
+          form.setFieldValue(`sections[${index}].enabled`, checked)
+        }}
       >
-        <form.AppField
-          name={`sections[${index}].heading.text`}
-          children={(field) => {
-            return <field.TextField label="Description" />
-          }}
-        />
+        <FieldGroup>
+          <FieldSet>
+            <ToggleTextField
+              form={form}
+              variant="gray"
+              toogleLabel="Heading"
+              fields={{
+                name: `sections[${index}].heading.text`,
+                enabled: `sections[${index}].heading.enabled`,
+              }}
+            />
+
+            <ToggleTextareaField
+              form={form}
+              variant="gray"
+              toogleLabel="Description"
+              fields={{
+                name: `sections[${index}].description.text`,
+                enabled: `sections[${index}].description.enabled`,
+              }}
+            />
+          </FieldSet>
+        </FieldGroup>
       </EditorSortItem>
     )
   },
