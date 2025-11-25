@@ -182,3 +182,13 @@ export const EditorBlockContent = ({
     </div>
   )
 }
+
+export const EditorBlockFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
+  return (
+    <div
+      data-slot="editor-block-footer"
+      className={cn("px-5 py-4 border-t border-border mt-2", className)}
+      {...props}
+    />
+  )
+}

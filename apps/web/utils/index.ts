@@ -8,3 +8,7 @@ export function formatCurrency(
 ) {
   return new Intl.NumberFormat("en-US", options).format(num)
 }
+
+export function generateUUID() {
+  return crypto.randomUUID()
+}

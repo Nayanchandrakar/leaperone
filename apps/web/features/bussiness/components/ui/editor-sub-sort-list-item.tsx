@@ -43,6 +43,7 @@ export const EditorSubSortListItem = ({
       <div className="flex items-center gap-2 *:bg-white absolute -top-4.5 sm:right-6 right-4">
         <Button
           size="icon"
+          type="button"
           onClick={handleDelete}
           variant="gray-outline"
           className="text-destructive hover:text-destructive/90"
@@ -52,6 +53,7 @@ export const EditorSubSortListItem = ({
 
         <Button
           size="icon"
+          type="button"
           {...listeners}
           {...attributes}
           variant="gray-outline"

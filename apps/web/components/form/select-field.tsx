@@ -7,13 +7,11 @@ import {
   SelectValue,
 } from "@app/ui/components/select"
 import { useFieldContext } from "@/components/ui/app-form"
+import type { SelectOption } from "@/features/bussiness/types"
 
 type SelectFieldProps = {
   label?: string
-  options: {
-    label: string
-    value: string
-  }[]
+  options: SelectOption[]
 }
 
 export const SelectField = ({ label, options }: SelectFieldProps) => {

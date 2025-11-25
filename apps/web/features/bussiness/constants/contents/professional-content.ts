@@ -2,7 +2,7 @@ import type { ContentEditorSchema } from "@app/zod/types"
 
 export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
   {
-    id: "profile-card",
+    id: "f560863c-749e-4124-aab9-73a48ac07631",
     enabled: true,
     type: "profile",
     details: {
@@ -15,30 +15,30 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
         enabled: true,
       },
     },
-    nameSection: {
+    name: {
       enabled: true,
       name: "Michael Smith",
     },
-    infoSection: {
-      primaryInfo: {
+    info: {
+      primary: {
         enabled: true,
         text: "Sales Representative",
       },
-      secondaryInfo: {
+      secondary: {
         enabled: true,
         text: "Electrica  Automobiles",
       },
     },
-    quickContact: {
+    contacts: {
       enabled: true,
-      contacts: [
+      list: [
         {
-          id: "email",
+          id: "610e25f8-749e-4124-aab9-73a48ac07631",
           type: "email",
           value: "michael.smith@example.com",
         },
         {
-          id: "phone",
+          id: "610e25f8-749e-4124-aab9-73a48ac07632",
           type: "phone",
           value: "+1234567890",
         },
@@ -47,7 +47,7 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
   },
   {
     enabled: true,
-    id: "heading-text",
+    id: "e60e25f8-749e-4124-aab9-73a48ac07631",
     type: "heading-text",
     heading: {
       enabled: true,

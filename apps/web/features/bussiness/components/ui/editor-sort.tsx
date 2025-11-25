@@ -61,6 +61,7 @@ type EditorEditorSortItemProps = {
   name: string
   checked: boolean
   children: React.ReactNode
+  contentClassName?: string
   onCheckedChange: (checked: boolean) => void
 }
 
@@ -152,6 +153,7 @@ export const EditorSortItem = ({
   name,
   checked,
   children,
+  contentClassName,
   onCheckedChange,
 }: EditorEditorSortItemProps) => {
   const { activeCardId } = useEditorSortContext()
@@ -180,7 +182,7 @@ export const EditorSortItem = ({
             <EditorBlockTrigger />
           </EditorBlockGroup>
         </EditorBlockHeader>
-        <EditorBlockContent>{children}</EditorBlockContent>
+        <EditorBlockContent className={contentClassName}>{children}</EditorBlockContent>
       </EditorBlockItem>
 
       {activeCardId === id && (

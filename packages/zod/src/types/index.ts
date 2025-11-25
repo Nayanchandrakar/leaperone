@@ -12,6 +12,7 @@ import type {
   verifyEmailSchema,
 } from "../schema/auth"
 import type {
+  contactSchema,
   contentEditorSchema,
   headingTextSchema,
   profileCardSchema,
@@ -37,3 +38,4 @@ export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
 export type ContentEditorSchema = z.infer<typeof contentEditorSchema>
 export type ProfileCardSchema = z.infer<typeof profileCardSchema>
 export type HeadingTextSchema = z.infer<typeof headingTextSchema>
+export type ContactSchema = z.infer<typeof contactSchema>

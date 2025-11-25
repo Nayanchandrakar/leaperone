@@ -1,7 +1,51 @@
 import { z } from "zod"
+import { descriptionText, email, headingText, name, telegram } from "../utils"
+
+export const contactSchema = z.discriminatedUnion("type", [
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("phone"),
+    value: z.e164({ error: "Invalid phone number" }).trim(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("email"),
+    value: email,
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("website"),
+    value: z.url(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("location"),
+    value: z.url(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("sms"),
+    value: z.e164({ error: "Invalid phone number" }).trim(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("whatsapp"),
+    value: z.e164({ error: "Invalid whatsapp number" }).trim(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("wechat"),
+    value: z.e164({ error: "Invalid wechat number" }).trim(),
+  }),
+  z.object({
+    id: z.uuidv4(),
+    type: z.literal("telegram"),
+    value: telegram,
+  }),
+])
 
 export const profileCardSchema = z.object({
-  id: z.string(),
+  id: z.uuidv4(),
   enabled: z.boolean(),
   type: z.literal("profile"),
   details: z.object({
@@ -14,57 +58,39 @@ export const profileCardSchema = z.object({
       enabled: z.boolean(),
     }),
   }),
-  nameSection: z.object({
+  name: z.object({
+    name,
     enabled: z.boolean(),
-    name: z.string().min(3).max(40),
   }),
-  infoSection: z.object({
-    primaryInfo: z.object({
+  info: z.object({
+    primary: z.object({
       enabled: z.boolean(),
-      text: z.string().min(2).max(30),
+      text: z.string().min(3).max(30).trim(),
     }),
-    secondaryInfo: z.object({
+    secondary: z.object({
       enabled: z.boolean(),
-      text: z.string().min(2).max(30),
+      text: z.string().min(3).max(30).trim(),
     }),
   }),
-  quickContact: z.object({
+  contacts: z.object({
     enabled: z.boolean(),
-    contacts: z.array(
-      z.discriminatedUnion("type", [
-        z.object({
-          id: z.string(),
-          type: z.literal("email"),
-          value: z.email(),
-        }),
-        z.object({
-          id: z.string(),
-          type: z.literal("phone"),
-          value: z.e164({ error: "Invalid phone number" }),
-        }),
-        z.object({
-          id: z.string(),
-          type: z.literal("website"),
-          value: z.url(),
-        }),
-      ]),
-    ),
+    list: z.array(contactSchema),
   }),
 })
 
 export const headingTextSchema = z.object({
-  id: z.string(),
+  id: z.uuidv4(),
+  type: z.literal("heading-text"),
   enabled: z.boolean(),
   heading: z.object({
+    text: headingText,
     enabled: z.boolean(),
-    text: z.string().min(2).max(40),
   }),
   description: z.object({
+    text: descriptionText,
     enabled: z.boolean(),
-    text: z.string().min(2).max(100),
   }),
   background: z.boolean(),
-  type: z.literal("heading-text"),
 })
 
 export const contentEditorSchema = z.object({

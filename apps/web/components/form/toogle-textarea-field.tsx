@@ -5,7 +5,7 @@ import { ToggleField } from "@/components/form/toogle-field"
 import { withFieldGroup } from "@/components/ui/app-form"
 
 interface ToogleTextareaFieldProps {
-  toogleLabel: string
+  label: string
   variant?: TextareaProps["variant"]
 }
 interface DefaultValues {
@@ -16,7 +16,7 @@ interface DefaultValues {
 export const ToggleTextareaField = withFieldGroup({
   props: {} as ToogleTextareaFieldProps,
   defaultValues: {} as DefaultValues,
-  render: ({ group, toogleLabel, variant }) => {
+  render: ({ group, label, variant }) => {
     return (
       <group.AppField
         name="name"
@@ -28,7 +28,7 @@ export const ToggleTextareaField = withFieldGroup({
                 name="enabled"
                 children={(field2) => (
                   <ToggleField
-                    label={toogleLabel}
+                    label={label}
                     value={field2.state.value}
                     onClick={field2.handleChange}
                   />

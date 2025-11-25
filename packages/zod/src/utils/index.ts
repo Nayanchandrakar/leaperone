@@ -32,10 +32,21 @@ export const phoneNumber = z
   .or(z.literal(""))
   .optional()
 
+export const telegram = z
+  .url()
+  .regex(patterns.telegram, {
+    message: "Invalid telegram link",
+  })
+  .trim()
+
+export const headingText = z.string().min(2).max(30).trim()
+export const descriptionText = z.string().min(2).max(50).trim()
+
 export const agreementHeading = z.string().min(5).max(40)
 export const email = z.email().toLowerCase().trim()
 export const callbackUrl = z.string().trim()
 export const seats = z.number().default(1)
+
 export const name = z
   .string()
   .trim()
