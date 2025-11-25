@@ -29,6 +29,21 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
         text: "Electrica  Automobiles",
       },
     },
+    quickContact: {
+      enabled: true,
+      contacts: [
+        {
+          id: "email",
+          type: "email",
+          value: "michael.smith@example.com",
+        },
+        {
+          id: "phone",
+          type: "phone",
+          value: "+1234567890",
+        },
+      ],
+    },
   },
   {
     enabled: true,

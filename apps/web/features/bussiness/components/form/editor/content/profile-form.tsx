@@ -1,13 +1,34 @@
-import { FieldGroup, FieldSet } from "@app/ui/components/field"
+import { FieldGroup, FieldSeparator, FieldSet } from "@app/ui/components/field"
 import type { ContentEditorSchema, ProfileCardSchema } from "@app/zod/types"
 import { ToggleTextField } from "@/components/form/toggle-text-field"
 import { withForm } from "@/components/ui/app-form"
-import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
+import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
+import {
+  EditorSortGroup,
+  EditorSortItem,
+  EditorSortProvider,
+  EditorSubSortItem,
+} from "@/features/bussiness/components/ui/editor-sort"
 
 interface FormProps {
   item: ProfileCardSchema
   index: number
 }
+
+const QUICK_FIELDS = [
+  {
+    label: "Phone Number",
+    value: "phone",
+  },
+  {
+    label: "Email",
+    value: "email",
+  },
+  {
+    label: "Website",
+    value: "website",
+  },
+]
 
 export const ProfileForm = withForm({
   props: {} as FormProps,
@@ -53,6 +74,47 @@ export const ProfileForm = withForm({
                 }}
               />
             </div>
+          </FieldSet>
+
+          <FieldSeparator />
+
+          <FieldSet>
+            <FieldGroup>
+              <form.AppField
+                name={`sections[${index}].quickContact.enabled`}
+                children={(field) => {
+                  return <field.SwitchField label="Quick Contact links with Icons" />
+                }}
+              />
+            </FieldGroup>
+          </FieldSet>
+
+          <FieldSet>
+            <FieldGroup className="gap-7 sm:gap-8">
+              <form.AppField
+                name={`sections[${index}].quickContact.contacts`}
+                children={(field) => (
+                  <EditorSortProvider data={field?.state?.value} onDataChange={field.handleChange}>
+                    <EditorSortGroup>
+                      {(subItem, subIndex) => (
+                        <EditorSubSortItem id={subItem.id} key={subIndex} onDelete={() => {}}>
+                          <EditorSubSortTwoColumnGrid>
+                            <form.AppField
+                              name={`sections[${index}].quickContact.contacts[${subIndex}].type`}
+                              children={(field) => <field.SelectField options={QUICK_FIELDS} />}
+                            />
+                            <form.AppField
+                              name={`sections[${index}].quickContact.contacts[${subIndex}].value`}
+                              children={(field) => <field.TextField />}
+                            />
+                          </EditorSubSortTwoColumnGrid>
+                        </EditorSubSortItem>
+                      )}
+                    </EditorSortGroup>
+                  </EditorSortProvider>
+                )}
+              />
+            </FieldGroup>
           </FieldSet>
         </FieldGroup>
       </EditorSortItem>

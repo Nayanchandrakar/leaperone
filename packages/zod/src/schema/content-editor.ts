@@ -28,6 +28,28 @@ export const profileCardSchema = z.object({
       text: z.string().min(2).max(30),
     }),
   }),
+  quickContact: z.object({
+    enabled: z.boolean(),
+    contacts: z.array(
+      z.discriminatedUnion("type", [
+        z.object({
+          id: z.string(),
+          type: z.literal("email"),
+          value: z.email(),
+        }),
+        z.object({
+          id: z.string(),
+          type: z.literal("phone"),
+          value: z.e164({ error: "Invalid phone number" }),
+        }),
+        z.object({
+          id: z.string(),
+          type: z.literal("website"),
+          value: z.url(),
+        }),
+      ]),
+    ),
+  }),
 })
 
 export const headingTextSchema = z.object({

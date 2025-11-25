@@ -133,12 +133,12 @@ export const EditorSortProvider = <T extends EditorSortItemProps = EditorSortIte
 export const EditorSortGroup = <T extends EditorSortItemProps = EditorSortItemProps>({
   children,
 }: EditorSortGroupProps<T>) => {
-  const { data, activeCardId } = useEditorSortContext<T>()
+  const { data = [], activeCardId } = useEditorSortContext<T>()
   const items = data.map((i) => i.id)
 
   return (
     <SortableContext items={items} strategy={verticalListSortingStrategy}>
-      {data.map(children)}
+      {data?.map(children)}
       {createPortal(
         <DragOverlay dropAnimation={null}>{activeCardId && <t.Out />}</DragOverlay>,
         document.body,

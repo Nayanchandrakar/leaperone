@@ -3,7 +3,7 @@ import { Input, type InputProps } from "@app/ui/components/input"
 import { useFieldContext } from "@/components/ui/app-form"
 
 type TextFieldProps = Pick<InputProps, "variant"> & {
-  label: string
+  label?: string
 }
 
 export const TextField = ({ label, variant }: TextFieldProps) => {
@@ -12,7 +12,7 @@ export const TextField = ({ label, variant }: TextFieldProps) => {
 
   return (
     <Field data-invalid={isInvalid}>
-      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+      {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
       <Input
         id={field.name}
         name={field.name}
