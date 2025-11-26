@@ -1,5 +1,6 @@
 import { z } from "zod"
-import { agreementHeading, email, termsContentSchema, termsLinkSchema } from "../utils"
+import { agreementHeading, email } from "../utils"
+import { termsContentSchema, termsLinkSchema } from "./common"
 
 export const agreementFormSchema = z.object({
   supportEmail: email,

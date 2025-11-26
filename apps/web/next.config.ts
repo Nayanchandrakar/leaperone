@@ -8,7 +8,12 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@app/database", "@app/error", "@app/env", "@app/ui", "@app/zod"],
 
   images: {
-    domains: ["ui.shadcn.com", "d3h5nh9ihnfcrz.cloudfront.net", "picsum.photos"],
+    domains: [
+      "ui.shadcn.com",
+      "d3h5nh9ihnfcrz.cloudfront.net",
+      "picsum.photos",
+      "images.pexels.com",
+    ],
   },
 
   // cacheComponents: true,

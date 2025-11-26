@@ -9,6 +9,7 @@ export const useContentFormOptions = () => {
       sections: PROFESSIONAL_TEMPLATE,
     },
     validators: {
+      onBlur: contentEditorSchema,
       onChange: contentEditorSchema,
       onSubmit: contentEditorSchema,
     },

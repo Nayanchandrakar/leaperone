@@ -11,12 +11,14 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
+import type { backgroundSchema, colorsSchema } from "../schema/common"
 import type {
   contactSchema,
   contentEditorSchema,
   headingTextSchema,
   profileCardSchema,
 } from "../schema/content-editor"
+import type { designEditorSchema } from "../schema/design-editor"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
 
@@ -39,3 +41,6 @@ export type ContentEditorSchema = z.infer<typeof contentEditorSchema>
 export type ProfileCardSchema = z.infer<typeof profileCardSchema>
 export type HeadingTextSchema = z.infer<typeof headingTextSchema>
 export type ContactSchema = z.infer<typeof contactSchema>
+export type BackgroundSchema = z.infer<typeof backgroundSchema>
+export type DesignEditorSchema = z.infer<typeof designEditorSchema>
+export type ColorsSchema = z.infer<typeof colorsSchema>

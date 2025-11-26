@@ -1,47 +1,25 @@
 import { z } from "zod"
-import { descriptionText, email, headingText, name, telegram } from "../utils"
+import { descriptionText, headingText, name } from "../utils"
+import {
+  emailSchema,
+  locationSchema,
+  phoneSchema,
+  smsSchema,
+  telegramSchema,
+  websiteSchema,
+  wechatSchema,
+  whatsappSchema,
+} from "./common"
 
 export const contactSchema = z.discriminatedUnion("type", [
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("phone"),
-    value: z.e164({ error: "Invalid phone number" }).trim(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("email"),
-    value: email,
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("website"),
-    value: z.url(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("location"),
-    value: z.url(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("sms"),
-    value: z.e164({ error: "Invalid phone number" }).trim(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("whatsapp"),
-    value: z.e164({ error: "Invalid whatsapp number" }).trim(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("wechat"),
-    value: z.e164({ error: "Invalid wechat number" }).trim(),
-  }),
-  z.object({
-    id: z.uuidv4(),
-    type: z.literal("telegram"),
-    value: telegram,
-  }),
+  phoneSchema,
+  emailSchema,
+  websiteSchema,
+  locationSchema,
+  smsSchema,
+  whatsappSchema,
+  wechatSchema,
+  telegramSchema,
 ])
 
 export const profileCardSchema = z.object({
