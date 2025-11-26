@@ -65,7 +65,7 @@ export const backgroundSchema = z.object({
   type: z.literal("image"),
 })
 
-export const colorsSchema = z.object({
+export const colorSchema = z.object({
   background: color,
   highlight: color,
   mainText: color,

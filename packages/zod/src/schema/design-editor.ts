@@ -3,13 +3,13 @@ import {
   backgroundSchema,
   cardImageSchema,
   cardSettingsSchema,
-  colorsSchema,
+  colorSchema,
   sectionBackgroundSchema,
 } from "./common"
 
 export const designEditorSchema = z.object({
   background: z.array(backgroundSchema).min(30).max(50),
-  colors: colorsSchema,
+  color: colorSchema,
   sectionBackground: sectionBackgroundSchema,
   cardImage: cardImageSchema,
   settings: cardSettingsSchema,
