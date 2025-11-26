@@ -42,6 +42,16 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
           type: "phone",
           value: "+1234567890",
         },
+        {
+          id: "610e25f8-749e-4124-aab9-73a48ac07633",
+          type: "location",
+          value: "https://www.google.com",
+        },
+        {
+          id: "610e25f8-749e-4124-aab9-73a48ac07634",
+          type: "website",
+          value: "https://www.yourwebsite.com",
+        },
       ],
     },
   },

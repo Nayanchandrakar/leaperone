@@ -12,12 +12,7 @@ import {
   useSensors,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers"
-import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import React, { createContext, useContext, useState } from "react"
 import { createPortal } from "react-dom"
@@ -47,7 +42,7 @@ type EditorSortItemProps = {
 type EditorSortProviderProps<T extends EditorSortItemProps = EditorSortItemProps> = {
   data: T[]
   children: React.ReactNode
-  onDataChange?: (data: T[]) => void
+  onDataChange?: (oldIndex: number, newIndex: number) => void
   onDragEnd?: (event: DragEndEvent) => void
   onDragStart?: (event: DragStartEvent) => void
 }
@@ -107,12 +102,9 @@ export const EditorSortProvider = <T extends EditorSortItemProps = EditorSortIte
     const { active, over } = event
     if (!over || active.id === over.id) return
 
-    let newData = [...data]
-    const oldIndex = newData.findIndex((item) => item.id === active.id)
-    const newIndex = newData.findIndex((item) => item.id === over.id)
-    newData = arrayMove(data, oldIndex, newIndex)
-
-    onDataChange?.(newData)
+    const oldIndex = data.findIndex((item) => item.id === active.id)
+    const newIndex = data.findIndex((item) => item.id === over.id)
+    onDataChange?.(oldIndex, newIndex)
   }
 
   return (
@@ -139,7 +131,7 @@ export const EditorSortGroup = <T extends EditorSortItemProps = EditorSortItemPr
 
   return (
     <SortableContext items={items} strategy={verticalListSortingStrategy}>
-      {data?.map(children)}
+      {data?.length > 0 && data?.map(children)}
       {createPortal(
         <DragOverlay dropAnimation={null}>{activeCardId && <t.Out />}</DragOverlay>,
         document.body,

@@ -21,21 +21,28 @@ export const SelectField = ({ label, options }: SelectFieldProps) => {
   return (
     <Field data-invalid={isInvalid}>
       {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
-
-      <Select name={field.name} value={field.state.value} onValueChange={field.handleChange}>
-        <SelectTrigger id={field.name} aria-invalid={isInvalid} className="bg-white">
+      <Select
+        name={field.name}
+        value={field.state.value ?? ""}
+        onValueChange={field.handleChange}
+        defaultValue={field.state.value ?? ""}
+      >
+        <SelectTrigger
+          id={field.name}
+          className="bg-white"
+          aria-invalid={isInvalid}
+          onBlur={field.handleBlur}
+        >
           <SelectValue placeholder="Select" />
         </SelectTrigger>
-
         <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+          {options.map((option, index) => (
+            <SelectItem key={`select-item-${index}`} value={option.value}>
               {option.label}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
     </Field>
   )

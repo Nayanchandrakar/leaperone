@@ -28,11 +28,20 @@ export default function ContentEditor() {
           <form.AppField
             mode="array"
             name="sections"
-            children={(field) => (
-              <EditorSortProvider data={field.state.value} onDataChange={field.handleChange}>
+            children={(sectionField) => (
+              <EditorSortProvider
+                data={sectionField.state.value}
+                onDataChange={sectionField.moveValue}
+              >
                 <EditorSortGroup>
                   {(item: ContentEditorSortItem, index) => (
-                    <ContentFormRenderer key={index} form={form} item={item} index={index} />
+                    <ContentFormRenderer
+                      form={form}
+                      key={item.id}
+                      index={index}
+                      sectionId={item.id}
+                      sectionType={item.type}
+                    />
                   )}
                 </EditorSortGroup>
               </EditorSortProvider>
