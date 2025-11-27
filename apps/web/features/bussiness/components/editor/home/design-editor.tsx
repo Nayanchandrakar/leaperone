@@ -1,5 +1,3 @@
-// import { EditorBlock } from "@/features/bussiness/components/editor/ui/editor-block"
-
 import { useCallback } from "react"
 import { useAppForm } from "@/components/ui/app-form"
 import { BackgroundChangeForm } from "@/features/bussiness/components/form/editor/design/background-change-form"

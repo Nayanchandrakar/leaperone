@@ -1,10 +1,10 @@
-import type { ColorsSchema, DesignEditorSchema } from "@app/zod/types"
+import type { ColorSchema, DesignEditorSchema } from "@app/zod/types"
 import { BACKGROUND_IMAGES } from "@/features/bussiness/constants/home/background-images"
 import { CARD_COLORS } from "@/features/bussiness/constants/home/card-colors"
 
 export const DEFAULT_DESIGN_SETTINGS: DesignEditorSchema = {
   background: BACKGROUND_IMAGES,
-  colors: CARD_COLORS[0] as ColorsSchema,
+  color: CARD_COLORS[0] as ColorSchema,
   sectionBackground: {
     enabled: true,
     color: "#FFFFFF",

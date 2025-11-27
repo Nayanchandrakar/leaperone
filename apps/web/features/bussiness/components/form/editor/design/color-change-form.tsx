@@ -1,7 +1,9 @@
 import { FieldGroup, FieldSet } from "@app/ui/components/field"
 import type { DesignEditorSchema } from "@app/zod/types"
-import type React from "react"
+import { useId } from "react"
+import { ListComponent } from "@/components/shared/list-component"
 import { withForm } from "@/components/ui/app-form"
+import { CardColorSwatch } from "@/features/bussiness/components/cards/home/card-color-swatch"
 import {
   EditorBlockContent,
   EditorBlockHeader,
@@ -26,21 +28,26 @@ export const ColorChangeForm = withForm({
             <FieldSet>
               <form.AppField
                 name="color"
-                children={(colorField) => (
-                  <div className="flex flex-wrap gap-3">
-                    {CARD_COLORS.map((color) => (
-                      <div
-                        key={color.background}
-                        style={
-                          {
-                            backgroundColor: color.background,
-                            "--highlight-color": color.highlight,
-                          } as React.CSSProperties
-                        }
-                        className="aspect-square size-16 relative after:content-[''] after:absolute after:w-full after:bg-(--highlight-color)  after:rounded-b-lg after:h-6 after:bottom-0 rounded-lg object-cover transition-colors duration-200 cursor-pointer outline outline-transparent hover:outline-primary outline-offset-2 data-[active=true]:outline-primary"
-                      />
-                    ))}
-                  </div>
+                children={({ state, handleChange }) => (
+                  <ListComponent
+                    items={CARD_COLORS}
+                    className="flex flex-wrap gap-3"
+                    renderItem={(color) => {
+                      const id = useId()
+                      const isActive =
+                        state?.value?.background === color.background &&
+                        state?.value?.highlight === color.highlight
+                      return (
+                        <CardColorSwatch
+                          key={id}
+                          data-state={isActive}
+                          highlightColor={color.highlight}
+                          backgroundColor={color.background}
+                          onClick={() => handleChange(color)}
+                        />
+                      )
+                    }}
+                  />
                 )}
               />
             </FieldSet>
