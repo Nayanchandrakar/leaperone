@@ -75,7 +75,7 @@ export const colorSchema = z.object({
 export const sectionBackgroundSchema = z.object({
   enabled: z.boolean(),
   color,
-  borderRadius: z.number().min(0).max(100),
+  borderRadius: z.int().positive().min(0).max(100),
 })
 
 export const cardImageSchema = z.object({

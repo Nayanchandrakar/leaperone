@@ -1,0 +1,35 @@
+import type { ColorSchema } from "@app/zod/types"
+import { useCallback } from "react"
+import { ListComponent } from "@/components/shared/list-component"
+import { CardColorSwatch } from "@/features/bussiness/components/cards/home/card-color-swatch"
+
+interface ColorsListProps {
+  colors: ColorSchema[]
+  selectedColor: ColorSchema
+  onColorChange: (color: ColorSchema) => void
+}
+
+export const ColorsList = ({ colors, selectedColor, onColorChange }: ColorsListProps) => {
+  const isColorSelected = useCallback(
+    (color: ColorSchema) =>
+      selectedColor?.background === color?.background &&
+      selectedColor?.highlight === color?.highlight,
+    [selectedColor],
+  )
+
+  return (
+    <ListComponent
+      items={colors}
+      className="flex flex-wrap gap-3"
+      renderItem={(color, index) => (
+        <CardColorSwatch
+          key={`${color.background}-${index}`}
+          highlightColor={color.highlight}
+          backgroundColor={color.background}
+          data-state={isColorSelected(color)}
+          onClick={() => onColorChange(color)}
+        />
+      )}
+    />
+  )
+}
