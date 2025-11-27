@@ -11,7 +11,7 @@ export const DEFAULT_DESIGN_SETTINGS: DesignEditorSchema = {
     borderRadius: 34,
   },
   cardImage: {
-    url: "https://images.pexels.com/photos/965875/pexels-photo-965875.jpeg",
+    url: "https://images.pexels.com/photos/7004697/pexels-photo-7004697.jpeg",
   },
   settings: {
     scanReportEmail: {

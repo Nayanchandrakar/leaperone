@@ -25,8 +25,20 @@ function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root
   )
 }
 
-function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+function TooltipTrigger({
+  className,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
+  return (
+    <TooltipPrimitive.Trigger
+      data-slot="tooltip-trigger"
+      className={cn(
+        "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
+        className,
+      )}
+      {...props}
+    />
+  )
 }
 
 function TooltipContent({
