@@ -1,5 +1,5 @@
 import { Button } from "@app/ui/components/button"
-import { FieldGroup, FieldSeparator, FieldSet } from "@app/ui/components/field"
+import { Field, FieldGroup, FieldSeparator, FieldSet } from "@app/ui/components/field"
 import type { ContentEditorSchema } from "@app/zod/types"
 import { Plus } from "lucide-react"
 import React, { useCallback, useMemo } from "react"
@@ -7,6 +7,7 @@ import { ToggleTextField } from "@/components/form/toggle-text-field"
 import { withForm } from "@/components/ui/app-form"
 import { DropdownSelectButton } from "@/features/bussiness/components/buttons/home/dropdown-select-button"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
+import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import {
   EditorSortGroup,
   EditorSortItem,
@@ -45,6 +46,30 @@ export const ProfileForm = withForm({
             onCheckedChange={sectionField.handleChange}
           >
             <FieldGroup>
+              <div className="flex gap-5 @max-[260px]/editor-block-content:flex-col">
+                <Field className="w-fit">
+                  <form.AppField
+                    name={`${sectionName}.details.profile.enabled`}
+                    children={(field) => <field.SwitchField label="Profile Pic" />}
+                  />
+                  <form.AppField
+                    name={`${sectionName}.details.profile.imageSrc`}
+                    children={(field) => <EditorImageUploader src={field?.state?.value} />}
+                  />
+                </Field>
+
+                <Field className="w-fit">
+                  <form.AppField
+                    name={`${sectionName}.details.branding.enabled`}
+                    children={(field) => <field.SwitchField label="Brand Logo" />}
+                  />
+                  <form.AppField
+                    name={`${sectionName}.details.branding.imageSrc`}
+                    children={(field) => <EditorImageUploader src={field?.state?.value} />}
+                  />
+                </Field>
+              </div>
+
               <FieldSet>
                 <ToggleTextField
                   form={form}
