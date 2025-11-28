@@ -40,7 +40,7 @@ export const telegram = z
   .trim()
 
 export const headingText = z.string().min(2).max(30).trim()
-export const descriptionText = z.string().min(2).max(50).trim()
+export const descriptionText = z.string().min(2).max(200).trim()
 
 export const color = z.string().min(8).max(8).trim()
 export const agreementHeading = z.string().min(5).max(40)

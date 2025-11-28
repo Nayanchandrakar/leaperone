@@ -8,7 +8,7 @@ interface StepperStore {
 }
 
 export const useStepper = create<StepperStore>()((set) => ({
-  selectedStep: 1,
+  selectedStep: 0,
   setSelectedStep: (step) => set({ selectedStep: step }),
   nextStep: () => set((state) => ({ selectedStep: state.selectedStep + 1 })),
   previousStep: () => set((state) => ({ selectedStep: state.selectedStep - 1 })),
