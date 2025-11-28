@@ -1,3 +1,4 @@
+import { EditorFooter } from "@/features/bussiness/components/editor/home/editor-footer"
 import { EditorStepForm } from "@/features/bussiness/components/editor/home/editor-step-form"
 import { EditorStepper } from "@/features/bussiness/components/editor/home/editor-stepper"
 import { EditorWrapper } from "@/features/bussiness/components/ui/editor-wrapper"
@@ -9,6 +10,7 @@ export const CardEditor = () => {
       <EditorWrapper>
         <EditorStepForm />
       </EditorWrapper>
+      <EditorFooter />
     </section>
   )
 }

@@ -1,25 +1,25 @@
-"use client"
-
 import { Button } from "@app/ui/components/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { useMemo } from "react"
+import { CARD_STEPS } from "@/features/bussiness/constants/home/card-steps"
+import { useStepper } from "@/features/bussiness/hooks/home/use-stepper"
 
-type EditorFooterProps = {
-  hasNextStep: boolean
-  selectedStep: number
-  onNextAction: () => void
-  onPreviousAction: () => void
-}
+export const EditorFooter = () => {
+  const { selectedStep, goToPreviousStep } = useStepper()
+  const formId = useMemo(() => CARD_STEPS[selectedStep]?.formId, [selectedStep])
 
-export const EditorFooter = ({
-  selectedStep,
-  hasNextStep,
-  onNextAction,
-  onPreviousAction,
-}: EditorFooterProps) => {
+  // Memoize computed step state to prevent unnecessary recalculations/rerenders
+  const { canGoToNextStep, canGoToPreviousStep } = useMemo(() => {
+    return {
+      canGoToNextStep: selectedStep < 2,
+      canGoToPreviousStep: selectedStep > 0,
+    }
+  }, [selectedStep])
+
   return (
-    <div className="flex items-center justify-between">
-      {selectedStep > 0 ? (
-        <Button variant="green-outline" onClick={onPreviousAction}>
+    <div className="mt-7 flex items-center justify-between">
+      {canGoToPreviousStep ? (
+        <Button variant="green-outline" onClick={goToPreviousStep}>
           <ArrowLeft />
           Previous Step
         </Button>
@@ -27,8 +27,8 @@ export const EditorFooter = ({
         <span />
       )}
 
-      {hasNextStep && (
-        <Button onClick={onNextAction}>
+      {canGoToNextStep && (
+        <Button type="submit" form={formId} className="px-8">
           Next Step
           <ArrowRight />
         </Button>

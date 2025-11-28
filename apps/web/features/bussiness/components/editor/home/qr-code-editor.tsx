@@ -1,7 +1,7 @@
 export default function QrCodeEditor() {
   return (
-    <div>
+    <form id="qr-code-form">
       <h1>QR Code Editor</h1>
-    </div>
+    </form>
   )
 }

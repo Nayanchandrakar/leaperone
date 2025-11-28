@@ -10,9 +10,9 @@ export default function DesignEditor() {
   const { form, formRef, onSubmitCallback } = useDesignEditor()
 
   return (
-    <form id="design-editor-form" ref={formRef} onSubmit={onSubmitCallback}>
+    <form id="design-form" ref={formRef} onSubmit={onSubmitCallback}>
       <form.AppForm>
-        <EditorBlock defaultValue="background-style-section">
+        <EditorBlock defaultValue="background-image-section">
           {/* @ts-ignore - TODO: fix this */}
           <BackgroundChangeForm form={form} />
           {/* @ts-ignore - TODO: fix this */}

@@ -8,7 +8,7 @@ export default function ContentEditor() {
   const { form, formRef, onSubmitCallback, initialSectionId } = useContentEditor()
 
   return (
-    <form id="content-editor-form" ref={formRef} onSubmit={onSubmitCallback}>
+    <form id="content-form" ref={formRef} onSubmit={onSubmitCallback}>
       <form.AppForm>
         <EditorBlock defaultValue={initialSectionId}>
           <form.AppField

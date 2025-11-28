@@ -7,11 +7,11 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     type: "profile",
     details: {
       profile: {
-        imageSrc: "",
+        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
         enabled: true,
       },
       branding: {
-        imageSrc: "",
+        imageSrc: "https://images.pexels.com/photos/29661144/pexels-photo-29661144.jpeg",
         enabled: true,
       },
     },
