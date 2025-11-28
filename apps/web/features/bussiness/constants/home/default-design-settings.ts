@@ -8,17 +8,12 @@ export const DEFAULT_DESIGN_SETTINGS: DesignEditorSchema = {
   sectionBackground: {
     enabled: true,
     color: "#FFFFFF",
-    borderRadius: 34,
+    borderRadius: 10,
   },
   cardImage: {
     url: "https://images.pexels.com/photos/7004697/pexels-photo-7004697.jpeg",
   },
   settings: {
-    scanReportEmail: {
-      enabled: true,
-      frequency: "weekly",
-      emails: ["test@test.com", "test2@test.com"],
-    },
     branding: true,
   },
 }

@@ -53,8 +53,8 @@ export const ColorChangeForm = withForm({
                           name={field.name}
                           aria-invalid={isInvalid}
                           onBlur={field.handleBlur}
-                          value={field.state.value}
-                          onChange={(e) => field.handleChange(e.target.value)}
+                          color={field.state.value}
+                          onColorChange={field.handleChange}
                         />
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
@@ -77,8 +77,8 @@ export const ColorChangeForm = withForm({
                           name={field.name}
                           aria-invalid={isInvalid}
                           onBlur={field.handleBlur}
-                          value={field.state.value}
-                          onChange={(e) => field.handleChange(e.target.value)}
+                          color={field.state.value}
+                          onColorChange={field.handleChange}
                         />
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
@@ -101,8 +101,8 @@ export const ColorChangeForm = withForm({
                           name={field.name}
                           aria-invalid={isInvalid}
                           onBlur={field.handleBlur}
-                          value={field.state.value}
-                          onChange={(e) => field.handleChange(e.target.value)}
+                          color={field.state.value}
+                          onColorChange={field.handleChange}
                         />
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
@@ -125,8 +125,8 @@ export const ColorChangeForm = withForm({
                           name={field.name}
                           aria-invalid={isInvalid}
                           onBlur={field.handleBlur}
-                          value={field.state.value}
-                          onChange={(e) => field.handleChange(e.target.value)}
+                          color={field.state.value}
+                          onColorChange={field.handleChange}
                         />
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>

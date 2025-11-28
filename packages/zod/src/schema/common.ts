@@ -75,7 +75,7 @@ export const colorSchema = z.object({
 export const sectionBackgroundSchema = z.object({
   enabled: z.boolean(),
   color,
-  borderRadius: z.int().positive().min(0).max(100),
+  borderRadius: z.int().positive().min(1).max(100),
 })
 
 export const cardImageSchema = z.object({
@@ -89,6 +89,6 @@ export const scanReportEmailSchema = z.object({
 })
 
 export const cardSettingsSchema = z.object({
-  scanReportEmail: scanReportEmailSchema,
+  // scanReportEmail: scanReportEmailSchema,
   branding: z.boolean(),
 })

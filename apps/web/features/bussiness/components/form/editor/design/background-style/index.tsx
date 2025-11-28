@@ -50,8 +50,8 @@ export const BackgroundStyleForm = withForm({
                         name={field.name}
                         aria-invalid={isInvalid}
                         onBlur={field.handleBlur}
-                        value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        color={field.state.value}
+                        onColorChange={field.handleChange}
                       />
                       {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
@@ -62,12 +62,11 @@ export const BackgroundStyleForm = withForm({
                 name="sectionBackground.borderRadius"
                 children={(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                  console.log(field.state.value)
                   return (
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Section Corners Roundness</FieldLabel>
                       <Slider
-                        min={0}
+                        min={1}
                         step={1}
                         max={100}
                         id={field.name}

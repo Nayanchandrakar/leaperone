@@ -1,12 +1,20 @@
+import { Popover, PopoverContent, PopoverTrigger } from "@app/ui/components/popover"
 import { cn } from "@app/ui/lib/utils"
 import { Pipette } from "lucide-react"
+import { HexAlphaColorPicker } from "react-colorful"
+
+interface ColorPickerProps extends Omit<React.ComponentProps<"input">, "onChange" | "value"> {
+  color: string
+  onColorChange: (color: string) => void
+}
 
 export const ColorPicker = ({
-  value,
+  color,
   disabled,
   className,
+  onColorChange,
   ...props
-}: React.ComponentProps<"input">) => {
+}: ColorPickerProps) => {
   return (
     <div
       role="group"
@@ -17,32 +25,38 @@ export const ColorPicker = ({
       <input
         type="button"
         data-slot="color-picker-swatch"
-        style={{ backgroundColor: value as string }}
+        style={{ backgroundColor: color }}
         className="w-14 h-full cursor-pointer group-data-[disabled=true]/color-picker-group:pointer-events-none group-data-[disabled=true]/color-picker-group:opacity-50"
       />
 
       <input
         type="text"
-        value={value}
+        value={color}
         data-slot="color-text-input"
         className={cn(
           "w-full outline-none text-sm bg-muted px-3 group-data-[disabled=true]/color-picker-group:pointer-events-none group-data-[disabled=true]/color-picker-group:opacity-50 group-data-[disabled=true]/color-picker-group:cursor-not-allowed",
           className,
         )}
-        placeholder="enter text"
+        onChange={(color) => onColorChange(color?.target?.value)}
         {...props}
       />
 
-      <div className="flex-center p-1.5" data-slot="color-picker-pipette">
-        <button
-          type="button"
-          className={cn(
-            "size-6 border flex-center rounded-full [&>svg:not([class*='size-'])]:size-3 text-zinc-500 cursor-pointer",
-          )}
-        >
-          <Pipette />
-        </button>
-      </div>
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className="flex-center p-1.5 transition-colors cursor-pointer hover:bg-muted/60 group-data-[disabled=true]/color-picker-group:pointer-events-none group-data-[disabled=true]/color-picker-group:opacity-50 group-data-[disabled=true]/color-picker-group:cursor-not-allowed"
+            data-slot="color-picker-pipette"
+          >
+            <span className="size-6 border flex-center rounded-full bg-white text-muted-foreground">
+              <Pipette className="size-3" />
+            </span>
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-fit">
+          <HexAlphaColorPicker color={color} onChange={onColorChange} />
+        </PopoverContent>
+      </Popover>
     </div>
   )
 }
