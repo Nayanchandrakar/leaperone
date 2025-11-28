@@ -8,7 +8,7 @@ import { UnderlineText } from "@/features/marketing/components/ui/underline-text
 
 export const HeroSection = () => {
   return (
-    <MarketingHeader>
+    <MarketingHeader id="hero-section" className="scroll-mt-50">
       <MarketingTitle>
         <QuoteText>Create</QuoteText>
         &nbsp;Digital Business Cards in 3 Easy Steps. Then Capture Leads & Manage Clients.&nbsp;

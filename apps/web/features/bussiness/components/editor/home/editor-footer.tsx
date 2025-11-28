@@ -1,25 +1,14 @@
 import { Button } from "@app/ui/components/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { useMemo } from "react"
-import { CARD_STEPS } from "@/features/bussiness/constants/home/card-steps"
-import { useStepper } from "@/features/bussiness/hooks/home/use-stepper"
+import { useStepperControls } from "@/features/bussiness/hooks/home/use-stepper-controls"
 
 export const EditorFooter = () => {
-  const { selectedStep, goToPreviousStep } = useStepper()
-  const formId = useMemo(() => CARD_STEPS[selectedStep]?.formId, [selectedStep])
-
-  // Memoize computed step state to prevent unnecessary recalculations/rerenders
-  const { canGoToNextStep, canGoToPreviousStep } = useMemo(() => {
-    return {
-      canGoToNextStep: selectedStep < 2,
-      canGoToPreviousStep: selectedStep > 0,
-    }
-  }, [selectedStep])
+  const { formId, canGoToNextStep, canGoToPreviousStep, handlePreviousStep } = useStepperControls()
 
   return (
     <div className="mt-7 flex items-center justify-between">
       {canGoToPreviousStep ? (
-        <Button variant="green-outline" onClick={goToPreviousStep}>
+        <Button variant="green-outline" onClick={handlePreviousStep}>
           <ArrowLeft />
           Previous Step
         </Button>
