@@ -20,6 +20,7 @@ import type {
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
+import type { qrCodeEditorSchema } from "../schema/qr-code-editor"
 import type { checkoutSessionSchema } from "../schema/subscription"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>
@@ -44,3 +45,4 @@ export type ContactSchema = z.infer<typeof contactSchema>
 export type BackgroundSchema = z.infer<typeof backgroundSchema>
 export type DesignEditorSchema = z.infer<typeof designEditorSchema>
 export type ColorSchema = z.infer<typeof colorSchema>
+export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>

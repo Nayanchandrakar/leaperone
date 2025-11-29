@@ -1,13 +1,10 @@
 export default function QrCodeEditor() {
   return (
-    <form
-      id="qr-code-form"
-      onSubmit={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-      }}
-    >
-      <h1>QR Code Editor</h1>
-    </form>
+    <div className="flex flex-col gap-4">
+      {/* <QrCodeProvider>
+        <QrCodePreview />
+        <DownloadButton />
+      </QrCodeProvider> */}
+    </div>
   )
 }
