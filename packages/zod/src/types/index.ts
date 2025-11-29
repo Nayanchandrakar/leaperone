@@ -11,7 +11,7 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
-import type { backgroundSchema, colorSchema } from "../schema/common"
+import type { backgroundSchema, colorSchema, gradientSchema } from "../schema/common"
 import type {
   contactSchema,
   contentEditorSchema,
@@ -46,3 +46,4 @@ export type BackgroundSchema = z.infer<typeof backgroundSchema>
 export type DesignEditorSchema = z.infer<typeof designEditorSchema>
 export type ColorSchema = z.infer<typeof colorSchema>
 export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>
+export type GradientSchema = z.infer<typeof gradientSchema>

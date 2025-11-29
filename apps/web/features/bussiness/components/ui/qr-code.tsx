@@ -1,113 +1,67 @@
-// import type { FileExtension, Options } from "qr-code-styling"
-// import QRCodeStyling from "qr-code-styling"
-// import type React from "react"
-// import { createContext, type SetStateAction, useContext, useEffect, useRef, useState } from "react"
+import type { QrCodeEditorSchema } from "@app/zod/types"
+import QRCodeStyling from "qr-code-styling"
+import type React from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
+import { useQrCodeOptions } from "@/features/bussiness/hooks/home/use-qr-code-options"
 
-// const QR_CODE_OPTIONS: Options = {
-//   width: 300,
-//   height: 300,
-//   type: "svg",
-//   data: "http://qr-code-styling.com",
-//   image: "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
-//   margin: 35,
-//   cornersDotOptions: {
-//     type: "extra-rounded",
-//   },
-//   qrOptions: {
-//     typeNumber: 0,
-//     mode: "Byte",
-//     errorCorrectionLevel: "Q",
-//   },
-//   imageOptions: {
-//     imageSize: 0.4,
-//     // margin: 5,
-//     crossOrigin: "anonymous",
-//     saveAsBlob: true,
-//   },
-//   dotsOptions: {
-//     color: "black",
-//     type: "classy-rounded",
-//     // roundSize: true,
-//     // roundSize: true,
-//   },
-//   backgroundOptions: {
-//     color: "white",
-//     gradient: {
-//       type: "radial",
-//       colorStops: [
-//         {
-//           color: "red",
-//           offset: 0,
-//         },
-//         {
-//           color: "blue",
-//           offset: 1,
-//         },
-//       ],
-//       rotation: 0,
-//     },
-//   },
-//   shape: "square",
-//   cornersSquareOptions: {
-//     type: "square",
-//     color: "green",
-//   },
-// }
+type QrCodeContextValue = {
+  containerRef: React.RefObject<HTMLDivElement | null>
+}
 
-// type QrCodeContextProps = {
-//   options: Options
-//   qrCode: QRCodeStyling
-//   fileExt: FileExtension
+type QrCodeProviderProps = {
+  children: React.ReactNode
+  settings: Partial<QrCodeEditorSchema>
+}
 
-//   setOptions: React.Dispatch<SetStateAction<Options>>
-//   qrCodeRef: React.RefObject<HTMLDivElement | null>
-//   setQrCode: React.Dispatch<SetStateAction<QRCodeStyling>>
-//   setFileExt: React.Dispatch<SetStateAction<FileExtension>>
-// }
+const QrCodeContext = createContext<QrCodeContextValue | null>(null)
 
-// const QrCodeContext = createContext<any | null>(null)
-// export const useQrCodeContext = () => {
-//   const context = useContext(QrCodeContext)
-//   if (!context) {
-//     throw new Error("useQrCodeContext must be used within QrCodeContext")
-//   }
-//   return context
-// }
+export const useQrCodeContext = () => {
+  const context = useContext(QrCodeContext)
+  if (!context) {
+    throw new Error("useQrCodeContext must be used within QrCodeContext")
+  }
+  return context
+}
 
-// export const QrCodeProvider = ({
-//   children,
-//   settings,
-// }: {
-//   children: React.ReactNode
-//   settings: any
-// }) => {
-//   const qrCodeRef = useRef<HTMLDivElement | null>(null)
-//   const [options, setOptions] = useState<Options>(QR_CODE_OPTIONS)
-//   const [qrCode, setQrCode] = useState<QRCodeStyling | undefined>(undefined)
+export const QrCodeProvider = ({ children, settings }: QrCodeProviderProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [qrCodeInstance, setQrCodeInstance] = useState<QRCodeStyling | undefined>(undefined)
 
-//   useEffect(() => {
-//     setQrCode(new QRCodeStyling(options))
-//   }, [options])
+  // Compute QR code options from settings
+  const qrCodeOptions = useQrCodeOptions(settings)
 
-//   useEffect(() => {
-//     if (qrCodeRef?.current) {
-//       qrCode?.append(qrCodeRef.current)
-//     }
-//   }, [qrCode])
+  // Initialize QRCodeStyling instance if it doesn't exist
+  useEffect(() => {
+    if (!qrCodeInstance) {
+      setQrCodeInstance(new QRCodeStyling(qrCodeOptions))
+    }
+  }, [qrCodeInstance, qrCodeOptions])
 
-//   useEffect(() => {
-//     if (!qrCode) return
-//     qrCode?.update(options)
-//   }, [qrCode, options])
+  // Append QR code to DOM when the instance is ready
+  useEffect(() => {
+    if (containerRef.current && qrCodeInstance) {
+      containerRef.current.innerHTML = ""
+      qrCodeInstance.append(containerRef.current)
+    }
 
-//   return (
-//     <QrCodeContext.Provider value={{ options, setOptions, qrCodeRef }}>
-//       {children}
-//     </QrCodeContext.Provider>
-//   )
-// }
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ""
+      }
+    }
+  }, [qrCodeInstance])
 
-// export const QrCodePreview = () => {
-//   const { qrCodeRef } = useQrCodeContext()
-//   return <div ref={qrCodeRef} />
-// }
+  // Update QR code when options change, if instance exists
+  useEffect(() => {
+    if (qrCodeInstance) {
+      qrCodeInstance.update(qrCodeOptions)
+    }
+  }, [qrCodeInstance, qrCodeOptions])
+
+  return <QrCodeContext.Provider value={{ containerRef }}>{children}</QrCodeContext.Provider>
+}
+
+export const QrCodePreview = () => {
+  const { containerRef } = useQrCodeContext()
+  return <div ref={containerRef} />
+}

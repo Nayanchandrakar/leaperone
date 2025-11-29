@@ -1,10 +1,11 @@
+import { QrCodePreview, QrCodeProvider } from "@/features/bussiness/components/ui/qr-code"
+
 export default function QrCodeEditor() {
   return (
-    <div className="flex flex-col gap-4">
-      {/* <QrCodeProvider>
+    <div>
+      <QrCodeProvider settings={{}}>
         <QrCodePreview />
-        <DownloadButton />
-      </QrCodeProvider> */}
+      </QrCodeProvider>
     </div>
   )
 }
