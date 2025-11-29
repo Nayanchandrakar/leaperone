@@ -1,13 +1,13 @@
 import { qrCodeEditorSchema } from "@app/zod/schema/qr-code-editor"
 import { formOptions } from "@tanstack/react-form"
 import { useRef } from "react"
-import { DEFAULT_QR_CODE_SETTINGS } from "@/features/bussiness/constants/home/qr-code-options"
+import { QR_CODE_SETTINGS } from "@/features/bussiness/constants/home/qr-code-settings"
 
 export const useQrCodeFormConfig = () => {
   const formRef = useRef<React.ComponentRef<"form"> | null>(null)
 
   const formConfig = formOptions({
-    defaultValues: DEFAULT_QR_CODE_SETTINGS,
+    defaultValues: QR_CODE_SETTINGS,
 
     validators: {
       onChange: qrCodeEditorSchema,

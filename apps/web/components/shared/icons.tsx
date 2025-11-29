@@ -1,4 +1,4 @@
-type IconProps = React.HTMLAttributes<SVGElement>
+export type IconProps = React.HTMLAttributes<SVGElement>
 
 export const Icons = {
   logo: (props: IconProps) => (
@@ -39,6 +39,2561 @@ export const Icons = {
         fill="white"
         stroke="white"
         strokeWidth="0.2"
+      />
+    </svg>
+  ),
+
+  standardQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-8">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-8">
+          <rect x="88" y="24" width="8" height="8" transform="rotate(0,92,28)" />
+          <rect x="144" y="24" width="8" height="8" transform="rotate(0,148,28)" />
+          <rect x="152" y="24" width="8" height="8" transform="rotate(0,156,28)" />
+          <rect x="168" y="24" width="8" height="8" transform="rotate(0,172,28)" />
+          <rect x="184" y="24" width="8" height="8" transform="rotate(0,188,28)" />
+          <rect x="96" y="32" width="8" height="8" transform="rotate(0,100,36)" />
+          <rect x="128" y="32" width="8" height="8" transform="rotate(0,132,36)" />
+          <rect x="136" y="32" width="8" height="8" transform="rotate(0,140,36)" />
+          <rect x="144" y="32" width="8" height="8" transform="rotate(0,148,36)" />
+          <rect x="160" y="32" width="8" height="8" transform="rotate(0,164,36)" />
+          <rect x="168" y="32" width="8" height="8" transform="rotate(0,172,36)" />
+          <rect x="176" y="32" width="8" height="8" transform="rotate(0,180,36)" />
+          <rect x="112" y="40" width="8" height="8" transform="rotate(0,116,44)" />
+          <rect x="120" y="40" width="8" height="8" transform="rotate(0,124,44)" />
+          <rect x="144" y="40" width="8" height="8" transform="rotate(0,148,44)" />
+          <rect x="176" y="40" width="8" height="8" transform="rotate(0,180,44)" />
+          <rect x="184" y="40" width="8" height="8" transform="rotate(0,188,44)" />
+          <rect x="96" y="48" width="8" height="8" transform="rotate(0,100,52)" />
+          <rect x="104" y="48" width="8" height="8" transform="rotate(0,108,52)" />
+          <rect x="112" y="48" width="8" height="8" transform="rotate(0,116,52)" />
+          <rect x="120" y="48" width="8" height="8" transform="rotate(0,124,52)" />
+          <rect x="136" y="48" width="8" height="8" transform="rotate(0,140,52)" />
+          <rect x="144" y="48" width="8" height="8" transform="rotate(0,148,52)" />
+          <rect x="160" y="48" width="8" height="8" transform="rotate(0,164,52)" />
+          <rect x="176" y="48" width="8" height="8" transform="rotate(0,180,52)" />
+          <rect x="88" y="56" width="8" height="8" transform="rotate(0,92,60)" />
+          <rect x="104" y="56" width="8" height="8" transform="rotate(0,108,60)" />
+          <rect x="120" y="56" width="8" height="8" transform="rotate(0,124,60)" />
+          <rect x="128" y="56" width="8" height="8" transform="rotate(0,132,60)" />
+          <rect x="136" y="56" width="8" height="8" transform="rotate(0,140,60)" />
+          <rect x="144" y="56" width="8" height="8" transform="rotate(0,148,60)" />
+          <rect x="168" y="56" width="8" height="8" transform="rotate(0,172,60)" />
+          <rect x="176" y="56" width="8" height="8" transform="rotate(0,180,60)" />
+          <rect x="184" y="56" width="8" height="8" transform="rotate(0,188,60)" />
+          <rect x="88" y="64" width="8" height="8" transform="rotate(0,92,68)" />
+          <rect x="96" y="64" width="8" height="8" transform="rotate(0,100,68)" />
+          <rect x="104" y="64" width="8" height="8" transform="rotate(0,108,68)" />
+          <rect x="112" y="64" width="8" height="8" transform="rotate(0,116,68)" />
+          <rect x="120" y="64" width="8" height="8" transform="rotate(0,124,68)" />
+          <rect x="136" y="64" width="8" height="8" transform="rotate(0,140,68)" />
+          <rect x="144" y="64" width="8" height="8" transform="rotate(0,148,68)" />
+          <rect x="152" y="64" width="8" height="8" transform="rotate(0,156,68)" />
+          <rect x="168" y="64" width="8" height="8" transform="rotate(0,172,68)" />
+          <rect x="184" y="64" width="8" height="8" transform="rotate(0,188,68)" />
+          <rect x="88" y="72" width="8" height="8" transform="rotate(0,92,76)" />
+          <rect x="104" y="72" width="8" height="8" transform="rotate(0,108,76)" />
+          <rect x="120" y="72" width="8" height="8" transform="rotate(0,124,76)" />
+          <rect x="136" y="72" width="8" height="8" transform="rotate(0,140,76)" />
+          <rect x="152" y="72" width="8" height="8" transform="rotate(0,156,76)" />
+          <rect x="168" y="72" width="8" height="8" transform="rotate(0,172,76)" />
+          <rect x="184" y="72" width="8" height="8" transform="rotate(0,188,76)" />
+          <rect x="96" y="80" width="8" height="8" transform="rotate(0,100,84)" />
+          <rect x="104" y="80" width="8" height="8" transform="rotate(0,108,84)" />
+          <rect x="112" y="80" width="8" height="8" transform="rotate(0,116,84)" />
+          <rect x="136" y="80" width="8" height="8" transform="rotate(0,140,84)" />
+          <rect x="184" y="80" width="8" height="8" transform="rotate(0,188,84)" />
+          <rect x="32" y="88" width="8" height="8" transform="rotate(0,36,92)" />
+          <rect x="40" y="88" width="8" height="8" transform="rotate(0,44,92)" />
+          <rect x="48" y="88" width="8" height="8" transform="rotate(0,52,92)" />
+          <rect x="56" y="88" width="8" height="8" transform="rotate(0,60,92)" />
+          <rect x="64" y="88" width="8" height="8" transform="rotate(0,68,92)" />
+          <rect x="72" y="88" width="8" height="8" transform="rotate(0,76,92)" />
+          <rect x="80" y="88" width="8" height="8" transform="rotate(0,84,92)" />
+          <rect x="104" y="88" width="8" height="8" transform="rotate(0,108,92)" />
+          <rect x="120" y="88" width="8" height="8" transform="rotate(0,124,92)" />
+          <rect x="128" y="88" width="8" height="8" transform="rotate(0,132,92)" />
+          <rect x="168" y="88" width="8" height="8" transform="rotate(0,172,92)" />
+          <rect x="176" y="88" width="8" height="8" transform="rotate(0,180,92)" />
+          <rect x="208" y="88" width="8" height="8" transform="rotate(0,212,92)" />
+          <rect x="216" y="88" width="8" height="8" transform="rotate(0,220,92)" />
+          <rect x="248" y="88" width="8" height="8" transform="rotate(0,252,92)" />
+          <rect x="32" y="96" width="8" height="8" transform="rotate(0,36,100)" />
+          <rect x="64" y="96" width="8" height="8" transform="rotate(0,68,100)" />
+          <rect x="88" y="96" width="8" height="8" transform="rotate(0,92,100)" />
+          <rect x="96" y="96" width="8" height="8" transform="rotate(0,100,100)" />
+          <rect x="104" y="96" width="8" height="8" transform="rotate(0,108,100)" />
+          <rect x="120" y="96" width="8" height="8" transform="rotate(0,124,100)" />
+          <rect x="144" y="96" width="8" height="8" transform="rotate(0,148,100)" />
+          <rect x="160" y="96" width="8" height="8" transform="rotate(0,164,100)" />
+          <rect x="192" y="96" width="8" height="8" transform="rotate(0,196,100)" />
+          <rect x="200" y="96" width="8" height="8" transform="rotate(0,204,100)" />
+          <rect x="216" y="96" width="8" height="8" transform="rotate(0,220,100)" />
+          <rect x="232" y="96" width="8" height="8" transform="rotate(0,236,100)" />
+          <rect x="248" y="96" width="8" height="8" transform="rotate(0,252,100)" />
+          <rect x="24" y="104" width="8" height="8" transform="rotate(0,28,108)" />
+          <rect x="40" y="104" width="8" height="8" transform="rotate(0,44,108)" />
+          <rect x="48" y="104" width="8" height="8" transform="rotate(0,52,108)" />
+          <rect x="56" y="104" width="8" height="8" transform="rotate(0,60,108)" />
+          <rect x="64" y="104" width="8" height="8" transform="rotate(0,68,108)" />
+          <rect x="72" y="104" width="8" height="8" transform="rotate(0,76,108)" />
+          <rect x="80" y="104" width="8" height="8" transform="rotate(0,84,108)" />
+          <rect x="120" y="104" width="8" height="8" transform="rotate(0,124,108)" />
+          <rect x="144" y="104" width="8" height="8" transform="rotate(0,148,108)" />
+          <rect x="160" y="104" width="8" height="8" transform="rotate(0,164,108)" />
+          <rect x="184" y="104" width="8" height="8" transform="rotate(0,188,108)" />
+          <rect x="200" y="104" width="8" height="8" transform="rotate(0,204,108)" />
+          <rect x="208" y="104" width="8" height="8" transform="rotate(0,212,108)" />
+          <rect x="224" y="104" width="8" height="8" transform="rotate(0,228,108)" />
+          <rect x="24" y="112" width="8" height="8" transform="rotate(0,28,116)" />
+          <rect x="48" y="112" width="8" height="8" transform="rotate(0,52,116)" />
+          <rect x="88" y="112" width="8" height="8" transform="rotate(0,92,116)" />
+          <rect x="104" y="112" width="8" height="8" transform="rotate(0,108,116)" />
+          <rect x="112" y="112" width="8" height="8" transform="rotate(0,116,116)" />
+          <rect x="120" y="112" width="8" height="8" transform="rotate(0,124,116)" />
+          <rect x="144" y="112" width="8" height="8" transform="rotate(0,148,116)" />
+          <rect x="152" y="112" width="8" height="8" transform="rotate(0,156,116)" />
+          <rect x="184" y="112" width="8" height="8" transform="rotate(0,188,116)" />
+          <rect x="200" y="112" width="8" height="8" transform="rotate(0,204,116)" />
+          <rect x="208" y="112" width="8" height="8" transform="rotate(0,212,116)" />
+          <rect x="216" y="112" width="8" height="8" transform="rotate(0,220,116)" />
+          <rect x="224" y="112" width="8" height="8" transform="rotate(0,228,116)" />
+          <rect x="240" y="112" width="8" height="8" transform="rotate(0,244,116)" />
+          <rect x="24" y="120" width="8" height="8" transform="rotate(0,28,124)" />
+          <rect x="32" y="120" width="8" height="8" transform="rotate(0,36,124)" />
+          <rect x="48" y="120" width="8" height="8" transform="rotate(0,52,124)" />
+          <rect x="72" y="120" width="8" height="8" transform="rotate(0,76,124)" />
+          <rect x="96" y="120" width="8" height="8" transform="rotate(0,100,124)" />
+          <rect x="112" y="120" width="8" height="8" transform="rotate(0,116,124)" />
+          <rect x="120" y="120" width="8" height="8" transform="rotate(0,124,124)" />
+          <rect x="152" y="120" width="8" height="8" transform="rotate(0,156,124)" />
+          <rect x="160" y="120" width="8" height="8" transform="rotate(0,164,124)" />
+          <rect x="176" y="120" width="8" height="8" transform="rotate(0,180,124)" />
+          <rect x="192" y="120" width="8" height="8" transform="rotate(0,196,124)" />
+          <rect x="232" y="120" width="8" height="8" transform="rotate(0,236,124)" />
+          <rect x="240" y="120" width="8" height="8" transform="rotate(0,244,124)" />
+          <rect x="248" y="120" width="8" height="8" transform="rotate(0,252,124)" />
+          <rect x="24" y="128" width="8" height="8" transform="rotate(0,28,132)" />
+          <rect x="40" y="128" width="8" height="8" transform="rotate(0,44,132)" />
+          <rect x="56" y="128" width="8" height="8" transform="rotate(0,60,132)" />
+          <rect x="80" y="128" width="8" height="8" transform="rotate(0,84,132)" />
+          <rect x="88" y="128" width="8" height="8" transform="rotate(0,92,132)" />
+          <rect x="96" y="128" width="8" height="8" transform="rotate(0,100,132)" />
+          <rect x="112" y="128" width="8" height="8" transform="rotate(0,116,132)" />
+          <rect x="120" y="128" width="8" height="8" transform="rotate(0,124,132)" />
+          <rect x="160" y="128" width="8" height="8" transform="rotate(0,164,132)" />
+          <rect x="168" y="128" width="8" height="8" transform="rotate(0,172,132)" />
+          <rect x="176" y="128" width="8" height="8" transform="rotate(0,180,132)" />
+          <rect x="192" y="128" width="8" height="8" transform="rotate(0,196,132)" />
+          <rect x="200" y="128" width="8" height="8" transform="rotate(0,204,132)" />
+          <rect x="216" y="128" width="8" height="8" transform="rotate(0,220,132)" />
+          <rect x="224" y="128" width="8" height="8" transform="rotate(0,228,132)" />
+          <rect x="248" y="128" width="8" height="8" transform="rotate(0,252,132)" />
+          <rect x="40" y="136" width="8" height="8" transform="rotate(0,44,140)" />
+          <rect x="48" y="136" width="8" height="8" transform="rotate(0,52,140)" />
+          <rect x="72" y="136" width="8" height="8" transform="rotate(0,76,140)" />
+          <rect x="80" y="136" width="8" height="8" transform="rotate(0,84,140)" />
+          <rect x="104" y="136" width="8" height="8" transform="rotate(0,108,140)" />
+          <rect x="112" y="136" width="8" height="8" transform="rotate(0,116,140)" />
+          <rect x="120" y="136" width="8" height="8" transform="rotate(0,124,140)" />
+          <rect x="128" y="136" width="8" height="8" transform="rotate(0,132,140)" />
+          <rect x="136" y="136" width="8" height="8" transform="rotate(0,140,140)" />
+          <rect x="160" y="136" width="8" height="8" transform="rotate(0,164,140)" />
+          <rect x="200" y="136" width="8" height="8" transform="rotate(0,204,140)" />
+          <rect x="32" y="144" width="8" height="8" transform="rotate(0,36,148)" />
+          <rect x="40" y="144" width="8" height="8" transform="rotate(0,44,148)" />
+          <rect x="48" y="144" width="8" height="8" transform="rotate(0,52,148)" />
+          <rect x="64" y="144" width="8" height="8" transform="rotate(0,68,148)" />
+          <rect x="80" y="144" width="8" height="8" transform="rotate(0,84,148)" />
+          <rect x="104" y="144" width="8" height="8" transform="rotate(0,108,148)" />
+          <rect x="160" y="144" width="8" height="8" transform="rotate(0,164,148)" />
+          <rect x="168" y="144" width="8" height="8" transform="rotate(0,172,148)" />
+          <rect x="176" y="144" width="8" height="8" transform="rotate(0,180,148)" />
+          <rect x="192" y="144" width="8" height="8" transform="rotate(0,196,148)" />
+          <rect x="200" y="144" width="8" height="8" transform="rotate(0,204,148)" />
+          <rect x="224" y="144" width="8" height="8" transform="rotate(0,228,148)" />
+          <rect x="240" y="144" width="8" height="8" transform="rotate(0,244,148)" />
+          <rect x="24" y="152" width="8" height="8" transform="rotate(0,28,156)" />
+          <rect x="32" y="152" width="8" height="8" transform="rotate(0,36,156)" />
+          <rect x="56" y="152" width="8" height="8" transform="rotate(0,60,156)" />
+          <rect x="72" y="152" width="8" height="8" transform="rotate(0,76,156)" />
+          <rect x="80" y="152" width="8" height="8" transform="rotate(0,84,156)" />
+          <rect x="128" y="152" width="8" height="8" transform="rotate(0,132,156)" />
+          <rect x="144" y="152" width="8" height="8" transform="rotate(0,148,156)" />
+          <rect x="152" y="152" width="8" height="8" transform="rotate(0,156,156)" />
+          <rect x="224" y="152" width="8" height="8" transform="rotate(0,228,156)" />
+          <rect x="232" y="152" width="8" height="8" transform="rotate(0,236,156)" />
+          <rect x="24" y="160" width="8" height="8" transform="rotate(0,28,164)" />
+          <rect x="40" y="160" width="8" height="8" transform="rotate(0,44,164)" />
+          <rect x="96" y="160" width="8" height="8" transform="rotate(0,100,164)" />
+          <rect x="104" y="160" width="8" height="8" transform="rotate(0,108,164)" />
+          <rect x="144" y="160" width="8" height="8" transform="rotate(0,148,164)" />
+          <rect x="168" y="160" width="8" height="8" transform="rotate(0,172,164)" />
+          <rect x="176" y="160" width="8" height="8" transform="rotate(0,180,164)" />
+          <rect x="184" y="160" width="8" height="8" transform="rotate(0,188,164)" />
+          <rect x="192" y="160" width="8" height="8" transform="rotate(0,196,164)" />
+          <rect x="200" y="160" width="8" height="8" transform="rotate(0,204,164)" />
+          <rect x="208" y="160" width="8" height="8" transform="rotate(0,212,164)" />
+          <rect x="216" y="160" width="8" height="8" transform="rotate(0,220,164)" />
+          <rect x="224" y="160" width="8" height="8" transform="rotate(0,228,164)" />
+          <rect x="232" y="160" width="8" height="8" transform="rotate(0,236,164)" />
+          <rect x="240" y="160" width="8" height="8" transform="rotate(0,244,164)" />
+          <rect x="248" y="160" width="8" height="8" transform="rotate(0,252,164)" />
+          <rect x="24" y="168" width="8" height="8" transform="rotate(0,28,172)" />
+          <rect x="40" y="168" width="8" height="8" transform="rotate(0,44,172)" />
+          <rect x="56" y="168" width="8" height="8" transform="rotate(0,60,172)" />
+          <rect x="64" y="168" width="8" height="8" transform="rotate(0,68,172)" />
+          <rect x="72" y="168" width="8" height="8" transform="rotate(0,76,172)" />
+          <rect x="88" y="168" width="8" height="8" transform="rotate(0,92,172)" />
+          <rect x="104" y="168" width="8" height="8" transform="rotate(0,108,172)" />
+          <rect x="128" y="168" width="8" height="8" transform="rotate(0,132,172)" />
+          <rect x="136" y="168" width="8" height="8" transform="rotate(0,140,172)" />
+          <rect x="144" y="168" width="8" height="8" transform="rotate(0,148,172)" />
+          <rect x="152" y="168" width="8" height="8" transform="rotate(0,156,172)" />
+          <rect x="184" y="168" width="8" height="8" transform="rotate(0,188,172)" />
+          <rect x="200" y="168" width="8" height="8" transform="rotate(0,204,172)" />
+          <rect x="24" y="176" width="8" height="8" transform="rotate(0,28,180)" />
+          <rect x="40" y="176" width="8" height="8" transform="rotate(0,44,180)" />
+          <rect x="48" y="176" width="8" height="8" transform="rotate(0,52,180)" />
+          <rect x="56" y="176" width="8" height="8" transform="rotate(0,60,180)" />
+          <rect x="96" y="176" width="8" height="8" transform="rotate(0,100,180)" />
+          <rect x="112" y="176" width="8" height="8" transform="rotate(0,116,180)" />
+          <rect x="120" y="176" width="8" height="8" transform="rotate(0,124,180)" />
+          <rect x="136" y="176" width="8" height="8" transform="rotate(0,140,180)" />
+          <rect x="144" y="176" width="8" height="8" transform="rotate(0,148,180)" />
+          <rect x="168" y="176" width="8" height="8" transform="rotate(0,172,180)" />
+          <rect x="176" y="176" width="8" height="8" transform="rotate(0,180,180)" />
+          <rect x="184" y="176" width="8" height="8" transform="rotate(0,188,180)" />
+          <rect x="200" y="176" width="8" height="8" transform="rotate(0,204,180)" />
+          <rect x="208" y="176" width="8" height="8" transform="rotate(0,212,180)" />
+          <rect x="224" y="176" width="8" height="8" transform="rotate(0,228,180)" />
+          <rect x="240" y="176" width="8" height="8" transform="rotate(0,244,180)" />
+          <rect x="248" y="176" width="8" height="8" transform="rotate(0,252,180)" />
+          <rect x="24" y="184" width="8" height="8" transform="rotate(0,28,188)" />
+          <rect x="48" y="184" width="8" height="8" transform="rotate(0,52,188)" />
+          <rect x="64" y="184" width="8" height="8" transform="rotate(0,68,188)" />
+          <rect x="72" y="184" width="8" height="8" transform="rotate(0,76,188)" />
+          <rect x="80" y="184" width="8" height="8" transform="rotate(0,84,188)" />
+          <rect x="104" y="184" width="8" height="8" transform="rotate(0,108,188)" />
+          <rect x="144" y="184" width="8" height="8" transform="rotate(0,148,188)" />
+          <rect x="152" y="184" width="8" height="8" transform="rotate(0,156,188)" />
+          <rect x="160" y="184" width="8" height="8" transform="rotate(0,164,188)" />
+          <rect x="176" y="184" width="8" height="8" transform="rotate(0,180,188)" />
+          <rect x="184" y="184" width="8" height="8" transform="rotate(0,188,188)" />
+          <rect x="192" y="184" width="8" height="8" transform="rotate(0,196,188)" />
+          <rect x="200" y="184" width="8" height="8" transform="rotate(0,204,188)" />
+          <rect x="208" y="184" width="8" height="8" transform="rotate(0,212,188)" />
+          <rect x="216" y="184" width="8" height="8" transform="rotate(0,220,188)" />
+          <rect x="232" y="184" width="8" height="8" transform="rotate(0,236,188)" />
+          <rect x="240" y="184" width="8" height="8" transform="rotate(0,244,188)" />
+          <rect x="248" y="184" width="8" height="8" transform="rotate(0,252,188)" />
+          <rect x="88" y="192" width="8" height="8" transform="rotate(0,92,196)" />
+          <rect x="96" y="192" width="8" height="8" transform="rotate(0,100,196)" />
+          <rect x="120" y="192" width="8" height="8" transform="rotate(0,124,196)" />
+          <rect x="136" y="192" width="8" height="8" transform="rotate(0,140,196)" />
+          <rect x="152" y="192" width="8" height="8" transform="rotate(0,156,196)" />
+          <rect x="168" y="192" width="8" height="8" transform="rotate(0,172,196)" />
+          <rect x="176" y="192" width="8" height="8" transform="rotate(0,180,196)" />
+          <rect x="184" y="192" width="8" height="8" transform="rotate(0,188,196)" />
+          <rect x="216" y="192" width="8" height="8" transform="rotate(0,220,196)" />
+          <rect x="224" y="192" width="8" height="8" transform="rotate(0,228,196)" />
+          <rect x="248" y="192" width="8" height="8" transform="rotate(0,252,196)" />
+          <rect x="88" y="200" width="8" height="8" transform="rotate(0,92,204)" />
+          <rect x="104" y="200" width="8" height="8" transform="rotate(0,108,204)" />
+          <rect x="112" y="200" width="8" height="8" transform="rotate(0,116,204)" />
+          <rect x="144" y="200" width="8" height="8" transform="rotate(0,148,204)" />
+          <rect x="152" y="200" width="8" height="8" transform="rotate(0,156,204)" />
+          <rect x="168" y="200" width="8" height="8" transform="rotate(0,172,204)" />
+          <rect x="176" y="200" width="8" height="8" transform="rotate(0,180,204)" />
+          <rect x="184" y="200" width="8" height="8" transform="rotate(0,188,204)" />
+          <rect x="200" y="200" width="8" height="8" transform="rotate(0,204,204)" />
+          <rect x="216" y="200" width="8" height="8" transform="rotate(0,220,204)" />
+          <rect x="88" y="208" width="8" height="8" transform="rotate(0,92,212)" />
+          <rect x="136" y="208" width="8" height="8" transform="rotate(0,140,212)" />
+          <rect x="144" y="208" width="8" height="8" transform="rotate(0,148,212)" />
+          <rect x="152" y="208" width="8" height="8" transform="rotate(0,156,212)" />
+          <rect x="176" y="208" width="8" height="8" transform="rotate(0,180,212)" />
+          <rect x="184" y="208" width="8" height="8" transform="rotate(0,188,212)" />
+          <rect x="216" y="208" width="8" height="8" transform="rotate(0,220,212)" />
+          <rect x="224" y="208" width="8" height="8" transform="rotate(0,228,212)" />
+          <rect x="248" y="208" width="8" height="8" transform="rotate(0,252,212)" />
+          <rect x="88" y="216" width="8" height="8" transform="rotate(0,92,220)" />
+          <rect x="104" y="216" width="8" height="8" transform="rotate(0,108,220)" />
+          <rect x="112" y="216" width="8" height="8" transform="rotate(0,116,220)" />
+          <rect x="120" y="216" width="8" height="8" transform="rotate(0,124,220)" />
+          <rect x="128" y="216" width="8" height="8" transform="rotate(0,132,220)" />
+          <rect x="136" y="216" width="8" height="8" transform="rotate(0,140,220)" />
+          <rect x="168" y="216" width="8" height="8" transform="rotate(0,172,220)" />
+          <rect x="184" y="216" width="8" height="8" transform="rotate(0,188,220)" />
+          <rect x="192" y="216" width="8" height="8" transform="rotate(0,196,220)" />
+          <rect x="200" y="216" width="8" height="8" transform="rotate(0,204,220)" />
+          <rect x="208" y="216" width="8" height="8" transform="rotate(0,212,220)" />
+          <rect x="216" y="216" width="8" height="8" transform="rotate(0,220,220)" />
+          <rect x="224" y="216" width="8" height="8" transform="rotate(0,228,220)" />
+          <rect x="232" y="216" width="8" height="8" transform="rotate(0,236,220)" />
+          <rect x="240" y="216" width="8" height="8" transform="rotate(0,244,220)" />
+          <rect x="88" y="224" width="8" height="8" transform="rotate(0,92,228)" />
+          <rect x="104" y="224" width="8" height="8" transform="rotate(0,108,228)" />
+          <rect x="120" y="224" width="8" height="8" transform="rotate(0,124,228)" />
+          <rect x="144" y="224" width="8" height="8" transform="rotate(0,148,228)" />
+          <rect x="152" y="224" width="8" height="8" transform="rotate(0,156,228)" />
+          <rect x="176" y="224" width="8" height="8" transform="rotate(0,180,228)" />
+          <rect x="208" y="224" width="8" height="8" transform="rotate(0,212,228)" />
+          <rect x="232" y="224" width="8" height="8" transform="rotate(0,236,228)" />
+          <rect x="88" y="232" width="8" height="8" transform="rotate(0,92,236)" />
+          <rect x="104" y="232" width="8" height="8" transform="rotate(0,108,236)" />
+          <rect x="112" y="232" width="8" height="8" transform="rotate(0,116,236)" />
+          <rect x="120" y="232" width="8" height="8" transform="rotate(0,124,236)" />
+          <rect x="128" y="232" width="8" height="8" transform="rotate(0,132,236)" />
+          <rect x="136" y="232" width="8" height="8" transform="rotate(0,140,236)" />
+          <rect x="200" y="232" width="8" height="8" transform="rotate(0,204,236)" />
+          <rect x="216" y="232" width="8" height="8" transform="rotate(0,220,236)" />
+          <rect x="224" y="232" width="8" height="8" transform="rotate(0,228,236)" />
+          <rect x="240" y="232" width="8" height="8" transform="rotate(0,244,236)" />
+          <rect x="88" y="240" width="8" height="8" transform="rotate(0,92,244)" />
+          <rect x="104" y="240" width="8" height="8" transform="rotate(0,108,244)" />
+          <rect x="112" y="240" width="8" height="8" transform="rotate(0,116,244)" />
+          <rect x="136" y="240" width="8" height="8" transform="rotate(0,140,244)" />
+          <rect x="152" y="240" width="8" height="8" transform="rotate(0,156,244)" />
+          <rect x="184" y="240" width="8" height="8" transform="rotate(0,188,244)" />
+          <rect x="192" y="240" width="8" height="8" transform="rotate(0,196,244)" />
+          <rect x="216" y="240" width="8" height="8" transform="rotate(0,220,244)" />
+          <rect x="224" y="240" width="8" height="8" transform="rotate(0,228,244)" />
+          <rect x="240" y="240" width="8" height="8" transform="rotate(0,244,244)" />
+          <rect x="104" y="248" width="8" height="8" transform="rotate(0,108,252)" />
+          <rect x="112" y="248" width="8" height="8" transform="rotate(0,116,252)" />
+          <rect x="136" y="248" width="8" height="8" transform="rotate(0,140,252)" />
+          <rect x="160" y="248" width="8" height="8" transform="rotate(0,164,252)" />
+          <rect x="168" y="248" width="8" height="8" transform="rotate(0,172,252)" />
+          <rect x="176" y="248" width="8" height="8" transform="rotate(0,180,252)" />
+          <rect x="200" y="248" width="8" height="8" transform="rotate(0,204,252)" />
+          <rect x="216" y="248" width="8" height="8" transform="rotate(0,220,252)" />
+          <rect x="232" y="248" width="8" height="8" transform="rotate(0,236,252)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 24v 56h 56v -56zM 32 32h 40v 40h -40z"
+            transform="rotate(0,52,52)"
+          />
+          <rect x="40" y="40" width="24" height="24" transform="rotate(0,52,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 200 24v 56h 56v -56zM 208 32h 40v 40h -40z"
+            transform="rotate(90,228,52)"
+          />
+          <rect x="216" y="40" width="24" height="24" transform="rotate(90,228,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 200v 56h 56v -56zM 32 208h 40v 40h -40z"
+            transform="rotate(-90,52,228)"
+          />
+          <rect x="40" y="216" width="24" height="24" transform="rotate(-90,52,228)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-8')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-8')"
+        fill="black"
+      />
+    </svg>
+  ),
+
+  modernQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-4">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-4">
+          <rect x="88" y="24" width="8" height="8" transform="rotate(0,92,28)" />
+          <rect x="144" y="24" width="8" height="8" transform="rotate(0,148,28)" />
+          <rect x="152" y="24" width="8" height="8" transform="rotate(0,156,28)" />
+          <rect x="168" y="24" width="8" height="8" transform="rotate(0,172,28)" />
+          <rect x="184" y="24" width="8" height="8" transform="rotate(0,188,28)" />
+          <rect x="96" y="32" width="8" height="8" transform="rotate(0,100,36)" />
+          <rect x="128" y="32" width="8" height="8" transform="rotate(0,132,36)" />
+          <rect x="136" y="32" width="8" height="8" transform="rotate(0,140,36)" />
+          <rect x="144" y="32" width="8" height="8" transform="rotate(0,148,36)" />
+          <rect x="160" y="32" width="8" height="8" transform="rotate(0,164,36)" />
+          <rect x="168" y="32" width="8" height="8" transform="rotate(0,172,36)" />
+          <rect x="176" y="32" width="8" height="8" transform="rotate(0,180,36)" />
+          <rect x="112" y="40" width="8" height="8" transform="rotate(0,116,44)" />
+          <rect x="120" y="40" width="8" height="8" transform="rotate(0,124,44)" />
+          <rect x="144" y="40" width="8" height="8" transform="rotate(0,148,44)" />
+          <rect x="176" y="40" width="8" height="8" transform="rotate(0,180,44)" />
+          <rect x="184" y="40" width="8" height="8" transform="rotate(0,188,44)" />
+          <rect x="96" y="48" width="8" height="8" transform="rotate(0,100,52)" />
+          <rect x="104" y="48" width="8" height="8" transform="rotate(0,108,52)" />
+          <rect x="112" y="48" width="8" height="8" transform="rotate(0,116,52)" />
+          <rect x="120" y="48" width="8" height="8" transform="rotate(0,124,52)" />
+          <rect x="136" y="48" width="8" height="8" transform="rotate(0,140,52)" />
+          <rect x="144" y="48" width="8" height="8" transform="rotate(0,148,52)" />
+          <rect x="160" y="48" width="8" height="8" transform="rotate(0,164,52)" />
+          <rect x="176" y="48" width="8" height="8" transform="rotate(0,180,52)" />
+          <rect x="88" y="56" width="8" height="8" transform="rotate(0,92,60)" />
+          <rect x="104" y="56" width="8" height="8" transform="rotate(0,108,60)" />
+          <rect x="120" y="56" width="8" height="8" transform="rotate(0,124,60)" />
+          <rect x="128" y="56" width="8" height="8" transform="rotate(0,132,60)" />
+          <rect x="136" y="56" width="8" height="8" transform="rotate(0,140,60)" />
+          <rect x="144" y="56" width="8" height="8" transform="rotate(0,148,60)" />
+          <rect x="168" y="56" width="8" height="8" transform="rotate(0,172,60)" />
+          <rect x="176" y="56" width="8" height="8" transform="rotate(0,180,60)" />
+          <rect x="184" y="56" width="8" height="8" transform="rotate(0,188,60)" />
+          <rect x="88" y="64" width="8" height="8" transform="rotate(0,92,68)" />
+          <rect x="96" y="64" width="8" height="8" transform="rotate(0,100,68)" />
+          <rect x="104" y="64" width="8" height="8" transform="rotate(0,108,68)" />
+          <rect x="112" y="64" width="8" height="8" transform="rotate(0,116,68)" />
+          <rect x="120" y="64" width="8" height="8" transform="rotate(0,124,68)" />
+          <rect x="136" y="64" width="8" height="8" transform="rotate(0,140,68)" />
+          <rect x="144" y="64" width="8" height="8" transform="rotate(0,148,68)" />
+          <rect x="152" y="64" width="8" height="8" transform="rotate(0,156,68)" />
+          <rect x="168" y="64" width="8" height="8" transform="rotate(0,172,68)" />
+          <rect x="184" y="64" width="8" height="8" transform="rotate(0,188,68)" />
+          <rect x="88" y="72" width="8" height="8" transform="rotate(0,92,76)" />
+          <rect x="104" y="72" width="8" height="8" transform="rotate(0,108,76)" />
+          <rect x="120" y="72" width="8" height="8" transform="rotate(0,124,76)" />
+          <rect x="136" y="72" width="8" height="8" transform="rotate(0,140,76)" />
+          <rect x="152" y="72" width="8" height="8" transform="rotate(0,156,76)" />
+          <rect x="168" y="72" width="8" height="8" transform="rotate(0,172,76)" />
+          <rect x="184" y="72" width="8" height="8" transform="rotate(0,188,76)" />
+          <rect x="96" y="80" width="8" height="8" transform="rotate(0,100,84)" />
+          <rect x="104" y="80" width="8" height="8" transform="rotate(0,108,84)" />
+          <rect x="112" y="80" width="8" height="8" transform="rotate(0,116,84)" />
+          <rect x="136" y="80" width="8" height="8" transform="rotate(0,140,84)" />
+          <rect x="184" y="80" width="8" height="8" transform="rotate(0,188,84)" />
+          <rect x="32" y="88" width="8" height="8" transform="rotate(0,36,92)" />
+          <rect x="40" y="88" width="8" height="8" transform="rotate(0,44,92)" />
+          <rect x="48" y="88" width="8" height="8" transform="rotate(0,52,92)" />
+          <rect x="56" y="88" width="8" height="8" transform="rotate(0,60,92)" />
+          <rect x="64" y="88" width="8" height="8" transform="rotate(0,68,92)" />
+          <rect x="72" y="88" width="8" height="8" transform="rotate(0,76,92)" />
+          <rect x="80" y="88" width="8" height="8" transform="rotate(0,84,92)" />
+          <rect x="104" y="88" width="8" height="8" transform="rotate(0,108,92)" />
+          <rect x="120" y="88" width="8" height="8" transform="rotate(0,124,92)" />
+          <rect x="128" y="88" width="8" height="8" transform="rotate(0,132,92)" />
+          <rect x="168" y="88" width="8" height="8" transform="rotate(0,172,92)" />
+          <rect x="176" y="88" width="8" height="8" transform="rotate(0,180,92)" />
+          <rect x="208" y="88" width="8" height="8" transform="rotate(0,212,92)" />
+          <rect x="216" y="88" width="8" height="8" transform="rotate(0,220,92)" />
+          <rect x="248" y="88" width="8" height="8" transform="rotate(0,252,92)" />
+          <rect x="32" y="96" width="8" height="8" transform="rotate(0,36,100)" />
+          <rect x="64" y="96" width="8" height="8" transform="rotate(0,68,100)" />
+          <rect x="88" y="96" width="8" height="8" transform="rotate(0,92,100)" />
+          <rect x="96" y="96" width="8" height="8" transform="rotate(0,100,100)" />
+          <rect x="104" y="96" width="8" height="8" transform="rotate(0,108,100)" />
+          <rect x="120" y="96" width="8" height="8" transform="rotate(0,124,100)" />
+          <rect x="144" y="96" width="8" height="8" transform="rotate(0,148,100)" />
+          <rect x="160" y="96" width="8" height="8" transform="rotate(0,164,100)" />
+          <rect x="192" y="96" width="8" height="8" transform="rotate(0,196,100)" />
+          <rect x="200" y="96" width="8" height="8" transform="rotate(0,204,100)" />
+          <rect x="216" y="96" width="8" height="8" transform="rotate(0,220,100)" />
+          <rect x="232" y="96" width="8" height="8" transform="rotate(0,236,100)" />
+          <rect x="248" y="96" width="8" height="8" transform="rotate(0,252,100)" />
+          <rect x="24" y="104" width="8" height="8" transform="rotate(0,28,108)" />
+          <rect x="40" y="104" width="8" height="8" transform="rotate(0,44,108)" />
+          <rect x="48" y="104" width="8" height="8" transform="rotate(0,52,108)" />
+          <rect x="56" y="104" width="8" height="8" transform="rotate(0,60,108)" />
+          <rect x="64" y="104" width="8" height="8" transform="rotate(0,68,108)" />
+          <rect x="72" y="104" width="8" height="8" transform="rotate(0,76,108)" />
+          <rect x="80" y="104" width="8" height="8" transform="rotate(0,84,108)" />
+          <rect x="120" y="104" width="8" height="8" transform="rotate(0,124,108)" />
+          <rect x="144" y="104" width="8" height="8" transform="rotate(0,148,108)" />
+          <rect x="160" y="104" width="8" height="8" transform="rotate(0,164,108)" />
+          <rect x="184" y="104" width="8" height="8" transform="rotate(0,188,108)" />
+          <rect x="200" y="104" width="8" height="8" transform="rotate(0,204,108)" />
+          <rect x="208" y="104" width="8" height="8" transform="rotate(0,212,108)" />
+          <rect x="224" y="104" width="8" height="8" transform="rotate(0,228,108)" />
+          <rect x="24" y="112" width="8" height="8" transform="rotate(0,28,116)" />
+          <rect x="48" y="112" width="8" height="8" transform="rotate(0,52,116)" />
+          <rect x="88" y="112" width="8" height="8" transform="rotate(0,92,116)" />
+          <rect x="104" y="112" width="8" height="8" transform="rotate(0,108,116)" />
+          <rect x="112" y="112" width="8" height="8" transform="rotate(0,116,116)" />
+          <rect x="120" y="112" width="8" height="8" transform="rotate(0,124,116)" />
+          <rect x="144" y="112" width="8" height="8" transform="rotate(0,148,116)" />
+          <rect x="152" y="112" width="8" height="8" transform="rotate(0,156,116)" />
+          <rect x="184" y="112" width="8" height="8" transform="rotate(0,188,116)" />
+          <rect x="200" y="112" width="8" height="8" transform="rotate(0,204,116)" />
+          <rect x="208" y="112" width="8" height="8" transform="rotate(0,212,116)" />
+          <rect x="216" y="112" width="8" height="8" transform="rotate(0,220,116)" />
+          <rect x="224" y="112" width="8" height="8" transform="rotate(0,228,116)" />
+          <rect x="240" y="112" width="8" height="8" transform="rotate(0,244,116)" />
+          <rect x="24" y="120" width="8" height="8" transform="rotate(0,28,124)" />
+          <rect x="32" y="120" width="8" height="8" transform="rotate(0,36,124)" />
+          <rect x="48" y="120" width="8" height="8" transform="rotate(0,52,124)" />
+          <rect x="72" y="120" width="8" height="8" transform="rotate(0,76,124)" />
+          <rect x="96" y="120" width="8" height="8" transform="rotate(0,100,124)" />
+          <rect x="112" y="120" width="8" height="8" transform="rotate(0,116,124)" />
+          <rect x="120" y="120" width="8" height="8" transform="rotate(0,124,124)" />
+          <rect x="152" y="120" width="8" height="8" transform="rotate(0,156,124)" />
+          <rect x="160" y="120" width="8" height="8" transform="rotate(0,164,124)" />
+          <rect x="176" y="120" width="8" height="8" transform="rotate(0,180,124)" />
+          <rect x="192" y="120" width="8" height="8" transform="rotate(0,196,124)" />
+          <rect x="232" y="120" width="8" height="8" transform="rotate(0,236,124)" />
+          <rect x="240" y="120" width="8" height="8" transform="rotate(0,244,124)" />
+          <rect x="248" y="120" width="8" height="8" transform="rotate(0,252,124)" />
+          <rect x="24" y="128" width="8" height="8" transform="rotate(0,28,132)" />
+          <rect x="40" y="128" width="8" height="8" transform="rotate(0,44,132)" />
+          <rect x="56" y="128" width="8" height="8" transform="rotate(0,60,132)" />
+          <rect x="80" y="128" width="8" height="8" transform="rotate(0,84,132)" />
+          <rect x="88" y="128" width="8" height="8" transform="rotate(0,92,132)" />
+          <rect x="96" y="128" width="8" height="8" transform="rotate(0,100,132)" />
+          <rect x="112" y="128" width="8" height="8" transform="rotate(0,116,132)" />
+          <rect x="120" y="128" width="8" height="8" transform="rotate(0,124,132)" />
+          <rect x="160" y="128" width="8" height="8" transform="rotate(0,164,132)" />
+          <rect x="168" y="128" width="8" height="8" transform="rotate(0,172,132)" />
+          <rect x="176" y="128" width="8" height="8" transform="rotate(0,180,132)" />
+          <rect x="192" y="128" width="8" height="8" transform="rotate(0,196,132)" />
+          <rect x="200" y="128" width="8" height="8" transform="rotate(0,204,132)" />
+          <rect x="216" y="128" width="8" height="8" transform="rotate(0,220,132)" />
+          <rect x="224" y="128" width="8" height="8" transform="rotate(0,228,132)" />
+          <rect x="248" y="128" width="8" height="8" transform="rotate(0,252,132)" />
+          <rect x="40" y="136" width="8" height="8" transform="rotate(0,44,140)" />
+          <rect x="48" y="136" width="8" height="8" transform="rotate(0,52,140)" />
+          <rect x="72" y="136" width="8" height="8" transform="rotate(0,76,140)" />
+          <rect x="80" y="136" width="8" height="8" transform="rotate(0,84,140)" />
+          <rect x="104" y="136" width="8" height="8" transform="rotate(0,108,140)" />
+          <rect x="112" y="136" width="8" height="8" transform="rotate(0,116,140)" />
+          <rect x="120" y="136" width="8" height="8" transform="rotate(0,124,140)" />
+          <rect x="128" y="136" width="8" height="8" transform="rotate(0,132,140)" />
+          <rect x="136" y="136" width="8" height="8" transform="rotate(0,140,140)" />
+          <rect x="160" y="136" width="8" height="8" transform="rotate(0,164,140)" />
+          <rect x="200" y="136" width="8" height="8" transform="rotate(0,204,140)" />
+          <rect x="32" y="144" width="8" height="8" transform="rotate(0,36,148)" />
+          <rect x="40" y="144" width="8" height="8" transform="rotate(0,44,148)" />
+          <rect x="48" y="144" width="8" height="8" transform="rotate(0,52,148)" />
+          <rect x="64" y="144" width="8" height="8" transform="rotate(0,68,148)" />
+          <rect x="80" y="144" width="8" height="8" transform="rotate(0,84,148)" />
+          <rect x="104" y="144" width="8" height="8" transform="rotate(0,108,148)" />
+          <rect x="160" y="144" width="8" height="8" transform="rotate(0,164,148)" />
+          <rect x="168" y="144" width="8" height="8" transform="rotate(0,172,148)" />
+          <rect x="176" y="144" width="8" height="8" transform="rotate(0,180,148)" />
+          <rect x="192" y="144" width="8" height="8" transform="rotate(0,196,148)" />
+          <rect x="200" y="144" width="8" height="8" transform="rotate(0,204,148)" />
+          <rect x="224" y="144" width="8" height="8" transform="rotate(0,228,148)" />
+          <rect x="240" y="144" width="8" height="8" transform="rotate(0,244,148)" />
+          <rect x="24" y="152" width="8" height="8" transform="rotate(0,28,156)" />
+          <rect x="32" y="152" width="8" height="8" transform="rotate(0,36,156)" />
+          <rect x="56" y="152" width="8" height="8" transform="rotate(0,60,156)" />
+          <rect x="72" y="152" width="8" height="8" transform="rotate(0,76,156)" />
+          <rect x="80" y="152" width="8" height="8" transform="rotate(0,84,156)" />
+          <rect x="128" y="152" width="8" height="8" transform="rotate(0,132,156)" />
+          <rect x="144" y="152" width="8" height="8" transform="rotate(0,148,156)" />
+          <rect x="152" y="152" width="8" height="8" transform="rotate(0,156,156)" />
+          <rect x="224" y="152" width="8" height="8" transform="rotate(0,228,156)" />
+          <rect x="232" y="152" width="8" height="8" transform="rotate(0,236,156)" />
+          <rect x="24" y="160" width="8" height="8" transform="rotate(0,28,164)" />
+          <rect x="40" y="160" width="8" height="8" transform="rotate(0,44,164)" />
+          <rect x="96" y="160" width="8" height="8" transform="rotate(0,100,164)" />
+          <rect x="104" y="160" width="8" height="8" transform="rotate(0,108,164)" />
+          <rect x="144" y="160" width="8" height="8" transform="rotate(0,148,164)" />
+          <rect x="168" y="160" width="8" height="8" transform="rotate(0,172,164)" />
+          <rect x="176" y="160" width="8" height="8" transform="rotate(0,180,164)" />
+          <rect x="184" y="160" width="8" height="8" transform="rotate(0,188,164)" />
+          <rect x="192" y="160" width="8" height="8" transform="rotate(0,196,164)" />
+          <rect x="200" y="160" width="8" height="8" transform="rotate(0,204,164)" />
+          <rect x="208" y="160" width="8" height="8" transform="rotate(0,212,164)" />
+          <rect x="216" y="160" width="8" height="8" transform="rotate(0,220,164)" />
+          <rect x="224" y="160" width="8" height="8" transform="rotate(0,228,164)" />
+          <rect x="232" y="160" width="8" height="8" transform="rotate(0,236,164)" />
+          <rect x="240" y="160" width="8" height="8" transform="rotate(0,244,164)" />
+          <rect x="248" y="160" width="8" height="8" transform="rotate(0,252,164)" />
+          <rect x="24" y="168" width="8" height="8" transform="rotate(0,28,172)" />
+          <rect x="40" y="168" width="8" height="8" transform="rotate(0,44,172)" />
+          <rect x="56" y="168" width="8" height="8" transform="rotate(0,60,172)" />
+          <rect x="64" y="168" width="8" height="8" transform="rotate(0,68,172)" />
+          <rect x="72" y="168" width="8" height="8" transform="rotate(0,76,172)" />
+          <rect x="88" y="168" width="8" height="8" transform="rotate(0,92,172)" />
+          <rect x="104" y="168" width="8" height="8" transform="rotate(0,108,172)" />
+          <rect x="128" y="168" width="8" height="8" transform="rotate(0,132,172)" />
+          <rect x="136" y="168" width="8" height="8" transform="rotate(0,140,172)" />
+          <rect x="144" y="168" width="8" height="8" transform="rotate(0,148,172)" />
+          <rect x="152" y="168" width="8" height="8" transform="rotate(0,156,172)" />
+          <rect x="184" y="168" width="8" height="8" transform="rotate(0,188,172)" />
+          <rect x="200" y="168" width="8" height="8" transform="rotate(0,204,172)" />
+          <rect x="24" y="176" width="8" height="8" transform="rotate(0,28,180)" />
+          <rect x="40" y="176" width="8" height="8" transform="rotate(0,44,180)" />
+          <rect x="48" y="176" width="8" height="8" transform="rotate(0,52,180)" />
+          <rect x="56" y="176" width="8" height="8" transform="rotate(0,60,180)" />
+          <rect x="96" y="176" width="8" height="8" transform="rotate(0,100,180)" />
+          <rect x="112" y="176" width="8" height="8" transform="rotate(0,116,180)" />
+          <rect x="120" y="176" width="8" height="8" transform="rotate(0,124,180)" />
+          <rect x="136" y="176" width="8" height="8" transform="rotate(0,140,180)" />
+          <rect x="144" y="176" width="8" height="8" transform="rotate(0,148,180)" />
+          <rect x="168" y="176" width="8" height="8" transform="rotate(0,172,180)" />
+          <rect x="176" y="176" width="8" height="8" transform="rotate(0,180,180)" />
+          <rect x="184" y="176" width="8" height="8" transform="rotate(0,188,180)" />
+          <rect x="200" y="176" width="8" height="8" transform="rotate(0,204,180)" />
+          <rect x="208" y="176" width="8" height="8" transform="rotate(0,212,180)" />
+          <rect x="224" y="176" width="8" height="8" transform="rotate(0,228,180)" />
+          <rect x="240" y="176" width="8" height="8" transform="rotate(0,244,180)" />
+          <rect x="248" y="176" width="8" height="8" transform="rotate(0,252,180)" />
+          <rect x="24" y="184" width="8" height="8" transform="rotate(0,28,188)" />
+          <rect x="48" y="184" width="8" height="8" transform="rotate(0,52,188)" />
+          <rect x="64" y="184" width="8" height="8" transform="rotate(0,68,188)" />
+          <rect x="72" y="184" width="8" height="8" transform="rotate(0,76,188)" />
+          <rect x="80" y="184" width="8" height="8" transform="rotate(0,84,188)" />
+          <rect x="104" y="184" width="8" height="8" transform="rotate(0,108,188)" />
+          <rect x="144" y="184" width="8" height="8" transform="rotate(0,148,188)" />
+          <rect x="152" y="184" width="8" height="8" transform="rotate(0,156,188)" />
+          <rect x="160" y="184" width="8" height="8" transform="rotate(0,164,188)" />
+          <rect x="176" y="184" width="8" height="8" transform="rotate(0,180,188)" />
+          <rect x="184" y="184" width="8" height="8" transform="rotate(0,188,188)" />
+          <rect x="192" y="184" width="8" height="8" transform="rotate(0,196,188)" />
+          <rect x="200" y="184" width="8" height="8" transform="rotate(0,204,188)" />
+          <rect x="208" y="184" width="8" height="8" transform="rotate(0,212,188)" />
+          <rect x="216" y="184" width="8" height="8" transform="rotate(0,220,188)" />
+          <rect x="232" y="184" width="8" height="8" transform="rotate(0,236,188)" />
+          <rect x="240" y="184" width="8" height="8" transform="rotate(0,244,188)" />
+          <rect x="248" y="184" width="8" height="8" transform="rotate(0,252,188)" />
+          <rect x="88" y="192" width="8" height="8" transform="rotate(0,92,196)" />
+          <rect x="96" y="192" width="8" height="8" transform="rotate(0,100,196)" />
+          <rect x="120" y="192" width="8" height="8" transform="rotate(0,124,196)" />
+          <rect x="136" y="192" width="8" height="8" transform="rotate(0,140,196)" />
+          <rect x="152" y="192" width="8" height="8" transform="rotate(0,156,196)" />
+          <rect x="168" y="192" width="8" height="8" transform="rotate(0,172,196)" />
+          <rect x="176" y="192" width="8" height="8" transform="rotate(0,180,196)" />
+          <rect x="184" y="192" width="8" height="8" transform="rotate(0,188,196)" />
+          <rect x="216" y="192" width="8" height="8" transform="rotate(0,220,196)" />
+          <rect x="224" y="192" width="8" height="8" transform="rotate(0,228,196)" />
+          <rect x="248" y="192" width="8" height="8" transform="rotate(0,252,196)" />
+          <rect x="88" y="200" width="8" height="8" transform="rotate(0,92,204)" />
+          <rect x="104" y="200" width="8" height="8" transform="rotate(0,108,204)" />
+          <rect x="112" y="200" width="8" height="8" transform="rotate(0,116,204)" />
+          <rect x="144" y="200" width="8" height="8" transform="rotate(0,148,204)" />
+          <rect x="152" y="200" width="8" height="8" transform="rotate(0,156,204)" />
+          <rect x="168" y="200" width="8" height="8" transform="rotate(0,172,204)" />
+          <rect x="176" y="200" width="8" height="8" transform="rotate(0,180,204)" />
+          <rect x="184" y="200" width="8" height="8" transform="rotate(0,188,204)" />
+          <rect x="200" y="200" width="8" height="8" transform="rotate(0,204,204)" />
+          <rect x="216" y="200" width="8" height="8" transform="rotate(0,220,204)" />
+          <rect x="88" y="208" width="8" height="8" transform="rotate(0,92,212)" />
+          <rect x="136" y="208" width="8" height="8" transform="rotate(0,140,212)" />
+          <rect x="144" y="208" width="8" height="8" transform="rotate(0,148,212)" />
+          <rect x="152" y="208" width="8" height="8" transform="rotate(0,156,212)" />
+          <rect x="176" y="208" width="8" height="8" transform="rotate(0,180,212)" />
+          <rect x="184" y="208" width="8" height="8" transform="rotate(0,188,212)" />
+          <rect x="216" y="208" width="8" height="8" transform="rotate(0,220,212)" />
+          <rect x="224" y="208" width="8" height="8" transform="rotate(0,228,212)" />
+          <rect x="248" y="208" width="8" height="8" transform="rotate(0,252,212)" />
+          <rect x="88" y="216" width="8" height="8" transform="rotate(0,92,220)" />
+          <rect x="104" y="216" width="8" height="8" transform="rotate(0,108,220)" />
+          <rect x="112" y="216" width="8" height="8" transform="rotate(0,116,220)" />
+          <rect x="120" y="216" width="8" height="8" transform="rotate(0,124,220)" />
+          <rect x="128" y="216" width="8" height="8" transform="rotate(0,132,220)" />
+          <rect x="136" y="216" width="8" height="8" transform="rotate(0,140,220)" />
+          <rect x="168" y="216" width="8" height="8" transform="rotate(0,172,220)" />
+          <rect x="184" y="216" width="8" height="8" transform="rotate(0,188,220)" />
+          <rect x="192" y="216" width="8" height="8" transform="rotate(0,196,220)" />
+          <rect x="200" y="216" width="8" height="8" transform="rotate(0,204,220)" />
+          <rect x="208" y="216" width="8" height="8" transform="rotate(0,212,220)" />
+          <rect x="216" y="216" width="8" height="8" transform="rotate(0,220,220)" />
+          <rect x="224" y="216" width="8" height="8" transform="rotate(0,228,220)" />
+          <rect x="232" y="216" width="8" height="8" transform="rotate(0,236,220)" />
+          <rect x="240" y="216" width="8" height="8" transform="rotate(0,244,220)" />
+          <rect x="88" y="224" width="8" height="8" transform="rotate(0,92,228)" />
+          <rect x="104" y="224" width="8" height="8" transform="rotate(0,108,228)" />
+          <rect x="120" y="224" width="8" height="8" transform="rotate(0,124,228)" />
+          <rect x="144" y="224" width="8" height="8" transform="rotate(0,148,228)" />
+          <rect x="152" y="224" width="8" height="8" transform="rotate(0,156,228)" />
+          <rect x="176" y="224" width="8" height="8" transform="rotate(0,180,228)" />
+          <rect x="208" y="224" width="8" height="8" transform="rotate(0,212,228)" />
+          <rect x="232" y="224" width="8" height="8" transform="rotate(0,236,228)" />
+          <rect x="88" y="232" width="8" height="8" transform="rotate(0,92,236)" />
+          <rect x="104" y="232" width="8" height="8" transform="rotate(0,108,236)" />
+          <rect x="112" y="232" width="8" height="8" transform="rotate(0,116,236)" />
+          <rect x="120" y="232" width="8" height="8" transform="rotate(0,124,236)" />
+          <rect x="128" y="232" width="8" height="8" transform="rotate(0,132,236)" />
+          <rect x="136" y="232" width="8" height="8" transform="rotate(0,140,236)" />
+          <rect x="200" y="232" width="8" height="8" transform="rotate(0,204,236)" />
+          <rect x="216" y="232" width="8" height="8" transform="rotate(0,220,236)" />
+          <rect x="224" y="232" width="8" height="8" transform="rotate(0,228,236)" />
+          <rect x="240" y="232" width="8" height="8" transform="rotate(0,244,236)" />
+          <rect x="88" y="240" width="8" height="8" transform="rotate(0,92,244)" />
+          <rect x="104" y="240" width="8" height="8" transform="rotate(0,108,244)" />
+          <rect x="112" y="240" width="8" height="8" transform="rotate(0,116,244)" />
+          <rect x="136" y="240" width="8" height="8" transform="rotate(0,140,244)" />
+          <rect x="152" y="240" width="8" height="8" transform="rotate(0,156,244)" />
+          <rect x="184" y="240" width="8" height="8" transform="rotate(0,188,244)" />
+          <rect x="192" y="240" width="8" height="8" transform="rotate(0,196,244)" />
+          <rect x="216" y="240" width="8" height="8" transform="rotate(0,220,244)" />
+          <rect x="224" y="240" width="8" height="8" transform="rotate(0,228,244)" />
+          <rect x="240" y="240" width="8" height="8" transform="rotate(0,244,244)" />
+          <rect x="104" y="248" width="8" height="8" transform="rotate(0,108,252)" />
+          <rect x="112" y="248" width="8" height="8" transform="rotate(0,116,252)" />
+          <rect x="136" y="248" width="8" height="8" transform="rotate(0,140,252)" />
+          <rect x="160" y="248" width="8" height="8" transform="rotate(0,164,252)" />
+          <rect x="168" y="248" width="8" height="8" transform="rotate(0,172,252)" />
+          <rect x="176" y="248" width="8" height="8" transform="rotate(0,180,252)" />
+          <rect x="200" y="248" width="8" height="8" transform="rotate(0,204,252)" />
+          <rect x="216" y="248" width="8" height="8" transform="rotate(0,220,252)" />
+          <rect x="232" y="248" width="8" height="8" transform="rotate(0,236,252)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 44v 16a 20 20, 0, 0, 0, 20 20h 16a 20 20, 0, 0, 0, 20 -20v -16a 20 20, 0, 0, 0, -20 -20h -16a 20 20, 0, 0, 0, -20 20M 44 32h 16a 12 12, 0, 0, 1, 12 12v 16a 12 12, 0, 0, 1, -12 12h -16a 12 12, 0, 0, 1, -12 -12v -16a 12 12, 0, 0, 1, 12 -12"
+            transform="rotate(0,52,52)"
+          />
+          <path d="M 40 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,44,44)" />
+          <rect x="48" y="40" width="8" height="8" transform="rotate(0,52,44)" />
+          <path d="M 56 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(0,60,44)" />
+          <rect x="40" y="48" width="8" height="8" transform="rotate(0,44,52)" />
+          <rect x="48" y="48" width="8" height="8" transform="rotate(0,52,52)" />
+          <rect x="56" y="48" width="8" height="8" transform="rotate(0,60,52)" />
+          <path d="M 40 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(180,44,60)" />
+          <rect x="48" y="56" width="8" height="8" transform="rotate(0,52,60)" />
+          <path d="M 56 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,60,60)" />
+          <path
+            clipRule="evenodd"
+            d="M 200 44v 16a 20 20, 0, 0, 0, 20 20h 16a 20 20, 0, 0, 0, 20 -20v -16a 20 20, 0, 0, 0, -20 -20h -16a 20 20, 0, 0, 0, -20 20M 220 32h 16a 12 12, 0, 0, 1, 12 12v 16a 12 12, 0, 0, 1, -12 12h -16a 12 12, 0, 0, 1, -12 -12v -16a 12 12, 0, 0, 1, 12 -12"
+            transform="rotate(90,228,52)"
+          />
+          <path d="M 216 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,220,44)" />
+          <rect x="224" y="40" width="8" height="8" transform="rotate(0,228,44)" />
+          <path d="M 232 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(0,236,44)" />
+          <rect x="216" y="48" width="8" height="8" transform="rotate(0,220,52)" />
+          <rect x="224" y="48" width="8" height="8" transform="rotate(0,228,52)" />
+          <rect x="232" y="48" width="8" height="8" transform="rotate(0,236,52)" />
+          <path d="M 216 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(180,220,60)" />
+          <rect x="224" y="56" width="8" height="8" transform="rotate(0,228,60)" />
+          <path d="M 232 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,236,60)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 220v 16a 20 20, 0, 0, 0, 20 20h 16a 20 20, 0, 0, 0, 20 -20v -16a 20 20, 0, 0, 0, -20 -20h -16a 20 20, 0, 0, 0, -20 20M 44 208h 16a 12 12, 0, 0, 1, 12 12v 16a 12 12, 0, 0, 1, -12 12h -16a 12 12, 0, 0, 1, -12 -12v -16a 12 12, 0, 0, 1, 12 -12"
+            transform="rotate(-90,52,228)"
+          />
+          <path d="M 40 216v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,44,220)" />
+          <rect x="48" y="216" width="8" height="8" transform="rotate(0,52,220)" />
+          <path d="M 56 216v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(0,60,220)" />
+          <rect x="40" y="224" width="8" height="8" transform="rotate(0,44,228)" />
+          <rect x="48" y="224" width="8" height="8" transform="rotate(0,52,228)" />
+          <rect x="56" y="224" width="8" height="8" transform="rotate(0,60,228)" />
+          <path d="M 40 232v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(180,44,236)" />
+          <rect x="48" y="232" width="8" height="8" transform="rotate(0,52,236)" />
+          <path d="M 56 232v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,60,236)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-4')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-4')"
+        fill="black"
+      />
+    </svg>
+  ),
+
+  circleCornerQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-3">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-3">
+          <rect x="88" y="24" width="8" height="8" transform="rotate(0,92,28)" />
+          <rect x="144" y="24" width="8" height="8" transform="rotate(0,148,28)" />
+          <rect x="152" y="24" width="8" height="8" transform="rotate(0,156,28)" />
+          <rect x="168" y="24" width="8" height="8" transform="rotate(0,172,28)" />
+          <rect x="184" y="24" width="8" height="8" transform="rotate(0,188,28)" />
+          <rect x="96" y="32" width="8" height="8" transform="rotate(0,100,36)" />
+          <rect x="128" y="32" width="8" height="8" transform="rotate(0,132,36)" />
+          <rect x="136" y="32" width="8" height="8" transform="rotate(0,140,36)" />
+          <rect x="144" y="32" width="8" height="8" transform="rotate(0,148,36)" />
+          <rect x="160" y="32" width="8" height="8" transform="rotate(0,164,36)" />
+          <rect x="168" y="32" width="8" height="8" transform="rotate(0,172,36)" />
+          <rect x="176" y="32" width="8" height="8" transform="rotate(0,180,36)" />
+          <rect x="112" y="40" width="8" height="8" transform="rotate(0,116,44)" />
+          <rect x="120" y="40" width="8" height="8" transform="rotate(0,124,44)" />
+          <rect x="144" y="40" width="8" height="8" transform="rotate(0,148,44)" />
+          <rect x="176" y="40" width="8" height="8" transform="rotate(0,180,44)" />
+          <rect x="184" y="40" width="8" height="8" transform="rotate(0,188,44)" />
+          <rect x="96" y="48" width="8" height="8" transform="rotate(0,100,52)" />
+          <rect x="104" y="48" width="8" height="8" transform="rotate(0,108,52)" />
+          <rect x="112" y="48" width="8" height="8" transform="rotate(0,116,52)" />
+          <rect x="120" y="48" width="8" height="8" transform="rotate(0,124,52)" />
+          <rect x="136" y="48" width="8" height="8" transform="rotate(0,140,52)" />
+          <rect x="144" y="48" width="8" height="8" transform="rotate(0,148,52)" />
+          <rect x="160" y="48" width="8" height="8" transform="rotate(0,164,52)" />
+          <rect x="176" y="48" width="8" height="8" transform="rotate(0,180,52)" />
+          <rect x="88" y="56" width="8" height="8" transform="rotate(0,92,60)" />
+          <rect x="104" y="56" width="8" height="8" transform="rotate(0,108,60)" />
+          <rect x="120" y="56" width="8" height="8" transform="rotate(0,124,60)" />
+          <rect x="128" y="56" width="8" height="8" transform="rotate(0,132,60)" />
+          <rect x="136" y="56" width="8" height="8" transform="rotate(0,140,60)" />
+          <rect x="144" y="56" width="8" height="8" transform="rotate(0,148,60)" />
+          <rect x="168" y="56" width="8" height="8" transform="rotate(0,172,60)" />
+          <rect x="176" y="56" width="8" height="8" transform="rotate(0,180,60)" />
+          <rect x="184" y="56" width="8" height="8" transform="rotate(0,188,60)" />
+          <rect x="88" y="64" width="8" height="8" transform="rotate(0,92,68)" />
+          <rect x="96" y="64" width="8" height="8" transform="rotate(0,100,68)" />
+          <rect x="104" y="64" width="8" height="8" transform="rotate(0,108,68)" />
+          <rect x="112" y="64" width="8" height="8" transform="rotate(0,116,68)" />
+          <rect x="120" y="64" width="8" height="8" transform="rotate(0,124,68)" />
+          <rect x="136" y="64" width="8" height="8" transform="rotate(0,140,68)" />
+          <rect x="144" y="64" width="8" height="8" transform="rotate(0,148,68)" />
+          <rect x="152" y="64" width="8" height="8" transform="rotate(0,156,68)" />
+          <rect x="168" y="64" width="8" height="8" transform="rotate(0,172,68)" />
+          <rect x="184" y="64" width="8" height="8" transform="rotate(0,188,68)" />
+          <rect x="88" y="72" width="8" height="8" transform="rotate(0,92,76)" />
+          <rect x="104" y="72" width="8" height="8" transform="rotate(0,108,76)" />
+          <rect x="120" y="72" width="8" height="8" transform="rotate(0,124,76)" />
+          <rect x="136" y="72" width="8" height="8" transform="rotate(0,140,76)" />
+          <rect x="152" y="72" width="8" height="8" transform="rotate(0,156,76)" />
+          <rect x="168" y="72" width="8" height="8" transform="rotate(0,172,76)" />
+          <rect x="184" y="72" width="8" height="8" transform="rotate(0,188,76)" />
+          <rect x="96" y="80" width="8" height="8" transform="rotate(0,100,84)" />
+          <rect x="104" y="80" width="8" height="8" transform="rotate(0,108,84)" />
+          <rect x="112" y="80" width="8" height="8" transform="rotate(0,116,84)" />
+          <rect x="136" y="80" width="8" height="8" transform="rotate(0,140,84)" />
+          <rect x="184" y="80" width="8" height="8" transform="rotate(0,188,84)" />
+          <rect x="32" y="88" width="8" height="8" transform="rotate(0,36,92)" />
+          <rect x="40" y="88" width="8" height="8" transform="rotate(0,44,92)" />
+          <rect x="48" y="88" width="8" height="8" transform="rotate(0,52,92)" />
+          <rect x="56" y="88" width="8" height="8" transform="rotate(0,60,92)" />
+          <rect x="64" y="88" width="8" height="8" transform="rotate(0,68,92)" />
+          <rect x="72" y="88" width="8" height="8" transform="rotate(0,76,92)" />
+          <rect x="80" y="88" width="8" height="8" transform="rotate(0,84,92)" />
+          <rect x="104" y="88" width="8" height="8" transform="rotate(0,108,92)" />
+          <rect x="120" y="88" width="8" height="8" transform="rotate(0,124,92)" />
+          <rect x="128" y="88" width="8" height="8" transform="rotate(0,132,92)" />
+          <rect x="168" y="88" width="8" height="8" transform="rotate(0,172,92)" />
+          <rect x="176" y="88" width="8" height="8" transform="rotate(0,180,92)" />
+          <rect x="208" y="88" width="8" height="8" transform="rotate(0,212,92)" />
+          <rect x="216" y="88" width="8" height="8" transform="rotate(0,220,92)" />
+          <rect x="248" y="88" width="8" height="8" transform="rotate(0,252,92)" />
+          <rect x="32" y="96" width="8" height="8" transform="rotate(0,36,100)" />
+          <rect x="64" y="96" width="8" height="8" transform="rotate(0,68,100)" />
+          <rect x="88" y="96" width="8" height="8" transform="rotate(0,92,100)" />
+          <rect x="96" y="96" width="8" height="8" transform="rotate(0,100,100)" />
+          <rect x="104" y="96" width="8" height="8" transform="rotate(0,108,100)" />
+          <rect x="120" y="96" width="8" height="8" transform="rotate(0,124,100)" />
+          <rect x="144" y="96" width="8" height="8" transform="rotate(0,148,100)" />
+          <rect x="160" y="96" width="8" height="8" transform="rotate(0,164,100)" />
+          <rect x="192" y="96" width="8" height="8" transform="rotate(0,196,100)" />
+          <rect x="200" y="96" width="8" height="8" transform="rotate(0,204,100)" />
+          <rect x="216" y="96" width="8" height="8" transform="rotate(0,220,100)" />
+          <rect x="232" y="96" width="8" height="8" transform="rotate(0,236,100)" />
+          <rect x="248" y="96" width="8" height="8" transform="rotate(0,252,100)" />
+          <rect x="24" y="104" width="8" height="8" transform="rotate(0,28,108)" />
+          <rect x="40" y="104" width="8" height="8" transform="rotate(0,44,108)" />
+          <rect x="48" y="104" width="8" height="8" transform="rotate(0,52,108)" />
+          <rect x="56" y="104" width="8" height="8" transform="rotate(0,60,108)" />
+          <rect x="64" y="104" width="8" height="8" transform="rotate(0,68,108)" />
+          <rect x="72" y="104" width="8" height="8" transform="rotate(0,76,108)" />
+          <rect x="80" y="104" width="8" height="8" transform="rotate(0,84,108)" />
+          <rect x="120" y="104" width="8" height="8" transform="rotate(0,124,108)" />
+          <rect x="144" y="104" width="8" height="8" transform="rotate(0,148,108)" />
+          <rect x="160" y="104" width="8" height="8" transform="rotate(0,164,108)" />
+          <rect x="184" y="104" width="8" height="8" transform="rotate(0,188,108)" />
+          <rect x="200" y="104" width="8" height="8" transform="rotate(0,204,108)" />
+          <rect x="208" y="104" width="8" height="8" transform="rotate(0,212,108)" />
+          <rect x="224" y="104" width="8" height="8" transform="rotate(0,228,108)" />
+          <rect x="24" y="112" width="8" height="8" transform="rotate(0,28,116)" />
+          <rect x="48" y="112" width="8" height="8" transform="rotate(0,52,116)" />
+          <rect x="88" y="112" width="8" height="8" transform="rotate(0,92,116)" />
+          <rect x="104" y="112" width="8" height="8" transform="rotate(0,108,116)" />
+          <rect x="112" y="112" width="8" height="8" transform="rotate(0,116,116)" />
+          <rect x="120" y="112" width="8" height="8" transform="rotate(0,124,116)" />
+          <rect x="144" y="112" width="8" height="8" transform="rotate(0,148,116)" />
+          <rect x="152" y="112" width="8" height="8" transform="rotate(0,156,116)" />
+          <rect x="184" y="112" width="8" height="8" transform="rotate(0,188,116)" />
+          <rect x="200" y="112" width="8" height="8" transform="rotate(0,204,116)" />
+          <rect x="208" y="112" width="8" height="8" transform="rotate(0,212,116)" />
+          <rect x="216" y="112" width="8" height="8" transform="rotate(0,220,116)" />
+          <rect x="224" y="112" width="8" height="8" transform="rotate(0,228,116)" />
+          <rect x="240" y="112" width="8" height="8" transform="rotate(0,244,116)" />
+          <rect x="24" y="120" width="8" height="8" transform="rotate(0,28,124)" />
+          <rect x="32" y="120" width="8" height="8" transform="rotate(0,36,124)" />
+          <rect x="48" y="120" width="8" height="8" transform="rotate(0,52,124)" />
+          <rect x="72" y="120" width="8" height="8" transform="rotate(0,76,124)" />
+          <rect x="96" y="120" width="8" height="8" transform="rotate(0,100,124)" />
+          <rect x="112" y="120" width="8" height="8" transform="rotate(0,116,124)" />
+          <rect x="120" y="120" width="8" height="8" transform="rotate(0,124,124)" />
+          <rect x="152" y="120" width="8" height="8" transform="rotate(0,156,124)" />
+          <rect x="160" y="120" width="8" height="8" transform="rotate(0,164,124)" />
+          <rect x="176" y="120" width="8" height="8" transform="rotate(0,180,124)" />
+          <rect x="192" y="120" width="8" height="8" transform="rotate(0,196,124)" />
+          <rect x="232" y="120" width="8" height="8" transform="rotate(0,236,124)" />
+          <rect x="240" y="120" width="8" height="8" transform="rotate(0,244,124)" />
+          <rect x="248" y="120" width="8" height="8" transform="rotate(0,252,124)" />
+          <rect x="24" y="128" width="8" height="8" transform="rotate(0,28,132)" />
+          <rect x="40" y="128" width="8" height="8" transform="rotate(0,44,132)" />
+          <rect x="56" y="128" width="8" height="8" transform="rotate(0,60,132)" />
+          <rect x="80" y="128" width="8" height="8" transform="rotate(0,84,132)" />
+          <rect x="88" y="128" width="8" height="8" transform="rotate(0,92,132)" />
+          <rect x="96" y="128" width="8" height="8" transform="rotate(0,100,132)" />
+          <rect x="112" y="128" width="8" height="8" transform="rotate(0,116,132)" />
+          <rect x="120" y="128" width="8" height="8" transform="rotate(0,124,132)" />
+          <rect x="160" y="128" width="8" height="8" transform="rotate(0,164,132)" />
+          <rect x="168" y="128" width="8" height="8" transform="rotate(0,172,132)" />
+          <rect x="176" y="128" width="8" height="8" transform="rotate(0,180,132)" />
+          <rect x="192" y="128" width="8" height="8" transform="rotate(0,196,132)" />
+          <rect x="200" y="128" width="8" height="8" transform="rotate(0,204,132)" />
+          <rect x="216" y="128" width="8" height="8" transform="rotate(0,220,132)" />
+          <rect x="224" y="128" width="8" height="8" transform="rotate(0,228,132)" />
+          <rect x="248" y="128" width="8" height="8" transform="rotate(0,252,132)" />
+          <rect x="40" y="136" width="8" height="8" transform="rotate(0,44,140)" />
+          <rect x="48" y="136" width="8" height="8" transform="rotate(0,52,140)" />
+          <rect x="72" y="136" width="8" height="8" transform="rotate(0,76,140)" />
+          <rect x="80" y="136" width="8" height="8" transform="rotate(0,84,140)" />
+          <rect x="104" y="136" width="8" height="8" transform="rotate(0,108,140)" />
+          <rect x="112" y="136" width="8" height="8" transform="rotate(0,116,140)" />
+          <rect x="120" y="136" width="8" height="8" transform="rotate(0,124,140)" />
+          <rect x="128" y="136" width="8" height="8" transform="rotate(0,132,140)" />
+          <rect x="136" y="136" width="8" height="8" transform="rotate(0,140,140)" />
+          <rect x="160" y="136" width="8" height="8" transform="rotate(0,164,140)" />
+          <rect x="200" y="136" width="8" height="8" transform="rotate(0,204,140)" />
+          <rect x="32" y="144" width="8" height="8" transform="rotate(0,36,148)" />
+          <rect x="40" y="144" width="8" height="8" transform="rotate(0,44,148)" />
+          <rect x="48" y="144" width="8" height="8" transform="rotate(0,52,148)" />
+          <rect x="64" y="144" width="8" height="8" transform="rotate(0,68,148)" />
+          <rect x="80" y="144" width="8" height="8" transform="rotate(0,84,148)" />
+          <rect x="104" y="144" width="8" height="8" transform="rotate(0,108,148)" />
+          <rect x="160" y="144" width="8" height="8" transform="rotate(0,164,148)" />
+          <rect x="168" y="144" width="8" height="8" transform="rotate(0,172,148)" />
+          <rect x="176" y="144" width="8" height="8" transform="rotate(0,180,148)" />
+          <rect x="192" y="144" width="8" height="8" transform="rotate(0,196,148)" />
+          <rect x="200" y="144" width="8" height="8" transform="rotate(0,204,148)" />
+          <rect x="224" y="144" width="8" height="8" transform="rotate(0,228,148)" />
+          <rect x="240" y="144" width="8" height="8" transform="rotate(0,244,148)" />
+          <rect x="24" y="152" width="8" height="8" transform="rotate(0,28,156)" />
+          <rect x="32" y="152" width="8" height="8" transform="rotate(0,36,156)" />
+          <rect x="56" y="152" width="8" height="8" transform="rotate(0,60,156)" />
+          <rect x="72" y="152" width="8" height="8" transform="rotate(0,76,156)" />
+          <rect x="80" y="152" width="8" height="8" transform="rotate(0,84,156)" />
+          <rect x="128" y="152" width="8" height="8" transform="rotate(0,132,156)" />
+          <rect x="144" y="152" width="8" height="8" transform="rotate(0,148,156)" />
+          <rect x="152" y="152" width="8" height="8" transform="rotate(0,156,156)" />
+          <rect x="224" y="152" width="8" height="8" transform="rotate(0,228,156)" />
+          <rect x="232" y="152" width="8" height="8" transform="rotate(0,236,156)" />
+          <rect x="24" y="160" width="8" height="8" transform="rotate(0,28,164)" />
+          <rect x="40" y="160" width="8" height="8" transform="rotate(0,44,164)" />
+          <rect x="96" y="160" width="8" height="8" transform="rotate(0,100,164)" />
+          <rect x="104" y="160" width="8" height="8" transform="rotate(0,108,164)" />
+          <rect x="144" y="160" width="8" height="8" transform="rotate(0,148,164)" />
+          <rect x="168" y="160" width="8" height="8" transform="rotate(0,172,164)" />
+          <rect x="176" y="160" width="8" height="8" transform="rotate(0,180,164)" />
+          <rect x="184" y="160" width="8" height="8" transform="rotate(0,188,164)" />
+          <rect x="192" y="160" width="8" height="8" transform="rotate(0,196,164)" />
+          <rect x="200" y="160" width="8" height="8" transform="rotate(0,204,164)" />
+          <rect x="208" y="160" width="8" height="8" transform="rotate(0,212,164)" />
+          <rect x="216" y="160" width="8" height="8" transform="rotate(0,220,164)" />
+          <rect x="224" y="160" width="8" height="8" transform="rotate(0,228,164)" />
+          <rect x="232" y="160" width="8" height="8" transform="rotate(0,236,164)" />
+          <rect x="240" y="160" width="8" height="8" transform="rotate(0,244,164)" />
+          <rect x="248" y="160" width="8" height="8" transform="rotate(0,252,164)" />
+          <rect x="24" y="168" width="8" height="8" transform="rotate(0,28,172)" />
+          <rect x="40" y="168" width="8" height="8" transform="rotate(0,44,172)" />
+          <rect x="56" y="168" width="8" height="8" transform="rotate(0,60,172)" />
+          <rect x="64" y="168" width="8" height="8" transform="rotate(0,68,172)" />
+          <rect x="72" y="168" width="8" height="8" transform="rotate(0,76,172)" />
+          <rect x="88" y="168" width="8" height="8" transform="rotate(0,92,172)" />
+          <rect x="104" y="168" width="8" height="8" transform="rotate(0,108,172)" />
+          <rect x="128" y="168" width="8" height="8" transform="rotate(0,132,172)" />
+          <rect x="136" y="168" width="8" height="8" transform="rotate(0,140,172)" />
+          <rect x="144" y="168" width="8" height="8" transform="rotate(0,148,172)" />
+          <rect x="152" y="168" width="8" height="8" transform="rotate(0,156,172)" />
+          <rect x="184" y="168" width="8" height="8" transform="rotate(0,188,172)" />
+          <rect x="200" y="168" width="8" height="8" transform="rotate(0,204,172)" />
+          <rect x="24" y="176" width="8" height="8" transform="rotate(0,28,180)" />
+          <rect x="40" y="176" width="8" height="8" transform="rotate(0,44,180)" />
+          <rect x="48" y="176" width="8" height="8" transform="rotate(0,52,180)" />
+          <rect x="56" y="176" width="8" height="8" transform="rotate(0,60,180)" />
+          <rect x="96" y="176" width="8" height="8" transform="rotate(0,100,180)" />
+          <rect x="112" y="176" width="8" height="8" transform="rotate(0,116,180)" />
+          <rect x="120" y="176" width="8" height="8" transform="rotate(0,124,180)" />
+          <rect x="136" y="176" width="8" height="8" transform="rotate(0,140,180)" />
+          <rect x="144" y="176" width="8" height="8" transform="rotate(0,148,180)" />
+          <rect x="168" y="176" width="8" height="8" transform="rotate(0,172,180)" />
+          <rect x="176" y="176" width="8" height="8" transform="rotate(0,180,180)" />
+          <rect x="184" y="176" width="8" height="8" transform="rotate(0,188,180)" />
+          <rect x="200" y="176" width="8" height="8" transform="rotate(0,204,180)" />
+          <rect x="208" y="176" width="8" height="8" transform="rotate(0,212,180)" />
+          <rect x="224" y="176" width="8" height="8" transform="rotate(0,228,180)" />
+          <rect x="240" y="176" width="8" height="8" transform="rotate(0,244,180)" />
+          <rect x="248" y="176" width="8" height="8" transform="rotate(0,252,180)" />
+          <rect x="24" y="184" width="8" height="8" transform="rotate(0,28,188)" />
+          <rect x="48" y="184" width="8" height="8" transform="rotate(0,52,188)" />
+          <rect x="64" y="184" width="8" height="8" transform="rotate(0,68,188)" />
+          <rect x="72" y="184" width="8" height="8" transform="rotate(0,76,188)" />
+          <rect x="80" y="184" width="8" height="8" transform="rotate(0,84,188)" />
+          <rect x="104" y="184" width="8" height="8" transform="rotate(0,108,188)" />
+          <rect x="144" y="184" width="8" height="8" transform="rotate(0,148,188)" />
+          <rect x="152" y="184" width="8" height="8" transform="rotate(0,156,188)" />
+          <rect x="160" y="184" width="8" height="8" transform="rotate(0,164,188)" />
+          <rect x="176" y="184" width="8" height="8" transform="rotate(0,180,188)" />
+          <rect x="184" y="184" width="8" height="8" transform="rotate(0,188,188)" />
+          <rect x="192" y="184" width="8" height="8" transform="rotate(0,196,188)" />
+          <rect x="200" y="184" width="8" height="8" transform="rotate(0,204,188)" />
+          <rect x="208" y="184" width="8" height="8" transform="rotate(0,212,188)" />
+          <rect x="216" y="184" width="8" height="8" transform="rotate(0,220,188)" />
+          <rect x="232" y="184" width="8" height="8" transform="rotate(0,236,188)" />
+          <rect x="240" y="184" width="8" height="8" transform="rotate(0,244,188)" />
+          <rect x="248" y="184" width="8" height="8" transform="rotate(0,252,188)" />
+          <rect x="88" y="192" width="8" height="8" transform="rotate(0,92,196)" />
+          <rect x="96" y="192" width="8" height="8" transform="rotate(0,100,196)" />
+          <rect x="120" y="192" width="8" height="8" transform="rotate(0,124,196)" />
+          <rect x="136" y="192" width="8" height="8" transform="rotate(0,140,196)" />
+          <rect x="152" y="192" width="8" height="8" transform="rotate(0,156,196)" />
+          <rect x="168" y="192" width="8" height="8" transform="rotate(0,172,196)" />
+          <rect x="176" y="192" width="8" height="8" transform="rotate(0,180,196)" />
+          <rect x="184" y="192" width="8" height="8" transform="rotate(0,188,196)" />
+          <rect x="216" y="192" width="8" height="8" transform="rotate(0,220,196)" />
+          <rect x="224" y="192" width="8" height="8" transform="rotate(0,228,196)" />
+          <rect x="248" y="192" width="8" height="8" transform="rotate(0,252,196)" />
+          <rect x="88" y="200" width="8" height="8" transform="rotate(0,92,204)" />
+          <rect x="104" y="200" width="8" height="8" transform="rotate(0,108,204)" />
+          <rect x="112" y="200" width="8" height="8" transform="rotate(0,116,204)" />
+          <rect x="144" y="200" width="8" height="8" transform="rotate(0,148,204)" />
+          <rect x="152" y="200" width="8" height="8" transform="rotate(0,156,204)" />
+          <rect x="168" y="200" width="8" height="8" transform="rotate(0,172,204)" />
+          <rect x="176" y="200" width="8" height="8" transform="rotate(0,180,204)" />
+          <rect x="184" y="200" width="8" height="8" transform="rotate(0,188,204)" />
+          <rect x="200" y="200" width="8" height="8" transform="rotate(0,204,204)" />
+          <rect x="216" y="200" width="8" height="8" transform="rotate(0,220,204)" />
+          <rect x="88" y="208" width="8" height="8" transform="rotate(0,92,212)" />
+          <rect x="136" y="208" width="8" height="8" transform="rotate(0,140,212)" />
+          <rect x="144" y="208" width="8" height="8" transform="rotate(0,148,212)" />
+          <rect x="152" y="208" width="8" height="8" transform="rotate(0,156,212)" />
+          <rect x="176" y="208" width="8" height="8" transform="rotate(0,180,212)" />
+          <rect x="184" y="208" width="8" height="8" transform="rotate(0,188,212)" />
+          <rect x="216" y="208" width="8" height="8" transform="rotate(0,220,212)" />
+          <rect x="224" y="208" width="8" height="8" transform="rotate(0,228,212)" />
+          <rect x="248" y="208" width="8" height="8" transform="rotate(0,252,212)" />
+          <rect x="88" y="216" width="8" height="8" transform="rotate(0,92,220)" />
+          <rect x="104" y="216" width="8" height="8" transform="rotate(0,108,220)" />
+          <rect x="112" y="216" width="8" height="8" transform="rotate(0,116,220)" />
+          <rect x="120" y="216" width="8" height="8" transform="rotate(0,124,220)" />
+          <rect x="128" y="216" width="8" height="8" transform="rotate(0,132,220)" />
+          <rect x="136" y="216" width="8" height="8" transform="rotate(0,140,220)" />
+          <rect x="168" y="216" width="8" height="8" transform="rotate(0,172,220)" />
+          <rect x="184" y="216" width="8" height="8" transform="rotate(0,188,220)" />
+          <rect x="192" y="216" width="8" height="8" transform="rotate(0,196,220)" />
+          <rect x="200" y="216" width="8" height="8" transform="rotate(0,204,220)" />
+          <rect x="208" y="216" width="8" height="8" transform="rotate(0,212,220)" />
+          <rect x="216" y="216" width="8" height="8" transform="rotate(0,220,220)" />
+          <rect x="224" y="216" width="8" height="8" transform="rotate(0,228,220)" />
+          <rect x="232" y="216" width="8" height="8" transform="rotate(0,236,220)" />
+          <rect x="240" y="216" width="8" height="8" transform="rotate(0,244,220)" />
+          <rect x="88" y="224" width="8" height="8" transform="rotate(0,92,228)" />
+          <rect x="104" y="224" width="8" height="8" transform="rotate(0,108,228)" />
+          <rect x="120" y="224" width="8" height="8" transform="rotate(0,124,228)" />
+          <rect x="144" y="224" width="8" height="8" transform="rotate(0,148,228)" />
+          <rect x="152" y="224" width="8" height="8" transform="rotate(0,156,228)" />
+          <rect x="176" y="224" width="8" height="8" transform="rotate(0,180,228)" />
+          <rect x="208" y="224" width="8" height="8" transform="rotate(0,212,228)" />
+          <rect x="232" y="224" width="8" height="8" transform="rotate(0,236,228)" />
+          <rect x="88" y="232" width="8" height="8" transform="rotate(0,92,236)" />
+          <rect x="104" y="232" width="8" height="8" transform="rotate(0,108,236)" />
+          <rect x="112" y="232" width="8" height="8" transform="rotate(0,116,236)" />
+          <rect x="120" y="232" width="8" height="8" transform="rotate(0,124,236)" />
+          <rect x="128" y="232" width="8" height="8" transform="rotate(0,132,236)" />
+          <rect x="136" y="232" width="8" height="8" transform="rotate(0,140,236)" />
+          <rect x="200" y="232" width="8" height="8" transform="rotate(0,204,236)" />
+          <rect x="216" y="232" width="8" height="8" transform="rotate(0,220,236)" />
+          <rect x="224" y="232" width="8" height="8" transform="rotate(0,228,236)" />
+          <rect x="240" y="232" width="8" height="8" transform="rotate(0,244,236)" />
+          <rect x="88" y="240" width="8" height="8" transform="rotate(0,92,244)" />
+          <rect x="104" y="240" width="8" height="8" transform="rotate(0,108,244)" />
+          <rect x="112" y="240" width="8" height="8" transform="rotate(0,116,244)" />
+          <rect x="136" y="240" width="8" height="8" transform="rotate(0,140,244)" />
+          <rect x="152" y="240" width="8" height="8" transform="rotate(0,156,244)" />
+          <rect x="184" y="240" width="8" height="8" transform="rotate(0,188,244)" />
+          <rect x="192" y="240" width="8" height="8" transform="rotate(0,196,244)" />
+          <rect x="216" y="240" width="8" height="8" transform="rotate(0,220,244)" />
+          <rect x="224" y="240" width="8" height="8" transform="rotate(0,228,244)" />
+          <rect x="240" y="240" width="8" height="8" transform="rotate(0,244,244)" />
+          <rect x="104" y="248" width="8" height="8" transform="rotate(0,108,252)" />
+          <rect x="112" y="248" width="8" height="8" transform="rotate(0,116,252)" />
+          <rect x="136" y="248" width="8" height="8" transform="rotate(0,140,252)" />
+          <rect x="160" y="248" width="8" height="8" transform="rotate(0,164,252)" />
+          <rect x="168" y="248" width="8" height="8" transform="rotate(0,172,252)" />
+          <rect x="176" y="248" width="8" height="8" transform="rotate(0,180,252)" />
+          <rect x="200" y="248" width="8" height="8" transform="rotate(0,204,252)" />
+          <rect x="216" y="248" width="8" height="8" transform="rotate(0,220,252)" />
+          <rect x="232" y="248" width="8" height="8" transform="rotate(0,236,252)" />
+          <path
+            clipRule="evenodd"
+            d="M 52 24a 28 28 0 1 0 0.1 0zm 0 8a 20 20 0 1 1 -0.1 0Z"
+            transform="rotate(0,52,52)"
+          />
+          <circle cx="52" cy="52" r="12" transform="rotate(0,52,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 228 24a 28 28 0 1 0 0.1 0zm 0 8a 20 20 0 1 1 -0.1 0Z"
+            transform="rotate(90,228,52)"
+          />
+          <circle cx="228" cy="52" r="12" transform="rotate(90,228,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 52 200a 28 28 0 1 0 0.1 0zm 0 8a 20 20 0 1 1 -0.1 0Z"
+            transform="rotate(-90,52,228)"
+          />
+          <circle cx="52" cy="228" r="12" transform="rotate(-90,52,228)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-3')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-3')"
+        fill="black"
+      />
+    </svg>
+  ),
+
+  circlePatternQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-3">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-3">
+          <circle cx="92" cy="28" r="4" transform="rotate(0,92,28)" />
+          <circle cx="148" cy="28" r="4" transform="rotate(0,148,28)" />
+          <circle cx="156" cy="28" r="4" transform="rotate(0,156,28)" />
+          <circle cx="172" cy="28" r="4" transform="rotate(0,172,28)" />
+          <circle cx="188" cy="28" r="4" transform="rotate(0,188,28)" />
+          <circle cx="100" cy="36" r="4" transform="rotate(0,100,36)" />
+          <circle cx="132" cy="36" r="4" transform="rotate(0,132,36)" />
+          <circle cx="140" cy="36" r="4" transform="rotate(0,140,36)" />
+          <circle cx="148" cy="36" r="4" transform="rotate(0,148,36)" />
+          <circle cx="164" cy="36" r="4" transform="rotate(0,164,36)" />
+          <circle cx="172" cy="36" r="4" transform="rotate(0,172,36)" />
+          <circle cx="180" cy="36" r="4" transform="rotate(0,180,36)" />
+          <circle cx="116" cy="44" r="4" transform="rotate(0,116,44)" />
+          <circle cx="124" cy="44" r="4" transform="rotate(0,124,44)" />
+          <circle cx="148" cy="44" r="4" transform="rotate(0,148,44)" />
+          <circle cx="180" cy="44" r="4" transform="rotate(0,180,44)" />
+          <circle cx="188" cy="44" r="4" transform="rotate(0,188,44)" />
+          <circle cx="100" cy="52" r="4" transform="rotate(0,100,52)" />
+          <circle cx="108" cy="52" r="4" transform="rotate(0,108,52)" />
+          <circle cx="116" cy="52" r="4" transform="rotate(0,116,52)" />
+          <circle cx="124" cy="52" r="4" transform="rotate(0,124,52)" />
+          <circle cx="140" cy="52" r="4" transform="rotate(0,140,52)" />
+          <circle cx="148" cy="52" r="4" transform="rotate(0,148,52)" />
+          <circle cx="164" cy="52" r="4" transform="rotate(0,164,52)" />
+          <circle cx="180" cy="52" r="4" transform="rotate(0,180,52)" />
+          <circle cx="92" cy="60" r="4" transform="rotate(0,92,60)" />
+          <circle cx="108" cy="60" r="4" transform="rotate(0,108,60)" />
+          <circle cx="124" cy="60" r="4" transform="rotate(0,124,60)" />
+          <circle cx="132" cy="60" r="4" transform="rotate(0,132,60)" />
+          <circle cx="140" cy="60" r="4" transform="rotate(0,140,60)" />
+          <circle cx="148" cy="60" r="4" transform="rotate(0,148,60)" />
+          <circle cx="172" cy="60" r="4" transform="rotate(0,172,60)" />
+          <circle cx="180" cy="60" r="4" transform="rotate(0,180,60)" />
+          <circle cx="188" cy="60" r="4" transform="rotate(0,188,60)" />
+          <circle cx="92" cy="68" r="4" transform="rotate(0,92,68)" />
+          <circle cx="100" cy="68" r="4" transform="rotate(0,100,68)" />
+          <circle cx="108" cy="68" r="4" transform="rotate(0,108,68)" />
+          <circle cx="116" cy="68" r="4" transform="rotate(0,116,68)" />
+          <circle cx="124" cy="68" r="4" transform="rotate(0,124,68)" />
+          <circle cx="140" cy="68" r="4" transform="rotate(0,140,68)" />
+          <circle cx="148" cy="68" r="4" transform="rotate(0,148,68)" />
+          <circle cx="156" cy="68" r="4" transform="rotate(0,156,68)" />
+          <circle cx="172" cy="68" r="4" transform="rotate(0,172,68)" />
+          <circle cx="188" cy="68" r="4" transform="rotate(0,188,68)" />
+          <circle cx="92" cy="76" r="4" transform="rotate(0,92,76)" />
+          <circle cx="108" cy="76" r="4" transform="rotate(0,108,76)" />
+          <circle cx="124" cy="76" r="4" transform="rotate(0,124,76)" />
+          <circle cx="140" cy="76" r="4" transform="rotate(0,140,76)" />
+          <circle cx="156" cy="76" r="4" transform="rotate(0,156,76)" />
+          <circle cx="172" cy="76" r="4" transform="rotate(0,172,76)" />
+          <circle cx="188" cy="76" r="4" transform="rotate(0,188,76)" />
+          <circle cx="100" cy="84" r="4" transform="rotate(0,100,84)" />
+          <circle cx="108" cy="84" r="4" transform="rotate(0,108,84)" />
+          <circle cx="116" cy="84" r="4" transform="rotate(0,116,84)" />
+          <circle cx="140" cy="84" r="4" transform="rotate(0,140,84)" />
+          <circle cx="188" cy="84" r="4" transform="rotate(0,188,84)" />
+          <circle cx="36" cy="92" r="4" transform="rotate(0,36,92)" />
+          <circle cx="44" cy="92" r="4" transform="rotate(0,44,92)" />
+          <circle cx="52" cy="92" r="4" transform="rotate(0,52,92)" />
+          <circle cx="60" cy="92" r="4" transform="rotate(0,60,92)" />
+          <circle cx="68" cy="92" r="4" transform="rotate(0,68,92)" />
+          <circle cx="76" cy="92" r="4" transform="rotate(0,76,92)" />
+          <circle cx="84" cy="92" r="4" transform="rotate(0,84,92)" />
+          <circle cx="108" cy="92" r="4" transform="rotate(0,108,92)" />
+          <circle cx="124" cy="92" r="4" transform="rotate(0,124,92)" />
+          <circle cx="132" cy="92" r="4" transform="rotate(0,132,92)" />
+          <circle cx="172" cy="92" r="4" transform="rotate(0,172,92)" />
+          <circle cx="180" cy="92" r="4" transform="rotate(0,180,92)" />
+          <circle cx="212" cy="92" r="4" transform="rotate(0,212,92)" />
+          <circle cx="220" cy="92" r="4" transform="rotate(0,220,92)" />
+          <circle cx="252" cy="92" r="4" transform="rotate(0,252,92)" />
+          <circle cx="36" cy="100" r="4" transform="rotate(0,36,100)" />
+          <circle cx="68" cy="100" r="4" transform="rotate(0,68,100)" />
+          <circle cx="92" cy="100" r="4" transform="rotate(0,92,100)" />
+          <circle cx="100" cy="100" r="4" transform="rotate(0,100,100)" />
+          <circle cx="108" cy="100" r="4" transform="rotate(0,108,100)" />
+          <circle cx="124" cy="100" r="4" transform="rotate(0,124,100)" />
+          <circle cx="148" cy="100" r="4" transform="rotate(0,148,100)" />
+          <circle cx="164" cy="100" r="4" transform="rotate(0,164,100)" />
+          <circle cx="196" cy="100" r="4" transform="rotate(0,196,100)" />
+          <circle cx="204" cy="100" r="4" transform="rotate(0,204,100)" />
+          <circle cx="220" cy="100" r="4" transform="rotate(0,220,100)" />
+          <circle cx="236" cy="100" r="4" transform="rotate(0,236,100)" />
+          <circle cx="252" cy="100" r="4" transform="rotate(0,252,100)" />
+          <circle cx="28" cy="108" r="4" transform="rotate(0,28,108)" />
+          <circle cx="44" cy="108" r="4" transform="rotate(0,44,108)" />
+          <circle cx="52" cy="108" r="4" transform="rotate(0,52,108)" />
+          <circle cx="60" cy="108" r="4" transform="rotate(0,60,108)" />
+          <circle cx="68" cy="108" r="4" transform="rotate(0,68,108)" />
+          <circle cx="76" cy="108" r="4" transform="rotate(0,76,108)" />
+          <circle cx="84" cy="108" r="4" transform="rotate(0,84,108)" />
+          <circle cx="124" cy="108" r="4" transform="rotate(0,124,108)" />
+          <circle cx="148" cy="108" r="4" transform="rotate(0,148,108)" />
+          <circle cx="164" cy="108" r="4" transform="rotate(0,164,108)" />
+          <circle cx="188" cy="108" r="4" transform="rotate(0,188,108)" />
+          <circle cx="204" cy="108" r="4" transform="rotate(0,204,108)" />
+          <circle cx="212" cy="108" r="4" transform="rotate(0,212,108)" />
+          <circle cx="228" cy="108" r="4" transform="rotate(0,228,108)" />
+          <circle cx="28" cy="116" r="4" transform="rotate(0,28,116)" />
+          <circle cx="52" cy="116" r="4" transform="rotate(0,52,116)" />
+          <circle cx="92" cy="116" r="4" transform="rotate(0,92,116)" />
+          <circle cx="108" cy="116" r="4" transform="rotate(0,108,116)" />
+          <circle cx="116" cy="116" r="4" transform="rotate(0,116,116)" />
+          <circle cx="124" cy="116" r="4" transform="rotate(0,124,116)" />
+          <circle cx="148" cy="116" r="4" transform="rotate(0,148,116)" />
+          <circle cx="156" cy="116" r="4" transform="rotate(0,156,116)" />
+          <circle cx="188" cy="116" r="4" transform="rotate(0,188,116)" />
+          <circle cx="204" cy="116" r="4" transform="rotate(0,204,116)" />
+          <circle cx="212" cy="116" r="4" transform="rotate(0,212,116)" />
+          <circle cx="220" cy="116" r="4" transform="rotate(0,220,116)" />
+          <circle cx="228" cy="116" r="4" transform="rotate(0,228,116)" />
+          <circle cx="244" cy="116" r="4" transform="rotate(0,244,116)" />
+          <circle cx="28" cy="124" r="4" transform="rotate(0,28,124)" />
+          <circle cx="36" cy="124" r="4" transform="rotate(0,36,124)" />
+          <circle cx="52" cy="124" r="4" transform="rotate(0,52,124)" />
+          <circle cx="76" cy="124" r="4" transform="rotate(0,76,124)" />
+          <circle cx="100" cy="124" r="4" transform="rotate(0,100,124)" />
+          <circle cx="116" cy="124" r="4" transform="rotate(0,116,124)" />
+          <circle cx="124" cy="124" r="4" transform="rotate(0,124,124)" />
+          <circle cx="156" cy="124" r="4" transform="rotate(0,156,124)" />
+          <circle cx="164" cy="124" r="4" transform="rotate(0,164,124)" />
+          <circle cx="180" cy="124" r="4" transform="rotate(0,180,124)" />
+          <circle cx="196" cy="124" r="4" transform="rotate(0,196,124)" />
+          <circle cx="236" cy="124" r="4" transform="rotate(0,236,124)" />
+          <circle cx="244" cy="124" r="4" transform="rotate(0,244,124)" />
+          <circle cx="252" cy="124" r="4" transform="rotate(0,252,124)" />
+          <circle cx="28" cy="132" r="4" transform="rotate(0,28,132)" />
+          <circle cx="44" cy="132" r="4" transform="rotate(0,44,132)" />
+          <circle cx="60" cy="132" r="4" transform="rotate(0,60,132)" />
+          <circle cx="84" cy="132" r="4" transform="rotate(0,84,132)" />
+          <circle cx="92" cy="132" r="4" transform="rotate(0,92,132)" />
+          <circle cx="100" cy="132" r="4" transform="rotate(0,100,132)" />
+          <circle cx="116" cy="132" r="4" transform="rotate(0,116,132)" />
+          <circle cx="124" cy="132" r="4" transform="rotate(0,124,132)" />
+          <circle cx="164" cy="132" r="4" transform="rotate(0,164,132)" />
+          <circle cx="172" cy="132" r="4" transform="rotate(0,172,132)" />
+          <circle cx="180" cy="132" r="4" transform="rotate(0,180,132)" />
+          <circle cx="196" cy="132" r="4" transform="rotate(0,196,132)" />
+          <circle cx="204" cy="132" r="4" transform="rotate(0,204,132)" />
+          <circle cx="220" cy="132" r="4" transform="rotate(0,220,132)" />
+          <circle cx="228" cy="132" r="4" transform="rotate(0,228,132)" />
+          <circle cx="252" cy="132" r="4" transform="rotate(0,252,132)" />
+          <circle cx="44" cy="140" r="4" transform="rotate(0,44,140)" />
+          <circle cx="52" cy="140" r="4" transform="rotate(0,52,140)" />
+          <circle cx="76" cy="140" r="4" transform="rotate(0,76,140)" />
+          <circle cx="84" cy="140" r="4" transform="rotate(0,84,140)" />
+          <circle cx="108" cy="140" r="4" transform="rotate(0,108,140)" />
+          <circle cx="116" cy="140" r="4" transform="rotate(0,116,140)" />
+          <circle cx="124" cy="140" r="4" transform="rotate(0,124,140)" />
+          <circle cx="132" cy="140" r="4" transform="rotate(0,132,140)" />
+          <circle cx="140" cy="140" r="4" transform="rotate(0,140,140)" />
+          <circle cx="164" cy="140" r="4" transform="rotate(0,164,140)" />
+          <circle cx="204" cy="140" r="4" transform="rotate(0,204,140)" />
+          <circle cx="36" cy="148" r="4" transform="rotate(0,36,148)" />
+          <circle cx="44" cy="148" r="4" transform="rotate(0,44,148)" />
+          <circle cx="52" cy="148" r="4" transform="rotate(0,52,148)" />
+          <circle cx="68" cy="148" r="4" transform="rotate(0,68,148)" />
+          <circle cx="84" cy="148" r="4" transform="rotate(0,84,148)" />
+          <circle cx="108" cy="148" r="4" transform="rotate(0,108,148)" />
+          <circle cx="164" cy="148" r="4" transform="rotate(0,164,148)" />
+          <circle cx="172" cy="148" r="4" transform="rotate(0,172,148)" />
+          <circle cx="180" cy="148" r="4" transform="rotate(0,180,148)" />
+          <circle cx="196" cy="148" r="4" transform="rotate(0,196,148)" />
+          <circle cx="204" cy="148" r="4" transform="rotate(0,204,148)" />
+          <circle cx="228" cy="148" r="4" transform="rotate(0,228,148)" />
+          <circle cx="244" cy="148" r="4" transform="rotate(0,244,148)" />
+          <circle cx="28" cy="156" r="4" transform="rotate(0,28,156)" />
+          <circle cx="36" cy="156" r="4" transform="rotate(0,36,156)" />
+          <circle cx="60" cy="156" r="4" transform="rotate(0,60,156)" />
+          <circle cx="76" cy="156" r="4" transform="rotate(0,76,156)" />
+          <circle cx="84" cy="156" r="4" transform="rotate(0,84,156)" />
+          <circle cx="132" cy="156" r="4" transform="rotate(0,132,156)" />
+          <circle cx="148" cy="156" r="4" transform="rotate(0,148,156)" />
+          <circle cx="156" cy="156" r="4" transform="rotate(0,156,156)" />
+          <circle cx="228" cy="156" r="4" transform="rotate(0,228,156)" />
+          <circle cx="236" cy="156" r="4" transform="rotate(0,236,156)" />
+          <circle cx="28" cy="164" r="4" transform="rotate(0,28,164)" />
+          <circle cx="44" cy="164" r="4" transform="rotate(0,44,164)" />
+          <circle cx="100" cy="164" r="4" transform="rotate(0,100,164)" />
+          <circle cx="108" cy="164" r="4" transform="rotate(0,108,164)" />
+          <circle cx="148" cy="164" r="4" transform="rotate(0,148,164)" />
+          <circle cx="172" cy="164" r="4" transform="rotate(0,172,164)" />
+          <circle cx="180" cy="164" r="4" transform="rotate(0,180,164)" />
+          <circle cx="188" cy="164" r="4" transform="rotate(0,188,164)" />
+          <circle cx="196" cy="164" r="4" transform="rotate(0,196,164)" />
+          <circle cx="204" cy="164" r="4" transform="rotate(0,204,164)" />
+          <circle cx="212" cy="164" r="4" transform="rotate(0,212,164)" />
+          <circle cx="220" cy="164" r="4" transform="rotate(0,220,164)" />
+          <circle cx="228" cy="164" r="4" transform="rotate(0,228,164)" />
+          <circle cx="236" cy="164" r="4" transform="rotate(0,236,164)" />
+          <circle cx="244" cy="164" r="4" transform="rotate(0,244,164)" />
+          <circle cx="252" cy="164" r="4" transform="rotate(0,252,164)" />
+          <circle cx="28" cy="172" r="4" transform="rotate(0,28,172)" />
+          <circle cx="44" cy="172" r="4" transform="rotate(0,44,172)" />
+          <circle cx="60" cy="172" r="4" transform="rotate(0,60,172)" />
+          <circle cx="68" cy="172" r="4" transform="rotate(0,68,172)" />
+          <circle cx="76" cy="172" r="4" transform="rotate(0,76,172)" />
+          <circle cx="92" cy="172" r="4" transform="rotate(0,92,172)" />
+          <circle cx="108" cy="172" r="4" transform="rotate(0,108,172)" />
+          <circle cx="132" cy="172" r="4" transform="rotate(0,132,172)" />
+          <circle cx="140" cy="172" r="4" transform="rotate(0,140,172)" />
+          <circle cx="148" cy="172" r="4" transform="rotate(0,148,172)" />
+          <circle cx="156" cy="172" r="4" transform="rotate(0,156,172)" />
+          <circle cx="188" cy="172" r="4" transform="rotate(0,188,172)" />
+          <circle cx="204" cy="172" r="4" transform="rotate(0,204,172)" />
+          <circle cx="28" cy="180" r="4" transform="rotate(0,28,180)" />
+          <circle cx="44" cy="180" r="4" transform="rotate(0,44,180)" />
+          <circle cx="52" cy="180" r="4" transform="rotate(0,52,180)" />
+          <circle cx="60" cy="180" r="4" transform="rotate(0,60,180)" />
+          <circle cx="100" cy="180" r="4" transform="rotate(0,100,180)" />
+          <circle cx="116" cy="180" r="4" transform="rotate(0,116,180)" />
+          <circle cx="124" cy="180" r="4" transform="rotate(0,124,180)" />
+          <circle cx="140" cy="180" r="4" transform="rotate(0,140,180)" />
+          <circle cx="148" cy="180" r="4" transform="rotate(0,148,180)" />
+          <circle cx="172" cy="180" r="4" transform="rotate(0,172,180)" />
+          <circle cx="180" cy="180" r="4" transform="rotate(0,180,180)" />
+          <circle cx="188" cy="180" r="4" transform="rotate(0,188,180)" />
+          <circle cx="204" cy="180" r="4" transform="rotate(0,204,180)" />
+          <circle cx="212" cy="180" r="4" transform="rotate(0,212,180)" />
+          <circle cx="228" cy="180" r="4" transform="rotate(0,228,180)" />
+          <circle cx="244" cy="180" r="4" transform="rotate(0,244,180)" />
+          <circle cx="252" cy="180" r="4" transform="rotate(0,252,180)" />
+          <circle cx="28" cy="188" r="4" transform="rotate(0,28,188)" />
+          <circle cx="52" cy="188" r="4" transform="rotate(0,52,188)" />
+          <circle cx="68" cy="188" r="4" transform="rotate(0,68,188)" />
+          <circle cx="76" cy="188" r="4" transform="rotate(0,76,188)" />
+          <circle cx="84" cy="188" r="4" transform="rotate(0,84,188)" />
+          <circle cx="108" cy="188" r="4" transform="rotate(0,108,188)" />
+          <circle cx="148" cy="188" r="4" transform="rotate(0,148,188)" />
+          <circle cx="156" cy="188" r="4" transform="rotate(0,156,188)" />
+          <circle cx="164" cy="188" r="4" transform="rotate(0,164,188)" />
+          <circle cx="180" cy="188" r="4" transform="rotate(0,180,188)" />
+          <circle cx="188" cy="188" r="4" transform="rotate(0,188,188)" />
+          <circle cx="196" cy="188" r="4" transform="rotate(0,196,188)" />
+          <circle cx="204" cy="188" r="4" transform="rotate(0,204,188)" />
+          <circle cx="212" cy="188" r="4" transform="rotate(0,212,188)" />
+          <circle cx="220" cy="188" r="4" transform="rotate(0,220,188)" />
+          <circle cx="236" cy="188" r="4" transform="rotate(0,236,188)" />
+          <circle cx="244" cy="188" r="4" transform="rotate(0,244,188)" />
+          <circle cx="252" cy="188" r="4" transform="rotate(0,252,188)" />
+          <circle cx="92" cy="196" r="4" transform="rotate(0,92,196)" />
+          <circle cx="100" cy="196" r="4" transform="rotate(0,100,196)" />
+          <circle cx="124" cy="196" r="4" transform="rotate(0,124,196)" />
+          <circle cx="140" cy="196" r="4" transform="rotate(0,140,196)" />
+          <circle cx="156" cy="196" r="4" transform="rotate(0,156,196)" />
+          <circle cx="172" cy="196" r="4" transform="rotate(0,172,196)" />
+          <circle cx="180" cy="196" r="4" transform="rotate(0,180,196)" />
+          <circle cx="188" cy="196" r="4" transform="rotate(0,188,196)" />
+          <circle cx="220" cy="196" r="4" transform="rotate(0,220,196)" />
+          <circle cx="228" cy="196" r="4" transform="rotate(0,228,196)" />
+          <circle cx="252" cy="196" r="4" transform="rotate(0,252,196)" />
+          <circle cx="92" cy="204" r="4" transform="rotate(0,92,204)" />
+          <circle cx="108" cy="204" r="4" transform="rotate(0,108,204)" />
+          <circle cx="116" cy="204" r="4" transform="rotate(0,116,204)" />
+          <circle cx="148" cy="204" r="4" transform="rotate(0,148,204)" />
+          <circle cx="156" cy="204" r="4" transform="rotate(0,156,204)" />
+          <circle cx="172" cy="204" r="4" transform="rotate(0,172,204)" />
+          <circle cx="180" cy="204" r="4" transform="rotate(0,180,204)" />
+          <circle cx="188" cy="204" r="4" transform="rotate(0,188,204)" />
+          <circle cx="204" cy="204" r="4" transform="rotate(0,204,204)" />
+          <circle cx="220" cy="204" r="4" transform="rotate(0,220,204)" />
+          <circle cx="92" cy="212" r="4" transform="rotate(0,92,212)" />
+          <circle cx="140" cy="212" r="4" transform="rotate(0,140,212)" />
+          <circle cx="148" cy="212" r="4" transform="rotate(0,148,212)" />
+          <circle cx="156" cy="212" r="4" transform="rotate(0,156,212)" />
+          <circle cx="180" cy="212" r="4" transform="rotate(0,180,212)" />
+          <circle cx="188" cy="212" r="4" transform="rotate(0,188,212)" />
+          <circle cx="220" cy="212" r="4" transform="rotate(0,220,212)" />
+          <circle cx="228" cy="212" r="4" transform="rotate(0,228,212)" />
+          <circle cx="252" cy="212" r="4" transform="rotate(0,252,212)" />
+          <circle cx="92" cy="220" r="4" transform="rotate(0,92,220)" />
+          <circle cx="108" cy="220" r="4" transform="rotate(0,108,220)" />
+          <circle cx="116" cy="220" r="4" transform="rotate(0,116,220)" />
+          <circle cx="124" cy="220" r="4" transform="rotate(0,124,220)" />
+          <circle cx="132" cy="220" r="4" transform="rotate(0,132,220)" />
+          <circle cx="140" cy="220" r="4" transform="rotate(0,140,220)" />
+          <circle cx="172" cy="220" r="4" transform="rotate(0,172,220)" />
+          <circle cx="188" cy="220" r="4" transform="rotate(0,188,220)" />
+          <circle cx="196" cy="220" r="4" transform="rotate(0,196,220)" />
+          <circle cx="204" cy="220" r="4" transform="rotate(0,204,220)" />
+          <circle cx="212" cy="220" r="4" transform="rotate(0,212,220)" />
+          <circle cx="220" cy="220" r="4" transform="rotate(0,220,220)" />
+          <circle cx="228" cy="220" r="4" transform="rotate(0,228,220)" />
+          <circle cx="236" cy="220" r="4" transform="rotate(0,236,220)" />
+          <circle cx="244" cy="220" r="4" transform="rotate(0,244,220)" />
+          <circle cx="92" cy="228" r="4" transform="rotate(0,92,228)" />
+          <circle cx="108" cy="228" r="4" transform="rotate(0,108,228)" />
+          <circle cx="124" cy="228" r="4" transform="rotate(0,124,228)" />
+          <circle cx="148" cy="228" r="4" transform="rotate(0,148,228)" />
+          <circle cx="156" cy="228" r="4" transform="rotate(0,156,228)" />
+          <circle cx="180" cy="228" r="4" transform="rotate(0,180,228)" />
+          <circle cx="212" cy="228" r="4" transform="rotate(0,212,228)" />
+          <circle cx="236" cy="228" r="4" transform="rotate(0,236,228)" />
+          <circle cx="92" cy="236" r="4" transform="rotate(0,92,236)" />
+          <circle cx="108" cy="236" r="4" transform="rotate(0,108,236)" />
+          <circle cx="116" cy="236" r="4" transform="rotate(0,116,236)" />
+          <circle cx="124" cy="236" r="4" transform="rotate(0,124,236)" />
+          <circle cx="132" cy="236" r="4" transform="rotate(0,132,236)" />
+          <circle cx="140" cy="236" r="4" transform="rotate(0,140,236)" />
+          <circle cx="204" cy="236" r="4" transform="rotate(0,204,236)" />
+          <circle cx="220" cy="236" r="4" transform="rotate(0,220,236)" />
+          <circle cx="228" cy="236" r="4" transform="rotate(0,228,236)" />
+          <circle cx="244" cy="236" r="4" transform="rotate(0,244,236)" />
+          <circle cx="92" cy="244" r="4" transform="rotate(0,92,244)" />
+          <circle cx="108" cy="244" r="4" transform="rotate(0,108,244)" />
+          <circle cx="116" cy="244" r="4" transform="rotate(0,116,244)" />
+          <circle cx="140" cy="244" r="4" transform="rotate(0,140,244)" />
+          <circle cx="156" cy="244" r="4" transform="rotate(0,156,244)" />
+          <circle cx="188" cy="244" r="4" transform="rotate(0,188,244)" />
+          <circle cx="196" cy="244" r="4" transform="rotate(0,196,244)" />
+          <circle cx="220" cy="244" r="4" transform="rotate(0,220,244)" />
+          <circle cx="228" cy="244" r="4" transform="rotate(0,228,244)" />
+          <circle cx="244" cy="244" r="4" transform="rotate(0,244,244)" />
+          <circle cx="108" cy="252" r="4" transform="rotate(0,108,252)" />
+          <circle cx="116" cy="252" r="4" transform="rotate(0,116,252)" />
+          <circle cx="140" cy="252" r="4" transform="rotate(0,140,252)" />
+          <circle cx="164" cy="252" r="4" transform="rotate(0,164,252)" />
+          <circle cx="172" cy="252" r="4" transform="rotate(0,172,252)" />
+          <circle cx="180" cy="252" r="4" transform="rotate(0,180,252)" />
+          <circle cx="204" cy="252" r="4" transform="rotate(0,204,252)" />
+          <circle cx="220" cy="252" r="4" transform="rotate(0,220,252)" />
+          <circle cx="236" cy="252" r="4" transform="rotate(0,236,252)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 24v 56h 56v -56zM 32 32h 40v 40h -40z"
+            transform="rotate(0,52,52)"
+          />
+          <rect x="40" y="40" width="24" height="24" transform="rotate(0,52,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 200 24v 56h 56v -56zM 208 32h 40v 40h -40z"
+            transform="rotate(90,228,52)"
+          />
+          <rect x="216" y="40" width="24" height="24" transform="rotate(90,228,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 200v 56h 56v -56zM 32 208h 40v 40h -40z"
+            transform="rotate(-90,52,228)"
+          />
+          <rect x="40" y="216" width="24" height="24" transform="rotate(-90,52,228)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-3')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-3')"
+        fill="black"
+      />
+    </svg>
+  ),
+
+  starPatternQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-4">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-4">
+          <path
+            d="M 88 24v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,92,28)"
+          />
+          <path d="M 144 24v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,148,28)" />
+          <path d="M 152 24v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,28)" />
+          <path d="M 168 24v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,28)" />
+          <path
+            d="M 184 24v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,188,28)"
+          />
+          <path
+            d="M 96 32v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,100,36)"
+          />
+          <path d="M 128 32v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,132,36)" />
+          <rect x="136" y="32" width="8" height="8" transform="rotate(0,140,36)" />
+          <rect x="144" y="32" width="8" height="8" transform="rotate(0,148,36)" />
+          <path d="M 160 32v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,164,36)" />
+          <rect x="168" y="32" width="8" height="8" transform="rotate(0,172,36)" />
+          <rect x="176" y="32" width="8" height="8" transform="rotate(0,180,36)" />
+          <path d="M 112 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,116,44)" />
+          <rect x="120" y="40" width="8" height="8" transform="rotate(0,124,44)" />
+          <rect x="144" y="40" width="8" height="8" transform="rotate(0,148,44)" />
+          <rect x="176" y="40" width="8" height="8" transform="rotate(0,180,44)" />
+          <path d="M 184 40v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,188,44)" />
+          <path d="M 96 48v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,100,52)" />
+          <rect x="104" y="48" width="8" height="8" transform="rotate(0,108,52)" />
+          <rect x="112" y="48" width="8" height="8" transform="rotate(0,116,52)" />
+          <rect x="120" y="48" width="8" height="8" transform="rotate(0,124,52)" />
+          <path d="M 136 48v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,140,52)" />
+          <rect x="144" y="48" width="8" height="8" transform="rotate(0,148,52)" />
+          <path
+            d="M 160 48v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,164,52)"
+          />
+          <rect x="176" y="48" width="8" height="8" transform="rotate(0,180,52)" />
+          <path d="M 88 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,92,60)" />
+          <rect x="104" y="56" width="8" height="8" transform="rotate(0,108,60)" />
+          <rect x="120" y="56" width="8" height="8" transform="rotate(0,124,60)" />
+          <rect x="128" y="56" width="8" height="8" transform="rotate(0,132,60)" />
+          <rect x="136" y="56" width="8" height="8" transform="rotate(0,140,60)" />
+          <rect x="144" y="56" width="8" height="8" transform="rotate(0,148,60)" />
+          <path d="M 168 56v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,60)" />
+          <rect x="176" y="56" width="8" height="8" transform="rotate(0,180,60)" />
+          <rect x="184" y="56" width="8" height="8" transform="rotate(0,188,60)" />
+          <rect x="88" y="64" width="8" height="8" transform="rotate(0,92,68)" />
+          <rect x="96" y="64" width="8" height="8" transform="rotate(0,100,68)" />
+          <rect x="104" y="64" width="8" height="8" transform="rotate(0,108,68)" />
+          <rect x="112" y="64" width="8" height="8" transform="rotate(0,116,68)" />
+          <rect x="120" y="64" width="8" height="8" transform="rotate(0,124,68)" />
+          <rect x="136" y="64" width="8" height="8" transform="rotate(0,140,68)" />
+          <rect x="144" y="64" width="8" height="8" transform="rotate(0,148,68)" />
+          <rect x="152" y="64" width="8" height="8" transform="rotate(0,156,68)" />
+          <rect x="168" y="64" width="8" height="8" transform="rotate(0,172,68)" />
+          <rect x="184" y="64" width="8" height="8" transform="rotate(0,188,68)" />
+          <path d="M 88 72v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,92,76)" />
+          <rect x="104" y="72" width="8" height="8" transform="rotate(0,108,76)" />
+          <path d="M 120 72v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,124,76)" />
+          <rect x="136" y="72" width="8" height="8" transform="rotate(0,140,76)" />
+          <path d="M 152 72v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,76)" />
+          <path d="M 168 72v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,172,76)" />
+          <rect x="184" y="72" width="8" height="8" transform="rotate(0,188,76)" />
+          <path d="M 96 80v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,100,84)" />
+          <rect x="104" y="80" width="8" height="8" transform="rotate(0,108,84)" />
+          <path d="M 112 80v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,116,84)" />
+          <path d="M 136 80v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,140,84)" />
+          <path d="M 184 80v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,188,84)" />
+          <path d="M 32 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,36,92)" />
+          <rect x="40" y="88" width="8" height="8" transform="rotate(0,44,92)" />
+          <rect x="48" y="88" width="8" height="8" transform="rotate(0,52,92)" />
+          <rect x="56" y="88" width="8" height="8" transform="rotate(0,60,92)" />
+          <rect x="64" y="88" width="8" height="8" transform="rotate(0,68,92)" />
+          <rect x="72" y="88" width="8" height="8" transform="rotate(0,76,92)" />
+          <path d="M 80 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,84,92)" />
+          <rect x="104" y="88" width="8" height="8" transform="rotate(0,108,92)" />
+          <path d="M 120 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,124,92)" />
+          <path d="M 128 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,132,92)" />
+          <path d="M 168 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,92)" />
+          <path d="M 176 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,180,92)" />
+          <path d="M 208 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,212,92)" />
+          <rect x="216" y="88" width="8" height="8" transform="rotate(0,220,92)" />
+          <path d="M 248 88v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,252,92)" />
+          <path d="M 32 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,36,100)" />
+          <rect x="64" y="96" width="8" height="8" transform="rotate(0,68,100)" />
+          <path d="M 88 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,92,100)" />
+          <rect x="96" y="96" width="8" height="8" transform="rotate(0,100,100)" />
+          <path d="M 104 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,108,100)" />
+          <rect x="120" y="96" width="8" height="8" transform="rotate(0,124,100)" />
+          <path d="M 144 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,148,100)" />
+          <path d="M 160 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,164,100)" />
+          <path d="M 192 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,196,100)" />
+          <rect x="200" y="96" width="8" height="8" transform="rotate(0,204,100)" />
+          <path d="M 216 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,220,100)" />
+          <path
+            d="M 232 96v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,236,100)"
+          />
+          <path d="M 248 96v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,252,100)" />
+          <path d="M 24 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,28,108)" />
+          <path d="M 40 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,44,108)" />
+          <rect x="48" y="104" width="8" height="8" transform="rotate(0,52,108)" />
+          <rect x="56" y="104" width="8" height="8" transform="rotate(0,60,108)" />
+          <rect x="64" y="104" width="8" height="8" transform="rotate(0,68,108)" />
+          <rect x="72" y="104" width="8" height="8" transform="rotate(0,76,108)" />
+          <path d="M 80 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,84,108)" />
+          <rect x="120" y="104" width="8" height="8" transform="rotate(0,124,108)" />
+          <rect x="144" y="104" width="8" height="8" transform="rotate(0,148,108)" />
+          <path d="M 160 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,164,108)" />
+          <path d="M 184 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,188,108)" />
+          <rect x="200" y="104" width="8" height="8" transform="rotate(0,204,108)" />
+          <rect x="208" y="104" width="8" height="8" transform="rotate(0,212,108)" />
+          <path d="M 224 104v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,228,108)" />
+          <rect x="24" y="112" width="8" height="8" transform="rotate(0,28,116)" />
+          <rect x="48" y="112" width="8" height="8" transform="rotate(0,52,116)" />
+          <path
+            d="M 88 112v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,92,116)"
+          />
+          <path d="M 104 112v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,108,116)" />
+          <rect x="112" y="112" width="8" height="8" transform="rotate(0,116,116)" />
+          <rect x="120" y="112" width="8" height="8" transform="rotate(0,124,116)" />
+          <rect x="144" y="112" width="8" height="8" transform="rotate(0,148,116)" />
+          <rect x="152" y="112" width="8" height="8" transform="rotate(0,156,116)" />
+          <path d="M 184 112v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,188,116)" />
+          <rect x="200" y="112" width="8" height="8" transform="rotate(0,204,116)" />
+          <rect x="208" y="112" width="8" height="8" transform="rotate(0,212,116)" />
+          <rect x="216" y="112" width="8" height="8" transform="rotate(0,220,116)" />
+          <path d="M 224 112v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,228,116)" />
+          <path d="M 240 112v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,244,116)" />
+          <rect x="24" y="120" width="8" height="8" transform="rotate(0,28,124)" />
+          <path d="M 32 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,36,124)" />
+          <path d="M 48 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,52,124)" />
+          <path
+            d="M 72 120v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,76,124)"
+          />
+          <path d="M 96 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,100,124)" />
+          <rect x="112" y="120" width="8" height="8" transform="rotate(0,116,124)" />
+          <rect x="120" y="120" width="8" height="8" transform="rotate(0,124,124)" />
+          <rect x="152" y="120" width="8" height="8" transform="rotate(0,156,124)" />
+          <rect x="160" y="120" width="8" height="8" transform="rotate(0,164,124)" />
+          <path d="M 176 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,180,124)" />
+          <path d="M 192 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,196,124)" />
+          <path d="M 232 120v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,236,124)" />
+          <rect x="240" y="120" width="8" height="8" transform="rotate(0,244,124)" />
+          <rect x="248" y="120" width="8" height="8" transform="rotate(0,252,124)" />
+          <path d="M 24 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,28,132)" />
+          <path d="M 40 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,44,132)" />
+          <path
+            d="M 56 128v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,60,132)"
+          />
+          <path d="M 80 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,84,132)" />
+          <rect x="88" y="128" width="8" height="8" transform="rotate(0,92,132)" />
+          <path d="M 96 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,100,132)" />
+          <rect x="112" y="128" width="8" height="8" transform="rotate(0,116,132)" />
+          <rect x="120" y="128" width="8" height="8" transform="rotate(0,124,132)" />
+          <rect x="160" y="128" width="8" height="8" transform="rotate(0,164,132)" />
+          <rect x="168" y="128" width="8" height="8" transform="rotate(0,172,132)" />
+          <path d="M 176 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,180,132)" />
+          <rect x="192" y="128" width="8" height="8" transform="rotate(0,196,132)" />
+          <rect x="200" y="128" width="8" height="8" transform="rotate(0,204,132)" />
+          <path d="M 216 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,220,132)" />
+          <path d="M 224 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,228,132)" />
+          <path d="M 248 128v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,252,132)" />
+          <rect x="40" y="136" width="8" height="8" transform="rotate(0,44,140)" />
+          <rect x="48" y="136" width="8" height="8" transform="rotate(0,52,140)" />
+          <path d="M 72 136v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,76,140)" />
+          <rect x="80" y="136" width="8" height="8" transform="rotate(0,84,140)" />
+          <path d="M 104 136v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,108,140)" />
+          <rect x="112" y="136" width="8" height="8" transform="rotate(0,116,140)" />
+          <rect x="120" y="136" width="8" height="8" transform="rotate(0,124,140)" />
+          <rect x="128" y="136" width="8" height="8" transform="rotate(0,132,140)" />
+          <path d="M 136 136v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,140,140)" />
+          <rect x="160" y="136" width="8" height="8" transform="rotate(0,164,140)" />
+          <rect x="200" y="136" width="8" height="8" transform="rotate(0,204,140)" />
+          <path d="M 32 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,36,148)" />
+          <rect x="40" y="144" width="8" height="8" transform="rotate(0,44,148)" />
+          <path d="M 48 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,52,148)" />
+          <path
+            d="M 64 144v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,68,148)"
+          />
+          <rect x="80" y="144" width="8" height="8" transform="rotate(0,84,148)" />
+          <path d="M 104 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,108,148)" />
+          <rect x="160" y="144" width="8" height="8" transform="rotate(0,164,148)" />
+          <rect x="168" y="144" width="8" height="8" transform="rotate(0,172,148)" />
+          <path d="M 176 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,180,148)" />
+          <path d="M 192 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,196,148)" />
+          <path d="M 200 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,204,148)" />
+          <path d="M 224 144v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,228,148)" />
+          <path
+            d="M 240 144v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,244,148)"
+          />
+          <path d="M 24 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,28,156)" />
+          <path d="M 32 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,36,156)" />
+          <path
+            d="M 56 152v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,60,156)"
+          />
+          <path d="M 72 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,76,156)" />
+          <path d="M 80 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,84,156)" />
+          <path
+            d="M 128 152v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,132,156)"
+          />
+          <path d="M 144 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,148,156)" />
+          <path d="M 152 152v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,156)" />
+          <rect x="224" y="152" width="8" height="8" transform="rotate(0,228,156)" />
+          <rect x="232" y="152" width="8" height="8" transform="rotate(0,236,156)" />
+          <rect x="24" y="160" width="8" height="8" transform="rotate(0,28,164)" />
+          <path d="M 40 160v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,44,164)" />
+          <path d="M 96 160v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,100,164)" />
+          <rect x="104" y="160" width="8" height="8" transform="rotate(0,108,164)" />
+          <rect x="144" y="160" width="8" height="8" transform="rotate(0,148,164)" />
+          <path d="M 168 160v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,164)" />
+          <rect x="176" y="160" width="8" height="8" transform="rotate(0,180,164)" />
+          <rect x="184" y="160" width="8" height="8" transform="rotate(0,188,164)" />
+          <rect x="192" y="160" width="8" height="8" transform="rotate(0,196,164)" />
+          <rect x="200" y="160" width="8" height="8" transform="rotate(0,204,164)" />
+          <rect x="208" y="160" width="8" height="8" transform="rotate(0,212,164)" />
+          <rect x="216" y="160" width="8" height="8" transform="rotate(0,220,164)" />
+          <rect x="224" y="160" width="8" height="8" transform="rotate(0,228,164)" />
+          <rect x="232" y="160" width="8" height="8" transform="rotate(0,236,164)" />
+          <rect x="240" y="160" width="8" height="8" transform="rotate(0,244,164)" />
+          <path d="M 248 160v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,252,164)" />
+          <rect x="24" y="168" width="8" height="8" transform="rotate(0,28,172)" />
+          <rect x="40" y="168" width="8" height="8" transform="rotate(0,44,172)" />
+          <path d="M 56 168v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,60,172)" />
+          <rect x="64" y="168" width="8" height="8" transform="rotate(0,68,172)" />
+          <path d="M 72 168v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,76,172)" />
+          <path
+            d="M 88 168v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,92,172)"
+          />
+          <path d="M 104 168v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,108,172)" />
+          <path d="M 128 168v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,132,172)" />
+          <rect x="136" y="168" width="8" height="8" transform="rotate(0,140,172)" />
+          <rect x="144" y="168" width="8" height="8" transform="rotate(0,148,172)" />
+          <path d="M 152 168v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,172)" />
+          <rect x="184" y="168" width="8" height="8" transform="rotate(0,188,172)" />
+          <rect x="200" y="168" width="8" height="8" transform="rotate(0,204,172)" />
+          <rect x="24" y="176" width="8" height="8" transform="rotate(0,28,180)" />
+          <rect x="40" y="176" width="8" height="8" transform="rotate(0,44,180)" />
+          <rect x="48" y="176" width="8" height="8" transform="rotate(0,52,180)" />
+          <path d="M 56 176v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,60,180)" />
+          <path
+            d="M 96 176v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,100,180)"
+          />
+          <path d="M 112 176v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,116,180)" />
+          <path d="M 120 176v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,124,180)" />
+          <rect x="136" y="176" width="8" height="8" transform="rotate(0,140,180)" />
+          <rect x="144" y="176" width="8" height="8" transform="rotate(0,148,180)" />
+          <path d="M 168 176v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,180)" />
+          <rect x="176" y="176" width="8" height="8" transform="rotate(0,180,180)" />
+          <rect x="184" y="176" width="8" height="8" transform="rotate(0,188,180)" />
+          <rect x="200" y="176" width="8" height="8" transform="rotate(0,204,180)" />
+          <rect x="208" y="176" width="8" height="8" transform="rotate(0,212,180)" />
+          <path
+            d="M 224 176v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,228,180)"
+          />
+          <path d="M 240 176v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,244,180)" />
+          <rect x="248" y="176" width="8" height="8" transform="rotate(0,252,180)" />
+          <path d="M 24 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,28,188)" />
+          <path d="M 48 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,52,188)" />
+          <path d="M 64 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,68,188)" />
+          <rect x="72" y="184" width="8" height="8" transform="rotate(0,76,188)" />
+          <path d="M 80 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,84,188)" />
+          <path
+            d="M 104 184v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,108,188)"
+          />
+          <rect x="144" y="184" width="8" height="8" transform="rotate(0,148,188)" />
+          <rect x="152" y="184" width="8" height="8" transform="rotate(0,156,188)" />
+          <path d="M 160 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,164,188)" />
+          <rect x="176" y="184" width="8" height="8" transform="rotate(0,180,188)" />
+          <rect x="184" y="184" width="8" height="8" transform="rotate(0,188,188)" />
+          <rect x="192" y="184" width="8" height="8" transform="rotate(0,196,188)" />
+          <rect x="200" y="184" width="8" height="8" transform="rotate(0,204,188)" />
+          <rect x="208" y="184" width="8" height="8" transform="rotate(0,212,188)" />
+          <rect x="216" y="184" width="8" height="8" transform="rotate(0,220,188)" />
+          <path d="M 232 184v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,236,188)" />
+          <rect x="240" y="184" width="8" height="8" transform="rotate(0,244,188)" />
+          <rect x="248" y="184" width="8" height="8" transform="rotate(0,252,188)" />
+          <path d="M 88 192v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,92,196)" />
+          <path d="M 96 192v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,100,196)" />
+          <path
+            d="M 120 192v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,124,196)"
+          />
+          <path
+            d="M 136 192v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,140,196)"
+          />
+          <rect x="152" y="192" width="8" height="8" transform="rotate(0,156,196)" />
+          <path d="M 168 192v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,172,196)" />
+          <rect x="176" y="192" width="8" height="8" transform="rotate(0,180,196)" />
+          <rect x="184" y="192" width="8" height="8" transform="rotate(0,188,196)" />
+          <rect x="216" y="192" width="8" height="8" transform="rotate(0,220,196)" />
+          <path d="M 224 192v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,228,196)" />
+          <path d="M 248 192v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,252,196)" />
+          <rect x="88" y="200" width="8" height="8" transform="rotate(0,92,204)" />
+          <path d="M 104 200v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,108,204)" />
+          <path d="M 112 200v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,116,204)" />
+          <path d="M 144 200v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,148,204)" />
+          <rect x="152" y="200" width="8" height="8" transform="rotate(0,156,204)" />
+          <rect x="168" y="200" width="8" height="8" transform="rotate(0,172,204)" />
+          <rect x="176" y="200" width="8" height="8" transform="rotate(0,180,204)" />
+          <rect x="184" y="200" width="8" height="8" transform="rotate(0,188,204)" />
+          <path
+            d="M 200 200v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,204,204)"
+          />
+          <rect x="216" y="200" width="8" height="8" transform="rotate(0,220,204)" />
+          <rect x="88" y="208" width="8" height="8" transform="rotate(0,92,212)" />
+          <path d="M 136 208v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,140,212)" />
+          <rect x="144" y="208" width="8" height="8" transform="rotate(0,148,212)" />
+          <path d="M 152 208v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,212)" />
+          <rect x="176" y="208" width="8" height="8" transform="rotate(0,180,212)" />
+          <rect x="184" y="208" width="8" height="8" transform="rotate(0,188,212)" />
+          <rect x="216" y="208" width="8" height="8" transform="rotate(0,220,212)" />
+          <rect x="224" y="208" width="8" height="8" transform="rotate(0,228,212)" />
+          <path
+            d="M 248 208v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,252,212)"
+          />
+          <rect x="88" y="216" width="8" height="8" transform="rotate(0,92,220)" />
+          <path d="M 104 216v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,108,220)" />
+          <rect x="112" y="216" width="8" height="8" transform="rotate(0,116,220)" />
+          <rect x="120" y="216" width="8" height="8" transform="rotate(0,124,220)" />
+          <rect x="128" y="216" width="8" height="8" transform="rotate(0,132,220)" />
+          <path d="M 136 216v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,140,220)" />
+          <path
+            d="M 168 216v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,172,220)"
+          />
+          <rect x="184" y="216" width="8" height="8" transform="rotate(0,188,220)" />
+          <rect x="192" y="216" width="8" height="8" transform="rotate(0,196,220)" />
+          <rect x="200" y="216" width="8" height="8" transform="rotate(0,204,220)" />
+          <rect x="208" y="216" width="8" height="8" transform="rotate(0,212,220)" />
+          <rect x="216" y="216" width="8" height="8" transform="rotate(0,220,220)" />
+          <rect x="224" y="216" width="8" height="8" transform="rotate(0,228,220)" />
+          <rect x="232" y="216" width="8" height="8" transform="rotate(0,236,220)" />
+          <path d="M 240 216v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,244,220)" />
+          <rect x="88" y="224" width="8" height="8" transform="rotate(0,92,228)" />
+          <rect x="104" y="224" width="8" height="8" transform="rotate(0,108,228)" />
+          <rect x="120" y="224" width="8" height="8" transform="rotate(0,124,228)" />
+          <path d="M 144 224v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,148,228)" />
+          <path d="M 152 224v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,156,228)" />
+          <path
+            d="M 176 224v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,180,228)"
+          />
+          <path d="M 208 224v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,212,228)" />
+          <path d="M 232 224v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,236,228)" />
+          <rect x="88" y="232" width="8" height="8" transform="rotate(0,92,236)" />
+          <rect x="104" y="232" width="8" height="8" transform="rotate(0,108,236)" />
+          <rect x="112" y="232" width="8" height="8" transform="rotate(0,116,236)" />
+          <rect x="120" y="232" width="8" height="8" transform="rotate(0,124,236)" />
+          <rect x="128" y="232" width="8" height="8" transform="rotate(0,132,236)" />
+          <rect x="136" y="232" width="8" height="8" transform="rotate(0,140,236)" />
+          <path
+            d="M 200 232v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,204,236)"
+          />
+          <path d="M 216 232v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,220,236)" />
+          <rect x="224" y="232" width="8" height="8" transform="rotate(0,228,236)" />
+          <path d="M 240 232v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,244,236)" />
+          <path d="M 88 240v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,92,244)" />
+          <rect x="104" y="240" width="8" height="8" transform="rotate(0,108,244)" />
+          <rect x="112" y="240" width="8" height="8" transform="rotate(0,116,244)" />
+          <rect x="136" y="240" width="8" height="8" transform="rotate(0,140,244)" />
+          <path
+            d="M 152 240v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,156,244)"
+          />
+          <path d="M 184 240v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,188,244)" />
+          <path d="M 192 240v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,196,244)" />
+          <rect x="216" y="240" width="8" height="8" transform="rotate(0,220,244)" />
+          <path d="M 224 240v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,228,244)" />
+          <path d="M 240 240v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,244,244)" />
+          <rect x="104" y="248" width="8" height="8" transform="rotate(0,108,252)" />
+          <path d="M 112 248v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,116,252)" />
+          <path d="M 136 248v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,140,252)" />
+          <path d="M 160 248v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(-90,164,252)" />
+          <rect x="168" y="248" width="8" height="8" transform="rotate(0,172,252)" />
+          <path d="M 176 248v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,180,252)" />
+          <path
+            d="M 200 248v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,204,252)"
+          />
+          <path d="M 216 248v 8h 8a 8 8, 0, 0, 0, -8 -8" transform="rotate(90,220,252)" />
+          <path
+            d="M 232 248v 4a 4 4, 0, 0, 0, 4 4h 4v -4a 4 4, 0, 0, 0, -4 -4"
+            transform="rotate(90,236,252)"
+          />
+          <path
+            clipRule="evenodd"
+            d="M 24 24v 56h 56v -56zM 32 32h 40v 40h -40z"
+            transform="rotate(0,52,52)"
+          />
+          <rect x="40" y="40" width="24" height="24" transform="rotate(0,52,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 200 24v 56h 56v -56zM 208 32h 40v 40h -40z"
+            transform="rotate(90,228,52)"
+          />
+          <rect x="216" y="40" width="24" height="24" transform="rotate(90,228,52)" />
+          <path
+            clipRule="evenodd"
+            d="M 24 200v 56h 56v -56zM 32 208h 40v 40h -40z"
+            transform="rotate(-90,52,228)"
+          />
+          <rect x="40" y="216" width="24" height="24" transform="rotate(-90,52,228)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-4')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-4')"
+        fill="black"
+      />
+    </svg>
+  ),
+
+  circleShapeQrCode: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="280"
+      height="280"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 280 280"
+      {...props}
+    >
+      <defs>
+        <clipPath id="clipPath-background-color-9">
+          <rect x="0" y="0" width="280" height="280" />
+        </clipPath>
+        <clipPath id="clipPath-dot-color-9">
+          <rect x="101" y="53" width="6" height="6" transform="rotate(0,104,56)" />
+          <rect x="143" y="53" width="6" height="6" transform="rotate(0,146,56)" />
+          <rect x="149" y="53" width="6" height="6" transform="rotate(0,152,56)" />
+          <rect x="161" y="53" width="6" height="6" transform="rotate(0,164,56)" />
+          <rect x="173" y="53" width="6" height="6" transform="rotate(0,176,56)" />
+          <rect x="107" y="59" width="6" height="6" transform="rotate(0,110,62)" />
+          <rect x="131" y="59" width="6" height="6" transform="rotate(0,134,62)" />
+          <rect x="137" y="59" width="6" height="6" transform="rotate(0,140,62)" />
+          <rect x="143" y="59" width="6" height="6" transform="rotate(0,146,62)" />
+          <rect x="155" y="59" width="6" height="6" transform="rotate(0,158,62)" />
+          <rect x="161" y="59" width="6" height="6" transform="rotate(0,164,62)" />
+          <rect x="167" y="59" width="6" height="6" transform="rotate(0,170,62)" />
+          <rect x="119" y="65" width="6" height="6" transform="rotate(0,122,68)" />
+          <rect x="125" y="65" width="6" height="6" transform="rotate(0,128,68)" />
+          <rect x="143" y="65" width="6" height="6" transform="rotate(0,146,68)" />
+          <rect x="167" y="65" width="6" height="6" transform="rotate(0,170,68)" />
+          <rect x="173" y="65" width="6" height="6" transform="rotate(0,176,68)" />
+          <rect x="107" y="71" width="6" height="6" transform="rotate(0,110,74)" />
+          <rect x="113" y="71" width="6" height="6" transform="rotate(0,116,74)" />
+          <rect x="119" y="71" width="6" height="6" transform="rotate(0,122,74)" />
+          <rect x="125" y="71" width="6" height="6" transform="rotate(0,128,74)" />
+          <rect x="137" y="71" width="6" height="6" transform="rotate(0,140,74)" />
+          <rect x="143" y="71" width="6" height="6" transform="rotate(0,146,74)" />
+          <rect x="155" y="71" width="6" height="6" transform="rotate(0,158,74)" />
+          <rect x="167" y="71" width="6" height="6" transform="rotate(0,170,74)" />
+          <rect x="101" y="77" width="6" height="6" transform="rotate(0,104,80)" />
+          <rect x="113" y="77" width="6" height="6" transform="rotate(0,116,80)" />
+          <rect x="125" y="77" width="6" height="6" transform="rotate(0,128,80)" />
+          <rect x="131" y="77" width="6" height="6" transform="rotate(0,134,80)" />
+          <rect x="137" y="77" width="6" height="6" transform="rotate(0,140,80)" />
+          <rect x="143" y="77" width="6" height="6" transform="rotate(0,146,80)" />
+          <rect x="161" y="77" width="6" height="6" transform="rotate(0,164,80)" />
+          <rect x="167" y="77" width="6" height="6" transform="rotate(0,170,80)" />
+          <rect x="173" y="77" width="6" height="6" transform="rotate(0,176,80)" />
+          <rect x="101" y="83" width="6" height="6" transform="rotate(0,104,86)" />
+          <rect x="107" y="83" width="6" height="6" transform="rotate(0,110,86)" />
+          <rect x="113" y="83" width="6" height="6" transform="rotate(0,116,86)" />
+          <rect x="119" y="83" width="6" height="6" transform="rotate(0,122,86)" />
+          <rect x="125" y="83" width="6" height="6" transform="rotate(0,128,86)" />
+          <rect x="137" y="83" width="6" height="6" transform="rotate(0,140,86)" />
+          <rect x="143" y="83" width="6" height="6" transform="rotate(0,146,86)" />
+          <rect x="149" y="83" width="6" height="6" transform="rotate(0,152,86)" />
+          <rect x="161" y="83" width="6" height="6" transform="rotate(0,164,86)" />
+          <rect x="173" y="83" width="6" height="6" transform="rotate(0,176,86)" />
+          <rect x="101" y="89" width="6" height="6" transform="rotate(0,104,92)" />
+          <rect x="113" y="89" width="6" height="6" transform="rotate(0,116,92)" />
+          <rect x="125" y="89" width="6" height="6" transform="rotate(0,128,92)" />
+          <rect x="137" y="89" width="6" height="6" transform="rotate(0,140,92)" />
+          <rect x="149" y="89" width="6" height="6" transform="rotate(0,152,92)" />
+          <rect x="161" y="89" width="6" height="6" transform="rotate(0,164,92)" />
+          <rect x="173" y="89" width="6" height="6" transform="rotate(0,176,92)" />
+          <rect x="107" y="95" width="6" height="6" transform="rotate(0,110,98)" />
+          <rect x="113" y="95" width="6" height="6" transform="rotate(0,116,98)" />
+          <rect x="119" y="95" width="6" height="6" transform="rotate(0,122,98)" />
+          <rect x="137" y="95" width="6" height="6" transform="rotate(0,140,98)" />
+          <rect x="173" y="95" width="6" height="6" transform="rotate(0,176,98)" />
+          <rect x="59" y="101" width="6" height="6" transform="rotate(0,62,104)" />
+          <rect x="65" y="101" width="6" height="6" transform="rotate(0,68,104)" />
+          <rect x="71" y="101" width="6" height="6" transform="rotate(0,74,104)" />
+          <rect x="77" y="101" width="6" height="6" transform="rotate(0,80,104)" />
+          <rect x="83" y="101" width="6" height="6" transform="rotate(0,86,104)" />
+          <rect x="89" y="101" width="6" height="6" transform="rotate(0,92,104)" />
+          <rect x="95" y="101" width="6" height="6" transform="rotate(0,98,104)" />
+          <rect x="113" y="101" width="6" height="6" transform="rotate(0,116,104)" />
+          <rect x="125" y="101" width="6" height="6" transform="rotate(0,128,104)" />
+          <rect x="131" y="101" width="6" height="6" transform="rotate(0,134,104)" />
+          <rect x="161" y="101" width="6" height="6" transform="rotate(0,164,104)" />
+          <rect x="167" y="101" width="6" height="6" transform="rotate(0,170,104)" />
+          <rect x="191" y="101" width="6" height="6" transform="rotate(0,194,104)" />
+          <rect x="197" y="101" width="6" height="6" transform="rotate(0,200,104)" />
+          <rect x="221" y="101" width="6" height="6" transform="rotate(0,224,104)" />
+          <rect x="59" y="107" width="6" height="6" transform="rotate(0,62,110)" />
+          <rect x="83" y="107" width="6" height="6" transform="rotate(0,86,110)" />
+          <rect x="101" y="107" width="6" height="6" transform="rotate(0,104,110)" />
+          <rect x="107" y="107" width="6" height="6" transform="rotate(0,110,110)" />
+          <rect x="113" y="107" width="6" height="6" transform="rotate(0,116,110)" />
+          <rect x="125" y="107" width="6" height="6" transform="rotate(0,128,110)" />
+          <rect x="143" y="107" width="6" height="6" transform="rotate(0,146,110)" />
+          <rect x="155" y="107" width="6" height="6" transform="rotate(0,158,110)" />
+          <rect x="179" y="107" width="6" height="6" transform="rotate(0,182,110)" />
+          <rect x="185" y="107" width="6" height="6" transform="rotate(0,188,110)" />
+          <rect x="197" y="107" width="6" height="6" transform="rotate(0,200,110)" />
+          <rect x="209" y="107" width="6" height="6" transform="rotate(0,212,110)" />
+          <rect x="221" y="107" width="6" height="6" transform="rotate(0,224,110)" />
+          <rect x="53" y="113" width="6" height="6" transform="rotate(0,56,116)" />
+          <rect x="65" y="113" width="6" height="6" transform="rotate(0,68,116)" />
+          <rect x="71" y="113" width="6" height="6" transform="rotate(0,74,116)" />
+          <rect x="77" y="113" width="6" height="6" transform="rotate(0,80,116)" />
+          <rect x="83" y="113" width="6" height="6" transform="rotate(0,86,116)" />
+          <rect x="89" y="113" width="6" height="6" transform="rotate(0,92,116)" />
+          <rect x="95" y="113" width="6" height="6" transform="rotate(0,98,116)" />
+          <rect x="125" y="113" width="6" height="6" transform="rotate(0,128,116)" />
+          <rect x="143" y="113" width="6" height="6" transform="rotate(0,146,116)" />
+          <rect x="155" y="113" width="6" height="6" transform="rotate(0,158,116)" />
+          <rect x="173" y="113" width="6" height="6" transform="rotate(0,176,116)" />
+          <rect x="185" y="113" width="6" height="6" transform="rotate(0,188,116)" />
+          <rect x="191" y="113" width="6" height="6" transform="rotate(0,194,116)" />
+          <rect x="203" y="113" width="6" height="6" transform="rotate(0,206,116)" />
+          <rect x="53" y="119" width="6" height="6" transform="rotate(0,56,122)" />
+          <rect x="71" y="119" width="6" height="6" transform="rotate(0,74,122)" />
+          <rect x="101" y="119" width="6" height="6" transform="rotate(0,104,122)" />
+          <rect x="113" y="119" width="6" height="6" transform="rotate(0,116,122)" />
+          <rect x="119" y="119" width="6" height="6" transform="rotate(0,122,122)" />
+          <rect x="125" y="119" width="6" height="6" transform="rotate(0,128,122)" />
+          <rect x="143" y="119" width="6" height="6" transform="rotate(0,146,122)" />
+          <rect x="149" y="119" width="6" height="6" transform="rotate(0,152,122)" />
+          <rect x="173" y="119" width="6" height="6" transform="rotate(0,176,122)" />
+          <rect x="185" y="119" width="6" height="6" transform="rotate(0,188,122)" />
+          <rect x="191" y="119" width="6" height="6" transform="rotate(0,194,122)" />
+          <rect x="197" y="119" width="6" height="6" transform="rotate(0,200,122)" />
+          <rect x="203" y="119" width="6" height="6" transform="rotate(0,206,122)" />
+          <rect x="215" y="119" width="6" height="6" transform="rotate(0,218,122)" />
+          <rect x="53" y="125" width="6" height="6" transform="rotate(0,56,128)" />
+          <rect x="59" y="125" width="6" height="6" transform="rotate(0,62,128)" />
+          <rect x="71" y="125" width="6" height="6" transform="rotate(0,74,128)" />
+          <rect x="89" y="125" width="6" height="6" transform="rotate(0,92,128)" />
+          <rect x="107" y="125" width="6" height="6" transform="rotate(0,110,128)" />
+          <rect x="119" y="125" width="6" height="6" transform="rotate(0,122,128)" />
+          <rect x="125" y="125" width="6" height="6" transform="rotate(0,128,128)" />
+          <rect x="149" y="125" width="6" height="6" transform="rotate(0,152,128)" />
+          <rect x="155" y="125" width="6" height="6" transform="rotate(0,158,128)" />
+          <rect x="167" y="125" width="6" height="6" transform="rotate(0,170,128)" />
+          <rect x="179" y="125" width="6" height="6" transform="rotate(0,182,128)" />
+          <rect x="209" y="125" width="6" height="6" transform="rotate(0,212,128)" />
+          <rect x="215" y="125" width="6" height="6" transform="rotate(0,218,128)" />
+          <rect x="221" y="125" width="6" height="6" transform="rotate(0,224,128)" />
+          <rect x="53" y="131" width="6" height="6" transform="rotate(0,56,134)" />
+          <rect x="65" y="131" width="6" height="6" transform="rotate(0,68,134)" />
+          <rect x="77" y="131" width="6" height="6" transform="rotate(0,80,134)" />
+          <rect x="95" y="131" width="6" height="6" transform="rotate(0,98,134)" />
+          <rect x="101" y="131" width="6" height="6" transform="rotate(0,104,134)" />
+          <rect x="107" y="131" width="6" height="6" transform="rotate(0,110,134)" />
+          <rect x="119" y="131" width="6" height="6" transform="rotate(0,122,134)" />
+          <rect x="125" y="131" width="6" height="6" transform="rotate(0,128,134)" />
+          <rect x="155" y="131" width="6" height="6" transform="rotate(0,158,134)" />
+          <rect x="161" y="131" width="6" height="6" transform="rotate(0,164,134)" />
+          <rect x="167" y="131" width="6" height="6" transform="rotate(0,170,134)" />
+          <rect x="179" y="131" width="6" height="6" transform="rotate(0,182,134)" />
+          <rect x="185" y="131" width="6" height="6" transform="rotate(0,188,134)" />
+          <rect x="197" y="131" width="6" height="6" transform="rotate(0,200,134)" />
+          <rect x="203" y="131" width="6" height="6" transform="rotate(0,206,134)" />
+          <rect x="221" y="131" width="6" height="6" transform="rotate(0,224,134)" />
+          <rect x="65" y="137" width="6" height="6" transform="rotate(0,68,140)" />
+          <rect x="71" y="137" width="6" height="6" transform="rotate(0,74,140)" />
+          <rect x="89" y="137" width="6" height="6" transform="rotate(0,92,140)" />
+          <rect x="95" y="137" width="6" height="6" transform="rotate(0,98,140)" />
+          <rect x="113" y="137" width="6" height="6" transform="rotate(0,116,140)" />
+          <rect x="119" y="137" width="6" height="6" transform="rotate(0,122,140)" />
+          <rect x="125" y="137" width="6" height="6" transform="rotate(0,128,140)" />
+          <rect x="131" y="137" width="6" height="6" transform="rotate(0,134,140)" />
+          <rect x="137" y="137" width="6" height="6" transform="rotate(0,140,140)" />
+          <rect x="155" y="137" width="6" height="6" transform="rotate(0,158,140)" />
+          <rect x="185" y="137" width="6" height="6" transform="rotate(0,188,140)" />
+          <rect x="59" y="143" width="6" height="6" transform="rotate(0,62,146)" />
+          <rect x="65" y="143" width="6" height="6" transform="rotate(0,68,146)" />
+          <rect x="71" y="143" width="6" height="6" transform="rotate(0,74,146)" />
+          <rect x="83" y="143" width="6" height="6" transform="rotate(0,86,146)" />
+          <rect x="95" y="143" width="6" height="6" transform="rotate(0,98,146)" />
+          <rect x="113" y="143" width="6" height="6" transform="rotate(0,116,146)" />
+          <rect x="155" y="143" width="6" height="6" transform="rotate(0,158,146)" />
+          <rect x="161" y="143" width="6" height="6" transform="rotate(0,164,146)" />
+          <rect x="167" y="143" width="6" height="6" transform="rotate(0,170,146)" />
+          <rect x="179" y="143" width="6" height="6" transform="rotate(0,182,146)" />
+          <rect x="185" y="143" width="6" height="6" transform="rotate(0,188,146)" />
+          <rect x="203" y="143" width="6" height="6" transform="rotate(0,206,146)" />
+          <rect x="215" y="143" width="6" height="6" transform="rotate(0,218,146)" />
+          <rect x="53" y="149" width="6" height="6" transform="rotate(0,56,152)" />
+          <rect x="59" y="149" width="6" height="6" transform="rotate(0,62,152)" />
+          <rect x="77" y="149" width="6" height="6" transform="rotate(0,80,152)" />
+          <rect x="89" y="149" width="6" height="6" transform="rotate(0,92,152)" />
+          <rect x="95" y="149" width="6" height="6" transform="rotate(0,98,152)" />
+          <rect x="131" y="149" width="6" height="6" transform="rotate(0,134,152)" />
+          <rect x="143" y="149" width="6" height="6" transform="rotate(0,146,152)" />
+          <rect x="149" y="149" width="6" height="6" transform="rotate(0,152,152)" />
+          <rect x="203" y="149" width="6" height="6" transform="rotate(0,206,152)" />
+          <rect x="209" y="149" width="6" height="6" transform="rotate(0,212,152)" />
+          <rect x="53" y="155" width="6" height="6" transform="rotate(0,56,158)" />
+          <rect x="65" y="155" width="6" height="6" transform="rotate(0,68,158)" />
+          <rect x="107" y="155" width="6" height="6" transform="rotate(0,110,158)" />
+          <rect x="113" y="155" width="6" height="6" transform="rotate(0,116,158)" />
+          <rect x="143" y="155" width="6" height="6" transform="rotate(0,146,158)" />
+          <rect x="161" y="155" width="6" height="6" transform="rotate(0,164,158)" />
+          <rect x="167" y="155" width="6" height="6" transform="rotate(0,170,158)" />
+          <rect x="173" y="155" width="6" height="6" transform="rotate(0,176,158)" />
+          <rect x="179" y="155" width="6" height="6" transform="rotate(0,182,158)" />
+          <rect x="185" y="155" width="6" height="6" transform="rotate(0,188,158)" />
+          <rect x="191" y="155" width="6" height="6" transform="rotate(0,194,158)" />
+          <rect x="197" y="155" width="6" height="6" transform="rotate(0,200,158)" />
+          <rect x="203" y="155" width="6" height="6" transform="rotate(0,206,158)" />
+          <rect x="209" y="155" width="6" height="6" transform="rotate(0,212,158)" />
+          <rect x="215" y="155" width="6" height="6" transform="rotate(0,218,158)" />
+          <rect x="221" y="155" width="6" height="6" transform="rotate(0,224,158)" />
+          <rect x="53" y="161" width="6" height="6" transform="rotate(0,56,164)" />
+          <rect x="65" y="161" width="6" height="6" transform="rotate(0,68,164)" />
+          <rect x="77" y="161" width="6" height="6" transform="rotate(0,80,164)" />
+          <rect x="83" y="161" width="6" height="6" transform="rotate(0,86,164)" />
+          <rect x="89" y="161" width="6" height="6" transform="rotate(0,92,164)" />
+          <rect x="101" y="161" width="6" height="6" transform="rotate(0,104,164)" />
+          <rect x="113" y="161" width="6" height="6" transform="rotate(0,116,164)" />
+          <rect x="131" y="161" width="6" height="6" transform="rotate(0,134,164)" />
+          <rect x="137" y="161" width="6" height="6" transform="rotate(0,140,164)" />
+          <rect x="143" y="161" width="6" height="6" transform="rotate(0,146,164)" />
+          <rect x="149" y="161" width="6" height="6" transform="rotate(0,152,164)" />
+          <rect x="173" y="161" width="6" height="6" transform="rotate(0,176,164)" />
+          <rect x="185" y="161" width="6" height="6" transform="rotate(0,188,164)" />
+          <rect x="53" y="167" width="6" height="6" transform="rotate(0,56,170)" />
+          <rect x="65" y="167" width="6" height="6" transform="rotate(0,68,170)" />
+          <rect x="71" y="167" width="6" height="6" transform="rotate(0,74,170)" />
+          <rect x="77" y="167" width="6" height="6" transform="rotate(0,80,170)" />
+          <rect x="107" y="167" width="6" height="6" transform="rotate(0,110,170)" />
+          <rect x="119" y="167" width="6" height="6" transform="rotate(0,122,170)" />
+          <rect x="125" y="167" width="6" height="6" transform="rotate(0,128,170)" />
+          <rect x="137" y="167" width="6" height="6" transform="rotate(0,140,170)" />
+          <rect x="143" y="167" width="6" height="6" transform="rotate(0,146,170)" />
+          <rect x="161" y="167" width="6" height="6" transform="rotate(0,164,170)" />
+          <rect x="167" y="167" width="6" height="6" transform="rotate(0,170,170)" />
+          <rect x="173" y="167" width="6" height="6" transform="rotate(0,176,170)" />
+          <rect x="185" y="167" width="6" height="6" transform="rotate(0,188,170)" />
+          <rect x="191" y="167" width="6" height="6" transform="rotate(0,194,170)" />
+          <rect x="203" y="167" width="6" height="6" transform="rotate(0,206,170)" />
+          <rect x="215" y="167" width="6" height="6" transform="rotate(0,218,170)" />
+          <rect x="221" y="167" width="6" height="6" transform="rotate(0,224,170)" />
+          <rect x="53" y="173" width="6" height="6" transform="rotate(0,56,176)" />
+          <rect x="71" y="173" width="6" height="6" transform="rotate(0,74,176)" />
+          <rect x="83" y="173" width="6" height="6" transform="rotate(0,86,176)" />
+          <rect x="89" y="173" width="6" height="6" transform="rotate(0,92,176)" />
+          <rect x="95" y="173" width="6" height="6" transform="rotate(0,98,176)" />
+          <rect x="113" y="173" width="6" height="6" transform="rotate(0,116,176)" />
+          <rect x="143" y="173" width="6" height="6" transform="rotate(0,146,176)" />
+          <rect x="149" y="173" width="6" height="6" transform="rotate(0,152,176)" />
+          <rect x="155" y="173" width="6" height="6" transform="rotate(0,158,176)" />
+          <rect x="167" y="173" width="6" height="6" transform="rotate(0,170,176)" />
+          <rect x="173" y="173" width="6" height="6" transform="rotate(0,176,176)" />
+          <rect x="179" y="173" width="6" height="6" transform="rotate(0,182,176)" />
+          <rect x="185" y="173" width="6" height="6" transform="rotate(0,188,176)" />
+          <rect x="191" y="173" width="6" height="6" transform="rotate(0,194,176)" />
+          <rect x="197" y="173" width="6" height="6" transform="rotate(0,200,176)" />
+          <rect x="209" y="173" width="6" height="6" transform="rotate(0,212,176)" />
+          <rect x="215" y="173" width="6" height="6" transform="rotate(0,218,176)" />
+          <rect x="221" y="173" width="6" height="6" transform="rotate(0,224,176)" />
+          <rect x="101" y="179" width="6" height="6" transform="rotate(0,104,182)" />
+          <rect x="107" y="179" width="6" height="6" transform="rotate(0,110,182)" />
+          <rect x="125" y="179" width="6" height="6" transform="rotate(0,128,182)" />
+          <rect x="137" y="179" width="6" height="6" transform="rotate(0,140,182)" />
+          <rect x="149" y="179" width="6" height="6" transform="rotate(0,152,182)" />
+          <rect x="161" y="179" width="6" height="6" transform="rotate(0,164,182)" />
+          <rect x="167" y="179" width="6" height="6" transform="rotate(0,170,182)" />
+          <rect x="173" y="179" width="6" height="6" transform="rotate(0,176,182)" />
+          <rect x="197" y="179" width="6" height="6" transform="rotate(0,200,182)" />
+          <rect x="203" y="179" width="6" height="6" transform="rotate(0,206,182)" />
+          <rect x="221" y="179" width="6" height="6" transform="rotate(0,224,182)" />
+          <rect x="101" y="185" width="6" height="6" transform="rotate(0,104,188)" />
+          <rect x="113" y="185" width="6" height="6" transform="rotate(0,116,188)" />
+          <rect x="119" y="185" width="6" height="6" transform="rotate(0,122,188)" />
+          <rect x="143" y="185" width="6" height="6" transform="rotate(0,146,188)" />
+          <rect x="149" y="185" width="6" height="6" transform="rotate(0,152,188)" />
+          <rect x="161" y="185" width="6" height="6" transform="rotate(0,164,188)" />
+          <rect x="167" y="185" width="6" height="6" transform="rotate(0,170,188)" />
+          <rect x="173" y="185" width="6" height="6" transform="rotate(0,176,188)" />
+          <rect x="185" y="185" width="6" height="6" transform="rotate(0,188,188)" />
+          <rect x="197" y="185" width="6" height="6" transform="rotate(0,200,188)" />
+          <rect x="101" y="191" width="6" height="6" transform="rotate(0,104,194)" />
+          <rect x="137" y="191" width="6" height="6" transform="rotate(0,140,194)" />
+          <rect x="143" y="191" width="6" height="6" transform="rotate(0,146,194)" />
+          <rect x="149" y="191" width="6" height="6" transform="rotate(0,152,194)" />
+          <rect x="167" y="191" width="6" height="6" transform="rotate(0,170,194)" />
+          <rect x="173" y="191" width="6" height="6" transform="rotate(0,176,194)" />
+          <rect x="197" y="191" width="6" height="6" transform="rotate(0,200,194)" />
+          <rect x="203" y="191" width="6" height="6" transform="rotate(0,206,194)" />
+          <rect x="221" y="191" width="6" height="6" transform="rotate(0,224,194)" />
+          <rect x="101" y="197" width="6" height="6" transform="rotate(0,104,200)" />
+          <rect x="113" y="197" width="6" height="6" transform="rotate(0,116,200)" />
+          <rect x="119" y="197" width="6" height="6" transform="rotate(0,122,200)" />
+          <rect x="125" y="197" width="6" height="6" transform="rotate(0,128,200)" />
+          <rect x="131" y="197" width="6" height="6" transform="rotate(0,134,200)" />
+          <rect x="137" y="197" width="6" height="6" transform="rotate(0,140,200)" />
+          <rect x="161" y="197" width="6" height="6" transform="rotate(0,164,200)" />
+          <rect x="173" y="197" width="6" height="6" transform="rotate(0,176,200)" />
+          <rect x="179" y="197" width="6" height="6" transform="rotate(0,182,200)" />
+          <rect x="185" y="197" width="6" height="6" transform="rotate(0,188,200)" />
+          <rect x="191" y="197" width="6" height="6" transform="rotate(0,194,200)" />
+          <rect x="197" y="197" width="6" height="6" transform="rotate(0,200,200)" />
+          <rect x="203" y="197" width="6" height="6" transform="rotate(0,206,200)" />
+          <rect x="209" y="197" width="6" height="6" transform="rotate(0,212,200)" />
+          <rect x="215" y="197" width="6" height="6" transform="rotate(0,218,200)" />
+          <rect x="101" y="203" width="6" height="6" transform="rotate(0,104,206)" />
+          <rect x="113" y="203" width="6" height="6" transform="rotate(0,116,206)" />
+          <rect x="125" y="203" width="6" height="6" transform="rotate(0,128,206)" />
+          <rect x="143" y="203" width="6" height="6" transform="rotate(0,146,206)" />
+          <rect x="149" y="203" width="6" height="6" transform="rotate(0,152,206)" />
+          <rect x="167" y="203" width="6" height="6" transform="rotate(0,170,206)" />
+          <rect x="191" y="203" width="6" height="6" transform="rotate(0,194,206)" />
+          <rect x="209" y="203" width="6" height="6" transform="rotate(0,212,206)" />
+          <rect x="101" y="209" width="6" height="6" transform="rotate(0,104,212)" />
+          <rect x="113" y="209" width="6" height="6" transform="rotate(0,116,212)" />
+          <rect x="119" y="209" width="6" height="6" transform="rotate(0,122,212)" />
+          <rect x="125" y="209" width="6" height="6" transform="rotate(0,128,212)" />
+          <rect x="131" y="209" width="6" height="6" transform="rotate(0,134,212)" />
+          <rect x="137" y="209" width="6" height="6" transform="rotate(0,140,212)" />
+          <rect x="185" y="209" width="6" height="6" transform="rotate(0,188,212)" />
+          <rect x="197" y="209" width="6" height="6" transform="rotate(0,200,212)" />
+          <rect x="203" y="209" width="6" height="6" transform="rotate(0,206,212)" />
+          <rect x="215" y="209" width="6" height="6" transform="rotate(0,218,212)" />
+          <rect x="101" y="215" width="6" height="6" transform="rotate(0,104,218)" />
+          <rect x="113" y="215" width="6" height="6" transform="rotate(0,116,218)" />
+          <rect x="119" y="215" width="6" height="6" transform="rotate(0,122,218)" />
+          <rect x="137" y="215" width="6" height="6" transform="rotate(0,140,218)" />
+          <rect x="149" y="215" width="6" height="6" transform="rotate(0,152,218)" />
+          <rect x="173" y="215" width="6" height="6" transform="rotate(0,176,218)" />
+          <rect x="179" y="215" width="6" height="6" transform="rotate(0,182,218)" />
+          <rect x="197" y="215" width="6" height="6" transform="rotate(0,200,218)" />
+          <rect x="203" y="215" width="6" height="6" transform="rotate(0,206,218)" />
+          <rect x="215" y="215" width="6" height="6" transform="rotate(0,218,218)" />
+          <rect x="113" y="221" width="6" height="6" transform="rotate(0,116,224)" />
+          <rect x="119" y="221" width="6" height="6" transform="rotate(0,122,224)" />
+          <rect x="137" y="221" width="6" height="6" transform="rotate(0,140,224)" />
+          <rect x="155" y="221" width="6" height="6" transform="rotate(0,158,224)" />
+          <rect x="161" y="221" width="6" height="6" transform="rotate(0,164,224)" />
+          <rect x="167" y="221" width="6" height="6" transform="rotate(0,170,224)" />
+          <rect x="185" y="221" width="6" height="6" transform="rotate(0,188,224)" />
+          <rect x="197" y="221" width="6" height="6" transform="rotate(0,200,224)" />
+          <rect x="209" y="221" width="6" height="6" transform="rotate(0,212,224)" />
+          <rect x="101" y="17" width="6" height="6" transform="rotate(0,104,20)" />
+          <rect x="107" y="17" width="6" height="6" transform="rotate(0,110,20)" />
+          <rect x="125" y="17" width="6" height="6" transform="rotate(0,128,20)" />
+          <rect x="143" y="17" width="6" height="6" transform="rotate(0,146,20)" />
+          <rect x="149" y="17" width="6" height="6" transform="rotate(0,152,20)" />
+          <rect x="89" y="23" width="6" height="6" transform="rotate(0,92,26)" />
+          <rect x="101" y="23" width="6" height="6" transform="rotate(0,104,26)" />
+          <rect x="113" y="23" width="6" height="6" transform="rotate(0,116,26)" />
+          <rect x="131" y="23" width="6" height="6" transform="rotate(0,134,26)" />
+          <rect x="137" y="23" width="6" height="6" transform="rotate(0,140,26)" />
+          <rect x="143" y="23" width="6" height="6" transform="rotate(0,146,26)" />
+          <rect x="155" y="23" width="6" height="6" transform="rotate(0,158,26)" />
+          <rect x="161" y="23" width="6" height="6" transform="rotate(0,164,26)" />
+          <rect x="167" y="23" width="6" height="6" transform="rotate(0,170,26)" />
+          <rect x="185" y="23" width="6" height="6" transform="rotate(0,188,26)" />
+          <rect x="77" y="29" width="6" height="6" transform="rotate(0,80,32)" />
+          <rect x="83" y="29" width="6" height="6" transform="rotate(0,86,32)" />
+          <rect x="101" y="29" width="6" height="6" transform="rotate(0,104,32)" />
+          <rect x="113" y="29" width="6" height="6" transform="rotate(0,116,32)" />
+          <rect x="119" y="29" width="6" height="6" transform="rotate(0,122,32)" />
+          <rect x="125" y="29" width="6" height="6" transform="rotate(0,128,32)" />
+          <rect x="137" y="29" width="6" height="6" transform="rotate(0,140,32)" />
+          <rect x="143" y="29" width="6" height="6" transform="rotate(0,146,32)" />
+          <rect x="167" y="29" width="6" height="6" transform="rotate(0,170,32)" />
+          <rect x="173" y="29" width="6" height="6" transform="rotate(0,176,32)" />
+          <rect x="185" y="29" width="6" height="6" transform="rotate(0,188,32)" />
+          <rect x="71" y="35" width="6" height="6" transform="rotate(0,74,38)" />
+          <rect x="89" y="35" width="6" height="6" transform="rotate(0,92,38)" />
+          <rect x="101" y="35" width="6" height="6" transform="rotate(0,104,38)" />
+          <rect x="113" y="35" width="6" height="6" transform="rotate(0,116,38)" />
+          <rect x="131" y="35" width="6" height="6" transform="rotate(0,134,38)" />
+          <rect x="149" y="35" width="6" height="6" transform="rotate(0,152,38)" />
+          <rect x="161" y="35" width="6" height="6" transform="rotate(0,164,38)" />
+          <rect x="167" y="35" width="6" height="6" transform="rotate(0,170,38)" />
+          <rect x="191" y="35" width="6" height="6" transform="rotate(0,194,38)" />
+          <rect x="203" y="35" width="6" height="6" transform="rotate(0,206,38)" />
+          <rect x="209" y="35" width="6" height="6" transform="rotate(0,212,38)" />
+          <rect x="59" y="41" width="6" height="6" transform="rotate(0,62,44)" />
+          <rect x="65" y="41" width="6" height="6" transform="rotate(0,68,44)" />
+          <rect x="71" y="41" width="6" height="6" transform="rotate(0,74,44)" />
+          <rect x="101" y="41" width="6" height="6" transform="rotate(0,104,44)" />
+          <rect x="107" y="41" width="6" height="6" transform="rotate(0,110,44)" />
+          <rect x="113" y="41" width="6" height="6" transform="rotate(0,116,44)" />
+          <rect x="143" y="41" width="6" height="6" transform="rotate(0,146,44)" />
+          <rect x="161" y="41" width="6" height="6" transform="rotate(0,164,44)" />
+          <rect x="173" y="41" width="6" height="6" transform="rotate(0,176,44)" />
+          <rect x="185" y="41" width="6" height="6" transform="rotate(0,188,44)" />
+          <rect x="203" y="41" width="6" height="6" transform="rotate(0,206,44)" />
+          <rect x="215" y="41" width="6" height="6" transform="rotate(0,218,44)" />
+          <rect x="41" y="59" width="6" height="6" transform="rotate(0,44,62)" />
+          <rect x="233" y="59" width="6" height="6" transform="rotate(0,236,62)" />
+          <rect x="41" y="65" width="6" height="6" transform="rotate(0,44,68)" />
+          <rect x="35" y="71" width="6" height="6" transform="rotate(0,38,74)" />
+          <rect x="41" y="71" width="6" height="6" transform="rotate(0,44,74)" />
+          <rect x="239" y="71" width="6" height="6" transform="rotate(0,242,74)" />
+          <rect x="29" y="77" width="6" height="6" transform="rotate(0,32,80)" />
+          <rect x="41" y="77" width="6" height="6" transform="rotate(0,44,80)" />
+          <rect x="239" y="77" width="6" height="6" transform="rotate(0,242,80)" />
+          <rect x="29" y="83" width="6" height="6" transform="rotate(0,32,86)" />
+          <rect x="35" y="83" width="6" height="6" transform="rotate(0,38,86)" />
+          <rect x="41" y="83" width="6" height="6" transform="rotate(0,44,86)" />
+          <rect x="239" y="83" width="6" height="6" transform="rotate(0,242,86)" />
+          <rect x="245" y="83" width="6" height="6" transform="rotate(0,248,86)" />
+          <rect x="35" y="89" width="6" height="6" transform="rotate(0,38,92)" />
+          <rect x="239" y="89" width="6" height="6" transform="rotate(0,242,92)" />
+          <rect x="251" y="89" width="6" height="6" transform="rotate(0,254,92)" />
+          <rect x="35" y="101" width="6" height="6" transform="rotate(0,38,104)" />
+          <rect x="41" y="101" width="6" height="6" transform="rotate(0,44,104)" />
+          <rect x="233" y="101" width="6" height="6" transform="rotate(0,236,104)" />
+          <rect x="239" y="101" width="6" height="6" transform="rotate(0,242,104)" />
+          <rect x="245" y="101" width="6" height="6" transform="rotate(0,248,104)" />
+          <rect x="251" y="101" width="6" height="6" transform="rotate(0,254,104)" />
+          <rect x="257" y="101" width="6" height="6" transform="rotate(0,260,104)" />
+          <rect x="17" y="107" width="6" height="6" transform="rotate(0,20,110)" />
+          <rect x="29" y="107" width="6" height="6" transform="rotate(0,32,110)" />
+          <rect x="41" y="107" width="6" height="6" transform="rotate(0,44,110)" />
+          <rect x="29" y="113" width="6" height="6" transform="rotate(0,32,116)" />
+          <rect x="35" y="113" width="6" height="6" transform="rotate(0,38,116)" />
+          <rect x="41" y="113" width="6" height="6" transform="rotate(0,44,116)" />
+          <rect x="239" y="113" width="6" height="6" transform="rotate(0,242,116)" />
+          <rect x="245" y="113" width="6" height="6" transform="rotate(0,248,116)" />
+          <rect x="251" y="113" width="6" height="6" transform="rotate(0,254,116)" />
+          <rect x="257" y="113" width="6" height="6" transform="rotate(0,260,116)" />
+          <rect x="23" y="119" width="6" height="6" transform="rotate(0,26,122)" />
+          <rect x="29" y="119" width="6" height="6" transform="rotate(0,32,122)" />
+          <rect x="41" y="119" width="6" height="6" transform="rotate(0,44,122)" />
+          <rect x="239" y="119" width="6" height="6" transform="rotate(0,242,122)" />
+          <rect x="251" y="119" width="6" height="6" transform="rotate(0,254,122)" />
+          <rect x="257" y="119" width="6" height="6" transform="rotate(0,260,122)" />
+          <rect x="23" y="125" width="6" height="6" transform="rotate(0,26,128)" />
+          <rect x="29" y="125" width="6" height="6" transform="rotate(0,32,128)" />
+          <rect x="35" y="125" width="6" height="6" transform="rotate(0,38,128)" />
+          <rect x="41" y="125" width="6" height="6" transform="rotate(0,44,128)" />
+          <rect x="239" y="125" width="6" height="6" transform="rotate(0,242,128)" />
+          <rect x="245" y="125" width="6" height="6" transform="rotate(0,248,128)" />
+          <rect x="251" y="125" width="6" height="6" transform="rotate(0,254,128)" />
+          <rect x="17" y="131" width="6" height="6" transform="rotate(0,20,134)" />
+          <rect x="35" y="131" width="6" height="6" transform="rotate(0,38,134)" />
+          <rect x="239" y="131" width="6" height="6" transform="rotate(0,242,134)" />
+          <rect x="251" y="131" width="6" height="6" transform="rotate(0,254,134)" />
+          <rect x="17" y="137" width="6" height="6" transform="rotate(0,20,140)" />
+          <rect x="29" y="137" width="6" height="6" transform="rotate(0,32,140)" />
+          <rect x="35" y="137" width="6" height="6" transform="rotate(0,38,140)" />
+          <rect x="41" y="137" width="6" height="6" transform="rotate(0,44,140)" />
+          <rect x="233" y="137" width="6" height="6" transform="rotate(0,236,140)" />
+          <rect x="239" y="137" width="6" height="6" transform="rotate(0,242,140)" />
+          <rect x="251" y="137" width="6" height="6" transform="rotate(0,254,140)" />
+          <rect x="257" y="137" width="6" height="6" transform="rotate(0,260,140)" />
+          <rect x="263" y="137" width="6" height="6" transform="rotate(0,266,140)" />
+          <rect x="17" y="143" width="6" height="6" transform="rotate(0,20,146)" />
+          <rect x="23" y="143" width="6" height="6" transform="rotate(0,26,146)" />
+          <rect x="29" y="143" width="6" height="6" transform="rotate(0,32,146)" />
+          <rect x="35" y="143" width="6" height="6" transform="rotate(0,38,146)" />
+          <rect x="41" y="143" width="6" height="6" transform="rotate(0,44,146)" />
+          <rect x="233" y="143" width="6" height="6" transform="rotate(0,236,146)" />
+          <rect x="245" y="143" width="6" height="6" transform="rotate(0,248,146)" />
+          <rect x="41" y="149" width="6" height="6" transform="rotate(0,44,152)" />
+          <rect x="233" y="149" width="6" height="6" transform="rotate(0,236,152)" />
+          <rect x="245" y="149" width="6" height="6" transform="rotate(0,248,152)" />
+          <rect x="257" y="149" width="6" height="6" transform="rotate(0,260,152)" />
+          <rect x="17" y="155" width="6" height="6" transform="rotate(0,20,158)" />
+          <rect x="29" y="155" width="6" height="6" transform="rotate(0,32,158)" />
+          <rect x="17" y="161" width="6" height="6" transform="rotate(0,20,164)" />
+          <rect x="35" y="161" width="6" height="6" transform="rotate(0,38,164)" />
+          <rect x="41" y="161" width="6" height="6" transform="rotate(0,44,164)" />
+          <rect x="239" y="161" width="6" height="6" transform="rotate(0,242,164)" />
+          <rect x="17" y="167" width="6" height="6" transform="rotate(0,20,170)" />
+          <rect x="23" y="167" width="6" height="6" transform="rotate(0,26,170)" />
+          <rect x="29" y="167" width="6" height="6" transform="rotate(0,32,170)" />
+          <rect x="35" y="167" width="6" height="6" transform="rotate(0,38,170)" />
+          <rect x="233" y="167" width="6" height="6" transform="rotate(0,236,170)" />
+          <rect x="245" y="167" width="6" height="6" transform="rotate(0,248,170)" />
+          <rect x="23" y="173" width="6" height="6" transform="rotate(0,26,176)" />
+          <rect x="35" y="173" width="6" height="6" transform="rotate(0,38,176)" />
+          <rect x="41" y="173" width="6" height="6" transform="rotate(0,44,176)" />
+          <rect x="233" y="173" width="6" height="6" transform="rotate(0,236,176)" />
+          <rect x="239" y="173" width="6" height="6" transform="rotate(0,242,176)" />
+          <rect x="257" y="173" width="6" height="6" transform="rotate(0,260,176)" />
+          <rect x="239" y="179" width="6" height="6" transform="rotate(0,242,182)" />
+          <rect x="23" y="185" width="6" height="6" transform="rotate(0,26,188)" />
+          <rect x="29" y="185" width="6" height="6" transform="rotate(0,32,188)" />
+          <rect x="35" y="185" width="6" height="6" transform="rotate(0,38,188)" />
+          <rect x="41" y="185" width="6" height="6" transform="rotate(0,44,188)" />
+          <rect x="233" y="185" width="6" height="6" transform="rotate(0,236,188)" />
+          <rect x="245" y="185" width="6" height="6" transform="rotate(0,248,188)" />
+          <rect x="41" y="191" width="6" height="6" transform="rotate(0,44,194)" />
+          <rect x="233" y="191" width="6" height="6" transform="rotate(0,236,194)" />
+          <rect x="245" y="191" width="6" height="6" transform="rotate(0,248,194)" />
+          <rect x="29" y="197" width="6" height="6" transform="rotate(0,32,200)" />
+          <rect x="35" y="203" width="6" height="6" transform="rotate(0,38,206)" />
+          <rect x="41" y="203" width="6" height="6" transform="rotate(0,44,206)" />
+          <rect x="239" y="203" width="6" height="6" transform="rotate(0,242,206)" />
+          <rect x="35" y="209" width="6" height="6" transform="rotate(0,38,212)" />
+          <rect x="233" y="209" width="6" height="6" transform="rotate(0,236,212)" />
+          <rect x="41" y="215" width="6" height="6" transform="rotate(0,44,218)" />
+          <rect x="233" y="215" width="6" height="6" transform="rotate(0,236,218)" />
+          <rect x="59" y="233" width="6" height="6" transform="rotate(0,62,236)" />
+          <rect x="71" y="233" width="6" height="6" transform="rotate(0,74,236)" />
+          <rect x="77" y="233" width="6" height="6" transform="rotate(0,80,236)" />
+          <rect x="101" y="233" width="6" height="6" transform="rotate(0,104,236)" />
+          <rect x="113" y="233" width="6" height="6" transform="rotate(0,116,236)" />
+          <rect x="119" y="233" width="6" height="6" transform="rotate(0,122,236)" />
+          <rect x="155" y="233" width="6" height="6" transform="rotate(0,158,236)" />
+          <rect x="167" y="233" width="6" height="6" transform="rotate(0,170,236)" />
+          <rect x="173" y="233" width="6" height="6" transform="rotate(0,176,236)" />
+          <rect x="197" y="233" width="6" height="6" transform="rotate(0,200,236)" />
+          <rect x="209" y="233" width="6" height="6" transform="rotate(0,212,236)" />
+          <rect x="215" y="233" width="6" height="6" transform="rotate(0,218,236)" />
+          <rect x="65" y="239" width="6" height="6" transform="rotate(0,68,242)" />
+          <rect x="77" y="239" width="6" height="6" transform="rotate(0,80,242)" />
+          <rect x="89" y="239" width="6" height="6" transform="rotate(0,92,242)" />
+          <rect x="101" y="239" width="6" height="6" transform="rotate(0,104,242)" />
+          <rect x="107" y="239" width="6" height="6" transform="rotate(0,110,242)" />
+          <rect x="119" y="239" width="6" height="6" transform="rotate(0,122,242)" />
+          <rect x="131" y="239" width="6" height="6" transform="rotate(0,134,242)" />
+          <rect x="155" y="239" width="6" height="6" transform="rotate(0,158,242)" />
+          <rect x="173" y="239" width="6" height="6" transform="rotate(0,176,242)" />
+          <rect x="179" y="239" width="6" height="6" transform="rotate(0,182,242)" />
+          <rect x="197" y="239" width="6" height="6" transform="rotate(0,200,242)" />
+          <rect x="77" y="245" width="6" height="6" transform="rotate(0,80,248)" />
+          <rect x="89" y="245" width="6" height="6" transform="rotate(0,92,248)" />
+          <rect x="113" y="245" width="6" height="6" transform="rotate(0,116,248)" />
+          <rect x="119" y="245" width="6" height="6" transform="rotate(0,122,248)" />
+          <rect x="131" y="245" width="6" height="6" transform="rotate(0,134,248)" />
+          <rect x="143" y="245" width="6" height="6" transform="rotate(0,146,248)" />
+          <rect x="149" y="245" width="6" height="6" transform="rotate(0,152,248)" />
+          <rect x="155" y="245" width="6" height="6" transform="rotate(0,158,248)" />
+          <rect x="167" y="245" width="6" height="6" transform="rotate(0,170,248)" />
+          <rect x="179" y="245" width="6" height="6" transform="rotate(0,182,248)" />
+          <rect x="185" y="245" width="6" height="6" transform="rotate(0,188,248)" />
+          <rect x="191" y="245" width="6" height="6" transform="rotate(0,194,248)" />
+          <rect x="197" y="245" width="6" height="6" transform="rotate(0,200,248)" />
+          <rect x="107" y="251" width="6" height="6" transform="rotate(0,110,254)" />
+          <rect x="125" y="251" width="6" height="6" transform="rotate(0,128,254)" />
+          <rect x="149" y="251" width="6" height="6" transform="rotate(0,152,254)" />
+          <rect x="155" y="251" width="6" height="6" transform="rotate(0,158,254)" />
+          <rect x="173" y="251" width="6" height="6" transform="rotate(0,176,254)" />
+          <rect x="119" y="257" width="6" height="6" transform="rotate(0,122,260)" />
+          <rect x="125" y="257" width="6" height="6" transform="rotate(0,128,260)" />
+          <rect x="143" y="257" width="6" height="6" transform="rotate(0,146,260)" />
+          <rect x="155" y="257" width="6" height="6" transform="rotate(0,158,260)" />
+          <rect x="167" y="257" width="6" height="6" transform="rotate(0,170,260)" />
+          <rect x="173" y="257" width="6" height="6" transform="rotate(0,176,260)" />
+          <path
+            clipRule="evenodd"
+            d="M 53 53v 42h 42v -42zM 59 59h 30v 30h -30z"
+            transform="rotate(0,74,74)"
+          />
+          <rect x="65" y="65" width="18" height="18" transform="rotate(0,74,74)" />
+          <path
+            clipRule="evenodd"
+            d="M 185 53v 42h 42v -42zM 191 59h 30v 30h -30z"
+            transform="rotate(90,206,74)"
+          />
+          <rect x="197" y="65" width="18" height="18" transform="rotate(90,206,74)" />
+          <path
+            clipRule="evenodd"
+            d="M 53 185v 42h 42v -42zM 59 191h 30v 30h -30z"
+            transform="rotate(-90,74,206)"
+          />
+          <rect x="65" y="197" width="18" height="18" transform="rotate(-90,74,206)" />
+        </clipPath>
+      </defs>
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-background-color-9')"
+        fill="white"
+      />
+      <rect
+        x="0"
+        y="0"
+        height="280"
+        width="280"
+        clipPath="url('#clipPath-dot-color-9')"
+        fill="black"
       />
     </svg>
   ),
