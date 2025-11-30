@@ -1,4 +1,5 @@
 import { QrFrameForm } from "@/features/bussiness/components/form/editor/code/frame"
+import { QrLogoForm } from "@/features/bussiness/components/form/editor/code/logo"
 import { QrPatternForm } from "@/features/bussiness/components/form/editor/code/pattern"
 import { QrShapeForm } from "@/features/bussiness/components/form/editor/code/shape"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
@@ -9,10 +10,11 @@ export default function QrCodeEditor() {
   return (
     <form id="qr-code-editor" onSubmit={onSubmitCallback} ref={formRef}>
       <form.AppForm>
-        <EditorBlock defaultValue="qr-shape-form">
+        <EditorBlock defaultValue="qr-logo-form">
           <QrShapeForm form={form} />
           <QrPatternForm form={form} />
           <QrFrameForm form={form} />
+          <QrLogoForm form={form} />
         </EditorBlock>
       </form.AppForm>
     </form>
