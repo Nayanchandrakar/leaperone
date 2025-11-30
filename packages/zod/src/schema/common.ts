@@ -100,7 +100,7 @@ export const singleColorFillSchema = z.object({
 
 export const gradientSchema = z.object({
   type: z.enum(["linear", "radial"]),
-  colorStops: z.array(color).min(2),
+  colorStops: z.array(color).min(2).max(2),
   rotation: z.int().positive().min(0).max(360),
 })
 

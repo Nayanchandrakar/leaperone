@@ -6,9 +6,20 @@ export type ContactOption = {
   value: ContactSchema["type"]
 }
 
+export type QrColorOptions = {
+  title: string
+  description: string
+  value: QrCodeEditorSchema["fill"]["type"]
+}
+
 export type ContentEditorSortItem = ContentEditorSchema["sections"][number]
 
 export type SelectOption<T extends string = string> = {
+  label: string
+  value: T
+}
+
+export type RadioOption<T extends string = string> = {
   label: string
   value: T
 }
