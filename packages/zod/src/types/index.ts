@@ -15,6 +15,7 @@ import type { backgroundSchema, colorSchema, gradientSchema } from "../schema/co
 import type {
   contactSchema,
   contentEditorSchema,
+  floatingButtonSchema,
   headingTextSchema,
   profileCardSchema,
 } from "../schema/content-editor"
@@ -47,3 +48,4 @@ export type DesignEditorSchema = z.infer<typeof designEditorSchema>
 export type ColorSchema = z.infer<typeof colorSchema>
 export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>
 export type GradientSchema = z.infer<typeof gradientSchema>
+export type FloatingButtonSchema = z.infer<typeof floatingButtonSchema>

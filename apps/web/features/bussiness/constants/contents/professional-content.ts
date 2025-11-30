@@ -69,4 +69,15 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     },
     background: true,
   },
+  {
+    enabled: true,
+    id: "e60e25f8-749e-4124-aab9-73a48ac07632",
+    type: "floating-button",
+    label: {
+      enabled: true,
+      text: "Save to Contact",
+    },
+    showQrButton: true,
+    showShareButton: true,
+  },
 ]

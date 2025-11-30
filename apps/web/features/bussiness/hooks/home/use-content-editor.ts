@@ -17,7 +17,7 @@ export const useContentEditor = () => {
   )
 
   const initialSectionId = useMemo(
-    () => formConfig?.defaultValues?.sections[0]?.id!,
+    () => formConfig?.defaultValues?.sections[2]?.id!,
     [formConfig?.defaultValues],
   )
 

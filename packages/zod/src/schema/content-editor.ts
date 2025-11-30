@@ -71,7 +71,21 @@ export const headingTextSchema = z.object({
   background: z.boolean(),
 })
 
+export const floatingButtonSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("floating-button"),
+  enabled: z.boolean(),
+  label: z.object({
+    text: z.string().min(4).max(20).trim(),
+    enabled: z.boolean(),
+  }),
+  showQrButton: z.boolean(),
+  showShareButton: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
-  sections: z.array(z.discriminatedUnion("type", [profileCardSchema, headingTextSchema])),
+  sections: z.array(
+    z.discriminatedUnion("type", [profileCardSchema, headingTextSchema, floatingButtonSchema]),
+  ),
 })
