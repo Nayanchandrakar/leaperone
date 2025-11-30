@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { color, email, telegram } from "../utils"
+import { color, email, telegram, vimeoUrl, youtubeUrl } from "../utils"
 
 export const termsLinkSchema = z.object({
   type: z.literal("url"),
@@ -91,6 +91,16 @@ export const scanReportEmailSchema = z.object({
 export const cardSettingsSchema = z.object({
   // scanReportEmail: scanReportEmailSchema,
   branding: z.boolean(),
+})
+
+export const youtubeVideoSchema = z.object({
+  type: z.literal("youtube"),
+  youtubeUrl: youtubeUrl,
+})
+
+export const vimeoVideoSchema = z.object({
+  type: z.literal("vimeo"),
+  vimeoUrl: vimeoUrl,
 })
 
 export const singleColorFillSchema = z.object({

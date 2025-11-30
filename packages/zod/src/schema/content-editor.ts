@@ -6,9 +6,11 @@ import {
   phoneSchema,
   smsSchema,
   telegramSchema,
+  vimeoVideoSchema,
   websiteSchema,
   wechatSchema,
   whatsappSchema,
+  youtubeVideoSchema,
 } from "./common"
 
 export const contactSchema = z.discriminatedUnion("type", [
@@ -83,9 +85,30 @@ export const floatingButtonSchema = z.object({
   showShareButton: z.boolean(),
 })
 
+export const videoSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("video"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  video: z.discriminatedUnion("type", [youtubeVideoSchema, vimeoVideoSchema]),
+  background: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
-    z.discriminatedUnion("type", [profileCardSchema, headingTextSchema, floatingButtonSchema]),
+    z.discriminatedUnion("type", [
+      videoSchema,
+      profileCardSchema,
+      headingTextSchema,
+      floatingButtonSchema,
+    ]),
   ),
 })

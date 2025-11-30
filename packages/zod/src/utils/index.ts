@@ -39,6 +39,14 @@ export const telegram = z
   })
   .trim()
 
+export const youtubeUrl = z.url().regex(patterns.youtubeUrl, {
+  message: "Invalid YouTube URL",
+})
+
+export const vimeoUrl = z.url().regex(patterns.vimeoUrl, {
+  message: "Invalid Vimeo URL",
+})
+
 export const headingText = z.string().min(2).max(30).trim()
 export const descriptionText = z.string().min(2).max(200).trim()
 

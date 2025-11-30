@@ -18,6 +18,7 @@ import type {
   floatingButtonSchema,
   headingTextSchema,
   profileCardSchema,
+  videoSchema,
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
@@ -49,3 +50,4 @@ export type ColorSchema = z.infer<typeof colorSchema>
 export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>
 export type GradientSchema = z.infer<typeof gradientSchema>
 export type FloatingButtonSchema = z.infer<typeof floatingButtonSchema>
+export type VideoSchema = z.infer<typeof videoSchema>

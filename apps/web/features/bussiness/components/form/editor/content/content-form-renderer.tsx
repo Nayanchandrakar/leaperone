@@ -4,6 +4,7 @@ import { withForm } from "@/components/ui/app-form"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile-form"
+import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 import type { ContentEditorSortItem } from "@/features/bussiness/types"
 
 interface FormProps {
@@ -21,12 +22,17 @@ export const ContentFormRenderer = withForm({
         case "profile": {
           return <ProfileForm form={form} sectionId={sectionId} index={index} />
         }
+
         case "heading-text": {
           return <HeadingTextForm form={form} index={index} sectionId={sectionId} />
         }
 
         case "floating-button": {
           return <FloatingCardButtonForm form={form} index={index} sectionId={sectionId} />
+        }
+
+        case "video": {
+          return <VideoForm form={form} index={index} sectionId={sectionId} />
         }
       }
     }, [form, sectionId, sectionType, index])

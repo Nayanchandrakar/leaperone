@@ -80,4 +80,22 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     showQrButton: true,
     showShareButton: true,
   },
+  {
+    enabled: true,
+    id: "e60e25f8-749e-4124-aab9-73a48ac07633",
+    type: "video",
+    background: true,
+    heading: {
+      enabled: true,
+      text: "Watch the video",
+    },
+    description: {
+      enabled: true,
+      text: "Add a description or click on eye icon to hide this.",
+    },
+    video: {
+      type: "youtube",
+      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+  },
 ]

@@ -1,4 +1,9 @@
-import type { ContactSchema, ContentEditorSchema, QrCodeEditorSchema } from "@app/zod/types"
+import type {
+  ContactSchema,
+  ContentEditorSchema,
+  QrCodeEditorSchema,
+  VideoSchema,
+} from "@app/zod/types"
 import type { IconProps } from "@/components/shared/icons"
 
 export type ContactOption = {
@@ -7,6 +12,8 @@ export type ContactOption = {
 }
 
 export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
+
+export type VideoType = VideoSchema["video"]["type"]
 
 export type QrColorOptions = {
   title: string
