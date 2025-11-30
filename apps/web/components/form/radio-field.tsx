@@ -29,8 +29,8 @@ export const RadioField = ({ options, label }: RadioFieldProps) => {
             data-invalid={isInvalid}
             key={`radio-item-${index}`}
           >
-            <RadioGroupItem value={option.value} id={field.name} aria-invalid={isInvalid} />
-            <FieldLabel htmlFor={field.name}>{option.label}</FieldLabel>
+            <RadioGroupItem value={option.value} id={option.value} aria-invalid={isInvalid} />
+            <FieldLabel htmlFor={option.value}>{option.label}</FieldLabel>
           </Field>
         ))}
       </RadioGroup>

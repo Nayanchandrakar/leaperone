@@ -15,8 +15,8 @@ export const QR_CODE_SETTINGS: QrCodeEditorSchema = {
   fill: {
     type: "gradient",
     fillGradient: {
-      colorStops: ["#000000", "#000000"],
-      rotation: 10,
+      colorStops: ["#000000", "#1ba124"],
+      rotation: 120,
       type: "linear",
     },
   },

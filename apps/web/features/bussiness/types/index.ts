@@ -6,10 +6,12 @@ export type ContactOption = {
   value: ContactSchema["type"]
 }
 
+export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
+
 export type QrColorOptions = {
   title: string
   description: string
-  value: QrCodeEditorSchema["fill"]["type"]
+  value: QrCodeColorType
 }
 
 export type ContentEditorSortItem = ContentEditorSchema["sections"][number]

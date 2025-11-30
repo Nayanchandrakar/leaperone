@@ -12,6 +12,7 @@ import {
 } from "@app/ui/components/field"
 import { RadioGroup, RadioGroupItem } from "@app/ui/components/radio-group"
 import type { QrCodeEditorSchema } from "@app/zod/types"
+import { useCallback } from "react"
 import { withForm } from "@/components/ui/app-form"
 import { QrGradientColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-gradient-color-form"
 import { QrSingleColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-single-color-form"
@@ -23,11 +24,21 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_COLOR_OPTIONS } from "@/features/bussiness/constants/home/qr-code-colors"
+import type { QrCodeColorType } from "@/features/bussiness/types"
 
 export const QrColorForm = withForm({
   props: {},
   defaultValues: {} as QrCodeEditorSchema,
   render: function Render({ form }) {
+    const handleChange = useCallback(
+      (value: QrCodeColorType) => {
+        if (value === "single") {
+          form.setFieldValue("fill.color", "#000000")
+        }
+      },
+      [form],
+    )
+
     return (
       <EditorBlockItem value="qr-color-form">
         <EditorBlockHeader>
@@ -38,6 +49,7 @@ export const QrColorForm = withForm({
           <FieldGroup>
             <form.Field
               name="fill.type"
+              listeners={{ onChange: ({ value }) => handleChange(value) }}
               children={(field) => {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
