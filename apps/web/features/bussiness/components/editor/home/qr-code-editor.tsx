@@ -11,7 +11,7 @@ export default function QrCodeEditor() {
   return (
     <form id="qr-code-editor" onSubmit={onSubmitCallback} ref={formRef}>
       <form.AppForm>
-        <EditorBlock defaultValue="qr-color-form">
+        <EditorBlock defaultValue="qr-shape-form">
           <QrShapeForm form={form} />
           <QrPatternForm form={form} />
           <QrFrameForm form={form} />

@@ -428,10 +428,10 @@ export const Icons = {
       {...props}
     >
       <defs>
-        <clipPath id="clipPath-background-color-4">
+        <clipPath id="clip-path-background-color-4">
           <rect x="0" y="0" width="280" height="280" />
         </clipPath>
-        <clipPath id="clipPath-dot-color-4">
+        <clipPath id="clip-path-dot-color-4">
           <rect x="88" y="24" width="8" height="8" transform="rotate(0,92,28)" />
           <rect x="144" y="24" width="8" height="8" transform="rotate(0,148,28)" />
           <rect x="152" y="24" width="8" height="8" transform="rotate(0,156,28)" />
@@ -803,7 +803,7 @@ export const Icons = {
         y="0"
         height="280"
         width="280"
-        clipPath="url('#clipPath-background-color-4')"
+        clipPath="url('#clip-path-background-color-4')"
         fill="white"
       />
       <rect
@@ -811,7 +811,7 @@ export const Icons = {
         y="0"
         height="280"
         width="280"
-        clipPath="url('#clipPath-dot-color-4')"
+        clipPath="url('#clip-path-dot-color-4')"
         fill="black"
       />
     </svg>
@@ -827,10 +827,10 @@ export const Icons = {
       {...props}
     >
       <defs>
-        <clipPath id="clipPath-background-color-3">
+        <clipPath id="clip-path-background-color-3">
           <rect x="0" y="0" width="280" height="280" />
         </clipPath>
-        <clipPath id="clipPath-dot-color-3">
+        <clipPath id="clip-path-dot-color-3">
           <rect x="88" y="24" width="8" height="8" transform="rotate(0,92,28)" />
           <rect x="144" y="24" width="8" height="8" transform="rotate(0,148,28)" />
           <rect x="152" y="24" width="8" height="8" transform="rotate(0,156,28)" />
@@ -1178,7 +1178,7 @@ export const Icons = {
         y="0"
         height="280"
         width="280"
-        clipPath="url('#clipPath-background-color-3')"
+        clipPath="url('#clip-path-background-color-3')"
         fill="white"
       />
       <rect
@@ -1186,7 +1186,7 @@ export const Icons = {
         y="0"
         height="280"
         width="280"
-        clipPath="url('#clipPath-dot-color-3')"
+        clipPath="url('#clip-path-dot-color-3')"
         fill="black"
       />
     </svg>
