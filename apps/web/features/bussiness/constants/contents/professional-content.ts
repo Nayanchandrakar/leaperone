@@ -98,4 +98,20 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
       youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     },
   },
+  {
+    enabled: true,
+    id: "e60e25f8-749e-4124-aab9-73a48ac07634",
+    type: "cta-button",
+    heading: {
+      enabled: true,
+      text: "Button",
+    },
+    description: {
+      enabled: true,
+      text: "Add a description or click on eye icon to hide this.",
+    },
+    background: true,
+    label: "Visit Website",
+    link: "www.yourwebsite.com",
+  },
 ]

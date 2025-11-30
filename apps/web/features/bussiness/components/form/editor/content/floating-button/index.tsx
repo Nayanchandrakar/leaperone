@@ -53,11 +53,11 @@ export const FloatingCardButtonForm = withForm({
 
             <EditorBlockFooter className="flex flex-col @sm/editor-block-content:flex-row gap-3">
               <form.AppField
-                name={`sections[${index}].showQrButton`}
+                name={`${sectionName}.showQrButton`}
                 children={(field) => <field.SwitchField label="Card QR Button" />}
               />
               <form.AppField
-                name={`sections[${index}].showShareButton`}
+                name={`${sectionName}.showShareButton`}
                 children={(field) => <field.SwitchField label="Card Sharing Button" />}
               />
             </EditorBlockFooter>

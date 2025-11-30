@@ -98,7 +98,7 @@ export const VideoForm = withForm({
             </FieldGroup>
             <EditorBlockFooter>
               <form.AppField
-                name={`sections[${index}].background`}
+                name={`${sectionName}.background`}
                 children={(field) => <field.SwitchField label="Section Background" />}
               />
             </EditorBlockFooter>

@@ -1,6 +1,7 @@
 import type { ContentEditorSchema } from "@app/zod/types"
 import { useMemo } from "react"
 import { withForm } from "@/components/ui/app-form"
+import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile-form"
@@ -33,6 +34,10 @@ export const ContentFormRenderer = withForm({
 
         case "video": {
           return <VideoForm form={form} index={index} sectionId={sectionId} />
+        }
+
+        case "cta-button": {
+          return <CtaButtonForm form={form} index={index} sectionId={sectionId} />
         }
       }
     }, [form, sectionId, sectionType, index])

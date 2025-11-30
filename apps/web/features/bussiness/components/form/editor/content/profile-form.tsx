@@ -80,7 +80,7 @@ export const ProfileForm = withForm({
                     enabled: `${sectionName}.name.enabled`,
                   }}
                 />
-                <div className="grid @lg/editor-block-content:grid-cols-2 gap-4">
+                <div className="grid @lg/editor-block-content:grid-cols-2 gap-3">
                   <ToggleTextField
                     form={form}
                     variant="gray"

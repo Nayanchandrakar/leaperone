@@ -101,11 +101,29 @@ export const videoSchema = z.object({
   background: z.boolean(),
 })
 
+export const ctaButtonSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("cta-button"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  link: z.url(),
+  label: z.string().min(4).max(20).trim(),
+  background: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
     z.discriminatedUnion("type", [
       videoSchema,
+      ctaButtonSchema,
       profileCardSchema,
       headingTextSchema,
       floatingButtonSchema,
