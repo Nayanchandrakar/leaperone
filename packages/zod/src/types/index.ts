@@ -11,7 +11,12 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
-import type { backgroundSchema, colorSchema, gradientSchema } from "../schema/common"
+import type {
+  backgroundSchema,
+  colorSchema,
+  contactAddressSchema,
+  gradientSchema,
+} from "../schema/common"
 import type {
   contactSchema,
   contentEditorSchema,
@@ -55,3 +60,4 @@ export type FloatingButtonSchema = z.infer<typeof floatingButtonSchema>
 export type VideoSchema = z.infer<typeof videoSchema>
 export type LinkSectionSchema = z.infer<typeof linkSectionSchema>
 export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
+export type ContactAddressSchema = z.infer<typeof contactAddressSchema>

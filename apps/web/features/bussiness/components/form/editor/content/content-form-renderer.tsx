@@ -8,6 +8,7 @@ import { SocialLinksForm } from "@/features/bussiness/components/form/editor/con
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile-form"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 import type { ContentEditorSortItem } from "@/features/bussiness/types"
+import { ContactDetailsForm } from "./contact"
 
 interface FormProps {
   index: number
@@ -43,6 +44,10 @@ export const ContentFormRenderer = withForm({
 
         case "social-links": {
           return <SocialLinksForm form={form} index={index} sectionId={sectionId} />
+        }
+
+        case "contact-details": {
+          return <ContactDetailsForm form={form} index={index} sectionId={sectionId} />
         }
       }
     }, [form, sectionId, sectionType, index])

@@ -44,6 +44,7 @@ export const agreementHeading = z.string().min(5).max(40)
 export const email = z.email().toLowerCase().trim()
 export const callbackUrl = z.string().trim()
 export const seats = z.number().default(1)
+export const address = z.string().min(4).max(30).trim()
 
 export const name = z
   .string()

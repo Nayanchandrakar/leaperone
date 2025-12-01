@@ -148,4 +148,41 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     ],
     background: true,
   },
+  {
+    enabled: true,
+    id: "e60e25f8-749e-4124-aab9-73a48ac07639",
+    type: "contact-details",
+    heading: {
+      enabled: true,
+      text: "Get in touch",
+    },
+    items: [
+      {
+        type: "phone",
+        label: "Phone",
+        url: "+1234567890",
+        id: "e60e25f8-749e-4124-aab9-73a48ac07637",
+      },
+      {
+        type: "email",
+        label: "Email",
+        url: "youremail@domain.com ",
+        id: "e60e25f8-749e-4124-aab9-73a48ac07636",
+      },
+      {
+        id: "e60e25f8-749e-4124-aab9-73a48ac07638",
+        type: "address",
+        label: "Address",
+        streetAddress1: "123 Main St",
+        streetAddress2: "Apartment 123",
+        cityName: "New York",
+        stateName: "New York",
+        zipCode: 10001,
+        countryName: "USA",
+        mapButtonLabel: "Get Directions",
+        mapLocationUrl: "https://www.google.com/maps?q=123+Main+St,+Anytown,+USA",
+      },
+    ],
+    background: true,
+  },
 ]

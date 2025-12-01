@@ -4,6 +4,7 @@ import {
   appleMusicLinkSchema,
   behanceLinkSchema,
   cashappLinkSchema,
+  contactAddressSchema,
   emailLinkSchema,
   emailSchema,
   etsyLinkSchema,
@@ -195,6 +196,24 @@ export const linkSectionSchema = z.object({
   background: z.boolean(),
 })
 
+const contactItemSchema = z.discriminatedUnion("type", [
+  phoneLinkSchema,
+  emailLinkSchema,
+  contactAddressSchema,
+])
+
+export const contactDetailsSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("contact-details"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  items: z.array(contactItemSchema),
+  background: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
@@ -205,6 +224,7 @@ export const contentEditorSchema = z.object({
       headingTextSchema,
       linkSectionSchema,
       floatingButtonSchema,
+      contactDetailsSchema,
     ]),
   ),
 })

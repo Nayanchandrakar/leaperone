@@ -1,5 +1,6 @@
 import { z } from "zod"
 import {
+  address,
   appleMusicUrl,
   behanceUrl,
   cashappUrl,
@@ -300,4 +301,18 @@ export const gradientSchema = z.object({
 export const gradientFillSchema = z.object({
   type: z.literal("gradient"),
   fillGradient: gradientSchema,
+})
+
+export const contactAddressSchema = z.object({
+  id: z.uuidv4(),
+  streetAddress1: address,
+  streetAddress2: address,
+  type: z.literal("address"),
+  mapLocationUrl: locationUrl,
+  label: z.string().min(4).max(10).trim(),
+  cityName: z.string().min(2).max(50).trim(),
+  stateName: z.string().min(2).max(30).trim(),
+  zipCode: z.int().positive().min(4).max(10),
+  countryName: z.string().min(2).max(50).trim(),
+  mapButtonLabel: z.string().min(4).max(20).trim(),
 })
