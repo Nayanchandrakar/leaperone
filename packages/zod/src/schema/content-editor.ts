@@ -1,16 +1,45 @@
 import { z } from "zod"
 import { descriptionText, headingText, name } from "../utils"
 import {
+  appleMusicLinkSchema,
+  behanceLinkSchema,
+  cashappLinkSchema,
+  emailLinkSchema,
   emailSchema,
+  etsyLinkSchema,
+  facebookLinkSchema,
+  googleBusinessLinkSchema,
+  instagramLinkSchema,
+  linkedinLinkSchema,
+  locationLinkSchema,
   locationSchema,
+  paypalLinkSchema,
+  phoneLinkSchema,
   phoneSchema,
+  pinterestLinkSchema,
+  smsLinkSchema,
   smsSchema,
+  snapchatLinkSchema,
+  soundCloudLinkSchema,
+  spotifyLinkSchema,
+  stripeLinkSchema,
+  telegramLinkSchema,
   telegramSchema,
+  tiktokLinkSchema,
+  twitchLinkSchema,
+  twitterLinkSchema,
+  venmoLinkSchema,
   vimeoVideoSchema,
+  websiteLinkSchema,
   websiteSchema,
+  wechatLinkSchema,
   wechatSchema,
+  whatsappLinkSchema,
   whatsappSchema,
+  yelpLinkSchema,
+  youtubeLinkSchema,
   youtubeVideoSchema,
+  zelleLinkSchema,
 } from "./common"
 
 export const contactSchema = z.discriminatedUnion("type", [
@@ -22,6 +51,38 @@ export const contactSchema = z.discriminatedUnion("type", [
   whatsappSchema,
   wechatSchema,
   telegramSchema,
+])
+
+export const socialLinksSchema = z.discriminatedUnion("type", [
+  facebookLinkSchema,
+  instagramLinkSchema,
+  twitterLinkSchema,
+  linkedinLinkSchema,
+  youtubeLinkSchema,
+  twitchLinkSchema,
+  tiktokLinkSchema,
+  snapchatLinkSchema,
+  behanceLinkSchema,
+  pinterestLinkSchema,
+  phoneLinkSchema,
+  emailLinkSchema,
+  websiteLinkSchema,
+  smsLinkSchema,
+  locationLinkSchema,
+  whatsappLinkSchema,
+  wechatLinkSchema,
+  telegramLinkSchema,
+  googleBusinessLinkSchema,
+  yelpLinkSchema,
+  etsyLinkSchema,
+  paypalLinkSchema,
+  stripeLinkSchema,
+  cashappLinkSchema,
+  zelleLinkSchema,
+  venmoLinkSchema,
+  appleMusicLinkSchema,
+  soundCloudLinkSchema,
+  spotifyLinkSchema,
 ])
 
 export const profileCardSchema = z.object({
@@ -118,6 +179,22 @@ export const ctaButtonSchema = z.object({
   background: z.boolean(),
 })
 
+export const linkSectionSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("social-links"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  links: z.array(socialLinksSchema),
+  background: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
@@ -126,6 +203,7 @@ export const contentEditorSchema = z.object({
       ctaButtonSchema,
       profileCardSchema,
       headingTextSchema,
+      linkSectionSchema,
       floatingButtonSchema,
     ]),
   ),

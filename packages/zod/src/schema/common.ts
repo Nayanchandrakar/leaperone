@@ -1,9 +1,47 @@
 import { z } from "zod"
-import { color, email, telegram, vimeoUrl, youtubeUrl } from "../utils"
+import {
+  appleMusicUrl,
+  behanceUrl,
+  cashappUrl,
+  color,
+  email,
+  emailUrl,
+  etsyUrl,
+  facebookUrl,
+  googleBusinessUrl,
+  instagramUrl,
+  linkedinUrl,
+  linkLabel,
+  locationUrl,
+  paypalUrl,
+  phoneNumber,
+  pinterestUrl,
+  snapchatUrl,
+  soundCloudUrl,
+  spotifyUrl,
+  stripeUrl,
+  telegram,
+  tiktokUrl,
+  twitchUrl,
+  twitterUrl,
+  venmoUrl,
+  vimeoUrl,
+  websiteUrl,
+  wechatUrl,
+  whatsappUrl,
+  yelpUrl,
+  youtubeUrl,
+  zelleUrl,
+} from "../utils"
+
+export const baseLinkSchema = z.object({
+  id: z.uuidv4(),
+  label: linkLabel,
+})
 
 export const termsLinkSchema = z.object({
   type: z.literal("url"),
-  content: z.url().max(200),
+  content: websiteUrl,
 })
 
 export const termsContentSchema = z.object({
@@ -14,49 +52,194 @@ export const termsContentSchema = z.object({
 export const phoneSchema = z.object({
   id: z.uuidv4(),
   type: z.literal("phone"),
-  value: z.e164({ error: "Invalid phone number" }).trim(),
+  value: phoneNumber,
 })
 
 export const emailSchema = z.object({
   id: z.uuidv4(),
-  type: z.literal("email"),
   value: email,
+  type: z.literal("email"),
 })
 
 export const websiteSchema = z.object({
   id: z.uuidv4(),
   type: z.literal("website"),
-  value: z.url(),
+  value: websiteUrl,
 })
 
 export const locationSchema = z.object({
   id: z.uuidv4(),
   type: z.literal("location"),
-  value: z.url(),
+  value: locationUrl,
 })
 
 export const smsSchema = z.object({
   id: z.uuidv4(),
   type: z.literal("sms"),
-  value: z.e164({ error: "Invalid phone number" }).trim(),
+  value: z.e164({ error: "Invalid SMS number" }).trim(),
 })
 
 export const whatsappSchema = z.object({
   id: z.uuidv4(),
+  value: whatsappUrl,
   type: z.literal("whatsapp"),
-  value: z.e164({ error: "Invalid whatsapp number" }).trim(),
 })
 
 export const wechatSchema = z.object({
   id: z.uuidv4(),
+  value: wechatUrl,
   type: z.literal("wechat"),
-  value: z.e164({ error: "Invalid wechat number" }).trim(),
 })
 
 export const telegramSchema = z.object({
   id: z.uuidv4(),
-  type: z.literal("telegram"),
   value: telegram,
+  type: z.literal("telegram"),
+})
+
+export const facebookLinkSchema = baseLinkSchema.extend({
+  url: facebookUrl,
+  type: z.literal("facebook"),
+})
+
+export const instagramLinkSchema = baseLinkSchema.extend({
+  url: instagramUrl,
+  type: z.literal("instagram"),
+})
+
+export const twitterLinkSchema = baseLinkSchema.extend({
+  url: twitterUrl,
+  type: z.literal("twitter"),
+})
+
+export const linkedinLinkSchema = baseLinkSchema.extend({
+  url: linkedinUrl,
+  type: z.literal("linkedin"),
+})
+
+export const youtubeLinkSchema = baseLinkSchema.extend({
+  url: youtubeUrl,
+  type: z.literal("youtube"),
+})
+
+export const twitchLinkSchema = baseLinkSchema.extend({
+  url: twitchUrl,
+  type: z.literal("twitch"),
+})
+
+export const tiktokLinkSchema = baseLinkSchema.extend({
+  url: tiktokUrl,
+  type: z.literal("tiktok"),
+})
+
+export const snapchatLinkSchema = baseLinkSchema.extend({
+  url: snapchatUrl,
+  type: z.literal("snapchat"),
+})
+
+export const behanceLinkSchema = baseLinkSchema.extend({
+  url: behanceUrl,
+  type: z.literal("behance"),
+})
+
+export const pinterestLinkSchema = baseLinkSchema.extend({
+  url: pinterestUrl,
+  type: z.literal("pinterest"),
+})
+
+export const phoneLinkSchema = baseLinkSchema.extend({
+  url: phoneNumber,
+  type: z.literal("phone"),
+})
+
+export const emailLinkSchema = baseLinkSchema.extend({
+  url: emailUrl,
+  type: z.literal("email"),
+})
+
+export const websiteLinkSchema = baseLinkSchema.extend({
+  url: websiteUrl,
+  type: z.literal("website"),
+})
+
+export const smsLinkSchema = baseLinkSchema.extend({
+  url: phoneNumber,
+  type: z.literal("sms"),
+})
+
+export const locationLinkSchema = baseLinkSchema.extend({
+  url: locationUrl,
+  type: z.literal("location"),
+})
+
+export const whatsappLinkSchema = baseLinkSchema.extend({
+  url: whatsappUrl,
+  type: z.literal("whatsapp"),
+})
+
+export const wechatLinkSchema = baseLinkSchema.extend({
+  url: wechatUrl,
+  type: z.literal("wechat"),
+})
+
+export const telegramLinkSchema = baseLinkSchema.extend({
+  url: telegram,
+  type: z.literal("telegram"),
+})
+
+export const googleBusinessLinkSchema = baseLinkSchema.extend({
+  url: googleBusinessUrl,
+  type: z.literal("google-business"),
+})
+
+export const yelpLinkSchema = baseLinkSchema.extend({
+  url: yelpUrl,
+  type: z.literal("yelp"),
+})
+
+export const etsyLinkSchema = baseLinkSchema.extend({
+  url: etsyUrl,
+  type: z.literal("etsy"),
+})
+
+export const paypalLinkSchema = baseLinkSchema.extend({
+  url: paypalUrl,
+  type: z.literal("paypal"),
+})
+
+export const stripeLinkSchema = baseLinkSchema.extend({
+  url: stripeUrl,
+  type: z.literal("stripe"),
+})
+
+export const cashappLinkSchema = baseLinkSchema.extend({
+  url: cashappUrl,
+  type: z.literal("cashapp"),
+})
+
+export const zelleLinkSchema = baseLinkSchema.extend({
+  url: zelleUrl,
+  type: z.literal("zelle"),
+})
+
+export const venmoLinkSchema = baseLinkSchema.extend({
+  url: venmoUrl,
+  type: z.literal("venmo"),
+})
+
+export const appleMusicLinkSchema = baseLinkSchema.extend({
+  url: appleMusicUrl,
+  type: z.literal("apple-music"),
+})
+
+export const soundCloudLinkSchema = baseLinkSchema.extend({
+  url: soundCloudUrl,
+  type: z.literal("sound-cloud"),
+})
+
+export const spotifyLinkSchema = baseLinkSchema.extend({
+  url: spotifyUrl,
+  type: z.literal("spotify"),
 })
 
 export const backgroundSchema = z.object({

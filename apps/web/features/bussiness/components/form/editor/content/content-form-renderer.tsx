@@ -4,6 +4,7 @@ import { withForm } from "@/components/ui/app-form"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
+import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile-form"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 import type { ContentEditorSortItem } from "@/features/bussiness/types"
@@ -38,6 +39,10 @@ export const ContentFormRenderer = withForm({
 
         case "cta-button": {
           return <CtaButtonForm form={form} index={index} sectionId={sectionId} />
+        }
+
+        case "social-links": {
+          return <SocialLinksForm form={form} index={index} sectionId={sectionId} />
         }
       }
     }, [form, sectionId, sectionType, index])

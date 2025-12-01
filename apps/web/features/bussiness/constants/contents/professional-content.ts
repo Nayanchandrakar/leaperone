@@ -114,4 +114,38 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     label: "Visit Website",
     link: "www.yourwebsite.com",
   },
+  {
+    id: "e60e25f8-749e-4124-aab9-73a48ac07635",
+    type: "social-links",
+    enabled: true,
+    heading: {
+      enabled: true,
+      text: "Connect with me",
+    },
+    description: {
+      enabled: true,
+      text: "Add a description or click on eye icon to hide this.",
+    },
+    links: [
+      {
+        id: "e60e25f8-749e-4124-aab9-73a48ac07636",
+        type: "facebook",
+        label: "Facebook",
+        url: "https://www.facebook.com/yourusername",
+      },
+      {
+        id: "e60e25f8-749e-4124-aab9-73a48ac07637",
+        type: "instagram",
+        label: "Instagram",
+        url: "https://www.instagram.com/yourusername",
+      },
+      {
+        id: "e60e25f8-749e-4124-aab9-73a48ac07638",
+        type: "twitter",
+        label: "Twitter",
+        url: "https://www.twitter.com/yourusername",
+      },
+    ],
+    background: true,
+  },
 ]

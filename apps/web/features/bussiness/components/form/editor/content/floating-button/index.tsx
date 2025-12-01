@@ -36,7 +36,7 @@ export const FloatingCardButtonForm = withForm({
               <form.Subscribe
                 selector={(state) => {
                   const formState = state.values?.sections?.[index] as FloatingButtonSchema
-                  return formState?.label.enabled
+                  return formState?.label?.enabled
                 }}
                 children={(enabled) =>
                   enabled && (

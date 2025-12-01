@@ -17,7 +17,9 @@ import type {
   contentEditorSchema,
   floatingButtonSchema,
   headingTextSchema,
+  linkSectionSchema,
   profileCardSchema,
+  socialLinksSchema,
   videoSchema,
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
@@ -51,3 +53,5 @@ export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>
 export type GradientSchema = z.infer<typeof gradientSchema>
 export type FloatingButtonSchema = z.infer<typeof floatingButtonSchema>
 export type VideoSchema = z.infer<typeof videoSchema>
+export type LinkSectionSchema = z.infer<typeof linkSectionSchema>
+export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
