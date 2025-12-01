@@ -18,6 +18,7 @@ import type {
   gradientSchema,
 } from "../schema/common"
 import type {
+  contactItemSchema,
   contactSchema,
   contentEditorSchema,
   floatingButtonSchema,
@@ -61,3 +62,4 @@ export type VideoSchema = z.infer<typeof videoSchema>
 export type LinkSectionSchema = z.infer<typeof linkSectionSchema>
 export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
 export type ContactAddressSchema = z.infer<typeof contactAddressSchema>
+export type ContactItemSchema = z.infer<typeof contactItemSchema>

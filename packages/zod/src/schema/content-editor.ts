@@ -196,7 +196,7 @@ export const linkSectionSchema = z.object({
   background: z.boolean(),
 })
 
-const contactItemSchema = z.discriminatedUnion("type", [
+export const contactItemSchema = z.discriminatedUnion("type", [
   phoneLinkSchema,
   emailLinkSchema,
   contactAddressSchema,

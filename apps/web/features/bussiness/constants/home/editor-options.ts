@@ -1,4 +1,4 @@
-import type { ContactOption } from "@/features/bussiness/types"
+import type { ContactInfoOption, ContactOption } from "@/features/bussiness/types"
 
 export const CONTACT_OPTIONS: ContactOption[] = [
   {
@@ -32,5 +32,20 @@ export const CONTACT_OPTIONS: ContactOption[] = [
   {
     label: "Telegram",
     value: "telegram",
+  },
+]
+
+export const CONTACT_INFO_OPTIONS: ContactInfoOption[] = [
+  {
+    label: "Phone Number",
+    value: "phone",
+  },
+  {
+    label: "Email",
+    value: "email",
+  },
+  {
+    label: "Address",
+    value: "address",
   },
 ]

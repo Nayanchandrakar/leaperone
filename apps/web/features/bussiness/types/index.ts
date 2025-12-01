@@ -1,4 +1,5 @@
 import type {
+  ContactItemSchema,
   ContactSchema,
   ContentEditorSchema,
   QrCodeEditorSchema,
@@ -9,6 +10,11 @@ import type { IconProps } from "@/components/shared/icons"
 export type ContactOption = {
   label: string
   value: ContactSchema["type"]
+}
+
+export type ContactInfoOption = {
+  label: string
+  value: ContactItemSchema["type"]
 }
 
 export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
