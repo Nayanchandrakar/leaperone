@@ -1,5 +1,6 @@
 import type { ContactItemSchema, ContentEditorSchema } from "@app/zod/types"
 import { withForm } from "@/components/ui/app-form"
+import { IGNORE_FORM_VALIDATION } from "@/constants/form"
 import { AddressContactForm } from "@/features/bussiness/components/form/editor/content/contact/address-contact-form"
 import { EmailContactForm } from "@/features/bussiness/components/form/editor/content/contact/email-contact-form"
 import { PhoneContactForm } from "@/features/bussiness/components/form/editor/content/contact/phone-contact-form"
@@ -16,48 +17,64 @@ interface ContactItemsListProps {
 export const ContactItemsList = withForm({
   props: {} as ContactItemsListProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionIdx }) => (
-    <form.AppField mode="array" name={`sections[${sectionIdx}].items`}>
-      {(field) => (
-        <EditorSortProvider data={field.state.value} onDataChange={field.moveValue}>
-          <EditorSortGroup>
-            {(contact: ContactItemSchema, contactIdx) => (
-              <EditorSubSortItem
-                id={contact?.id}
-                key={contact?.id}
-                onDelete={() => field.removeValue(contactIdx)}
-              >
-                {contact?.type === "phone" && (
-                  <PhoneContactForm
-                    key={contact?.id}
-                    form={form}
-                    sectionIdx={sectionIdx}
-                    contactIdx={contactIdx}
-                  />
-                )}
+  render: ({ form, sectionIdx }) => {
+    return (
+      <form.AppField mode="array" name={`sections[${sectionIdx}].items`}>
+        {(arrayField) => {
+          const items = arrayField.state.value
 
-                {contact?.type === "email" && (
-                  <EmailContactForm
-                    key={contact?.id}
-                    form={form}
-                    sectionIdx={sectionIdx}
-                    contactIdx={contactIdx}
-                  />
-                )}
+          return (
+            <EditorSortProvider
+              data={items}
+              onDataChange={(oldIndex, newIndex) => {
+                console.log({ oldIndex, newIndex })
+                arrayField.moveValue(oldIndex, newIndex, IGNORE_FORM_VALIDATION)
+              }}
+            >
+              <EditorSortGroup>
+                {(contactItem: ContactItemSchema, currentIndex: number) => {
+                  return (
+                    <EditorSubSortItem
+                      id={contactItem?.id}
+                      key={contactItem?.id}
+                      onDelete={() => {
+                        arrayField.removeValue(currentIndex, IGNORE_FORM_VALIDATION)
+                      }}
+                    >
+                      {contactItem?.type === "phone" && (
+                        <PhoneContactForm
+                          form={form}
+                          key={contactItem?.id}
+                          sectionIdx={sectionIdx}
+                          contactIdx={currentIndex}
+                        />
+                      )}
 
-                {contact?.type === "address" && (
-                  <AddressContactForm
-                    key={contact?.id}
-                    form={form}
-                    sectionIdx={sectionIdx}
-                    contactIdx={contactIdx}
-                  />
-                )}
-              </EditorSubSortItem>
-            )}
-          </EditorSortGroup>
-        </EditorSortProvider>
-      )}
-    </form.AppField>
-  ),
+                      {contactItem?.type === "email" && (
+                        <EmailContactForm
+                          form={form}
+                          key={contactItem?.id}
+                          sectionIdx={sectionIdx}
+                          contactIdx={currentIndex}
+                        />
+                      )}
+
+                      {contactItem?.type === "address" && (
+                        <AddressContactForm
+                          key={contactItem?.id}
+                          form={form}
+                          sectionIdx={sectionIdx}
+                          contactIdx={currentIndex}
+                        />
+                      )}
+                    </EditorSubSortItem>
+                  )
+                }}
+              </EditorSortGroup>
+            </EditorSortProvider>
+          )
+        }}
+      </form.AppField>
+    )
+  },
 })

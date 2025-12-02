@@ -172,7 +172,7 @@ export const EditorBlockContent = ({
     <div
       data-slot="editor-block-content"
       className={cn(
-        "group-data-[state=open]/editor-block-item:max-h-300",
+        "group-data-[state=open]/editor-block-item:max-h-500",
         "group-data-[state=closed]/editor-block-item:max-h-0",
         "transition-[max-height] duration-200 ease-in-out overflow-hidden",
       )}

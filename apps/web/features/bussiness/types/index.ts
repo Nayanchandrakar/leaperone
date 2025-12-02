@@ -12,9 +12,11 @@ export type ContactOption = {
   value: ContactSchema["type"]
 }
 
-export type ContactInfoOption = {
+export type ContactItemType = ContactItemSchema["type"]
+
+export type ContactItemOption = {
   label: string
-  value: ContactItemSchema["type"]
+  value: ContactItemType
 }
 
 export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
