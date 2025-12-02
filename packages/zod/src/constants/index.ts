@@ -45,5 +45,5 @@ export const patterns = {
   spotify: /^https?:\/\/open\.spotify\.com\/(artist|user|playlist)\/[\w]+\/?$/,
 
   // Location URL
-  location: /^https?:\/\/(www\.)?(google\.com\/maps|maps\.google\.com|goo\.gl\/maps)\/[\w?&=.-]+$/,
+  location: /^https?:\/\/(www\.)?(google\.com\/maps|maps\.google\.com|goo\.gl\/maps)\/[^\s]+$/,
 }

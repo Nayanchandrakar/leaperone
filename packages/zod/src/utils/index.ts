@@ -98,10 +98,6 @@ export const tiktokUrl = z.url().regex(patterns.tiktok, {
   message: "Invalid TikTok URL. Example: https://tiktok.com/@username",
 })
 
-export const emailUrl = z.string().regex(patterns.email, {
-  message: "Invalid email URL. Example: mailto:user@example.com",
-})
-
 export const whatsappUrl = z.url().regex(patterns.whatsapp, {
   message: "Invalid WhatsApp URL. Example: https://wa.me/+1234567890",
 })

@@ -6,7 +6,6 @@ import {
   cashappUrl,
   color,
   email,
-  emailUrl,
   etsyUrl,
   facebookUrl,
   googleBusinessUrl,
@@ -154,7 +153,7 @@ export const phoneLinkSchema = baseLinkSchema.extend({
 })
 
 export const emailLinkSchema = baseLinkSchema.extend({
-  url: emailUrl,
+  url: email,
   type: z.literal("email"),
 })
 
@@ -308,10 +307,10 @@ export const contactAddressSchema = z.object({
   streetAddress1: address,
   streetAddress2: address,
   type: z.literal("address"),
+  zipCode: z.int().positive().min(4),
   label: z.string().min(4).max(10).trim(),
   cityName: z.string().min(2).max(50).trim(),
   stateName: z.string().min(2).max(30).trim(),
-  zipCode: z.int().positive().min(4).max(10),
   countryName: z.string().min(2).max(50).trim(),
   location: z.object({
     url: locationUrl,

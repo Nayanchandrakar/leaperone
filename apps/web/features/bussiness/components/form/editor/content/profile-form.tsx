@@ -124,8 +124,12 @@ export const ProfileForm = withForm({
                             {(contact, contactIdx) => (
                               <EditorSubSortItem
                                 id={contact.id}
-                                key={contact.id}
-                                onDelete={() => field.removeValue(contactIdx)}
+                                key={contactIdx}
+                                onDelete={() => {
+                                  field.removeValue(contactIdx, {
+                                    dontValidate: true,
+                                  })
+                                }}
                               >
                                 <EditorSubSortTwoColumnGrid>
                                   <form.AppField
