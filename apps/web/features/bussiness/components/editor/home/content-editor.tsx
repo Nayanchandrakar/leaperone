@@ -20,14 +20,14 @@ export default function ContentEditor() {
                 onDataChange={sectionField.moveValue}
               >
                 <EditorSortGroup>
-                  {(item: ContentEditorSortItem, index) => (
+                  {(item: ContentEditorSortItem, sectionIdx) => (
                     <ContentFormRenderer
                       // @ts-expect-error - TODO: fix this
                       form={form}
+                      id={item.id}
                       key={item.id}
-                      index={index}
-                      sectionId={item.id}
-                      sectionType={item.type}
+                      type={item.type}
+                      sectionIdx={sectionIdx}
                     />
                   )}
                 </EditorSortGroup>

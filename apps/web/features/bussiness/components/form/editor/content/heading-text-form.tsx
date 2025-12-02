@@ -7,59 +7,57 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
 
 interface FormProps {
-  index: number
-  sectionId: string
+  id: string
+  sectionIdx: number
 }
 
 export const HeadingTextForm = withForm({
   props: {} as FormProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionId, index }) => {
+  render: ({ form, id, sectionIdx }) => {
     return (
       <form.AppField
-        name={`sections[${index}].enabled`}
-        children={(sectionField) => {
-          return (
-            <EditorSortItem
-              id={sectionId}
-              name="Heading + Text"
-              contentClassName="p-0"
-              checked={sectionField.state.value}
-              onCheckedChange={sectionField.handleChange}
-            >
-              <FieldGroup className="p-5">
-                <FieldSet>
-                  <ToggleTextField
-                    form={form}
-                    variant="gray"
-                    label="Heading"
-                    fields={{
-                      name: `sections[${index}].heading.text`,
-                      enabled: `sections[${index}].heading.enabled`,
-                    }}
-                  />
-
-                  <ToggleTextareaField
-                    form={form}
-                    variant="gray"
-                    label="Description"
-                    fields={{
-                      name: `sections[${index}].description.text`,
-                      enabled: `sections[${index}].description.enabled`,
-                    }}
-                  />
-                </FieldSet>
-              </FieldGroup>
-
-              <EditorBlockFooter>
-                <form.AppField
-                  name={`sections[${index}].background`}
-                  children={(field) => <field.SwitchField label="Section Background" />}
+        name={`sections[${sectionIdx}].enabled`}
+        children={(sectionField) => (
+          <EditorSortItem
+            id={id}
+            name="Heading + Text"
+            contentClassName="p-0"
+            checked={sectionField.state.value}
+            onCheckedChange={sectionField.handleChange}
+          >
+            <FieldGroup className="p-5">
+              <FieldSet>
+                <ToggleTextField
+                  form={form}
+                  variant="gray"
+                  label="Heading"
+                  fields={{
+                    name: `sections[${sectionIdx}].heading.text`,
+                    enabled: `sections[${sectionIdx}].heading.enabled`,
+                  }}
                 />
-              </EditorBlockFooter>
-            </EditorSortItem>
-          )
-        }}
+
+                <ToggleTextareaField
+                  form={form}
+                  variant="gray"
+                  label="Description"
+                  fields={{
+                    name: `sections[${sectionIdx}].description.text`,
+                    enabled: `sections[${sectionIdx}].description.enabled`,
+                  }}
+                />
+              </FieldSet>
+            </FieldGroup>
+
+            <EditorBlockFooter>
+              <form.AppField
+                name={`sections[${sectionIdx}].background`}
+                children={(field) => <field.SwitchField label="Section Background" />}
+              />
+            </EditorBlockFooter>
+          </EditorSortItem>
+        )}
       />
     )
   },

@@ -1,57 +1,56 @@
 import type { ContentEditorSchema } from "@app/zod/types"
-import { useMemo } from "react"
 import { withForm } from "@/components/ui/app-form"
+import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
 import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
-import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile-form"
+import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 import type { ContentEditorSortItem } from "@/features/bussiness/types"
-import { ContactDetailsForm } from "./contact"
 
 interface FormProps {
-  index: number
-  sectionId: string
-  sectionType: ContentEditorSortItem["type"]
+  id: string
+  sectionIdx: number
+  type: ContentEditorSortItem["type"]
 }
 
 export const ContentFormRenderer = withForm({
   props: {} as FormProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionId, sectionType, index }) => {
-    const memoizedContent = useMemo(() => {
-      switch (sectionType) {
-        case "profile": {
-          return <ProfileForm form={form} sectionId={sectionId} index={index} />
-        }
-
-        case "heading-text": {
-          return <HeadingTextForm form={form} index={index} sectionId={sectionId} />
-        }
-
-        case "floating-button": {
-          return <FloatingCardButtonForm form={form} index={index} sectionId={sectionId} />
-        }
-
-        case "video": {
-          return <VideoForm form={form} index={index} sectionId={sectionId} />
-        }
-
-        case "cta-button": {
-          return <CtaButtonForm form={form} index={index} sectionId={sectionId} />
-        }
-
-        case "social-links": {
-          return <SocialLinksForm form={form} index={index} sectionId={sectionId} />
-        }
-
-        case "contact-details": {
-          return <ContactDetailsForm form={form} index={index} sectionId={sectionId} />
-        }
+  render: ({ form, id, type, sectionIdx }) => {
+    switch (type) {
+      case "profile": {
+        return <ProfileForm form={form} sectionIdx={sectionIdx} id={id} />
       }
-    }, [form, sectionId, sectionType, index])
 
-    return memoizedContent
+      case "heading-text": {
+        return <HeadingTextForm form={form} sectionIdx={sectionIdx} id={id} />
+      }
+
+      case "floating-button": {
+        return <FloatingCardButtonForm form={form} sectionIdx={sectionIdx} id={id} />
+      }
+
+      case "video": {
+        return <VideoForm form={form} sectionIdx={sectionIdx} id={id} />
+      }
+
+      case "cta-button": {
+        return <CtaButtonForm form={form} id={id} sectionIdx={sectionIdx} />
+      }
+
+      case "social-links": {
+        return <SocialLinksForm form={form} sectionIdx={sectionIdx} id={id} />
+      }
+
+      case "contact-details": {
+        return <ContactDetailsForm form={form} id={id} sectionIdx={sectionIdx} />
+      }
+
+      default: {
+        return null
+      }
+    }
   },
 })

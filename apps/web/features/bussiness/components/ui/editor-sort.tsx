@@ -14,7 +14,7 @@ import {
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers"
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useCallback, useContext, useState } from "react"
 import { createPortal } from "react-dom"
 import tunnel from "tunnel-rat"
 import {
@@ -26,7 +26,7 @@ import {
   EditorBlockTitle,
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
-import { EditorSubSortListItem } from "./editor-sub-sort-list-item"
+import { EditorSubSortListItem } from "@/features/bussiness/components/ui/editor-sub-sort-list-item"
 
 // Component type definitions
 
@@ -87,25 +87,31 @@ export const EditorSortProvider = <T extends EditorSortItemProps = EditorSortIte
     useSensor(KeyboardSensor),
   )
 
-  const handleDragStart = (event: DragStartEvent) => {
-    const card = data.find((item) => item.id === event.active.id)
-    if (card) {
-      setActiveCardId(card.id)
-    }
-    onDragStart?.(event)
-  }
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const card = data.find((item) => item.id === event.active.id)
+      if (card) {
+        setActiveCardId(card.id)
+      }
+      onDragStart?.(event)
+    },
+    [data, onDragStart],
+  )
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    setActiveCardId(null)
-    onDragEnd?.(event)
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      setActiveCardId(null)
+      onDragEnd?.(event)
 
-    const { active, over } = event
-    if (!over || active.id === over.id) return
+      const { active, over } = event
+      if (!over || active.id === over.id) return
 
-    const oldIndex = data.findIndex((item) => item.id === active.id)
-    const newIndex = data.findIndex((item) => item.id === over.id)
-    onDataChange?.(oldIndex, newIndex)
-  }
+      const oldIndex = data.findIndex((item) => item.id === active.id)
+      const newIndex = data.findIndex((item) => item.id === over.id)
+      onDataChange?.(oldIndex, newIndex)
+    },
+    [data, onDragEnd, onDataChange],
+  )
 
   return (
     <EditorSortContext.Provider value={{ data, activeCardId }}>
@@ -190,7 +196,9 @@ export const EditorSortItem = ({
                 <EditorBlockTrigger />
               </EditorBlockGroup>
             </EditorBlockHeader>
-            <EditorBlockContent>{children}</EditorBlockContent>
+            <EditorBlockContent className="relative before:content-[''] before:absolute before:bottom-0 before:w-full before:h-50 before:bg-linear-to-b before:from-transparent before:to-white before:z-50 max-h-60">
+              {children}
+            </EditorBlockContent>
           </EditorBlockItem>
         </t.In>
       )}
@@ -230,7 +238,9 @@ export const EditorSubSortItem = ({
 
       {activeCardId === id && (
         <t.In>
-          <EditorSubSortListItem isDragging={isDragging}>{children}</EditorSubSortListItem>
+          <EditorSubSortListItem className="" isDragging={isDragging}>
+            {children}
+          </EditorSubSortListItem>
         </t.In>
       )}
     </React.Fragment>

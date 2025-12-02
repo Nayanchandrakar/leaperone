@@ -11,11 +11,11 @@ export const AddressContactForm = withForm({
   props: {} as AddressContactFormProps,
   defaultValues: {} as ContentEditorSchema,
   render: ({ form, contactIdx, sectionIdx }) => (
-    <div className="grid grid-cols-1 @[48rem]/editor-block-content:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 @[45rem]/editor-sub-sort:grid-cols-2 gap-3">
       <form.AppField
         name={`sections[${sectionIdx}].items[${contactIdx}].label`}
         children={(field) => (
-          <field.TextField label="Label" className="@[48rem]/editor-block-content:col-span-2" />
+          <field.TextField label="Label" className="@[45rem]/editor-sub-sort:col-span-2" />
         )}
       />
 

@@ -1,6 +1,5 @@
 import { FieldGroup } from "@app/ui/components/field"
 import type { ContentEditorSchema } from "@app/zod/types"
-import { useMemo } from "react"
 import { ToggleTextField } from "@/components/form/toggle-text-field"
 import { ToggleTextareaField } from "@/components/form/toogle-textarea-field"
 import { withForm } from "@/components/ui/app-form"
@@ -9,22 +8,20 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
 
 interface SocialLinksFormProps {
-  index: number
-  sectionId: string
+  sectionIdx: number
+  id: string
 }
 
 export const SocialLinksForm = withForm({
   props: {} as SocialLinksFormProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionId, index }) => {
-    const sectionName = useMemo(() => `sections[${index}]` as const, [index])
-
+  render: ({ form, sectionIdx, id }) => {
     return (
       <form.AppField
-        name={`${sectionName}.enabled`}
+        name={`sections[${sectionIdx}].enabled`}
         children={(sectionField) => (
           <EditorSortItem
-            id={sectionId}
+            id={id}
             contentClassName="p-0"
             checked={sectionField.state.value}
             name="Links: Social, Payment & more"
@@ -36,8 +33,8 @@ export const SocialLinksForm = withForm({
                 variant="gray"
                 label="Heading"
                 fields={{
-                  name: `${sectionName}.heading.text`,
-                  enabled: `${sectionName}.heading.enabled`,
+                  name: `sections[${sectionIdx}].heading.text`,
+                  enabled: `sections[${sectionIdx}].heading.enabled`,
                 }}
               />
 
@@ -46,16 +43,16 @@ export const SocialLinksForm = withForm({
                 variant="gray"
                 label="Description"
                 fields={{
-                  name: `${sectionName}.description.text`,
-                  enabled: `${sectionName}.description.enabled`,
+                  name: `sections[${sectionIdx}].description.text`,
+                  enabled: `sections[${sectionIdx}].description.enabled`,
                 }}
               />
 
-              <RenderLinksForm form={form} sectionName={sectionName} />
+              <RenderLinksForm form={form} sectionIdx={sectionIdx} />
             </FieldGroup>
             <EditorBlockFooter>
               <form.AppField
-                name={`${sectionName}.background`}
+                name={`sections[${sectionIdx}].background`}
                 children={(field) => <field.SwitchField label="Section Background" />}
               />
             </EditorBlockFooter>

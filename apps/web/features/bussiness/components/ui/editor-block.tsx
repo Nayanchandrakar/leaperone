@@ -178,7 +178,14 @@ export const EditorBlockContent = ({
       )}
       {...props}
     >
-      <div className={cn("@container/editor-block-content p-5", className)}>{children}</div>
+      <div
+        className={cn(
+          "@container/editor-block-content p-5 has-[>[data-slot=editor-block-footer]]:p-0",
+          className,
+        )}
+      >
+        {children}
+      </div>
     </div>
   )
 }

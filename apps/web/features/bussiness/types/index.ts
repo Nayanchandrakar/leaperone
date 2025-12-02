@@ -9,9 +9,9 @@ import type { IconProps } from "@/components/shared/icons"
 
 export type ContactOption = {
   label: string
-  value: ContactSchema["type"]
+  value: ContactOptionType
 }
-
+export type ContactOptionType = ContactSchema["type"]
 export type ContactItemType = ContactItemSchema["type"]
 
 export type ContactItemOption = {

@@ -19,16 +19,21 @@ export const ContactItemsList = withForm({
   render: ({ form, sectionIdx }) => (
     <form.AppField mode="array" name={`sections[${sectionIdx}].items`}>
       {(arrayField) => (
-        <EditorSortProvider data={arrayField.state.value} onDataChange={arrayField.moveValue}>
+        <EditorSortProvider
+          data={arrayField.state.value}
+          onDataChange={(oldIndex, newIndex) => {
+            arrayField.moveValue(oldIndex, newIndex, {
+              dontValidate: true,
+            })
+          }}
+        >
           <EditorSortGroup>
             {(contactItem: ContactItemSchema, currentIndex) => (
               <EditorSubSortItem
                 id={contactItem?.id}
                 key={contactItem?.id}
                 onDelete={() => {
-                  arrayField.removeValue(currentIndex, {
-                    dontValidate: true,
-                  })
+                  arrayField.removeValue(currentIndex)
                 }}
               >
                 {contactItem?.type === "phone" && (

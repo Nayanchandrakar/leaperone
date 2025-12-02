@@ -27,7 +27,7 @@ export function createContactItem(contactType: ContactItemType): ContactItemSche
       return {
         id: generateUUID(),
         label: "",
-        zipCode: 0,
+        zipCode: 10001,
         cityName: "",
         stateName: "",
         countryName: "",

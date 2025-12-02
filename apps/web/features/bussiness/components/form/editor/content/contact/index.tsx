@@ -8,47 +8,49 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
 
 interface ContactDetailsFormProps {
-  index: number
-  sectionId: string
+  sectionIdx: number
+  id: string
 }
 
 export const ContactDetailsForm = withForm({
   props: {} as ContactDetailsFormProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionId, index }) => (
-    <form.AppField
-      name={`sections[${index}].enabled`}
-      children={(sectionField) => (
-        <EditorSortItem
-          id={sectionId}
-          name="Contact Details"
-          contentClassName="p-0"
-          checked={sectionField.state.value}
-          onCheckedChange={sectionField.handleChange}
-        >
-          <FieldGroup className="p-5">
-            <ToggleTextField
-              form={form}
-              variant="gray"
-              label="Heading"
-              fields={{
-                name: `sections[${index}].heading.text`,
-                enabled: `sections[${index}].heading.enabled`,
-              }}
-            />
-            <ContactItemsList form={form} sectionIdx={index} />
-            <AddContactItemButtonForm form={form} sectionIdx={index} />
-          </FieldGroup>
-          <EditorBlockFooter>
-            <form.AppField
-              name={`sections[${index}].background`}
-              children={(backgroundField) => (
-                <backgroundField.SwitchField label="Section Background" />
-              )}
-            />
-          </EditorBlockFooter>
-        </EditorSortItem>
-      )}
-    />
-  ),
+  render: ({ form, id, sectionIdx }) => {
+    return (
+      <form.AppField
+        name={`sections[${sectionIdx}].enabled`}
+        children={(sectionField) => (
+          <EditorSortItem
+            id={id}
+            name="Contact Details"
+            contentClassName="p-0"
+            checked={sectionField.state.value}
+            onCheckedChange={sectionField.handleChange}
+          >
+            <FieldGroup className="p-5">
+              <ToggleTextField
+                form={form}
+                variant="gray"
+                label="Heading"
+                fields={{
+                  name: `sections[${sectionIdx}].heading.text`,
+                  enabled: `sections[${sectionIdx}].heading.enabled`,
+                }}
+              />
+              <ContactItemsList form={form} sectionIdx={sectionIdx} />
+              <AddContactItemButtonForm form={form} sectionIdx={sectionIdx} />
+            </FieldGroup>
+            <EditorBlockFooter>
+              <form.AppField
+                name={`sections[${sectionIdx}].background`}
+                children={(backgroundField) => (
+                  <backgroundField.SwitchField label="Section Background" />
+                )}
+              />
+            </EditorBlockFooter>
+          </EditorSortItem>
+        )}
+      />
+    )
+  },
 })

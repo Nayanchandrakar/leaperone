@@ -8,17 +8,17 @@ import {
 } from "@/features/bussiness/components/ui/editor-sort"
 
 interface RenderLinksFormProps {
-  sectionName: `sections[${number}]`
+  sectionIdx: number
 }
 
 export const RenderLinksForm = withForm({
   props: {} as RenderLinksFormProps,
   defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionName }) => {
+  render: ({ form, sectionIdx }) => {
     return (
       <form.AppField
         mode="array"
-        name={`${sectionName}.links`}
+        name={`sections[${sectionIdx}].links`}
         children={(field) => (
           <EditorSortProvider data={field.state.value} onDataChange={field.moveValue}>
             <EditorSortGroup
@@ -30,11 +30,11 @@ export const RenderLinksForm = withForm({
                 >
                   <EditorSubSortTwoColumnGrid>
                     <form.AppField
-                      name={`${sectionName}.links[${linkIdx}].label`}
+                      name={`sections[${sectionIdx}].links[${linkIdx}].label`}
                       children={(field) => <field.TextField label="Link Label" />}
                     />
                     <form.AppField
-                      name={`${sectionName}.links[${linkIdx}].url`}
+                      name={`sections[${sectionIdx}].links[${linkIdx}].url`}
                       children={(field) => <field.TextField label="Profile Link" />}
                     />
                   </EditorSubSortTwoColumnGrid>

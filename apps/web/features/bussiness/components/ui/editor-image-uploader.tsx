@@ -13,7 +13,7 @@ export const EditorImageUploader = ({ className, src, ...props }: EditorImageUpl
       className={cn("relative aspect-square size-29 rounded-lg border border-border", className)}
       {...props}
     >
-      <Image fill alt="card-loading-image" className="bg-cover rounded-lg" src={src} />
+      {src && <Image fill alt="card-loading-image" className="bg-cover rounded-lg" src={src} />}
       <Button
         size="icon-sm"
         variant="ghost"
