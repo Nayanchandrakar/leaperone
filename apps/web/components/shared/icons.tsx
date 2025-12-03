@@ -2597,4 +2597,55 @@ export const Icons = {
       />
     </svg>
   ),
+
+  listView: (props: IconProps) => (
+    <svg width="48" height="34" viewBox="0 0 48 34" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <rect width="48" height="16" />
+      <rect y="18" width="48" height="16" />
+    </svg>
+  ),
+
+  grid1View: (props: IconProps) => (
+    <svg width="58" height="34" viewBox="0 0 58 34" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <rect width="28" height="16" />
+      <rect x="30" width="28" height="16" />
+      <rect y="18" width="28" height="16" />
+      <rect x="30" y="18" width="28" height="16" />
+    </svg>
+  ),
+
+  grid2View: (props: IconProps) => (
+    <svg width="48" height="36" viewBox="0 0 48 36" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <rect y="22" width="23" height="14" />
+      <rect x="25" y="22" width="23" height="14" />
+      <rect width="48" height="20" />
+    </svg>
+  ),
+
+  carouselView: (props: IconProps) => (
+    <svg width="84" height="36" viewBox="0 0 84 36" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <rect x="-1.5" y="36" width="36" height="27.5" transform="rotate(-90 -1.5 36)" />
+      <rect x="28.75" y="36" width="36" height="27.5" transform="rotate(-90 28.75 36)" />
+      <rect x="59" y="36" width="36" height="27.5" transform="rotate(-90 59 36)" />
+    </svg>
+  ),
+
+  slideshowView: (props: IconProps) => (
+    <svg
+      width="66"
+      height="39"
+      viewBox="0 0 66 39"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M0 17.5L2.95313 14.4689L2.95312 20.5311L0 17.5Z" />
+      <path d="M65.9375 17.5L62.9844 14.4689V20.5311L65.9375 17.5Z" />
+      <rect x="8.9375" width="48" height="32" />
+      <circle cx="24.4375" cy="37.5" r="1.5" />
+      <circle cx="30.4375" cy="37.5" r="1.5" />
+      <circle cx="36.4375" cy="37.5" r="1.5" />
+      <circle cx="42.4375" cy="37.5" r="1.5" />
+    </svg>
+  ),
 }

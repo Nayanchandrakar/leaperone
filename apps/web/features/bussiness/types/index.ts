@@ -2,6 +2,7 @@ import type {
   ContactItemSchema,
   ContactSchema,
   ContentEditorSchema,
+  ImagesTextLinksSchema,
   QrCodeEditorSchema,
   VideoSchema,
 } from "@app/zod/types"
@@ -20,7 +21,7 @@ export type ContactItemOption = {
 }
 
 export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
-
+export type ImageViewType = ImagesTextLinksSchema["imageView"]
 export type VideoType = VideoSchema["video"]["type"]
 
 export type QrColorOptions = {
@@ -50,5 +51,11 @@ export type QrCodeCornerStyle = QrCodeEditorSchema["cornerStyle"]
 export type QrCodeItem<T extends string = string> = {
   value: T
   label: string
+  icon: (props: IconProps) => React.JSX.Element
+}
+
+export type ImageView<T extends string = ImageViewType> = {
+  label: string
+  value: T
   icon: (props: IconProps) => React.JSX.Element
 }

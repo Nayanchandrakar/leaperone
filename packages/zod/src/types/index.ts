@@ -24,6 +24,7 @@ import type {
   contentEditorSchema,
   floatingButtonSchema,
   headingTextSchema,
+  imagesTextLinksSchema,
   linkSectionSchema,
   profileCardSchema,
   socialLinksSchema,
@@ -65,3 +66,4 @@ export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
 export type ContactAddressSchema = z.infer<typeof contactAddressSchema>
 export type ContactItemSchema = z.infer<typeof contactItemSchema>
 export type ImageLinkSchema = z.infer<typeof imageLinkSchema>
+export type ImagesTextLinksSchema = z.infer<typeof imagesTextLinksSchema>

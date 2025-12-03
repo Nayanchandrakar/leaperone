@@ -227,9 +227,9 @@ export const imagesTextLinksSchema = z.object({
     text: descriptionText,
     enabled: z.boolean(),
   }),
-  imageView: z.string(),
-  images: z.array(imageLinkSchema),
   background: z.boolean(),
+  images: z.array(imageLinkSchema),
+  imageView: z.enum(["list", "grid-1", "grid-2", "carousel", "slideshow"]),
 })
 
 export const contentEditorSchema = z.object({
