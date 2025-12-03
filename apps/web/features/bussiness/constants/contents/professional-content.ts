@@ -188,4 +188,33 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     ],
     background: true,
   },
+  {
+    enabled: true,
+    id: "fcefac54-7a0c-4f5b-b41b-e5b83933b64b",
+    type: "image-text-links",
+    heading: {
+      enabled: true,
+      text: "Our EV Collection",
+    },
+    description: {
+      enabled: true,
+      text: "Discover our latest collection of electric vehicles from leading EV brands.",
+    },
+    imageView: "list",
+    images: [
+      {
+        id: "f6219519-d245-4e1e-a775-49d1dc1a1eef",
+        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+      },
+      {
+        id: "ed570440-fcea-4b7c-8421-da23259bdd7e",
+        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+      },
+      {
+        id: "b47b661e-03c2-45fc-af53-1656fb34437d",
+        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+      },
+    ],
+    background: true,
+  },
 ]

@@ -16,6 +16,7 @@ import type {
   colorSchema,
   contactAddressSchema,
   gradientSchema,
+  imageLinkSchema,
 } from "../schema/common"
 import type {
   contactItemSchema,
@@ -63,3 +64,4 @@ export type LinkSectionSchema = z.infer<typeof linkSectionSchema>
 export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
 export type ContactAddressSchema = z.infer<typeof contactAddressSchema>
 export type ContactItemSchema = z.infer<typeof contactItemSchema>
+export type ImageLinkSchema = z.infer<typeof imageLinkSchema>

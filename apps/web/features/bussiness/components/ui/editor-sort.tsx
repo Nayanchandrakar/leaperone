@@ -238,9 +238,7 @@ export const EditorSubSortItem = ({
 
       {activeCardId === id && (
         <t.In>
-          <EditorSubSortListItem className="" isDragging={isDragging}>
-            {children}
-          </EditorSubSortListItem>
+          <EditorSubSortListItem isDragging={isDragging}>{children}</EditorSubSortListItem>
         </t.In>
       )}
     </React.Fragment>

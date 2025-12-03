@@ -10,6 +10,7 @@ import {
   etsyLinkSchema,
   facebookLinkSchema,
   googleBusinessLinkSchema,
+  imageLinkSchema,
   instagramLinkSchema,
   linkedinLinkSchema,
   locationLinkSchema,
@@ -214,6 +215,23 @@ export const contactDetailsSchema = z.object({
   background: z.boolean(),
 })
 
+export const imagesTextLinksSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("image-text-links"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  imageView: z.string(),
+  images: z.array(imageLinkSchema),
+  background: z.boolean(),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
@@ -225,6 +243,7 @@ export const contentEditorSchema = z.object({
       linkSectionSchema,
       floatingButtonSchema,
       contactDetailsSchema,
+      imagesTextLinksSchema,
     ]),
   ),
 })

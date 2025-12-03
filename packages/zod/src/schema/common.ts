@@ -318,3 +318,10 @@ export const contactAddressSchema = z.object({
     label: z.string().min(4).max(20).trim(),
   }),
 })
+
+export const imageLinkSchema = z.object({
+  id: z.uuidv4(),
+  imageSrc: z.url(),
+  link: z.url().optional(),
+  title: z.string().min(3).max(20).trim().optional(),
+})
