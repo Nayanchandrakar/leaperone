@@ -52,7 +52,6 @@ export const ContentFormRenderer = withForm({
       case "image-text-links": {
         return <ImageTextLinksForm form={form} sectionIdx={sectionIdx} id={id} />
       }
-
       default: {
         return null
       }

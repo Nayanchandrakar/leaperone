@@ -204,15 +204,15 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     images: [
       {
         id: "f6219519-d245-4e1e-a775-49d1dc1a1eef",
-        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+        imageSrc: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
       },
       {
         id: "ed570440-fcea-4b7c-8421-da23259bdd7e",
-        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+        imageSrc: "https://images.pexels.com/photos/7676343/pexels-photo-7676343.jpeg",
       },
       {
         id: "b47b661e-03c2-45fc-af53-1656fb34437d",
-        imageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+        imageSrc: "https://images.pexels.com/photos/29647834/pexels-photo-29647834.jpeg",
       },
     ],
     background: true,

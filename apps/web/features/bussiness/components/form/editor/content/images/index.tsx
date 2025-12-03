@@ -1,9 +1,10 @@
-import { FieldGroup } from "@app/ui/components/field"
+import { FieldGroup, FieldLabel } from "@app/ui/components/field"
 import type { ContentEditorSchema } from "@app/zod/types"
 import { ToggleTextField } from "@/components/form/toggle-text-field"
 import { ToggleTextareaField } from "@/components/form/toogle-textarea-field"
 import { withForm } from "@/components/ui/app-form"
-import { ImageListsForm } from "@/features/bussiness/components/form/editor/content/images/image-lists-form"
+import { AddImageLinksForm } from "@/features/bussiness/components/form/editor/content/images/add-image-links"
+import { ListImagesForm } from "@/features/bussiness/components/form/editor/content/images/list-images"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
 
@@ -47,7 +48,10 @@ export const ImageTextLinksForm = withForm({
                   enabled: `sections[${sectionIdx}].description.enabled`,
                 }}
               />
-              <ImageListsForm form={form} sectionIdx={sectionIdx} />
+
+              <FieldLabel htmlFor={`sections[${sectionIdx}].images`}>Images & Links</FieldLabel>
+              <ListImagesForm form={form} sectionIdx={sectionIdx} />
+              <AddImageLinksForm form={form} sectionIdx={sectionIdx} />
             </FieldGroup>
             <EditorBlockFooter>
               <form.AppField
