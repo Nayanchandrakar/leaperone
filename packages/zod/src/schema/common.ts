@@ -322,6 +322,6 @@ export const contactAddressSchema = z.object({
 export const imageLinkSchema = z.object({
   id: z.uuidv4(),
   imageSrc: z.url(),
-  link: z.url().optional(),
-  title: z.string().min(3).max(20).trim().optional(),
+  link: z.url().or(z.literal("")).optional(),
+  title: z.string().min(3).max(20).trim().or(z.literal("")).optional(),
 })
