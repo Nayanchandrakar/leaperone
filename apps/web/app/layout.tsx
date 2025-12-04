@@ -3,7 +3,6 @@ import "@app/ui/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Provider } from "@/components/providers"
-import { ReactScan } from "@/components/ui/react-scan"
 
 // import { ReactScan } from "@/components/ui/react-scan"
 
@@ -24,9 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
+      {/* <head>
         <ReactScan />
-      </head>
+      </head> */}
       <body className={`${inter.className} antialiased`}>
         <Provider>{children}</Provider>
       </body>
