@@ -107,11 +107,11 @@
       "@react-email/render": "1.4.0",
       "@aws-sdk/s3-request-presigner": "^3.888.0",
       "uuid": "^13.0.0",
-      "react": "19.2.0",
-      "react-dom": "19.2.0",
-      "next": "16.0.1",
-      "@types/react": "^19",
-      "@types/react-dom": "^19"
+      "next": "16.0.7",
+      "react": "19.2.1",
+      "react-dom": "19.2.1",
+      "@types/react": "19.2.7",
+      "@types/react-dom": "19.2.3"
     }
   },
   "devDependencies": {
