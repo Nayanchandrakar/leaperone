@@ -5,6 +5,7 @@ import {
   behanceUrl,
   cashappUrl,
   color,
+  descriptionText,
   email,
   etsyUrl,
   facebookUrl,
@@ -13,6 +14,7 @@ import {
   linkedinUrl,
   linkLabel,
   locationUrl,
+  name,
   paypalUrl,
   phoneNumber,
   pinterestUrl,
@@ -324,4 +326,18 @@ export const imageLinkSchema = z.object({
   imageSrc: z.url(),
   link: z.url().or(z.literal("")).optional(),
   title: z.string().min(3).max(20).trim().or(z.literal("")).optional(),
+})
+
+export const teamMemberSchema = z.object({
+  id: z.uuidv4(),
+  memberName: name,
+  memberDesignation: z.string().min(2).max(30).trim(),
+  memberProfile: z.object({
+    enabled: z.boolean(),
+    imageSrc: z.url().trim(),
+  }),
+  memberDescription: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
 })

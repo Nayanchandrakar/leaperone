@@ -17,6 +17,7 @@ import type {
   contactAddressSchema,
   gradientSchema,
   imageLinkSchema,
+  teamMemberSchema,
 } from "../schema/common"
 import type {
   contactItemSchema,
@@ -28,6 +29,7 @@ import type {
   linkSectionSchema,
   profileCardSchema,
   socialLinksSchema,
+  teamSchema,
   videoSchema,
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
@@ -67,3 +69,5 @@ export type ContactAddressSchema = z.infer<typeof contactAddressSchema>
 export type ContactItemSchema = z.infer<typeof contactItemSchema>
 export type ImageLinkSchema = z.infer<typeof imageLinkSchema>
 export type ImagesTextLinksSchema = z.infer<typeof imagesTextLinksSchema>
+export type TeamSchema = z.infer<typeof teamSchema>
+export type TeamMemberSchema = z.infer<typeof teamMemberSchema>

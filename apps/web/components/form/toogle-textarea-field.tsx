@@ -7,6 +7,7 @@ import { withFieldGroup } from "@/components/ui/app-form"
 interface ToogleTextareaFieldProps {
   label: string
   variant?: TextareaProps["variant"]
+  className?: string
 }
 interface DefaultValues {
   name: string
@@ -16,7 +17,7 @@ interface DefaultValues {
 export const ToggleTextareaField = withFieldGroup({
   props: {} as ToogleTextareaFieldProps,
   defaultValues: {} as DefaultValues,
-  render: ({ group, label, variant }) => {
+  render: ({ group, label, variant, className }) => {
     return (
       <group.AppField
         name="name"
@@ -38,6 +39,7 @@ export const ToggleTextareaField = withFieldGroup({
                 id={field.name}
                 name={field.name}
                 variant={variant}
+                className={className}
                 aria-invalid={isInvalid}
                 onBlur={field.handleBlur}
                 value={field.state.value ?? ""}

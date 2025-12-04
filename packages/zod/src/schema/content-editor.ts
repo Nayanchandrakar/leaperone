@@ -25,6 +25,7 @@ import {
   soundCloudLinkSchema,
   spotifyLinkSchema,
   stripeLinkSchema,
+  teamMemberSchema,
   telegramLinkSchema,
   telegramSchema,
   tiktokLinkSchema,
@@ -232,6 +233,22 @@ export const imagesTextLinksSchema = z.object({
   imageView: z.enum(["list", "grid-1", "grid-2", "carousel", "slideshow"]),
 })
 
+export const teamSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("team"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  background: z.boolean(),
+  members: z.array(teamMemberSchema),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
@@ -244,6 +261,7 @@ export const contentEditorSchema = z.object({
       floatingButtonSchema,
       contactDetailsSchema,
       imagesTextLinksSchema,
+      teamSchema,
     ]),
   ),
 })

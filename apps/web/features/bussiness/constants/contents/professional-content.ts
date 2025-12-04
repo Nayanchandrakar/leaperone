@@ -217,4 +217,47 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     ],
     background: true,
   },
+
+  {
+    enabled: true,
+    id: "5106d066-fcb3-4ec0-8fc9-0f369d2e6715",
+    type: "team",
+    heading: {
+      enabled: true,
+      text: "Meet the Team",
+    },
+    description: {
+      enabled: true,
+      text: "Add a description or click on eye icon to hide this.",
+    },
+    background: true,
+    members: [
+      {
+        id: "c11b6a36-a04a-41d2-aae5-40d8f723edb4",
+        memberName: "Ema Mark",
+        memberDesignation: "Designation",
+        memberProfile: {
+          imageSrc: "https://images.pexels.com/photos/4016579/pexels-photo-4016579.jpeg",
+          enabled: true,
+        },
+        memberDescription: {
+          text: "",
+          enabled: true,
+        },
+      },
+      {
+        id: "671e0c08-83fc-4d33-9e50-c158d4c8f1f7",
+        memberName: "Ben T.",
+        memberDesignation: "Designation",
+        memberProfile: {
+          imageSrc: "https://images.pexels.com/photos/29647834/pexels-photo-29647834.jpeg",
+          enabled: true,
+        },
+        memberDescription: {
+          text: "",
+          enabled: true,
+        },
+      },
+    ],
+  },
 ]
