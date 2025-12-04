@@ -8,17 +8,21 @@ export const useScrollToFirstError = () => {
       errorMap: Record<string, StandardSchemaV1Issue[]>,
     ) => {
       if (formRef?.current) {
-        const inputs = Array.from(formRef.current.querySelectorAll("input"))
-        const firstInvalidInput = inputs.find((input) => errorMap![input.name])
+        const fieldSelectors = "input, textarea, select"
+        const fields = Array.from(formRef.current.querySelectorAll(fieldSelectors)) as Array<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
 
-        if (firstInvalidInput) {
+        const firstInvalidField = fields.find((field) => errorMap[field.name])
+
+        if (firstInvalidField) {
           const onScrollEnd = () => {
-            firstInvalidInput.focus()
+            firstInvalidField.focus()
             window.removeEventListener("scrollend", onScrollEnd)
           }
 
           window.addEventListener("scrollend", onScrollEnd)
-          firstInvalidInput.scrollIntoView({ behavior: "smooth", block: "center" })
+          firstInvalidField.scrollIntoView({ behavior: "smooth", block: "center" })
         }
       }
     },
