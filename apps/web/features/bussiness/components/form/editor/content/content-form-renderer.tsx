@@ -8,6 +8,7 @@ import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/
 import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 import { TeamSectionForm } from "@/features/bussiness/components/form/editor/content/team"
+import { TestimonialsSectionForm } from "@/features/bussiness/components/form/editor/content/testimonials"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 import type { ContentEditorSortItem } from "@/features/bussiness/types"
 
@@ -56,6 +57,10 @@ export const ContentFormRenderer = withForm({
 
       case "team": {
         return <TeamSectionForm form={form} sectionIdx={sectionIdx} id={id} />
+      }
+
+      case "testimonials": {
+        return <TestimonialsSectionForm form={form} sectionIdx={sectionIdx} id={id} />
       }
       default: {
         return null

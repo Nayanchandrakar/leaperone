@@ -28,6 +28,7 @@ import {
   teamMemberSchema,
   telegramLinkSchema,
   telegramSchema,
+  testimonialMemberSchema,
   tiktokLinkSchema,
   twitchLinkSchema,
   twitterLinkSchema,
@@ -249,6 +250,22 @@ export const teamSchema = z.object({
   members: z.array(teamMemberSchema),
 })
 
+export const testimonialsSchema = z.object({
+  id: z.uuidv4(),
+  type: z.literal("testimonials"),
+  enabled: z.boolean(),
+  heading: z.object({
+    text: headingText,
+    enabled: z.boolean(),
+  }),
+  description: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+  background: z.boolean(),
+  testimonials: z.array(testimonialMemberSchema),
+})
+
 export const contentEditorSchema = z.object({
   templateId: z.string(),
   sections: z.array(
@@ -261,6 +278,7 @@ export const contentEditorSchema = z.object({
       floatingButtonSchema,
       contactDetailsSchema,
       imagesTextLinksSchema,
+      testimonialsSchema,
       teamSchema,
     ]),
   ),

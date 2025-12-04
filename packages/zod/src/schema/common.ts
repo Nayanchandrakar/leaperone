@@ -341,3 +341,17 @@ export const teamMemberSchema = z.object({
     enabled: z.boolean(),
   }),
 })
+
+export const testimonialMemberSchema = z.object({
+  id: z.uuidv4(),
+  authorName: name,
+  authorDesignation: z.string().min(2).max(30).trim(),
+  authorProfile: z.object({
+    enabled: z.boolean(),
+    imageSrc: z.url().trim(),
+  }),
+  testimonialText: z.object({
+    text: descriptionText,
+    enabled: z.boolean(),
+  }),
+})

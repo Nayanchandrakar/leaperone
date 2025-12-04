@@ -9,29 +9,33 @@ import {
   EditorSubSortItem,
 } from "@/features/bussiness/components/ui/editor-sort"
 
-interface TeamMembersListProps {
+interface TestimonialsListProps {
   sectionIdx: number
 }
 
-export const TeamMembersList = withForm({
-  props: {} as TeamMembersListProps,
+export const TestimonialsList = withForm({
+  props: {} as TestimonialsListProps,
   defaultValues: {} as ContentEditorSchema,
   render: ({ form, sectionIdx }) => (
     <form.AppField
       mode="array"
-      name={`sections[${sectionIdx}].members`}
-      children={(membersField) => {
-        const hasMembers = membersField?.state?.value?.length > 0
-        if (!hasMembers) return null
+      name={`sections[${sectionIdx}].testimonials`}
+      children={(testimonials) => {
+        const hasTestimonials = testimonials?.state?.value?.length > 0
+        if (!hasTestimonials) return null
+
         return (
-          <EditorSortProvider data={membersField.state.value} onDataChange={membersField.moveValue}>
+          <EditorSortProvider
+            data={testimonials?.state?.value}
+            onDataChange={testimonials.moveValue}
+          >
             <EditorSortGroup>
-              {(member, memberIdx) => (
+              {(testimonial, testimonialIdx) => (
                 <EditorSubSortItem
-                  id={member.id}
-                  key={memberIdx}
+                  id={testimonial.id}
+                  key={testimonialIdx}
                   onDelete={() => {
-                    membersField.removeValue(memberIdx, {
+                    testimonials.removeValue(testimonialIdx, {
                       dontValidate: true,
                     })
                   }}
@@ -39,41 +43,35 @@ export const TeamMembersList = withForm({
                   <FieldSet>
                     <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
                       <form.AppField
-                        name={`sections[${sectionIdx}].members[${memberIdx}].memberName`}
-                        children={(memberNameField) => <memberNameField.TextField label="Name" />}
+                        name={`sections[${sectionIdx}].testimonials[${testimonialIdx}].authorName`}
+                        children={(authorNameField) => <authorNameField.TextField label="Name" />}
                       />
                       <form.AppField
-                        name={`sections[${sectionIdx}].members[${memberIdx}].memberDesignation`}
-                        children={(designationField) => (
-                          <designationField.TextField label="Designation" />
-                        )}
+                        name={`sections[${sectionIdx}].testimonials[${testimonialIdx}].authorDesignation`}
+                        children={(field) => <field.TextField label="Designation/Company" />}
                       />
                     </div>
 
                     <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
                       <Field className="w-fit">
                         <form.AppField
-                          name={`sections[${sectionIdx}].members[${memberIdx}].memberProfile.enabled`}
-                          children={(profileEnabledField) => (
-                            <profileEnabledField.SwitchField label="Profile" />
-                          )}
+                          name={`sections[${sectionIdx}].testimonials[${testimonialIdx}].authorProfile.enabled`}
+                          children={(field) => <field.SwitchField label="Profile" />}
                         />
                         <form.AppField
-                          name={`sections[${sectionIdx}].members[${memberIdx}].memberProfile.imageSrc`}
-                          children={(profileImageField) => (
-                            <EditorImageUploader src={profileImageField?.state?.value} />
-                          )}
+                          name={`sections[${sectionIdx}].testimonials[${testimonialIdx}].authorProfile.imageSrc`}
+                          children={(field) => <EditorImageUploader src={field?.state?.value} />}
                         />
                       </Field>
 
                       <ToggleTextareaField
                         form={form}
                         variant="default"
-                        label="Description"
+                        label="Testimonial"
                         className="h-full"
                         fields={{
-                          name: `sections[${sectionIdx}].members[${memberIdx}].memberDescription.text`,
-                          enabled: `sections[${sectionIdx}].members[${memberIdx}].memberDescription.enabled`,
+                          name: `sections[${sectionIdx}].testimonials[${testimonialIdx}].testimonialText.text`,
+                          enabled: `sections[${sectionIdx}].testimonials[${testimonialIdx}].testimonialText.enabled`,
                         }}
                       />
                     </div>

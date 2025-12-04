@@ -217,7 +217,6 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
     ],
     background: true,
   },
-
   {
     enabled: true,
     id: "5106d066-fcb3-4ec0-8fc9-0f369d2e6715",
@@ -255,6 +254,49 @@ export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
         },
         memberDescription: {
           text: "",
+          enabled: true,
+        },
+      },
+    ],
+  },
+
+  {
+    enabled: true,
+    id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    type: "testimonials",
+    heading: {
+      enabled: true,
+      text: "Testimonials",
+    },
+    description: {
+      enabled: true,
+      text: "Have a look at what our valuable customers are saying about us.",
+    },
+    background: true,
+    testimonials: [
+      {
+        id: "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+        authorName: "Jim Cook",
+        authorDesignation: "Designation, Company",
+        authorProfile: {
+          imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
+          enabled: true,
+        },
+        testimonialText: {
+          text: "Amazing Experience. Kudos to the great customer support team.",
+          enabled: true,
+        },
+      },
+      {
+        id: "c3d4e5f6-a7b8-9012-cdef-123456789012",
+        authorName: "Mary Lee",
+        authorDesignation: "Designation, Company",
+        authorProfile: {
+          imageSrc: "https://images.pexels.com/photos/15577996/pexels-photo-15577996.png",
+          enabled: true,
+        },
+        testimonialText: {
+          text: "Nice work! Highly recommended.",
           enabled: true,
         },
       },

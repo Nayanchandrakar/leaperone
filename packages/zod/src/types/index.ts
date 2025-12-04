@@ -18,6 +18,7 @@ import type {
   gradientSchema,
   imageLinkSchema,
   teamMemberSchema,
+  testimonialMemberSchema,
 } from "../schema/common"
 import type {
   contactItemSchema,
@@ -30,6 +31,7 @@ import type {
   profileCardSchema,
   socialLinksSchema,
   teamSchema,
+  testimonialsSchema,
   videoSchema,
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
@@ -71,3 +73,5 @@ export type ImageLinkSchema = z.infer<typeof imageLinkSchema>
 export type ImagesTextLinksSchema = z.infer<typeof imagesTextLinksSchema>
 export type TeamSchema = z.infer<typeof teamSchema>
 export type TeamMemberSchema = z.infer<typeof teamMemberSchema>
+export type TestimonialsSchema = z.infer<typeof testimonialsSchema>
+export type TestimonialMemberSchema = z.infer<typeof testimonialMemberSchema>
