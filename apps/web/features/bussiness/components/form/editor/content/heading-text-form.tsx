@@ -1,64 +1,129 @@
-import { FieldGroup, FieldSet } from "@app/ui/components/field"
-import type { ContentEditorSchema } from "@app/zod/types"
-import { ToggleTextField } from "@/components/form/toggle-text-field"
-import { ToggleTextareaField } from "@/components/form/toogle-textarea-field"
-import { withForm } from "@/components/ui/app-form"
+import { Field, FieldGroup, FieldLabel, FieldSet } from "@app/ui/components/field"
+import { Input } from "@app/ui/components/input"
+import { Switch } from "@app/ui/components/switch"
+import { Textarea } from "@app/ui/components/textarea"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { useCallback } from "react"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 
 interface FormProps {
   id: string
   sectionIdx: number
 }
 
-export const HeadingTextForm = withForm({
-  props: {} as FormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, id, sectionIdx }) => {
-    return (
-      <form.AppField
-        name={`sections[${sectionIdx}].enabled`}
-        children={(sectionField) => (
-          <EditorSortItem
-            id={id}
-            name="Heading + Text"
-            contentClassName="p-0"
-            checked={sectionField.state.value}
-            onCheckedChange={sectionField.handleChange}
-          >
-            <FieldGroup className="p-5">
-              <FieldSet>
-                <ToggleTextField
-                  form={form}
-                  variant="gray"
-                  label="Heading"
-                  fields={{
-                    name: `sections[${sectionIdx}].heading.text`,
-                    enabled: `sections[${sectionIdx}].heading.enabled`,
-                  }}
-                />
+export function HeadingTextForm({ id, sectionIdx }: FormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
 
-                <ToggleTextareaField
-                  form={form}
-                  variant="gray"
-                  label="Description"
-                  fields={{
-                    name: `sections[${sectionIdx}].description.text`,
-                    enabled: `sections[${sectionIdx}].description.enabled`,
-                  }}
-                />
-              </FieldSet>
-            </FieldGroup>
+  const handleEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
 
-            <EditorBlockFooter>
-              <form.AppField
-                name={`sections[${sectionIdx}].background`}
-                children={(field) => <field.SwitchField label="Section Background" />}
-              />
-            </EditorBlockFooter>
-          </EditorSortItem>
-        )}
-      />
-    )
-  },
-})
+  const handleHeadingTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSectionField(sectionIdx, ["heading", "text"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleHeadingEnabledToggle = useCallback(() => {
+    if (section.type === "heading-text") {
+      updateSectionField(sectionIdx, ["heading", "enabled"], !section.heading.enabled)
+    }
+  }, [section, sectionIdx, updateSectionField])
+
+  const handleDescriptionTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      updateSectionField(sectionIdx, ["description", "text"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleDescriptionEnabledToggle = useCallback(() => {
+    if (section.type === "heading-text") {
+      updateSectionField(sectionIdx, ["description", "enabled"], !section.description.enabled)
+    }
+  }, [section, sectionIdx, updateSectionField])
+
+  const handleBackgroundChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["background"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  if (section.type !== "heading-text") return null
+
+  return (
+    <EditorSortItem
+      id={id}
+      name="Heading + Text"
+      contentClassName="p-0"
+      checked={section.enabled}
+      onCheckedChange={handleEnabledChange}
+    >
+      <FieldGroup className="p-5">
+        <FieldSet>
+          <Field>
+            <FieldLabel className="flex items-center justify-between">
+              <span>Heading</span>
+              <button
+                type="button"
+                onClick={handleHeadingEnabledToggle}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {section.heading.enabled ? (
+                  <EyeIcon className="size-4" />
+                ) : (
+                  <EyeOffIcon className="size-4" />
+                )}
+              </button>
+            </FieldLabel>
+            <Input variant="gray" value={section.heading.text} onChange={handleHeadingTextChange} />
+          </Field>
+
+          <Field>
+            <FieldLabel className="flex items-center justify-between">
+              <span>Description</span>
+              <button
+                type="button"
+                onClick={handleDescriptionEnabledToggle}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {section.description.enabled ? (
+                  <EyeIcon className="size-4" />
+                ) : (
+                  <EyeOffIcon className="size-4" />
+                )}
+              </button>
+            </FieldLabel>
+            <Textarea
+              variant="gray"
+              value={section.description.text}
+              onChange={handleDescriptionTextChange}
+            />
+          </Field>
+        </FieldSet>
+      </FieldGroup>
+
+      <EditorBlockFooter>
+        <FieldLabel htmlFor={`section-${sectionIdx}-background`} className="flex-row gap-2">
+          <span>Section Background</span>
+          <Switch
+            id={`section-${sectionIdx}-background`}
+            checked={section.background}
+            onCheckedChange={handleBackgroundChange}
+          />
+        </FieldLabel>
+      </EditorBlockFooter>
+    </EditorSortItem>
+  )
+}

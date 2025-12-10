@@ -1,12 +1,16 @@
-import { FieldGroup } from "@app/ui/components/field"
+import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
+import { Input } from "@app/ui/components/input"
+import { Switch } from "@app/ui/components/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@app/ui/components/tabs"
-import type { ContentEditorSchema, VideoSchema } from "@app/zod/types"
+import { Textarea } from "@app/ui/components/textarea"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
 import { useCallback } from "react"
-import { ToggleTextField } from "@/components/form/toggle-text-field"
-import { ToggleTextareaField } from "@/components/form/toogle-textarea-field"
-import { withForm } from "@/components/ui/app-form"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 import type { VideoType } from "@/features/bussiness/types"
 
 interface VideoFormProps {
@@ -14,95 +18,159 @@ interface VideoFormProps {
   id: string
 }
 
-export const VideoForm = withForm({
-  props: {} as VideoFormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, id, sectionIdx }) => {
-    const handleVideoTypeChange = useCallback(
-      (videoType: string) => {
-        form.setFieldValue(`sections[${sectionIdx}].video.type`, videoType as VideoType)
-      },
-      [form, sectionIdx],
-    )
+export function VideoForm({ id, sectionIdx }: VideoFormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
 
-    return (
-      <form.AppField
-        name={`sections[${sectionIdx}].enabled`}
-        children={(sectionField) => (
-          <EditorSortItem
-            name="Video"
-            id={id}
-            contentClassName="p-0"
-            checked={sectionField.state.value}
-            onCheckedChange={sectionField.handleChange}
-          >
-            <FieldGroup className="p-5">
-              <ToggleTextField
-                form={form}
-                variant="gray"
-                label="Heading"
-                fields={{
-                  name: `sections[${sectionIdx}].heading.text`,
-                  enabled: `sections[${sectionIdx}].heading.enabled`,
-                }}
-              />
+  const handleEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
 
-              <ToggleTextareaField
-                form={form}
-                variant="gray"
-                label="Description"
-                fields={{
-                  name: `sections[${sectionIdx}].description.text`,
-                  enabled: `sections[${sectionIdx}].description.enabled`,
-                }}
-              />
+  const handleHeadingTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSectionField(sectionIdx, ["heading", "text"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
 
-              <form.Subscribe
-                selector={(state) => {
-                  const formState = state.values?.sections?.[sectionIdx] as VideoSchema
-                  return formState?.video?.type
-                }}
-                children={(type) => (
-                  <Tabs onValueChange={handleVideoTypeChange} value={type} defaultValue={type}>
-                    <TabsList>
-                      <TabsTrigger value="youtube">Youtube</TabsTrigger>
-                      <TabsTrigger value="vimeo">Vimeo</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="youtube">
-                      <form.AppField
-                        name={`sections[${sectionIdx}].video.youtubeUrl`}
-                        children={(field) => (
-                          <field.TextField
-                            variant="gray"
-                            placeholder="Enter YouTube video link here"
-                          />
-                        )}
-                      />
-                    </TabsContent>
-                    <TabsContent value="vimeo">
-                      <form.AppField
-                        name={`sections[${sectionIdx}].video.vimeoUrl`}
-                        children={(field) => (
-                          <field.TextField
-                            variant="gray"
-                            placeholder="Enter Vimeo video link here"
-                          />
-                        )}
-                      />
-                    </TabsContent>
-                  </Tabs>
-                )}
-              />
-            </FieldGroup>
-            <EditorBlockFooter>
-              <form.AppField
-                name={`sections[${sectionIdx}].background`}
-                children={(field) => <field.SwitchField label="Section Background" />}
-              />
-            </EditorBlockFooter>
-          </EditorSortItem>
-        )}
-      />
-    )
-  },
-})
+  const handleHeadingEnabledToggle = useCallback(() => {
+    if (section.type === "video") {
+      updateSectionField(sectionIdx, ["heading", "enabled"], !section.heading.enabled)
+    }
+  }, [section, sectionIdx, updateSectionField])
+
+  const handleDescriptionTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      updateSectionField(sectionIdx, ["description", "text"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleDescriptionEnabledToggle = useCallback(() => {
+    if (section.type === "video") {
+      updateSectionField(sectionIdx, ["description", "enabled"], !section.description.enabled)
+    }
+  }, [section, sectionIdx, updateSectionField])
+
+  const handleVideoTypeChange = useCallback(
+    (videoType: string) => {
+      updateSectionField(sectionIdx, ["video", "type"], videoType as VideoType)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleYoutubeUrlChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSectionField(sectionIdx, ["video", "youtubeUrl"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleVimeoUrlChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSectionField(sectionIdx, ["video", "vimeoUrl"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleBackgroundChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["background"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  if (section.type !== "video") return null
+
+  return (
+    <EditorSortItem
+      name="Video"
+      id={id}
+      contentClassName="p-0"
+      checked={section.enabled}
+      onCheckedChange={handleEnabledChange}
+    >
+      <FieldGroup className="p-5">
+        <Field>
+          <FieldLabel className="flex items-center justify-between">
+            <span>Heading</span>
+            <button
+              type="button"
+              onClick={handleHeadingEnabledToggle}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {section.heading.enabled ? (
+                <EyeIcon className="size-4" />
+              ) : (
+                <EyeOffIcon className="size-4" />
+              )}
+            </button>
+          </FieldLabel>
+          <Input variant="gray" value={section.heading.text} onChange={handleHeadingTextChange} />
+        </Field>
+
+        <Field>
+          <FieldLabel className="flex items-center justify-between">
+            <span>Description</span>
+            <button
+              type="button"
+              onClick={handleDescriptionEnabledToggle}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {section.description.enabled ? (
+                <EyeIcon className="size-4" />
+              ) : (
+                <EyeOffIcon className="size-4" />
+              )}
+            </button>
+          </FieldLabel>
+          <Textarea
+            variant="gray"
+            value={section.description.text}
+            onChange={handleDescriptionTextChange}
+          />
+        </Field>
+
+        <Tabs
+          onValueChange={handleVideoTypeChange}
+          value={section.video.type}
+          defaultValue={section.video.type}
+        >
+          <TabsList>
+            <TabsTrigger value="youtube">Youtube</TabsTrigger>
+            <TabsTrigger value="vimeo">Vimeo</TabsTrigger>
+          </TabsList>
+          <TabsContent value="youtube">
+            <Input
+              variant="gray"
+              placeholder="Enter YouTube video link here"
+              value={section.video.youtubeUrl || ""}
+              onChange={handleYoutubeUrlChange}
+            />
+          </TabsContent>
+          <TabsContent value="vimeo">
+            <Input
+              variant="gray"
+              placeholder="Enter Vimeo video link here"
+              value={section.video.vimeoUrl || ""}
+              onChange={handleVimeoUrlChange}
+            />
+          </TabsContent>
+        </Tabs>
+      </FieldGroup>
+      <EditorBlockFooter>
+        <FieldLabel htmlFor={`section-${sectionIdx}-background`} className="flex-row gap-2">
+          <span>Section Background</span>
+          <Switch
+            id={`section-${sectionIdx}-background`}
+            checked={section.background}
+            onCheckedChange={handleBackgroundChange}
+          />
+        </FieldLabel>
+      </EditorBlockFooter>
+    </EditorSortItem>
+  )
+}

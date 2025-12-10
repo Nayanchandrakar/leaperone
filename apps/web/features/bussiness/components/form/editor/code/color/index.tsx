@@ -2,7 +2,6 @@ import {
   Field,
   FieldContent,
   FieldDescription,
-  FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
@@ -11,9 +10,7 @@ import {
   FieldTitle,
 } from "@app/ui/components/field"
 import { RadioGroup, RadioGroupItem } from "@app/ui/components/radio-group"
-import type { QrCodeEditorSchema } from "@app/zod/types"
 import { useCallback } from "react"
-import { withForm } from "@/components/ui/app-form"
 import { QrGradientColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-gradient-color-form"
 import { QrSingleColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-single-color-form"
 import {
@@ -24,76 +21,58 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_COLOR_OPTIONS } from "@/features/bussiness/constants/home/qr-code-colors"
+import {
+  useQrCodeEditorStore,
+  useQrCodeFill,
+} from "@/features/bussiness/stores/use-qr-code-editor-store"
 import type { QrCodeColorType } from "@/features/bussiness/types"
 
-export const QrColorForm = withForm({
-  props: {},
-  defaultValues: {} as QrCodeEditorSchema,
-  render: function Render({ form }) {
-    const handleChange = useCallback(
-      (value: QrCodeColorType) => {
-        if (value === "single") {
-          form.setFieldValue("fill.color", "#000000")
-        }
-      },
-      [form],
-    )
+export function QrColorForm() {
+  const fill = useQrCodeFill()
+  const setFillType = useQrCodeEditorStore((state) => state.setFillType)
 
-    return (
-      <EditorBlockItem value="qr-color-form">
-        <EditorBlockHeader>
-          <EditorBlockTitle>QR Color</EditorBlockTitle>
-          <EditorBlockTrigger />
-        </EditorBlockHeader>
-        <EditorBlockContent>
-          <FieldGroup>
-            <form.Field
-              name="fill.type"
-              listeners={{ onChange: ({ value }) => handleChange(value) }}
-              children={(field) => {
-                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                return (
-                  <FieldSet>
-                    <FieldLegend>Color Style</FieldLegend>
-                    <FieldDescription>Choose a color style for your QR code.</FieldDescription>
-                    <RadioGroup
-                      name={field.name}
-                      className="flex gap-2 @xl/editor-block-content:flex-row flex-col"
-                      value={field.state.value}
-                      onValueChange={(value) => field.handleChange(value as any)}
-                    >
-                      {QR_COLOR_OPTIONS.map(({ description, title, value }) => (
-                        <FieldLabel key={value} htmlFor={value} className="cursor-pointer">
-                          <Field orientation="horizontal" data-invalid={isInvalid}>
-                            <FieldContent>
-                              <FieldTitle>{title}</FieldTitle>
-                              <FieldDescription>{description}</FieldDescription>
-                            </FieldContent>
-                            <RadioGroupItem id={value} value={value} aria-invalid={isInvalid} />
-                          </Field>
-                        </FieldLabel>
-                      ))}
-                    </RadioGroup>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                  </FieldSet>
-                )
-              }}
-            />
-            <FieldSeparator />
-            <form.Subscribe
-              selector={(state) => state.values.fill.type}
-              children={(type) => {
-                switch (type) {
-                  case "single":
-                    return <QrSingleColorForm form={form} />
-                  case "gradient":
-                    return <QrGradientColorForm form={form} />
-                }
-              }}
-            />
-          </FieldGroup>
-        </EditorBlockContent>
-      </EditorBlockItem>
-    )
-  },
-})
+  const handleChange = useCallback(
+    (value: string) => {
+      setFillType(value as QrCodeColorType)
+    },
+    [setFillType],
+  )
+
+  return (
+    <EditorBlockItem value="qr-color-form">
+      <EditorBlockHeader>
+        <EditorBlockTitle>QR Color</EditorBlockTitle>
+        <EditorBlockTrigger />
+      </EditorBlockHeader>
+      <EditorBlockContent>
+        <FieldGroup>
+          <FieldSet>
+            <FieldLegend>Color Style</FieldLegend>
+            <FieldDescription>Choose a color style for your QR code.</FieldDescription>
+            <RadioGroup
+              name="fill-type"
+              className="flex gap-2 @xl/editor-block-content:flex-row flex-col"
+              value={fill.type}
+              onValueChange={handleChange}
+            >
+              {QR_COLOR_OPTIONS.map(({ description, title, value }) => (
+                <FieldLabel key={value} htmlFor={value} className="cursor-pointer">
+                  <Field orientation="horizontal">
+                    <FieldContent>
+                      <FieldTitle>{title}</FieldTitle>
+                      <FieldDescription>{description}</FieldDescription>
+                    </FieldContent>
+                    <RadioGroupItem id={value} value={value} />
+                  </Field>
+                </FieldLabel>
+              ))}
+            </RadioGroup>
+          </FieldSet>
+          <FieldSeparator />
+          {fill.type === "single" && <QrSingleColorForm />}
+          {fill.type === "gradient" && <QrGradientColorForm />}
+        </FieldGroup>
+      </EditorBlockContent>
+    </EditorBlockItem>
+  )
+}

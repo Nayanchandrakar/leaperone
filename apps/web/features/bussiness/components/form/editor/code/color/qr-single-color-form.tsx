@@ -1,48 +1,41 @@
-import { Field, FieldError, FieldLabel } from "@app/ui/components/field"
-import type { QrCodeEditorSchema } from "@app/zod/types"
-import { withForm } from "@/components/ui/app-form"
+import { Field, FieldLabel } from "@app/ui/components/field"
+import { useCallback } from "react"
 import { QrColorsList } from "@/features/bussiness/components/form/editor/code/color/qr-colors-list"
 import { ColorPicker } from "@/features/bussiness/components/ui/color-picker"
 import { QR_COLORS } from "@/features/bussiness/constants/home/qr-code-colors"
+import {
+  useQrCodeEditorStore,
+  useQrCodeFill,
+} from "@/features/bussiness/stores/use-qr-code-editor-store"
 
-export const QrSingleColorForm = withForm({
-  props: {},
-  defaultValues: {} as QrCodeEditorSchema,
-  render: function Render({ form }) {
-    return (
-      <>
-        <form.AppField
-          name="fill.color"
-          children={(colorField) => {
-            const isInvalid = colorField.state.meta.isTouched && !colorField.state.meta.isValid
-            return (
-              <Field data-invalid={isInvalid} className="w-fit">
-                <FieldLabel htmlFor={colorField.name}>Choose QR Code Color</FieldLabel>
-                <ColorPicker
-                  id={colorField.name}
-                  name={colorField.name}
-                  aria-invalid={isInvalid}
-                  onBlur={colorField.handleBlur}
-                  color={colorField.state.value}
-                  onColorChange={colorField.handleChange}
-                />
-                {isInvalid && <FieldError errors={colorField.state.meta.errors} />}
-              </Field>
-            )
-          }}
-        />
+export function QrSingleColorForm() {
+  const fill = useQrCodeFill()
+  const setFillColor = useQrCodeEditorStore((state) => state.setFillColor)
 
-        <form.AppField
-          name="fill.color"
-          children={(field) => (
-            <QrColorsList
-              colors={QR_COLORS}
-              selectedColor={field.state.value}
-              onColorChange={field.handleChange}
-            />
-          )}
+  const handleColorChange = useCallback(
+    (color: string) => {
+      setFillColor(color)
+    },
+    [setFillColor],
+  )
+
+  return (
+    <>
+      <Field className="w-fit">
+        <FieldLabel htmlFor="fill-color">Choose QR Code Color</FieldLabel>
+        <ColorPicker
+          id="fill-color"
+          name="fill-color"
+          color={fill.color || "#000000"}
+          onColorChange={handleColorChange}
         />
-      </>
-    )
-  },
-})
+      </Field>
+
+      <QrColorsList
+        colors={QR_COLORS}
+        selectedColor={fill.color || "#000000"}
+        onColorChange={handleColorChange}
+      />
+    </>
+  )
+}

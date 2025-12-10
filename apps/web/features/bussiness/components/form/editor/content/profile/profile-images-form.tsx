@@ -1,40 +1,61 @@
-import { Field } from "@app/ui/components/field"
-import type { ContentEditorSchema } from "@app/zod/types"
-import { withForm } from "@/components/ui/app-form"
+import { Field, FieldLabel } from "@app/ui/components/field"
+import { Switch } from "@app/ui/components/switch"
+import { useCallback } from "react"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 
 interface ProfileImagesFormProps {
   sectionIdx: number
 }
 
-export const ProfileImagesForm = withForm({
-  props: {} as ProfileImagesFormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionIdx }) => {
-    return (
-      <div className="flex gap-5 @max-[260px]/editor-block-content:flex-col">
-        <Field className="w-fit">
-          <form.AppField
-            name={`sections[${sectionIdx}].details.profile.enabled`}
-            children={(field) => <field.SwitchField label="Profile Pic" />}
-          />
-          <form.AppField
-            name={`sections[${sectionIdx}].details.profile.imageSrc`}
-            children={(field) => <EditorImageUploader src={field?.state?.value} />}
-          />
-        </Field>
+export function ProfileImagesForm({ sectionIdx }: ProfileImagesFormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
 
-        <Field className="w-fit">
-          <form.AppField
-            name={`sections[${sectionIdx}].details.branding.enabled`}
-            children={(field) => <field.SwitchField label="Brand Logo" />}
+  const handleProfileEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["details", "profile", "enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleBrandingEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["details", "branding", "enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  if (section.type !== "profile") return null
+
+  return (
+    <div className="flex gap-5 @max-[260px]/editor-block-content:flex-col">
+      <Field className="w-fit">
+        <FieldLabel htmlFor={`section-${sectionIdx}-profile-pic`} className="flex-row gap-2">
+          <span>Profile Pic</span>
+          <Switch
+            id={`section-${sectionIdx}-profile-pic`}
+            checked={section.details.profile.enabled}
+            onCheckedChange={handleProfileEnabledChange}
           />
-          <form.AppField
-            name={`sections[${sectionIdx}].details.branding.imageSrc`}
-            children={(field) => <EditorImageUploader src={field?.state?.value} />}
+        </FieldLabel>
+        <EditorImageUploader src={section.details.profile.imageSrc} />
+      </Field>
+
+      <Field className="w-fit">
+        <FieldLabel htmlFor={`section-${sectionIdx}-brand-logo`} className="flex-row gap-2">
+          <span>Brand Logo</span>
+          <Switch
+            id={`section-${sectionIdx}-brand-logo`}
+            checked={section.details.branding.enabled}
+            onCheckedChange={handleBrandingEnabledChange}
           />
-        </Field>
-      </div>
-    )
-  },
-})
+        </FieldLabel>
+        <EditorImageUploader src={section.details.branding.imageSrc} />
+      </Field>
+    </div>
+  )
+}

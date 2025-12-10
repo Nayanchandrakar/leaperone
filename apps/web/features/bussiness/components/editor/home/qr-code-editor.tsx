@@ -1,24 +1,29 @@
+import { useCallback, useRef } from "react"
 import { QrColorForm } from "@/features/bussiness/components/form/editor/code/color"
 import { QrFrameForm } from "@/features/bussiness/components/form/editor/code/frame"
 import { QrLogoForm } from "@/features/bussiness/components/form/editor/code/logo"
 import { QrPatternForm } from "@/features/bussiness/components/form/editor/code/pattern"
 import { QrShapeForm } from "@/features/bussiness/components/form/editor/code/shape"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
-import { useQrCodeEditor } from "@/features/bussiness/hooks/home/use-qr-code-editor"
 
 export default function QrCodeEditor() {
-  const { form, formRef, onSubmitCallback } = useQrCodeEditor()
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const onSubmitCallback = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log("finished")
+  }, [])
+
   return (
     <form id="qr-code-editor" onSubmit={onSubmitCallback} ref={formRef}>
-      <form.AppForm>
-        <EditorBlock defaultValue="qr-shape-form">
-          <QrShapeForm form={form} />
-          <QrPatternForm form={form} />
-          <QrFrameForm form={form} />
-          <QrLogoForm form={form} />
-          <QrColorForm form={form} />
-        </EditorBlock>
-      </form.AppForm>
+      <EditorBlock defaultValue="qr-shape-form">
+        <QrShapeForm />
+        <QrPatternForm />
+        <QrFrameForm />
+        <QrLogoForm />
+        <QrColorForm />
+      </EditorBlock>
     </form>
   )
 }

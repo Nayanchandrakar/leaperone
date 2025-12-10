@@ -1,64 +1,110 @@
-import { FieldGroup } from "@app/ui/components/field"
-import type { ContentEditorSchema, FloatingButtonSchema } from "@app/zod/types"
-import { withForm } from "@/components/ui/app-form"
+import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
+import { Input } from "@app/ui/components/input"
+import { Switch } from "@app/ui/components/switch"
+import { useCallback } from "react"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 
 interface FloatingCardButtonFormProps {
   sectionIdx: number
   id: string
 }
 
-export const FloatingCardButtonForm = withForm({
-  props: {} as FloatingCardButtonFormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, id, sectionIdx }) => (
-    <form.AppField
-      name={`sections[${sectionIdx}].enabled`}
-      children={(sectionField) => (
-        <EditorSortItem
-          id={id}
-          contentClassName="p-0"
-          name="Floating Card-Buttons"
-          checked={sectionField.state.value}
-          onCheckedChange={sectionField.handleChange}
-        >
-          <FieldGroup className="p-5">
-            <form.AppField
-              name={`sections[${sectionIdx}].label.enabled`}
-              children={(field) => <field.SwitchField label="Add to Contact button" />}
-            />
+export function FloatingCardButtonForm({ id, sectionIdx }: FloatingCardButtonFormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
 
-            <form.Subscribe
-              selector={(state) => {
-                const formState = state.values?.sections?.[sectionIdx] as FloatingButtonSchema
-                return formState?.label?.enabled
-              }}
-              children={(enabled) =>
-                enabled && (
-                  <div className="p-5 bg-muted rounded-xl border border-border">
-                    <form.AppField
-                      name={`sections[${sectionIdx}].label.text`}
-                      children={(field) => <field.TextField label="Button Text" />}
-                    />
-                  </div>
-                )
-              }
-            />
-          </FieldGroup>
+  const handleEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
 
-          <EditorBlockFooter className="flex flex-col @sm/editor-block-content:flex-row gap-3">
-            <form.AppField
-              name={`sections[${sectionIdx}].showQrButton`}
-              children={(field) => <field.SwitchField label="Card QR Button" />}
-            />
-            <form.AppField
-              name={`sections[${sectionIdx}].showShareButton`}
-              children={(field) => <field.SwitchField label="Card Sharing Button" />}
-            />
-          </EditorBlockFooter>
-        </EditorSortItem>
-      )}
-    />
-  ),
-})
+  const handleLabelEnabledChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["label", "enabled"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleLabelTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateSectionField(sectionIdx, ["label", "text"], e.target.value)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleQrButtonChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["showQrButton"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  const handleShareButtonChange = useCallback(
+    (checked: boolean) => {
+      updateSectionField(sectionIdx, ["showShareButton"], checked)
+    },
+    [sectionIdx, updateSectionField],
+  )
+
+  if (section.type !== "floating-button") return null
+
+  return (
+    <EditorSortItem
+      id={id}
+      contentClassName="p-0"
+      name="Floating Card-Buttons"
+      checked={section.enabled}
+      onCheckedChange={handleEnabledChange}
+    >
+      <FieldGroup className="p-5">
+        <FieldLabel htmlFor={`section-${sectionIdx}-label-enabled`} className="flex-row gap-2">
+          <span>Add to Contact button</span>
+          <Switch
+            id={`section-${sectionIdx}-label-enabled`}
+            checked={section.label.enabled}
+            onCheckedChange={handleLabelEnabledChange}
+          />
+        </FieldLabel>
+
+        {section.label.enabled && (
+          <div className="p-5 bg-muted rounded-xl border border-border">
+            <Field>
+              <FieldLabel htmlFor={`section-${sectionIdx}-label-text`}>Button Text</FieldLabel>
+              <Input
+                id={`section-${sectionIdx}-label-text`}
+                value={section.label.text}
+                onChange={handleLabelTextChange}
+              />
+            </Field>
+          </div>
+        )}
+      </FieldGroup>
+
+      <EditorBlockFooter className="flex flex-col @sm/editor-block-content:flex-row gap-3">
+        <FieldLabel htmlFor={`section-${sectionIdx}-qr-button`} className="flex-row gap-2">
+          <span>Card QR Button</span>
+          <Switch
+            id={`section-${sectionIdx}-qr-button`}
+            checked={section.showQrButton}
+            onCheckedChange={handleQrButtonChange}
+          />
+        </FieldLabel>
+        <FieldLabel htmlFor={`section-${sectionIdx}-share-button`} className="flex-row gap-2">
+          <span>Card Sharing Button</span>
+          <Switch
+            id={`section-${sectionIdx}-share-button`}
+            checked={section.showShareButton}
+            onCheckedChange={handleShareButtonChange}
+          />
+        </FieldLabel>
+      </EditorBlockFooter>
+    </EditorSortItem>
+  )
+}

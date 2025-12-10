@@ -1,6 +1,12 @@
-import type { ContentEditorSchema } from "@app/zod/types"
+import { Input } from "@app/ui/components/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@app/ui/components/select"
 import { useCallback } from "react"
-import { withForm } from "@/components/ui/app-form"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import {
   EditorSortGroup,
@@ -8,58 +14,94 @@ import {
   EditorSubSortItem,
 } from "@/features/bussiness/components/ui/editor-sort"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 
 interface ProfileContactsFormProps {
   sectionIdx: number
 }
 
-export const ProfileContactsForm = withForm({
-  props: {} as ProfileContactsFormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, sectionIdx }) => {
-    const handleContactChange = useCallback(
-      (contactIdx: number) => {
-        form.setFieldValue(`sections[${sectionIdx}].contacts.list[${contactIdx}].value`, "")
-      },
-      [form, sectionIdx],
-    )
+export function ProfileContactsForm({ sectionIdx }: ProfileContactsFormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateItem = useContentEditorStore((state) => state.updateItem)
+  const removeItem = useContentEditorStore((state) => state.removeItem)
+  const moveItem = useContentEditorStore((state) => state.moveItem)
 
-    return (
-      <form.AppField
-        mode="array"
-        name={`sections[${sectionIdx}].contacts.list`}
-        children={(field) => (
-          <EditorSortProvider data={field.state.value} onDataChange={field.moveValue}>
-            <EditorSortGroup>
-              {(contact, contactIdx) => (
-                <EditorSubSortItem
-                  id={contact.id}
-                  key={contactIdx}
-                  onDelete={() => {
-                    field.removeValue(contactIdx, {
-                      dontValidate: true,
-                    })
-                  }}
-                >
-                  <EditorSubSortTwoColumnGrid>
-                    <form.AppField
-                      listeners={{
-                        onChange: () => handleContactChange(contactIdx),
-                      }}
-                      name={`sections[${sectionIdx}].contacts.list[${contactIdx}].type`}
-                      children={(field) => <field.SelectField options={CONTACT_OPTIONS} />}
-                    />
-                    <form.AppField
-                      name={`sections[${sectionIdx}].contacts.list[${contactIdx}].value`}
-                      children={(field) => <field.TextField />}
-                    />
-                  </EditorSubSortTwoColumnGrid>
-                </EditorSubSortItem>
-              )}
-            </EditorSortGroup>
-          </EditorSortProvider>
+  const handleDataChange = useCallback(
+    (oldIndex: number, newIndex: number) => {
+      moveItem(sectionIdx, ["contacts", "list"], oldIndex, newIndex)
+    },
+    [sectionIdx, moveItem],
+  )
+
+  const handleTypeChange = useCallback(
+    (contactIdx: number, value: string) => {
+      if (section.type === "profile") {
+        const currentContact = section.contacts.list[contactIdx]
+        updateItem(sectionIdx, ["contacts", "list"], contactIdx, {
+          ...currentContact,
+          type: value,
+          value: "",
+        })
+      }
+    },
+    [section, sectionIdx, updateItem],
+  )
+
+  const handleValueChange = useCallback(
+    (contactIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
+      if (section.type === "profile") {
+        const currentContact = section.contacts.list[contactIdx]
+        updateItem(sectionIdx, ["contacts", "list"], contactIdx, {
+          ...currentContact,
+          value: e.target.value,
+        })
+      }
+    },
+    [section, sectionIdx, updateItem],
+  )
+
+  const handleDelete = useCallback(
+    (contactIdx: number) => {
+      removeItem(sectionIdx, ["contacts", "list"], contactIdx)
+    },
+    [sectionIdx, removeItem],
+  )
+
+  if (section.type !== "profile") return null
+
+  return (
+    <EditorSortProvider data={section.contacts.list} onDataChange={handleDataChange}>
+      <EditorSortGroup>
+        {(contact: any, contactIdx: number) => (
+          <EditorSubSortItem
+            id={contact.id}
+            key={contact.id}
+            onDelete={() => handleDelete(contactIdx)}
+          >
+            <EditorSubSortTwoColumnGrid>
+              <Select
+                value={contact.type}
+                onValueChange={(val) => handleTypeChange(contactIdx, val)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CONTACT_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input value={contact.value} onChange={(e) => handleValueChange(contactIdx, e)} />
+            </EditorSubSortTwoColumnGrid>
+          </EditorSubSortItem>
         )}
-      />
-    )
-  },
-})
+      </EditorSortGroup>
+    </EditorSortProvider>
+  )
+}

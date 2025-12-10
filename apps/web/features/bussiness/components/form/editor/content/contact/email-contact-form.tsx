@@ -1,26 +1,62 @@
-import type { ContentEditorSchema } from "@app/zod/types"
-import { withForm } from "@/components/ui/app-form"
+import { Field, FieldLabel } from "@app/ui/components/field"
+import { Input } from "@app/ui/components/input"
+import { useCallback } from "react"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
+import {
+  useContentEditorStore,
+  useContentSection,
+} from "@/features/bussiness/stores/use-content-editor-store"
 
 interface EmailContactFormProps {
   contactIdx: number
   sectionIdx: number
 }
 
-export const EmailContactForm = withForm({
-  props: {} as EmailContactFormProps,
-  defaultValues: {} as ContentEditorSchema,
-  render: ({ form, contactIdx, sectionIdx }) => (
-    <EditorSubSortTwoColumnGrid>
-      <form.AppField
-        name={`sections[${sectionIdx}].items[${contactIdx}].label`}
-        children={(field) => <field.TextField label="Label" />}
-      />
+export function EmailContactForm({ contactIdx, sectionIdx }: EmailContactFormProps) {
+  const section = useContentSection(sectionIdx)
+  const updateItem = useContentEditorStore((state) => state.updateItem)
 
-      <form.AppField
-        name={`sections[${sectionIdx}].items[${contactIdx}].url`}
-        children={(field) => <field.TextField label="Email" />}
-      />
+  const handleLabelChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (section.type === "contact-details") {
+        const currentItem = section.items[contactIdx]
+        updateItem(sectionIdx, ["items"], contactIdx, {
+          ...currentItem,
+          label: e.target.value,
+        })
+      }
+    },
+    [section, sectionIdx, contactIdx, updateItem],
+  )
+
+  const handleUrlChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (section.type === "contact-details") {
+        const currentItem = section.items[contactIdx]
+        updateItem(sectionIdx, ["items"], contactIdx, {
+          ...currentItem,
+          url: e.target.value,
+        })
+      }
+    },
+    [section, sectionIdx, contactIdx, updateItem],
+  )
+
+  if (section.type !== "contact-details") return null
+  const item = section.items[contactIdx]
+  if (item.type !== "email") return null
+
+  return (
+    <EditorSubSortTwoColumnGrid>
+      <Field>
+        <FieldLabel htmlFor={`contact-${contactIdx}-label`}>Label</FieldLabel>
+        <Input id={`contact-${contactIdx}-label`} value={item.label} onChange={handleLabelChange} />
+      </Field>
+
+      <Field>
+        <FieldLabel htmlFor={`contact-${contactIdx}-url`}>Email</FieldLabel>
+        <Input id={`contact-${contactIdx}-url`} value={item.url} onChange={handleUrlChange} />
+      </Field>
     </EditorSubSortTwoColumnGrid>
-  ),
-})
+  )
+}
