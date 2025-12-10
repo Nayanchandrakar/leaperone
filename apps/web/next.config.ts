@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  reactCompiler: true,
   // cacheComponents: true,
 }
 
