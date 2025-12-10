@@ -1,17 +1,17 @@
-import type { ColorSchema } from "@app/zod/types"
+import type { Color } from "@app/core/types"
 import { useCallback } from "react"
 import { ListComponent } from "@/components/shared/list-component"
 import { CardColorSwatch } from "@/features/bussiness/components/cards/home/card-color-swatch"
 
 interface ColorsListProps {
-  colors: ColorSchema[]
-  selectedColor: ColorSchema
-  onColorChange: (color: ColorSchema) => void
+  colors: Color[]
+  selectedColor: Color
+  onColorChange: (color: Color) => void
 }
 
 export const ColorsList = ({ colors, selectedColor, onColorChange }: ColorsListProps) => {
   const isColorSelected = useCallback(
-    (color: ColorSchema) =>
+    (color: Color) =>
       selectedColor?.background === color?.background &&
       selectedColor?.highlight === color?.highlight,
     [selectedColor],

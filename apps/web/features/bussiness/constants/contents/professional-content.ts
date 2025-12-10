@@ -1,6 +1,6 @@
-import type { ContentEditorSchema } from "@app/zod/types"
+import type { ContentEditor } from "@app/core/types"
 
-export const PROFESSIONAL_TEMPLATE: ContentEditorSchema["sections"] = [
+export const PROFESSIONAL_TEMPLATE: ContentEditor["sections"] = [
   {
     id: "f560863c-749e-4124-aab9-73a48ac07631",
     enabled: true,

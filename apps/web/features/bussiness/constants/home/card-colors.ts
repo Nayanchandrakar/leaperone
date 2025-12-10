@@ -1,6 +1,6 @@
-import type { ColorSchema } from "@app/zod/types"
+import type { Color } from "@app/core/types"
 
-export const CARD_COLORS: ColorSchema[] = [
+export const CARD_COLORS: Color[] = [
   {
     highlight: "#0A9521",
     background: "#EDEDED",

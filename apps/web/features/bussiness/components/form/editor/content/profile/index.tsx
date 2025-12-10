@@ -34,13 +34,11 @@ export function ProfileForm({ sectionIdx, id }: FormProps) {
     [sectionIdx, updateSectionField],
   )
 
-  if (section.type !== "profile") return null
-
   return (
     <EditorSortItem
       id={id}
       name="Card Profile"
-      checked={section.enabled}
+      checked={section?.enabled!}
       onCheckedChange={handleEnabledChange}
     >
       <FieldGroup>

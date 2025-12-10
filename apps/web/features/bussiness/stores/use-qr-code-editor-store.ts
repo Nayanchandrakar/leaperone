@@ -1,31 +1,28 @@
-import type { QrCodeEditorSchema } from "@app/zod/types"
+import type { Gradient, QrCodeEditor } from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { QR_CODE_SETTINGS } from "@/features/bussiness/constants/home/qr-code-settings"
 
-type QrCodeEditorState = QrCodeEditorSchema
+type QrCodeEditorState = QrCodeEditor
 
 type QrCodeEditorActions = {
   // Basic field actions
   setData: (data: string) => void
-  setBodyShape: (shape: QrCodeEditorSchema["bodyShape"]) => void
-  setCornerStyle: (style: QrCodeEditorSchema["cornerStyle"]) => void
-  setPatternStyle: (style: QrCodeEditorSchema["patternStyle"]) => void
+  setBodyShape: (shape: QrCodeEditor["bodyShape"]) => void
+  setCornerStyle: (style: QrCodeEditor["cornerStyle"]) => void
+  setPatternStyle: (style: QrCodeEditor["patternStyle"]) => void
 
   // Fill actions
-  setFillType: (type: QrCodeEditorSchema["fill"]["type"]) => void
+  setFillType: (type: QrCodeEditor["fill"]["type"]) => void
   setFillColor: (color: string) => void
-  setFillGradient: (gradient: NonNullable<QrCodeEditorSchema["fill"]["fillGradient"]>) => void
-  updateGradientField: <T extends keyof NonNullable<QrCodeEditorSchema["fill"]["fillGradient"]>>(
-    field: T,
-    value: NonNullable<QrCodeEditorSchema["fill"]["fillGradient"]>[T],
-  ) => void
+  setFillGradient: (gradient: Gradient) => void
+  updateGradientField: <T extends keyof Gradient>(field: T, value: Gradient[T]) => void
 
   // Logo actions (optional fields)
-  setLogo: (logo: QrCodeEditorSchema["logo"]) => void
+  setLogo: (logo: QrCodeEditor["logo"]) => void
 
   // Frame actions (optional fields)
-  setFrame: (frame: QrCodeEditorSchema["frame"]) => void
+  setFrame: (frame: QrCodeEditor["frame"]) => void
 
   // Generic field updater
   updateField: (path: string[], value: any) => void

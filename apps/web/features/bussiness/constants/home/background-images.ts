@@ -1,6 +1,6 @@
-import type { BackgroundSchema } from "@app/zod/types"
+import type { Background } from "@app/core/types"
 
-export const BACKGROUND_IMAGES: BackgroundSchema[] = [
+export const BACKGROUND_IMAGES: Background[] = [
   {
     id: "5d1b7c1e-2d94-4db3-9ea8-3e03262781f5",
     url: "https://images.pexels.com/photos/29716187/pexels-photo-29716187.png",

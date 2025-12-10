@@ -1,13 +1,13 @@
-import type { ContactItemSchema } from "@app/zod/types"
+import type { ContactItem } from "@app/core/types"
 import type { ContactItemType } from "@/features/bussiness/types"
 import { generateUUID } from "@/utils"
 
 /**
  * Creates a new contact item based on the contact type
  * @param contactType - The type of contact item to create (phone, email, or address)
- * @returns A new ContactItemSchema object with default values
+ * @returns A new ContactItem object with default values
  */
-export function createContactItem(contactType: ContactItemType): ContactItemSchema {
+export function createContactItem(contactType: ContactItemType): ContactItem {
   switch (contactType) {
     case "phone":
       return {

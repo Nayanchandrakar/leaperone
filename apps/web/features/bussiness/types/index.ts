@@ -1,28 +1,32 @@
 import type {
-  ContactItemSchema,
-  ContactSchema,
-  ContentEditorSchema,
-  ImagesTextLinksSchema,
-  QrCodeEditorSchema,
-  VideoSchema,
-} from "@app/zod/types"
+  Contact,
+  ContactItem,
+  ContentEditor,
+  ContentSectionType,
+  ImageViewType as CoreImageViewType,
+  QrCodeEditor,
+  VideoSection,
+} from "@app/core/types"
 import type { IconProps } from "@/components/shared/icons"
 
 export type ContactOption = {
   label: string
   value: ContactOptionType
 }
-export type ContactOptionType = ContactSchema["type"]
-export type ContactItemType = ContactItemSchema["type"]
+export type ContactOptionType = Contact["type"]
+export type ContactItemType = ContactItem["type"]
 
 export type ContactItemOption = {
   label: string
   value: ContactItemType
 }
 
-export type QrCodeColorType = QrCodeEditorSchema["fill"]["type"]
-export type ImageViewType = ImagesTextLinksSchema["imageView"]
-export type VideoType = VideoSchema["video"]["type"]
+export type QrCodeColorType = QrCodeEditor["fill"]["type"]
+export type ImageViewType = CoreImageViewType
+export type VideoType = VideoSection["video"]["type"]
+
+// Re-export ContentSectionType for convenience
+export type { ContentSectionType }
 
 export type QrColorOptions = {
   title: string
@@ -30,7 +34,7 @@ export type QrColorOptions = {
   value: QrCodeColorType
 }
 
-export type ContentEditorSortItem = ContentEditorSchema["sections"][number]
+export type ContentEditorSortItem = ContentEditor["sections"][number]
 
 export type SelectOption<T extends string = string> = {
   label: string
@@ -42,11 +46,11 @@ export type RadioOption<T extends string = string> = {
   value: T
 }
 
-export type QrCodeShape = QrCodeEditorSchema["bodyShape"]
+export type QrCodeShape = QrCodeEditor["bodyShape"]
 
-export type QrCodePatternStyle = QrCodeEditorSchema["patternStyle"]
+export type QrCodePatternStyle = QrCodeEditor["patternStyle"]
 
-export type QrCodeCornerStyle = QrCodeEditorSchema["cornerStyle"]
+export type QrCodeCornerStyle = QrCodeEditor["cornerStyle"]
 
 export type QrCodeItem<T extends string = string> = {
   value: T

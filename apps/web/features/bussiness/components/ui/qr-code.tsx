@@ -1,4 +1,4 @@
-import type { QrCodeEditorSchema } from "@app/zod/types"
+import type { QrCodeEditor } from "@app/core/types"
 import QRCodeStyling from "qr-code-styling"
 import type React from "react"
 import { createContext, useContext, useEffect, useRef, useState } from "react"
@@ -10,7 +10,7 @@ type QrCodeContextValue = {
 
 type QrCodeProviderProps = {
   children: React.ReactNode
-  settings: Partial<QrCodeEditorSchema>
+  settings: Partial<QrCodeEditor>
 }
 
 const QrCodeContext = createContext<QrCodeContextValue | null>(null)

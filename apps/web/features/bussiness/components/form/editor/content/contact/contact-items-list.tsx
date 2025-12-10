@@ -1,4 +1,4 @@
-import type { ContactItemSchema } from "@app/zod/types"
+import type { ContactItem } from "@app/core/types"
 import { useCallback } from "react"
 import { AddressContactForm } from "@/features/bussiness/components/form/editor/content/contact/address-contact-form"
 import { EmailContactForm } from "@/features/bussiness/components/form/editor/content/contact/email-contact-form"
@@ -41,7 +41,7 @@ export function ContactItemsList({ sectionIdx }: ContactItemsListProps) {
   return (
     <EditorSortProvider data={section.items} onDataChange={handleDataChange}>
       <EditorSortGroup>
-        {(contactItem: ContactItemSchema, currentIndex: number) => (
+        {(contactItem: ContactItem, currentIndex: number) => (
           <EditorSubSortItem
             id={contactItem?.id}
             key={contactItem?.id}

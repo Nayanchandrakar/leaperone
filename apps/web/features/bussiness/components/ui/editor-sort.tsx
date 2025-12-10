@@ -42,9 +42,9 @@ type EditorSortItemProps = {
 type EditorSortProviderProps<T extends EditorSortItemProps = EditorSortItemProps> = {
   data: T[]
   children: React.ReactNode
-  onDataChange?: (oldIndex: number, newIndex: number) => void
   onDragEnd?: (event: DragEndEvent) => void
   onDragStart?: (event: DragStartEvent) => void
+  onDataChange?: (oldIndex: number, newIndex: number) => void
 }
 
 type EditorSortGroupProps<T extends EditorSortItemProps = EditorSortItemProps> = {

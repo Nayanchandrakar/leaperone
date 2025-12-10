@@ -1,4 +1,4 @@
-import type { QrCodeEditorSchema } from "@app/zod/types"
+import type { QrCodeEditor } from "@app/core/types"
 import { Icons } from "@/components/shared/icons"
 import type {
   QrCodeCornerStyle,
@@ -7,7 +7,7 @@ import type {
   QrCodeShape,
 } from "@/features/bussiness/types"
 
-export const QR_CODE_SETTINGS: QrCodeEditorSchema = {
+export const QR_CODE_SETTINGS: QrCodeEditor = {
   data: "https://www.leaperone.com",
   bodyShape: "square",
   cornerStyle: "square",

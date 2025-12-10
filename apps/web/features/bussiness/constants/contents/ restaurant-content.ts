@@ -1,4 +1,4 @@
-import type { ProfileCardSchema } from "@app/zod/types"
-import { PROFESSIONAL_TEMPLATE } from "@/features/bussiness/constants/editor/professional-content"
+import type { ContentEditor } from "@app/core/types"
+import { PROFESSIONAL_TEMPLATE } from "@/features/bussiness/constants/contents/professional-content"
 
-export const RESTAURANT_TEMPLATE: ProfileCardSchema[] = PROFESSIONAL_TEMPLATE
+export const RESTAURANT_TEMPLATE: ContentEditor["sections"] = PROFESSIONAL_TEMPLATE

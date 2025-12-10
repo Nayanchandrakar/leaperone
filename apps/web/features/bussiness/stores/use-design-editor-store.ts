@@ -1,27 +1,27 @@
-import type { ColorSchema, DesignEditorSchema } from "@app/zod/types"
+import type { Color, DesignEditor } from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { DEFAULT_DESIGN_SETTINGS } from "@/features/bussiness/constants/home/default-design-settings"
 
-type DesignEditorState = DesignEditorSchema
+type DesignEditorState = DesignEditor
 
 type DesignEditorActions = {
   // Background actions
-  setBackground: (background: DesignEditorSchema["background"]) => void
+  setBackground: (background: DesignEditor["background"]) => void
   updateBackgroundItem: (idx: number, url: string) => void
 
   // Color actions
-  setColor: (color: ColorSchema) => void
-  setColorField: <T extends keyof ColorSchema>(field: T, value: ColorSchema[T]) => void
+  setColor: (color: Color) => void
+  setColorField: <T extends keyof Color>(field: T, value: Color[T]) => void
 
   // Section background actions
-  setSectionBackground: (field: keyof DesignEditorSchema["sectionBackground"], value: any) => void
+  setSectionBackground: (field: keyof DesignEditor["sectionBackground"], value: any) => void
 
   // Card image actions
   setCardImageUrl: (url: string) => void
 
   // Settings actions
-  setSettings: (field: keyof DesignEditorSchema["settings"], value: any) => void
+  setSettings: (field: keyof DesignEditor["settings"], value: any) => void
 
   // Generic field updater
   updateField: (path: string[], value: any) => void

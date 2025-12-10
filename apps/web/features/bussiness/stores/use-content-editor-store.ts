@@ -1,19 +1,19 @@
-import type { ContentEditorSchema } from "@app/zod/types"
+import type { ContentEditor, ContentSection } from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { PROFESSIONAL_TEMPLATE } from "@/features/bussiness/constants/contents/professional-content"
 
 type ContentEditorState = {
   templateId: string
-  sections: ContentEditorSchema["sections"]
+  sections: ContentSection[]
 }
 
 type ContentEditorActions = {
   // Section-level actions
-  updateSection: <T extends keyof ContentEditorSchema["sections"][number]>(
-    sectionIdx: number,
+  updateSection: <T extends keyof Array<ContentSection>[number]>(
     field: T,
-    value: ContentEditorSchema["sections"][number][T],
+    sectionIdx: number,
+    value: ContentEditor["sections"][number][T],
   ) => void
   moveSection: (fromIndex: number, toIndex: number) => void
 
