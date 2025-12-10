@@ -1,4 +1,5 @@
 import type { ContentEditorSchema } from "@app/zod/types"
+import { memo } from "react"
 import { withForm } from "@/components/ui/app-form"
 import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
@@ -18,7 +19,7 @@ interface FormProps {
   type: ContentEditorSortItem["type"]
 }
 
-export const ContentFormRenderer = withForm({
+export const ContentFormRendererBase = withForm({
   props: {} as FormProps,
   defaultValues: {} as ContentEditorSchema,
   render: ({ form, id, type, sectionIdx }) => {
@@ -68,3 +69,11 @@ export const ContentFormRenderer = withForm({
     }
   },
 })
+
+export const ContentFormRenderer = memo(ContentFormRendererBase, (prevProps, nextProps) =>
+  Boolean(
+    prevProps.id === nextProps.id &&
+      prevProps.type === nextProps.type &&
+      prevProps.sectionIdx === nextProps.sectionIdx,
+  ),
+)
