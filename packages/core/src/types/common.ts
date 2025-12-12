@@ -4,7 +4,7 @@ export type ContentSectionType =
   | "profile"
   | "heading-text"
   | "floating-button"
-  | "video"
+  | "video-section"
   | "cta-button"
   | "social-links"
   | "contact-details"

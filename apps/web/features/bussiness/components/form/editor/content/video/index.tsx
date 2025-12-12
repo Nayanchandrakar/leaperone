@@ -1,143 +1,66 @@
+import type { VideoSection, VimeoVideo, YoutubeVideo } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@app/ui/components/tabs"
 import { Textarea } from "@app/ui/components/textarea"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useCallback } from "react"
+import { memo } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
-import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
-import {
-  useContentEditorStore,
-  useContentSection,
-} from "@/features/bussiness/stores/use-content-editor-store"
-import type { VideoType } from "@/features/bussiness/types"
+import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
+import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 interface VideoFormProps {
-  sectionIdx: number
-  id: string
+  index: number
 }
 
-export function VideoForm({ id, sectionIdx }: VideoFormProps) {
-  const section = useContentSection(sectionIdx)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
-
-  const handleEnabledChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["enabled"], checked)
-    },
-    [sectionIdx, updateSectionField],
+export const VideoForm = memo(({ index }: VideoFormProps) => {
+  const { field, updateField } = useContentEditorStore(
+    useShallow((state) => ({
+      updateField: state.updateSectionField,
+      field: state.sections[index] as VideoSection,
+    })),
   )
-
-  const handleHeadingTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["heading", "text"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleHeadingEnabledToggle = useCallback(() => {
-    if (section.type === "video") {
-      updateSectionField(sectionIdx, ["heading", "enabled"], !section.heading.enabled)
-    }
-  }, [section, sectionIdx, updateSectionField])
-
-  const handleDescriptionTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      updateSectionField(sectionIdx, ["description", "text"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleDescriptionEnabledToggle = useCallback(() => {
-    if (section.type === "video") {
-      updateSectionField(sectionIdx, ["description", "enabled"], !section.description.enabled)
-    }
-  }, [section, sectionIdx, updateSectionField])
-
-  const handleVideoTypeChange = useCallback(
-    (videoType: string) => {
-      updateSectionField(sectionIdx, ["video", "type"], videoType as VideoType)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleYoutubeUrlChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["video", "youtubeUrl"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleVimeoUrlChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["video", "vimeoUrl"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleBackgroundChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["background"], checked)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  if (section.type !== "video") return null
 
   return (
-    <EditorSortItem
-      name="Video"
-      id={id}
-      contentClassName="p-0"
-      checked={section.enabled}
-      onCheckedChange={handleEnabledChange}
+    <SortableListItem
+      itemTitle="Video"
+      itemId={field?.id}
+      isEnabled={field?.enabled}
+      onIsEnabledChange={(value) => updateField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
-          <FieldLabel className="flex items-center justify-between">
-            <span>Heading</span>
-            <button
-              type="button"
-              onClick={handleHeadingEnabledToggle}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {section.heading.enabled ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-            </button>
-          </FieldLabel>
-          <Input variant="gray" value={section.heading.text} onChange={handleHeadingTextChange} />
+          <ToogleLabel
+            label="Heading"
+            isActive={field?.heading?.enabled}
+            onToggle={(value) => updateField(index, ["heading", "enabled"], value)}
+          />
+          <Input
+            variant="gray"
+            value={field?.heading?.text}
+            onChange={(e) => updateField(index, ["heading", "text"], e?.target?.value ?? "")}
+          />
         </Field>
 
         <Field>
-          <FieldLabel className="flex items-center justify-between">
-            <span>Description</span>
-            <button
-              type="button"
-              onClick={handleDescriptionEnabledToggle}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {section.description.enabled ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-            </button>
-          </FieldLabel>
+          <ToogleLabel
+            label="Description"
+            isActive={field?.description?.enabled}
+            onToggle={(value) => updateField(index, ["description", "enabled"], value)}
+          />
           <Textarea
             variant="gray"
-            value={section.description.text}
-            onChange={handleDescriptionTextChange}
+            value={field?.description?.text}
+            onChange={(e) => updateField(index, ["description", "text"], e?.target?.value ?? "")}
           />
         </Field>
 
         <Tabs
-          onValueChange={handleVideoTypeChange}
-          value={section.video.type}
-          defaultValue={section.video.type}
+          value={field?.video?.type}
+          defaultValue={field?.video?.type}
+          onValueChange={(value) => updateField(index, ["video", "type"], value)}
         >
           <TabsList>
             <TabsTrigger value="youtube">Youtube</TabsTrigger>
@@ -147,30 +70,29 @@ export function VideoForm({ id, sectionIdx }: VideoFormProps) {
             <Input
               variant="gray"
               placeholder="Enter YouTube video link here"
-              value={section.video.youtubeUrl || ""}
-              onChange={handleYoutubeUrlChange}
+              value={(field?.video as YoutubeVideo)?.youtubeUrl || ""}
+              onChange={(e) => updateField(index, ["video", "youtubeUrl"], e?.target?.value ?? "")}
             />
           </TabsContent>
           <TabsContent value="vimeo">
             <Input
               variant="gray"
               placeholder="Enter Vimeo video link here"
-              value={section.video.vimeoUrl || ""}
-              onChange={handleVimeoUrlChange}
+              value={(field?.video as VimeoVideo)?.vimeoUrl}
+              onChange={(e) => updateField(index, ["video", "vimeoUrl"], e?.target?.value ?? "")}
             />
           </TabsContent>
         </Tabs>
       </FieldGroup>
       <EditorBlockFooter>
-        <FieldLabel htmlFor={`section-${sectionIdx}-background`} className="flex-row gap-2">
-          <span>Section Background</span>
+        <Field orientation="horizontal" className="w-fit">
+          <FieldLabel>Section Background</FieldLabel>
           <Switch
-            id={`section-${sectionIdx}-background`}
-            checked={section.background}
-            onCheckedChange={handleBackgroundChange}
+            checked={field?.background}
+            onCheckedChange={(value) => updateField(index, ["background"], value)}
           />
-        </FieldLabel>
+        </Field>
       </EditorBlockFooter>
-    </EditorSortItem>
+    </SortableListItem>
   )
-}
+})

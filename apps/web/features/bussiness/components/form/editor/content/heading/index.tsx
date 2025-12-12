@@ -3,6 +3,7 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
@@ -13,7 +14,7 @@ interface HeadingTextFormProps {
   index: number
 }
 
-export function HeadingTextForm({ index }: HeadingTextFormProps) {
+export const HeadingTextForm = memo(({ index }: HeadingTextFormProps) => {
   const { field, updateField } = useContentEditorStore(
     useShallow((state) => ({
       updateField: state.updateSectionField,
@@ -38,7 +39,7 @@ export function HeadingTextForm({ index }: HeadingTextFormProps) {
           <Input
             variant="gray"
             value={field?.heading?.text}
-            onChange={(e) => updateField(index, ["heading", "text"], e?.target?.value)}
+            onChange={(e) => updateField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
         <Field>
@@ -50,7 +51,7 @@ export function HeadingTextForm({ index }: HeadingTextFormProps) {
           <Textarea
             variant="gray"
             value={field?.description?.text}
-            onChange={(e) => updateField(index, ["description", "text"], e?.target?.value)}
+            onChange={(e) => updateField(index, ["description", "text"], e?.target?.value ?? "")}
           />
         </Field>
       </FieldGroup>
@@ -66,4 +67,4 @@ export function HeadingTextForm({ index }: HeadingTextFormProps) {
       </EditorBlockFooter>
     </SortableListItem>
   )
-}
+})

@@ -83,7 +83,7 @@ export const PROFESSIONAL_TEMPLATE: ContentEditor["sections"] = [
   {
     enabled: true,
     id: "e60e25f8-749e-4124-aab9-73a48ac07633",
-    type: "video",
+    type: "video-section",
     background: true,
     heading: {
       enabled: true,

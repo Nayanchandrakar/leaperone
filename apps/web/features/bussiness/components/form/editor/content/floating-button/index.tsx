@@ -2,6 +2,7 @@ import type { FloatingButtonSection } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
@@ -11,7 +12,7 @@ interface FloatingCardButtonFormProps {
   index: number
 }
 
-export function FloatingCardButtonForm({ index }: FloatingCardButtonFormProps) {
+export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormProps) => {
   const { field, updateField } = useContentEditorStore(
     useShallow((state) => ({
       updateField: state.updateSectionField,
@@ -41,7 +42,7 @@ export function FloatingCardButtonForm({ index }: FloatingCardButtonFormProps) {
               <FieldLabel>Button Text</FieldLabel>
               <Input
                 value={field?.label?.text}
-                onChange={(e) => updateField(index, ["label", "text"], e?.target?.value)}
+                onChange={(e) => updateField(index, ["label", "text"], e?.target?.value ?? "")}
               />
             </Field>
           </div>
@@ -67,4 +68,4 @@ export function FloatingCardButtonForm({ index }: FloatingCardButtonFormProps) {
       </EditorBlockFooter>
     </SortableListItem>
   )
-}
+})

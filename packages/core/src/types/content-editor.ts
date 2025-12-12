@@ -133,7 +133,7 @@ export interface FloatingButtonSection extends BaseContentSection<"floating-butt
   showShareButton: boolean
 }
 
-export interface VideoSection extends BaseContentSection<"video"> {
+export interface VideoSection extends BaseContentSection<"video-section"> {
   video: Video
   background: boolean
   heading: EnabledField<string>
