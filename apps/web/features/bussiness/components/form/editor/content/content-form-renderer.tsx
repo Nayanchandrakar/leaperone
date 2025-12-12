@@ -3,10 +3,11 @@ import { memo } from "react"
 // import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
 // import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 // import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
-// import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
+import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading-text-form"
+
 // import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/content/images"
 // import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
-import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
+// import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 
 // import { TeamSectionForm } from "@/features/bussiness/components/form/editor/content/team"
 // import { TestimonialsSectionForm } from "@/features/bussiness/components/form/editor/content/testimonials"
@@ -20,13 +21,13 @@ interface FormProps {
 
 function ContentFormRendererBase({ id, type, sectionIdx }: FormProps) {
   switch (type) {
-    case "profile": {
-      return <ProfileForm sectionIdx={sectionIdx} id={id} />
-    }
-
-    // case "heading-text": {
-    //   return <HeadingTextForm sectionIdx={sectionIdx} id={id} />
+    // case "profile": {
+    //   return <ProfileForm sectionIdx={sectionIdx} id={id} />
     // }
+
+    case "heading-text": {
+      return <HeadingTextForm sectionIdx={sectionIdx} id={id} />
+    }
 
     // case "floating-button": {
     //   return <FloatingCardButtonForm sectionIdx={sectionIdx} id={id} />

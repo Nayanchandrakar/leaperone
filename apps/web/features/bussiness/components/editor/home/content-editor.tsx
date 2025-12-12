@@ -1,27 +1,32 @@
 import { memo } from "react"
-import { ContentFormRenderer } from "@/features/bussiness/components/form/editor/content/content-form-renderer"
+import { useShallow } from "zustand/react/shallow"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
-import { EditorSortGroup, EditorSortProvider } from "@/features/bussiness/components/ui/editor-sort"
-import { useContentEditorForm } from "@/features/bussiness/hooks/home/use-content-editor-form"
-import type { ContentEditorSortItem } from "@/features/bussiness/types"
+import { SortableList, SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 function ContentEditorBase() {
-  const { sections, initialSectionId, handleSectionMove } = useContentEditorForm()
+  const { sections, moveSection } = useContentEditorStore(
+    useShallow((state) => ({
+      sections: state.sections,
+      moveSection: state.moveSection,
+    })),
+  )
 
   return (
-    <EditorBlock defaultValue={initialSectionId!}>
-      <EditorSortProvider data={sections} onDataChange={handleSectionMove}>
-        <EditorSortGroup>
-          {(item: ContentEditorSortItem, sectionIdx: number) => (
-            <ContentFormRenderer
-              id={item.id}
-              key={item.id}
-              type={item.type}
-              sectionIdx={sectionIdx}
-            />
-          )}
-        </EditorSortGroup>
-      </EditorSortProvider>
+    <EditorBlock defaultValue={"nayan"}>
+      <SortableList data={sections} onDataChange={moveSection}>
+        {(item) => (
+          <SortableListItem
+            id={item.id}
+            key={item.id}
+            name={item.id}
+            enabled={true}
+            onEnabledChange={() => {}}
+          >
+            {item.id}
+          </SortableListItem>
+        )}
+      </SortableList>
     </EditorBlock>
   )
 }
