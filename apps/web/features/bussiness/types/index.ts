@@ -2,8 +2,7 @@ import type {
   Contact,
   ContactItem,
   ContentEditor,
-  ContentSectionType,
-  ImageViewType as CoreImageViewType,
+  ImageViewType,
   QrCodeEditor,
   VideoSection,
 } from "@app/core/types"
@@ -22,11 +21,8 @@ export type ContactItemOption = {
 }
 
 export type QrCodeColorType = QrCodeEditor["fill"]["type"]
-export type ImageViewType = CoreImageViewType
-export type VideoType = VideoSection["video"]["type"]
 
-// Re-export ContentSectionType for convenience
-export type { ContentSectionType }
+export type VideoType = VideoSection["video"]["type"]
 
 export type QrColorOptions = {
   title: string

@@ -37,36 +37,36 @@ export type SortData = {
 } & Record<string, any>
 
 type SortableListProps<T extends SortData = SortData> = {
-  data: T[]
+  items: T[]
   onDragEnd?: (event: DragEndEvent) => void
+  renderItem: (item: T, index: number) => ReactNode
   onDragStart?: (event: DragStartEvent) => void
-  children: (item: T, index: number) => ReactNode
-  onDataChange?: (fromIndex: number, toIndex: number) => void
+  onOrderChange?: (fromIndex: number, toIndex: number) => void
 }
 
 type SortableListItemProps = {
-  id: string
-  name: string
-  enabled: boolean
-  className?: string
+  itemId: string
+  itemTitle: string
+  isEnabled: boolean
+  itemClassName?: string
   children: ReactNode
-  onEnabledChange: (enabled: boolean) => void
+  onIsEnabledChange: (enabled: boolean) => void
 }
 
 type EditorSubSortableListItemProps = {
-  id: string
-  onDelete?: () => void
+  itemId: string
+  onItemDelete?: () => void
   children: ReactNode
 }
 
 const t = tunnel()
 
 export function SortableList<T extends SortData = SortData>({
-  data,
-  children,
+  items,
+  renderItem,
   onDragStart,
   onDragEnd,
-  onDataChange,
+  onOrderChange,
 }: SortableListProps<T>) {
   const { activeCardId, setActiveCardId } = useSortableListStore(
     useShallow((state) => ({
@@ -82,16 +82,16 @@ export function SortableList<T extends SortData = SortData>({
   )
 
   const { handleDragStart, handleDragEnd } = useSortableListHandlers(
-    data,
+    items,
     setActiveCardId,
     onDragStart,
     onDragEnd,
-    onDataChange,
+    onOrderChange,
   )
 
   const sortedChildren = useMemo(
-    () => (data?.length > 0 ? data.map(children) : null),
-    [data, children],
+    () => (items?.length > 0 ? items.map(renderItem) : null),
+    [items, renderItem],
   )
 
   return (
@@ -102,7 +102,7 @@ export function SortableList<T extends SortData = SortData>({
       collisionDetection={closestCenter}
       modifiers={[restrictToWindowEdges, restrictToVerticalAxis]}
     >
-      <SortableContext items={data} strategy={verticalListSortingStrategy}>
+      <SortableContext items={items} strategy={verticalListSortingStrategy}>
         {sortedChildren}
         <DragOverlay dropAnimation={null}>{activeCardId && <t.Out />}</DragOverlay>
       </SortableContext>
@@ -111,18 +111,28 @@ export function SortableList<T extends SortData = SortData>({
 }
 
 export const SortableListItem = memo(
-  ({ id, name, enabled, children, className, onEnabledChange }: SortableListItemProps) => {
+  ({
+    itemId,
+    itemTitle,
+    isEnabled,
+    children,
+    itemClassName,
+    onIsEnabledChange,
+  }: SortableListItemProps) => {
     const activeCardId = useSortableListStore((state) => state.activeCardId)
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-      id,
+      id: itemId,
     })
 
-    const handleEnabledChange = useCallback((v: boolean) => onEnabledChange?.(v), [onEnabledChange])
+    const handleIsEnabledChange = useCallback(
+      (v: boolean) => onIsEnabledChange?.(v),
+      [onIsEnabledChange],
+    )
 
     return (
       <>
         <EditorBlockItem
-          value={id}
+          value={itemId}
           style={{
             transition,
             transform: CSS.Transform.toString(transform),
@@ -133,26 +143,26 @@ export const SortableListItem = memo(
           <EditorBlockHeader>
             <EditorBlockGroup>
               <EditorBlockGrip {...attributes} {...listeners} />
-              <EditorBlockTitle>{name}</EditorBlockTitle>
+              <EditorBlockTitle>{itemTitle}</EditorBlockTitle>
             </EditorBlockGroup>
             <EditorBlockGroup>
-              <Switch checked={enabled} onCheckedChange={handleEnabledChange} />
+              <Switch checked={isEnabled} onCheckedChange={handleIsEnabledChange} />
               <EditorBlockTrigger />
             </EditorBlockGroup>
           </EditorBlockHeader>
-          <EditorBlockContent className={className}>{children}</EditorBlockContent>
+          <EditorBlockContent className={itemClassName}>{children}</EditorBlockContent>
         </EditorBlockItem>
 
-        {activeCardId === id && (
+        {activeCardId === itemId && (
           <t.In>
-            <EditorBlockItem value={id} isDragging={isDragging}>
+            <EditorBlockItem value={itemId} isDragging={isDragging}>
               <EditorBlockHeader>
                 <EditorBlockGroup>
                   <EditorBlockGrip />
-                  <EditorBlockTitle>{name}</EditorBlockTitle>
+                  <EditorBlockTitle>{itemTitle}</EditorBlockTitle>
                 </EditorBlockGroup>
                 <EditorBlockGroup>
-                  <Switch checked={enabled} />
+                  <Switch checked={isEnabled} />
                   <EditorBlockTrigger />
                 </EditorBlockGroup>
               </EditorBlockHeader>
@@ -168,13 +178,13 @@ export const SortableListItem = memo(
 )
 
 export const SortableSubListItem = memo(
-  ({ id, onDelete, children }: EditorSubSortableListItemProps) => {
+  ({ itemId, onItemDelete, children }: EditorSubSortableListItemProps) => {
     const activeCardId = useSortableListStore((state) => state.activeCardId)
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-      id,
+      id: itemId,
     })
 
-    const handleDelete = useCallback(() => onDelete?.(), [onDelete])
+    const handleDelete = useCallback(() => onItemDelete?.(), [onItemDelete])
 
     return (
       <>
@@ -192,7 +202,7 @@ export const SortableSubListItem = memo(
           {children}
         </EditorSubSortListItem>
 
-        {activeCardId === id && (
+        {activeCardId === itemId && (
           <t.In>
             <EditorSubSortListItem isDragging={isDragging}>{children}</EditorSubSortListItem>
           </t.In>
