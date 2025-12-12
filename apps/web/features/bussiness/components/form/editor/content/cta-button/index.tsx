@@ -1,164 +1,93 @@
+import type { CtaButtonSection } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useCallback } from "react"
+import { memo } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
-import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
-import {
-  useContentEditorStore,
-  useContentSection,
-} from "@/features/bussiness/stores/use-content-editor-store"
+import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
+import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 interface CtaButtonFormProps {
-  sectionIdx: number
-  id: string
+  index: number
 }
 
-export function CtaButtonForm({ id, sectionIdx }: CtaButtonFormProps) {
-  const section = useContentSection(sectionIdx)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
-
-  const handleEnabledChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["enabled"], checked)
-    },
-    [sectionIdx, updateSectionField],
+export const CtaButtonForm = memo(({ index }: CtaButtonFormProps) => {
+  const { field, updateField } = useContentEditorStore(
+    useShallow((state) => ({
+      updateField: state.updateSectionField,
+      field: state.sections[index] as CtaButtonSection,
+    })),
   )
-
-  const handleHeadingTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["heading", "text"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleHeadingEnabledToggle = useCallback(() => {
-    if (section.type === "cta-button") {
-      updateSectionField(sectionIdx, ["heading", "enabled"], !section.heading.enabled)
-    }
-  }, [section, sectionIdx, updateSectionField])
-
-  const handleDescriptionTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      updateSectionField(sectionIdx, ["description", "text"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleDescriptionEnabledToggle = useCallback(() => {
-    if (section.type === "cta-button") {
-      updateSectionField(sectionIdx, ["description", "enabled"], !section.description.enabled)
-    }
-  }, [section, sectionIdx, updateSectionField])
-
-  const handleLabelChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["label"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleLinkChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["link"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleBackgroundChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["background"], checked)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  if (section.type !== "cta-button") return null
 
   return (
-    <EditorSortItem
-      name="Button"
-      id={id}
-      contentClassName="p-0"
-      checked={section.enabled}
-      onCheckedChange={handleEnabledChange}
+    <SortableListItem
+      itemId={field?.id}
+      itemTitle="Button"
+      isEnabled={field?.enabled}
+      onIsEnabledChange={(value) => updateField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
-          <FieldLabel className="flex items-center justify-between">
-            <span>Heading</span>
-            <button
-              type="button"
-              onClick={handleHeadingEnabledToggle}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {section.heading.enabled ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-            </button>
-          </FieldLabel>
-          <Input variant="gray" value={section.heading.text} onChange={handleHeadingTextChange} />
+          <ToogleLabel
+            label="Heading"
+            isActive={field?.heading?.enabled}
+            onToggle={(value) => updateField(index, ["heading", "enabled"], value)}
+          />
+          <Input
+            variant="gray"
+            value={field?.heading?.text}
+            onChange={(e) => updateField(index, ["heading", "text"], e?.target?.value ?? "")}
+          />
         </Field>
-
         <Field>
-          <FieldLabel className="flex items-center justify-between">
-            <span>Description</span>
-            <button
-              type="button"
-              onClick={handleDescriptionEnabledToggle}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {section.description.enabled ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-            </button>
-          </FieldLabel>
+          <ToogleLabel
+            label="Description"
+            isActive={field?.description?.enabled}
+            onToggle={(value) => updateField(index, ["description", "enabled"], value)}
+          />
           <Textarea
             variant="gray"
-            value={section.description.text}
-            onChange={handleDescriptionTextChange}
+            value={field?.description?.text}
+            onChange={(e) => updateField(index, ["description", "text"], e?.target?.value ?? "")}
           />
         </Field>
 
         <div className="grid @lg/editor-block-content:grid-cols-2 gap-3">
           <Field>
-            <FieldLabel htmlFor={`section-${sectionIdx}-label`}>Button Label</FieldLabel>
+            <FieldLabel htmlFor={`section-${index}-label`}>Button Label</FieldLabel>
             <Input
-              id={`section-${sectionIdx}-label`}
+              id={`section-${index}-label`}
               variant="gray"
               placeholder="Enter button label here"
-              value={section.label}
-              onChange={handleLabelChange}
+              value={field?.label}
+              onChange={(e) => updateField(index, ["label"], e?.target?.value ?? "")}
             />
           </Field>
 
           <Field>
-            <FieldLabel htmlFor={`section-${sectionIdx}-link`}>Button Link</FieldLabel>
+            <FieldLabel htmlFor={`section-${index}-link`}>Button Link</FieldLabel>
             <Input
-              id={`section-${sectionIdx}-link`}
+              id={`section-${index}-link`}
               variant="gray"
               placeholder="Enter button link here"
-              value={section.link}
-              onChange={handleLinkChange}
+              value={field?.link}
+              onChange={(e) => updateField(index, ["link"], e?.target?.value ?? "")}
             />
           </Field>
         </div>
       </FieldGroup>
       <EditorBlockFooter>
-        <FieldLabel htmlFor={`section-${sectionIdx}-background`} className="flex-row gap-2">
-          <span>Section Background</span>
+        <Field orientation="horizontal" className="w-fit">
+          <FieldLabel>Section Background</FieldLabel>
           <Switch
-            id={`section-${sectionIdx}-background`}
-            checked={section.background}
-            onCheckedChange={handleBackgroundChange}
+            checked={field?.background}
+            onCheckedChange={(value) => updateField(index, ["background"], value)}
           />
-        </FieldLabel>
+        </Field>
       </EditorBlockFooter>
-    </EditorSortItem>
+    </SortableListItem>
   )
-}
+})

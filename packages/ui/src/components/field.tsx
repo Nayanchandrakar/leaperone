@@ -4,9 +4,9 @@ import { Label } from "@app/ui/components/label"
 import { Separator } from "@app/ui/components/separator"
 import { cn } from "@app/ui/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
-import { useMemo } from "react"
+import { memo, useMemo } from "react"
 
-function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
+const FieldSet = memo(({ className, ...props }: React.ComponentProps<"fieldset">) => {
   return (
     <fieldset
       data-slot="field-set"
@@ -18,29 +18,31 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
       {...props}
     />
   )
-}
+})
 
-function FieldLegend({
-  className,
-  variant = "legend",
-  ...props
-}: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
-  return (
-    <legend
-      data-slot="field-legend"
-      data-variant={variant}
-      className={cn(
-        "mb-3 font-medium",
-        "data-[variant=legend]:text-base",
-        "data-[variant=label]:text-sm",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+const FieldLegend = memo(
+  ({
+    className,
+    variant = "legend",
+    ...props
+  }: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) => {
+    return (
+      <legend
+        data-slot="field-legend"
+        data-variant={variant}
+        className={cn(
+          "mb-3 font-medium",
+          "data-[variant=legend]:text-base",
+          "data-[variant=label]:text-sm",
+          className,
+        )}
+        {...props}
+      />
+    )
+  },
+)
 
-function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
+const FieldGroup = memo(({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       data-slot="field-group"
@@ -51,7 +53,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   )
-}
+})
 
 const fieldVariants = cva("group/field flex w-full gap-3 data-[invalid=true]:text-destructive", {
   variants: {
@@ -74,23 +76,25 @@ const fieldVariants = cva("group/field flex w-full gap-3 data-[invalid=true]:tex
   },
 })
 
-function Field({
-  className,
-  orientation = "vertical",
-  ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
-  return (
-    <div
-      role="group"
-      data-slot="field"
-      data-orientation={orientation}
-      className={cn(fieldVariants({ orientation }), className)}
-      {...props}
-    />
-  )
-}
+const Field = memo(
+  ({
+    className,
+    orientation = "vertical",
+    ...props
+  }: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) => {
+    return (
+      <div
+        role="group"
+        data-slot="field"
+        data-orientation={orientation}
+        className={cn(fieldVariants({ orientation }), className)}
+        {...props}
+      />
+    )
+  },
+)
 
-function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
+const FieldContent = memo(({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       data-slot="field-content"
@@ -98,9 +102,9 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   )
-}
+})
 
-function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
+const FieldLabel = memo(({ className, ...props }: React.ComponentProps<typeof Label>) => {
   return (
     <Label
       data-slot="field-label"
@@ -113,9 +117,9 @@ function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>)
       {...props}
     />
   )
-}
+})
 
-function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+const FieldTitle = memo(({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       data-slot="field-label"
@@ -126,9 +130,9 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   )
-}
+})
 
-function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+const FieldDescription = memo(({ className, ...props }: React.ComponentProps<"p">) => {
   return (
     <p
       data-slot="field-description"
@@ -141,37 +145,39 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
       {...props}
     />
   )
-}
+})
 
-function FieldSeparator({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div"> & {
-  children?: React.ReactNode
-}) {
-  return (
-    <div
-      data-slot="field-separator"
-      data-content={!!children}
-      className={cn(
-        "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
-        className,
-      )}
-      {...props}
-    >
-      <Separator className="absolute inset-0 top-1/2" />
-      {children && (
-        <span
-          className="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
-          data-slot="field-separator-content"
-        >
-          {children}
-        </span>
-      )}
-    </div>
-  )
-}
+const FieldSeparator = memo(
+  ({
+    children,
+    className,
+    ...props
+  }: React.ComponentProps<"div"> & {
+    children?: React.ReactNode
+  }) => {
+    return (
+      <div
+        data-slot="field-separator"
+        data-content={!!children}
+        className={cn(
+          "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+          className,
+        )}
+        {...props}
+      >
+        <Separator className="absolute inset-0 top-1/2" />
+        {children && (
+          <span
+            className="bg-background text-muted-foreground relative mx-auto block w-fit px-2"
+            data-slot="field-separator-content"
+          >
+            {children}
+          </span>
+        )}
+      </div>
+    )
+  },
+)
 
 function FieldError({
   className,
