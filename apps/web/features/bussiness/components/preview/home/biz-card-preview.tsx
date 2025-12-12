@@ -1,10 +1,10 @@
 import { Button } from "@app/ui/components/button"
 import { Switch } from "@app/ui/components/switch"
 import { Iphone } from "@/features/bussiness/components/ui/iphone"
-import { useContentSections } from "@/features/bussiness/stores/use-content-editor-store"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 export const BizCardPreview = () => {
-  const sections = useContentSections()
+  const sections = useContentEditorStore((state) => state.sections)
   return (
     <div className="space-y-5 max-w-xs mx-auto">
       <div className="flex items-center justify-center gap-2">
