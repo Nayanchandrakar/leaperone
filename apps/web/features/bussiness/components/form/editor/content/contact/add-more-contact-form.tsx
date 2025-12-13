@@ -8,18 +8,18 @@ import type { ContactItemType } from "@/features/bussiness/types"
 import { createContactItem } from "@/features/bussiness/utils/create-contact-item"
 
 interface AddContactItemButtonFormProps {
-  sectionIdx: number
+  index: number
 }
 
-export function AddContactItemButtonForm({ sectionIdx }: AddContactItemButtonFormProps) {
+export function AddContactItemButtonForm({ index }: AddContactItemButtonFormProps) {
   const pushItem = useContentEditorStore((state) => state.pushItem)
 
   const handleContactItemAdd = useCallback(
     (contactType: ContactItemType) => {
       const contactItem = createContactItem(contactType)
-      pushItem(sectionIdx, ["items"], contactItem)
+      pushItem(index, ["items"], contactItem)
     },
-    [sectionIdx, pushItem],
+    [index, pushItem],
   )
 
   return (

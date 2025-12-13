@@ -1,4 +1,5 @@
 import type { ContentSectionType } from "@app/core/types"
+import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading/index"
@@ -14,4 +15,5 @@ export const CONTENT_FORMS: Partial<ContentFormMap> = {
   "floating-button": (props) => <FloatingCardButtonForm {...props} />,
   "cta-button": (props) => <CtaButtonForm {...props} />,
   profile: (props) => <ProfileForm {...props} />,
+  "contact-details": (props) => <ContactDetailsForm {...props} />,
 }

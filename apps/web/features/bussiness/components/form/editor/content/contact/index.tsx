@@ -1,94 +1,60 @@
+import type { ContactDetailsSection } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useCallback } from "react"
+import { memo } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { AddContactItemButtonForm } from "@/features/bussiness/components/form/editor/content/contact/add-more-contact-form"
 import { ContactItemsList } from "@/features/bussiness/components/form/editor/content/contact/contact-items-list"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
-import { EditorSortItem } from "@/features/bussiness/components/ui/editor-sort"
-import {
-  useContentEditorStore,
-  useContentSection,
-} from "@/features/bussiness/stores/use-content-editor-store"
+import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
+import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 interface ContactDetailsFormProps {
-  sectionIdx: number
-  id: string
+  index: number
 }
 
-export function ContactDetailsForm({ id, sectionIdx }: ContactDetailsFormProps) {
-  const section = useContentSection(sectionIdx)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
-
-  const handleEnabledChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["enabled"], checked)
-    },
-    [sectionIdx, updateSectionField],
+export const ContactDetailsForm = memo(({ index }: ContactDetailsFormProps) => {
+  const { field, updateSectionField } = useContentEditorStore(
+    useShallow((state) => ({
+      field: state.sections[index] as ContactDetailsSection,
+      updateSectionField: state.updateSectionField,
+    })),
   )
-
-  const handleHeadingTextChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateSectionField(sectionIdx, ["heading", "text"], e.target.value)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  const handleHeadingEnabledToggle = useCallback(() => {
-    if (section.type === "contact-details") {
-      updateSectionField(sectionIdx, ["heading", "enabled"], !section.heading.enabled)
-    }
-  }, [section, sectionIdx, updateSectionField])
-
-  const handleBackgroundChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(sectionIdx, ["background"], checked)
-    },
-    [sectionIdx, updateSectionField],
-  )
-
-  if (section.type !== "contact-details") return null
 
   return (
-    <EditorSortItem
-      id={id}
-      name="Contact Details"
-      contentClassName="p-0"
-      checked={section.enabled}
-      onCheckedChange={handleEnabledChange}
+    <SortableListItem
+      itemId={field?.id}
+      itemTitle="Contact Details"
+      isEnabled={field?.enabled}
+      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
-          <FieldLabel className="flex items-center justify-between">
-            <span>Heading</span>
-            <button
-              type="button"
-              onClick={handleHeadingEnabledToggle}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {section.heading.enabled ? (
-                <EyeIcon className="size-4" />
-              ) : (
-                <EyeOffIcon className="size-4" />
-              )}
-            </button>
-          </FieldLabel>
-          <Input variant="gray" value={section.heading.text} onChange={handleHeadingTextChange} />
+          <ToogleLabel
+            label="Heading"
+            isActive={field?.heading?.enabled}
+            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
+          />
+          <Input
+            variant="gray"
+            value={field?.heading?.text}
+            onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
+          />
         </Field>
-        <ContactItemsList sectionIdx={sectionIdx} />
-        <AddContactItemButtonForm sectionIdx={sectionIdx} />
+        <ContactItemsList index={index} />
+        <AddContactItemButtonForm index={index} />
       </FieldGroup>
       <EditorBlockFooter>
-        <FieldLabel htmlFor={`section-${sectionIdx}-background`} className="flex-row gap-2">
-          <span>Section Background</span>
+        <Field orientation="horizontal" className="w-fit">
+          <FieldLabel>Section Background</FieldLabel>
           <Switch
-            id={`section-${sectionIdx}-background`}
-            checked={section.background}
-            onCheckedChange={handleBackgroundChange}
+            checked={field?.background}
+            onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
-        </FieldLabel>
+        </Field>
       </EditorBlockFooter>
-    </EditorSortItem>
+    </SortableListItem>
   )
-}
+})

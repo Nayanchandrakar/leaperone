@@ -1,32 +1,35 @@
+import type { ContactAddressItem, ContactDetailsSection } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 import { useCallback } from "react"
-import {
-  useContentEditorStore,
-  useContentSection,
-} from "@/features/bussiness/stores/use-content-editor-store"
+import { useShallow } from "zustand/react/shallow"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 interface AddressContactFormProps {
   contactIdx: number
-  sectionIdx: number
+  index: number
 }
 
-export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFormProps) {
-  const section = useContentSection(sectionIdx)
-  const updateItem = useContentEditorStore((state) => state.updateItem)
+export function AddressContactForm({ contactIdx, index }: AddressContactFormProps) {
+  const { section, updateItem } = useContentEditorStore(
+    useShallow((state) => ({
+      section: state.sections[index] as ContactDetailsSection,
+      updateItem: state.updateItem,
+    })),
+  )
 
   const handleFieldChange = useCallback(
     (field: string, value: string | number) => {
       if (section.type === "contact-details") {
         const currentItem = section.items[contactIdx]
-        updateItem(sectionIdx, ["items"], contactIdx, {
+        updateItem(index, ["items"], contactIdx, {
           ...currentItem,
           [field]: value,
         })
       }
     },
-    [section, sectionIdx, contactIdx, updateItem],
+    [section, index, contactIdx, updateItem],
   )
 
   const handleLocationLabelChange = useCallback(
@@ -34,7 +37,7 @@ export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFor
       if (section.type === "contact-details") {
         const currentItem = section.items[contactIdx]
         if (currentItem.type === "address") {
-          updateItem(sectionIdx, ["items"], contactIdx, {
+          updateItem(index, ["items"], contactIdx, {
             ...currentItem,
             location: {
               ...currentItem.location,
@@ -44,14 +47,14 @@ export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFor
         }
       }
     },
-    [section, sectionIdx, contactIdx, updateItem],
+    [section, index, contactIdx, updateItem],
   )
 
   const handleLocationEnabledToggle = useCallback(() => {
     if (section.type === "contact-details") {
       const currentItem = section.items[contactIdx]
       if (currentItem.type === "address") {
-        updateItem(sectionIdx, ["items"], contactIdx, {
+        updateItem(index, ["items"], contactIdx, {
           ...currentItem,
           location: {
             ...currentItem.location,
@@ -60,14 +63,14 @@ export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFor
         })
       }
     }
-  }, [section, sectionIdx, contactIdx, updateItem])
+  }, [section, index, contactIdx, updateItem])
 
   const handleLocationUrlChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (section.type === "contact-details") {
         const currentItem = section.items[contactIdx]
         if (currentItem.type === "address") {
-          updateItem(sectionIdx, ["items"], contactIdx, {
+          updateItem(index, ["items"], contactIdx, {
             ...currentItem,
             location: {
               ...currentItem.location,
@@ -77,76 +80,67 @@ export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFor
         }
       }
     },
-    [section, sectionIdx, contactIdx, updateItem],
+    [section, index, contactIdx, updateItem],
   )
 
-  if (section.type !== "contact-details") return null
-  const item = section.items[contactIdx]
-  if (item.type !== "address") return null
+  const item = section?.items[contactIdx] as ContactAddressItem
 
   return (
     <div className="grid grid-cols-1 @[45rem]/editor-sub-sort:grid-cols-2 gap-3">
       <Field className="@[45rem]/editor-sub-sort:col-span-2">
-        <FieldLabel htmlFor={`contact-${contactIdx}-label`}>Label</FieldLabel>
+        <FieldLabel>Label</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-label`}
-          value={item.label}
-          onChange={(e) => handleFieldChange("label", e.target.value)}
+          value={item?.label}
+          onChange={(e) => handleFieldChange("label", e?.target?.value ?? "")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-address1`}>Address Line 1</FieldLabel>
+        <FieldLabel>Address Line 1</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-address1`}
-          value={item.streetAddress1}
-          onChange={(e) => handleFieldChange("streetAddress1", e.target.value)}
+          value={item?.streetAddress1}
+          onChange={(e) => handleFieldChange("streetAddress1", e?.target?.value ?? "")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-address2`}>Address Line 2</FieldLabel>
+        <FieldLabel>Address Line 2</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-address2`}
-          value={item.streetAddress2}
-          onChange={(e) => handleFieldChange("streetAddress2", e.target.value)}
+          value={item?.streetAddress2}
+          onChange={(e) => handleFieldChange("streetAddress2", e?.target?.value ?? "")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-city`}>City</FieldLabel>
+        <FieldLabel>City</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-city`}
-          value={item.cityName}
-          onChange={(e) => handleFieldChange("cityName", e.target.value)}
+          value={item?.cityName}
+          onChange={(e) => handleFieldChange("cityName", e?.target?.value ?? "")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-state`}>State</FieldLabel>
+        <FieldLabel>State</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-state`}
-          value={item.stateName}
-          onChange={(e) => handleFieldChange("stateName", e.target.value)}
+          value={item?.stateName}
+          onChange={(e) => handleFieldChange("stateName", e?.target?.value ?? "")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-zip`}>Zip Code</FieldLabel>
+        <FieldLabel>Zip Code</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-zip`}
           type="number"
-          value={item.zipCode}
-          onChange={(e) => handleFieldChange("zipCode", Number(e.target.value))}
+          value={item?.zipCode}
+          onChange={(e) => handleFieldChange("zipCode", Number(e?.target?.value ?? 0))}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-country`}>Country</FieldLabel>
+        <FieldLabel>Country</FieldLabel>
         <Input
-          id={`contact-${contactIdx}-country`}
-          value={item.countryName}
-          onChange={(e) => handleFieldChange("countryName", e.target.value)}
+          value={item?.countryName}
+          onChange={(e) => handleFieldChange("countryName", e?.target?.value ?? "")}
         />
       </Field>
 
@@ -165,22 +159,12 @@ export function AddressContactForm({ contactIdx, sectionIdx }: AddressContactFor
             )}
           </button>
         </FieldLabel>
-        <Input
-          id={`contact-${contactIdx}-location-label`}
-          value={item.location.label}
-          onChange={handleLocationLabelChange}
-        />
+        <Input value={item?.location?.label} onChange={handleLocationLabelChange} />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor={`contact-${contactIdx}-location-url`}>
-          Google Map Location URL
-        </FieldLabel>
-        <Input
-          id={`contact-${contactIdx}-location-url`}
-          value={item.location.url}
-          onChange={handleLocationUrlChange}
-        />
+        <FieldLabel>Google Map Location URL</FieldLabel>
+        <Input value={item?.location?.url} onChange={handleLocationUrlChange} />
       </Field>
     </div>
   )
