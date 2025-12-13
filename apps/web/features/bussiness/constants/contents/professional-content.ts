@@ -1,6 +1,6 @@
-import type { ContentEditor } from "@app/core/types"
+import type { ContentSection } from "@app/core/types"
 
-export const PROFESSIONAL_TEMPLATE: ContentEditor["sections"] = [
+export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
   {
     id: "f560863c-749e-4124-aab9-73a48ac07631",
     enabled: true,

@@ -21,10 +21,10 @@ type ContentEditorActions = {
   updateSectionField: (index: number, field: string[], value: unknown) => void
 
   // Array operations for nested lists (contacts, links, images, etc.)
-  // pushItem: (sectionIdx: number, path: string[], item: any) => void
-  // removeItem: (sectionIdx: number, path: string[], itemIdx: number) => void
-  // moveItem: (sectionIdx: number, path: string[], fromIdx: number, toIdx: number) => void
-  // updateItem: (sectionIdx: number, path: string[], itemIdx: number, value: any) => void
+  pushItem: (sectionIdx: number, path: string[], item: any) => void
+  removeItem: (sectionIdx: number, path: string[], itemIdx: number) => void
+  moveItem: (sectionIdx: number, path: string[], fromIdx: number, toIdx: number) => void
+  updateItem: (sectionIdx: number, path: string[], itemIdx: number, value: unknown) => void
 
   // Reset
   // reset: () => void
@@ -61,42 +61,42 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
       })
     },
 
-    // pushItem: (sectionIdx, path, item) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     target.push(item)
-    //   }),
+    pushItem: (sectionIdx, path, item) =>
+      set((state) => {
+        let target: any = state.sections[sectionIdx]
+        for (const key of path) {
+          target = target[key]
+        }
+        target.push(item)
+      }),
 
-    // removeItem: (sectionIdx, path, itemIdx) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     target.splice(itemIdx, 1)
-    //   }),
+    removeItem: (sectionIdx, path, itemIdx) =>
+      set((state) => {
+        let target: any = state.sections[sectionIdx]
+        for (const key of path) {
+          target = target[key]
+        }
+        target.splice(itemIdx, 1)
+      }),
 
-    // moveItem: (sectionIdx, path, fromIdx, toIdx) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     const [removed] = target.splice(fromIdx, 1)
-    //     target.splice(toIdx, 0, removed)
-    //   }),
+    moveItem: (sectionIdx, path, fromIdx, toIdx) =>
+      set((state) => {
+        let target: any = state.sections[sectionIdx]
+        for (const key of path) {
+          target = target[key]
+        }
+        const [removed] = target.splice(fromIdx, 1)
+        target.splice(toIdx, 0, removed)
+      }),
 
-    // updateItem: (sectionIdx, path, itemIdx, value) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     target[itemIdx] = value
-    //   }),
+    updateItem: (sectionIdx, path, itemIdx, value) =>
+      set((state) => {
+        let target: any = state.sections[sectionIdx]
+        for (const key of path) {
+          target = target[key]
+        }
+        target[itemIdx] = value
+      }),
 
     // reset: () => set(initialState),
   })),

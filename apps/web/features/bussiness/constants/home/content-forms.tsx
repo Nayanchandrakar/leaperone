@@ -2,6 +2,7 @@ import type { ContentSectionType } from "@app/core/types"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading/index"
+import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 
 type ContentFormComponent = (props: { index: number }) => React.ReactNode
@@ -12,4 +13,5 @@ export const CONTENT_FORMS: Partial<ContentFormMap> = {
   "heading-text": (props) => <HeadingTextForm {...props} />,
   "floating-button": (props) => <FloatingCardButtonForm {...props} />,
   "cta-button": (props) => <CtaButtonForm {...props} />,
+  profile: (props) => <ProfileForm {...props} />,
 }
