@@ -58,17 +58,7 @@ export const QrCodeProvider = ({ children, settings }: QrCodeProviderProps) => {
     }
   }, [qrCodeInstance, qrCodeOptions])
 
-  const downloadQrCode = () => {
-    if (qrCodeInstance) {
-      qrCodeInstance.download({ name: "qr-code.png", extension: "svg" })
-    }
-  }
-
-  return (
-    <QrCodeContext.Provider value={{ containerRef, downloadQrCode }}>
-      {children}
-    </QrCodeContext.Provider>
-  )
+  return <QrCodeContext.Provider value={{ containerRef }}>{children}</QrCodeContext.Provider>
 }
 
 export const QrCodePreview = () => {

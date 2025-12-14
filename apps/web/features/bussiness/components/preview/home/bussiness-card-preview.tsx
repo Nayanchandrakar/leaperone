@@ -3,7 +3,7 @@ import { Switch } from "@app/ui/components/switch"
 import { Iphone } from "@/features/bussiness/components/ui/iphone"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const BizCardPreview = () => {
+export const BusinessCardPreview = () => {
   const sections = useContentEditorStore((state) => state.sections)
   return (
     <div className="space-y-5 max-w-xs mx-auto">
