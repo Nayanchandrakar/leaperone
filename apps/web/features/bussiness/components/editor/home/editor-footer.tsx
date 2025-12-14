@@ -3,7 +3,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { useStepperControls } from "@/features/bussiness/hooks/home/use-stepper-controls"
 
 export const EditorFooter = () => {
-  const { formId, canGoToNextStep, canGoToPreviousStep, handlePreviousStep } = useStepperControls()
+  const { canGoToPreviousStep, handlePreviousStep, canGoToNextStep, handleNextStep } =
+    useStepperControls()
 
   return (
     <div className="mt-7 flex items-center justify-between">
@@ -17,7 +18,7 @@ export const EditorFooter = () => {
       )}
 
       {canGoToNextStep && (
-        <Button type="submit" form={formId} className="px-8">
+        <Button onClick={handleNextStep} className="px-8">
           Next Step
           <ArrowRight />
         </Button>

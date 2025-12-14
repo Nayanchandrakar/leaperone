@@ -1,26 +1,46 @@
 import { useCallback, useMemo } from "react"
-import { CARD_STEPS } from "@/features/bussiness/constants/home/card-steps"
+import { useShallow } from "zustand/react/shallow"
 import { useStepper } from "@/features/bussiness/hooks/home/use-stepper"
 import { scrollToElement } from "@/features/bussiness/utils/scroll-to-element"
 
 export const useStepperControls = () => {
-  const { selectedStep, goToPreviousStep } = useStepper()
+  const { selectedStep, goToPreviousStep, goToNextStep } = useStepper(
+    useShallow((state) => ({
+      selectedStep: state.selectedStep,
+      goToNextStep: state.goToNextStep,
+      goToPreviousStep: state.goToPreviousStep,
+    })),
+  )
 
-  const formId = useMemo(() => {
-    return CARD_STEPS[selectedStep]?.formId
-  }, [selectedStep])
-
-  const { canGoToNextStep, canGoToPreviousStep } = useMemo(() => {
-    return {
+  const { canGoToNextStep, canGoToPreviousStep } = useMemo(
+    () => ({
       canGoToNextStep: selectedStep < 2,
       canGoToPreviousStep: selectedStep > 0,
-    }
-  }, [selectedStep])
+    }),
+    [selectedStep],
+  )
+
+  const scrollTargetId = useMemo(() => "hero-section", [])
 
   const handlePreviousStep = useCallback(() => {
-    goToPreviousStep()
-    scrollToElement("hero-section")
-  }, [goToPreviousStep])
+    if (canGoToPreviousStep) {
+      goToPreviousStep()
+      scrollToElement(scrollTargetId)
+    }
+  }, [canGoToPreviousStep, goToPreviousStep, scrollTargetId])
 
-  return { formId, canGoToNextStep, canGoToPreviousStep, handlePreviousStep }
+  const handleNextStep = useCallback(() => {
+    if (canGoToNextStep) {
+      goToNextStep()
+      scrollToElement(scrollTargetId)
+    }
+  }, [canGoToNextStep, goToNextStep, scrollTargetId])
+
+  return {
+    selectedStep,
+    canGoToNextStep,
+    canGoToPreviousStep,
+    handlePreviousStep,
+    handleNextStep,
+  }
 }
