@@ -5,20 +5,20 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import { generateUUID } from "@/utils"
 
 interface AddImageLinksFormProps {
-  sectionIdx: number
+  index: number
 }
 
-export function AddImageLinksForm({ sectionIdx }: AddImageLinksFormProps) {
+export function AddImageLinksForm({ index }: AddImageLinksFormProps) {
   const pushItem = useContentEditorStore((state) => state.pushItem)
 
   const handleAddImage = useCallback(() => {
-    pushItem(sectionIdx, ["images"], {
+    pushItem(index, ["images"], {
       id: generateUUID(),
       imageSrc: "https://images.pexels.com/photos/7004737/pexels-photo-7004737.jpeg",
       title: "",
       link: "",
     })
-  }, [sectionIdx, pushItem])
+  }, [index, pushItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddImage}>

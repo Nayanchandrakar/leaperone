@@ -3,6 +3,8 @@ import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading/index"
+import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/content/images"
+import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 
@@ -16,4 +18,6 @@ export const CONTENT_FORMS: Partial<ContentFormMap> = {
   "cta-button": (props) => <CtaButtonForm {...props} />,
   profile: (props) => <ProfileForm {...props} />,
   "contact-details": (props) => <ContactDetailsForm {...props} />,
+  "social-links": (props) => <SocialLinksForm {...props} />,
+  "image-text-links": (props) => <ImageTextLinksForm {...props} />,
 }
