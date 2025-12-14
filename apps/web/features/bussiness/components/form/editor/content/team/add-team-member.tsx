@@ -5,14 +5,14 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import { generateUUID } from "@/utils"
 
 interface AddTeamMemberFormProps {
-  sectionIdx: number
+  index: number
 }
 
-export function AddTeamMemberForm({ sectionIdx }: AddTeamMemberFormProps) {
+export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
   const pushItem = useContentEditorStore((state) => state.pushItem)
 
   const handleAddTeamMember = useCallback(() => {
-    pushItem(sectionIdx, ["members"], {
+    pushItem(index, ["members"], {
       id: generateUUID(),
       memberName: "",
       memberDesignation: "",
@@ -25,7 +25,7 @@ export function AddTeamMemberForm({ sectionIdx }: AddTeamMemberFormProps) {
         enabled: false,
       },
     })
-  }, [sectionIdx, pushItem])
+  }, [index, pushItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddTeamMember}>

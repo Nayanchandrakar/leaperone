@@ -6,6 +6,7 @@ import { HeadingTextForm } from "@/features/bussiness/components/form/editor/con
 import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/content/images"
 import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
+import { TeamSectionForm } from "@/features/bussiness/components/form/editor/content/team"
 import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
 
 type ContentFormComponent = (props: { index: number }) => React.ReactNode
@@ -20,4 +21,5 @@ export const CONTENT_FORMS: Partial<ContentFormMap> = {
   "contact-details": (props) => <ContactDetailsForm {...props} />,
   "social-links": (props) => <SocialLinksForm {...props} />,
   "image-text-links": (props) => <ImageTextLinksForm {...props} />,
+  team: (props) => <TeamSectionForm {...props} />,
 }

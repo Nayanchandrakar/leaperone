@@ -1,68 +1,62 @@
+import type { TeamSection } from "@app/core/types"
 import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
 import { useCallback } from "react"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
-import {
-  EditorSortGroup,
-  EditorSortProvider,
-  EditorSubSortItem,
-} from "@/features/bussiness/components/ui/editor-sort"
-import {
-  useContentEditorStore,
-  useContentSection,
-} from "@/features/bussiness/stores/use-content-editor-store"
+import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
+import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
 interface TeamMembersListProps {
-  sectionIdx: number
+  index: number
 }
 
-export function TeamMembersList({ sectionIdx }: TeamMembersListProps) {
-  const section = useContentSection(sectionIdx)
+export function TeamMembersList({ index }: TeamMembersListProps) {
+  const section = useContentEditorStore((state) => state.sections[index] as TeamSection)
   const updateItem = useContentEditorStore((state) => state.updateItem)
   const removeItem = useContentEditorStore((state) => state.removeItem)
   const moveItem = useContentEditorStore((state) => state.moveItem)
 
   const handleDataChange = useCallback(
     (oldIndex: number, newIndex: number) => {
-      moveItem(sectionIdx, ["members"], oldIndex, newIndex)
+      moveItem(index, ["members"], oldIndex, newIndex)
     },
-    [sectionIdx, moveItem],
+    [index, moveItem],
   )
 
   const handleMemberNameChange = useCallback(
     (memberIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
       if (section.type === "team") {
         const currentMember = section.members[memberIdx]
-        updateItem(sectionIdx, ["members"], memberIdx, {
+        updateItem(index, ["members"], memberIdx, {
           ...currentMember,
           memberName: e.target.value,
         })
       }
     },
-    [section, sectionIdx, updateItem],
+    [section, index, updateItem],
   )
 
   const handleDesignationChange = useCallback(
     (memberIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
       if (section.type === "team") {
         const currentMember = section.members[memberIdx]
-        updateItem(sectionIdx, ["members"], memberIdx, {
+        updateItem(index, ["members"], memberIdx, {
           ...currentMember,
           memberDesignation: e.target.value,
         })
       }
     },
-    [section, sectionIdx, updateItem],
+    [section, index, updateItem],
   )
 
   const handleProfileEnabledChange = useCallback(
     (memberIdx: number, checked: boolean) => {
       if (section.type === "team") {
         const currentMember = section.members[memberIdx]
-        updateItem(sectionIdx, ["members"], memberIdx, {
+        updateItem(index, ["members"], memberIdx, {
           ...currentMember,
           memberProfile: {
             ...currentMember.memberProfile,
@@ -71,14 +65,14 @@ export function TeamMembersList({ sectionIdx }: TeamMembersListProps) {
         })
       }
     },
-    [section, sectionIdx, updateItem],
+    [section, index, updateItem],
   )
 
   const handleDescriptionTextChange = useCallback(
     (memberIdx: number, e: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (section.type === "team") {
         const currentMember = section.members[memberIdx]
-        updateItem(sectionIdx, ["members"], memberIdx, {
+        updateItem(index, ["members"], memberIdx, {
           ...currentMember,
           memberDescription: {
             ...currentMember.memberDescription,
@@ -87,14 +81,14 @@ export function TeamMembersList({ sectionIdx }: TeamMembersListProps) {
         })
       }
     },
-    [section, sectionIdx, updateItem],
+    [section, index, updateItem],
   )
 
   const handleDescriptionEnabledToggle = useCallback(
     (memberIdx: number) => {
       if (section.type === "team") {
         const currentMember = section.members[memberIdx]
-        updateItem(sectionIdx, ["members"], memberIdx, {
+        updateItem(index, ["members"], memberIdx, {
           ...currentMember,
           memberDescription: {
             ...currentMember.memberDescription,
@@ -103,14 +97,14 @@ export function TeamMembersList({ sectionIdx }: TeamMembersListProps) {
         })
       }
     },
-    [section, sectionIdx, updateItem],
+    [section, index, updateItem],
   )
 
   const handleDelete = useCallback(
     (memberIdx: number) => {
-      removeItem(sectionIdx, ["members"], memberIdx)
+      removeItem(index, ["members"], memberIdx)
     },
-    [sectionIdx, removeItem],
+    [index, removeItem],
   )
 
   if (section.type !== "team") return null
@@ -118,78 +112,63 @@ export function TeamMembersList({ sectionIdx }: TeamMembersListProps) {
   if (!hasMembers) return null
 
   return (
-    <EditorSortProvider data={section.members} onDataChange={handleDataChange}>
-      <EditorSortGroup>
-        {(member: any, memberIdx: number) => (
-          <EditorSubSortItem
-            id={member.id}
-            key={member.id}
-            onDelete={() => handleDelete(memberIdx)}
-          >
-            <FieldSet>
-              <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
-                <Field>
-                  <FieldLabel htmlFor={`team-member-${memberIdx}-name`}>Name</FieldLabel>
-                  <Input
-                    id={`team-member-${memberIdx}-name`}
-                    value={member.memberName}
-                    onChange={(e) => handleMemberNameChange(memberIdx, e)}
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor={`team-member-${memberIdx}-designation`}>
-                    Designation
-                  </FieldLabel>
-                  <Input
-                    id={`team-member-${memberIdx}-designation`}
-                    value={member.memberDesignation}
-                    onChange={(e) => handleDesignationChange(memberIdx, e)}
-                  />
-                </Field>
-              </div>
+    <SortableList
+      items={section.members}
+      onOrderChange={handleDataChange}
+      renderItem={(member: any, memberIdx: number) => (
+        <SortableSubListItem
+          key={member.id}
+          itemId={member.id}
+          onItemDelete={() => handleDelete(memberIdx)}
+        >
+          <FieldSet>
+            <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Name</FieldLabel>
+                <Input
+                  value={member.memberName}
+                  onChange={(e) => handleMemberNameChange(memberIdx, e)}
+                />
+              </Field>
+              <Field>
+                <FieldLabel>Designation</FieldLabel>
+                <Input
+                  value={member.memberDesignation}
+                  onChange={(e) => handleDesignationChange(memberIdx, e)}
+                />
+              </Field>
+            </div>
 
-              <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
-                <Field className="w-fit">
-                  <FieldLabel
-                    htmlFor={`team-member-${memberIdx}-profile-enabled`}
-                    className="flex-row gap-2"
-                  >
-                    <span>Profile</span>
-                    <Switch
-                      id={`team-member-${memberIdx}-profile-enabled`}
-                      checked={member.memberProfile.enabled}
-                      onCheckedChange={(checked) => handleProfileEnabledChange(memberIdx, checked)}
-                    />
-                  </FieldLabel>
-                  <EditorImageUploader src={member.memberProfile.imageSrc} />
-                </Field>
-
-                <Field className="h-full">
-                  <FieldLabel className="flex items-center justify-between">
-                    <span>Description</span>
-                    <button
-                      type="button"
-                      onClick={() => handleDescriptionEnabledToggle(memberIdx)}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {member.memberDescription.enabled ? (
-                        <EyeIcon className="size-4" />
-                      ) : (
-                        <EyeOffIcon className="size-4" />
-                      )}
-                    </button>
-                  </FieldLabel>
-                  <Textarea
-                    className="h-full"
-                    value={member.memberDescription.text}
-                    onChange={(e) => handleDescriptionTextChange(memberIdx, e)}
+            <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
+              <Field className="w-fit">
+                <Field orientation="horizontal" className="w-fit">
+                  <FieldLabel>Profile</FieldLabel>
+                  <Switch
+                    checked={member.memberProfile.enabled}
+                    onCheckedChange={(value) => {
+                      handleProfileEnabledChange(memberIdx, value)
+                    }}
                   />
                 </Field>
-              </div>
-            </FieldSet>
-          </EditorSubSortItem>
-        )}
-      </EditorSortGroup>
-    </EditorSortProvider>
+                <EditorImageUploader src={member.memberProfile.imageSrc} />
+              </Field>
+
+              <Field>
+                <ToogleLabel
+                  label="Description"
+                  isActive={member.memberDescription.enabled}
+                  onToggle={() => handleDescriptionEnabledToggle(memberIdx)}
+                />
+                <Textarea
+                  className="h-full"
+                  value={member.memberDescription.text}
+                  onChange={(e) => handleDescriptionTextChange(memberIdx, e)}
+                />
+              </Field>
+            </div>
+          </FieldSet>
+        </SortableSubListItem>
+      )}
+    />
   )
 }
