@@ -13,12 +13,13 @@ export const QR_CODE_SETTINGS: QrCodeEditor = {
   cornerStyle: "square",
   patternStyle: "square",
   fill: {
-    type: "gradient",
-    fillGradient: {
-      colorStops: ["#000000", "#1ba124"],
-      rotation: 120,
-      type: "linear",
-    },
+    type: "single",
+    color: "#000000",
+    // fillGradient: {
+    //   colorStops: ["#000000", "#1ba124"],
+    //   rotation: 120,
+    //   type: "linear",
+    // },
   },
 }
 

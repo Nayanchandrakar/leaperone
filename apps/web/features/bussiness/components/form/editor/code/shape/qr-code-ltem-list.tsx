@@ -25,9 +25,9 @@ export const QrCodeItemList = <T extends string>({
       renderItem={(item, idx) => (
         <QrCodeItemCard
           label={item.label}
-          onClick={() => onItemSelect(item)}
           key={`qr-${item.value}-${idx}`}
           data-state={isItemSelected(item)}
+          onClick={() => onItemSelect(item)}
         >
           <item.icon className="size-26" />
         </QrCodeItemCard>

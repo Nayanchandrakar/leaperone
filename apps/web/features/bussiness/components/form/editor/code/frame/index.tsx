@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { QrCodeItemList } from "@/features/bussiness/components/form/editor/code/shape/qr-code-ltem-list"
 import {
   EditorBlockContent,
@@ -8,20 +8,14 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_FRAME_ITEMS } from "@/features/bussiness/constants/home/qr-code-settings"
-import {
-  useQrCodeCornerStyle,
-  useQrCodeEditorStore,
-} from "@/features/bussiness/stores/use-qr-code-editor-store"
+import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
 export function QrFrameForm() {
-  const cornerStyle = useQrCodeCornerStyle()
-  const setCornerStyle = useQrCodeEditorStore((state) => state.setCornerStyle)
-
-  const handleItemSelect = useCallback(
-    (item: (typeof QR_FRAME_ITEMS)[number]) => {
-      setCornerStyle(item.value)
-    },
-    [setCornerStyle],
+  const { cornerStyle, setCornerStyle } = useQrCodeEditorStore(
+    useShallow((state) => ({
+      cornerStyle: state.settings.cornerStyle,
+      setCornerStyle: state.setCornerStyle,
+    })),
   )
 
   return (
@@ -34,7 +28,7 @@ export function QrFrameForm() {
         <QrCodeItemList
           items={QR_FRAME_ITEMS}
           currentValue={cornerStyle}
-          onItemSelect={handleItemSelect}
+          onItemSelect={(item) => setCornerStyle(item.value)}
         />
       </EditorBlockContent>
     </EditorBlockItem>

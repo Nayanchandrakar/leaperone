@@ -10,9 +10,8 @@ import {
   FieldTitle,
 } from "@app/ui/components/field"
 import { RadioGroup, RadioGroupItem } from "@app/ui/components/radio-group"
-import { useCallback } from "react"
-import { QrGradientColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-gradient-color-form"
-import { QrSingleColorForm } from "@/features/bussiness/components/form/editor/code/color/qr-single-color-form"
+import { useShallow } from "zustand/react/shallow"
+import { RenderQrColorForm } from "@/features/bussiness/components/form/editor/code/color/render-color-form"
 import {
   EditorBlockContent,
   EditorBlockHeader,
@@ -21,21 +20,14 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_COLOR_OPTIONS } from "@/features/bussiness/constants/home/qr-code-colors"
-import {
-  useQrCodeEditorStore,
-  useQrCodeFill,
-} from "@/features/bussiness/stores/use-qr-code-editor-store"
-import type { QrCodeColorType } from "@/features/bussiness/types"
+import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
 export function QrColorForm() {
-  const fill = useQrCodeFill()
-  const setFillType = useQrCodeEditorStore((state) => state.setFillType)
-
-  const handleChange = useCallback(
-    (value: string) => {
-      setFillType(value as QrCodeColorType)
-    },
-    [setFillType],
+  const { fill, setFillType } = useQrCodeEditorStore(
+    useShallow((state) => ({
+      fill: state.settings.fill,
+      setFillType: state.setFillType,
+    })),
   )
 
   return (
@@ -50,10 +42,9 @@ export function QrColorForm() {
             <FieldLegend>Color Style</FieldLegend>
             <FieldDescription>Choose a color style for your QR code.</FieldDescription>
             <RadioGroup
-              name="fill-type"
+              value={fill?.type}
+              onValueChange={setFillType}
               className="flex gap-2 @xl/editor-block-content:flex-row flex-col"
-              value={fill.type}
-              onValueChange={handleChange}
             >
               {QR_COLOR_OPTIONS.map(({ description, title, value }) => (
                 <FieldLabel key={value} htmlFor={value} className="cursor-pointer">
@@ -69,8 +60,7 @@ export function QrColorForm() {
             </RadioGroup>
           </FieldSet>
           <FieldSeparator />
-          {fill.type === "single" && <QrSingleColorForm />}
-          {fill.type === "gradient" && <QrGradientColorForm />}
+          <RenderQrColorForm />
         </FieldGroup>
       </EditorBlockContent>
     </EditorBlockItem>

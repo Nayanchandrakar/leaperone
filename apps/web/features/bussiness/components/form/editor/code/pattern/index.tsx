@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { QrCodeItemList } from "@/features/bussiness/components/form/editor/code/shape/qr-code-ltem-list"
 import {
   EditorBlockContent,
@@ -8,20 +8,14 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_PATTERN_ITEMS } from "@/features/bussiness/constants/home/qr-code-settings"
-import {
-  useQrCodeEditorStore,
-  useQrCodePatternStyle,
-} from "@/features/bussiness/stores/use-qr-code-editor-store"
+import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
 export function QrPatternForm() {
-  const patternStyle = useQrCodePatternStyle()
-  const setPatternStyle = useQrCodeEditorStore((state) => state.setPatternStyle)
-
-  const handleItemSelect = useCallback(
-    (item: (typeof QR_PATTERN_ITEMS)[number]) => {
-      setPatternStyle(item.value)
-    },
-    [setPatternStyle],
+  const { patternStyle, setPatternStyle } = useQrCodeEditorStore(
+    useShallow((state) => ({
+      patternStyle: state.settings.patternStyle,
+      setPatternStyle: state.setPatternStyle,
+    })),
   )
 
   return (
@@ -34,7 +28,7 @@ export function QrPatternForm() {
         <QrCodeItemList
           items={QR_PATTERN_ITEMS}
           currentValue={patternStyle}
-          onItemSelect={handleItemSelect}
+          onItemSelect={(item) => setPatternStyle(item.value)}
         />
       </EditorBlockContent>
     </EditorBlockItem>

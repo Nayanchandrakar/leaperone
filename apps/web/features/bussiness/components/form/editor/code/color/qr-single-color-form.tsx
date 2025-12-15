@@ -1,39 +1,34 @@
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { QrColorsList } from "@/features/bussiness/components/form/editor/code/color/qr-colors-list"
 import { ColorPicker } from "@/features/bussiness/components/ui/color-picker"
 import { QR_COLORS } from "@/features/bussiness/constants/home/qr-code-colors"
-import {
-  useQrCodeEditorStore,
-  useQrCodeFill,
-} from "@/features/bussiness/stores/use-qr-code-editor-store"
+import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
 export function QrSingleColorForm() {
-  const fill = useQrCodeFill()
-  const setFillColor = useQrCodeEditorStore((state) => state.setFillColor)
+  const { fillColor, setFillColor } = useQrCodeEditorStore(
+    useShallow((state) => ({
+      setFillColor: state.setFillColor,
+      fillColor: state.settings.fill?.type === "single" ? state.settings.fill?.color : "#000000",
+    })),
+  )
 
   const handleColorChange = useCallback(
-    (color: string) => {
-      setFillColor(color)
-    },
-    [setFillColor],
+    (color: string) => setFillColor(color),
+    [setFillColor, fillColor],
   )
 
   return (
     <>
       <Field className="w-fit">
-        <FieldLabel htmlFor="fill-color">Choose QR Code Color</FieldLabel>
-        <ColorPicker
-          id="fill-color"
-          name="fill-color"
-          color={fill.color || "#000000"}
-          onColorChange={handleColorChange}
-        />
+        <FieldLabel>Choose QR Code Color</FieldLabel>
+        <ColorPicker color={fillColor} onColorChange={handleColorChange} />
       </Field>
 
       <QrColorsList
         colors={QR_COLORS}
-        selectedColor={fill.color || "#000000"}
+        selectedColor={fillColor}
         onColorChange={handleColorChange}
       />
     </>

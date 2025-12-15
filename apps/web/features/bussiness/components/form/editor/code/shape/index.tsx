@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { QrCodeItemList } from "@/features/bussiness/components/form/editor/code/shape/qr-code-ltem-list"
 import {
   EditorBlockContent,
@@ -8,20 +8,14 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { QR_SHAPE_ITEMS } from "@/features/bussiness/constants/home/qr-code-settings"
-import {
-  useQrCodeBodyShape,
-  useQrCodeEditorStore,
-} from "@/features/bussiness/stores/use-qr-code-editor-store"
+import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
 export function QrShapeForm() {
-  const bodyShape = useQrCodeBodyShape()
-  const setBodyShape = useQrCodeEditorStore((state) => state.setBodyShape)
-
-  const handleItemSelect = useCallback(
-    (item: (typeof QR_SHAPE_ITEMS)[number]) => {
-      setBodyShape(item.value)
-    },
-    [setBodyShape],
+  const { bodyShape, setBodyShape } = useQrCodeEditorStore(
+    useShallow((state) => ({
+      setBodyShape: state.setBodyShape,
+      bodyShape: state.settings.bodyShape,
+    })),
   )
 
   return (
@@ -34,7 +28,7 @@ export function QrShapeForm() {
         <QrCodeItemList
           items={QR_SHAPE_ITEMS}
           currentValue={bodyShape}
-          onItemSelect={handleItemSelect}
+          onItemSelect={(item) => setBodyShape(item.value)}
         />
       </EditorBlockContent>
     </EditorBlockItem>
