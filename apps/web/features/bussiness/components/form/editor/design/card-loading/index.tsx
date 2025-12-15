@@ -7,11 +7,11 @@ import {
   EditorBlockTrigger,
 } from "@/features/bussiness/components/ui/editor-block"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
-import { useDesignCardImage } from "@/features/bussiness/stores/use-design-editor-store"
+import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
 import { ToolTipProvider } from "@/features/subscription/components/ui/tooltip-provider"
 
 export function CardLoadingForm() {
-  const cardImage = useDesignCardImage()
+  const cardImage = useDesignEditorStore((state) => state.config.cardImage)
 
   return (
     <EditorBlockItem value="card-loading-section">

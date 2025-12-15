@@ -1,99 +1,59 @@
-import type { Color, DesignEditor } from "@app/core/types"
+import type {
+  CardImage,
+  CardSettings,
+  Color,
+  DesignEditor,
+  SectionBackground,
+} from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { DEFAULT_DESIGN_SETTINGS } from "@/features/bussiness/constants/home/default-design-settings"
 
-type DesignEditorActions = {
-  // Background actions
-  // setBackground: (background: DesignEditor["background"]) => void
-  // updateBackgroundItem: (idx: number, url: string) => void
-  // // Color actions
-  // setColorField: <T extends keyof Color>(field: T, value: Color[T]) => void
-  // // Section background actions
-  // setSectionBackground: (field: keyof DesignEditor["sectionBackground"], value: any) => void
-  // // Card image actions
-  // setCardImageUrl: (url: string) => void
-  // // Settings actions
-  // setSettings: (field: keyof DesignEditor["settings"], value: any) => void
-  // // Generic field updater
-  // updateField: (path: string[], value: any) => void
-  // // Reset
-  // reset: () => void
-
-  setColor: (color: Color) => void
-  setColorField: <K extends keyof Color>(field: K, value: Color[K]) => void
+type DesignEditorState = {
+  config: DesignEditor
 }
 
-const initialState: DesignEditor = DEFAULT_DESIGN_SETTINGS
+type DesignEditorActions = {
+  setColor: (color: Color) => void
+  setSectionBackground: <K extends keyof SectionBackground>(
+    field: K,
+    value: SectionBackground[K],
+  ) => void
+  setColorField: <K extends keyof Color>(field: K, value: Color[K]) => void
+  setCardImageUrl: <K extends keyof CardImage>(field: K, value: CardImage[K]) => void
+  setSettings: <K extends keyof CardSettings>(field: K, value: CardSettings[K]) => void
+  reset: () => void
+}
 
-export const useDesignEditorStore = create<DesignEditor & DesignEditorActions>()(
+export const useDesignEditorStore = create<DesignEditorState & DesignEditorActions>()(
   immer((set) => ({
-    ...initialState,
+    config: DEFAULT_DESIGN_SETTINGS,
 
-    setColor: (color) => {
+    setColor: (color) =>
       set((state) => {
-        state.color = color
-      })
-    },
+        state.config.color = color
+      }),
 
-    setColorField: (field, value) => {
+    setColorField: (field, value) =>
       set((state) => {
-        state.color[field] = value
-      })
-    },
+        state.config.color[field] = value
+      }),
 
-    // setBackground: (background) =>
-    //   set((state) => {
-    //     state.background = background
-    //   }),
+    setSectionBackground: (field, value) =>
+      set((state) => {
+        state.config.sectionBackground[field] = value
+      }),
 
-    // updateBackgroundItem: (idx, url) =>
-    //   set((state) => {
-    //     state.background[idx].url = url
-    //   }),
+    setCardImageUrl: (field, value) =>
+      set((state) => {
+        state.config.cardImage[field] = value
+      }),
 
-    // setColor: (color) =>
-    //   set((state) => {
-    //     state.color = color
-    //   }),
+    setSettings: (field, value) =>
+      set((state) => {
+        state.config.settings[field] = value
+      }),
 
-    // setColorField: (field, value) =>
-    //   set((state) => {
-    //     state.color[field] = value as any
-    //   }),
-
-    // setSectionBackground: (field, value) =>
-    //   set((state) => {
-    //     state.sectionBackground[field] = value as any
-    //   }),
-
-    // setCardImageUrl: (url) =>
-    //   set((state) => {
-    //     state.cardImage.url = url
-    //   }),
-
-    // setSettings: (field, value) =>
-    //   set((state) => {
-    //     state.settings[field] = value as any
-    //   }),
-
-    // updateField: (path, value) =>
-    //   set((state) => {
-    //     let target: any = state
-    //     for (let i = 0; i < path.length - 1; i++) {
-    //       target = target[path[i]]
-    //     }
-    //     target[path[path.length - 1]] = value
-    //   }),
-
-    // reset: () => set(initialState),
+    reset: () => set({ config: DEFAULT_DESIGN_SETTINGS }),
   })),
 )
-
-// Selectors
-export const useDesignBackground = () => useDesignEditorStore((state) => state.background)
-export const useDesignColor = () => useDesignEditorStore((state) => state.color)
-export const useDesignSectionBackground = () =>
-  useDesignEditorStore((state) => state.sectionBackground)
-export const useDesignCardImage = () => useDesignEditorStore((state) => state.cardImage)
-export const useDesignSettings = () => useDesignEditorStore((state) => state.settings)

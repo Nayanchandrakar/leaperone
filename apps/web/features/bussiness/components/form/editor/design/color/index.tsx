@@ -16,8 +16,8 @@ import { ToolTipProvider } from "@/features/subscription/components/ui/tooltip-p
 export function ColorChangeForm() {
   const { color, setColor, setColorField } = useDesignEditorStore(
     useShallow((state) => ({
-      color: state.color,
       setColor: state.setColor,
+      color: state.config.color,
       setColorField: state.setColorField,
     })),
   )
