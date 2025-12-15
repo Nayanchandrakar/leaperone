@@ -1,36 +1,30 @@
-/**
- * Design Editor Types
- * Pure TypeScript types matching the design editor schema
- */
-
-export interface Background {
+export type Background = {
   id: string
-  url?: string
-  type: "image"
+  url: string
 }
 
-export interface Color {
+export type Color = {
   background: string
   highlight: string
   mainText: string
   supportingText: string
 }
 
-export interface SectionBackground {
+export type SectionBackground = {
   enabled: boolean
   color: string
   borderRadius: number
 }
 
-export interface CardImage {
+export type CardImage = {
   url: string
 }
 
-export interface CardSettings {
+export type CardSettings = {
   branding: boolean
 }
 
-export interface DesignEditor {
+export type DesignEditor = {
   background: Background[]
   color: Color
   sectionBackground: SectionBackground
