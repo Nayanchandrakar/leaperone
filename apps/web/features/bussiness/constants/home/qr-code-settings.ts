@@ -1,11 +1,6 @@
-import type { QrCodeEditor } from "@app/core/types"
+import type { QrCodeBodyShape, QrCodeEditor } from "@app/core/types"
 import { Icons } from "@/components/shared/icons"
-import type {
-  QrCodeCornerStyle,
-  QrCodeItem,
-  QrCodePatternStyle,
-  QrCodeShape,
-} from "@/features/bussiness/types"
+import type { QrCodeCornerStyle, QrCodeItem, QrCodePatternStyle } from "@/features/bussiness/types"
 
 export const QR_CODE_SETTINGS: QrCodeEditor = {
   data: "https://www.leaperone.com",
@@ -13,17 +8,16 @@ export const QR_CODE_SETTINGS: QrCodeEditor = {
   cornerStyle: "square",
   patternStyle: "square",
   fill: {
-    type: "single",
-    color: "#000000",
-    // fillGradient: {
-    //   colorStops: ["#000000", "#1ba124"],
-    //   rotation: 120,
-    //   type: "linear",
-    // },
+    type: "gradient",
+    fillGradient: {
+      colorStops: ["#000000", "#1ba124"],
+      rotation: 120,
+      type: "linear",
+    },
   },
 }
 
-export const QR_SHAPE_ITEMS: QrCodeItem<QrCodeShape>[] = [
+export const QR_SHAPE_ITEMS: QrCodeItem<QrCodeBodyShape>[] = [
   {
     value: "square",
     label: "Standard",

@@ -1,11 +1,12 @@
+export type GradientType = "linear" | "radial"
 export type QrCodeBodyShape = "square" | "circle"
 export type QrCodeCornerStyle = "square" | "dot" | "extra-rounded"
 export type QrCodePatternStyle = "square" | "dots" | "classy-rounded"
 
 export interface Gradient {
   rotation: number
-  type: "linear" | "radial"
-  colorStops: [string, string]
+  type: GradientType
+  colorStops: string[]
 }
 
 export interface SingleColorFill {

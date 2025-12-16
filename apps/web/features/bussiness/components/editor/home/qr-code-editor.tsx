@@ -7,7 +7,7 @@ import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
 
 export default function QrCodeEditor() {
   return (
-    <EditorBlock defaultValue="qr-color-form">
+    <EditorBlock defaultValue="qr-shape-form">
       <QrShapeForm />
       <QrPatternForm />
       <QrFrameForm />

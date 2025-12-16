@@ -1,11 +1,4 @@
-import type {
-  Contact,
-  ContactItem,
-  ContentEditor,
-  ImageViewType,
-  QrCodeEditor,
-  VideoSection,
-} from "@app/core/types"
+import type { Contact, ContactItem, ImageViewType, QrCodeFill } from "@app/core/types"
 import type { IconProps } from "@/components/shared/icons"
 
 export type ContactOption = {
@@ -20,17 +13,11 @@ export type ContactItemOption = {
   value: ContactItemType
 }
 
-export type QrCodeColorType = QrCodeEditor["fill"]["type"]
-
-export type VideoType = VideoSection["video"]["type"]
-
 export type QrColorOptions = {
   title: string
   description: string
-  value: QrCodeColorType
+  value: QrCodeFill["type"]
 }
-
-export type ContentEditorSortItem = ContentEditor["sections"][number]
 
 export type SelectOption<T extends string = string> = {
   label: string
@@ -41,12 +28,6 @@ export type RadioOption<T extends string = string> = {
   label: string
   value: T
 }
-
-export type QrCodeShape = QrCodeEditor["bodyShape"]
-
-export type QrCodePatternStyle = QrCodeEditor["patternStyle"]
-
-export type QrCodeCornerStyle = QrCodeEditor["cornerStyle"]
 
 export type QrCodeItem<T extends string = string> = {
   value: T

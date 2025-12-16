@@ -9,10 +9,10 @@ const COLOR_FORM_RENDERERS = {
 }
 
 export const RenderQrColorForm = memo(() => {
-  const fillSettings = useQrCodeEditorStore((state) => state.settings.fill)
-  const ColorFormComponent = COLOR_FORM_RENDERERS[fillSettings?.type]
+  const selectedFillType = useQrCodeEditorStore((state) => state.settings?.fill?.type)
+  const SelectedColorForm = COLOR_FORM_RENDERERS[selectedFillType]
 
-  if (!ColorFormComponent) return null
+  if (!selectedFillType) return null
 
-  return <ColorFormComponent />
+  return <SelectedColorForm />
 })
