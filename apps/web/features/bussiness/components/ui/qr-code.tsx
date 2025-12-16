@@ -63,5 +63,5 @@ export const QrCodeProvider = ({ children, settings }: QrCodeProviderProps) => {
 
 export const QrCodePreview = () => {
   const { containerRef } = useQrCodeContext()
-  return <div ref={containerRef} />
+  return <div className="flex-center" ref={containerRef} />
 }

@@ -4,6 +4,7 @@ import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-ed
 
 export default function QrCodeCardPreview() {
   const settings = useQrCodeEditorStore((state) => state.settings)
+
   return (
     <div className="space-y-4">
       <QrCodeProvider settings={settings}>

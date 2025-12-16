@@ -12,11 +12,11 @@ import { useMemo } from "react"
 export const useQrCodeOptions = (settings: Partial<QrCodeEditor>) => {
   return useMemo<Options>(() => {
     const options: Options = {
-      width: 280,
-      height: 280,
+      width: 260,
+      height: 260,
       type: "svg",
       data: "http://qr-code-styling.com",
-      margin: 10,
+      margin: 5,
       qrOptions: {
         typeNumber: 0,
         mode: "Byte",
