@@ -13,9 +13,9 @@ interface FloatingCardButtonFormProps {
 }
 
 export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormProps) => {
-  const { field, updateField } = useContentEditorStore(
+  const { field, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      updateField: state.updateSectionField,
+      updateSectionField: state.updateSectionField,
       field: state.sections[index] as FloatingButtonSection,
     })),
   )
@@ -25,14 +25,14 @@ export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormPro
       itemId={field?.id}
       isEnabled={field?.enabled}
       itemTitle="Floating Card-Buttons"
-      onIsEnabledChange={(value) => updateField(index, ["enabled"], value)}
+      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Add to Contact button</FieldLabel>
           <Switch
             checked={field?.label?.enabled}
-            onCheckedChange={(value) => updateField(index, ["label", "enabled"], value)}
+            onCheckedChange={(value) => updateSectionField(index, ["label", "enabled"], value)}
           />
         </Field>
 
@@ -42,7 +42,9 @@ export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormPro
               <FieldLabel>Button Text</FieldLabel>
               <Input
                 value={field?.label?.text}
-                onChange={(e) => updateField(index, ["label", "text"], e?.target?.value ?? "")}
+                onChange={(e) => {
+                  updateSectionField(index, ["label", "text"], e?.target?.value ?? "")
+                }}
               />
             </Field>
           </div>
@@ -54,7 +56,7 @@ export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormPro
           <FieldLabel>Card QR Button</FieldLabel>
           <Switch
             checked={field?.showQrButton}
-            onCheckedChange={(value) => updateField(index, ["showQrButton"], value)}
+            onCheckedChange={(value) => updateSectionField(index, ["showQrButton"], value)}
           />
         </Field>
 
@@ -62,7 +64,7 @@ export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormPro
           <FieldLabel>Card Sharing Button</FieldLabel>
           <Switch
             checked={field?.showShareButton}
-            onCheckedChange={(value) => updateField(index, ["showShareButton"], value)}
+            onCheckedChange={(value) => updateSectionField(index, ["showShareButton"], value)}
           />
         </Field>
       </EditorBlockFooter>

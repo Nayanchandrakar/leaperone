@@ -26,8 +26,6 @@ const selectSectionOrder = (state: ReturnType<typeof useContentEditorStore.getSt
 }
 
 const ContentEditor = () => {
-  const moveSection = useContentEditorStore((state) => state.moveSection)
-
   // Use the cached selector - this will only trigger re-renders when order actually changes
   const sectionOrder = useContentEditorStore(selectSectionOrder)
 
@@ -47,10 +45,9 @@ const ContentEditor = () => {
   }, [])
 
   return (
-    <EditorBlock>
+    <EditorBlock defaultValue={"e60e25f8-749e-4124-aab9-73a48ac07631"}>
       <SortableList
         items={orderedSections}
-        onOrderChange={moveSection}
         renderItem={(item, index) => renderItem(item.type, index)}
       />
     </EditorBlock>

@@ -15,19 +15,19 @@ interface ProfileFormProps {
 }
 
 export const ProfileForm = memo(({ index }: ProfileFormProps) => {
-  const { field, updateField } = useContentEditorStore(
+  const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      updateField: state.updateSectionField,
-      field: state.sections[index] as ProfileCardSection,
+      updateSectionField: state.updateSectionField,
+      section: state.sections[index] as ProfileCardSection,
     })),
   )
 
   return (
     <SortableListItem
-      itemId={field?.id}
+      itemId={section?.id}
       itemTitle="Card Profile"
-      isEnabled={field?.enabled}
-      onIsEnabledChange={(value) => updateField(index, ["enabled"], value)}
+      isEnabled={section?.enabled}
+      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <ProfileImagesForm index={index} />
@@ -37,8 +37,8 @@ export const ProfileForm = memo(({ index }: ProfileFormProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Quick Contact links with Icons</FieldLabel>
           <Switch
-            checked={field?.contacts.enabled}
-            onCheckedChange={(value) => updateField(index, ["contacts", "enabled"], value)}
+            checked={section?.contacts?.enabled}
+            onCheckedChange={(value) => updateSectionField(index, ["contacts", "enabled"], value)}
           />
         </Field>
         <ProfileContactsForm index={index} />

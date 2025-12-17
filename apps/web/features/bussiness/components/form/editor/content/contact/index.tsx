@@ -16,30 +16,30 @@ interface ContactDetailsFormProps {
 }
 
 export const ContactDetailsForm = memo(({ index }: ContactDetailsFormProps) => {
-  const { field, updateSectionField } = useContentEditorStore(
+  const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      field: state.sections[index] as ContactDetailsSection,
+      section: state.sections[index] as ContactDetailsSection,
       updateSectionField: state.updateSectionField,
     })),
   )
 
   return (
     <SortableListItem
-      itemId={field?.id}
+      itemId={section?.id}
       itemTitle="Contact Details"
-      isEnabled={field?.enabled}
+      isEnabled={section?.enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={field?.heading?.enabled}
+            isActive={section?.heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={field?.heading?.text}
+            value={section?.heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
@@ -50,7 +50,7 @@ export const ContactDetailsForm = memo(({ index }: ContactDetailsFormProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={field?.background}
+            checked={section?.background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>

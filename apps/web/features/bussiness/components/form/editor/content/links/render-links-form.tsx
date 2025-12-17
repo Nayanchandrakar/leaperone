@@ -1,7 +1,7 @@
 import type { LinkSection } from "@app/core/types/content-editor"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
@@ -11,72 +11,49 @@ interface RenderLinksFormProps {
 }
 
 export function RenderLinksForm({ index }: RenderLinksFormProps) {
-  const section = useContentEditorStore((state) => state.sections[index] as LinkSection)
-  const updateItem = useContentEditorStore((state) => state.updateItem)
-  const removeItem = useContentEditorStore((state) => state.removeItem)
-  const moveItem = useContentEditorStore((state) => state.moveItem)
-
-  const handleDataChange = useCallback(
-    (oldIndex: number, newIndex: number) => {
-      moveItem(index, ["links"], oldIndex, newIndex)
-    },
-    [index, moveItem],
+  const { section, updateSubSectionField, removeSubSectionItem } = useContentEditorStore(
+    useShallow((state) => ({
+      section: state.sections[index] as LinkSection,
+      removeSubSectionItem: state.removeSubSectionItem,
+      updateSubSectionField: state.updateSubSectionField,
+    })),
   )
-
-  const handleLabelChange = useCallback(
-    (linkIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      if (section.type === "social-links") {
-        const currentLink = section.links[linkIdx]
-        updateItem(index, ["links"], linkIdx, {
-          ...currentLink,
-          label: e.target.value,
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleUrlChange = useCallback(
-    (linkIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      if (section.type === "social-links") {
-        const currentLink = section.links[linkIdx]
-        updateItem(index, ["links"], linkIdx, {
-          ...currentLink,
-          url: e.target.value,
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleDelete = useCallback(
-    (linkIdx: number) => {
-      removeItem(index, ["links"], linkIdx)
-    },
-    [index, removeItem],
-  )
-
-  if (section.type !== "social-links") return null
 
   return (
     <SortableList
-      items={section.links}
-      onOrderChange={handleDataChange}
+      items={section?.links}
       renderItem={(link, linkIdx) => (
         <SortableSubListItem
           key={link?.id}
           itemId={link?.id}
-          onItemDelete={() => handleDelete(linkIdx)}
+          onItemDelete={() => removeSubSectionItem(index, linkIdx, ["links"])}
         >
           <EditorSubSortTwoColumnGrid>
             <Field>
               <FieldLabel>Link Label</FieldLabel>
-              {/* @ts-expect-error - TODO: fix this */}
-              <Input value={link?.label} onChange={(e) => handleLabelChange(linkIdx, e)} />
+
+              <Input
+                // @ts-expect-error - TODO: fix this
+                value={link?.label}
+                onChange={(e) =>
+                  updateSubSectionField(
+                    index,
+                    linkIdx,
+                    ["links"],
+                    ["label"],
+                    e?.target?.value ?? "",
+                  )
+                }
+              />
             </Field>
             <Field>
               <FieldLabel>Profile Link</FieldLabel>
-              <Input value={link?.url} onChange={(e) => handleUrlChange(linkIdx, e)} />
+              <Input
+                value={link?.url}
+                onChange={(e) => {
+                  updateSubSectionField(index, linkIdx, ["links"], ["url"], e?.target?.value ?? "")
+                }}
+              />
             </Field>
           </EditorSubSortTwoColumnGrid>
         </SortableSubListItem>

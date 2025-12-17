@@ -10,10 +10,10 @@ interface ProfileInfoFormProps {
 }
 
 export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
-  const { section, updateField } = useContentEditorStore(
+  const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       section: state.sections[index] as ProfileCardSection,
-      updateField: state.updateSectionField,
+      updateSectionField: state.updateSectionField,
     })),
   )
 
@@ -22,27 +22,27 @@ export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
       <Field>
         <ToogleLabel
           label="Name"
-          isActive={section.name.enabled}
-          onToggle={(value) => updateField(index, ["name", "enabled"], value)}
+          isActive={section?.name?.enabled}
+          onToggle={(value) => updateSectionField(index, ["name", "enabled"], value)}
         />
         <Input
           variant="gray"
-          value={section.name.name}
-          onChange={(e) => updateField(index, ["name", "name"], e?.target?.value ?? "")}
+          value={section?.name?.name}
+          onChange={(e) => updateSectionField(index, ["name", "name"], e?.target?.value ?? "")}
         />
       </Field>
       <div className="grid @lg/editor-block-content:grid-cols-2 gap-3">
         <Field>
           <ToogleLabel
             label="Info Line 1"
-            isActive={section.info.primary.enabled}
-            onToggle={(value) => updateField(index, ["info", "primary", "enabled"], value)}
+            isActive={section?.info?.primary?.enabled}
+            onToggle={(value) => updateSectionField(index, ["info", "primary", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={section.info.primary.text}
+            value={section?.info?.primary?.text}
             onChange={(e) =>
-              updateField(index, ["info", "primary", "text"], e?.target?.value ?? "")
+              updateSectionField(index, ["info", "primary", "text"], e?.target?.value ?? "")
             }
           />
         </Field>
@@ -50,15 +50,15 @@ export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
         <Field>
           <ToogleLabel
             label="Info Line 2"
-            isActive={section.info.secondary.enabled}
-            onToggle={(value) => updateField(index, ["info", "secondary", "enabled"], value)}
+            isActive={section?.info?.secondary?.enabled}
+            onToggle={(value) => updateSectionField(index, ["info", "secondary", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={section.info.secondary.text}
-            onChange={(e) =>
-              updateField(index, ["info", "secondary", "text"], e?.target?.value ?? "")
-            }
+            value={section?.info?.secondary?.text}
+            onChange={(e) => {
+              updateSectionField(index, ["info", "secondary", "text"], e?.target?.value ?? "")
+            }}
           />
         </Field>
       </div>

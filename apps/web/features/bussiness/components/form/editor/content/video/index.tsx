@@ -16,9 +16,9 @@ interface VideoFormProps {
 }
 
 export const VideoForm = memo(({ index }: VideoFormProps) => {
-  const { field, updateField } = useContentEditorStore(
+  const { field, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      updateField: state.updateSectionField,
+      updateSectionField: state.updateSectionField,
       field: state.sections[index] as VideoSection,
     })),
   )
@@ -28,39 +28,39 @@ export const VideoForm = memo(({ index }: VideoFormProps) => {
       itemTitle="Video"
       itemId={field?.id}
       isEnabled={field?.enabled}
-      onIsEnabledChange={(value) => updateField(index, ["enabled"], value)}
+      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
             isActive={field?.heading?.enabled}
-            onToggle={(value) => updateField(index, ["heading", "enabled"], value)}
+            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
             value={field?.heading?.text}
-            onChange={(e) => updateField(index, ["heading", "text"], e?.target?.value ?? "")}
+            onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
-
         <Field>
           <ToogleLabel
             label="Description"
             isActive={field?.description?.enabled}
-            onToggle={(value) => updateField(index, ["description", "enabled"], value)}
+            onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
             value={field?.description?.text}
-            onChange={(e) => updateField(index, ["description", "text"], e?.target?.value ?? "")}
+            onChange={(e) => {
+              updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
+            }}
           />
         </Field>
-
         <Tabs
           value={field?.video?.type}
           defaultValue={field?.video?.type}
-          onValueChange={(value) => updateField(index, ["video", "type"], value)}
+          onValueChange={(value) => updateSectionField(index, ["video", "type"], value)}
         >
           <TabsList>
             <TabsTrigger value="youtube">Youtube</TabsTrigger>
@@ -70,16 +70,20 @@ export const VideoForm = memo(({ index }: VideoFormProps) => {
             <Input
               variant="gray"
               placeholder="Enter YouTube video link here"
-              value={(field?.video as YoutubeVideo)?.youtubeUrl || ""}
-              onChange={(e) => updateField(index, ["video", "youtubeUrl"], e?.target?.value ?? "")}
+              value={(field?.video as YoutubeVideo)?.youtubeUrl ?? ""}
+              onChange={(e) => {
+                updateSectionField(index, ["video", "youtubeUrl"], e?.target?.value ?? "")
+              }}
             />
           </TabsContent>
           <TabsContent value="vimeo">
             <Input
               variant="gray"
               placeholder="Enter Vimeo video link here"
-              value={(field?.video as VimeoVideo)?.vimeoUrl}
-              onChange={(e) => updateField(index, ["video", "vimeoUrl"], e?.target?.value ?? "")}
+              value={(field?.video as VimeoVideo)?.vimeoUrl ?? ""}
+              onChange={(e) => {
+                updateSectionField(index, ["video", "vimeoUrl"], e?.target?.value ?? "")
+              }}
             />
           </TabsContent>
         </Tabs>
@@ -89,7 +93,7 @@ export const VideoForm = memo(({ index }: VideoFormProps) => {
           <FieldLabel>Section Background</FieldLabel>
           <Switch
             checked={field?.background}
-            onCheckedChange={(value) => updateField(index, ["background"], value)}
+            onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>
       </EditorBlockFooter>

@@ -9,16 +9,16 @@ interface AddImageLinksFormProps {
 }
 
 export function AddImageLinksForm({ index }: AddImageLinksFormProps) {
-  const pushItem = useContentEditorStore((state) => state.pushItem)
+  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleAddImage = useCallback(() => {
-    pushItem(index, ["images"], {
+    pushSubSectionItem(index, ["images"], {
       id: generateUUID(),
       imageSrc: "https://images.pexels.com/photos/7004737/pexels-photo-7004737.jpeg",
       title: "",
       link: "",
     })
-  }, [index, pushItem])
+  }, [index, pushSubSectionItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddImage}>

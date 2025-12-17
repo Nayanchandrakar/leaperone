@@ -3,6 +3,7 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { useShallow } from "zustand/react/shallow"
 import { ImageOrientationList } from "@/features/bussiness/components/form/editor/content/images/image-orientation-list"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
@@ -17,8 +18,12 @@ interface ImageTextLinksFormProps {
 }
 
 export function ImageTextLinksForm({ index }: ImageTextLinksFormProps) {
-  const section = useContentEditorStore((state) => state.sections[index] as ImagesTextLinksSection)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
+  const { section, updateSectionField } = useContentEditorStore(
+    useShallow((state) => ({
+      section: state.sections[index] as ImagesTextLinksSection,
+      updateSectionField: state.updateSectionField,
+    })),
+  )
 
   return (
     <SortableListItem
@@ -64,7 +69,6 @@ export function ImageTextLinksForm({ index }: ImageTextLinksFormProps) {
             onOrientationChange={(value) => updateSectionField(index, ["imageView"], value)}
           />
         </Field>
-
         <FieldLabel>Images & Links</FieldLabel>
         <ListImagesForm index={index} />
         <AddImageLinksForm index={index} />

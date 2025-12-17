@@ -1,13 +1,13 @@
 import type { ContentSectionType } from "@app/core/types"
-import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
-import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
-import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading/index"
-import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/content/images"
-import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
-import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
-import { TeamSectionForm } from "@/features/bussiness/components/form/editor/content/team"
-import { VideoForm } from "@/features/bussiness/components/form/editor/content/video"
+import { ContactDetailsForm } from "../../components/form/editor/content/contact"
+import { CtaButtonForm } from "../../components/form/editor/content/cta-button"
+import { FloatingCardButtonForm } from "../../components/form/editor/content/floating-button"
+import { ImageTextLinksForm } from "../../components/form/editor/content/images"
+import { SocialLinksForm } from "../../components/form/editor/content/links"
+import { ProfileForm } from "../../components/form/editor/content/profile"
+import { TeamSectionForm } from "../../components/form/editor/content/team"
+import { VideoForm } from "../../components/form/editor/content/video"
 
 type ContentFormComponent = (props: { index: number }) => React.ReactNode
 type ContentFormMap = Record<ContentSectionType, ContentFormComponent>

@@ -3,7 +3,7 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
@@ -15,41 +15,26 @@ interface SocialLinksFormProps {
 }
 
 export function SocialLinksForm({ index }: SocialLinksFormProps) {
-  const section = useContentEditorStore((state) => state.sections[index] as LinkSection)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
-
-  const handleEnabledChange = useCallback(
-    (checked: boolean) => {
-      updateSectionField(index, ["enabled"], checked)
-    },
-    [index, updateSectionField],
+  const { section, updateSectionField } = useContentEditorStore(
+    useShallow((state) => ({
+      section: state.sections[index] as LinkSection,
+      updateSectionField: state.updateSectionField,
+    })),
   )
-
-  const handleHeadingEnabledToggle = useCallback(() => {
-    if (section.type === "social-links") {
-      updateSectionField(index, ["heading", "enabled"], !section.heading.enabled)
-    }
-  }, [section, index, updateSectionField])
-
-  const handleDescriptionEnabledToggle = useCallback(() => {
-    if (section.type === "social-links") {
-      updateSectionField(index, ["description", "enabled"], !section.description.enabled)
-    }
-  }, [section, index, updateSectionField])
 
   return (
     <SortableListItem
-      itemId={section.id}
-      isEnabled={section.enabled}
-      onIsEnabledChange={handleEnabledChange}
+      itemId={section?.id}
+      isEnabled={section?.enabled}
       itemTitle="Links: Social, Payment & more"
+      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
             isActive={section?.heading?.enabled}
-            onToggle={handleHeadingEnabledToggle}
+            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
@@ -62,7 +47,7 @@ export function SocialLinksForm({ index }: SocialLinksFormProps) {
           <ToogleLabel
             label="Description"
             isActive={section?.description?.enabled}
-            onToggle={handleDescriptionEnabledToggle}
+            onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"

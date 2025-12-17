@@ -12,17 +12,17 @@ interface AddMoreContactIconsFormProps {
 }
 
 export const AddMoreContactIconsForm = memo(({ index }: AddMoreContactIconsFormProps) => {
-  const pushItem = useContentEditorStore((state) => state.pushItem)
+  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleSelect = useCallback(
     (type: ContactOptionType) => {
-      pushItem(index, ["contacts", "list"], {
+      pushSubSectionItem(index, ["contacts", "list"], {
         type,
         value: "",
         id: generateUUID(),
       })
     },
-    [index, pushItem],
+    [index, pushSubSectionItem],
   )
 
   return (

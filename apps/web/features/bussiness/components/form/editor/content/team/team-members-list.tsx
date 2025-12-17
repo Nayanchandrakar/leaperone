@@ -3,7 +3,7 @@ import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
-import { useCallback } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
@@ -14,127 +14,55 @@ interface TeamMembersListProps {
 }
 
 export function TeamMembersList({ index }: TeamMembersListProps) {
-  const section = useContentEditorStore((state) => state.sections[index] as TeamSection)
-  const updateItem = useContentEditorStore((state) => state.updateItem)
-  const removeItem = useContentEditorStore((state) => state.removeItem)
-  const moveItem = useContentEditorStore((state) => state.moveItem)
-
-  const handleDataChange = useCallback(
-    (oldIndex: number, newIndex: number) => {
-      moveItem(index, ["members"], oldIndex, newIndex)
-    },
-    [index, moveItem],
+  const { updateSubSectionField, removeSubSectionItem, members } = useContentEditorStore(
+    useShallow((state) => ({
+      updateSubSectionField: state.updateSubSectionField,
+      removeSubSectionItem: state.removeSubSectionItem,
+      members: (state.sections[index] as TeamSection).members,
+    })),
   )
 
-  const handleMemberNameChange = useCallback(
-    (memberIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      if (section.type === "team") {
-        const currentMember = section.members[memberIdx]
-        updateItem(index, ["members"], memberIdx, {
-          ...currentMember,
-          memberName: e.target.value,
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleDesignationChange = useCallback(
-    (memberIdx: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      if (section.type === "team") {
-        const currentMember = section.members[memberIdx]
-        updateItem(index, ["members"], memberIdx, {
-          ...currentMember,
-          memberDesignation: e.target.value,
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleProfileEnabledChange = useCallback(
-    (memberIdx: number, checked: boolean) => {
-      if (section.type === "team") {
-        const currentMember = section.members[memberIdx]
-        updateItem(index, ["members"], memberIdx, {
-          ...currentMember,
-          memberProfile: {
-            ...currentMember.memberProfile,
-            enabled: checked,
-          },
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleDescriptionTextChange = useCallback(
-    (memberIdx: number, e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      if (section.type === "team") {
-        const currentMember = section.members[memberIdx]
-        updateItem(index, ["members"], memberIdx, {
-          ...currentMember,
-          memberDescription: {
-            ...currentMember.memberDescription,
-            text: e.target.value,
-          },
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleDescriptionEnabledToggle = useCallback(
-    (memberIdx: number) => {
-      if (section.type === "team") {
-        const currentMember = section.members[memberIdx]
-        updateItem(index, ["members"], memberIdx, {
-          ...currentMember,
-          memberDescription: {
-            ...currentMember.memberDescription,
-            enabled: !currentMember.memberDescription.enabled,
-          },
-        })
-      }
-    },
-    [section, index, updateItem],
-  )
-
-  const handleDelete = useCallback(
-    (memberIdx: number) => {
-      removeItem(index, ["members"], memberIdx)
-    },
-    [index, removeItem],
-  )
-
-  if (section.type !== "team") return null
-  const hasMembers = section.members?.length > 0
-  if (!hasMembers) return null
+  if (!members?.length) return null
 
   return (
     <SortableList
-      items={section.members}
-      onOrderChange={handleDataChange}
-      renderItem={(member: any, memberIdx: number) => (
+      items={members}
+      renderItem={(member, memberIdx) => (
         <SortableSubListItem
-          key={member.id}
-          itemId={member.id}
-          onItemDelete={() => handleDelete(memberIdx)}
+          key={member?.id}
+          itemId={member?.id}
+          onItemDelete={() => removeSubSectionItem(index, memberIdx, ["members"])}
         >
           <FieldSet>
             <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
               <Field>
                 <FieldLabel>Name</FieldLabel>
                 <Input
-                  value={member.memberName}
-                  onChange={(e) => handleMemberNameChange(memberIdx, e)}
+                  value={member?.memberName}
+                  onChange={(e) => {
+                    updateSubSectionField(
+                      index,
+                      memberIdx,
+                      ["members"],
+                      ["memberName"],
+                      e?.target?.value ?? "",
+                    )
+                  }}
                 />
               </Field>
               <Field>
                 <FieldLabel>Designation</FieldLabel>
                 <Input
-                  value={member.memberDesignation}
-                  onChange={(e) => handleDesignationChange(memberIdx, e)}
+                  value={member?.memberDesignation}
+                  onChange={(e) => {
+                    updateSubSectionField(
+                      index,
+                      memberIdx,
+                      ["members"],
+                      ["memberDesignation"],
+                      e?.target?.value ?? "",
+                    )
+                  }}
                 />
               </Field>
             </div>
@@ -144,25 +72,47 @@ export function TeamMembersList({ index }: TeamMembersListProps) {
                 <Field orientation="horizontal" className="w-fit">
                   <FieldLabel>Profile</FieldLabel>
                   <Switch
-                    checked={member.memberProfile.enabled}
+                    checked={member?.memberProfile?.enabled}
                     onCheckedChange={(value) => {
-                      handleProfileEnabledChange(memberIdx, value)
+                      updateSubSectionField(
+                        index,
+                        memberIdx,
+                        ["members"],
+                        ["memberProfile", "enabled"],
+                        value,
+                      )
                     }}
                   />
                 </Field>
-                <EditorImageUploader src={member.memberProfile.imageSrc} />
+                <EditorImageUploader src={member?.memberProfile?.imageSrc} />
               </Field>
 
               <Field>
                 <ToogleLabel
                   label="Description"
-                  isActive={member.memberDescription.enabled}
-                  onToggle={() => handleDescriptionEnabledToggle(memberIdx)}
+                  isActive={member?.memberDescription?.enabled}
+                  onToggle={() => {
+                    updateSubSectionField(
+                      index,
+                      memberIdx,
+                      ["members"],
+                      ["memberDescription", "enabled"],
+                      !member?.memberDescription?.enabled,
+                    )
+                  }}
                 />
                 <Textarea
                   className="h-full"
-                  value={member.memberDescription.text}
-                  onChange={(e) => handleDescriptionTextChange(memberIdx, e)}
+                  value={member?.memberDescription?.text}
+                  onChange={(e) => {
+                    updateSubSectionField(
+                      index,
+                      memberIdx,
+                      ["members"],
+                      ["memberDescription", "text"],
+                      e?.target?.value ?? "",
+                    )
+                  }}
                 />
               </Field>
             </div>

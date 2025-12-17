@@ -3,6 +3,8 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { memo } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { AddTeamMemberForm } from "@/features/bussiness/components/form/editor/content/team/add-team-member"
 import { TeamMembersList } from "@/features/bussiness/components/form/editor/content/team/team-members-list"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
@@ -14,43 +16,46 @@ interface TeamSectionFormProps {
   index: number
 }
 
-export function TeamSectionForm({ index, id }: TeamSectionFormProps) {
-  const section = useContentEditorStore((state) => state.sections[index] as TeamSection)
-  const updateSectionField = useContentEditorStore((state) => state.updateSectionField)
+export const TeamSectionForm = memo(({ index }: TeamSectionFormProps) => {
+  const { team, updateSectionField } = useContentEditorStore(
+    useShallow((state) => ({
+      team: state.sections[index] as TeamSection,
+      updateSectionField: state.updateSectionField,
+    })),
+  )
 
   return (
     <SortableListItem
       itemTitle="Team"
-      itemId={section?.id}
-      isEnabled={section?.enabled}
+      itemId={team?.id}
+      isEnabled={team?.enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={section?.heading?.enabled}
+            isActive={team?.heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={section?.heading?.text}
+            value={team?.heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
-
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={section?.description?.enabled}
+            isActive={team?.description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={section?.description?.text}
-            onChange={(e) =>
+            value={team?.description?.text}
+            onChange={(e) => {
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
-            }
+            }}
           />
         </Field>
 
@@ -61,11 +66,11 @@ export function TeamSectionForm({ index, id }: TeamSectionFormProps) {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={section?.background}
+            checked={team?.background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>
       </EditorBlockFooter>
     </SortableListItem>
   )
-}
+})

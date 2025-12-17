@@ -9,10 +9,10 @@ interface AddTeamMemberFormProps {
 }
 
 export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
-  const pushItem = useContentEditorStore((state) => state.pushItem)
+  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleAddTeamMember = useCallback(() => {
-    pushItem(index, ["members"], {
+    pushSubSectionItem(index, ["members"], {
       id: generateUUID(),
       memberName: "",
       memberDesignation: "",
@@ -25,7 +25,7 @@ export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
         enabled: false,
       },
     })
-  }, [index, pushItem])
+  }, [index, pushSubSectionItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddTeamMember}>
