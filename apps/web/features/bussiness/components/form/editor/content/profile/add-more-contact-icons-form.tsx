@@ -4,14 +4,10 @@ import { memo, useCallback } from "react"
 import { DropdownSelectButton } from "@/features/bussiness/components/buttons/home/dropdown-select-button"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
-import type { ContactOptionType } from "@/features/bussiness/types"
+import type { ContactOptionType, ContentSectionProps } from "@/features/bussiness/types"
 import { generateUUID } from "@/utils"
 
-interface AddMoreContactIconsFormProps {
-  index: number
-}
-
-export const AddMoreContactIconsForm = memo(({ index }: AddMoreContactIconsFormProps) => {
+export const AddMoreContactIconsForm = memo(({ index }: ContentSectionProps) => {
   const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleSelect = useCallback(

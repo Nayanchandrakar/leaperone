@@ -5,14 +5,14 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import { generateUUID } from "@/utils"
 
 interface AddTestimonialFormProps {
-  sectionIdx: number
+  index: number
 }
 
-export function AddTestimonialForm({ sectionIdx }: AddTestimonialFormProps) {
-  const pushItem = useContentEditorStore((state) => state.pushItem)
+export function AddTestimonialForm({ index }: AddTestimonialFormProps) {
+  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleAddTestimonial = useCallback(() => {
-    pushItem(sectionIdx, ["testimonials"], {
+    pushSubSectionItem(index, ["testimonials"], {
       id: generateUUID(),
       authorName: "",
       authorDesignation: "",
@@ -25,7 +25,7 @@ export function AddTestimonialForm({ sectionIdx }: AddTestimonialFormProps) {
         enabled: false,
       },
     })
-  }, [sectionIdx, pushItem])
+  }, [index, pushSubSectionItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddTestimonial}>

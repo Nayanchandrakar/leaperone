@@ -3,18 +3,16 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
+import { RenderLinksForm } from "@/features/bussiness/components/form/editor/content/links/render-links-form"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
-import { RenderLinksForm } from "./render-links-form"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface SocialLinksFormProps {
-  index: number
-}
-
-export function SocialLinksForm({ index }: SocialLinksFormProps) {
+export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
   const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       section: state.sections[index] as LinkSection,
@@ -70,4 +68,4 @@ export function SocialLinksForm({ index }: SocialLinksFormProps) {
       </EditorBlockFooter>
     </SortableListItem>
   )
-}
+})

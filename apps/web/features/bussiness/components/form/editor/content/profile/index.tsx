@@ -9,12 +9,9 @@ import { ProfileInfoForm } from "@/features/bussiness/components/form/editor/con
 import { QuickContactLinksForm } from "@/features/bussiness/components/form/editor/content/profile/quick-contact-links"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ProfileFormProps {
-  index: number
-}
-
-export const ProfileForm = memo(({ index }: ProfileFormProps) => {
+export const ProfileForm = memo(({ index }: ContentSectionProps) => {
   const { card, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state?.updateSectionField,

@@ -11,12 +11,9 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface TeamSectionFormProps {
-  index: number
-}
-
-export const TeamSectionForm = memo(({ index }: TeamSectionFormProps) => {
+export const TeamSectionForm = memo(({ index }: ContentSectionProps) => {
   const { team, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       team: state?.sections?.[index] as TeamSection,

@@ -5,12 +5,9 @@ import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ProfileDetailsForm {
-  index: number
-}
-
-export const ProfileDetailsForm = memo(({ index }: ProfileDetailsForm) => {
+export const ProfileDetailsForm = memo(({ index }: ContentSectionProps) => {
   const { details, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state.updateSectionField,

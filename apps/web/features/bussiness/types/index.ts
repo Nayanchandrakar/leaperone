@@ -1,4 +1,11 @@
-import type { Contact, ContactItem, ImageViewType, QrCodeFill } from "@app/core/types"
+import type {
+  Contact,
+  ContactItem,
+  ContentSectionType,
+  ImageViewType,
+  QrCodeFill,
+} from "@app/core/types"
+import type * as React from "react"
 import type { IconProps } from "@/components/shared/icons"
 
 export type ContactOption = {
@@ -40,3 +47,9 @@ export type ImageView<T extends string = ImageViewType> = {
   value: T
   icon: (props: IconProps) => React.JSX.Element
 }
+
+export type ContentSectionProps = {
+  index: number
+}
+
+export type ContentSectionMap = Record<ContentSectionType, React.ComponentType<ContentSectionProps>>

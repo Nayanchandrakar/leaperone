@@ -1,7 +1,7 @@
 export type ImageViewType = "list" | "grid-1" | "grid-2" | "carousel" | "slideshow"
 
 export type ContentSectionType =
-  | "profile"
+  | "card-profile"
   | "heading-text"
   | "floating-button"
   | "video-section"
@@ -9,8 +9,8 @@ export type ContentSectionType =
   | "social-links"
   | "contact-details"
   | "image-text-links"
-  | "team"
-  | "testimonials"
+  | "teams-section"
+  | "testimonials-section"
 
 export type ContactType =
   | "phone"

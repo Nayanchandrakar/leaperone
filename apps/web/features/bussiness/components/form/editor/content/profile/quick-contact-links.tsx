@@ -14,21 +14,20 @@ import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/e
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface QuickContactLinksForm {
-  index: number
-}
-
-export const QuickContactLinksForm = memo(({ index }: QuickContactLinksForm) => {
+export const QuickContactLinksForm = memo(({ index }: ContentSectionProps) => {
   const { contactLists, updateSubSectionField, removeSubSectionItem, moveSubSection } =
     useContentEditorStore(
       useShallow((state) => ({
         moveSubSection: state.moveSubSection,
-        updateSubSectionField: state.updateSubSectionField,
         removeSubSectionItem: state.removeSubSectionItem,
+        updateSubSectionField: state.updateSubSectionField,
         contactLists: (state.sections[index] as ProfileCardSection)?.contacts?.list,
       })),
     )
+
+  if (!contactLists?.length) return null
 
   return (
     <SortableList
@@ -36,27 +35,27 @@ export const QuickContactLinksForm = memo(({ index }: QuickContactLinksForm) => 
       onReorder={(fromIndex, toIndex) => {
         moveSubSection(index, ["contacts", "list"], fromIndex, toIndex)
       }}
-      renderItem={(contact, contactIndex) => (
+      renderItem={(contact, contactIdx) => (
         <SortableSubListItem
           key={contact?.id}
           itemId={contact?.id}
-          onItemDelete={() => removeSubSectionItem(index, contactIndex, ["contacts", "list"])}
+          onItemDelete={() => removeSubSectionItem(index, contactIdx, ["contacts", "list"])}
         >
           <EditorSubSortTwoColumnGrid>
             <Field>
               <Select
                 value={contact?.type}
                 onValueChange={(val) => {
-                  updateSubSectionField(index, contactIndex, ["contacts", "list"], ["type"], val)
+                  updateSubSectionField(index, contactIdx, ["contacts", "list"], ["type"], val)
                 }}
               >
                 <SelectTrigger className="bg-white">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
-                  {CONTACT_OPTIONS.map(({ value, label }) => (
-                    <SelectItem key={value} value={value}>
-                      {label}
+                  {CONTACT_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -67,7 +66,7 @@ export const QuickContactLinksForm = memo(({ index }: QuickContactLinksForm) => 
               onChange={(e) => {
                 updateSubSectionField(
                   index,
-                  contactIndex,
+                  contactIdx,
                   ["contacts", "list"],
                   ["value"],
                   e?.target?.value ?? "",

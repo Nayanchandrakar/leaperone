@@ -1,11 +1,11 @@
-import { BusinessEditorLayout } from "@/features/bussiness/components/layouts/home/bussiness-editor-layout"
+import { BussinessCardSection } from "@/features/bussiness/components/pages/home/bussiness-card-section"
 import { HeroSection } from "@/features/bussiness/components/pages/home/hero-section"
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <BusinessEditorLayout />
+      <BussinessCardSection />
     </>
   )
 }

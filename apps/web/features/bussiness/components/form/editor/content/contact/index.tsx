@@ -10,12 +10,9 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ContactDetailsFormProps {
-  index: number
-}
-
-export const ContactDetailsForm = memo(({ index }: ContactDetailsFormProps) => {
+export const ContactDetailsForm = memo(({ index }: ContentSectionProps) => {
   const { contactDetails, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       contactDetails: state.sections[index] as ContactDetailsSection,

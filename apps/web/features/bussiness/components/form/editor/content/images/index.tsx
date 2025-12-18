@@ -3,6 +3,7 @@ import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { AddImageLinksForm } from "@/features/bussiness/components/form/editor/content/images/add-image-links"
 import { ImageOrientationList } from "@/features/bussiness/components/form/editor/content/images/image-orientation-list"
@@ -12,12 +13,9 @@ import { SortableListItem } from "@/features/bussiness/components/ui/sortable-li
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { IMAGE_VIEWS } from "@/features/bussiness/constants/home/image-views"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ImageTextLinksFormProps {
-  index: number
-}
-
-export function ImageTextLinksForm({ index }: ImageTextLinksFormProps) {
+export const ImageTextLinksForm = memo(({ index }: ContentSectionProps) => {
   const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       section: state.sections[index] as ImagesTextLinksSection,
@@ -84,4 +82,4 @@ export function ImageTextLinksForm({ index }: ImageTextLinksFormProps) {
       </EditorBlockFooter>
     </SortableListItem>
   )
-}
+})

@@ -9,12 +9,9 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface HeadingTextFormProps {
-  index: number
-}
-
-export const HeadingTextForm = memo(({ index }: HeadingTextFormProps) => {
+export const HeadingTextForm = memo(({ index }: ContentSectionProps) => {
   const { heading, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state.updateSectionField,
@@ -57,7 +54,6 @@ export const HeadingTextForm = memo(({ index }: HeadingTextFormProps) => {
           />
         </Field>
       </FieldGroup>
-
       <EditorBlockFooter>
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>

@@ -1,10 +1,10 @@
 import { Button } from "@app/ui/components/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { useStepperControls } from "@/features/bussiness/hooks/home/use-stepper-controls"
+import { useEditorStepperControls } from "@/features/bussiness/hooks/home/use-stepper-controls"
 
 export const EditorFooter = () => {
   const { canGoToPreviousStep, handlePreviousStep, canGoToNextStep, handleNextStep } =
-    useStepperControls()
+    useEditorStepperControls()
 
   return (
     <div className="mt-7 flex items-center justify-between">

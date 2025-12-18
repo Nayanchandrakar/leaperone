@@ -1,6 +1,7 @@
 import type { ContactDetailsSection, PhoneLink } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
@@ -10,7 +11,7 @@ interface PhoneContactFormProps {
   index: number
 }
 
-export function PhoneContactForm({ contactIdx, index }: PhoneContactFormProps) {
+export const PhoneContactForm = memo(({ contactIdx, index }: PhoneContactFormProps) => {
   const { item, updateSubSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSubSectionField: state.updateSubSectionField,
@@ -42,4 +43,4 @@ export function PhoneContactForm({ contactIdx, index }: PhoneContactFormProps) {
       </Field>
     </EditorSubSortTwoColumnGrid>
   )
-}
+})

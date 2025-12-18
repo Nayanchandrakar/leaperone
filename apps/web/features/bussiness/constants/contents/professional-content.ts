@@ -4,7 +4,7 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
   {
     id: "f560863c-749e-4124-aab9-73a48ac07631",
     enabled: true,
-    type: "profile",
+    type: "card-profile",
     details: {
       profile: {
         imageSrc: "https://images.pexels.com/photos/29661144/pexels-photo-29661144.jpeg",
@@ -220,7 +220,7 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
   {
     enabled: true,
     id: "5106d066-fcb3-4ec0-8fc9-0f369d2e6715",
-    type: "team",
+    type: "teams-section",
     heading: {
       enabled: true,
       text: "Meet the Team",
@@ -263,7 +263,7 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
   {
     enabled: true,
     id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    type: "testimonials",
+    type: "testimonials-section",
     heading: {
       enabled: true,
       text: "Testimonials",

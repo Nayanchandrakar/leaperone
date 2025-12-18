@@ -1,16 +1,14 @@
 import type { LinkSection } from "@app/core/types/content-editor"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface RenderLinksFormProps {
-  index: number
-}
-
-export function RenderLinksForm({ index }: RenderLinksFormProps) {
+export const RenderLinksForm = memo(({ index }: ContentSectionProps) => {
   const { section, updateSubSectionField, removeSubSectionItem, moveSubSection } =
     useContentEditorStore(
       useShallow((state) => ({
@@ -67,4 +65,4 @@ export function RenderLinksForm({ index }: RenderLinksFormProps) {
       )}
     />
   )
-}
+})

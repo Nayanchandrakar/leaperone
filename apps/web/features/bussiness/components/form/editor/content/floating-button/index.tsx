@@ -7,16 +7,13 @@ import { useShallow } from "zustand/react/shallow"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface FloatingCardButtonFormProps {
-  index: number
-}
-
-export const FloatingCardButtonForm = memo(({ index }: FloatingCardButtonFormProps) => {
+export const FloatingCardButtonForm = memo(({ index }: ContentSectionProps) => {
   const { floatingButton, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state.updateSectionField,
-      floatingButton: state.sections[index] as FloatingButtonSection,
+      floatingButton: state?.sections?.[index] as FloatingButtonSection,
     })),
   )
 

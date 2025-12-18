@@ -1,16 +1,14 @@
 import type { ContactDetailsSection, ContactItem } from "@app/core/types"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { AddressContactForm } from "@/features/bussiness/components/form/editor/content/contact/address-contact-form"
 import { EmailContactForm } from "@/features/bussiness/components/form/editor/content/contact/email-contact-form"
 import { PhoneContactForm } from "@/features/bussiness/components/form/editor/content/contact/phone-contact-form"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ContactItemsListProps {
-  index: number
-}
-
-export function ContactItemsList({ index }: ContactItemsListProps) {
+export const ContactItemsList = memo(({ index }: ContentSectionProps) => {
   const { contactDetails, moveSubSection, removeSubSectionItem } = useContentEditorStore(
     useShallow((state) => ({
       moveSubSection: state.moveSubSection,
@@ -18,6 +16,8 @@ export function ContactItemsList({ index }: ContactItemsListProps) {
       contactDetails: state?.sections?.[index] as ContactDetailsSection,
     })),
   )
+
+  if (!contactDetails?.items?.length) return null
 
   return (
     <SortableList
@@ -44,4 +44,4 @@ export function ContactItemsList({ index }: ContactItemsListProps) {
       )}
     />
   )
-}
+})

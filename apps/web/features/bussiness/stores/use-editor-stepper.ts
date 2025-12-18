@@ -1,13 +1,13 @@
 import { create } from "zustand"
 
-interface StepperStore {
+interface EditorStepperStore {
   selectedStep: number
   goToNextStep: () => void
   goToPreviousStep: () => void
   setSelectedStep: (step: number) => void
 }
 
-export const useStepper = create<StepperStore>()((set) => ({
+export const useEditorStepper = create<EditorStepperStore>()((set) => ({
   selectedStep: 0,
   setSelectedStep: (step) => set({ selectedStep: step }),
   goToNextStep: () => set((state) => ({ selectedStep: state.selectedStep + 1 })),

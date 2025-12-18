@@ -9,12 +9,9 @@ import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-blo
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface CtaButtonFormProps {
-  index: number
-}
-
-export const CtaButtonForm = memo(({ index }: CtaButtonFormProps) => {
+export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
   const { ctaButton, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state.updateSectionField,

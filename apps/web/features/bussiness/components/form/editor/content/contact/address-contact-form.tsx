@@ -2,6 +2,7 @@ import type { ContactAddressItem, ContactDetailsSection } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
@@ -10,7 +11,7 @@ interface AddressContactFormProps {
   index: number
 }
 
-export function AddressContactForm({ contactIdx, index }: AddressContactFormProps) {
+export const AddressContactForm = memo(({ contactIdx, index }: AddressContactFormProps) => {
   const { item, updateSubSectionField } = useContentEditorStore(
     useShallow((state) => ({
       item: (state.sections[index] as ContactDetailsSection).items[
@@ -183,4 +184,4 @@ export function AddressContactForm({ contactIdx, index }: AddressContactFormProp
       </Field>
     </div>
   )
-}
+})

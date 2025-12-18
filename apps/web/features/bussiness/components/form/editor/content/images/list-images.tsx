@@ -1,25 +1,22 @@
 import type { ImagesTextLinksSection } from "@app/core/types/content-editor"
 import { Input } from "@app/ui/components/input"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ListImagesFormProps {
-  index: number
-}
-
-export function ListImagesForm({ index }: ListImagesFormProps) {
+export const ListImagesForm = memo(({ index }: ContentSectionProps) => {
   const { updateSubSectionField, removeSubSectionItem, images } = useContentEditorStore(
     useShallow((state) => ({
-      section: state.sections[index] as ImagesTextLinksSection,
-      updateSubSectionField: state.updateSubSectionField,
       removeSubSectionItem: state.removeSubSectionItem,
-      images: (state.sections[index] as ImagesTextLinksSection).images,
+      updateSubSectionField: state.updateSubSectionField,
+      images: (state?.sections?.[index] as ImagesTextLinksSection)?.images,
     })),
   )
 
-  if (images?.length === 0) return null
+  if (!images?.length) return null
 
   return (
     <SortableList
@@ -65,4 +62,4 @@ export function ListImagesForm({ index }: ListImagesFormProps) {
       )}
     />
   )
-}
+})

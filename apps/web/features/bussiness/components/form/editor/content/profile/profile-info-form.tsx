@@ -1,15 +1,13 @@
 import type { ProfileCardSection } from "@app/core/types"
 import { Field } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface ProfileInfoFormProps {
-  index: number
-}
-
-export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
+export const ProfileInfoForm = memo(({ index }: ContentSectionProps) => {
   const { section, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       section: state.sections[index] as ProfileCardSection,
@@ -41,9 +39,9 @@ export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
           <Input
             variant="gray"
             value={section?.info?.primary?.text}
-            onChange={(e) =>
+            onChange={(e) => {
               updateSectionField(index, ["info", "primary", "text"], e?.target?.value ?? "")
-            }
+            }}
           />
         </Field>
         <Field>
@@ -63,4 +61,4 @@ export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
       </div>
     </>
   )
-}
+})

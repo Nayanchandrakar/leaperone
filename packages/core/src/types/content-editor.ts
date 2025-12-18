@@ -96,7 +96,7 @@ export interface TestimonialMember {
   }
 }
 
-export interface ProfileCardSection extends BaseContentSection<"profile"> {
+export interface ProfileCardSection extends BaseContentSection<"card-profile"> {
   details: {
     profile: {
       imageSrc: string
@@ -169,14 +169,14 @@ export interface ImagesTextLinksSection extends BaseContentSection<"image-text-l
   heading: EnabledField<string>
 }
 
-export interface TeamSection extends BaseContentSection<"team"> {
+export interface TeamSection extends BaseContentSection<"teams-section"> {
   background: boolean
   members: TeamMember[]
   heading: EnabledField<string>
   description: EnabledField<string>
 }
 
-export interface TestimonialsSection extends BaseContentSection<"testimonials"> {
+export interface TestimonialsSection extends BaseContentSection<"testimonials-section"> {
   background: boolean
   heading: EnabledField<string>
   description: EnabledField<string>

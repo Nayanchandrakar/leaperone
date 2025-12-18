@@ -3,17 +3,15 @@ import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
+import { memo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import type { ContentSectionProps } from "@/features/bussiness/types"
 
-interface TeamMembersListProps {
-  index: number
-}
-
-export function TeamMembersList({ index }: TeamMembersListProps) {
+export const TeamMembersList = memo(({ index }: ContentSectionProps) => {
   const { updateSubSectionField, removeSubSectionItem, members } = useContentEditorStore(
     useShallow((state) => ({
       removeSubSectionItem: state.removeSubSectionItem,
@@ -121,4 +119,4 @@ export function TeamMembersList({ index }: TeamMembersListProps) {
       )}
     />
   )
-}
+})
