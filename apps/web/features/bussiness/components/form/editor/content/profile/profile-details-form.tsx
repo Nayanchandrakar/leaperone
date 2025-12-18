@@ -6,15 +6,15 @@ import { useShallow } from "zustand/react/shallow"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-interface ProfileImagesFormProps {
+interface ProfileDetailsForm {
   index: number
 }
 
-export const ProfileImagesForm = memo(({ index }: ProfileImagesFormProps) => {
-  const { section, updateSectionField } = useContentEditorStore(
+export const ProfileDetailsForm = memo(({ index }: ProfileDetailsForm) => {
+  const { details, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      section: state.sections[index] as ProfileCardSection,
       updateSectionField: state.updateSectionField,
+      details: (state?.sections?.[index] as ProfileCardSection)?.details,
     })),
   )
 
@@ -24,26 +24,26 @@ export const ProfileImagesForm = memo(({ index }: ProfileImagesFormProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Profile Pic</FieldLabel>
           <Switch
-            checked={section?.details?.profile?.enabled}
+            checked={details?.profile?.enabled}
             onCheckedChange={(value) => {
               updateSectionField(index, ["details", "profile", "enabled"], value)
             }}
           />
         </Field>
-        <EditorImageUploader src={section?.details?.profile?.imageSrc} />
+        <EditorImageUploader src={details?.profile?.imageSrc} />
       </Field>
 
       <Field className="w-fit">
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Brand Logo</FieldLabel>
           <Switch
-            checked={section?.details?.branding?.enabled}
+            checked={details?.branding?.enabled}
             onCheckedChange={(value) => {
               updateSectionField(index, ["details", "branding", "enabled"], value)
             }}
           />
         </Field>
-        <EditorImageUploader src={section?.details?.branding?.imageSrc} />
+        <EditorImageUploader src={details?.branding?.imageSrc} />
       </Field>
     </div>
   )

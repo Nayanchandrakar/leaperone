@@ -15,22 +15,27 @@ import { SortableList, SortableSubListItem } from "@/features/bussiness/componen
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-interface ProfileContactsFormProps {
+interface QuickContactLinksForm {
   index: number
 }
 
-export const ProfileContactsForm = memo(({ index }: ProfileContactsFormProps) => {
-  const { list, updateSubSectionField, removeSubSectionItem } = useContentEditorStore(
-    useShallow((state) => ({
-      updateSubSectionField: state.updateSubSectionField,
-      removeSubSectionItem: state.removeSubSectionItem,
-      list: (state.sections[index] as ProfileCardSection).contacts.list,
-    })),
-  )
+export const QuickContactLinksForm = memo(({ index }: QuickContactLinksForm) => {
+  const { contactLists, updateSubSectionField, removeSubSectionItem, moveSubSection } =
+    useContentEditorStore(
+      useShallow((state) => ({
+        moveSubSection: state.moveSubSection,
+        updateSubSectionField: state.updateSubSectionField,
+        removeSubSectionItem: state.removeSubSectionItem,
+        contactLists: (state.sections[index] as ProfileCardSection)?.contacts?.list,
+      })),
+    )
 
   return (
     <SortableList
-      items={list}
+      items={contactLists}
+      onReorder={(fromIndex, toIndex) => {
+        moveSubSection(index, ["contacts", "list"], fromIndex, toIndex)
+      }}
       renderItem={(contact, contactIndex) => (
         <SortableSubListItem
           key={contact?.id}
@@ -41,9 +46,9 @@ export const ProfileContactsForm = memo(({ index }: ProfileContactsFormProps) =>
             <Field>
               <Select
                 value={contact?.type}
-                onValueChange={(val) =>
+                onValueChange={(val) => {
                   updateSubSectionField(index, contactIndex, ["contacts", "list"], ["type"], val)
-                }
+                }}
               >
                 <SelectTrigger className="bg-white">
                   <SelectValue placeholder="Select" />
@@ -59,7 +64,7 @@ export const ProfileContactsForm = memo(({ index }: ProfileContactsFormProps) =>
             </Field>
             <Input
               value={contact?.value}
-              onChange={(e) =>
+              onChange={(e) => {
                 updateSubSectionField(
                   index,
                   contactIndex,
@@ -67,7 +72,7 @@ export const ProfileContactsForm = memo(({ index }: ProfileContactsFormProps) =>
                   ["value"],
                   e?.target?.value ?? "",
                 )
-              }
+              }}
             />
           </EditorSubSortTwoColumnGrid>
         </SortableSubListItem>

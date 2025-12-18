@@ -33,8 +33,11 @@ type ContentEditorActions = {
     field: string[],
     value: unknown,
   ) => void
+
+  moveSection: (fromIndex: number, toIndex: number) => void
   removeSubSectionItem: (index: number, subIndex: number, field: string[]) => void
   pushSubSectionItem: (index: number, field: string[], item: unknown) => void
+  moveSubSection: (index: number, field: string[], fromIndex: number, toIndex: number) => void
 }
 
 const initialState: ContentEditorState = {
@@ -102,6 +105,24 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
           target = target[key]
         }
         target.push(item)
+      })
+    },
+
+    moveSection(fromIndex, toIndex) {
+      set((state) => {
+        const [removed] = state.sections.splice(fromIndex, 1)
+        state.sections.splice(toIndex, 0, removed!)
+      })
+    },
+
+    moveSubSection: (index, field, fromIndex, toIndex) => {
+      set((state) => {
+        let target = state.sections[index] as Record<string, any>
+        for (const key of field) {
+          target = target[key]
+        }
+        const [removed] = target.splice(fromIndex, 1)
+        target.splice(toIndex, 0, removed)
       })
     },
 

@@ -41,7 +41,7 @@ type SortableListProps<T extends SortData = SortData> = {
   onDragEnd?: (event: DragEndEvent) => void
   renderItem: (item: T, index: number) => ReactNode
   onDragStart?: (event: DragStartEvent) => void
-  onOrderChange?: (fromIndex: number, toIndex: number) => void
+  onReorder?: (fromIndex: number, toIndex: number) => void
 }
 
 type SortableListItemProps = {
@@ -66,7 +66,7 @@ export function SortableList<T extends SortData = SortData>({
   renderItem,
   onDragStart,
   onDragEnd,
-  onOrderChange,
+  onReorder,
 }: SortableListProps<T>) {
   const { activeCardId, setActiveCardId } = useSortableListStore(
     useShallow((state) => ({
@@ -86,7 +86,7 @@ export function SortableList<T extends SortData = SortData>({
     setActiveCardId,
     onDragStart,
     onDragEnd,
-    onOrderChange,
+    onReorder,
   )
 
   const sortedChildren = useMemo(

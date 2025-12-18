@@ -19,7 +19,7 @@ interface TeamSectionFormProps {
 export const TeamSectionForm = memo(({ index }: TeamSectionFormProps) => {
   const { team, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      team: state.sections[index] as TeamSection,
+      team: state?.sections?.[index] as TeamSection,
       updateSectionField: state.updateSectionField,
     })),
   )
@@ -58,7 +58,6 @@ export const TeamSectionForm = memo(({ index }: TeamSectionFormProps) => {
             }}
           />
         </Field>
-
         <TeamMembersList index={index} />
         <AddTeamMemberForm index={index} />
       </FieldGroup>

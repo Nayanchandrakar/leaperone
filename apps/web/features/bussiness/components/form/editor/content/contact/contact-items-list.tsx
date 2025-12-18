@@ -11,23 +11,23 @@ interface ContactItemsListProps {
 }
 
 export function ContactItemsList({ index }: ContactItemsListProps) {
-  const { section, moveItem, removeItem } = useContentEditorStore(
+  const { contactDetails, moveSubSection, removeSubSectionItem } = useContentEditorStore(
     useShallow((state) => ({
-      section: state.sections[index] as ContactDetailsSection,
-      moveItem: state.moveItem,
-      removeItem: state.removeItem,
+      moveSubSection: state.moveSubSection,
+      removeSubSectionItem: state.removeSubSectionItem,
+      contactDetails: state?.sections?.[index] as ContactDetailsSection,
     })),
   )
 
   return (
     <SortableList
-      items={section?.items}
-      onOrderChange={(fromIndex, toIndex) => moveItem(index, ["items"], fromIndex, toIndex)}
+      items={contactDetails?.items}
+      onReorder={(fromIndex, toIndex) => moveSubSection(index, ["items"], fromIndex, toIndex)}
       renderItem={(contactItem: ContactItem, currentIndex: number) => (
         <SortableSubListItem
           key={contactItem?.id}
           itemId={contactItem?.id}
-          onItemDelete={() => removeItem(index, ["items"], currentIndex)}
+          onItemDelete={() => removeSubSectionItem(index, currentIndex, ["items"])}
         >
           {contactItem?.type === "phone" && (
             <PhoneContactForm key={currentIndex} index={index} contactIdx={currentIndex} />

@@ -15,42 +15,42 @@ interface HeadingTextFormProps {
 }
 
 export const HeadingTextForm = memo(({ index }: HeadingTextFormProps) => {
-  const { field, updateSectionField } = useContentEditorStore(
+  const { heading, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
       updateSectionField: state.updateSectionField,
-      field: state.sections[index] as HeadingTextSection,
+      heading: state.sections[index] as HeadingTextSection,
     })),
   )
 
   return (
     <SortableListItem
-      itemId={field?.id}
+      itemId={heading?.id}
       itemTitle="Heading + Text"
-      isEnabled={field?.enabled}
+      isEnabled={heading?.enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={field?.heading?.enabled}
+            isActive={heading?.heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={field?.heading?.text}
+            value={heading?.heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={field?.description?.enabled}
+            isActive={heading?.description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={field?.description?.text}
+            value={heading?.description?.text}
             onChange={(e) => {
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
             }}
@@ -62,7 +62,7 @@ export const HeadingTextForm = memo(({ index }: HeadingTextFormProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={field?.background}
+            checked={heading?.background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>

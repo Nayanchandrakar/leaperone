@@ -12,14 +12,14 @@ interface AddContactItemButtonFormProps {
 }
 
 export function AddContactItemButtonForm({ index }: AddContactItemButtonFormProps) {
-  const pushItem = useContentEditorStore((state) => state.pushItem)
+  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
 
   const handleContactItemAdd = useCallback(
     (contactType: ContactItemType) => {
       const contactItem = createContactItem(contactType)
-      pushItem(index, ["items"], contactItem)
+      pushSubSectionItem(index, ["items"], contactItem)
     },
-    [index, pushItem],
+    [index, pushSubSectionItem],
   )
 
   return (

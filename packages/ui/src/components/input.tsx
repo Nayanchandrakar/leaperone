@@ -23,10 +23,11 @@ const inputVariants = cva(
 
 type InputProps = React.ComponentProps<"input"> & VariantProps<typeof inputVariants>
 
-function Input({ className, type, variant, size, ...props }: InputProps) {
+function Input({ className, type, variant, size, value = "", ...props }: InputProps) {
   return (
     <input
       type={type}
+      value={value}
       data-slot="input"
       className={cn(inputVariants({ variant, className, size }))}
       {...props}

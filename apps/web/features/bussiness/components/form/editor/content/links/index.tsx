@@ -57,7 +57,6 @@ export function SocialLinksForm({ index }: SocialLinksFormProps) {
             }}
           />
         </Field>
-
         <RenderLinksForm index={index} />
       </FieldGroup>
       <EditorBlockFooter>

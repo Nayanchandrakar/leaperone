@@ -1,7 +1,6 @@
 import type { ContactDetailsSection, PhoneLink } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { useCallback } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
@@ -12,48 +11,34 @@ interface PhoneContactFormProps {
 }
 
 export function PhoneContactForm({ contactIdx, index }: PhoneContactFormProps) {
-  const { section, updateItem } = useContentEditorStore(
+  const { item, updateSubSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      section: state.sections[index] as ContactDetailsSection,
-      updateItem: state.updateItem,
+      updateSubSectionField: state.updateSubSectionField,
+      item: (state.sections[index] as ContactDetailsSection).items[contactIdx] as PhoneLink,
     })),
   )
-
-  const handleLabelChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const currentItem = section.items[contactIdx]
-      updateItem(index, ["items"], contactIdx, {
-        ...currentItem,
-        label: e.target.value,
-      })
-    },
-    [section, index, contactIdx, updateItem],
-  )
-
-  const handleUrlChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const currentItem = section.items[contactIdx]
-      updateItem(index, ["items"], contactIdx, {
-        ...currentItem,
-        url: e.target.value,
-      })
-    },
-    [section, index, contactIdx, updateItem],
-  )
-
-  const item = section.items[contactIdx] as PhoneLink
 
   return (
     <EditorSubSortTwoColumnGrid>
       <Field>
         <FieldLabel>Label</FieldLabel>
-        {/* @ts-expect-error - TODO: fix this */}
-        <Input value={item?.label} onChange={handleLabelChange} />
+        <Input
+          // @ts-expect-error - TODO: fix this
+          value={item?.label}
+          onChange={(e) => {
+            updateSubSectionField(index, contactIdx, ["items"], ["label"], e?.target?.value ?? "")
+          }}
+        />
       </Field>
 
       <Field>
         <FieldLabel>Phone Number</FieldLabel>
-        <Input value={item?.url} onChange={handleUrlChange} />
+        <Input
+          value={item?.url}
+          onChange={(e) => {
+            updateSubSectionField(index, contactIdx, ["items"], ["url"], e?.target?.value ?? "")
+          }}
+        />
       </Field>
     </EditorSubSortTwoColumnGrid>
   )

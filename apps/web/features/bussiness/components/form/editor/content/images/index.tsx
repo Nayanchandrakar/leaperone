@@ -4,14 +4,14 @@ import { Input } from "@app/ui/components/input"
 import { Switch } from "@app/ui/components/switch"
 import { Textarea } from "@app/ui/components/textarea"
 import { useShallow } from "zustand/react/shallow"
+import { AddImageLinksForm } from "@/features/bussiness/components/form/editor/content/images/add-image-links"
 import { ImageOrientationList } from "@/features/bussiness/components/form/editor/content/images/image-orientation-list"
+import { ListImagesForm } from "@/features/bussiness/components/form/editor/content/images/list-images"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { IMAGE_VIEWS } from "@/features/bussiness/constants/home/image-views"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
-import { AddImageLinksForm } from "./add-image-links"
-import { ListImagesForm } from "./list-images"
 
 interface ImageTextLinksFormProps {
   index: number

@@ -46,7 +46,6 @@ export function ProfileInfoForm({ index }: ProfileInfoFormProps) {
             }
           />
         </Field>
-
         <Field>
           <ToogleLabel
             label="Info Line 2"

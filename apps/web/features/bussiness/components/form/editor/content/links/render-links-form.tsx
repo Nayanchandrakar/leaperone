@@ -11,17 +11,24 @@ interface RenderLinksFormProps {
 }
 
 export function RenderLinksForm({ index }: RenderLinksFormProps) {
-  const { section, updateSubSectionField, removeSubSectionItem } = useContentEditorStore(
-    useShallow((state) => ({
-      section: state.sections[index] as LinkSection,
-      removeSubSectionItem: state.removeSubSectionItem,
-      updateSubSectionField: state.updateSubSectionField,
-    })),
-  )
+  const { section, updateSubSectionField, removeSubSectionItem, moveSubSection } =
+    useContentEditorStore(
+      useShallow((state) => ({
+        section: state?.sections?.[index] as LinkSection,
+        removeSubSectionItem: state.removeSubSectionItem,
+        updateSubSectionField: state.updateSubSectionField,
+        moveSubSection: state.moveSubSection,
+      })),
+    )
+
+  if (!section?.links?.length) return null
 
   return (
     <SortableList
       items={section?.links}
+      onReorder={(fromIndex, toIndex) => {
+        moveSubSection(index, ["links"], fromIndex, toIndex)
+      }}
       renderItem={(link, linkIdx) => (
         <SortableSubListItem
           key={link?.id}

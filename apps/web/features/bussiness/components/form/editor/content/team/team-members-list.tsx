@@ -16,9 +16,9 @@ interface TeamMembersListProps {
 export function TeamMembersList({ index }: TeamMembersListProps) {
   const { updateSubSectionField, removeSubSectionItem, members } = useContentEditorStore(
     useShallow((state) => ({
-      updateSubSectionField: state.updateSubSectionField,
       removeSubSectionItem: state.removeSubSectionItem,
-      members: (state.sections[index] as TeamSection).members,
+      updateSubSectionField: state.updateSubSectionField,
+      members: (state?.sections?.[index] as TeamSection)?.members,
     })),
   )
 
