@@ -61,7 +61,7 @@ type EditorSubSortableListItemProps = {
 
 const t = tunnel()
 
-export function SortableList<T extends SortData = SortData>({
+export const SortableList = memo(function SortableList<T extends SortData = SortData>({
   items,
   renderItem,
   onDragStart,
@@ -108,7 +108,7 @@ export function SortableList<T extends SortData = SortData>({
       </SortableContext>
     </DndContext>
   )
-}
+}) as <T extends SortData>(props: SortableListProps<T>) => ReactNode
 
 export const SortableListItem = memo(
   ({

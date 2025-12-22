@@ -45,6 +45,46 @@ const initialState: ContentEditorState = {
   sections: PROFESSIONAL_TEMPLATE,
 }
 
+// Selector Factories for stable access
+export const selectSectionType = (index: number) => (state: ContentEditorState) =>
+  state.sections[index]?.type
+export const selectSectionEnabled = (index: number) => (state: ContentEditorState) =>
+  state.sections[index]?.enabled
+export const selectSectionId = (index: number) => (state: ContentEditorState) =>
+  state.sections[index]?.id
+
+// Generic field selector
+export const selectSectionField =
+  (index: number, path: string[]) => (state: ContentEditorState) => {
+    let target: any = state.sections[index]
+    for (const key of path) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    return target
+  }
+
+// Sub-section generic selector
+export const selectSubSectionField =
+  (index: number, subIndex: number, arrayPath: string[], fieldPath: string[]) =>
+  (state: ContentEditorState) => {
+    let target: any = state.sections[index]
+    // Navigate to array
+    for (const key of arrayPath) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    // Get item
+    if (!Array.isArray(target) || !target[subIndex]) return undefined
+    target = target[subIndex]
+    // Navigate field
+    for (const key of fieldPath) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    return target
+  }
+
 export const useContentEditorStore = create<ContentEditorState & ContentEditorActions>()(
   immer((set) => ({
     ...initialState,

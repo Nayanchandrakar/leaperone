@@ -1,6 +1,6 @@
 import { FieldLabel } from "@app/ui/components/field"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useMemo } from "react"
+import { memo, useMemo } from "react"
 
 export interface ToogleLabelProps {
   label: string
@@ -8,7 +8,7 @@ export interface ToogleLabelProps {
   onToggle: (active: boolean) => void
 }
 
-export function ToogleLabel({ label, isActive, onToggle }: ToogleLabelProps) {
+export const ToogleLabel = memo(({ label, isActive, onToggle }: ToogleLabelProps) => {
   const RenderIcon = useMemo(() => (isActive ? EyeIcon : EyeOffIcon), [isActive])
 
   return (
@@ -24,4 +24,4 @@ export function ToogleLabel({ label, isActive, onToggle }: ToogleLabelProps) {
       </button>
     </div>
   )
-}
+})

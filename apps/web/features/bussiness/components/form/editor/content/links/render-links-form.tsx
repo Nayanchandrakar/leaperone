@@ -1,7 +1,7 @@
 import type { LinkSection } from "@app/core/types/content-editor"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { memo } from "react"
+import { memo, useCallback } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
@@ -19,6 +19,39 @@ export const RenderLinksForm = memo(({ index }: ContentSectionProps) => {
       })),
     )
 
+  const renderItem = useCallback(
+    (link: any, linkIdx: number) => (
+      <SortableSubListItem
+        key={link?.id}
+        itemId={link?.id}
+        onItemDelete={() => removeSubSectionItem(index, linkIdx, ["links"])}
+      >
+        <EditorSubSortTwoColumnGrid>
+          <Field>
+            <FieldLabel>Link Label</FieldLabel>
+
+            <Input
+              value={link?.label}
+              onChange={(e) =>
+                updateSubSectionField(index, linkIdx, ["links"], ["label"], e?.target?.value ?? "")
+              }
+            />
+          </Field>
+          <Field>
+            <FieldLabel>Profile Link</FieldLabel>
+            <Input
+              value={link?.url}
+              onChange={(e) => {
+                updateSubSectionField(index, linkIdx, ["links"], ["url"], e?.target?.value ?? "")
+              }}
+            />
+          </Field>
+        </EditorSubSortTwoColumnGrid>
+      </SortableSubListItem>
+    ),
+    [index, removeSubSectionItem, updateSubSectionField],
+  )
+
   if (!section?.links?.length) return null
 
   return (
@@ -27,42 +60,7 @@ export const RenderLinksForm = memo(({ index }: ContentSectionProps) => {
       onReorder={(fromIndex, toIndex) => {
         moveSubSection(index, ["links"], fromIndex, toIndex)
       }}
-      renderItem={(link, linkIdx) => (
-        <SortableSubListItem
-          key={link?.id}
-          itemId={link?.id}
-          onItemDelete={() => removeSubSectionItem(index, linkIdx, ["links"])}
-        >
-          <EditorSubSortTwoColumnGrid>
-            <Field>
-              <FieldLabel>Link Label</FieldLabel>
-
-              <Input
-                // @ts-expect-error - TODO: fix this
-                value={link?.label}
-                onChange={(e) =>
-                  updateSubSectionField(
-                    index,
-                    linkIdx,
-                    ["links"],
-                    ["label"],
-                    e?.target?.value ?? "",
-                  )
-                }
-              />
-            </Field>
-            <Field>
-              <FieldLabel>Profile Link</FieldLabel>
-              <Input
-                value={link?.url}
-                onChange={(e) => {
-                  updateSubSectionField(index, linkIdx, ["links"], ["url"], e?.target?.value ?? "")
-                }}
-              />
-            </Field>
-          </EditorSubSortTwoColumnGrid>
-        </SortableSubListItem>
-      )}
+      renderItem={renderItem}
     />
   )
 })

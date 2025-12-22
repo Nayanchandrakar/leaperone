@@ -13,17 +13,25 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
-  const { section, updateSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      section: state.sections[index] as LinkSection,
-      updateSectionField: state.updateSectionField,
-    })),
-  )
+  const { id, enabled, heading, description, background, updateSectionField } =
+    useContentEditorStore(
+      useShallow((state) => {
+        const section = state.sections[index] as LinkSection
+        return {
+          id: section?.id ?? "",
+          enabled: section?.enabled ?? false,
+          heading: section?.heading,
+          description: section?.description,
+          background: section?.background,
+          updateSectionField: state.updateSectionField,
+        }
+      }),
+    )
 
   return (
     <SortableListItem
-      itemId={section?.id}
-      isEnabled={section?.enabled}
+      itemId={id}
+      isEnabled={enabled}
       itemTitle="Links: Social, Payment & more"
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
@@ -31,12 +39,12 @@ export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={section?.heading?.enabled}
+            isActive={heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={section?.heading?.text}
+            value={heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
@@ -44,12 +52,12 @@ export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={section?.description?.enabled}
+            isActive={description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={section?.description?.text}
+            value={description?.text}
             onChange={(e) => {
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
             }}
@@ -61,7 +69,7 @@ export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={section?.background}
+            checked={background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>

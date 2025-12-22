@@ -12,42 +12,52 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
-  const { ctaButton, updateSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      updateSectionField: state.updateSectionField,
-      ctaButton: state.sections[index] as CtaButtonSection,
-    })),
-  )
+  const { id, enabled, heading, description, label, link, background, updateSectionField } =
+    useContentEditorStore(
+      useShallow((state) => {
+        const section = state.sections[index] as CtaButtonSection
+        return {
+          id: section?.id ?? "",
+          enabled: section?.enabled ?? false,
+          heading: section?.heading,
+          description: section?.description,
+          label: section?.label,
+          link: section?.link,
+          background: section?.background,
+          updateSectionField: state.updateSectionField,
+        }
+      }),
+    )
 
   return (
     <SortableListItem
-      itemId={ctaButton?.id}
+      itemId={id}
       itemTitle="Button"
-      isEnabled={ctaButton?.enabled}
+      isEnabled={enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={ctaButton?.heading?.enabled}
+            isActive={heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={ctaButton?.heading?.text}
+            value={heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={ctaButton?.description?.enabled}
+            isActive={description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={ctaButton?.description?.text}
+            value={description?.text}
             onChange={(e) =>
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
             }
@@ -60,7 +70,7 @@ export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
             <Input
               variant="gray"
               placeholder="Enter button label here"
-              value={ctaButton?.label}
+              value={label}
               onChange={(e) => updateSectionField(index, ["label"], e?.target?.value ?? "")}
             />
           </Field>
@@ -68,7 +78,7 @@ export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
             <FieldLabel>Button Link</FieldLabel>
             <Input
               variant="gray"
-              value={ctaButton?.link}
+              value={link}
               placeholder="Enter button link here"
               onChange={(e) => updateSectionField(index, ["link"], e?.target?.value ?? "")}
             />
@@ -79,7 +89,7 @@ export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={ctaButton?.background}
+            checked={background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>

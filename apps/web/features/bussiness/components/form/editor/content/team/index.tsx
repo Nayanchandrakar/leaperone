@@ -14,42 +14,50 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const TeamSectionForm = memo(({ index }: ContentSectionProps) => {
-  const { team, updateSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      team: state?.sections?.[index] as TeamSection,
-      updateSectionField: state.updateSectionField,
-    })),
-  )
+  const { id, enabled, heading, description, background, updateSectionField } =
+    useContentEditorStore(
+      useShallow((state) => {
+        const section = state.sections[index] as TeamSection
+        return {
+          id: section?.id ?? "",
+          enabled: section?.enabled ?? false,
+          heading: section?.heading,
+          description: section?.description,
+          background: section?.background,
+          updateSectionField: state.updateSectionField,
+        }
+      }),
+    )
 
   return (
     <SortableListItem
       itemTitle="Team"
-      itemId={team?.id}
-      isEnabled={team?.enabled}
+      itemId={id}
+      isEnabled={enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={team?.heading?.enabled}
+            isActive={heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={team?.heading?.text}
+            value={heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={team?.description?.enabled}
+            isActive={description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={team?.description?.text}
+            value={description?.text}
             onChange={(e) => {
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
             }}
@@ -62,7 +70,7 @@ export const TeamSectionForm = memo(({ index }: ContentSectionProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={team?.background}
+            checked={background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>

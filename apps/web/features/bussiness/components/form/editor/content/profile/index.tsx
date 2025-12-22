@@ -12,18 +12,20 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ProfileForm = memo(({ index }: ContentSectionProps) => {
-  const { card, updateSectionField } = useContentEditorStore(
+  const { id, enabled, contactsEnabled, updateSectionField } = useContentEditorStore(
     useShallow((state) => ({
-      updateSectionField: state?.updateSectionField,
-      card: state?.sections?.[index] as ProfileCardSection,
+      updateSectionField: state.updateSectionField,
+      id: state.sections[index]?.id ?? "",
+      enabled: state.sections[index]?.enabled ?? false,
+      contactsEnabled: (state.sections[index] as ProfileCardSection)?.contacts?.enabled,
     })),
   )
 
   return (
     <SortableListItem
-      itemId={card?.id}
+      itemId={id}
       itemTitle="Card Profile"
-      isEnabled={card?.enabled}
+      isEnabled={enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
@@ -33,8 +35,10 @@ export const ProfileForm = memo(({ index }: ContentSectionProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Quick Contact links with Icons</FieldLabel>
           <Switch
-            checked={card?.contacts?.enabled}
-            onCheckedChange={(value) => updateSectionField(index, ["contacts", "enabled"], value)}
+            checked={contactsEnabled}
+            onCheckedChange={(value) => {
+              updateSectionField(index, ["contacts", "enabled"], value)
+            }}
           />
         </Field>
         <QuickContactLinksForm index={index} />

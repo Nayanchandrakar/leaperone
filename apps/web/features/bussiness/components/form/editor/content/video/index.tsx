@@ -13,50 +13,59 @@ import { useContentEditorStore } from "@/features/bussiness/stores/use-content-e
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const VideoForm = memo(({ index }: ContentSectionProps) => {
-  const { video, updateSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      updateSectionField: state.updateSectionField,
-      video: state.sections[index] as VideoSection,
-    })),
-  )
+  const { id, enabled, heading, description, video, background, updateSectionField } =
+    useContentEditorStore(
+      useShallow((state) => {
+        const section = state.sections[index] as VideoSection
+        return {
+          id: section?.id ?? "",
+          enabled: section?.enabled ?? false,
+          heading: section?.heading,
+          description: section?.description,
+          video: section?.video,
+          background: section?.background,
+          updateSectionField: state.updateSectionField,
+        }
+      }),
+    )
 
   return (
     <SortableListItem
       itemTitle="Video"
-      itemId={video?.id}
-      isEnabled={video?.enabled}
+      itemId={id}
+      isEnabled={enabled}
       onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
         <Field>
           <ToogleLabel
             label="Heading"
-            isActive={video?.heading?.enabled}
+            isActive={heading?.enabled}
             onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
           />
           <Input
             variant="gray"
-            value={video?.heading?.text}
+            value={heading?.text}
             onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
           />
         </Field>
         <Field>
           <ToogleLabel
             label="Description"
-            isActive={video?.description?.enabled}
+            isActive={description?.enabled}
             onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
           />
           <Textarea
             variant="gray"
-            value={video?.description?.text}
+            value={description?.text}
             onChange={(e) => {
               updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
             }}
           />
         </Field>
         <Tabs
-          value={video?.video?.type}
-          defaultValue={video?.video?.type}
+          value={video?.type}
+          defaultValue={video?.type}
           onValueChange={(value) => updateSectionField(index, ["video", "type"], value)}
         >
           <TabsList>
@@ -67,7 +76,7 @@ export const VideoForm = memo(({ index }: ContentSectionProps) => {
             <Input
               variant="gray"
               placeholder="Enter YouTube video link here"
-              value={(video?.video as YoutubeVideo)?.youtubeUrl ?? ""}
+              value={(video as YoutubeVideo)?.youtubeUrl ?? ""}
               onChange={(e) => {
                 updateSectionField(index, ["video", "youtubeUrl"], e?.target?.value ?? "")
               }}
@@ -77,7 +86,7 @@ export const VideoForm = memo(({ index }: ContentSectionProps) => {
             <Input
               variant="gray"
               placeholder="Enter Vimeo video link here"
-              value={(video?.video as VimeoVideo)?.vimeoUrl ?? ""}
+              value={(video as VimeoVideo)?.vimeoUrl ?? ""}
               onChange={(e) => {
                 updateSectionField(index, ["video", "vimeoUrl"], e?.target?.value ?? "")
               }}
@@ -89,7 +98,7 @@ export const VideoForm = memo(({ index }: ContentSectionProps) => {
         <Field orientation="horizontal" className="w-fit">
           <FieldLabel>Section Background</FieldLabel>
           <Switch
-            checked={video?.background}
+            checked={background}
             onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
           />
         </Field>
