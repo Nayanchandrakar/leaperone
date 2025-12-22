@@ -1,99 +1,78 @@
-import type { CtaButtonSection } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { Switch } from "@app/ui/components/switch"
-import { Textarea } from "@app/ui/components/textarea"
-import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
+import { memo, useMemo } from "react"
+import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
+import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
+import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import {
+  selectSectionId,
+  useContentEditorStore,
+} from "@/features/bussiness/stores/use-content-editor-store"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const CtaButtonForm = memo(({ index }: ContentSectionProps) => {
-  const { id, enabled, heading, description, label, link, background, updateSectionField } =
-    useContentEditorStore(
-      useShallow((state) => {
-        const section = state.sections[index] as CtaButtonSection
-        return {
-          id: section?.id ?? "",
-          enabled: section?.enabled ?? false,
-          heading: section?.heading,
-          description: section?.description,
-          label: section?.label,
-          link: section?.link,
-          background: section?.background,
-          updateSectionField: state.updateSectionField,
-        }
-      }),
-    )
+  const [enabled, setEnabled] = useSectionField<boolean>(index, ["enabled"])
+  const [headingEnabled, setHeadingEnabled] = useSectionField<boolean>(index, [
+    "heading",
+    "enabled",
+  ])
+  const [headingText, setHeadingText] = useSectionField<string>(index, ["heading", "text"])
+  const [descEnabled, setDescEnabled] = useSectionField<boolean>(index, ["description", "enabled"])
+  const [descText, setDescText] = useSectionField<string>(index, ["description", "text"])
+  const [label, setLabel] = useSectionField<string>(index, ["label"])
+  const [link, setLink] = useSectionField<string>(index, ["link"])
+  const [background, setBackground] = useSectionField<boolean>(index, ["background"])
+  const idSelector = useMemo(() => selectSectionId(index), [index])
+  const id = useContentEditorStore(idSelector) ?? ""
 
   return (
     <SortableListItem
       itemId={id}
       itemTitle="Button"
       isEnabled={enabled}
-      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
+      onIsEnabledChange={setEnabled}
     >
       <FieldGroup className="p-5">
-        <Field>
-          <ToogleLabel
-            label="Heading"
-            isActive={heading?.enabled}
-            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
-          />
-          <Input
-            variant="gray"
-            value={heading?.text}
-            onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
-          />
-        </Field>
-        <Field>
-          <ToogleLabel
-            label="Description"
-            isActive={description?.enabled}
-            onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
-          />
-          <Textarea
-            variant="gray"
-            value={description?.text}
-            onChange={(e) =>
-              updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
-            }
-          />
-        </Field>
+        <ToggleField
+          label="Heading"
+          value={headingText}
+          enabled={headingEnabled}
+          onValueChange={setHeadingText}
+          onEnabledChange={setHeadingEnabled}
+        />
+        <ToggleTextareaField
+          variant="gray"
+          value={descText}
+          label="Description"
+          enabled={descEnabled}
+          onValueChange={setDescText}
+          onEnabledChange={setDescEnabled}
+        />
 
         <div className="grid @lg/editor-block-content:grid-cols-2 gap-3">
           <Field>
             <FieldLabel>Button Label</FieldLabel>
             <Input
+              value={label}
               variant="gray"
               placeholder="Enter button label here"
-              value={label}
-              onChange={(e) => updateSectionField(index, ["label"], e?.target?.value ?? "")}
+              onChange={(e) => setLabel(e?.target?.value)}
             />
           </Field>
           <Field>
             <FieldLabel>Button Link</FieldLabel>
             <Input
-              variant="gray"
               value={link}
+              variant="gray"
               placeholder="Enter button link here"
-              onChange={(e) => updateSectionField(index, ["link"], e?.target?.value ?? "")}
+              onChange={(e) => setLink(e?.target?.value)}
             />
           </Field>
         </div>
       </FieldGroup>
-      <EditorBlockFooter>
-        <Field orientation="horizontal" className="w-fit">
-          <FieldLabel>Section Background</FieldLabel>
-          <Switch
-            checked={background}
-            onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
-          />
-        </Field>
-      </EditorBlockFooter>
+      <SectionBackgroundToggle enabled={background} onEnabledChange={setBackground} />
     </SortableListItem>
   )
 })

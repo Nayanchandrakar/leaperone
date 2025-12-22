@@ -1,94 +1,76 @@
-import type { ImagesTextLinksSection } from "@app/core/types/content-editor"
+import type { ImageViewType } from "@app/core/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
-import { Input } from "@app/ui/components/input"
-import { Switch } from "@app/ui/components/switch"
-import { Textarea } from "@app/ui/components/textarea"
-import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
+
+import { memo, useMemo } from "react"
+import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
+import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
+import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { AddImageLinksForm } from "@/features/bussiness/components/form/editor/content/images/add-image-links"
 import { ImageOrientationList } from "@/features/bussiness/components/form/editor/content/images/image-orientation-list"
 import { ListImagesForm } from "@/features/bussiness/components/form/editor/content/images/list-images"
-import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 import { IMAGE_VIEWS } from "@/features/bussiness/constants/home/image-views"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import {
+  selectSectionId,
+  useContentEditorStore,
+} from "@/features/bussiness/stores/use-content-editor-store"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ImageTextLinksForm = memo(({ index }: ContentSectionProps) => {
-  const { id, enabled, heading, description, imageView, background, updateSectionField } =
-    useContentEditorStore(
-      useShallow((state) => {
-        const section = state.sections[index] as ImagesTextLinksSection
-        return {
-          id: section?.id ?? "",
-          enabled: section?.enabled ?? false,
-          heading: section?.heading,
-          description: section?.description,
-          imageView: section?.imageView,
-          background: section?.background,
-          updateSectionField: state.updateSectionField,
-        }
-      }),
-    )
+  const [enabled, setEnabled] = useSectionField<boolean>(index, ["enabled"])
+  const [headingEnabled, setHeadingEnabled] = useSectionField<boolean>(index, [
+    "heading",
+    "enabled",
+  ])
+  const [headingText, setHeadingText] = useSectionField<string>(index, ["heading", "text"])
+
+  const [descEnabled, setDescEnabled] = useSectionField<boolean>(index, ["description", "enabled"])
+  const [descText, setDescText] = useSectionField<string>(index, ["description", "text"])
+
+  const [imageView, setImageView] = useSectionField<ImageViewType>(index, ["imageView"])
+  const [background, setBackground] = useSectionField<boolean>(index, ["background"])
+
+  const idSelector = useMemo(() => selectSectionId(index), [index])
+  const id = useContentEditorStore(idSelector) ?? ""
 
   return (
     <SortableListItem
       itemId={id}
       isEnabled={enabled}
+      onIsEnabledChange={setEnabled}
       itemTitle="Images + Texts + Links"
-      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
     >
       <FieldGroup className="p-5">
-        <Field>
-          <ToogleLabel
-            label="Heading"
-            isActive={heading?.enabled}
-            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
-          />
-          <Input
-            variant="gray"
-            value={heading?.text}
-            onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
-          />
-        </Field>
-
-        <Field>
-          <ToogleLabel
-            label="Description"
-            isActive={description?.enabled}
-            onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
-          />
-          <Textarea
-            variant="gray"
-            value={description?.text}
-            onChange={(e) => {
-              updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
-            }}
-          />
-        </Field>
+        <ToggleField
+          label="Heading"
+          value={headingText}
+          enabled={headingEnabled}
+          onValueChange={setHeadingText}
+          onEnabledChange={setHeadingEnabled}
+        />
+        <ToggleTextareaField
+          variant="gray"
+          value={descText}
+          label="Description"
+          enabled={descEnabled}
+          onValueChange={setDescText}
+          onEnabledChange={setDescEnabled}
+        />
 
         <Field>
           <FieldLabel>Image View Type</FieldLabel>
           <ImageOrientationList
             orientations={IMAGE_VIEWS}
             selectedOrientation={imageView}
-            onOrientationChange={(value) => updateSectionField(index, ["imageView"], value)}
+            onOrientationChange={setImageView}
           />
         </Field>
         <FieldLabel>Images & Links</FieldLabel>
         <ListImagesForm index={index} />
         <AddImageLinksForm index={index} />
       </FieldGroup>
-      <EditorBlockFooter>
-        <Field orientation="horizontal" className="w-fit">
-          <FieldLabel>Section Background</FieldLabel>
-          <Switch
-            checked={background}
-            onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
-          />
-        </Field>
-      </EditorBlockFooter>
+      <SectionBackgroundToggle enabled={background} onEnabledChange={setBackground} />
     </SortableListItem>
   )
 })

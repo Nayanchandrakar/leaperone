@@ -6,9 +6,10 @@ export interface ToogleLabelProps {
   label: string
   isActive: boolean
   onToggle: (active: boolean) => void
+  disabled?: boolean | undefined
 }
 
-export const ToogleLabel = memo(({ label, isActive, onToggle }: ToogleLabelProps) => {
+export const ToogleLabel = memo(({ label, isActive, onToggle, disabled }: ToogleLabelProps) => {
   const RenderIcon = useMemo(() => (isActive ? EyeIcon : EyeOffIcon), [isActive])
 
   return (
@@ -17,8 +18,9 @@ export const ToogleLabel = memo(({ label, isActive, onToggle }: ToogleLabelProps
       <button
         type="button"
         tabIndex={0}
-        className="cursor-pointer"
-        onClick={() => onToggle(!isActive)}
+        disabled={disabled}
+        className="cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => !disabled && onToggle(!isActive)}
       >
         <RenderIcon className="size-4" aria-hidden />
       </button>

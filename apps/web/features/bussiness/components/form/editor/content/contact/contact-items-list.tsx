@@ -1,46 +1,29 @@
-import type { ContactDetailsSection, ContactItem } from "@app/core/types"
+import type { ContactItem } from "@app/core/types"
 import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { AddressContactForm } from "@/features/bussiness/components/form/editor/content/contact/address-contact-form"
-import { EmailContactForm } from "@/features/bussiness/components/form/editor/content/contact/email-contact-form"
-import { PhoneContactForm } from "@/features/bussiness/components/form/editor/content/contact/phone-contact-form"
-import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { ContactItemRenderer } from "@/features/bussiness/components/form/editor/content/contact/contact-item-renderer"
+import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ContactItemsList = memo(({ index }: ContentSectionProps) => {
-  const { contactDetails, moveSubSection, removeSubSectionItem } = useContentEditorStore(
-    useShallow((state) => ({
-      moveSubSection: state.moveSubSection,
-      removeSubSectionItem: state.removeSubSectionItem,
-      contactDetails: state?.sections?.[index] as ContactDetailsSection,
-    })),
-  )
+  const { list, moveItem, removeItem } = useSubSectionList<ContactItem>(index, ["items"])
 
-  if (!contactDetails?.items?.length) return null
+  if (!list?.length) {
+    return null
+  }
 
   return (
     <SortableList
-      items={contactDetails?.items}
-      onReorder={(fromIndex, toIndex) => moveSubSection(index, ["items"], fromIndex, toIndex)}
+      items={list}
+      onReorder={moveItem}
       renderItem={(contactItem: ContactItem, currentIndex: number) => (
-        <SortableSubListItem
-          key={contactItem?.id}
-          itemId={contactItem?.id}
-          onItemDelete={() => removeSubSectionItem(index, currentIndex, ["items"])}
-        >
-          {contactItem?.type === "phone" && (
-            <PhoneContactForm key={currentIndex} index={index} contactIdx={currentIndex} />
-          )}
-
-          {contactItem?.type === "email" && (
-            <EmailContactForm key={currentIndex} index={index} contactIdx={currentIndex} />
-          )}
-
-          {contactItem?.type === "address" && (
-            <AddressContactForm key={currentIndex} index={index} contactIdx={currentIndex} />
-          )}
-        </SortableSubListItem>
+        <ContactItemRenderer
+          index={index}
+          item={contactItem}
+          key={contactItem.id}
+          subIndex={currentIndex}
+          onDelete={() => removeItem(currentIndex)}
+        />
       )}
     />
   )

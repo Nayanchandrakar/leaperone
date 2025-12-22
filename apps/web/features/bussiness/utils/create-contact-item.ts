@@ -13,14 +13,12 @@ export function createContactItem(contactType: ContactItemType): ContactItem {
       return {
         id: generateUUID(),
         type: "phone",
-        label: "",
         url: "",
       }
     case "email":
       return {
         id: generateUUID(),
         type: "email",
-        label: "",
         url: "",
       }
     case "address":

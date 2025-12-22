@@ -1,7 +1,8 @@
+import type { TeamMember } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import { generateUUID } from "@/utils"
 
 interface AddTeamMemberFormProps {
@@ -9,10 +10,10 @@ interface AddTeamMemberFormProps {
 }
 
 export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
-  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
+  const { addItem } = useSubSectionList<TeamMember>(index, ["members"])
 
   const handleAddTeamMember = useCallback(() => {
-    pushSubSectionItem(index, ["members"], {
+    addItem({
       id: generateUUID(),
       memberName: "",
       memberDesignation: "",
@@ -25,7 +26,7 @@ export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
         enabled: false,
       },
     })
-  }, [index, pushSubSectionItem])
+  }, [addItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddTeamMember}>

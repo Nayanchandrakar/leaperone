@@ -1,6 +1,7 @@
+import type { ImageViewType } from "@app/core/types"
 import { ListComponent } from "@/components/shared/list-component"
 import { ImageOrientation } from "@/features/bussiness/components/cards/home/image-orientation"
-import type { ImageView, ImageViewType } from "@/features/bussiness/types"
+import type { ImageView } from "@/features/bussiness/types"
 
 interface ImageOrientationListProps {
   orientations: ImageView[]

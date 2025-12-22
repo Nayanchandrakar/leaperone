@@ -9,22 +9,6 @@ type ContentEditorState = {
 }
 
 type ContentEditorActions = {
-  // Section-level actions
-  // updateSection: <T extends keyof Array<ContentSection>[number]>(
-  //   field: T,
-  //   sectionIdx: number,
-  //   value: ContentEditor["sections"][number][T],
-  // ) => void
-  // Nested field updates
-  // Array operations for nested lists (contacts, links, images, etc.)
-  // pushItem: (sectionIdx: number, path: string[], item: any) => void
-  // removeItem: (sectionIdx: number, path: string[], itemIdx: number) => void
-  // moveItem: (sectionIdx: number, path: string[], fromIdx: number, toIdx: number) => void
-  // updateItem: (sectionIdx: number, path: string[], itemIdx: number, value: unknown) => void
-  // Reset
-  // reset: () => void
-  // new actions
-
   updateSectionField: (index: number, field: string[], value: unknown) => void
   updateSubSectionField: (
     index: number,
@@ -33,10 +17,9 @@ type ContentEditorActions = {
     field: string[],
     value: unknown,
   ) => void
-
   moveSection: (fromIndex: number, toIndex: number) => void
-  removeSubSectionItem: (index: number, subIndex: number, field: string[]) => void
   pushSubSectionItem: (index: number, field: string[], item: unknown) => void
+  removeSubSectionItem: (index: number, subIndex: number, field: string[]) => void
   moveSubSection: (index: number, field: string[], fromIndex: number, toIndex: number) => void
 }
 
@@ -44,46 +27,6 @@ const initialState: ContentEditorState = {
   templateId: "hello-world",
   sections: PROFESSIONAL_TEMPLATE,
 }
-
-// Selector Factories for stable access
-export const selectSectionType = (index: number) => (state: ContentEditorState) =>
-  state.sections[index]?.type
-export const selectSectionEnabled = (index: number) => (state: ContentEditorState) =>
-  state.sections[index]?.enabled
-export const selectSectionId = (index: number) => (state: ContentEditorState) =>
-  state.sections[index]?.id
-
-// Generic field selector
-export const selectSectionField =
-  (index: number, path: string[]) => (state: ContentEditorState) => {
-    let target: any = state.sections[index]
-    for (const key of path) {
-      if (!target) return undefined
-      target = target[key]
-    }
-    return target
-  }
-
-// Sub-section generic selector
-export const selectSubSectionField =
-  (index: number, subIndex: number, arrayPath: string[], fieldPath: string[]) =>
-  (state: ContentEditorState) => {
-    let target: any = state.sections[index]
-    // Navigate to array
-    for (const key of arrayPath) {
-      if (!target) return undefined
-      target = target[key]
-    }
-    // Get item
-    if (!Array.isArray(target) || !target[subIndex]) return undefined
-    target = target[subIndex]
-    // Navigate field
-    for (const key of fieldPath) {
-      if (!target) return undefined
-      target = target[key]
-    }
-    return target
-  }
 
 export const useContentEditorStore = create<ContentEditorState & ContentEditorActions>()(
   immer((set) => ({
@@ -165,49 +108,43 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
         target.splice(toIndex, 0, removed)
       })
     },
-
-    // updateSection: (sectionIdx, field, value) =>
-    //   set((state) => {
-    //     state.sections[sectionIdx][field] = value as any
-    //   }),
-
-    // pushItem: (sectionIdx, path, item) =>
-    // set((state) => {
-    //   let target: any = state.sections[sectionIdx]
-    //   for (const key of path) {
-    //     target = target[key]
-    //   }
-    //   target.push(item)
-    //   }),
-
-    // removeItem: (sectionIdx, path, itemIdx) =>
-    //   set((state) => {
-    // let target: any = state.sections[sectionIdx]
-    // for (const key of path) {
-    //   target = target[key]
-    // }
-    // target.splice(itemIdx, 1)
-    //   }),
-
-    // moveItem: (sectionIdx, path, fromIdx, toIdx) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     const [removed] = target.splice(fromIdx, 1)
-    //     target.splice(toIdx, 0, removed)
-    //   }),
-
-    // updateItem: (sectionIdx, path, itemIdx, value) =>
-    //   set((state) => {
-    //     let target: any = state.sections[sectionIdx]
-    //     for (const key of path) {
-    //       target = target[key]
-    //     }
-    //     target[itemIdx] = value
-    //   }),
-
-    // reset: () => set(initialState),
   })),
 )
+
+// Selector Factories for stable access
+export const selectSectionEnabled = (index: number) => (state: ContentEditorState) =>
+  state.sections[index]?.enabled
+export const selectSectionId = (index: number) => (state: ContentEditorState) =>
+  state.sections[index]?.id
+
+// Generic field selector
+export const selectSectionField =
+  (index: number, path: string[]) => (state: ContentEditorState) => {
+    let target: any = state.sections[index]
+    for (const key of path) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    return target
+  }
+
+// Sub-section generic selector
+export const selectSubSectionField =
+  (index: number, subIndex: number, arrayPath: string[], fieldPath: string[]) =>
+  (state: ContentEditorState) => {
+    let target: any = state.sections[index]
+    // Navigate to array
+    for (const key of arrayPath) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    // Get item
+    if (!Array.isArray(target) || !target[subIndex]) return undefined
+    target = target[subIndex]
+    // Navigate field
+    for (const key of fieldPath) {
+      if (!target) return undefined
+      target = target[key]
+    }
+    return target
+  }

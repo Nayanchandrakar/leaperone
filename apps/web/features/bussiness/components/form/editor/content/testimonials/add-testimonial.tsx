@@ -1,7 +1,8 @@
+import type { TestimonialMember } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import { generateUUID } from "@/utils"
 
 interface AddTestimonialFormProps {
@@ -9,10 +10,10 @@ interface AddTestimonialFormProps {
 }
 
 export function AddTestimonialForm({ index }: AddTestimonialFormProps) {
-  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
+  const { addItem } = useSubSectionList<TestimonialMember>(index, ["testimonials"])
 
   const handleAddTestimonial = useCallback(() => {
-    pushSubSectionItem(index, ["testimonials"], {
+    addItem({
       id: generateUUID(),
       authorName: "",
       authorDesignation: "",
@@ -25,7 +26,7 @@ export function AddTestimonialForm({ index }: AddTestimonialFormProps) {
         enabled: false,
       },
     })
-  }, [index, pushSubSectionItem])
+  }, [addItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddTestimonial}>

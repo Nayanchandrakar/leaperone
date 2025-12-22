@@ -1,64 +1,30 @@
-import type { ImagesTextLinksSection } from "@app/core/types/content-editor"
-import { Input } from "@app/ui/components/input"
+import type { ImageLink } from "@app/core/types"
 import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
-import { SortableList, SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { ImageLinkItemRenderer } from "@/features/bussiness/components/form/editor/content/images/image-link-item-renderer"
+import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ListImagesForm = memo(({ index }: ContentSectionProps) => {
-  const { updateSubSectionField, removeSubSectionItem, images } = useContentEditorStore(
-    useShallow((state) => ({
-      removeSubSectionItem: state.removeSubSectionItem,
-      updateSubSectionField: state.updateSubSectionField,
-      images: (state?.sections?.[index] as ImagesTextLinksSection)?.images,
-    })),
-  )
+  const { list, moveItem, removeItem } = useSubSectionList<ImageLink>(index, ["images"])
 
-  if (!images?.length) return null
+  if (!list?.length) {
+    return null
+  }
 
   return (
     <SortableList
-      items={images}
-      renderItem={(img, imageIdx) => (
-        <SortableSubListItem
-          key={img?.id}
-          itemId={img?.id}
-          onItemDelete={() => removeSubSectionItem(index, imageIdx, ["images"])}
-        >
-          <div className="flex flex-col gap-4 @lg/editor-sub-sort:flex-row">
-            <EditorImageUploader src={img?.imageSrc} />
-            <div className="flex flex-col gap-4 justify-center w-full">
-              <Input
-                placeholder="Image Title (Optional)"
-                value={img?.title ?? ""}
-                onChange={(e) =>
-                  updateSubSectionField(
-                    index,
-                    imageIdx,
-                    ["images"],
-                    ["title"],
-                    e?.target?.value ?? "",
-                  )
-                }
-              />
-              <Input
-                placeholder="Link URL for clickable image (Optional)"
-                value={img?.link ?? ""}
-                onChange={(e) =>
-                  updateSubSectionField(
-                    index,
-                    imageIdx,
-                    ["images"],
-                    ["link"],
-                    e?.target?.value ?? "",
-                  )
-                }
-              />
-            </div>
-          </div>
-        </SortableSubListItem>
+      items={list}
+      onReorder={moveItem}
+      renderItem={(img, i) => (
+        <ImageLinkItemRenderer
+          key={img.id}
+          subIndex={i}
+          index={index}
+          itemId={img.id}
+          imageSrc={img.imageSrc}
+          onDelete={() => removeItem(i)}
+        />
       )}
     />
   )

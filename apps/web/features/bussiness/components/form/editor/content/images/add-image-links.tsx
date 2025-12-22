@@ -1,7 +1,8 @@
+import type { ImageLink } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import { generateUUID } from "@/utils"
 
 interface AddImageLinksFormProps {
@@ -9,16 +10,16 @@ interface AddImageLinksFormProps {
 }
 
 export function AddImageLinksForm({ index }: AddImageLinksFormProps) {
-  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
+  const { addItem } = useSubSectionList<ImageLink>(index, ["images"])
 
   const handleAddImage = useCallback(() => {
-    pushSubSectionItem(index, ["images"], {
+    addItem({
+      link: "",
+      title: "",
       id: generateUUID(),
       imageSrc: "https://images.pexels.com/photos/7004737/pexels-photo-7004737.jpeg",
-      title: "",
-      link: "",
     })
-  }, [index, pushSubSectionItem])
+  }, [addItem])
 
   return (
     <Button variant="green-outline" className="w-fit" onClick={handleAddImage}>

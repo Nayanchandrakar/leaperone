@@ -1,73 +1,60 @@
-import type { VideoSection, VimeoVideo, YoutubeVideo } from "@app/core/types"
-import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
+import { FieldGroup } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { Switch } from "@app/ui/components/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@app/ui/components/tabs"
-import { Textarea } from "@app/ui/components/textarea"
-import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
+import { memo, useMemo } from "react"
+import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
+import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
+import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import {
+  selectSectionId,
+  useContentEditorStore,
+} from "@/features/bussiness/stores/use-content-editor-store"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const VideoForm = memo(({ index }: ContentSectionProps) => {
-  const { id, enabled, heading, description, video, background, updateSectionField } =
-    useContentEditorStore(
-      useShallow((state) => {
-        const section = state.sections[index] as VideoSection
-        return {
-          id: section?.id ?? "",
-          enabled: section?.enabled ?? false,
-          heading: section?.heading,
-          description: section?.description,
-          video: section?.video,
-          background: section?.background,
-          updateSectionField: state.updateSectionField,
-        }
-      }),
-    )
+  const idSelector = useMemo(() => selectSectionId(index), [index])
+  const id = useContentEditorStore(idSelector)!
+
+  const [enabled, setEnabled] = useSectionField<boolean>(index, ["enabled"])
+  const [headingEnabled, setHeadingEnabled] = useSectionField<boolean>(index, [
+    "heading",
+    "enabled",
+  ])
+  const [headingText, setHeadingText] = useSectionField<string>(index, ["heading", "text"])
+  const [descEnabled, setDescEnabled] = useSectionField<boolean>(index, ["description", "enabled"])
+
+  const [videoType, setVideoType] = useSectionField<string>(index, ["video", "type"])
+  const [background, setBackground] = useSectionField<boolean>(index, ["background"])
+  const [vimeoUrl, setVimeoUrl] = useSectionField<string>(index, ["video", "vimeoUrl"])
+  const [descText, setDescText] = useSectionField<string>(index, ["description", "text"])
+  const [youtubeUrl, setYoutubeUrl] = useSectionField<string>(index, ["video", "youtubeUrl"])
 
   return (
     <SortableListItem
-      itemTitle="Video"
       itemId={id}
+      itemTitle="Video"
       isEnabled={enabled}
-      onIsEnabledChange={(value) => updateSectionField(index, ["enabled"], value)}
+      onIsEnabledChange={setEnabled}
     >
       <FieldGroup className="p-5">
-        <Field>
-          <ToogleLabel
-            label="Heading"
-            isActive={heading?.enabled}
-            onToggle={(value) => updateSectionField(index, ["heading", "enabled"], value)}
-          />
-          <Input
-            variant="gray"
-            value={heading?.text}
-            onChange={(e) => updateSectionField(index, ["heading", "text"], e?.target?.value ?? "")}
-          />
-        </Field>
-        <Field>
-          <ToogleLabel
-            label="Description"
-            isActive={description?.enabled}
-            onToggle={(value) => updateSectionField(index, ["description", "enabled"], value)}
-          />
-          <Textarea
-            variant="gray"
-            value={description?.text}
-            onChange={(e) => {
-              updateSectionField(index, ["description", "text"], e?.target?.value ?? "")
-            }}
-          />
-        </Field>
-        <Tabs
-          value={video?.type}
-          defaultValue={video?.type}
-          onValueChange={(value) => updateSectionField(index, ["video", "type"], value)}
-        >
+        <ToggleField
+          label="Heading"
+          value={headingText}
+          enabled={headingEnabled}
+          onValueChange={setHeadingText}
+          onEnabledChange={setHeadingEnabled}
+        />
+        <ToggleTextareaField
+          variant="gray"
+          value={descText}
+          label="Description"
+          enabled={descEnabled}
+          onValueChange={setDescText}
+          onEnabledChange={setDescEnabled}
+        />
+        <Tabs value={videoType} defaultValue={videoType} onValueChange={setVideoType}>
           <TabsList>
             <TabsTrigger value="youtube">Youtube</TabsTrigger>
             <TabsTrigger value="vimeo">Vimeo</TabsTrigger>
@@ -75,34 +62,22 @@ export const VideoForm = memo(({ index }: ContentSectionProps) => {
           <TabsContent value="youtube">
             <Input
               variant="gray"
+              value={youtubeUrl}
               placeholder="Enter YouTube video link here"
-              value={(video as YoutubeVideo)?.youtubeUrl ?? ""}
-              onChange={(e) => {
-                updateSectionField(index, ["video", "youtubeUrl"], e?.target?.value ?? "")
-              }}
+              onChange={(e) => setYoutubeUrl(e.target.value)}
             />
           </TabsContent>
           <TabsContent value="vimeo">
             <Input
               variant="gray"
+              value={vimeoUrl}
               placeholder="Enter Vimeo video link here"
-              value={(video as VimeoVideo)?.vimeoUrl ?? ""}
-              onChange={(e) => {
-                updateSectionField(index, ["video", "vimeoUrl"], e?.target?.value ?? "")
-              }}
+              onChange={(e) => setVimeoUrl(e.target.value)}
             />
           </TabsContent>
         </Tabs>
       </FieldGroup>
-      <EditorBlockFooter>
-        <Field orientation="horizontal" className="w-fit">
-          <FieldLabel>Section Background</FieldLabel>
-          <Switch
-            checked={background}
-            onCheckedChange={(value) => updateSectionField(index, ["background"], value)}
-          />
-        </Field>
-      </EditorBlockFooter>
+      <SectionBackgroundToggle enabled={background} onEnabledChange={setBackground} />
     </SortableListItem>
   )
 })

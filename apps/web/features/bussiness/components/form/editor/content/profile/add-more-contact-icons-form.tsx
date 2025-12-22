@@ -1,24 +1,24 @@
+import type { Contact } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { Plus } from "lucide-react"
 import { memo, useCallback } from "react"
 import { DropdownSelectButton } from "@/features/bussiness/components/buttons/home/dropdown-select-button"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import type { ContactOptionType, ContentSectionProps } from "@/features/bussiness/types"
 import { generateUUID } from "@/utils"
 
 export const AddMoreContactIconsForm = memo(({ index }: ContentSectionProps) => {
-  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
-
+  const { addItem } = useSubSectionList<Contact>(index, ["contacts", "list"])
   const handleSelect = useCallback(
     (type: ContactOptionType) => {
-      pushSubSectionItem(index, ["contacts", "list"], {
+      addItem({
         type,
         value: "",
         id: generateUUID(),
       })
     },
-    [index, pushSubSectionItem],
+    [addItem],
   )
 
   return (

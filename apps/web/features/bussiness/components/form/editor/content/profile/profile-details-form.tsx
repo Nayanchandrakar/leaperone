@@ -1,47 +1,36 @@
-import type { ProfileCardSection } from "@app/core/types"
-import { Field, FieldLabel } from "@app/ui/components/field"
-import { Switch } from "@app/ui/components/switch"
 import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
+import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ProfileDetailsForm = memo(({ index }: ContentSectionProps) => {
-  const { details, updateSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      updateSectionField: state.updateSectionField,
-      details: (state?.sections?.[index] as ProfileCardSection)?.details,
-    })),
-  )
+  const [profileEnabled, setProfileEnabled] = useSectionField<boolean>(index, [
+    "details",
+    "profile",
+    "enabled",
+  ])
+  const [profileImage] = useSectionField<string>(index, ["details", "profile", "imageSrc"])
+  const [brandingEnabled, setBrandingEnabled] = useSectionField<boolean>(index, [
+    "details",
+    "branding",
+    "enabled",
+  ])
+  const [brandingImage] = useSectionField<string>(index, ["details", "branding", "imageSrc"])
 
   return (
     <div className="flex gap-5 @max-[260px]/editor-block-content:flex-col">
-      <Field className="w-fit">
-        <Field orientation="horizontal" className="w-fit">
-          <FieldLabel>Profile Pic</FieldLabel>
-          <Switch
-            checked={details?.profile?.enabled}
-            onCheckedChange={(value) => {
-              updateSectionField(index, ["details", "profile", "enabled"], value)
-            }}
-          />
-        </Field>
-        <EditorImageUploader src={details?.profile?.imageSrc} />
-      </Field>
-
-      <Field className="w-fit">
-        <Field orientation="horizontal" className="w-fit">
-          <FieldLabel>Brand Logo</FieldLabel>
-          <Switch
-            checked={details?.branding?.enabled}
-            onCheckedChange={(value) => {
-              updateSectionField(index, ["details", "branding", "enabled"], value)
-            }}
-          />
-        </Field>
-        <EditorImageUploader src={details?.branding?.imageSrc} />
-      </Field>
+      <ImageToggleField
+        label="Profile Pic"
+        imageSrc={profileImage}
+        enabled={profileEnabled}
+        onEnabledChange={setProfileEnabled}
+      />
+      <ImageToggleField
+        label="Brand Logo"
+        imageSrc={brandingImage}
+        enabled={brandingEnabled}
+        onEnabledChange={setBrandingEnabled}
+      />
     </div>
   )
 })

@@ -1,9 +1,10 @@
+import type { ContactItem } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { Plus } from "lucide-react"
 import { useCallback } from "react"
 import { DropdownSelectButton } from "@/features/bussiness/components/buttons/home/dropdown-select-button"
 import { CONTACT_INFO_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
 import type { ContactItemType } from "@/features/bussiness/types"
 import { createContactItem } from "@/features/bussiness/utils/create-contact-item"
 
@@ -12,14 +13,14 @@ interface AddContactItemButtonFormProps {
 }
 
 export function AddContactItemButtonForm({ index }: AddContactItemButtonFormProps) {
-  const pushSubSectionItem = useContentEditorStore((state) => state.pushSubSectionItem)
+  const { addItem } = useSubSectionList<ContactItem>(index, ["items"])
 
   const handleContactItemAdd = useCallback(
     (contactType: ContactItemType) => {
       const contactItem = createContactItem(contactType)
-      pushSubSectionItem(index, ["items"], contactItem)
+      addItem(contactItem)
     },
-    [index, pushSubSectionItem],
+    [addItem],
   )
 
   return (

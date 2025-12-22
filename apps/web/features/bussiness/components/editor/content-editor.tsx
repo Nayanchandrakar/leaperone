@@ -5,7 +5,7 @@ import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
 import { useSectionSorting } from "@/features/bussiness/hooks/home/use-section-sorting"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-const ContentEditor = memo(() => {
+const ContentEditor = () => {
   const sections = useSectionSorting()
   const moveSection = useContentEditorStore((state) => state.moveSection)
 
@@ -19,6 +19,6 @@ const ContentEditor = memo(() => {
       <SortableList items={sections} onReorder={moveSection} renderItem={renderSection} />
     </EditorBlock>
   )
-})
+}
 
-export default ContentEditor
+export default memo(ContentEditor)
