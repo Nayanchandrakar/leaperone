@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ProfileInfoForm = memo(({ index }: ContentSectionProps) => {
@@ -32,7 +32,6 @@ export const ProfileInfoForm = memo(({ index }: ContentSectionProps) => {
         onValueChange={setNameText}
         onEnabledChange={setNameEnabled}
       />
-
       <div className="grid @lg/editor-block-content:grid-cols-2 gap-3">
         <ToggleField
           label="Info Line 1"

@@ -6,7 +6,7 @@ import { ToggleTextareaField } from "@/features/bussiness/components/fields/togg
 import { AddTestimonialForm } from "@/features/bussiness/components/form/editor/content/testimonials/add-testimonial"
 import { TestimonialsList } from "@/features/bussiness/components/form/editor/content/testimonials/testimonials-list"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ProfileDetailsForm = memo(({ index }: ContentSectionProps) => {

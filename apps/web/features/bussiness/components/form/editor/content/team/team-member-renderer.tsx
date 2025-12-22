@@ -4,11 +4,11 @@ import { memo } from "react"
 import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSubSectionField } from "@/features/bussiness/hooks/use-subsection-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface TeamMemberRendererProps {
-  itemId: string
   index: number
+  itemId: string
   subIndex: number
   onDelete: () => void
 }
@@ -73,8 +73,8 @@ export const TeamMemberRenderer = memo(
           <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
             <ImageToggleField
               label="Profile"
-              enabled={profileEnabled}
               imageSrc={profileImage}
+              enabled={profileEnabled}
               onEnabledChange={setProfileEnabled}
             />
             <ToggleTextareaField

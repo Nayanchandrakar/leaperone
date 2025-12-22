@@ -112,14 +112,18 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
 )
 
 // Selector Factories for stable access
-export const selectSectionEnabled = (index: number) => (state: ContentEditorState) =>
-  state.sections[index]?.enabled
-export const selectSectionId = (index: number) => (state: ContentEditorState) =>
-  state.sections[index]?.id
+export const selectSectionEnabled = (index: number) => (state: ContentEditorState) => {
+  return state.sections[index]?.enabled
+}
+
+// Selector for section id
+export const selectSectionId = (index: number) => (state: ContentEditorState) => {
+  return state.sections[index]?.id
+}
 
 // Generic field selector
-export const selectSectionField =
-  (index: number, path: string[]) => (state: ContentEditorState) => {
+export const selectSectionField = (index: number, path: string[]) => {
+  return (state: ContentEditorState) => {
     let target: any = state.sections[index]
     for (const key of path) {
       if (!target) return undefined
@@ -127,11 +131,16 @@ export const selectSectionField =
     }
     return target
   }
+}
 
 // Sub-section generic selector
-export const selectSubSectionField =
-  (index: number, subIndex: number, arrayPath: string[], fieldPath: string[]) =>
-  (state: ContentEditorState) => {
+export const selectSubSectionField = (
+  index: number,
+  subIndex: number,
+  arrayPath: string[],
+  fieldPath: string[],
+) => {
+  return (state: ContentEditorState) => {
     let target: any = state.sections[index]
     // Navigate to array
     for (const key of arrayPath) {
@@ -148,3 +157,4 @@ export const selectSubSectionField =
     }
     return target
   }
+}

@@ -6,7 +6,7 @@ import { ProfileDetailsForm } from "@/features/bussiness/components/form/editor/
 import { ProfileInfoForm } from "@/features/bussiness/components/form/editor/content/profile/profile-info-form"
 import { QuickContactLinksForm } from "@/features/bussiness/components/form/editor/content/profile/quick-contact-links"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

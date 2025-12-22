@@ -5,7 +5,7 @@ import { ToggleField } from "@/features/bussiness/components/fields/toggle-field
 import { AddContactItemButtonForm } from "@/features/bussiness/components/form/editor/content/contact/add-more-contact-form"
 import { ContactItemsList } from "@/features/bussiness/components/form/editor/content/contact/contact-items-list"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

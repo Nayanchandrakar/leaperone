@@ -2,7 +2,7 @@ import type { TeamMember } from "@app/core/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"
-import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
+import { useSubSectionList } from "@/features/bussiness/hooks/home/use-subsection-list"
 import { generateUUID } from "@/utils"
 
 interface AddTeamMemberFormProps {

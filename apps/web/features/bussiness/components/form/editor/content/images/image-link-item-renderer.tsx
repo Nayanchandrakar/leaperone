@@ -2,7 +2,7 @@ import { Input } from "@app/ui/components/input"
 import { memo } from "react"
 import { EditorImageUploader } from "@/features/bussiness/components/ui/editor-image-uploader"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSubSectionField } from "@/features/bussiness/hooks/use-subsection-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface ImageLinkItemRendererProps {
   itemId: string
@@ -23,14 +23,14 @@ export const ImageLinkItemRenderer = memo(
           <EditorImageUploader src={imageSrc} />
           <div className="flex flex-col gap-4 justify-center w-full">
             <Input
+              value={title}
               placeholder="Image Title (Optional)"
-              value={title ?? ""}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e?.target?.value)}
             />
             <Input
+              value={link}
+              onChange={(e) => setLink(e?.target?.value)}
               placeholder="Link URL for clickable image (Optional)"
-              value={link ?? ""}
-              onChange={(e) => setLink(e.target.value)}
             />
           </div>
         </div>

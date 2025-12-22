@@ -3,11 +3,11 @@ import { Input } from "@app/ui/components/input"
 import { memo } from "react"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSubSectionField } from "@/features/bussiness/hooks/use-subsection-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface LinkItemRendererProps {
-  itemId: string
   index: number
+  itemId: string
   subIndex: number
   onDelete: () => void
 }
@@ -22,11 +22,11 @@ export const LinkItemRenderer = memo(
         <EditorSubSortTwoColumnGrid>
           <Field>
             <FieldLabel>Link Label</FieldLabel>
-            <Input value={label} onChange={(e) => setLabel(e.target.value)} />
+            <Input value={label} onChange={(e) => setLabel(e?.target?.value)} />
           </Field>
           <Field>
             <FieldLabel>Profile Link</FieldLabel>
-            <Input value={url} onChange={(e) => setUrl(e.target.value)} />
+            <Input value={url} onChange={(e) => setUrl(e?.target?.value)} />
           </Field>
         </EditorSubSortTwoColumnGrid>
       </SortableSubListItem>

@@ -4,7 +4,7 @@ import { memo, useMemo } from "react"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { EditorBlockFooter } from "@/features/bussiness/components/ui/editor-block"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

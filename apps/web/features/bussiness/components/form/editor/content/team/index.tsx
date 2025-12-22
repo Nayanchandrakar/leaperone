@@ -6,7 +6,7 @@ import { ToggleTextareaField } from "@/features/bussiness/components/fields/togg
 import { AddTeamMemberForm } from "@/features/bussiness/components/form/editor/content/team/add-team-member"
 import { TeamMembersList } from "@/features/bussiness/components/form/editor/content/team/team-members-list"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

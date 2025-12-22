@@ -4,7 +4,7 @@ import { memo } from "react"
 import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSubSectionField } from "@/features/bussiness/hooks/use-subsection-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface TestimonialItemRendererProps {
   itemId: string
@@ -34,7 +34,7 @@ export const TestimonialItemRenderer = memo(
       ["testimonials"],
       ["authorProfile", "enabled"],
     )
-    const [profileImage] = useSubSectionField<string | undefined>(
+    const [profileImage] = useSubSectionField<string>(
       index,
       subIndex,
       ["testimonials"],
@@ -60,13 +60,13 @@ export const TestimonialItemRenderer = memo(
           <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
             <Field>
               <FieldLabel>Name</FieldLabel>
-              <Input value={authorName} onChange={(e) => setAuthorName(e.target.value)} />
+              <Input value={authorName} onChange={(e) => setAuthorName(e?.target?.value)} />
             </Field>
             <Field>
               <FieldLabel>Designation/Company</FieldLabel>
               <Input
                 value={authorDesignation}
-                onChange={(e) => setAuthorDesignation(e.target.value)}
+                onChange={(e) => setAuthorDesignation(e?.target?.value)}
               />
             </Field>
           </div>
@@ -74,18 +74,18 @@ export const TestimonialItemRenderer = memo(
           <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
             <ImageToggleField
               label="Profile"
+              imageSrc={profileImage}
               enabled={profileEnabled}
-              imageSrc={profileImage ?? ""}
               onEnabledChange={setProfileEnabled}
             />
 
             <ToggleTextareaField
+              value={textVal}
+              className="h-full"
               label="Testimonial"
               enabled={textEnabled}
-              value={textVal}
-              onEnabledChange={setTextEnabled}
               onValueChange={setTextVal}
-              className="h-full"
+              onEnabledChange={setTextEnabled}
             />
           </div>
         </FieldSet>

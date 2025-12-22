@@ -4,7 +4,7 @@ import { Plus } from "lucide-react"
 import { useCallback } from "react"
 import { DropdownSelectButton } from "@/features/bussiness/components/buttons/home/dropdown-select-button"
 import { CONTACT_INFO_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
-import { useSubSectionList } from "@/features/bussiness/hooks/use-subsection-list"
+import { useSubSectionList } from "@/features/bussiness/hooks/home/use-subsection-list"
 import type { ContactItemType } from "@/features/bussiness/types"
 import { createContactItem } from "@/features/bussiness/utils/create-contact-item"
 

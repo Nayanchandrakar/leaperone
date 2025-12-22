@@ -11,12 +11,12 @@ import { memo } from "react"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
-import { useSubSectionField } from "@/features/bussiness/hooks/use-subsection-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 import type { ContactOptionType } from "@/features/bussiness/types"
 
 interface QuickContactItemRendererProps {
-  itemId: string
   index: number
+  itemId: string
   subIndex: number
   onDelete: () => void
 }

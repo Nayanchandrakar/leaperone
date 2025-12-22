@@ -4,7 +4,7 @@ import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,

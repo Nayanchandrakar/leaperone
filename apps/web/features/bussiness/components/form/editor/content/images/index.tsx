@@ -10,7 +10,7 @@ import { ImageOrientationList } from "@/features/bussiness/components/form/edito
 import { ListImagesForm } from "@/features/bussiness/components/form/editor/content/images/list-images"
 import { SortableListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { IMAGE_VIEWS } from "@/features/bussiness/constants/home/image-views"
-import { useSectionField } from "@/features/bussiness/hooks/use-section-field"
+import { useSectionField } from "@/features/bussiness/hooks/home/use-section-field"
 import {
   selectSectionId,
   useContentEditorStore,
