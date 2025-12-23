@@ -1,6 +1,7 @@
 import { cn } from "@app/ui/lib/utils"
+import { memo } from "react"
 
-export const EditorWrapper = ({ className, ...props }: React.ComponentProps<"div">) => {
+export const EditorWrapper = memo(({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
       className={cn(
@@ -10,4 +11,4 @@ export const EditorWrapper = ({ className, ...props }: React.ComponentProps<"div
       {...props}
     />
   )
-}
+})

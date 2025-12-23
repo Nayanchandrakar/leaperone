@@ -1,6 +1,6 @@
 import { cn } from "@app/ui/lib/utils"
 import { ChevronDown, GripVertical } from "lucide-react"
-import { createContext, memo, type SetStateAction, useContext, useState } from "react"
+import { createContext, memo, type SetStateAction, useContext, useMemo, useState } from "react"
 
 type EditorBlockContextProps = {
   item: string
@@ -41,8 +41,10 @@ export const EditorBlock = memo(
   }) => {
     const [item, setItem] = useState(defaultValue ?? "")
 
+    const value = useMemo(() => ({ item, setItem }), [item])
+
     return (
-      <EditorBlockContext.Provider value={{ item, setItem }}>
+      <EditorBlockContext.Provider value={value}>
         <ul className={cn("space-y-3", className)} {...props}>
           {children}
         </ul>
@@ -67,8 +69,10 @@ export const EditorBlockItem = memo(
     const { item } = useEditorBlockContext()
     const open = item === value
 
+    const contextValue = useMemo(() => ({ value }), [value])
+
     return (
-      <EditorBlockItemContext.Provider value={{ value }}>
+      <EditorBlockItemContext.Provider value={contextValue}>
         <li
           data-dragging={isDragging}
           data-grabbing={isGrabbing}

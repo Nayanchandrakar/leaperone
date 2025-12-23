@@ -3,6 +3,8 @@ import { useShallow } from "zustand/react/shallow"
 import { useEditorStepper } from "@/features/bussiness/stores/use-editor-stepper"
 import { scrollToElement } from "@/features/bussiness/utils/scroll-to-element"
 
+const SCROLL_TARGET_ID = "hero-section"
+
 export const useEditorStepperControls = () => {
   const { selectedStep, goToPreviousStep, goToNextStep } = useEditorStepper(
     useShallow((state) => ({
@@ -20,21 +22,19 @@ export const useEditorStepperControls = () => {
     [selectedStep],
   )
 
-  const scrollTargetId = useMemo(() => "hero-section", [])
-
   const handlePreviousStep = useCallback(() => {
     if (canGoToPreviousStep) {
       goToPreviousStep()
-      scrollToElement(scrollTargetId)
+      scrollToElement(SCROLL_TARGET_ID)
     }
-  }, [canGoToPreviousStep, goToPreviousStep, scrollTargetId])
+  }, [canGoToPreviousStep, goToPreviousStep])
 
   const handleNextStep = useCallback(() => {
     if (canGoToNextStep) {
       goToNextStep()
-      scrollToElement(scrollTargetId)
+      scrollToElement(SCROLL_TARGET_ID)
     }
-  }, [canGoToNextStep, goToNextStep, scrollTargetId])
+  }, [canGoToNextStep, goToNextStep])
 
   return {
     selectedStep,

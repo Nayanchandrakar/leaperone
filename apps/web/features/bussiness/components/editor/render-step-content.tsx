@@ -1,7 +1,8 @@
+import { memo } from "react"
 import { LazyContentEditor, LazyDesignEditor, LazyQrCodeEditor } from "@/components/shared/dynamic"
 import { useEditorStepper } from "@/features/bussiness/stores/use-editor-stepper"
 
-export const RenderStepContent = () => {
+export const RenderStepContent = memo(() => {
   const { selectedStep } = useEditorStepper()
 
   switch (selectedStep) {
@@ -14,4 +15,4 @@ export const RenderStepContent = () => {
     default:
       return null
   }
-}
+})

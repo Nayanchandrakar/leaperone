@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react"
 import { useShallow } from "zustand/react/shallow"
 import {
   Stepper,
@@ -8,7 +9,7 @@ import {
 import { CARD_STEPS } from "@/features/bussiness/constants/home/card-steps"
 import { useEditorStepper } from "@/features/bussiness/stores/use-editor-stepper"
 
-export const EditorStepper = () => {
+export const EditorStepper = memo(() => {
   const { selectedStep, setSelectedStep } = useEditorStepper(
     useShallow((state) => ({
       selectedStep: state.selectedStep,
@@ -16,13 +17,15 @@ export const EditorStepper = () => {
     })),
   )
 
+  const handleStepClick = useCallback((index: number) => setSelectedStep(index), [setSelectedStep])
+
   return (
     <Stepper>
       {CARD_STEPS.map((step, index) => (
         <StepperStep
           key={step.id}
           data-state={index === selectedStep}
-          onClick={() => setSelectedStep(index)}
+          onClick={() => handleStepClick(index)}
         >
           <StepperStepIndex>{index + 1}</StepperStepIndex>
           <StepperStepLabel>{step.title}</StepperStepLabel>
@@ -30,4 +33,4 @@ export const EditorStepper = () => {
       ))}
     </Stepper>
   )
-}
+})

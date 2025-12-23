@@ -1,8 +1,9 @@
 import { Button } from "@app/ui/components/button"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { memo } from "react"
 import { useEditorStepperControls } from "@/features/bussiness/hooks/home/use-stepper-controls"
 
-export const EditorFooter = () => {
+export const EditorFooter = memo(() => {
   const { canGoToPreviousStep, handlePreviousStep, canGoToNextStep, handleNextStep } =
     useEditorStepperControls()
 
@@ -25,4 +26,4 @@ export const EditorFooter = () => {
       )}
     </div>
   )
-}
+})

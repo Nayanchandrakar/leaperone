@@ -1,10 +1,12 @@
 import { Button } from "@app/ui/components/button"
 import { Switch } from "@app/ui/components/switch"
+import { memo } from "react"
+import { useShallow } from "zustand/react/shallow"
 import { Iphone } from "@/features/bussiness/components/ui/iphone"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const BusinessCardPreview = () => {
-  const sections = useContentEditorStore((state) => state.sections)
+export const BusinessCardPreview = memo(() => {
+  const sections = useContentEditorStore(useShallow((state) => state.sections))
   return (
     <div className="space-y-5 max-w-xs mx-auto">
       <div className="flex items-center justify-center gap-2">
@@ -20,4 +22,4 @@ export const BusinessCardPreview = () => {
       </div>
     </div>
   )
-}
+})

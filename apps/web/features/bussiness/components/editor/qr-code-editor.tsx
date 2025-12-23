@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { QrColorForm } from "@/features/bussiness/components/form/editor/code/color"
 import { QrFrameForm } from "@/features/bussiness/components/form/editor/code/frame"
 import { QrLogoForm } from "@/features/bussiness/components/form/editor/code/logo"
@@ -5,7 +6,7 @@ import { QrPatternForm } from "@/features/bussiness/components/form/editor/code/
 import { QrShapeForm } from "@/features/bussiness/components/form/editor/code/shape"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
 
-export default function QrCodeEditor() {
+const QrCodeEditor = memo(() => {
   return (
     <EditorBlock defaultValue="qr-shape-form">
       <QrShapeForm />
@@ -15,4 +16,6 @@ export default function QrCodeEditor() {
       <QrColorForm />
     </EditorBlock>
   )
-}
+})
+
+export default QrCodeEditor

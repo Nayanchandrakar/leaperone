@@ -1,6 +1,7 @@
 import { cn } from "@app/ui/lib/utils"
+import { memo } from "react"
 
-export function Stepper({ className, ...props }: React.ComponentProps<"ul">) {
+export const Stepper = memo(function Stepper({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="stepper"
@@ -11,9 +12,12 @@ export function Stepper({ className, ...props }: React.ComponentProps<"ul">) {
       {...props}
     />
   )
-}
+})
 
-export function StepperStep({ className, ...props }: React.ComponentProps<"button">) {
+export const StepperStep = memo(function StepperStep({
+  className,
+  ...props
+}: React.ComponentProps<"button">) {
   return (
     <button
       type="button"
@@ -22,9 +26,12 @@ export function StepperStep({ className, ...props }: React.ComponentProps<"butto
       {...props}
     />
   )
-}
+})
 
-export function StepperStepLabel({ className, ...props }: React.ComponentProps<"span">) {
+export const StepperStepLabel = memo(function StepperStepLabel({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   return (
     <span
       className={cn(
@@ -34,9 +41,12 @@ export function StepperStepLabel({ className, ...props }: React.ComponentProps<"
       {...props}
     />
   )
-}
+})
 
-export function StepperStepIndex({ className, ...props }: React.ComponentProps<"span">) {
+export const StepperStepIndex = memo(function StepperStepIndex({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   return (
     <span
       className={cn(
@@ -46,4 +56,4 @@ export function StepperStepIndex({ className, ...props }: React.ComponentProps<"
       {...props}
     />
   )
-}
+})
