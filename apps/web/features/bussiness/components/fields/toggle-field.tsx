@@ -1,12 +1,12 @@
 import { Field } from "@app/ui/components/field"
-import { Input } from "@app/ui/components/input"
+import { Input, type InputProps } from "@app/ui/components/input"
 import { ToogleLabel } from "@/features/bussiness/components/ui/toogle-label"
 
-interface ToggleFieldProps {
+interface ToggleFieldProps extends InputProps {
   label: string
-  value: string
   enabled: boolean
   placeholder?: string
+  fieldClassName?: string
   onValueChange: (value: string) => void
   onEnabledChange: (checked: boolean) => void
 }
@@ -14,20 +14,16 @@ interface ToggleFieldProps {
 export const ToggleField = ({
   label,
   enabled,
-  value = "",
   placeholder,
   onValueChange,
+  fieldClassName,
   onEnabledChange,
+  ...props
 }: ToggleFieldProps) => {
   return (
-    <Field>
+    <Field className={fieldClassName}>
       <ToogleLabel label={label} isActive={enabled} onToggle={onEnabledChange} />
-      <Input
-        variant="gray"
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onValueChange(e.target.value)}
-      />
+      <Input onChange={(e) => onValueChange(e?.target?.value)} variant="gray" {...props} />
     </Field>
   )
 }

@@ -136,7 +136,7 @@ export const AddressContactForm = memo(({ contactIdx, index }: AddressContactFor
 
       <Field>
         <FieldLabel>Zip Code</FieldLabel>
-        <Input value={zip} onChange={handleZipChange} />
+        <Input type="number" value={zip} onChange={handleZipChange} />
       </Field>
 
       <Field>
@@ -146,6 +146,7 @@ export const AddressContactForm = memo(({ contactIdx, index }: AddressContactFor
 
       <ToggleField
         value={locLabel}
+        variant="default"
         enabled={locEnabled}
         label="Location Link Button"
         onEnabledChange={handleToggleLocation}

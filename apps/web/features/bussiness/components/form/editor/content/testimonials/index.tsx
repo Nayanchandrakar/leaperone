@@ -45,6 +45,7 @@ export const TestimonialsSectionForm = memo(({ index }: ContentSectionProps) => 
           onEnabledChange={setHeadingEnabled}
         />
         <ToggleTextareaField
+          variant="gray"
           value={descText}
           label="Description"
           enabled={descEnabled}
