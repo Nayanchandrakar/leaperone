@@ -1,10 +1,8 @@
-import type { ContactAddressItem, ContactDetailsSection } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { memo, useCallback } from "react"
+import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface AddressContactFormProps {
   contactIdx: number
@@ -12,176 +10,154 @@ interface AddressContactFormProps {
 }
 
 export const AddressContactForm = memo(({ contactIdx, index }: AddressContactFormProps) => {
-  const { item, updateSubSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      item: (state.sections[index] as ContactDetailsSection).items[
-        contactIdx
-      ] as ContactAddressItem,
-      updateSubSectionField: state.updateSubSectionField,
-    })),
+  const [label, setLabel] = useSubSectionField<string>(index, contactIdx, ["items"], ["label"])
+  const [street1, setStreet1] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["streetAddress1"],
+  )
+  const [street2, setStreet2] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["streetAddress2"],
+  )
+  const [city, setCity] = useSubSectionField<string>(index, contactIdx, ["items"], ["cityName"])
+  const [stateName, setStateName] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["stateName"],
+  )
+  const [zip, setZip] = useSubSectionField<number>(index, contactIdx, ["items"], ["zipCode"])
+  const [country, setCountry] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["countryName"],
+  )
+
+  const [locEnabled, setLocEnabled] = useSubSectionField<boolean>(
+    index,
+    contactIdx,
+    ["items"],
+    ["location", "enabled"],
+  )
+  const [locLabel, setLocLabel] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["location", "label"],
+  )
+  const [locUrl, setLocUrl] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["location", "url"],
+  )
+
+  const handleLabelChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setLabel(e?.target?.value ?? ""),
+    [setLabel],
+  )
+
+  const handleStreet1Change = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setStreet1(e?.target?.value ?? ""),
+    [setStreet1],
+  )
+
+  const handleStreet2Change = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setStreet2(e?.target?.value ?? ""),
+    [setStreet2],
+  )
+
+  const handleCityChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setCity(e?.target?.value ?? ""),
+    [setCity],
+  )
+
+  const handleStateChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setStateName(e?.target?.value ?? ""),
+    [setStateName],
+  )
+
+  const handleZipChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setZip(Number(e?.target?.value ?? 0)),
+    [setZip],
+  )
+
+  const handleCountryChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setCountry(e?.target?.value ?? ""),
+    [setCountry],
+  )
+
+  const handleToggleLocation = useCallback(
+    () => setLocEnabled(!locEnabled),
+    [locEnabled, setLocEnabled],
+  )
+
+  const handleLocationLabelChange = useCallback(
+    (value: string) => setLocLabel(value),
+    [setLocLabel],
+  )
+
+  const handleLocationUrlChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setLocUrl(e?.target?.value ?? ""),
+    [setLocUrl],
   )
 
   return (
     <div className="grid grid-cols-1 @[45rem]/editor-sub-sort:grid-cols-2 gap-3">
       <Field className="@[45rem]/editor-sub-sort:col-span-2">
         <FieldLabel>Label</FieldLabel>
-        <Input
-          value={item?.label}
-          onChange={(e) =>
-            updateSubSectionField(index, contactIdx, ["items"], ["label"], e?.target?.value ?? "")
-          }
-        />
+        <Input value={label} onChange={handleLabelChange} />
       </Field>
 
       <Field>
         <FieldLabel>Address Line 1</FieldLabel>
-        <Input
-          value={item?.streetAddress1}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["streetAddress1"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={street1} onChange={handleStreet1Change} />
       </Field>
 
       <Field>
         <FieldLabel>Address Line 2</FieldLabel>
-        <Input
-          value={item?.streetAddress2}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["streetAddress2"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={street2} onChange={handleStreet2Change} />
       </Field>
 
       <Field>
         <FieldLabel>City</FieldLabel>
-        <Input
-          value={item?.cityName}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["cityName"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={city} onChange={handleCityChange} />
       </Field>
 
       <Field>
         <FieldLabel>State</FieldLabel>
-        <Input
-          value={item?.stateName}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["stateName"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={stateName} onChange={handleStateChange} />
       </Field>
 
       <Field>
         <FieldLabel>Zip Code</FieldLabel>
-        <Input
-          type="number"
-          value={item?.zipCode}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["zipCode"],
-              Number(e?.target?.value ?? 0),
-            )
-          }
-        />
+        <Input value={zip} onChange={handleZipChange} />
       </Field>
 
       <Field>
         <FieldLabel>Country</FieldLabel>
-        <Input
-          value={item?.countryName}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["countryName"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={country} onChange={handleCountryChange} />
       </Field>
 
-      <Field>
-        <FieldLabel className="flex items-center justify-between">
-          <span>Location Link Button Label</span>
-          <button
-            type="button"
-            onClick={() =>
-              updateSubSectionField(
-                index,
-                contactIdx,
-                ["items"],
-                ["location", "enabled"],
-                !item?.location?.enabled,
-              )
-            }
-            className="text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {item.location.enabled ? (
-              <EyeIcon className="size-4" />
-            ) : (
-              <EyeOffIcon className="size-4" />
-            )}
-          </button>
-        </FieldLabel>
-        <Input
-          value={item?.location?.label}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["location", "label"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
-      </Field>
+      <ToggleField
+        value={locLabel}
+        enabled={locEnabled}
+        label="Location Link Button"
+        onEnabledChange={handleToggleLocation}
+        onValueChange={handleLocationLabelChange}
+      />
 
       <Field>
         <FieldLabel>Google Map Location URL</FieldLabel>
-        <Input
-          value={item?.location?.url}
-          onChange={(e) =>
-            updateSubSectionField(
-              index,
-              contactIdx,
-              ["items"],
-              ["location", "url"],
-              e?.target?.value ?? "",
-            )
-          }
-        />
+        <Input value={locUrl} onChange={handleLocationUrlChange} />
       </Field>
     </div>
   )
 })
+
+AddressContactForm.displayName = "AddressContactForm"

@@ -11,10 +11,17 @@ export const useSubSectionField = <T = unknown>(
   arrayPath: string[],
   fieldPath: string[],
 ) => {
+  // Memoize paths to avoid reference changes triggering re-renders
+  const stableArrayPathKey = JSON.stringify(arrayPath)
+  const stableFieldPathKey = JSON.stringify(fieldPath)
+
+  const stableArrayPath = useMemo(() => JSON.parse(stableArrayPathKey), [stableArrayPathKey])
+  const stableFieldPath = useMemo(() => JSON.parse(stableFieldPathKey), [stableFieldPathKey])
+
   // Memoize the selector
   const selector = useMemo(
-    () => selectSubSectionField(index, subIndex, arrayPath, fieldPath),
-    [index, subIndex, arrayPath, fieldPath],
+    () => selectSubSectionField(index, subIndex, stableArrayPath, stableFieldPath),
+    [index, subIndex, stableArrayPath, stableFieldPath],
   )
 
   const value = useContentEditorStore(useShallow(selector)) as T
@@ -23,9 +30,9 @@ export const useSubSectionField = <T = unknown>(
 
   const setValue = useCallback(
     (newValue: T) => {
-      updateSubSectionField(index, subIndex, arrayPath, fieldPath, newValue)
+      updateSubSectionField(index, subIndex, stableArrayPath, stableFieldPath, newValue)
     },
-    [index, subIndex, arrayPath, fieldPath, updateSubSectionField],
+    [index, subIndex, stableArrayPath, stableFieldPath, updateSubSectionField],
   )
 
   return [value, setValue] as const

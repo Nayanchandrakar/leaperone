@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { ContentSectionRenderer } from "@/features/bussiness/components/pages/home/content-section-renderer"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
@@ -10,13 +10,14 @@ const ContentEditor = () => {
   const moveSection = useContentEditorStore((state) => state.moveSection)
   const defaultValue = useMemo(() => sections[0]?.id as string, [sections])
 
+  const renderSections = useCallback(
+    (section: { id: string }, i: number) => <ContentSectionRenderer key={section?.id} index={i} />,
+    [],
+  )
+
   return (
     <EditorBlock defaultValue={defaultValue}>
-      <SortableList
-        items={sections}
-        onReorder={moveSection}
-        renderItem={(section, i) => <ContentSectionRenderer key={section?.id} index={i} />}
-      />
+      <SortableList items={sections} onReorder={moveSection} renderItem={renderSections} />
     </EditorBlock>
   )
 }

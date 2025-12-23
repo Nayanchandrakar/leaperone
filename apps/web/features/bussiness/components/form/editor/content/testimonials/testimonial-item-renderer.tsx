@@ -1,6 +1,6 @@
 import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { memo } from "react"
+import { memo, useCallback } from "react"
 import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
@@ -10,7 +10,7 @@ interface TestimonialItemRendererProps {
   itemId: string
   index: number
   subIndex: number
-  onDelete: () => void
+  onDelete: (index: number) => void
 }
 
 export const TestimonialItemRenderer = memo(
@@ -54,20 +54,35 @@ export const TestimonialItemRenderer = memo(
       ["testimonialText", "text"],
     )
 
+    const handleDelete = useCallback(() => {
+      onDelete(subIndex)
+    }, [onDelete, subIndex])
+
+    const handleAuthorNameChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthorName(e?.target?.value)
+      },
+      [setAuthorName],
+    )
+
+    const handleAuthorDesignationChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAuthorDesignation(e?.target?.value)
+      },
+      [setAuthorDesignation],
+    )
+
     return (
-      <SortableSubListItem itemId={itemId} onItemDelete={onDelete}>
+      <SortableSubListItem itemId={itemId} onItemDelete={handleDelete}>
         <FieldSet>
           <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
             <Field>
               <FieldLabel>Name</FieldLabel>
-              <Input value={authorName} onChange={(e) => setAuthorName(e?.target?.value)} />
+              <Input value={authorName} onChange={handleAuthorNameChange} />
             </Field>
             <Field>
               <FieldLabel>Designation/Company</FieldLabel>
-              <Input
-                value={authorDesignation}
-                onChange={(e) => setAuthorDesignation(e?.target?.value)}
-              />
+              <Input value={authorDesignation} onChange={handleAuthorDesignationChange} />
             </Field>
           </div>
 
@@ -93,3 +108,5 @@ export const TestimonialItemRenderer = memo(
     )
   },
 )
+
+TestimonialItemRenderer.displayName = "TestimonialItemRenderer"

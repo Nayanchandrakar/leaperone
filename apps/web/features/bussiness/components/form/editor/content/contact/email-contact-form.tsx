@@ -1,10 +1,8 @@
-import type { ContactDetailsSection, EmailLink } from "@app/core/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
-import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
+import { memo, useCallback } from "react"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
+import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
 interface EmailContactFormProps {
   contactIdx: number
@@ -12,35 +10,36 @@ interface EmailContactFormProps {
 }
 
 export const EmailContactForm = memo(({ contactIdx, index }: EmailContactFormProps) => {
-  const { item, updateSubSectionField } = useContentEditorStore(
-    useShallow((state) => ({
-      updateSubSectionField: state.updateSubSectionField,
-      item: (state.sections[index] as ContactDetailsSection).items[contactIdx] as EmailLink,
-    })),
+  const [label, setLabel] = useSubSectionField<string>(index, contactIdx, ["items"], ["label"])
+  const [email, setEmail] = useSubSectionField<string>(index, contactIdx, ["items"], ["url"])
+
+  const handleLabelChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setLabel(e?.target?.value ?? "")
+    },
+    [setLabel],
+  )
+
+  const handleEmailChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e?.target?.value ?? "")
+    },
+    [setEmail],
   )
 
   return (
     <EditorSubSortTwoColumnGrid>
       <Field>
         <FieldLabel>Label</FieldLabel>
-        <Input
-          // @ts-expect-error - TODO: fix this
-          value={item?.label}
-          onChange={(e) =>
-            updateSubSectionField(index, contactIdx, ["items"], ["label"], e?.target?.value ?? "")
-          }
-        />
+        <Input value={label} onChange={handleLabelChange} />
       </Field>
 
       <Field>
         <FieldLabel>Email</FieldLabel>
-        <Input
-          value={item?.url}
-          onChange={(e) =>
-            updateSubSectionField(index, contactIdx, ["items"], ["url"], e?.target?.value ?? "")
-          }
-        />
+        <Input value={email} onChange={handleEmailChange} />
       </Field>
     </EditorSubSortTwoColumnGrid>
   )
 })
+
+EmailContactForm.displayName = "EmailContactForm"

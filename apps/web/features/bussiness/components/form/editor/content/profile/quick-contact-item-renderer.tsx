@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@app/ui/components/select"
-import { memo } from "react"
+import { memo, useCallback } from "react"
 import { EditorSubSortTwoColumnGrid } from "@/features/bussiness/components/ui/editor-form-layout"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { CONTACT_OPTIONS } from "@/features/bussiness/constants/home/editor-options"
@@ -18,7 +18,7 @@ interface QuickContactItemRendererProps {
   index: number
   itemId: string
   subIndex: number
-  onDelete: () => void
+  onDelete: (index: number) => void
 }
 
 export const QuickContactItemRenderer = memo(
@@ -36,8 +36,19 @@ export const QuickContactItemRenderer = memo(
       ["value"],
     )
 
+    const handleDelete = useCallback(() => {
+      onDelete(subIndex)
+    }, [onDelete, subIndex])
+
+    const handleValueChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e?.target?.value)
+      },
+      [setValue],
+    )
+
     return (
-      <SortableSubListItem itemId={itemId} onItemDelete={onDelete}>
+      <SortableSubListItem itemId={itemId} onItemDelete={handleDelete}>
         <EditorSubSortTwoColumnGrid>
           <Field>
             <Select value={type} onValueChange={setType}>
@@ -53,9 +64,11 @@ export const QuickContactItemRenderer = memo(
               </SelectContent>
             </Select>
           </Field>
-          <Input value={value} onChange={(e) => setValue(e?.target?.value)} />
+          <Input value={value} onChange={handleValueChange} />
         </EditorSubSortTwoColumnGrid>
       </SortableSubListItem>
     )
   },
 )
+
+QuickContactItemRenderer.displayName = "QuickContactItemRenderer"
