@@ -16,7 +16,7 @@ export default function PreviewPage() {
         </p>
       </section>
 
-      {/* Our EV collection section complete */}
+      {/* Our EV collection section list version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
         <div className="space-y-3">
           <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
@@ -55,7 +55,7 @@ export default function PreviewPage() {
         </div>
       </section>
 
-      {/* Our EV collection section complete */}
+      {/* Our EV collection section grid one version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
         <div className="space-y-3">
           <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
@@ -101,7 +101,7 @@ export default function PreviewPage() {
         </div>
       </section>
 
-      {/* Our EV collection section complete */}
+      {/* Our EV collection section grid two version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
         <div className="space-y-3">
           <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
@@ -111,6 +111,43 @@ export default function PreviewPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
+          <Image
+            width={1000}
+            height={1000}
+            sizes="100vw"
+            alt="pexels-image"
+            className="aspect-square object-cover col-span-2 rounded-2xl"
+            src="https://images.pexels.com/photos/29661144/pexels-photo-29661144.jpeg"
+          />
+          <Image
+            width={1000}
+            height={1000}
+            sizes="100vw"
+            alt="pexels-image"
+            className="aspect-square object-cover rounded-2xl"
+            src="https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg"
+          />
+          <Image
+            width={1000}
+            height={1000}
+            sizes="100vw"
+            alt="pexels-image"
+            className="aspect-square object-cover rounded-2xl"
+            src="https://images.pexels.com/photos/7676343/pexels-photo-7676343.jpeg"
+          />
+        </div>
+      </section>
+
+      {/* Our EV collection section carousel version complete */}
+      <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
+        <div className="space-y-3">
+          <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
+          <p className="text-base font-normal text-muted-foreground text-center">
+            Discover our latest collection of electric vehicles from leading EV brands.
+          </p>
+        </div>
+
+        <div className="flex gap-4 overflow-x-scroll no-scrollbar">
           <Image
             width={1000}
             height={1000}
