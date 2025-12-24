@@ -2648,4 +2648,32 @@ export const Icons = {
       <circle cx="42.4375" cy="37.5" r="1.5" />
     </svg>
   ),
+
+  bussinesCard: (props: IconProps) => (
+    <svg
+      width="450"
+      height="121"
+      viewBox="0 0 450 121"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g clipPath="url(#clip0_3272_2624)">
+        <path
+          d="M225.254 105.5C311.082 105.5 395.111 60.7415 450 4V121H0V4C54.8887 60.7414 139.425 105.5 225.254 105.5Z"
+          fill="#EDEDED"
+        />
+        <path
+          d="M455 6.10447C399.143 64.8219 314.649 110 227.307 110C139.965 110 50.8569 64.7174 -5 6"
+          stroke="#0A9521"
+          strokeWidth="12"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3272_2624">
+          <rect width="450" height="121" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
 }

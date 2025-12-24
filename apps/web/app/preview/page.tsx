@@ -3,14 +3,44 @@ import { Button } from "@app/ui/components/button"
 import { faker } from "@faker-js/faker"
 import { ArrowUpRight, Facebook, MapPin } from "lucide-react"
 import Image from "next/image"
+import { Icons } from "@/components/shared/icons"
 
 export default function PreviewPage() {
   return (
-    <section className="max-w-[430px] mx-auto my-24 bg-muted p-4 space-y-5">
+    <section className="max-w-107.5 mx-auto my-24 bg-muted p-4 space-y-5 relative">
+      {/* profile image section complete */}
+      <section className="relative aspect-square">
+        <Image
+          fill
+          alt="profile-image"
+          src="https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg"
+        />
+        <Icons.bussinesCard className="w-full absolute -bottom-2" />
+      </section>
+
+      {/*   profile information section complete */}
+      <section className="-mt-32 relative bg-white p-6 rounded-2xl space-y-4 w-fit max-w-75.5 mx-auto">
+        <div className="space-y-3 text-center">
+          <h4 className="font-semibold text-[28px] text-primary">Michael Anderson</h4>
+          <div className="divide-y divide-border text-sm font-normal text-muted-foreground [&_p]:p-1.5 px-3">
+            <p>Sales Representative</p>
+            <p>Electrica Automobiles</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="flex justify-center items-center px-3 gap-7 my-8">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <span key={index} className="size-15 flex-center rounded-full bg-primary text-white">
+            <MapPin className="size-6" />
+          </span>
+        ))}
+      </section>
+
       {/* about me section complete */}
-      <section className="space-y-3 bg-white p-8 pt-7 rounded-3xl">
-        <h3 className="text-[28px] text-center font-semibold text-primary">About Me</h3>
-        <p className="text-base font-normal text-muted-foreground text-center">
+      <section className="space-y-3 bg-white p-8 pt-7 rounded-3xl text-center">
+        <h3 className="text-[28px] font-semibold text-primary">About Me</h3>
+        <p className="text-base font-normal text-muted-foreground ">
           At Electrica, I help people find the right EV cars for their lifestyle. I’m here to make
           the process of owning your dream EV hassle-free, transparent, and genuinely enjoyable.
         </p>
@@ -18,9 +48,9 @@ export default function PreviewPage() {
 
       {/* Our EV collection section list version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
-        <div className="space-y-3">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
-          <p className="text-base font-normal text-muted-foreground text-center">
+        <div className="space-y-3 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Our EV Collection</h3>
+          <p className="text-base font-normal text-muted-foreground ">
             Discover our latest collection of electric vehicles from leading EV brands.
           </p>
         </div>
@@ -57,9 +87,9 @@ export default function PreviewPage() {
 
       {/* Our EV collection section grid one version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
-        <div className="space-y-3">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
-          <p className="text-base font-normal text-muted-foreground text-center">
+        <div className="space-y-3 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Our EV Collection</h3>
+          <p className="text-base font-normal text-muted-foreground ">
             Discover our latest collection of electric vehicles from leading EV brands.
           </p>
         </div>
@@ -103,9 +133,9 @@ export default function PreviewPage() {
 
       {/* Our EV collection section grid two version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
-        <div className="space-y-3">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
-          <p className="text-base font-normal text-muted-foreground text-center">
+        <div className="space-y-3 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Our EV Collection</h3>
+          <p className="text-base font-normal text-muted-foreground ">
             Discover our latest collection of electric vehicles from leading EV brands.
           </p>
         </div>
@@ -140,9 +170,9 @@ export default function PreviewPage() {
 
       {/* Our EV collection section carousel version complete */}
       <section className="space-y-6 bg-white pt-7 px-4 pb-4 rounded-3xl">
-        <div className="space-y-3">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Our EV Collection</h3>
-          <p className="text-base font-normal text-muted-foreground text-center">
+        <div className="space-y-3 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Our EV Collection</h3>
+          <p className="text-base font-normal text-muted-foreground ">
             Discover our latest collection of electric vehicles from leading EV brands.
           </p>
         </div>
@@ -247,9 +277,9 @@ export default function PreviewPage() {
 
       {/* Button section complete */}
       <section className="space-y-6 bg-white p-8 pt-7 rounded-3xl">
-        <div className="space-y-3">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Button section</h3>
-          <p className="text-base text-center font-normal text-muted-foreground">
+        <div className="space-y-3 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Button section</h3>
+          <p className="text-base font-normal text-muted-foreground">
             Add a description or click on eye icon to hide this.
           </p>
         </div>
@@ -260,9 +290,9 @@ export default function PreviewPage() {
 
       {/* Testimonial section complete */}
       <section className="space-y-2">
-        <div className="space-y-3 bg-white py-7 px-8 rounded-3xl">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Meet the team</h3>
-          <p className="text-base text-center font-normal text-muted-foreground">
+        <div className="space-y-3 bg-white py-7 px-8 rounded-3xl text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Meet the team</h3>
+          <p className="text-base font-normal text-muted-foreground">
             Add a description or click on eye icon to hide this.
           </p>
         </div>
@@ -285,9 +315,9 @@ export default function PreviewPage() {
 
       {/* Youtube video section complete */}
       <section className="bg-white rounded-3xl overflow-hidden">
-        <div className="space-y-3 py-7 px-8">
-          <h3 className="text-[28px] text-center font-semibold text-primary">Video</h3>
-          <p className="text-base text-center font-normal text-muted-foreground">
+        <div className="space-y-3 py-7 px-8 text-center">
+          <h3 className="text-[28px] font-semibold text-primary">Video</h3>
+          <p className="text-base font-normal text-muted-foreground">
             Add a description or click on eye icon to hide this.
           </p>
         </div>
