@@ -1,5 +1,10 @@
 import { Button } from "@app/ui/components/button"
 import { MapPin } from "lucide-react"
+import {
+  ContactInfoItem,
+  ContactInfoValue,
+} from "@/features/preview/components/ui/contact-info-item"
+import { SectionRoot, SectionTitle } from "@/features/preview/components/ui/section"
 
 interface ContactInfo {
   phone: string
@@ -18,27 +23,24 @@ interface ContactSectionProps {
 
 export const ContactSection = ({ contactInfo }: ContactSectionProps) => {
   return (
-    <article className="space-y-4 bg-white p-8 rounded-3xl">
-      <h2 className="text-[28px] font-semibold text-center text-primary">Get in touch</h2>
+    <SectionRoot className="space-y-4 p-8">
+      <SectionTitle>Get in touch</SectionTitle>
 
       <address className="w-full space-y-3 not-italic">
-        <div className="text-start font-normal text-base">
-          <strong className="text-primary font-normal">Contact number</strong>
-          <p className="text-muted-foreground">{contactInfo.phone}</p>
-        </div>
+        <ContactInfoItem label="Contact number">
+          <ContactInfoValue>{contactInfo.phone}</ContactInfoValue>
+        </ContactInfoItem>
 
-        <div className="text-start font-normal text-base">
-          <strong className="text-primary font-normal">Email</strong>
-          <p className="text-muted-foreground">{contactInfo.email}</p>
-        </div>
+        <ContactInfoItem label="Email">
+          <ContactInfoValue>{contactInfo.email}</ContactInfoValue>
+        </ContactInfoItem>
 
-        <div className="text-start font-normal text-base">
-          <strong className="text-primary font-normal">Address</strong>
-          <p className="text-muted-foreground">{contactInfo.address.street}</p>
-          <p className="text-muted-foreground">{contactInfo.address.city}</p>
-          <p className="text-muted-foreground">{contactInfo.address.state}</p>
-          <p className="text-muted-foreground">{contactInfo.address.pinCode}</p>
-        </div>
+        <ContactInfoItem label="Address">
+          <ContactInfoValue>{contactInfo.address.street}</ContactInfoValue>
+          <ContactInfoValue>{contactInfo.address.city}</ContactInfoValue>
+          <ContactInfoValue>{contactInfo.address.state}</ContactInfoValue>
+          <ContactInfoValue>{contactInfo.address.pinCode}</ContactInfoValue>
+        </ContactInfoItem>
       </address>
 
       <div className="flex-center">
@@ -47,6 +49,6 @@ export const ContactSection = ({ contactInfo }: ContactSectionProps) => {
           Check Location
         </Button>
       </div>
-    </article>
+    </SectionRoot>
   )
 }

@@ -1,3 +1,10 @@
+import {
+  SectionDescription,
+  SectionHeader,
+  SectionRoot,
+  SectionTitle,
+} from "@/features/preview/components/ui/section"
+
 interface VideoSectionProps {
   title: string
   description: string
@@ -6,11 +13,11 @@ interface VideoSectionProps {
 
 export const VideoSection = ({ title, description, videoUrl }: VideoSectionProps) => {
   return (
-    <article className="bg-white rounded-3xl overflow-hidden">
-      <header className="space-y-3 py-7 px-8 text-center">
-        <h2 className="text-[28px] font-semibold text-primary">{title}</h2>
-        <p className="text-base font-normal text-muted-foreground">{description}</p>
-      </header>
+    <SectionRoot className="overflow-hidden">
+      <SectionHeader className="py-7 px-8">
+        <SectionTitle>{title}</SectionTitle>
+        <SectionDescription>{description}</SectionDescription>
+      </SectionHeader>
 
       <figure>
         <iframe
@@ -21,6 +28,6 @@ export const VideoSection = ({ title, description, videoUrl }: VideoSectionProps
           src={videoUrl}
         />
       </figure>
-    </article>
+    </SectionRoot>
   )
 }

@@ -1,10 +1,11 @@
 import { Facebook } from "lucide-react"
-import { SocialLink } from "./social-links"
+import { SocialLink } from "@/features/preview/components/templates/classic/social-links"
+import { SectionRoot, SectionTitle } from "@/features/preview/components/ui/section"
 
 export const SocialLinksSection = () => {
   return (
-    <article className="space-y-6 bg-white py-9 px-10 rounded-3xl">
-      <h2 className="text-[28px] text-center font-semibold text-primary">Connect with me</h2>
+    <SectionRoot className="space-y-6 py-9 px-10">
+      <SectionTitle>Connect with me</SectionTitle>
 
       <nav aria-label="Social media links">
         <ul className="w-full">
@@ -13,6 +14,6 @@ export const SocialLinksSection = () => {
           <SocialLink icon={Facebook} label="Facebook" />
         </ul>
       </nav>
-    </article>
+    </SectionRoot>
   )
 }

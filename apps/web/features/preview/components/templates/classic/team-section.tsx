@@ -1,5 +1,11 @@
 import { faker } from "@faker-js/faker"
-import { TeamMember } from "./team-member"
+import { TeamMember } from "@/features/preview/components/templates/classic/team-member"
+import {
+  SectionDescription,
+  SectionHeader,
+  SectionRoot,
+  SectionTitle,
+} from "@/features/preview/components/ui/section"
 
 interface TeamSectionProps {
   title: string
@@ -9,10 +15,12 @@ interface TeamSectionProps {
 export const TeamSection = ({ title, description }: TeamSectionProps) => {
   return (
     <article className="space-y-2">
-      <header className="space-y-3 bg-white py-7 px-8 rounded-3xl text-center">
-        <h2 className="text-[28px] font-semibold text-primary">{title}</h2>
-        <p className="text-base font-normal text-muted-foreground">{description}</p>
-      </header>
+      <SectionRoot className="py-7 px-8">
+        <SectionHeader>
+          <SectionTitle>{title}</SectionTitle>
+          <SectionDescription>{description}</SectionDescription>
+        </SectionHeader>
+      </SectionRoot>
 
       {Array.from({ length: 5 }).map((_, index) => (
         <TeamMember

@@ -4,7 +4,6 @@ import { Plus, QrCode, Share2 } from "lucide-react"
 export const FloatingActions = () => {
   return (
     <>
-      {/* Social media section */}
       <nav className="fixed bottom-4 left-4 flex gap-4" aria-label="Share actions">
         <Button size="icon-xl">
           <QrCode className="size-5" />
@@ -15,7 +14,6 @@ export const FloatingActions = () => {
         </Button>
       </nav>
 
-      {/* Save contact section */}
       <aside className="fixed bottom-4 right-4">
         <Button className="px-5" size="lg">
           <Plus />

@@ -1,4 +1,10 @@
 import { Button } from "@app/ui/components/button"
+import {
+  SectionDescription,
+  SectionHeader,
+  SectionRoot,
+  SectionTitle,
+} from "@/features/preview/components/ui/section"
 
 interface ButtonSectionProps {
   title: string
@@ -8,14 +14,15 @@ interface ButtonSectionProps {
 
 export const ButtonSection = ({ title, description, buttonText }: ButtonSectionProps) => {
   return (
-    <article className="space-y-6 bg-white p-8 pt-7 rounded-3xl">
-      <header className="space-y-3 text-center">
-        <h2 className="text-[28px] font-semibold text-primary">{title}</h2>
-        <p className="text-base font-normal text-muted-foreground">{description}</p>
-      </header>
+    <SectionRoot className="space-y-6 p-8 pt-7">
+      <SectionHeader>
+        <SectionTitle>{title}</SectionTitle>
+        <SectionDescription>{description}</SectionDescription>
+      </SectionHeader>
+
       <Button size="lg" className="w-full">
         {buttonText}
       </Button>
-    </article>
+    </SectionRoot>
   )
 }
