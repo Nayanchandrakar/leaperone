@@ -6,7 +6,7 @@ import { ImageGallery } from "@/features/preview/components/templates/classic/im
 import { ProfileImage } from "@/features/preview/components/templates/classic/profile-image"
 import { ProfileInfo } from "@/features/preview/components/templates/classic/profile-info"
 import { QuickActions } from "@/features/preview/components/templates/classic/quick-actions"
-import { SocialLinksSection } from "@/features/preview/components/templates/classic/social-link-section"
+import { SocialLinkSection } from "@/features/preview/components/templates/classic/social-link-section"
 import { TeamSection } from "@/features/preview/components/templates/classic/team-section"
 import { VideoSection } from "@/features/preview/components/templates/classic/video-section"
 
@@ -83,7 +83,7 @@ export const ClassicTemplate = () => {
           description="Discover our latest collection of electric vehicles from leading EV brands."
         />
         <ContactSection contactInfo={contactInfo} />
-        <SocialLinksSection />
+        <SocialLinkSection />
         <ButtonSection
           title="Button section"
           buttonText="Visit Website"

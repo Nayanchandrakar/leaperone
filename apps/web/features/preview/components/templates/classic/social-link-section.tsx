@@ -1,19 +1,38 @@
-import { Facebook } from "lucide-react"
-import { SocialLink } from "@/features/preview/components/templates/classic/social-links"
+import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
+import { Icons } from "@/components/shared/icons"
+import { IconBadge } from "@/features/preview/components/ui/icon-badge"
 import { SectionRoot, SectionTitle } from "@/features/preview/components/ui/section"
 
-export const SocialLinksSection = () => {
+interface SocialLinkItemProps {
+  label: string
+  icon: (props: React.HTMLAttributes<SVGElement>) => React.JSX.Element
+}
+
+const SocialLinkItem = ({ icon, label }: SocialLinkItemProps) => {
+  return (
+    <Link
+      href="#"
+      className="flex items-center justify-between gap-2 py-4 border-b border-border text-muted-foreground hover:text-primary transition-colors"
+    >
+      <div className="flex items-center gap-3">
+        <IconBadge Icon={icon} />
+        <span className="font-normal text-base">{label}</span>
+      </div>
+      <ArrowUpRight className="size-4.5" />
+    </Link>
+  )
+}
+
+export const SocialLinkSection = () => {
   return (
     <SectionRoot className="space-y-6 py-9 px-10">
-      <SectionTitle>Connect with me</SectionTitle>
-
-      <nav aria-label="Social media links">
-        <ul className="w-full">
-          <SocialLink icon={Facebook} label="Facebook" />
-          <SocialLink icon={Facebook} label="Facebook" />
-          <SocialLink icon={Facebook} label="Facebook" />
-        </ul>
-      </nav>
+      <SectionTitle className="text-center">Connect with me</SectionTitle>
+      <ul>
+        <SocialLinkItem icon={Icons.facebook} label="Facebook" />
+        <SocialLinkItem icon={Icons.twitter} label="Twitter" />
+        <SocialLinkItem icon={Icons.linkedin} label="LinkedIn" />
+      </ul>
     </SectionRoot>
   )
 }

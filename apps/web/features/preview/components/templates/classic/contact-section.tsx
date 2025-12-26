@@ -24,7 +24,7 @@ interface ContactSectionProps {
 export const ContactSection = ({ contactInfo }: ContactSectionProps) => {
   return (
     <SectionRoot className="space-y-4 p-8">
-      <SectionTitle>Get in touch</SectionTitle>
+      <SectionTitle className="text-center">Get in touch</SectionTitle>
 
       <address className="w-full space-y-3 not-italic">
         <ContactInfoItem label="Contact number">

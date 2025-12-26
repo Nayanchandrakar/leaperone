@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { TeamMember } from "@/features/preview/components/templates/classic/team-member"
+import { TeamMember } from "@/features/preview/components/cards/classic/team-member"
 import {
   SectionDescription,
   SectionHeader,
