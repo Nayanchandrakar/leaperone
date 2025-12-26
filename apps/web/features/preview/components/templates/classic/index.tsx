@@ -49,65 +49,71 @@ export const ClassicTemplate = () => {
 
   return (
     <section
-      className="relative"
+      data-section="true"
+      className="group/section relative"
       style={
         {
           "--bg-color": "#FAE9E3",
           "--text-color": "#DB4B1F",
+          "--section-radius": "24px",
           "--highlight-color": "#DB4B1F",
+          "--section-bg-color": "#ffffff",
           "--supporting-text-color": "#949494",
         } as React.CSSProperties
       }
     >
-      <div className="max-w-107.5 mx-auto my-24 bg-(--bg-color) p-4 space-y-5">
+      <div className="max-w-107.5 mx-auto mb-16 rounded-b-(--section-radius) sm:my-12 md:my-20 bg-(--bg-color) sm:rounded-3xl overflow-hidden space-y-5">
         <ProfileImage imageSrc={profileData.imageUrl} />
         <ProfileInfo
           name={profileData.name}
           company={profileData.company}
           jobTitle={profileData.jobTitle}
         />
-        <QuickActions />
-        <AboutSection content={aboutContent} />
-        <ImageGallery
-          layout="list"
-          images={galleryImages}
-          title="Our EV Collection"
-          description="Discover our latest collection of electric vehicles from leading EV brands."
-        />
-        <ImageGallery
-          layout="grid-two"
-          title="Our EV Collection"
-          images={galleryImagesGrid}
-          description="Discover our latest collection of electric vehicles from leading EV brands."
-        />
-        <ImageGallery
-          layout="featured"
-          images={galleryImages}
-          title="Our EV Collection"
-          description="Discover our latest collection of electric vehicles from leading EV brands."
-        />
-        <ImageGallery
-          layout="carousel"
-          images={galleryImages}
-          title="Our EV Collection"
-          description="Discover our latest collection of electric vehicles from leading EV brands."
-        />
-        <ContactSection contactInfo={contactInfo} />
-        <SocialLinkSection />
-        <ButtonSection
-          title="Button section"
-          buttonText="Visit Website"
-          description="Add a description or click on eye icon to hide this."
-        />
-        <TeamSection
-          title="Meet the team"
-          description="Add a description or click on eye icon to hide this."
-        />
-        <VideoSection
-          title="Video"
-          description="Add a description or click on eye icon to hide this."
-          videoUrl="https://www.youtube-nocookie.com/embed/mfv0V1SxbNA?si=TFysOtlLt1XiFrFs"
-        />
+
+        <div className="space-y-5 p-2 xs:p-4 pt-0">
+          <QuickActions />
+          <AboutSection content={aboutContent} />
+          <ImageGallery
+            layout="list"
+            images={galleryImages}
+            title="Our EV Collection"
+            description="Discover our latest collection of electric vehicles from leading EV brands."
+          />
+          <ImageGallery
+            layout="grid-two"
+            title="Our EV Collection"
+            images={galleryImagesGrid}
+            description="Discover our latest collection of electric vehicles from leading EV brands."
+          />
+          <ImageGallery
+            layout="featured"
+            images={galleryImages}
+            title="Our EV Collection"
+            description="Discover our latest collection of electric vehicles from leading EV brands."
+          />
+          <ImageGallery
+            layout="carousel"
+            images={galleryImages}
+            title="Our EV Collection"
+            description="Discover our latest collection of electric vehicles from leading EV brands."
+          />
+          <ContactSection contactInfo={contactInfo} />
+          <SocialLinkSection />
+          <ButtonSection
+            title="Button section"
+            buttonText="Visit Website"
+            description="Add a description or click on eye icon to hide this."
+          />
+          <TeamSection
+            title="Meet the team"
+            description="Add a description or click on eye icon to hide this."
+          />
+          <VideoSection
+            title="Video"
+            description="Add a description or click on eye icon to hide this."
+            videoUrl="https://www.youtube-nocookie.com/embed/mfv0V1SxbNA?si=TFysOtlLt1XiFrFs"
+          />
+        </div>
       </div>
       <FloatingActions />
     </section>

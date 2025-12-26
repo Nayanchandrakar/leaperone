@@ -10,7 +10,7 @@ import { EditorWrapper } from "@/features/bussiness/components/ui/editor-wrapper
 
 export const BussinessCardSection = memo(() => {
   return (
-    <section className="container my-20 grid grid-cols-1 md:grid-cols-[1.6fr_minmax(330px,0.4fr)] gap-6 md:gap-8">
+    <section className="container my-20 grid grid-cols-1 md:grid-cols-[1.4fr_minmax(330px,0.6fr)] gap-6 md:gap-8">
       <div className="space-y-5">
         <EditorStepper />
         <EditorWrapper>
