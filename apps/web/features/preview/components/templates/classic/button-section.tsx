@@ -20,7 +20,7 @@ export const ButtonSection = ({ title, description, buttonText }: ButtonSectionP
         <SectionDescription>{description}</SectionDescription>
       </SectionHeader>
 
-      <Button size="lg" className="w-full">
+      <Button size="lg" className="w-full bg-(--highlight-color) hover:bg-(--highlight-color)/90">
         {buttonText}
       </Button>
     </SectionRoot>

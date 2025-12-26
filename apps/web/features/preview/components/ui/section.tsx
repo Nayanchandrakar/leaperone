@@ -9,9 +9,9 @@ export const SectionHeader = ({ className, ...props }: React.ComponentProps<"hea
 )
 
 export const SectionTitle = ({ className, ...props }: React.ComponentProps<"h2">) => (
-  <h2 className={cn("text-[28px] font-semibold text-primary", className)} {...props} />
+  <h2 className={cn("text-[28px] font-semibold text-(--text-color)", className)} {...props} />
 )
 
 export const SectionDescription = ({ className, ...props }: React.ComponentProps<"p">) => (
-  <p className={cn("text-base font-normal text-muted-foreground", className)} {...props} />
+  <p className={cn("text-base font-normal text-(--supporting-text-color)", className)} {...props} />
 )

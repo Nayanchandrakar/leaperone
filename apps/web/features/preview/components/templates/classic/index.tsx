@@ -48,8 +48,18 @@ export const ClassicTemplate = () => {
   }
 
   return (
-    <section className="relative">
-      <div className="max-w-107.5 mx-auto my-24 bg-muted p-4 space-y-5">
+    <section
+      className="relative"
+      style={
+        {
+          "--bg-color": "#FAE9E3",
+          "--text-color": "#DB4B1F",
+          "--highlight-color": "#DB4B1F",
+          "--supporting-text-color": "#949494",
+        } as React.CSSProperties
+      }
+    >
+      <div className="max-w-107.5 mx-auto my-24 bg-(--bg-color) p-4 space-y-5">
         <ProfileImage imageSrc={profileData.imageUrl} />
         <ProfileInfo
           name={profileData.name}

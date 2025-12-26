@@ -13,7 +13,7 @@ const SocialLinkItem = ({ icon, label }: SocialLinkItemProps) => {
   return (
     <Link
       href="#"
-      className="flex items-center justify-between gap-2 py-4 border-b border-border text-muted-foreground hover:text-primary transition-colors"
+      className="flex items-center justify-between gap-2 py-4 border-b border-border text-(--supporting-text-color) hover:text-(--highlight-color) transition-colors"
     >
       <div className="flex items-center gap-3">
         <IconBadge Icon={icon} />

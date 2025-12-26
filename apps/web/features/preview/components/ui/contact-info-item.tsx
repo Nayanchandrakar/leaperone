@@ -8,7 +8,7 @@ interface ContactInfoItemProps {
 export const ContactInfoItem = ({ label, children }: ContactInfoItemProps) => {
   return (
     <div className="text-start font-normal text-base">
-      <strong className="text-primary font-normal">{label}</strong>
+      <strong className="text-(--text-color) font-normal">{label}</strong>
       {children}
     </div>
   )
@@ -19,5 +19,5 @@ interface ContactInfoValueProps {
 }
 
 export const ContactInfoValue = ({ children }: ContactInfoValueProps) => {
-  return <p className="text-muted-foreground">{children}</p>
+  return <p className="text-(--supporting-text-color)">{children}</p>
 }
