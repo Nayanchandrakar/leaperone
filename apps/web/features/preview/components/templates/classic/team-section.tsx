@@ -1,4 +1,7 @@
+"use client"
+
 import { faker } from "@faker-js/faker"
+import { useMemo } from "react"
 import { TeamMember } from "@/features/preview/components/cards/classic/team-member"
 import {
   SectionDescription,
@@ -13,6 +16,19 @@ interface TeamSectionProps {
 }
 
 export const TeamSection = ({ title, description }: TeamSectionProps) => {
+  // Generate team members data once to avoid hydration mismatch
+  const teamMembers = useMemo(() => {
+    // Seed faker for consistent results
+    faker.seed(12345)
+
+    return Array.from({ length: 5 }).map((_, index) => ({
+      id: index,
+      avatarUrl: faker.image.avatar(),
+      name: faker.person.firstName(),
+      jobTitle: faker.person.jobTitle(),
+    }))
+  }, [])
+
   return (
     <article className="space-y-2">
       <SectionRoot className="py-7 px-8">
@@ -22,12 +38,12 @@ export const TeamSection = ({ title, description }: TeamSectionProps) => {
         </SectionHeader>
       </SectionRoot>
 
-      {Array.from({ length: 5 }).map((_, index) => (
+      {teamMembers.map((member) => (
         <TeamMember
-          key={index}
-          avatarUrl={faker.image.avatar()}
-          name={faker.person.firstName()}
-          jobTitle={faker.person.jobTitle()}
+          key={member.id}
+          avatarUrl={member.avatarUrl}
+          name={member.name}
+          jobTitle={member.jobTitle}
         />
       ))}
     </article>

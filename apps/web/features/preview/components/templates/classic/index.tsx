@@ -1,3 +1,4 @@
+import { cn } from "@app/ui/lib/utils"
 import { AboutSection } from "@/features/preview/components/templates/classic/about-section"
 import { ButtonSection } from "@/features/preview/components/templates/classic/button-section"
 import { ContactSection } from "@/features/preview/components/templates/classic/contact-section"
@@ -10,7 +11,7 @@ import { SocialLinkSection } from "@/features/preview/components/templates/class
 import { TeamSection } from "@/features/preview/components/templates/classic/team-section"
 import { VideoSection } from "@/features/preview/components/templates/classic/video-section"
 
-export const ClassicTemplate = () => {
+export const ClassicTemplate = ({ className, ...props }: React.ComponentProps<"section">) => {
   // Profile data
   const profileData = {
     imageUrl: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
@@ -50,7 +51,10 @@ export const ClassicTemplate = () => {
   return (
     <section
       data-section="true"
-      className="group/section relative"
+      className={cn(
+        "group/section relative overflow-y-scroll data-[preview=true]:no-scrollbar data-[preview=true]:h-screen",
+        className,
+      )}
       style={
         {
           "--bg-color": "#FAE9E3",
@@ -61,6 +65,7 @@ export const ClassicTemplate = () => {
           "--supporting-text-color": "#949494",
         } as React.CSSProperties
       }
+      {...props}
     >
       <div className="max-w-107.5 mx-auto mb-16 rounded-b-(--section-radius) sm:my-12 md:my-20 bg-(--bg-color) sm:rounded-3xl overflow-hidden space-y-5">
         <ProfileImage imageSrc={profileData.imageUrl} />
