@@ -14,7 +14,7 @@ export const BusinessCardPreview = memo(() => {
         <iframe
           className="size-full"
           title="bussiness card preview"
-          src="http://localhost:3000/preview"
+          src={`${process?.env?.NEXT_PUBLIC_APP_URL}/preview`}
         />
       </div>
 

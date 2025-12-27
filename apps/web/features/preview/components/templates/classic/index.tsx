@@ -57,10 +57,10 @@ export const ClassicTemplate = ({ className, ...props }: React.ComponentProps<"s
       )}
       style={
         {
-          "--bg-color": "#FAE9E3",
-          "--text-color": "#DB4B1F",
+          "--bg-color": "#EDEDED",
+          "--text-color": "#0A9521",
           "--section-radius": "24px",
-          "--highlight-color": "#DB4B1F",
+          "--highlight-color": "#0A9521",
           "--section-bg-color": "#ffffff",
           "--supporting-text-color": "#949494",
         } as React.CSSProperties
