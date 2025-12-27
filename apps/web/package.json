@@ -39,7 +39,8 @@
     "sonner": "catalog:",
     "usehooks-ts": "catalog:",
     "zod": "catalog:",
-    "zustand": "catalog:"
+    "zustand": "catalog:",
+    "babel-plugin-react-compiler": "catalog:"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",
