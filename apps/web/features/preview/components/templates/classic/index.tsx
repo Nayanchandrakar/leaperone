@@ -1,4 +1,5 @@
-import { cn } from "@app/ui/lib/utils"
+import type { DesignEditor } from "@app/core/types"
+import dynamic from "next/dynamic"
 import { AboutSection } from "@/features/preview/components/templates/classic/about-section"
 import { ButtonSection } from "@/features/preview/components/templates/classic/button-section"
 import { ContactSection } from "@/features/preview/components/templates/classic/contact-section"
@@ -10,8 +11,13 @@ import { QuickActions } from "@/features/preview/components/templates/classic/qu
 import { SocialLinkSection } from "@/features/preview/components/templates/classic/social-link-section"
 import { TeamSection } from "@/features/preview/components/templates/classic/team-section"
 import { VideoSection } from "@/features/preview/components/templates/classic/video-section"
+import { ThemeContainer } from "@/features/preview/components/ui/theme-container"
 
-export const ClassicTemplate = ({ className, ...props }: React.ComponentProps<"section">) => {
+type ClassicTemplateProps = React.ComponentProps<"main"> & {
+  design: DesignEditor
+}
+
+export default function Template(props: ClassicTemplateProps) {
   // Profile data
   const profileData = {
     imageUrl: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
@@ -49,25 +55,8 @@ export const ClassicTemplate = ({ className, ...props }: React.ComponentProps<"s
   }
 
   return (
-    <section
-      data-section="true"
-      className={cn(
-        "group/section relative overflow-y-scroll data-[preview=true]:no-scrollbar data-[preview=true]:h-screen",
-        className,
-      )}
-      style={
-        {
-          "--bg-color": "#EDEDED",
-          "--text-color": "#0A9521",
-          "--section-radius": "24px",
-          "--highlight-color": "#0A9521",
-          "--section-bg-color": "#ffffff",
-          "--supporting-text-color": "#949494",
-        } as React.CSSProperties
-      }
-      {...props}
-    >
-      <div className="max-w-107.5 mx-auto mb-16 rounded-b-(--section-radius) sm:my-12 md:my-20 bg-(--bg-color) sm:rounded-3xl overflow-hidden space-y-5">
+    <ThemeContainer {...props}>
+      <section className="max-w-107.5 mx-auto mb-16 rounded-b-(--section-radius) sm:my-12 md:my-20 bg-(--bg-color) sm:rounded-3xl overflow-hidden space-y-5">
         <ProfileImage imageSrc={profileData.imageUrl} />
         <ProfileInfo
           name={profileData.name}
@@ -119,8 +108,15 @@ export const ClassicTemplate = ({ className, ...props }: React.ComponentProps<"s
             videoUrl="https://www.youtube-nocookie.com/embed/mfv0V1SxbNA?si=TFysOtlLt1XiFrFs"
           />
         </div>
-      </div>
+      </section>
       <FloatingActions />
-    </section>
+    </ThemeContainer>
   )
 }
+
+export const ClassicTemplate = dynamic(
+  () => import("@/features/preview/components/templates/classic/index"),
+  {
+    loading: () => <div>Loading component</div>,
+  },
+)
