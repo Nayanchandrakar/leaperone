@@ -1,5 +1,3 @@
-import type { DesignEditor } from "@app/core/types"
-import dynamic from "next/dynamic"
 import { AboutSection } from "@/features/preview/components/templates/classic/about-section"
 import { ButtonSection } from "@/features/preview/components/templates/classic/button-section"
 import { ContactSection } from "@/features/preview/components/templates/classic/contact-section"
@@ -12,12 +10,9 @@ import { SocialLinkSection } from "@/features/preview/components/templates/class
 import { TeamSection } from "@/features/preview/components/templates/classic/team-section"
 import { VideoSection } from "@/features/preview/components/templates/classic/video-section"
 import { ThemeContainer } from "@/features/preview/components/ui/theme-container"
+import type { TemplateProps } from "@/features/preview/types"
 
-type ClassicTemplateProps = React.ComponentProps<"main"> & {
-  design: DesignEditor
-}
-
-export default function Template(props: ClassicTemplateProps) {
+export default function ClassicTemplate({ design, mode }: TemplateProps) {
   // Profile data
   const profileData = {
     imageUrl: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
@@ -55,7 +50,7 @@ export default function Template(props: ClassicTemplateProps) {
   }
 
   return (
-    <ThemeContainer {...props}>
+    <ThemeContainer design={design} data-mode={mode}>
       <section className="max-w-107.5 mx-auto mb-16 rounded-b-(--section-radius) sm:my-12 md:my-20 bg-(--bg-color) sm:rounded-3xl overflow-hidden space-y-5">
         <ProfileImage imageSrc={profileData.imageUrl} />
         <ProfileInfo
@@ -113,10 +108,3 @@ export default function Template(props: ClassicTemplateProps) {
     </ThemeContainer>
   )
 }
-
-export const ClassicTemplate = dynamic(
-  () => import("@/features/preview/components/templates/classic/index"),
-  {
-    loading: () => <div>Loading component</div>,
-  },
-)

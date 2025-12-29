@@ -1,10 +1,10 @@
-import type { ContentSection } from "@app/core/types"
+import type { ContentSection, TemplateKey } from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { PROFESSIONAL_TEMPLATE } from "@/features/bussiness/constants/contents/professional-content"
 
 type ContentEditorState = {
-  templateId: string
+  template: TemplateKey
   sections: ContentSection[]
 }
 
@@ -24,7 +24,7 @@ type ContentEditorActions = {
 }
 
 const initialState: ContentEditorState = {
-  templateId: "hello-world",
+  template: "classic",
   sections: PROFESSIONAL_TEMPLATE,
 }
 

@@ -1,3 +1,5 @@
+export type TemplateKey = "classic" | "premium"
+
 export type ImageViewType = "list" | "grid-1" | "grid-2" | "carousel" | "slideshow"
 
 export type ContentSectionType =

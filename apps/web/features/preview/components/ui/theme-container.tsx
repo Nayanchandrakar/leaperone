@@ -1,20 +1,17 @@
 import type { DesignEditor } from "@app/core/types"
-import { cn } from "@app/ui/lib/utils"
+import type React from "react"
 
 type ThemeContainerProps = React.ComponentProps<"main"> & {
   design: DesignEditor
 }
 
-export const ThemeContainer = ({ className, design, ...props }: ThemeContainerProps) => {
+export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
   const { color, sectionBackground } = design
 
   return (
     <main
       data-section={design?.sectionBackground?.enabled}
-      className={cn(
-        "group/section relative overflow-y-scroll data-[preview=true]:no-scrollbar data-[preview=true]:h-screen",
-        className,
-      )}
+      className="group/section font-Lobster relative overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
       style={
         {
           "--bg-color": color?.background,

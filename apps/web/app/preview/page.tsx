@@ -1,5 +1,3 @@
-import { ClassicTemplate } from "@/features/preview/components/templates/classic"
-
 export const dynamic = "force-static"
 
 const selectedFont = "Lobster"
@@ -38,7 +36,8 @@ export default function PreviewPage() {
       `,
         }}
       />
-      <ClassicTemplate />
+      {/* <ClassicTemplate /> */}
+      <div className="">Component preveiw</div>
     </>
   )
 }
