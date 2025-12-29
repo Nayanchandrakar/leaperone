@@ -1,4 +1,4 @@
-export type IconProps = React.HTMLAttributes<SVGElement>
+import type { IconProps } from "@/types"
 
 export const Icons = {
   logo: (props: IconProps) => (
@@ -3145,6 +3145,7 @@ export const Icons = {
       </g>
     </svg>
   ),
+
   yelp: (props: IconProps) => (
     <svg
       width="22"

@@ -8,7 +8,7 @@ interface EditorStepperStore {
 }
 
 export const useEditorStepper = create<EditorStepperStore>()((set) => ({
-  selectedStep: 0,
+  selectedStep: 1,
   setSelectedStep: (step) => set({ selectedStep: step }),
   goToNextStep: () => set((state) => ({ selectedStep: state.selectedStep + 1 })),
   goToPreviousStep: () => set((state) => ({ selectedStep: state.selectedStep - 1 })),

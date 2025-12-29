@@ -55,6 +55,35 @@ export type SocialLinkType =
   | "sound-cloud"
   | "spotify"
 
+export type FontFamily =
+  | "Inter"
+  | "Lato"
+  | "Montserrat"
+  | "Space Grotesk"
+  | "Poppins"
+  | "Raleway"
+  | "Syne"
+  | "Saira"
+  | "IBM Plex Mono"
+  | "Roboto"
+  | "Nunito"
+  | "Roboto Slab"
+  | "Lora"
+  | "Merriweather"
+  | "GFS Didot"
+  | "IBM Plex Serif"
+  | "Fraunces"
+  | "Inria Serif"
+  | "Noto Serif"
+  | "Times New Roman"
+  | "Sour Gummy"
+  | "Delius"
+  | "Indie Flower"
+  | "Satisfy"
+  | "Handlee"
+
+export type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+
 export interface EnabledField<T = string> {
   text: T
   enabled: boolean

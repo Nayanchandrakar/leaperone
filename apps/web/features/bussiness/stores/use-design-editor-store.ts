@@ -3,6 +3,7 @@ import type {
   CardSettings,
   Color,
   DesignEditor,
+  Font,
   SectionBackground,
 } from "@app/core/types"
 import { create } from "zustand"
@@ -15,6 +16,7 @@ type DesignEditorState = {
 
 type DesignEditorActions = {
   setColor: (color: Color) => void
+  setFont: (font: Font) => void
   setSectionBackground: <K extends keyof SectionBackground>(
     field: K,
     value: SectionBackground[K],
@@ -32,6 +34,11 @@ export const useDesignEditorStore = create<DesignEditorState & DesignEditorActio
     setColor: (color) =>
       set((state) => {
         state.config.color = color
+      }),
+
+    setFont: (font) =>
+      set((state) => {
+        state.config.font = font
       }),
 
     setColorField: (field, value) =>

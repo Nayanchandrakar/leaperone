@@ -1,3 +1,5 @@
+import type { FontFamily, FontWeight } from "./common"
+
 export type Background = {
   id: string
   url: string
@@ -8,6 +10,14 @@ export type Color = {
   highlight: string
   mainText: string
   supportingText: string
+}
+
+export type Font = {
+  id: string
+  family: FontFamily
+  bodyWeight: FontWeight
+  buttonWeight: FontWeight
+  headingWeight: FontWeight
 }
 
 export type SectionBackground = {
@@ -27,6 +37,7 @@ export type CardSettings = {
 export type DesignEditor = {
   background: Background[]
   color: Color
+  font: Font
   sectionBackground: SectionBackground
   cardImage: CardImage
   settings: CardSettings

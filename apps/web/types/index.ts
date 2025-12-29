@@ -1,3 +1,5 @@
+export type IconProps = React.HTMLAttributes<SVGElement>
+
 export type FullSession = {
   session: {
     token: string

@@ -2,11 +2,12 @@ import type {
   Contact,
   ContactItem,
   ContentSectionType,
+  Font,
   ImageViewType,
   QrCodeFill,
 } from "@app/core/types"
 import type * as React from "react"
-import type { IconProps } from "@/components/shared/icons"
+import type { IconProps } from "@/types"
 
 export type ContactOption = {
   label: string
@@ -34,6 +35,10 @@ export type SelectOption<T extends string = string> = {
 export type RadioOption<T extends string = string> = {
   label: string
   value: T
+}
+
+export type FontOption = Font & {
+  Icon: (props: IconProps) => React.JSX.Element
 }
 
 export type QrCodeItem<T extends string = string> = {
