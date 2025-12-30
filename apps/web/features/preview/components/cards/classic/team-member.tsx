@@ -17,7 +17,9 @@ export const TeamMember = ({ avatarUrl, name, jobTitle }: TeamMemberProps) => {
 
         <div className="-space-y-0.5">
           <strong className="font-semibold text-sm text-(--supporting-text-color)">{name}</strong>
-          <p className="font-normal text-xs text-(--supporting-text-color)">{jobTitle}</p>
+          <p className="font-(--font-body-weight) text-xs text-(--supporting-text-color)">
+            {jobTitle}
+          </p>
         </div>
       </li>
     </SectionRoot>

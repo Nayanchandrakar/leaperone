@@ -17,7 +17,7 @@ const SocialLinkItem = ({ icon, label }: SocialLinkItemProps) => {
     >
       <div className="flex items-center gap-3">
         <IconBadge Icon={icon} />
-        <span className="font-normal text-base">{label}</span>
+        <span className="font-(--font-body-weight) text-base">{label}</span>
       </div>
       <ArrowUpRight className="size-4.5" />
     </Link>

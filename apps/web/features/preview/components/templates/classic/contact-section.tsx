@@ -44,7 +44,7 @@ export const ContactSection = ({ contactInfo }: ContactSectionProps) => {
       </address>
 
       <div className="flex-center">
-        <Button className="bg-(--highlight-color) hover:bg-(--highlight-color)/90">
+        <Button className="bg-(--highlight-color) font-(--font-button-weight) hover:bg-(--highlight-color)/90">
           <MapPin />
           Check Location
         </Button>

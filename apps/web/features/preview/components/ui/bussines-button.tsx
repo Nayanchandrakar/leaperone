@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import type * as React from "react"
 
 const buttonVariants = cva(
-  "flex-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-colors text-primary-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none cursor-pointer bg-(--highlight-color) hover:bg-(--highlight-color)/90",
+  "flex-center gap-2 whitespace-nowrap rounded-full text-sm font-(--font-button-weight) transition-colors text-primary-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none cursor-pointer bg-(--highlight-color) hover:bg-(--highlight-color)/90",
   {
     variants: {
       size: {
