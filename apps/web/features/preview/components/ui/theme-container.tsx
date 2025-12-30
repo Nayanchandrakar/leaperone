@@ -17,10 +17,12 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
           "--bg-color": color?.background,
           "--text-color": color?.mainText,
           "--highlight-color": color?.highlight,
+          "--font-body-weight": font?.bodyWeight,
+          "--font-button-weight": font?.buttonWeight,
+          "--font-heading-weight": font?.headingWeight,
           "--section-bg-color": sectionBackground?.color,
           "--supporting-text-color": color?.supportingText,
           "--section-radius": `${sectionBackground?.borderRadius}px`,
-          fontFamily: font?.family ? `"${font.family}", sans-serif` : undefined,
         } as React.CSSProperties
       }
       {...props}

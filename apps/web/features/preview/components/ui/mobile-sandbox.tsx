@@ -6,19 +6,12 @@ import { IFRAME_HTML } from "@/features/preview/constants/iframe-html"
 import { useIframeBody } from "@/features/preview/hooks/use-iframe-body"
 import { useIframeFont } from "@/features/preview/hooks/use-iframe-font"
 
-/**
- * Mobile sandbox component that renders the preview inside an isolated iframe
- * Font loading is optimized with:
- * - Proper preload order in useIframeFont hook
- * - FOIT prevention CSS in IFRAME_HTML
- * - Proper fallback fonts in ThemeContainer
- */
 export const MobileSandbox = memo(() => {
   const { body, iframeRef } = useIframeBody()
   const design = useDesignEditorStore((state) => state.config)
 
-  // Dynamically inject font into iframe with optimized loading
-  useIframeFont(iframeRef, design.font)
+  // Load fonts dynamically in the iframe
+  useIframeFont(iframeRef, design?.font)
 
   const portalContent = useMemo(
     () =>

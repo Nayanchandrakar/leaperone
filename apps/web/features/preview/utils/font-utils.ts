@@ -1,7 +1,7 @@
 import type { Font } from "@app/core/types"
 
 /**
- * Generates a Google Fonts URL with optimized weights and font-display swap
+ * Generates a Google Fonts URL with optimized weights, Latin subset, and font-display swap
  * @param font - Font configuration with family and weights
  * @returns Google Fonts API URL with display=swap for FOIT prevention
  */
@@ -13,9 +13,11 @@ export function getGoogleFontsUrl(font: Font): string {
     .sort((a, b) => a - b)
     .join(";")
 
+  // Properly encode font family (handles spaces and special characters)
   const fontFamily = encodeURIComponent(font.family)
 
-  return `https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${weightsParam}&display=swap`
+  // Include Latin subset to minimize bundle size
+  return `https://fonts.googleapis.com/css2?family=${fontFamily}:wght@${weightsParam}&subset=latin&display=swap`
 }
 
 /**
