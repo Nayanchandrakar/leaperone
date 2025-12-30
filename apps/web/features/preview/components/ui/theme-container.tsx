@@ -6,12 +6,12 @@ type ThemeContainerProps = React.ComponentProps<"main"> & {
 }
 
 export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
-  const { color, sectionBackground } = design
+  const { color, sectionBackground, font } = design
 
   return (
     <main
       data-section={design?.sectionBackground?.enabled}
-      className="group/section font-Lobster relative overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
+      className="group/section relative overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
       style={
         {
           "--bg-color": color?.background,
@@ -20,6 +20,7 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
           "--section-bg-color": sectionBackground?.color,
           "--supporting-text-color": color?.supportingText,
           "--section-radius": `${sectionBackground?.borderRadius}px`,
+          fontFamily: font?.family ? `"${font.family}", sans-serif` : undefined,
         } as React.CSSProperties
       }
       {...props}

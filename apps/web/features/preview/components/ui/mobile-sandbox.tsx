@@ -4,10 +4,14 @@ import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-edi
 import { TemplateRenderer } from "@/features/preview/components/ui/template-renderer"
 import { IFRAME_HTML } from "@/features/preview/constants/iframe-html"
 import { useIframeBody } from "@/features/preview/hooks/use-iframe-body"
+import { useIframeFont } from "@/features/preview/hooks/use-iframe-font"
 
 export const MobileSandbox = memo(() => {
   const { body, iframeRef } = useIframeBody()
   const design = useDesignEditorStore((state) => state.config)
+
+  // Dynamically inject font into iframe
+  useIframeFont(iframeRef, design?.font)
 
   const portalContent = useMemo(
     () =>

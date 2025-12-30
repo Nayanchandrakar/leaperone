@@ -1,43 +1,43 @@
+"use client"
+import { useMemo } from "react"
+import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
+import ClassicTemplate from "@/features/preview/components/templates/classic"
+import { getGoogleFontsUrl, isSystemFont } from "@/features/preview/utils/font-utils"
+
 export const dynamic = "force-static"
 
-const selectedFont = "Lobster"
-const googleFontHref = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(
-  selectedFont,
-)}:wght@400;700&display=swap`
-
 export default function PreviewPage() {
+  const design = useDesignEditorStore((state) => state.config)
+  const font = design?.font
+
+  const googleFontHref = useMemo(() => {
+    if (!font || isSystemFont(font.family)) return null
+    return getGoogleFontsUrl(font)
+  }, [font])
+
   return (
     <>
       {/* Optimized font loading for Google Fonts */}
-      <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-        crossOrigin="anonymous"
-        key="preconnect-googleapis"
-      />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-        key="preconnect-gstatic"
-      />
-      {/* Only load font stylesheet once and leverage preload hint */}
-      <link rel="preload" as="style" href={googleFontHref} key="preload-google-font" />
-      <link rel="stylesheet" href={googleFontHref} media="all" key="dynamic-google-font" />
-      {/* Inline fallback font style in case stylesheet fails */}
-      <style
-        // Provide fallback to avoid FOIT on font load failure
-        dangerouslySetInnerHTML={{
-          __html: `
-      @font-face {
-        font-family: '${selectedFont}';
-        font-display: swap;
-      }
-      `,
-        }}
-      />
-      {/* <ClassicTemplate /> */}
-      <div className="">Component preveiw</div>
+      {googleFontHref && (
+        <>
+          <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+            crossOrigin="anonymous"
+            key="preconnect-googleapis"
+          />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="anonymous"
+            key="preconnect-gstatic"
+          />
+          {/* Preload font stylesheet for faster loading */}
+          <link rel="preload" as="style" href={googleFontHref} key="preload-google-font" />
+          <link rel="stylesheet" href={googleFontHref} media="all" key="dynamic-google-font" />
+        </>
+      )}
+      <ClassicTemplate design={design} mode="preview" />
     </>
   )
 }
