@@ -20,7 +20,7 @@ export const FontsList = ({ selectedFontId, fontOptions, onFontChange }: FontsLi
           onClick={() => onFontChange(font)}
           data-state={font.id === selectedFontId}
         >
-          <font.Icon className="size-12" />
+          <font.Icon className="size-full" />
         </FontSwatch>
       )}
     />

@@ -7,7 +7,7 @@ import { useEditorStepper } from "@/features/bussiness/stores/use-editor-stepper
 export const CardPreviewSection = memo(() => {
   const { selectedStep } = useEditorStepper()
   return (
-    <EditorWrapper>
+    <EditorWrapper className="md:sticky md:top-20">
       {selectedStep === 2 ? <LazyQrCodeCardPreview /> : <BusinessCardPreview />}
     </EditorWrapper>
   )
