@@ -1,10 +1,11 @@
 import type { Font } from "@app/core/types"
 
 /**
- * Generates a Google Fonts URL with optimized weights for the given font
- * Uses only the weights needed (body, button, heading) to minimize download size
+ * Generates a Google Fonts URL with optimized weights and font-display swap
+ * @param font - Font configuration with family and weights
+ * @returns Google Fonts API URL with display=swap for FOIT prevention
  */
-export function getGoogleFontsUrl(font: Font) {
+export function getGoogleFontsUrl(font: Font): string {
   // Collect unique weights needed for this font
   const weights = new Set<number>([font.bodyWeight, font.buttonWeight, font.headingWeight])
 
@@ -20,7 +21,7 @@ export function getGoogleFontsUrl(font: Font) {
 /**
  * Checks if a font family is a system font (doesn't need to be loaded from Google Fonts)
  */
-export function isSystemFont(fontFamily: string): boolean {
+export function isSystemFont(fontFamily: string) {
   const systemFonts = [
     "Times New Roman",
     "Arial",
