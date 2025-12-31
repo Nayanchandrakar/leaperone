@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react"
 import { createPortal } from "react-dom"
+import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
 import { TemplateRenderer } from "@/features/preview/components/ui/template-renderer"
 import { IFRAME_HTML } from "@/features/preview/constants/iframe-html"
@@ -9,6 +10,7 @@ import { useIframeFont } from "@/features/preview/hooks/use-iframe-font"
 export const MobileSandbox = memo(() => {
   const { body, iframeRef } = useIframeBody()
   const design = useDesignEditorStore((state) => state.config)
+  const content = useContentEditorStore((state) => state.sections)
 
   // Load fonts dynamically in the iframe
   useIframeFont(iframeRef, design?.font)
@@ -16,9 +18,17 @@ export const MobileSandbox = memo(() => {
   const portalContent = useMemo(
     () =>
       body
-        ? createPortal(<TemplateRenderer template="classic" design={design} mode="preview" />, body)
+        ? createPortal(
+            <TemplateRenderer
+              template="classic"
+              content={content}
+              design={design}
+              mode="preview"
+            />,
+            body,
+          )
         : null,
-    [body, design],
+    [body, design, content],
   )
 
   return (

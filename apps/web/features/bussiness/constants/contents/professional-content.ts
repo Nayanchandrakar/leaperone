@@ -7,7 +7,7 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
     type: "card-profile",
     details: {
       profile: {
-        imageSrc: "https://images.pexels.com/photos/29661144/pexels-photo-29661144.jpeg",
+        imageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/70.jpg",
         enabled: true,
       },
       branding: {
