@@ -11,7 +11,7 @@ export const SectionRoot = ({ className, ...props }: React.ComponentProps<"artic
 )
 
 export const SectionHeader = ({ className, ...props }: React.ComponentProps<"header">) => (
-  <header className={cn("space-y-3 text-center", className)} {...props} />
+  <header className={cn("space-y-3 text-center wrap-break-word", className)} {...props} />
 )
 
 export const SectionTitle = ({ className, ...props }: React.ComponentProps<"h2">) => (

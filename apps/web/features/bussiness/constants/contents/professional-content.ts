@@ -95,7 +95,7 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
     },
     video: {
       type: "youtube",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      youtubeUrl: "https://www.youtube-nocookie.com/embed/mfv0V1SxbNA?si=TFysOtlLt1XiFrFs",
     },
   },
   {

@@ -10,7 +10,7 @@ import { useIframeFont } from "@/features/preview/hooks/use-iframe-font"
 export const MobileSandbox = memo(() => {
   const { body, iframeRef } = useIframeBody()
   const design = useDesignEditorStore((state) => state.config)
-  const content = useContentEditorStore((state) => state.sections)
+  const contents = useContentEditorStore((state) => state.sections)
 
   // Load fonts dynamically in the iframe
   useIframeFont(iframeRef, design?.font)
@@ -21,14 +21,14 @@ export const MobileSandbox = memo(() => {
         ? createPortal(
             <TemplateRenderer
               template="classic"
-              content={content}
+              contents={contents}
               design={design}
               mode="preview"
             />,
             body,
           )
         : null,
-    [body, design, content],
+    [body, design, contents],
   )
 
   return (

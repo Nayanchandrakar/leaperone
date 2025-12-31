@@ -9,12 +9,12 @@ export const IMAGE_VIEWS: ImageView[] = [
   },
   {
     label: "Grid 1",
-    value: "grid-1",
+    value: "grid",
     icon: Icons.grid1View,
   },
   {
     label: "Grid 2",
-    value: "grid-2",
+    value: "featured",
     icon: Icons.grid2View,
   },
   {

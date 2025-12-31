@@ -5,5 +5,5 @@ export type TemplateComponent = React.ComponentType<TemplateProps>
 export type TemplateProps = {
   mode?: "preview"
   design: DesignEditor
-  content: ContentSection[]
+  contents: ContentSection[]
 }
