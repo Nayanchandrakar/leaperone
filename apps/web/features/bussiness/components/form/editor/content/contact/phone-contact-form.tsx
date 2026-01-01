@@ -11,7 +11,12 @@ interface PhoneContactFormProps {
 
 export const PhoneContactForm = memo(({ contactIdx, index }: PhoneContactFormProps) => {
   const [label, setLabel] = useSubSectionField<string>(index, contactIdx, ["items"], ["label"])
-  const [phone, setPhone] = useSubSectionField<string>(index, contactIdx, ["items"], ["url"])
+  const [phoneNumber, setPhoneNumber] = useSubSectionField<string>(
+    index,
+    contactIdx,
+    ["items"],
+    ["phoneNumber"],
+  )
 
   const handleLabelChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,9 +27,9 @@ export const PhoneContactForm = memo(({ contactIdx, index }: PhoneContactFormPro
 
   const handlePhoneChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPhone(e?.target?.value ?? "")
+      setPhoneNumber(e?.target?.value ?? "")
     },
-    [setPhone],
+    [setPhoneNumber],
   )
 
   return (
@@ -36,7 +41,7 @@ export const PhoneContactForm = memo(({ contactIdx, index }: PhoneContactFormPro
 
       <Field>
         <FieldLabel>Phone Number</FieldLabel>
-        <Input value={phone} onChange={handlePhoneChange} />
+        <Input value={phoneNumber} onChange={handlePhoneChange} />
       </Field>
     </EditorSubSortTwoColumnGrid>
   )

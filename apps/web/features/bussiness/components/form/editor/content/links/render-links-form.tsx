@@ -32,5 +32,3 @@ export const RenderLinksForm = memo(({ index }: ContentSectionProps) => {
 
   return <SortableList items={list} onReorder={moveItem} renderItem={renderItem} />
 })
-
-RenderLinksForm.displayName = "RenderLinksForm"

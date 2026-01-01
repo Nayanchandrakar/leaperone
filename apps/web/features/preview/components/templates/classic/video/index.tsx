@@ -1,5 +1,5 @@
 import type { VideoSection as Content, YoutubeVideo } from "@app/core/types"
-import { memo } from "react"
+import { memo, useMemo } from "react"
 import {
   SectionDescription,
   SectionHeader,
@@ -18,9 +18,15 @@ function isYoutubeVideo(video: Content["video"]): video is YoutubeVideo {
 export const VideoSection = memo(function VideoSection({ content }: VideoSectionProps) {
   const { heading, description, video } = content
 
-  const headingContent = heading.enabled && heading?.text ? heading.text : null
-  const descriptionContent = description.enabled && description?.text ? description.text : null
-  const youtubeUrl = isYoutubeVideo(video) ? video.youtubeUrl : null
+  const headingContent = useMemo(
+    () => (heading.enabled && heading?.text ? heading.text : null),
+    [heading],
+  )
+  const descriptionContent = useMemo(
+    () => (description.enabled && description?.text ? description.text : null),
+    [description],
+  )
+  const youtubeUrl = useMemo(() => (isYoutubeVideo(video) ? video.youtubeUrl : null), [video])
 
   return (
     <SectionRoot className="overflow-hidden">

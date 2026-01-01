@@ -8,24 +8,32 @@ type ContactInfoListProps = {
   contacts: ContactItem[]
 }
 
-export const PhoneDetails = ({ phone }: { phone: PhoneLink }) => (
-  <ContactInfoItem label="Contact number">
-    <ContactInfoValue>{phone.url}</ContactInfoValue>
+export const PhoneDetails = ({ label, phoneNumber }: PhoneLink) => (
+  <ContactInfoItem label={label}>
+    <ContactInfoValue>{phoneNumber}</ContactInfoValue>
   </ContactInfoItem>
 )
 
-export const AddressDetails = ({ address }: { address: ContactAddressItem }) => {
+export const AddressDetails = ({
+  label,
+  zipCode,
+  cityName,
+  stateName,
+  countryName,
+  streetAddress1,
+  streetAddress2,
+}: ContactAddressItem) => {
   const addressLines = [
-    address.streetAddress1,
-    address.streetAddress2,
-    address.cityName,
-    address.stateName,
-    address.zipCode,
-    address.countryName,
+    streetAddress1,
+    streetAddress2,
+    cityName,
+    stateName,
+    zipCode,
+    countryName,
   ].filter(Boolean)
 
   return (
-    <ContactInfoItem label={address?.label}>
+    <ContactInfoItem label={label}>
       {addressLines.map((line, index) => (
         <ContactInfoValue key={index}>{line}</ContactInfoValue>
       ))}
@@ -33,9 +41,9 @@ export const AddressDetails = ({ address }: { address: ContactAddressItem }) => 
   )
 }
 
-const EmailDetails = ({ email }: { email: EmailLink }) => (
-  <ContactInfoItem label="Email">
-    <ContactInfoValue>{email.url}</ContactInfoValue>
+const EmailDetails = ({ email, label }: EmailLink) => (
+  <ContactInfoItem label={label}>
+    <ContactInfoValue>{email}</ContactInfoValue>
   </ContactInfoItem>
 )
 
@@ -43,12 +51,12 @@ export const ContactInfoList = ({ contacts }: ContactInfoListProps) => (
   <address className="w-full space-y-3 not-italic">
     {contacts?.map((contact) => {
       switch (contact.type) {
-        case "address":
-          return <AddressDetails key={contact.id} address={contact} />
-        case "phone":
-          return <PhoneDetails key={contact.id} phone={contact} />
         case "email":
-          return <EmailDetails key={contact.id} email={contact} />
+          return <EmailDetails key={contact.id} {...contact} />
+        case "address":
+          return <AddressDetails key={contact.id} {...contact} />
+        case "phone":
+          return <PhoneDetails key={contact.id} {...contact} />
         default:
           return null
       }

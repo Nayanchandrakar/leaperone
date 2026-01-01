@@ -15,7 +15,7 @@ interface LinkItemRendererProps {
 export const LinkItemRenderer = memo(
   ({ itemId, index, subIndex, onDelete }: LinkItemRendererProps) => {
     const [label, setLabel] = useSubSectionField<string>(index, subIndex, ["links"], ["label"])
-    const [url, setUrl] = useSubSectionField<string>(index, subIndex, ["links"], ["url"])
+    const [href, setHref] = useSubSectionField<string>(index, subIndex, ["links"], ["href"])
 
     const handleDelete = useCallback(() => {
       onDelete(subIndex)
@@ -30,9 +30,9 @@ export const LinkItemRenderer = memo(
 
     const handleUrlChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUrl(e?.target?.value)
+        setHref(e?.target?.value)
       },
-      [setUrl],
+      [setHref],
     )
 
     return (
@@ -44,7 +44,7 @@ export const LinkItemRenderer = memo(
           </Field>
           <Field>
             <FieldLabel>Profile Link</FieldLabel>
-            <Input value={url} onChange={handleUrlChange} />
+            <Input value={href} onChange={handleUrlChange} />
           </Field>
         </EditorSubSortTwoColumnGrid>
       </SortableSubListItem>

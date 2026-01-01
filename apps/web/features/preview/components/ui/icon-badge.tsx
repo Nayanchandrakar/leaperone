@@ -1,9 +1,10 @@
 import { cn } from "@app/ui/lib/utils"
+import type { LucideIcon } from "lucide-react"
 
 interface IconBadgeProps {
-  Icon: (props: React.HTMLAttributes<SVGElement>) => React.JSX.Element
   className?: string
   iconClassName?: string
+  Icon: LucideIcon | ((props: React.HTMLAttributes<SVGElement>) => React.JSX.Element)
 }
 
 export const IconBadge = ({ Icon, className, iconClassName }: IconBadgeProps) => {

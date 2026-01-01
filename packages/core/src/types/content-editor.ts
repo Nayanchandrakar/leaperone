@@ -15,17 +15,18 @@ export type Contact = {
 
 export type SocialLink = {
   id: string
-  url: string
+  href: string
+  label: string
   type: SocialLinkType
 }
 
 export interface ContactAddressItem {
   id: string
+  label: string
   type: "address"
   streetAddress1: string
   streetAddress2: string
   zipCode: number
-  label: string
   cityName: string
   stateName: string
   countryName: string
@@ -38,14 +39,16 @@ export interface ContactAddressItem {
 
 export interface PhoneLink {
   id: string
-  url: string
   type: "phone"
+  label: string
+  phoneNumber: string
 }
 
 export interface EmailLink {
   id: string
-  url: string
   type: "email"
+  email: string
+  label: string
 }
 
 export type ContactItem = PhoneLink | EmailLink | ContactAddressItem

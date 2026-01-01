@@ -11,7 +11,7 @@ interface EmailContactFormProps {
 
 export const EmailContactForm = memo(({ contactIdx, index }: EmailContactFormProps) => {
   const [label, setLabel] = useSubSectionField<string>(index, contactIdx, ["items"], ["label"])
-  const [email, setEmail] = useSubSectionField<string>(index, contactIdx, ["items"], ["url"])
+  const [email, setEmail] = useSubSectionField<string>(index, contactIdx, ["items"], ["email"])
 
   const handleLabelChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,7 +1,7 @@
 import type { ContactDetailsSection } from "@app/core/types"
 import { memo, useMemo } from "react"
 import { LocationButton } from "@/features/preview/components/buttons/classic/location-button"
-import { ContactInfoList } from "@/features/preview/components/templates/classic/contacts/contact-info-list"
+import { ContactInfoList } from "@/features/preview/components/templates/classic/contact/contact-info-list"
 import { SectionRoot, SectionTitle } from "@/features/preview/components/ui/section"
 
 type ContactDetailSectionProps = {

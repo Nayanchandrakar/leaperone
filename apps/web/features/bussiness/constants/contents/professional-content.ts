@@ -131,19 +131,19 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
         id: "e60e25f8-749e-4124-aab9-73a48ac07636",
         type: "facebook",
         label: "Facebook",
-        url: "https://www.facebook.com/yourusername",
+        href: "https://www.facebook.com/yourusername",
       },
       {
         id: "e60e25f8-749e-4124-aab9-73a48ac07637",
         type: "instagram",
         label: "Instagram",
-        url: "https://www.instagram.com/yourusername",
+        href: "https://www.instagram.com/yourusername",
       },
       {
         id: "e60e25f8-749e-4124-aab9-73a48ac07638",
         type: "twitter",
         label: "Twitter",
-        url: "https://www.twitter.com/yourusername",
+        href: "https://www.twitter.com/yourusername",
       },
     ],
     background: true,
@@ -160,13 +160,13 @@ export const PROFESSIONAL_TEMPLATE: ContentSection[] = [
       {
         type: "phone",
         label: "Phone",
-        url: "+1234567890",
+        phoneNumber: "+1234567890",
         id: "1ab4dbed-4e0c-4983-a907-e0a2468cdb5b",
       },
       {
         type: "email",
         label: "Email",
-        url: "john@gmail.com",
+        email: "john@gmail.com",
         id: "8b3a1e87-5047-44ca-8b57-30274c11954a",
       },
       {

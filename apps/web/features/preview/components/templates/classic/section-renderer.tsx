@@ -1,11 +1,11 @@
 import type { ContentSection } from "@app/core/types"
 import { ImageTextLinkSection } from "@/features/preview/components/templates/classic/images"
-import { ContactDetailSection } from "./contacts"
-import { CtaButtonSection } from "./cta-button-section"
-import { HeadingSection } from "./heading-section"
-import { VideoSection } from "./video-section"
-
-// import { FloatingButtonSection } from "./floating"
+import { ContactDetailSection } from "./contact"
+import { CtaButtonSection } from "./cta-button"
+import { HeadingSection } from "./heading"
+import { SocialLinksSection } from "./links"
+import { TeamsSection } from "./team"
+import { VideoSection } from "./video"
 
 type ClassicSectionRendererProps = {
   content: ContentSection
@@ -31,14 +31,14 @@ export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps)
     case "video-section":
       return <VideoSection content={content} />
 
+    case "social-links":
+      return <SocialLinksSection content={content} />
+
+    case "teams-section":
+      return <TeamsSection content={content} />
+
     // case "card-profile":
     //   return <ProfileSection content={content} />
-
-    // case "social-links":
-    //   return <SocialLinksSection content={content} />
-
-    // case "teams-section":
-    //   return <TeamsSection content={content} />
 
     // case "testimonials-section":
     //   return <TestimonialSection content={content} />
