@@ -6,6 +6,7 @@ export const EditorWrapper = memo(({ className, ...props }: React.ComponentProps
     <div
       className={cn(
         "p-5 sm:p-6 lg:p-8 bg-zinc-50 border border-gray-300 rounded-3xl lg:rounded-4xl h-fit",
+        "has-data-[slot=section-button]:space-y-5 has-data-[slot=section-button]:sm:space-y-6 has-data-[slot=section-button]:lg:space-y-8",
         className,
       )}
       {...props}

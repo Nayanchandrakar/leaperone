@@ -1,7 +1,8 @@
-import type { ContentSection, TemplateKey } from "@app/core/types"
+import type { ContentSection, ContentSectionType, TemplateKey } from "@app/core/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
-import { PROFESSIONAL_TEMPLATE } from "@/features/bussiness/constants/contents/professional-content"
+import { CLASSIC_CONTENT } from "@/features/bussiness/constants/contents/classic-content"
+import { SECTION_FACTORIES } from "@/features/bussiness/constants/contents/section-factories"
 
 type ContentEditorState = {
   template: TemplateKey
@@ -9,6 +10,7 @@ type ContentEditorState = {
 }
 
 type ContentEditorActions = {
+  addSection: (type: ContentSectionType) => void
   updateSectionField: (index: number, field: string[], value: unknown) => void
   updateSubSectionField: (
     index: number,
@@ -25,7 +27,7 @@ type ContentEditorActions = {
 
 const initialState: ContentEditorState = {
   template: "classic",
-  sections: PROFESSIONAL_TEMPLATE,
+  sections: CLASSIC_CONTENT,
 }
 
 export const useContentEditorStore = create<ContentEditorState & ContentEditorActions>()(
@@ -106,6 +108,17 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
         }
         const [removed] = target.splice(fromIndex, 1)
         target.splice(toIndex, 0, removed)
+      })
+    },
+
+    addSection: (sectionType) => {
+      set((state) => {
+        const factory = SECTION_FACTORIES[sectionType]
+        if (!factory) return
+
+        // Create a new section with fresh IDs
+        const newSection = factory()
+        state.sections.push(newSection)
       })
     },
   })),

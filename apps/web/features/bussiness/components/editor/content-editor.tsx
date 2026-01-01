@@ -1,4 +1,5 @@
-import { memo, useCallback, useMemo } from "react"
+import { Fragment, memo, useCallback, useMemo } from "react"
+import { AddContentSectionButton } from "@/features/bussiness/components/buttons/home/add-more-section-button"
 import { ContentSectionRenderer } from "@/features/bussiness/components/pages/home/content-section-renderer"
 import { EditorBlock } from "@/features/bussiness/components/ui/editor-block"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
@@ -16,9 +17,12 @@ const ContentEditor = () => {
   )
 
   return (
-    <EditorBlock defaultValue={defaultValue}>
-      <SortableList items={sections} onReorder={moveSection} renderItem={renderSections} />
-    </EditorBlock>
+    <Fragment>
+      <EditorBlock defaultValue={defaultValue}>
+        <SortableList items={sections} onReorder={moveSection} renderItem={renderSections} />
+      </EditorBlock>
+      <AddContentSectionButton />
+    </Fragment>
   )
 }
 
