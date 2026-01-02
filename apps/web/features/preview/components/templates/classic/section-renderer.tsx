@@ -1,15 +1,15 @@
-import type { ContentSection } from "@app/core/types"
+import type { ContentSection, FloatingButtonSection } from "@app/core/types"
+import { ContactDetailSection } from "@/features/preview/components/templates/classic/contact"
+import { CtaButtonSection } from "@/features/preview/components/templates/classic/cta-button"
+import { HeadingSection } from "@/features/preview/components/templates/classic/heading"
 import { ImageTextLinkSection } from "@/features/preview/components/templates/classic/images"
-import { ContactDetailSection } from "./contact"
-import { CtaButtonSection } from "./cta-button"
-import { HeadingSection } from "./heading"
-import { SocialLinksSection } from "./links"
-import { ProfileSection } from "./profile"
-import { TeamsSection } from "./team"
-import { VideoSection } from "./video"
+import { SocialLinksSection } from "@/features/preview/components/templates/classic/links"
+import { ProfileSection } from "@/features/preview/components/templates/classic/profile"
+import { TeamsSection } from "@/features/preview/components/templates/classic/team"
+import { VideoSection } from "@/features/preview/components/templates/classic/video"
 
 type ClassicSectionRendererProps = {
-  content: ContentSection
+  content: Exclude<ContentSection, FloatingButtonSection>
 }
 
 export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps) => {
@@ -28,9 +28,6 @@ export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps)
 
     case "cta-button":
       return <CtaButtonSection content={content} />
-
-    // case "floating-button":
-    //   return <FloatingButtonSection content={content} />
 
     case "video-section":
       return <VideoSection content={content} />

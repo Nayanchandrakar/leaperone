@@ -1,30 +1,44 @@
-// import type { FloatingButtonSection } from "@app/core/types"
+import type { FloatingButtonSection } from "@app/core/types"
 import { Plus, QrCode, Share2 } from "lucide-react"
-import { memo } from "react"
+import { Fragment, memo, useMemo } from "react"
 import { BussinessButton } from "@/features/preview/components/ui/bussines-button"
 
-// type FloatingActionsProps = {
-//   content: FloatingButtonSection
-// }
+type FloatingActionProps = {
+  content: FloatingButtonSection
+}
 
-export const FloatingActions = memo(() => {
+export const FloatingActions = memo(({ content }: FloatingActionProps) => {
+  const { showQrButton, showShareButton, label } = content
+
+  const buttonContent = useMemo(() => {
+    return label?.enabled && label?.text ? label.text : null
+  }, [label?.enabled, label?.text])
+
   return (
-    <>
-      <nav className="fixed bottom-2 left-2 xs:bottom-4 xs:left-4 flex gap-2 xs:gap-4">
-        <BussinessButton size="icon">
-          <QrCode />
-        </BussinessButton>
-        <BussinessButton size="icon">
-          <Share2 />
-        </BussinessButton>
-      </nav>
+    <Fragment>
+      {(showQrButton || showShareButton) && (
+        <nav className="fixed bottom-2 left-2 xs:bottom-4 xs:left-4 flex gap-2 xs:gap-4">
+          {showQrButton && (
+            <BussinessButton size="icon">
+              <QrCode aria-hidden="true" focusable="false" />
+            </BussinessButton>
+          )}
 
-      <aside className="fixed bottom-2 right-2 xs:bottom-4 xs:right-4">
-        <BussinessButton>
-          <Plus />
-          Save Contact
-        </BussinessButton>
-      </aside>
-    </>
+          {showShareButton && (
+            <BussinessButton size="icon">
+              <Share2 aria-hidden="true" focusable="false" />
+            </BussinessButton>
+          )}
+        </nav>
+      )}
+      {buttonContent && (
+        <aside className="fixed bottom-2 right-2 xs:bottom-4 xs:right-4">
+          <BussinessButton type="button">
+            <Plus aria-hidden="true" focusable="false" />
+            <span>{buttonContent}</span>
+          </BussinessButton>
+        </aside>
+      )}
+    </Fragment>
   )
 })
