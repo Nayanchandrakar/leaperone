@@ -1,20 +1,54 @@
+import type { ProfileCardSection } from "@app/core/types"
+import { cn } from "@app/ui/lib/utils"
+import { useMemo } from "react"
 import { SectionHeader, SectionTitle } from "@/features/preview/components/ui/section"
 
 interface ProfileInfoProps {
-  name: string
-  company: string
-  jobTitle: string
+  name: ProfileCardSection["name"]
+  info: ProfileCardSection["info"]
 }
 
-export const ProfileInfo = ({ name, jobTitle, company }: ProfileInfoProps) => {
+export function ProfileInfo({ name, info }: ProfileInfoProps) {
+  const { primary, secondary } = info
+
+  const nameContent = useMemo(
+    () => (name.enabled && name?.name ? name.name : null),
+    [name.enabled, name.name],
+  )
+
+  const primaryContent = useMemo(
+    () => (primary.enabled && primary?.text ? primary.text : null),
+    [primary.enabled, primary.text],
+  )
+
+  const secondaryContent = useMemo(
+    () => (secondary.enabled && secondary?.text ? secondary.text : null),
+    [secondary.enabled, secondary.text],
+  )
+
+  const infoContents = [primaryContent, secondaryContent].filter(Boolean)
+
   return (
-    <article className="-mt-32 relative bg-white p-6 rounded-2xl space-y-4 w-fit max-w-75.5 mx-auto">
-      <SectionHeader>
-        <SectionTitle>{name}</SectionTitle>
-        <div className="divide-y divide-border text-sm font-(--font-body-weight) text-(--supporting-text-color) [&_p]:p-1.5 px-3">
-          <p>{jobTitle}</p>
-          <p>{company}</p>
-        </div>
+    <article
+      className={cn(
+        "relative bg-white p-6 rounded-[20px] space-y-4",
+        "group-data-[enabled=true]/profile:-mt-32 group-data-[enabled=true]/profile:w-fit group-data-[enabled=true]/profile:max-w-75.5 group-data-[enabled=true]/profile:mx-auto",
+      )}
+    >
+      <SectionHeader className="break-all">
+        {nameContent && <SectionTitle>{nameContent}</SectionTitle>}
+        {infoContents?.length > 0 && (
+          <div className="divide-y divide-border text-sm">
+            {infoContents.map((content, index) => (
+              <p
+                key={`info-${index}`}
+                className="text-sm font-(--font-body-weight) text-(--supporting-text-color) py-1.5 px-3"
+              >
+                {content}
+              </p>
+            ))}
+          </div>
+        )}
       </SectionHeader>
     </article>
   )

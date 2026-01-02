@@ -1,7 +1,8 @@
 import { MapPin } from "lucide-react"
+import { memo } from "react"
 import { IconBadge } from "@/features/preview/components/ui/icon-badge"
 
-export const QuickActions = () => {
+export const QuickActions = memo(() => {
   return (
     <nav className="flex justify-center items-center gap-4 xs:gap-6 my-7">
       {Array.from({ length: 4 }).map((_, index) => (
@@ -14,4 +15,4 @@ export const QuickActions = () => {
       ))}
     </nav>
   )
-}
+})

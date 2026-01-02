@@ -19,7 +19,7 @@ export const CARD_PROFILE_SECTION: ProfileCardSection = {
   type: "card-profile",
   details: {
     profile: {
-      imageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/70.jpg",
+      imageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
       enabled: true,
     },
     branding: {
@@ -29,7 +29,7 @@ export const CARD_PROFILE_SECTION: ProfileCardSection = {
   },
   name: {
     enabled: true,
-    name: "Michael Smith",
+    name: "Michael Anderson",
   },
   info: {
     primary: {

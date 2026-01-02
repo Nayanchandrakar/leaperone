@@ -4,6 +4,7 @@ import { ContactDetailSection } from "./contact"
 import { CtaButtonSection } from "./cta-button"
 import { HeadingSection } from "./heading"
 import { SocialLinksSection } from "./links"
+import { ProfileSection } from "./profile"
 import { TeamsSection } from "./team"
 import { VideoSection } from "./video"
 
@@ -13,6 +14,9 @@ type ClassicSectionRendererProps = {
 
 export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps) => {
   switch (content.type) {
+    case "card-profile":
+      return <ProfileSection content={content} />
+
     case "heading-text":
       return <HeadingSection content={content} />
 
@@ -36,9 +40,6 @@ export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps)
 
     case "teams-section":
       return <TeamsSection content={content} />
-
-    // case "card-profile":
-    //   return <ProfileSection content={content} />
 
     // case "testimonials-section":
     //   return <TestimonialSection content={content} />

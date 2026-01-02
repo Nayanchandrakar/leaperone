@@ -10,7 +10,7 @@ export const DEFAULT_DESIGN_SETTINGS: DesignEditor = {
   sectionBackground: {
     enabled: true,
     color: "#FFFFFF",
-    borderRadius: 10,
+    borderRadius: 24,
   },
   cardImage: {
     url: "https://images.pexels.com/photos/7004697/pexels-photo-7004697.jpeg",
