@@ -68,7 +68,6 @@ export const EditorBlockItem = memo(
   }) => {
     const { item } = useEditorBlockContext()
     const open = item === value
-
     const contextValue = useMemo(() => ({ value }), [value])
 
     return (

@@ -19,12 +19,12 @@ export const TeamMemberCard = ({ memberName, memberProfile, memberDesignation }:
         )}
         <div className="-space-y-0.5">
           {memberName && (
-            <strong className="font-semibold text-sm text-(--supporting-text-color)">
+            <strong className="font-semibold text-sm text-template-muted-foreground">
               {memberName}
             </strong>
           )}
           {memberDesignation && (
-            <p className="font-(--font-body-weight) text-xs text-(--supporting-text-color)">
+            <p className="font-template-body text-xs text-template-muted-foreground">
               {memberDesignation}
             </p>
           )}

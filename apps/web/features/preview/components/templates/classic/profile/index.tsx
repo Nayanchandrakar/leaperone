@@ -8,13 +8,13 @@ type ProfileSectionProps = {
 }
 
 export const ProfileSection = ({ content }: ProfileSectionProps) => {
-  const { details, info, name } = content
+  const { details, info, name, contacts } = content
 
   return (
     <div data-enabled={details?.profile?.enabled} className="group/profile">
       <ProfileImageWrapper profile={details?.profile} />
       <ProfileInfo name={name} info={info} />
-      <QuickActions />
+      <QuickActions contacts={contacts} />
     </div>
   )
 }

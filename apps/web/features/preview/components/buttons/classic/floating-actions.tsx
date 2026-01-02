@@ -33,9 +33,9 @@ export const FloatingActions = memo(({ content }: FloatingActionProps) => {
       )}
       {buttonContent && (
         <aside className="fixed bottom-2 right-2 xs:bottom-4 xs:right-4">
-          <BussinessButton type="button">
+          <BussinessButton>
             <Plus aria-hidden="true" focusable="false" />
-            <span>{buttonContent}</span>
+            <span className="truncate">{buttonContent}</span>
           </BussinessButton>
         </aside>
       )}

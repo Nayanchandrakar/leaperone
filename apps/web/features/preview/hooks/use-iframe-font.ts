@@ -36,7 +36,7 @@ export const useIframeFont = (
       // If the same font is already loaded, only update CSS custom properties (weights might have changed)
       if (currentFontLinkId.current === fontLinkId && !isSystemFont(font.family)) {
         // Still update CSS properties in case weights changed
-        html.style.setProperty("--font-family", fontFamily)
+        html.style.setProperty("--font-template", fontFamily)
         html.style.setProperty("--font-body-weight", String(font.bodyWeight))
         html.style.setProperty("--font-heading-weight", String(font.headingWeight))
         html.style.setProperty("--font-button-weight", String(font.buttonWeight))
@@ -45,7 +45,7 @@ export const useIframeFont = (
 
       // Set CSS custom properties on the html element so they're available throughout the document
       // This ensures the font is applied even before the portal content renders
-      html.style.setProperty("--font-family", fontFamily)
+      html.style.setProperty("--font-template", fontFamily)
       html.style.setProperty("--font-body-weight", String(font.bodyWeight))
       html.style.setProperty("--font-heading-weight", String(font.headingWeight))
       html.style.setProperty("--font-button-weight", String(font.buttonWeight))
@@ -115,7 +115,7 @@ export const useIframeFont = (
           }
         }
         if (html) {
-          html.style.removeProperty("--font-family")
+          html.style.removeProperty("--font-template")
           html.style.removeProperty("--font-body-weight")
           html.style.removeProperty("--font-heading-weight")
           html.style.removeProperty("--font-button-weight")

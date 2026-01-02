@@ -148,14 +148,32 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Template custom colors */
+  --color-template-primary: var(--template-primary);
+  --color-template-foreground: var(--template-foreground);
+  --color-template-muted-foreground: var(--template-muted-foreground);
+  --color-template-background: var(--template-background);
+  --color-template-card: var(--template-card);
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+
+  /* Template font style */
+  --font-template:var(--font-template);
+
+  /* Template font weights */
+  --font-weight-template-body: var(--font-body-weight);
+  --font-weight-template-button: var(--font-button-weight);
+  --font-weight-template-heading: var(--font-heading-weight);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Template radius */
+  --radius-template-card: var(--card-radius);
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);

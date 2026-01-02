@@ -9,8 +9,7 @@ export const LocationButton = () => {
         target="_blank"
         rel="noopener noreferrer"
         className={buttonVariants({
-          className:
-            "bg-(--highlight-color) font-(--font-button-weight) hover:bg-(--highlight-color)/90",
+          className: "bg-template-primary! font-template-button hover:bg-template-primary/90",
         })}
       >
         <MapPin />

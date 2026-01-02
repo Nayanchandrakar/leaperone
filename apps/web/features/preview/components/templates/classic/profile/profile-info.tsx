@@ -42,7 +42,7 @@ export function ProfileInfo({ name, info }: ProfileInfoProps) {
             {infoContents.map((content, index) => (
               <p
                 key={`info-${index}`}
-                className="text-sm font-(--font-body-weight) text-(--supporting-text-color) py-1.5 px-3"
+                className="text-sm font-template-body text-template-muted-foreground py-1.5 px-3"
               >
                 {content}
               </p>

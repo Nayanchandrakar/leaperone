@@ -3,8 +3,8 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import type * as React from "react"
 
-const buttonVariants = cva(
-  "flex-center gap-1.5 whitespace-nowrap rounded-full text-sm font-(--font-button-weight) transition-colors text-primary-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none cursor-pointer bg-(--highlight-color) hover:bg-(--highlight-color)/90",
+const bizButtonVariants = cva(
+  "flex-center gap-1.5 whitespace-nowrap rounded-full text-sm font-template-button transition-colors text-primary-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none cursor-pointer bg-template-primary hover:bg-template-primary/90",
   {
     variants: {
       size: {
@@ -25,7 +25,7 @@ export const BussinessButton = ({
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+  VariantProps<typeof bizButtonVariants> & {
     asChild?: boolean
   }) => {
   const Comp = asChild ? Slot : "button"
@@ -34,7 +34,7 @@ export const BussinessButton = ({
     <Comp
       type={type}
       data-slot="button"
-      className={cn(buttonVariants({ size, className }))}
+      className={cn(bizButtonVariants({ size, className }))}
       {...props}
     />
   )

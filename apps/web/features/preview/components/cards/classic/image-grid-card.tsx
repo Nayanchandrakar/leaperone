@@ -14,7 +14,7 @@ export const ImageGridCard = ({ href, title, layout, imageSrc }: ImageGridCardPr
       href={href}
       target="_blank"
       data-layout={layout}
-      className="first:data-[layout=featured]:col-span-2 space-y-2 font-normal text-center text-xs text-(--supporting-text-color)"
+      className="first:data-[layout=featured]:col-span-2 space-y-2 font-normal text-center text-xs text-template-muted-foreground"
     >
       <div className="w-full">
         <Image
