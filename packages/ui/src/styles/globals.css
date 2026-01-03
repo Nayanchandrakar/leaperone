@@ -159,9 +159,6 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
-  /* Template font style */
-  --font-template:var(--font-template);
-
   /* Template font weights */
   --font-weight-template-body: var(--font-body-weight);
   --font-weight-template-button: var(--font-button-weight);

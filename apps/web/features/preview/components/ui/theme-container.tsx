@@ -10,7 +10,7 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
 
   return (
     <main
-      data-section={design?.sectionBackground?.enabled}
+      data-background={design?.sectionBackground?.enabled}
       className="group/section relative overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
       style={
         {

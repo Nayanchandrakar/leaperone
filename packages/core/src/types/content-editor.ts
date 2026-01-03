@@ -74,30 +74,24 @@ export interface ImageLink {
 
 export interface TeamMember {
   id: string
-  memberName: string
-  memberDesignation: string
-  memberProfile: {
+  name: string
+  designation: string
+  profile: {
     enabled: boolean
     imageSrc: string
   }
-  memberDescription: {
-    text: string
-    enabled: boolean
-  }
+  description: EnabledField<string>
 }
 
 export interface TestimonialMember {
   id: string
-  authorName: string
-  authorDesignation: string
-  authorProfile: {
+  name: string
+  designation: string
+  profile: {
     enabled: boolean
     imageSrc: string
   }
-  testimonialText: {
-    text: string
-    enabled: boolean
-  }
+  testimonialText: EnabledField<string>
 }
 
 export interface ProfileCardSection extends BaseContentSection<"card-profile"> {

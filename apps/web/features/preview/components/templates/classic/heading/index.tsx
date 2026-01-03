@@ -12,13 +12,13 @@ type HeadingSectionProps = {
 }
 
 export const HeadingSection = memo(({ content }: HeadingSectionProps) => {
-  const { heading, description } = content
+  const { heading, description, background } = content
 
   const showHeading = useMemo(() => heading?.enabled && heading?.text, [heading])
   const showDescription = useMemo(() => description?.enabled && description?.text, [description])
 
   return (
-    <SectionRoot className="space-y-3 p-8 pt-7 text-center">
+    <SectionRoot background={background} className="space-y-3 p-8 pt-7 text-center">
       <SectionHeader>
         {showHeading && <SectionTitle>{heading.text}</SectionTitle>}
         {showDescription && <SectionDescription>{description.text}</SectionDescription>}

@@ -16,8 +16,7 @@ export const CtaButton = memo(({ href, label }: CtaButton) => {
       rel="noopener noreferrer"
       className={buttonVariants({
         size: "lg",
-        className:
-          "w-full bg-template-primary truncate font-template-button hover:bg-template-primary/90",
+        className: "w-full bg-template-primary! font-template-button hover:bg-template-primary/90",
       })}
     >
       <span className="truncate">{label}</span>

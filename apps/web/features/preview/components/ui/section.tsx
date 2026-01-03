@@ -1,10 +1,15 @@
 import { cn } from "@app/ui/lib/utils"
 
-export const SectionRoot = ({ className, ...props }: React.ComponentProps<"article">) => (
+export const SectionRoot = ({
+  background,
+  className,
+  ...props
+}: React.ComponentProps<"article"> & { background?: boolean }) => (
   <article
     data-slot="section-root"
+    data-background={background}
     className={cn(
-      "group-data-[section=true]/section:bg-template-card rounded-template-card",
+      "data-[background=true]:group-data-[background=true]/section:bg-template-card rounded-template-card",
       className,
     )}
     {...props}

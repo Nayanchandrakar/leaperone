@@ -5,7 +5,7 @@ import { HeadingSection } from "@/features/preview/components/templates/classic/
 import { ImageTextLinkSection } from "@/features/preview/components/templates/classic/images"
 import { SocialLinksSection } from "@/features/preview/components/templates/classic/links"
 import { ProfileSection } from "@/features/preview/components/templates/classic/profile"
-import { TeamsSection } from "@/features/preview/components/templates/classic/team"
+import { TeamSection } from "@/features/preview/components/templates/classic/team"
 import { VideoSection } from "@/features/preview/components/templates/classic/video"
 
 type ClassicSectionRendererProps = {
@@ -36,10 +36,10 @@ export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps)
       return <SocialLinksSection content={content} />
 
     case "teams-section":
-      return <TeamsSection content={content} />
+      return <TeamSection content={content} />
 
     // case "testimonials-section":
-    //   return <TestimonialSection content={content} />
+    //   return <TeamsSection content={content} />
 
     default: {
       return null

@@ -9,11 +9,11 @@ type ContactDetailSectionProps = {
 }
 
 export const ContactDetailSection = memo(({ content }: ContactDetailSectionProps) => {
-  const { heading, items } = content
+  const { heading, items, background } = content
   const showHeading = useMemo(() => heading.enabled && heading?.text, [heading])
 
   return (
-    <SectionRoot className="space-y-4 p-8">
+    <SectionRoot background={background} className="space-y-4 p-8">
       {showHeading && <SectionTitle className="text-center">{content?.heading?.text}</SectionTitle>}
       <ContactInfoList contacts={items} />
       <LocationButton />

@@ -19,39 +19,39 @@ export const TeamMemberRenderer = memo(
       index,
       subIndex,
       ["members"],
-      ["memberName"],
+      ["name"],
     )
-    const [memberDesignation, setMemberDesignation] = useSubSectionField<string>(
+    const [designation, setDesignation] = useSubSectionField<string>(
       index,
       subIndex,
       ["members"],
-      ["memberDesignation"],
+      ["designation"],
     )
 
     const [profileEnabled, setProfileEnabled] = useSubSectionField<boolean>(
       index,
       subIndex,
       ["members"],
-      ["memberProfile", "enabled"],
+      ["profile", "enabled"],
     )
     const [profileImage] = useSubSectionField<string>(
       index,
       subIndex,
       ["members"],
-      ["memberProfile", "imageSrc"],
+      ["profile", "imageSrc"],
     )
 
     const [descEnabled, setDescEnabled] = useSubSectionField<boolean>(
       index,
       subIndex,
       ["members"],
-      ["memberDescription", "enabled"],
+      ["description", "enabled"],
     )
     const [descText, setDescText] = useSubSectionField<string>(
       index,
       subIndex,
       ["members"],
-      ["memberDescription", "text"],
+      ["description", "text"],
     )
 
     const handleDelete = useCallback(() => {
@@ -65,11 +65,11 @@ export const TeamMemberRenderer = memo(
       [setMemberName],
     )
 
-    const handleMemberDesignationChange = useCallback(
+    const handledesignationChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMemberDesignation(e?.target?.value)
+        setDesignation(e?.target?.value)
       },
-      [setMemberDesignation],
+      [setDesignation],
     )
 
     return (
@@ -82,7 +82,7 @@ export const TeamMemberRenderer = memo(
             </Field>
             <Field>
               <FieldLabel>Designation</FieldLabel>
-              <Input value={memberDesignation} onChange={handleMemberDesignationChange} />
+              <Input value={designation} onChange={handledesignationChange} />
             </Field>
           </div>
           <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
@@ -94,9 +94,9 @@ export const TeamMemberRenderer = memo(
             />
             <ToggleTextareaField
               value={descText}
+              className="h-full"
               label="Description"
               enabled={descEnabled}
-              fieldClassName="h-full"
               onValueChange={setDescText}
               onEnabledChange={setDescEnabled}
             />
@@ -106,5 +106,3 @@ export const TeamMemberRenderer = memo(
     )
   },
 )
-
-TeamMemberRenderer.displayName = "TeamMemberRenderer"

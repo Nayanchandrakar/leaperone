@@ -32,5 +32,3 @@ export const TeamMembersList = memo(({ index }: ContentSectionProps) => {
 
   return <SortableList items={list} onReorder={moveItem} renderItem={renderItem} />
 })
-
-TeamMembersList.displayName = "TeamMembersList"

@@ -13,7 +13,6 @@ export default function ClassicTemplate({ design, mode, contents, floating }: Te
         ))}
         <BrandingButton settings={design?.settings} />
       </section>
-
       {floating && <FloatingActions content={floating} />}
     </ThemeContainer>
   )

@@ -13,13 +13,13 @@ type ImageTextLinkSection = {
 }
 
 export const ImageTextLinkSection = memo(({ content }: ImageTextLinkSection) => {
-  const { heading, description, images, imageView } = content
+  const { heading, description, images, imageView, background } = content
 
   const showHeading = useMemo(() => heading?.enabled && heading?.text, [heading])
   const showDescription = useMemo(() => description?.enabled && description?.text, [description])
 
   return (
-    <SectionRoot className="space-y-6 pt-7 px-4 pb-4">
+    <SectionRoot background={background} className="space-y-6 pt-7 px-4 pb-4">
       <SectionHeader>
         {showHeading && <SectionTitle>{heading?.text}</SectionTitle>}
         {showDescription && <SectionDescription>{description?.text}</SectionDescription>}

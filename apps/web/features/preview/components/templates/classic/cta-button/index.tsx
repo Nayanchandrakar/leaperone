@@ -13,7 +13,7 @@ type CtaButtonSectionProps = {
 }
 
 export const CtaButtonSection = memo(({ content }: CtaButtonSectionProps) => {
-  const { heading, description, label, link } = content
+  const { heading, description, label, link, background } = content
 
   const headingContent = useMemo(
     () => (heading.enabled && heading?.text ? heading.text : null),
@@ -25,7 +25,7 @@ export const CtaButtonSection = memo(({ content }: CtaButtonSectionProps) => {
   )
 
   return (
-    <SectionRoot className="space-y-6 p-8 pt-7">
+    <SectionRoot background={background} className="space-y-6 p-8 pt-7">
       {(headingContent || descriptionContent) && (
         <SectionHeader>
           {headingContent && <SectionTitle>{headingContent}</SectionTitle>}

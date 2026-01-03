@@ -14,18 +14,16 @@ export const ImageGridCard = ({ href, title, layout, imageSrc }: ImageGridCardPr
       href={href}
       target="_blank"
       data-layout={layout}
-      className="first:data-[layout=featured]:col-span-2 space-y-2 font-normal text-center text-xs text-template-muted-foreground"
+      className="flex-none w-full first:data-[layout=featured]:col-span-2 space-y-2 font-normal text-center text-xs text-template-muted-foreground"
     >
-      <div className="w-full">
-        <Image
-          width={1000}
-          height={1000}
-          sizes="100vw"
-          src={imageSrc}
-          alt="bussiness-images"
-          className="aspect-square object-cover rounded-2xl w-full"
-        />
-      </div>
+      <Image
+        width={1000}
+        height={1000}
+        sizes="100vw"
+        src={imageSrc}
+        alt="bussiness-images"
+        className="aspect-square object-cover rounded-2xl w-full"
+      />
       {title && <span className="break-all">{title}</span>}
     </a>
   )

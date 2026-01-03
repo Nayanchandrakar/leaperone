@@ -29,7 +29,7 @@ export const IFRAME_HTML = `
     <style>
       html{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
       *,*:before,*:after{box-sizing:inherit;}
-      body{margin:0;padding:0;min-height:100vh;background:#fff;font-family:var(--font-family,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif);}
+      body{margin:0;padding:0;min-height:100vh;background:#fff;font-family:var(--font-template,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif);}
     </style>
   </head>
   <body></body>

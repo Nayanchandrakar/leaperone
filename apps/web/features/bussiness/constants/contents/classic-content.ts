@@ -253,26 +253,26 @@ export const TEAMS_SECTION: TeamSection = {
   members: [
     {
       id: generateUUID(),
-      memberName: "Ema Mark",
-      memberDesignation: "Designation",
-      memberProfile: {
+      name: "Ema Mark",
+      designation: "Designation",
+      profile: {
         imageSrc: "https://images.pexels.com/photos/4016579/pexels-photo-4016579.jpeg",
         enabled: true,
       },
-      memberDescription: {
+      description: {
         text: "",
         enabled: true,
       },
     },
     {
       id: generateUUID(),
-      memberName: "Ben T.",
-      memberDesignation: "Designation",
-      memberProfile: {
+      name: "Ben T.",
+      designation: "Designation",
+      profile: {
         imageSrc: "https://images.pexels.com/photos/29647834/pexels-photo-29647834.jpeg",
         enabled: true,
       },
-      memberDescription: {
+      description: {
         text: "",
         enabled: true,
       },
@@ -296,9 +296,9 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
   testimonials: [
     {
       id: generateUUID(),
-      authorName: "Jim Cook",
-      authorDesignation: "Designation, Company",
-      authorProfile: {
+      name: "Jim Cook",
+      designation: "Designation, Company",
+      profile: {
         imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
         enabled: true,
       },
@@ -309,9 +309,9 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
     },
     {
       id: generateUUID(),
-      authorName: "Mary Lee",
-      authorDesignation: "Designation, Company",
-      authorProfile: {
+      name: "Mary Lee",
+      designation: "Designation, Company",
+      profile: {
         imageSrc: "https://images.pexels.com/photos/15577996/pexels-photo-15577996.png",
         enabled: true,
       },
@@ -325,10 +325,11 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
 
 /** Default classic template */
 export const CLASSIC_CONTENT: ContentSection[] = [
-  CARD_PROFILE_SECTION,
-  HEADING_TEXT_SECTION,
-  IMAGE_TEXT_LINKS_SECTION,
-  LINK_SECTION,
-  CONTACT_DETAILS_SECTION,
-  FLOATING_BUTTON_SECTION,
+  // CARD_PROFILE_SECTION,
+  // HEADING_TEXT_SECTION,
+  // IMAGE_TEXT_LINKS_SECTION,
+  // LINK_SECTION,
+  // CONTACT_DETAILS_SECTION,
+  // FLOATING_BUTTON_SECTION,
+  TEAMS_SECTION,
 ]

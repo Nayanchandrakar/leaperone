@@ -13,7 +13,7 @@ type SocialLinksSectionProps = {
 }
 
 export const SocialLinksSection = memo(({ content }: SocialLinksSectionProps) => {
-  const { heading, description, links } = content
+  const { heading, description, links, background } = content
 
   const headingContent = useMemo(
     () => (heading?.enabled && heading?.text ? heading.text : null),
@@ -26,7 +26,7 @@ export const SocialLinksSection = memo(({ content }: SocialLinksSectionProps) =>
   )
 
   return (
-    <SectionRoot className="space-y-6 py-9 px-10">
+    <SectionRoot background={background} className="space-y-6 py-9 px-10">
       {(headingContent || descriptionContent) && (
         <SectionHeader>
           {headingContent && <SectionTitle>{headingContent}</SectionTitle>}
