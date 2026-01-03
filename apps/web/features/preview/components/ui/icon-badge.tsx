@@ -1,16 +1,15 @@
 import { cn } from "@app/ui/lib/utils"
 import type { LucideIcon } from "lucide-react"
+import type { IconProps } from "@/types"
 
 interface IconBadgeProps {
   className?: string
   iconClassName?: string
-  Icon: LucideIcon | ((props: React.HTMLAttributes<SVGElement>) => React.JSX.Element)
+  Icon: LucideIcon | ((props: IconProps) => React.JSX.Element)
 }
 
-export const IconBadge = ({ Icon, className, iconClassName }: IconBadgeProps) => {
-  return (
-    <span className={cn("bg-template-primary size-8 flex-center rounded-full", className)}>
-      <Icon className={cn("stroke-none size-4 fill-white", iconClassName)} />
-    </span>
-  )
-}
+export const IconBadge: React.FC<IconBadgeProps> = ({ Icon, className, iconClassName }) => (
+  <span className={cn("bg-template-primary size-8 flex-center rounded-full", className)}>
+    <Icon className={cn("size-4", iconClassName)} />
+  </span>
+)

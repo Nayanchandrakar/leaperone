@@ -1,4 +1,4 @@
-import { BussinessIcons } from "@/features/bussiness/components/shared/bussiness-icons"
+import { FontIcons } from "@/features/bussiness/components/shared/font-icons"
 import type { FontOption } from "@/features/bussiness/types"
 
 // Modern Fonts
@@ -9,7 +9,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.inter,
+    Icon: FontIcons.inter,
   },
   {
     id: "lato",
@@ -17,7 +17,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.lato,
+    Icon: FontIcons.lato,
   },
   {
     id: "montserrat",
@@ -25,7 +25,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.montserrat,
+    Icon: FontIcons.montserrat,
   },
   {
     id: "space-grotesk",
@@ -33,7 +33,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.spaceGrotesk,
+    Icon: FontIcons.spaceGrotesk,
   },
   {
     id: "poppins",
@@ -41,7 +41,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.poppins,
+    Icon: FontIcons.poppins,
   },
   {
     id: "raleway",
@@ -49,7 +49,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.raleway,
+    Icon: FontIcons.raleway,
   },
   {
     id: "syne",
@@ -57,7 +57,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.syne,
+    Icon: FontIcons.syne,
   },
   {
     id: "saira",
@@ -65,7 +65,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.saira,
+    Icon: FontIcons.saira,
   },
   {
     id: "ibm-plex-mono",
@@ -73,7 +73,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.plexmono,
+    Icon: FontIcons.plexmono,
   },
   {
     id: "roboto",
@@ -81,7 +81,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.roboto,
+    Icon: FontIcons.roboto,
   },
   {
     id: "nunito",
@@ -89,7 +89,7 @@ export const MODERN_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.nunito,
+    Icon: FontIcons.nunito,
   },
 ]
 
@@ -101,7 +101,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.robotoSans,
+    Icon: FontIcons.robotoSans,
   },
   {
     id: "lora",
@@ -109,7 +109,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.lora,
+    Icon: FontIcons.lora,
   },
   {
     id: "merriweather",
@@ -117,7 +117,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.meriWeather,
+    Icon: FontIcons.meriWeather,
   },
   {
     id: "gfs-didot",
@@ -125,7 +125,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.didot,
+    Icon: FontIcons.didot,
   },
   {
     id: "ibm-plex-serif",
@@ -133,7 +133,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 600,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.plexSerif,
+    Icon: FontIcons.plexSerif,
   },
   {
     id: "fraunces",
@@ -141,7 +141,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 600,
     bodyWeight: 400,
-    Icon: BussinessIcons.fraunces,
+    Icon: FontIcons.fraunces,
   },
   {
     id: "inria-serif",
@@ -149,7 +149,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 700,
     bodyWeight: 400,
-    Icon: BussinessIcons.inira,
+    Icon: FontIcons.inira,
   },
   {
     id: "noto-serif",
@@ -157,7 +157,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.notoSerif,
+    Icon: FontIcons.notoSerif,
   },
   {
     id: "times-new-roman",
@@ -165,7 +165,7 @@ export const CLASSIC_FONTS: FontOption[] = [
     headingWeight: 700,
     buttonWeight: 500,
     bodyWeight: 400,
-    Icon: BussinessIcons.newRoman,
+    Icon: FontIcons.newRoman,
   },
 ]
 
@@ -177,7 +177,7 @@ export const FANCY_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.sourGummy,
+    Icon: FontIcons.sourGummy,
   },
   {
     id: "delius",
@@ -185,7 +185,7 @@ export const FANCY_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.delius,
+    Icon: FontIcons.delius,
   },
   {
     id: "indie-flower",
@@ -193,7 +193,7 @@ export const FANCY_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.indieFlower,
+    Icon: FontIcons.indieFlower,
   },
   {
     id: "satisfy",
@@ -201,7 +201,7 @@ export const FANCY_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.satisfy,
+    Icon: FontIcons.satisfy,
   },
   {
     id: "handlee",
@@ -209,6 +209,6 @@ export const FANCY_FONTS: FontOption[] = [
     headingWeight: 400,
     buttonWeight: 400,
     bodyWeight: 400,
-    Icon: BussinessIcons.handlee,
+    Icon: FontIcons.handlee,
   },
 ]

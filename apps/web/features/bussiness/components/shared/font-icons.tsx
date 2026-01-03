@@ -1,6 +1,6 @@
 import type { IconProps } from "@/types"
 
-export const BussinessIcons = {
+export const FontIcons = {
   inter: (props: IconProps) => (
     <svg
       width="30"

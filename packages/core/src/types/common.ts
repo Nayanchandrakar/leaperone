@@ -24,7 +24,7 @@ export type ContactType =
   | "wechat"
   | "telegram"
 
-export type SocialLinkType =
+type SocialLinkBase =
   | "facebook"
   | "instagram"
   | "twitter"
@@ -35,14 +35,6 @@ export type SocialLinkType =
   | "snapchat"
   | "behance"
   | "pinterest"
-  | "phone"
-  | "email"
-  | "website"
-  | "location"
-  | "sms"
-  | "whatsapp"
-  | "wechat"
-  | "telegram"
   | "google-business"
   | "yelp"
   | "etsy"
@@ -54,6 +46,8 @@ export type SocialLinkType =
   | "apple-music"
   | "sound-cloud"
   | "spotify"
+
+export type SocialLinkType = SocialLinkBase | ContactType
 
 export type FontFamily =
   | "Inter"
