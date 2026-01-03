@@ -1,8 +1,9 @@
 import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
+import { Textarea } from "@app/ui/components/textarea"
 import { memo, useCallback } from "react"
 import { ImageToggleField } from "@/features/bussiness/components/fields/image-toggle-field"
-import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
+import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { SortableSubListItem } from "@/features/bussiness/components/ui/sortable-list"
 import { useSubSectionField } from "@/features/bussiness/hooks/home/use-subsection-field"
 
@@ -15,61 +16,63 @@ interface TestimonialItemRendererProps {
 
 export const TestimonialItemRenderer = memo(
   ({ itemId, index, subIndex, onDelete }: TestimonialItemRendererProps) => {
-    const [authorName, setAuthorName] = useSubSectionField<string>(
+    const [name, setName] = useSubSectionField<string>(index, subIndex, ["testimonials"], ["name"])
+    const [designationEnabled, setDesignationEnabled] = useSubSectionField<boolean>(
       index,
       subIndex,
       ["testimonials"],
-      ["authorName"],
+      ["designation", "enabled"],
     )
-    const [authorDesignation, setAuthorDesignation] = useSubSectionField<string>(
+    const [designation, setDesignation] = useSubSectionField<string>(
       index,
       subIndex,
       ["testimonials"],
-      ["authorDesignation"],
+      ["designation", "text"],
     )
 
     const [profileEnabled, setProfileEnabled] = useSubSectionField<boolean>(
       index,
       subIndex,
       ["testimonials"],
-      ["authorProfile", "enabled"],
+      ["profile", "enabled"],
     )
     const [profileImage] = useSubSectionField<string>(
       index,
       subIndex,
       ["testimonials"],
-      ["authorProfile", "imageSrc"],
+      ["profile", "imageSrc"],
     )
 
-    const [textEnabled, setTextEnabled] = useSubSectionField<boolean>(
+    const [testimonialText, setTestimonialText] = useSubSectionField<string>(
       index,
       subIndex,
       ["testimonials"],
-      ["testimonialText", "enabled"],
-    )
-    const [textVal, setTextVal] = useSubSectionField<string>(
-      index,
-      subIndex,
-      ["testimonials"],
-      ["testimonialText", "text"],
+      ["testimonialText"],
     )
 
     const handleDelete = useCallback(() => {
       onDelete(subIndex)
     }, [onDelete, subIndex])
 
-    const handleAuthorNameChange = useCallback(
+    const handleNameChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthorName(e?.target?.value)
+        setName(e?.target?.value)
       },
-      [setAuthorName],
+      [setName],
     )
 
-    const handleAuthorDesignationChange = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAuthorDesignation(e?.target?.value)
+    const handleDesignationChange = useCallback(
+      (value: string) => {
+        setDesignation(value)
       },
-      [setAuthorDesignation],
+      [setDesignation],
+    )
+
+    const handleTextimonialTextChange = useCallback(
+      (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTestimonialText(e?.target?.value)
+      },
+      [setTestimonialText],
     )
 
     return (
@@ -78,12 +81,16 @@ export const TestimonialItemRenderer = memo(
           <div className="grid @lg/editor-sub-sort:grid-cols-2 gap-3">
             <Field>
               <FieldLabel>Name</FieldLabel>
-              <Input value={authorName} onChange={handleAuthorNameChange} />
+              <Input value={name} onChange={handleNameChange} />
             </Field>
-            <Field>
-              <FieldLabel>Designation/Company</FieldLabel>
-              <Input value={authorDesignation} onChange={handleAuthorDesignationChange} />
-            </Field>
+            <ToggleField
+              variant="default"
+              value={designation}
+              enabled={designationEnabled}
+              label="Designation & Company"
+              onValueChange={handleDesignationChange}
+              onEnabledChange={setDesignationEnabled}
+            />
           </div>
 
           <div className="flex flex-col @sm/editor-sub-sort:flex-row gap-6">
@@ -94,19 +101,17 @@ export const TestimonialItemRenderer = memo(
               onEnabledChange={setProfileEnabled}
             />
 
-            <ToggleTextareaField
-              value={textVal}
-              className="h-full"
-              label="Testimonial"
-              enabled={textEnabled}
-              onValueChange={setTextVal}
-              onEnabledChange={setTextEnabled}
-            />
+            <Field>
+              <FieldLabel>Testimonial Text</FieldLabel>
+              <Textarea
+                className="h-full"
+                value={testimonialText}
+                onChange={handleTextimonialTextChange}
+              />
+            </Field>
           </div>
         </FieldSet>
       </SortableSubListItem>
     )
   },
 )
-
-TestimonialItemRenderer.displayName = "TestimonialItemRenderer"

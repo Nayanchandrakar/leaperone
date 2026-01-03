@@ -297,39 +297,38 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
     {
       id: generateUUID(),
       name: "Jim Cook",
-      designation: "Designation, Company",
+      designation: {
+        enabled: true,
+        text: "Designation, Company",
+      },
       profile: {
         imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
         enabled: true,
       },
-      testimonialText: {
-        text: "Amazing Experience. Kudos to the great customer support team.",
-        enabled: true,
-      },
+      testimonialText: "Amazing Experience. Kudos to the great customer support team.",
     },
     {
       id: generateUUID(),
       name: "Mary Lee",
-      designation: "Designation, Company",
+      designation: {
+        enabled: true,
+        text: "Designation, Company",
+      },
       profile: {
         imageSrc: "https://images.pexels.com/photos/15577996/pexels-photo-15577996.png",
         enabled: true,
       },
-      testimonialText: {
-        text: "Nice work! Highly recommended.",
-        enabled: true,
-      },
+      testimonialText: "Nice work! Highly recommended.",
     },
   ],
 }
 
 /** Default classic template */
 export const CLASSIC_CONTENT: ContentSection[] = [
-  // CARD_PROFILE_SECTION,
-  // HEADING_TEXT_SECTION,
-  // IMAGE_TEXT_LINKS_SECTION,
-  // LINK_SECTION,
-  // CONTACT_DETAILS_SECTION,
-  // FLOATING_BUTTON_SECTION,
-  TEAMS_SECTION,
+  CARD_PROFILE_SECTION,
+  HEADING_TEXT_SECTION,
+  IMAGE_TEXT_LINKS_SECTION,
+  CONTACT_DETAILS_SECTION,
+  LINK_SECTION,
+  FLOATING_BUTTON_SECTION,
 ]

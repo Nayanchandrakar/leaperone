@@ -299,28 +299,28 @@ export const createTestimonialsSection = (): TestimonialsSection => ({
     {
       id: generateUUID(),
       name: "Jim Cook",
-      designation: "Designation, Company",
+      designation: {
+        enabled: true,
+        text: "Designation, Company",
+      },
       profile: {
+        enabled: true,
         imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
-        enabled: true,
       },
-      testimonialText: {
-        text: "Amazing Experience. Kudos to the great customer support team.",
-        enabled: true,
-      },
+      testimonialText: "Amazing Experience. Kudos to the great customer support team.",
     },
     {
       id: generateUUID(),
       name: "Mary Lee",
-      designation: "Designation, Company",
+      designation: {
+        text: "Designation, Company",
+        enabled: true,
+      },
       profile: {
         imageSrc: "https://images.pexels.com/photos/15577996/pexels-photo-15577996.png",
         enabled: true,
       },
-      testimonialText: {
-        text: "Nice work! Highly recommended.",
-        enabled: true,
-      },
+      testimonialText: "Nice work! Highly recommended.",
     },
   ],
 })

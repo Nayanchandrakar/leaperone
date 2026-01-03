@@ -83,15 +83,15 @@ export interface TeamMember {
   description: EnabledField<string>
 }
 
-export interface TestimonialMember {
+export interface Testimonial {
   id: string
   name: string
-  designation: string
+  designation: EnabledField<string>
   profile: {
     enabled: boolean
     imageSrc: string
   }
-  testimonialText: EnabledField<string>
+  testimonialText: string
 }
 
 export interface ProfileCardSection extends BaseContentSection<"card-profile"> {
@@ -178,7 +178,7 @@ export interface TestimonialsSection extends BaseContentSection<"testimonials-se
   background: boolean
   heading: EnabledField<string>
   description: EnabledField<string>
-  testimonials: TestimonialMember[]
+  testimonials: Testimonial[]
 }
 
 export type ContentSection =

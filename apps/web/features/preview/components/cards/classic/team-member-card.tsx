@@ -1,8 +1,8 @@
 import type { TeamMember } from "@app/core/types"
 import { Avatar, AvatarImage } from "@app/ui/components/avatar"
 import { useMemo } from "react"
+import { Member, MemberDescription, MemberName } from "@/features/preview/components/ui/member"
 import { SectionRoot } from "@/features/preview/components/ui/section"
-import { Member, MemberDescription, MemberName } from "../../ui/member"
 
 type TeamMemberCardProps = {
   member: TeamMember
