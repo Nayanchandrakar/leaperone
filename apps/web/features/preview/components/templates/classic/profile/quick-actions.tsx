@@ -36,11 +36,13 @@ const QuickActionItem = ({ id, type, value }: Contact) => {
 
   return (
     <a key={id} target="_blank" rel="noopener noreferrer" href={href}>
-      <IconBadge
-        Icon={ContactIcons[type]}
-        className="size-12 xs:size-15"
-        iconClassName="size-5 xs:size-7"
-      />
+      {ContactIcons[type] && (
+        <IconBadge
+          Icon={ContactIcons[type]}
+          className="size-12 xs:size-15"
+          iconClassName="size-5 xs:size-7"
+        />
+      )}
     </a>
   )
 }

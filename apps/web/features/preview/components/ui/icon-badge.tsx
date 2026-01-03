@@ -9,7 +9,7 @@ interface IconBadgeProps {
 }
 
 export const IconBadge: React.FC<IconBadgeProps> = ({ Icon, className, iconClassName }) => (
-  <span className={cn("bg-template-primary size-8 flex-center rounded-full", className)}>
+  <span className={cn("bg-template-primary size-9 flex-center rounded-full", className)}>
     <Icon className={cn("size-4", iconClassName)} />
   </span>
 )

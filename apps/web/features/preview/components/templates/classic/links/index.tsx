@@ -1,5 +1,6 @@
 import type { LinkSection } from "@app/core/types"
 import { memo, useMemo } from "react"
+import { SocialLinkRow } from "@/features/preview/components/templates/classic/links/social-link-row"
 import {
   SectionDescription,
   SectionHeader,
@@ -12,7 +13,7 @@ type SocialLinksSectionProps = {
 }
 
 export const SocialLinksSection = memo(({ content }: SocialLinksSectionProps) => {
-  const { heading, description } = content
+  const { heading, description, links } = content
 
   const headingContent = useMemo(
     () => (heading?.enabled && heading?.text ? heading.text : null),
@@ -32,9 +33,7 @@ export const SocialLinksSection = memo(({ content }: SocialLinksSectionProps) =>
           {descriptionContent && <SectionDescription>{descriptionContent}</SectionDescription>}
         </SectionHeader>
       )}
-      {/* <ul>
-        {Array.isArray(links) && links.map((link) => <SocialLinkRow key={link.id} link={link} />)}
-      </ul> */}
+      <ul>{links?.length > 0 && links.map((link) => <SocialLinkRow key={link.id} {...link} />)}</ul>
     </SectionRoot>
   )
 })
