@@ -1,6 +1,6 @@
 import type { Contact } from "@app/core/types"
 import { memo } from "react"
-import { ContactIcons } from "@/features/bussiness/components/shared/contact-icons"
+import { ContactIcons } from "@/features/preview/components/shared/contact-icons"
 import { IconBadge } from "@/features/preview/components/ui/icon-badge"
 import { contactLinkFormatter } from "@/features/preview/utils/contact-link-formatter"
 

@@ -5,6 +5,7 @@ import type {
   Font,
   ImageViewType,
   QrCodeFill,
+  SocialLinkType,
 } from "@app/core/types"
 import type * as React from "react"
 import type { IconProps } from "@/types"
@@ -57,4 +58,5 @@ export type ContentSectionProps = {
   index: number
 }
 
+export type SocialIconMap = Record<SocialLinkType, (props: IconProps) => React.JSX.Element>
 export type ContentSectionMap = Record<ContentSectionType, React.ComponentType<ContentSectionProps>>
