@@ -1,5 +1,6 @@
 import { FieldGroup } from "@app/ui/components/field"
 import { memo, useMemo } from "react"
+import { AddLinkDialog } from "@/features/bussiness/components/dialogs/home/add-link"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
@@ -52,6 +53,7 @@ export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
           onEnabledChange={setDescEnabled}
         />
         <RenderLinksForm index={index} />
+        <AddLinkDialog index={index} />
       </FieldGroup>
       <SectionBackgroundToggle enabled={background} onEnabledChange={setBackground} />
     </SortableListItem>

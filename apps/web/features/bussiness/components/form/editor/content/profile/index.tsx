@@ -29,7 +29,7 @@ export const ProfileForm = memo(({ index }: ContentSectionProps) => {
       itemTitle="Card Profile"
       onIsEnabledChange={setEnabled}
     >
-      <FieldGroup className="p-5">
+      <FieldGroup>
         <ProfileDetailsForm index={index} />
         <ProfileInfoForm index={index} />
         <FieldSeparator />

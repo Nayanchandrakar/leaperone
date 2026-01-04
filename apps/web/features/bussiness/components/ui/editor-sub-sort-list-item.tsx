@@ -35,7 +35,7 @@ export const EditorSubSortListItem = ({
       className={cn(
         "rounded-xl bg-muted px-4 sm:px-6 py-8 relative border @container/editor-sub-sort",
         "data-[dragging=true]:border-primary",
-        "data-[grabbing=true]:pointer-events-none data-[grabbing=true]:cursor-grabbing data-[grabbing=true]:opacity-60",
+        "data-[grabbing=true]:pointer-events-none data-[grabbing=true]:cursor-grabbing data-[grabbing=true]:opacity-50",
         className,
       )}
       {...props}

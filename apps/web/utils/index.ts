@@ -10,5 +10,5 @@ export function formatCurrency(
 }
 
 export function generateUUID() {
-  return crypto.randomUUID()
+  return crypto?.randomUUID()
 }

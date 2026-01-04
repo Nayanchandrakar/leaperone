@@ -43,7 +43,7 @@ export const FilePreviewDialog = () => {
           <div className="flex items-center gap-2.5">
             <FileCardIcon type="image" />
             <p className="text-sm max-w-24 min-[470px]:max-w-40 truncate font-normal text-muted-foreground">
-              {asset?.name}sdsdfsdfsdfsdfsdf
+              {asset?.name}
             </p>
           </div>
 
