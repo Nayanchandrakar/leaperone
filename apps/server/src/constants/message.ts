@@ -91,4 +91,15 @@ export const MSG = {
   SUPPORT: {
     SUBMIT_SUCCESS: "Support request submitted. Our team will respond shortly.",
   },
+
+  INVITATION: {
+    NOT_FOUND: "Invitation not found",
+    EXPIRED: "Invitation has expired",
+    ALREADY_ACCEPTED: "Invitation has already been accepted",
+    USERNAME_RESERVED: "Username is already reserved",
+    EMAIL_RESERVED: "Email is already reserved",
+    CREATED: "Invitation created successfully",
+    ACCEPTED: "Invitation accepted successfully",
+    ACCOUNT_CREATED: "Account created successfully",
+  },
 } as const
