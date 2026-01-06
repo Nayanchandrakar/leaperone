@@ -102,6 +102,14 @@ export interface PdfFile {
   subTitle: EnabledField<string>
 }
 
+export interface Period {
+  id: string
+  start: Date
+  end: Date
+  label: string
+  active: boolean
+}
+
 export interface ProfileCardSection extends BaseContentSection<"card-profile"> {
   details: {
     profile: {
@@ -196,18 +204,29 @@ export interface PdfFileSection extends BaseContentSection<"pdf-file-section"> {
   files: PdfFile[]
 }
 
+export interface BussinessHourSection extends BaseContentSection<"bussiness-hour"> {
+  background: boolean
+  heading: EnabledField<string>
+  description: EnabledField<string>
+  timing: {
+    enabled: boolean
+    periods: Period[]
+  }
+}
+
 export type ContentSection =
+  | TeamSection
+  | LinkSection
   | VideoSection
+  | PdfFileSection
   | CtaButtonSection
   | ProfileCardSection
   | HeadingTextSection
-  | LinkSection
+  | TestimonialsSection
+  | BussinessHourSection
   | FloatingButtonSection
   | ContactDetailsSection
   | ImagesTextLinksSection
-  | TestimonialsSection
-  | TeamSection
-  | PdfFileSection
 /**
  * Main Content Editor interface
  * Contains template ID and array of content sections

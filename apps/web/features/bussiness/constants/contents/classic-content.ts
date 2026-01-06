@@ -1,4 +1,5 @@
 import type {
+  BussinessHourSection,
   ContactDetailsSection,
   ContentSection,
   CtaButtonSection,
@@ -354,6 +355,76 @@ export const PDF_FILE_SECTION: PdfFileSection = {
   ],
 }
 
+export const BUSSINESS_HOUR_SECTION: BussinessHourSection = {
+  enabled: true,
+  background: true,
+  id: generateUUID(),
+  type: "bussiness-hour",
+  heading: {
+    enabled: true,
+    text: "Our Business Hours",
+  },
+  description: {
+    enabled: true,
+    text: "We are open all days except Saturday and Sunday. Checkout our timings for each day as given below. ",
+  },
+  timing: {
+    enabled: true,
+    periods: [
+      {
+        label: "Monday",
+        active: true,
+        id: generateUUID(),
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Tuesday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Wednesday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Thursday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Friday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Saturday",
+        active: false,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Sunday",
+        active: false,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+    ],
+  },
+}
+
 /** Default classic template */
 export const CLASSIC_CONTENT: ContentSection[] = [
   // CARD_PROFILE_SECTION,
@@ -362,5 +433,5 @@ export const CLASSIC_CONTENT: ContentSection[] = [
   // CONTACT_DETAILS_SECTION,
   // LINK_SECTION,
   // FLOATING_BUTTON_SECTION,
-  PDF_FILE_SECTION,
+  BUSSINESS_HOUR_SECTION,
 ]

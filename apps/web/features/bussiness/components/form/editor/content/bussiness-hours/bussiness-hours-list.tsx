@@ -1,12 +1,12 @@
-import type { Contact } from "@app/core/types"
+import type { Period } from "@app/core/types"
 import { memo, useCallback } from "react"
-import { QuickContactItemRenderer } from "@/features/bussiness/components/form/editor/content/profile/quick-contact-item-renderer"
+import { BussinessHoursItem } from "@/features/bussiness/components/form/editor/content/bussiness-hours/bussiness-hours-item"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
 import { useSubSectionList } from "@/features/bussiness/hooks/home/use-subsection-list"
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
-export const QuickContactLinksForm = memo(({ index }: ContentSectionProps) => {
-  const { list, moveItem, removeItem } = useSubSectionList<Contact>(index, ["contacts", "list"])
+export const BussinessHoursList = memo(({ index }: ContentSectionProps) => {
+  const { list, moveItem, removeItem } = useSubSectionList<Period>(index, ["timing", "periods"])
 
   const handleRemoveItem = useCallback(
     (subIndex: number) => {
@@ -16,12 +16,12 @@ export const QuickContactLinksForm = memo(({ index }: ContentSectionProps) => {
   )
 
   const renderItem = useCallback(
-    (contact: Contact, contactIdx: number) => (
-      <QuickContactItemRenderer
+    (period: Period, periodIdx: number) => (
+      <BussinessHoursItem
         index={index}
-        key={contact?.id}
-        itemId={contact?.id}
-        subIndex={contactIdx}
+        key={period?.id}
+        itemId={period?.id}
+        subIndex={periodIdx}
         onDelete={handleRemoveItem}
       />
     ),

@@ -16,6 +16,7 @@ export type ContactOption = {
 }
 export type ContactOptionType = Contact["type"]
 export type ContactItemType = ContactItem["type"]
+export type ChangeType = "increment" | "decrement"
 
 export type ContactItemOption = {
   label: string

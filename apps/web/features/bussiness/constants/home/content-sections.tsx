@@ -1,3 +1,4 @@
+import { BussinessHourSection } from "@/features/bussiness/components/form/editor/content/bussiness-hours"
 import { ContactDetailsForm } from "@/features/bussiness/components/form/editor/content/contact"
 import { CtaButtonForm } from "@/features/bussiness/components/form/editor/content/cta-button"
 import { FloatingCardButtonForm } from "@/features/bussiness/components/form/editor/content/floating-button"
@@ -21,6 +22,7 @@ export const CONTENT_SECTIONS: ContentSectionMap = {
   "contact-details": ContactDetailsForm,
   "pdf-file-section": PdfFileSectionForm,
   "image-text-links": ImageTextLinksForm,
+  "bussiness-hour": BussinessHourSection,
   "floating-button": FloatingCardButtonForm,
   "testimonials-section": TestimonialsSectionForm,
 }
