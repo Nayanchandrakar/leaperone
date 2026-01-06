@@ -44,24 +44,20 @@ export const TimePicker = ({ value, onChange }: TimePickerProps) => {
   } = useTimePicker({ onChange, value })
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="flex-center divide-x divide-border bg-muted border border-border rounded-lg cursor-pointer">
-          <span className="py-1.5 px-3">
-            <span className="font-normal text-sm text-black mr-6 tabular-nums">
-              {formattedTime}
-            </span>
-          </span>
-          <span className="px-3">
-            <Clock className="size-4" />
-          </span>
-        </div>
+      <DropdownMenuTrigger className="flex shrink-0 divide-x divide-input bg-muted border border-input rounded-lg cursor-pointer [&_span]:px-3 [&_span]:py-2">
+        <span className="flex items-center w-full">
+          <p className="font-normal text-sm tabular-nums">{formattedTime}</p>
+        </span>
+        <span className="flex-center">
+          <Clock className="size-4" />
+        </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
         className="py-7 px-8 w-59 rounded-2xl flex items-center justify-between"
       >
         <TimePickerUnit
-          value={timeValues.hour12}
+          value={timeValues?.hour12}
           onIncrement={() => handleHourChange("increment")}
           onDecrement={() => handleHourChange("decrement")}
         />

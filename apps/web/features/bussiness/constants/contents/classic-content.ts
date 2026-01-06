@@ -375,8 +375,7 @@ export const BUSSINESS_HOUR_SECTION: BussinessHourSection = {
         label: "Monday",
         active: true,
         id: generateUUID(),
-        id: generateUUID(),
-        start: new Date("1970-01-01T09:00:00"),
+        start: new Date("1970-01-01T10:00:00"),
         end: new Date("1970-01-01T19:30:00"),
       },
       {

@@ -1,4 +1,4 @@
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@app/ui/components/field"
+import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Switch } from "@app/ui/components/switch"
 import { memo, useMemo } from "react"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
@@ -54,12 +54,10 @@ export const BussinessHourSection = memo(({ index }: ContentSectionProps) => {
           onEnabledChange={setDescEnabled}
         />
 
-        <FieldSet>
-          <Field orientation="horizontal" className="w-fit">
-            <FieldLabel>Timing Table</FieldLabel>
-            <Switch checked={timingEnabled} onCheckedChange={setTimingEnabled} />
-          </Field>
-        </FieldSet>
+        <Field orientation="horizontal" className="w-fit">
+          <FieldLabel>Timing Table</FieldLabel>
+          <Switch checked={timingEnabled} onCheckedChange={setTimingEnabled} />
+        </Field>
         <BussinessHoursList index={index} />
       </FieldGroup>
       <SectionBackgroundToggle enabled={background} onEnabledChange={setBackground} />
