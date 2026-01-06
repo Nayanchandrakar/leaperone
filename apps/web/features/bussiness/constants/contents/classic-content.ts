@@ -6,6 +6,7 @@ import type {
   HeadingTextSection,
   ImagesTextLinksSection,
   LinkSection,
+  PdfFileSection,
   ProfileCardSection,
   TeamSection,
   TestimonialsSection,
@@ -323,12 +324,43 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
   ],
 }
 
+export const PDF_FILE_SECTION: PdfFileSection = {
+  enabled: true,
+  id: generateUUID(),
+  type: "pdf-file-section",
+  background: true,
+  heading: {
+    enabled: true,
+    text: "PDF Files",
+  },
+  description: {
+    enabled: true,
+    text: "Have a look at our PDF files.",
+  },
+  files: [
+    {
+      id: generateUUID(),
+      title: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      subTitle: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      fileSrc: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+      thumbnail: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+    },
+  ],
+}
+
 /** Default classic template */
 export const CLASSIC_CONTENT: ContentSection[] = [
-  CARD_PROFILE_SECTION,
-  HEADING_TEXT_SECTION,
-  IMAGE_TEXT_LINKS_SECTION,
-  CONTACT_DETAILS_SECTION,
-  LINK_SECTION,
-  FLOATING_BUTTON_SECTION,
+  // CARD_PROFILE_SECTION,
+  // HEADING_TEXT_SECTION,
+  // IMAGE_TEXT_LINKS_SECTION,
+  // CONTACT_DETAILS_SECTION,
+  // LINK_SECTION,
+  // FLOATING_BUTTON_SECTION,
+  PDF_FILE_SECTION,
 ]

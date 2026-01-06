@@ -94,6 +94,14 @@ export interface Testimonial {
   testimonialText: string
 }
 
+export interface PdfFile {
+  id: string
+  fileSrc: string
+  thumbnail: string
+  title: EnabledField<string>
+  subTitle: EnabledField<string>
+}
+
 export interface ProfileCardSection extends BaseContentSection<"card-profile"> {
   details: {
     profile: {
@@ -181,6 +189,13 @@ export interface TestimonialsSection extends BaseContentSection<"testimonials-se
   testimonials: Testimonial[]
 }
 
+export interface PdfFileSection extends BaseContentSection<"pdf-file-section"> {
+  background: boolean
+  heading: EnabledField<string>
+  description: EnabledField<string>
+  files: PdfFile[]
+}
+
 export type ContentSection =
   | VideoSection
   | CtaButtonSection
@@ -192,7 +207,7 @@ export type ContentSection =
   | ImagesTextLinksSection
   | TestimonialsSection
   | TeamSection
-
+  | PdfFileSection
 /**
  * Main Content Editor interface
  * Contains template ID and array of content sections

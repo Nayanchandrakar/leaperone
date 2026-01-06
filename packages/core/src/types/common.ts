@@ -13,6 +13,7 @@ export type ContentSectionType =
   | "image-text-links"
   | "teams-section"
   | "testimonials-section"
+  | "pdf-file-section"
 
 export type ContactType =
   | "phone"

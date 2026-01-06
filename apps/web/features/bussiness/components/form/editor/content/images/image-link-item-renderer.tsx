@@ -56,5 +56,3 @@ export const ImageLinkItemRenderer = memo(
     )
   },
 )
-
-ImageLinkItemRenderer.displayName = "ImageLinkItemRenderer"

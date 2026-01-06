@@ -4,6 +4,7 @@ import { FloatingCardButtonForm } from "@/features/bussiness/components/form/edi
 import { HeadingTextForm } from "@/features/bussiness/components/form/editor/content/heading/index"
 import { ImageTextLinksForm } from "@/features/bussiness/components/form/editor/content/images"
 import { SocialLinksForm } from "@/features/bussiness/components/form/editor/content/links"
+import { PdfFileSectionForm } from "@/features/bussiness/components/form/editor/content/pdf"
 import { ProfileForm } from "@/features/bussiness/components/form/editor/content/profile"
 import { TeamSectionForm } from "@/features/bussiness/components/form/editor/content/team"
 import { TestimonialsSectionForm } from "@/features/bussiness/components/form/editor/content/testimonials"
@@ -18,6 +19,7 @@ export const CONTENT_SECTIONS: ContentSectionMap = {
   "social-links": SocialLinksForm,
   "teams-section": TeamSectionForm,
   "contact-details": ContactDetailsForm,
+  "pdf-file-section": PdfFileSectionForm,
   "image-text-links": ImageTextLinksForm,
   "floating-button": FloatingCardButtonForm,
   "testimonials-section": TestimonialsSectionForm,
