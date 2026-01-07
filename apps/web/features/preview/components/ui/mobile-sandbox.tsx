@@ -38,6 +38,7 @@ export const MobileSandbox = memo(() => {
     <iframe
       ref={iframeRef}
       srcDoc={IFRAME_HTML}
+      key="mobile-preview-iframe"
       className="size-full border-none"
       aria-label="Mobile Preview Sandbox"
       title="Business card visual preview"
