@@ -1,4 +1,5 @@
 import type { ContentSection, FloatingButtonSection } from "@app/core/types"
+import { BussinessHourSection } from "@/features/preview/components/templates/classic/bussiness-hours"
 import { ContactDetailSection } from "@/features/preview/components/templates/classic/contact"
 import { CtaButtonSection } from "@/features/preview/components/templates/classic/cta-button"
 import { HeadingSection } from "@/features/preview/components/templates/classic/heading"
@@ -45,6 +46,9 @@ export const ClassicSectionRenderer = ({ content }: ClassicSectionRendererProps)
 
     case "pdf-file-section":
       return <PdfFileSection content={content} />
+
+    case "bussiness-hour":
+      return <BussinessHourSection content={content} />
 
     default: {
       return null

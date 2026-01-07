@@ -7,56 +7,50 @@ interface useTimePickerProps {
 }
 
 export const useTimePicker = ({ value, onChange }: useTimePickerProps) => {
-  const timeValues = useMemo(() => {
-    const hours = value?.getHours()
-    const minutes = value?.getMinutes()
-    const hour12 = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours
+  const { hours, minutes, hour12, meridiem, paddedMinutes } = useMemo(() => {
+    const hours = value.getUTCHours()
+    const minutes = value.getUTCMinutes()
+    const hour12 = hours % 12 === 0 ? 12 : hours % 12
     const meridiem = hours >= 12 ? "PM" : "AM"
-    return { hour12, minutes, meridiem }
+    return {
+      hours,
+      hour12,
+      minutes,
+      meridiem,
+      paddedMinutes: String(minutes).padStart(2, "0"),
+    }
   }, [value])
 
   const handleHourChange = useCallback(
     (type: ChangeType) => {
       const newDate = new Date(value)
-      const currentHour = newDate?.getHours()
-      const newHour = type === "increment" ? (currentHour + 1) % 24 : (currentHour - 1 + 24) % 24
-      newDate.setHours(newHour)
+      const nextHour = type === "increment" ? (hours + 1) % 24 : (hours - 1 + 24) % 24
+      newDate.setUTCHours(nextHour)
       onChange(newDate)
     },
-    [value, onChange],
+    [hours, onChange, value],
   )
 
   const handleMinuteChange = useCallback(
     (type: ChangeType) => {
       const newDate = new Date(value)
-      const currentMinute = newDate?.getMinutes()
-      const newMinute =
-        type === "increment" ? (currentMinute + 1) % 60 : (currentMinute - 1 + 60) % 60
-      newDate.setMinutes(newMinute)
+      const nextMinute = type === "increment" ? (minutes + 1) % 60 : (minutes - 1 + 60) % 60
+      newDate.setUTCMinutes(nextMinute)
       onChange(newDate)
     },
-    [value, onChange],
+    [minutes, onChange, value],
   )
 
   const handleMeridiemToggle = useCallback(() => {
     const newDate = new Date(value)
-    const currentHour = newDate?.getHours()
-    const newHour = currentHour >= 12 ? currentHour - 12 : currentHour + 12
-    newDate.setHours(newHour)
+    const newHour = hours >= 12 ? hours - 12 : hours + 12
+    newDate.setUTCHours(newHour)
     onChange(newDate)
-  }, [value, onChange])
-
-  const formattedTime = useMemo(() => {
-    const { hour12, minutes, meridiem } = timeValues
-    const paddedMinutes = minutes?.toString()?.padStart(2, "0")
-    return `${hour12}:${paddedMinutes} ${meridiem}`
-  }, [timeValues])
-
-  const paddedMinutes = timeValues?.minutes?.toString()?.padStart(2, "0")
+  }, [hours, onChange, value])
 
   return {
-    timeValues,
-    formattedTime,
+    hour12,
+    meridiem,
     paddedMinutes,
     handleHourChange,
     handleMinuteChange,

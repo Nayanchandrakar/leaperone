@@ -28,7 +28,7 @@ const CONTENT_SECTIONS: SelectOption<ContentSectionType>[] = [
     value: "pdf-file-section",
   },
   {
-    label: "Business Hours",
+    label: "Bussiness Hours",
     value: "bussiness-hour",
   },
   {

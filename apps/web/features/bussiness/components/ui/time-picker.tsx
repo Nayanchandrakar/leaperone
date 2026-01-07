@@ -7,6 +7,7 @@ import {
 } from "@app/ui/components/dropdown-menu"
 import { ChevronDown, ChevronUp, Clock } from "lucide-react"
 import { useTimePicker } from "@/features/bussiness/hooks/home/use-time-picker"
+import { formatTime } from "@/features/preview/utils/format-time"
 
 type TimePickerProps = {
   value: Date
@@ -35,8 +36,8 @@ export const TimePickerUnit = ({ value, onIncrement, onDecrement }: TimePickerUn
 
 export const TimePicker = ({ value, onChange }: TimePickerProps) => {
   const {
-    timeValues,
-    formattedTime,
+    hour12,
+    meridiem,
     paddedMinutes,
     handleHourChange,
     handleMinuteChange,
@@ -46,7 +47,7 @@ export const TimePicker = ({ value, onChange }: TimePickerProps) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="flex shrink-0 divide-x divide-input bg-muted border border-input rounded-lg cursor-pointer [&_span]:px-3 [&_span]:py-2">
         <span className="flex items-center w-full">
-          <p className="font-normal text-sm tabular-nums">{formattedTime}</p>
+          <p className="font-normal text-sm tabular-nums">{formatTime(value)}</p>
         </span>
         <span className="flex-center">
           <Clock className="size-4" />
@@ -57,7 +58,7 @@ export const TimePicker = ({ value, onChange }: TimePickerProps) => {
         className="py-7 px-8 w-59 rounded-2xl flex items-center justify-between"
       >
         <TimePickerUnit
-          value={timeValues?.hour12}
+          value={hour12}
           onIncrement={() => handleHourChange("increment")}
           onDecrement={() => handleHourChange("decrement")}
         />
@@ -69,7 +70,7 @@ export const TimePicker = ({ value, onChange }: TimePickerProps) => {
         />
         <span className="font-medium text-base text-muted-foreground">:</span>
         <TimePickerUnit
-          value={timeValues?.meridiem}
+          value={meridiem}
           onIncrement={handleMeridiemToggle}
           onDecrement={handleMeridiemToggle}
         />
