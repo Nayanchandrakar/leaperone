@@ -24,6 +24,14 @@ const CONTENT_SECTIONS: SelectOption<ContentSectionType>[] = [
     value: "video-section",
   },
   {
+    label: "PDFs",
+    value: "pdf-file-section",
+  },
+  {
+    label: "Business Hours",
+    value: "bussiness-hour",
+  },
+  {
     label: "Button",
     value: "cta-button",
   },

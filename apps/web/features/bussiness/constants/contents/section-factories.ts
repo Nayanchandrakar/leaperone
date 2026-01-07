@@ -1,4 +1,5 @@
 import type {
+  BussinessHourSection,
   ContactDetailsSection,
   ContentSection,
   ContentSectionType,
@@ -7,6 +8,7 @@ import type {
   HeadingTextSection,
   ImagesTextLinksSection,
   LinkSection,
+  PdfFileSection,
   ProfileCardSection,
   TeamSection,
   TestimonialsSection,
@@ -325,16 +327,117 @@ export const createTestimonialsSection = (): TestimonialsSection => ({
   ],
 })
 
+export const createBussinessHoursSection = (): BussinessHourSection => ({
+  enabled: true,
+  background: true,
+  id: generateUUID(),
+  type: "bussiness-hour",
+  heading: {
+    enabled: true,
+    text: "Our Business Hours",
+  },
+  description: {
+    enabled: true,
+    text: "We are open all days except Saturday and Sunday. Checkout our timings for each day as given below. ",
+  },
+  timing: {
+    enabled: true,
+    periods: [
+      {
+        label: "Monday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T10:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Tuesday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Wednesday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Thursday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Friday",
+        active: true,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Saturday",
+        active: false,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+      {
+        label: "Sunday",
+        active: false,
+        id: generateUUID(),
+        start: new Date("1970-01-01T09:00:00"),
+        end: new Date("1970-01-01T19:30:00"),
+      },
+    ],
+  },
+})
+
+export const createPdfSection = (): PdfFileSection => ({
+  enabled: true,
+  id: generateUUID(),
+  type: "pdf-file-section",
+  background: true,
+  heading: {
+    enabled: true,
+    text: "PDF Files",
+  },
+  description: {
+    enabled: true,
+    text: "Have a look at our PDF files.",
+  },
+  files: [
+    {
+      id: generateUUID(),
+      title: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      subTitle: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      fileSrc: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+      thumbnail: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+    },
+  ],
+})
+
 // Map section types to their factory functions
 export const SECTION_FACTORIES: Record<ContentSectionType, () => ContentSection> = {
-  "card-profile": createCardProfileSection,
-  "heading-text": createHeadingTextSection,
-  "floating-button": createFloatingButtonSection,
+  "teams-section": createTeamsSection,
   "video-section": createVideoSection,
+  "pdf-file-section": createPdfSection,
   "cta-button": createCtaButtonSection,
   "social-links": createSocialLinksSection,
+  "card-profile": createCardProfileSection,
+  "heading-text": createHeadingTextSection,
+  "bussiness-hour": createBussinessHoursSection,
+  "floating-button": createFloatingButtonSection,
   "contact-details": createContactDetailsSection,
   "image-text-links": createImageTextLinksSection,
-  "teams-section": createTeamsSection,
   "testimonials-section": createTestimonialsSection,
 }
