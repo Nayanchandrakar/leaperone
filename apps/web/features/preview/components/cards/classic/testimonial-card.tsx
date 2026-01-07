@@ -30,7 +30,7 @@ export const TestimonialCard = ({ testimonial, background }: TestimonialCardProp
             <AvatarImage alt="testimonial-profile" src={profileImage} />
           </Avatar>
         )}
-        <div className="-space-y-0.5 break-all">
+        <div className="space-y-0.5 break-all">
           {name && <MemberName>{name}</MemberName>}
           {designationContent && <MemberDescription>{designationContent}</MemberDescription>}
         </div>

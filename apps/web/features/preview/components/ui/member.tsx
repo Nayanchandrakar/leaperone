@@ -7,7 +7,7 @@ export const Member = ({ className, ...props }: React.ComponentProps<"div">) => 
 export const MemberName = ({ className, ...props }: React.ComponentProps<"h3">) => (
   <div
     data-slot="member-name"
-    className={cn("font-semibold text-sm text-template-muted-foreground", className)}
+    className={cn("font-template-heading text-sm text-template-muted-foreground", className)}
     {...props}
   />
 )
