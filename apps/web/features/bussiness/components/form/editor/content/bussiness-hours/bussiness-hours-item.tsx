@@ -25,6 +25,20 @@ export const BussinessHoursItem = memo(({ index, subIndex }: BussinessHoursItemP
     ["label"],
   )
 
+  const [startValue, setStartValue] = useSubSectionField<Date>(
+    index,
+    subIndex,
+    ["timing", "periods"],
+    ["start"],
+  )
+
+  const [endValue, setEndValue] = useSubSectionField<Date>(
+    index,
+    subIndex,
+    ["timing", "periods"],
+    ["end"],
+  )
+
   const handleLabelChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setLabel(e?.target?.value)
@@ -42,8 +56,8 @@ export const BussinessHoursItem = memo(({ index, subIndex }: BussinessHoursItemP
           <Checkbox checked={active} onCheckedChange={setActive} className="size-5" />
           <Input variant="gray" value={label} onChange={handleLabelChange} />
         </Field>
-        <TimePicker value={new Date()} onChange={(date) => console.log(date)} />
-        <TimePicker value={new Date()} onChange={(date) => console.log(date)} />
+        <TimePicker value={startValue} onChange={setStartValue} />
+        <TimePicker value={endValue} onChange={setEndValue} />
       </div>
     </FieldSet>
   )

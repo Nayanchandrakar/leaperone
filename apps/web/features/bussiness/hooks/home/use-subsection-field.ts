@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from "react"
-import { useShallow } from "zustand/react/shallow"
 import {
   selectSubSectionField,
   useContentEditorStore,
@@ -24,7 +23,7 @@ export const useSubSectionField = <T = unknown>(
     [index, subIndex, stableArrayPath, stableFieldPath],
   )
 
-  const value = useContentEditorStore(useShallow(selector)) as T
+  const value = useContentEditorStore(selector) as T
 
   const updateSubSectionField = useContentEditorStore((state) => state.updateSubSectionField)
 

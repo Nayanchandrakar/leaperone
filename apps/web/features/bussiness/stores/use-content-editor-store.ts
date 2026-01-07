@@ -68,8 +68,12 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
           subsectionItem = subsectionItem[path[i]!]
         }
 
+        // For Date objects, ensure we create a new instance so immer detects the change
+
+        const finalValue = value instanceof Date ? new Date(value) : value
+
         // Set the final value
-        subsectionItem[path[path.length - 1]!] = value
+        subsectionItem[path[path.length - 1]!] = finalValue
       })
     },
 
