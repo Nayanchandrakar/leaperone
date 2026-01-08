@@ -10,6 +10,7 @@ type ContentEditorState = {
 }
 
 type ContentEditorActions = {
+  setTemplate: (template: TemplateKey) => void
   addSection: (type: ContentSectionType) => void
   updateSectionField: (index: number, field: string[], value: unknown) => void
   updateSubSectionField: (
@@ -33,6 +34,12 @@ const initialState: ContentEditorState = {
 export const useContentEditorStore = create<ContentEditorState & ContentEditorActions>()(
   immer((set) => ({
     ...initialState,
+
+    setTemplate: (template) => {
+      set((state) => {
+        state.template = template
+      })
+    },
 
     updateSectionField: (index, path, value) => {
       set((state) => {

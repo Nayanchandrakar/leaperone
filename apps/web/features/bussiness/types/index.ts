@@ -6,6 +6,7 @@ import type {
   ImageViewType,
   QrCodeFill,
   SocialLinkType,
+  TemplateKey,
 } from "@app/core/types"
 import type * as React from "react"
 import type { IconProps } from "@/types"
@@ -57,6 +58,11 @@ export type ImageView<T extends string = ImageViewType> = {
 
 export type ContentSectionProps = {
   index: number
+}
+
+export type Template = {
+  id: TemplateKey
+  image: string
 }
 
 export type SocialIconMap = Record<SocialLinkType, (props: IconProps) => React.JSX.Element>
