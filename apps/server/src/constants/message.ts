@@ -6,21 +6,21 @@ export const MSG = {
   },
 
   VERIFICATION: {
+    FAILED: "Verification failed. Please try again.",
     ALREADY_VERIFIED: "Your email is already verified.",
     SUCCESS: "Your email has been verified successfully.",
-    FAILED: "Verification failed. Please try again.",
-    CODE_EXPIRED: "Verification code has expired. Request a new one.",
     CODE_INVALID: "Invalid verification code. Please try again.",
     LINK_SENT: "A verification link has been sent to your email.",
+    CODE_EXPIRED: "Verification code has expired. Request a new one.",
   },
 
   SUBSCRIPTION: {
     MISSING_SIGNATURE: "Missing stripe signature",
+    FAILED_TO_FETCH_PLANS: "Failed to fetch plans",
     SUBSCRIPTION_NOT_FOUND: "Subscription not found",
+    UNABLE_TO_CREATE_CUSTOMER: "Unable to create customer",
     SUBSCRIPTION_PLAN_NOT_FOUND: "Subscription plan not found",
     ALREADY_SUBSCRIBED_PLAN: "You're already subscribed to this plan",
-    UNABLE_TO_CREATE_CUSTOMER: "Unable to create customer",
-    FAILED_TO_FETCH_PLANS: "Failed to fetch plans",
     EMAIL_VERIFICATION_REQUIRED:
       "Email verification is required before you can subscribe to a plan",
     SUBSCRIPTION_NOT_ACTIVE:
@@ -29,31 +29,31 @@ export const MSG = {
 
   USER: {
     NOT_FOUND: "User not found",
-    USERNAME_EXISTS: "Username has been already taken",
-    ALREADY_EXISTS: "User already exists. Use another email.",
     EMAIL_NOT_FOUND: "User email not found",
-    EMAIL_CANNOT_UPDATE: "Email can not be updated",
     FAILED_TO_CREATE: "Failed to create user",
     FAILED_TO_UPDATE: "Failed to update user",
-    EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
+    EMAIL_CANNOT_UPDATE: "Email can not be updated",
+    USERNAME_EXISTS: "Username has been already taken",
     RESTRICTED_USER: "Your account has been restricted.",
+    ALREADY_EXISTS: "User already exists. Use another email.",
+    EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
   },
 
   PASSWORD: {
-    INVALID_PASSWORD: "Invalid email or password",
     INVALID: "Invalid password",
-    TOO_SHORT: "Password too short",
     TOO_LONG: "Password too long",
-    USER_NOT_FOUND: "If this email exists in our system, check your email for the reset link",
+    TOO_SHORT: "Password too short",
+    INVALID_PASSWORD: "Invalid email or password",
+    RESET_SUCCESS: "Your password has been reset successfully.",
     CHANGE_SUCCESS: "Your password has been updated successfully.",
     RESET_REQUEST_SUCCESS: "Password reset link sent to your email.",
-    RESET_SUCCESS: "Your password has been reset successfully.",
+    USER_NOT_FOUND: "If this email exists in our system, check your email for the reset link",
   },
 
   SESSION: {
-    EXPIRED: "Session expired. Re-authenticate to perform this action.",
-    FAILED_TO_CREATE: "Failed to create session",
     FAILED_TO_GET: "Failed to get session",
+    FAILED_TO_CREATE: "Failed to create session",
+    EXPIRED: "Session expired. Re-authenticate to perform this action.",
   },
 
   ACCOUNT: {
@@ -90,5 +90,13 @@ export const MSG = {
 
   SUPPORT: {
     SUBMIT_SUCCESS: "Support request submitted. Our team will respond shortly.",
+  },
+
+  INVITATION: {
+    FAILED_TO_CREATE: "Failed to create invitation",
+    INVITE_SENT: "Invitation has been sent successfully.",
+    SELF_INVITE: "You cannot invite yourself to the workspace.",
+    INVITE_ACCEPTED: "Your invitation has been accepted.",
+    INVALID_OR_EXPIRED: "The invitation link is invalid or has expired.",
   },
 } as const

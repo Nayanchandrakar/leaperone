@@ -35,6 +35,7 @@ import type {
   videoSchema,
 } from "../schema/content-editor"
 import type { designEditorSchema } from "../schema/design-editor"
+import type { acceptInvitationSchema, inviteMemberSchema } from "../schema/invitation"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { qrCodeEditorSchema } from "../schema/qr-code-editor"
 import type { checkoutSessionSchema } from "../schema/subscription"
@@ -75,3 +76,5 @@ export type TeamSchema = z.infer<typeof teamSchema>
 export type TeamMemberSchema = z.infer<typeof teamMemberSchema>
 export type TestimonialsSchema = z.infer<typeof testimonialsSchema>
 export type TestimonialMemberSchema = z.infer<typeof testimonialMemberSchema>
+export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
+export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>

@@ -26,6 +26,8 @@ export const password = z
   .max(12)
   .trim()
 
+export const jobRole = z.string().min(2).max(30).trim()
+
 export const phoneNumber = z.e164({ error: "Invalid phone number" }).trim()
 
 export const telegram = z

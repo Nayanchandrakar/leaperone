@@ -6,6 +6,8 @@ export const users = pgTable("user", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
+  jobRole: text(),
+
   image: text(),
   name: text().notNull(),
   email: text().notNull().unique(),

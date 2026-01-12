@@ -3,7 +3,7 @@ import { ENV } from "@app/env/server"
 import type { Context } from "hono"
 import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie"
 import type { CookieOptions } from "hono/utils/cookie"
-import { DateUtils } from "@/utils/date.utils"
+import { getDate } from "@/utils/date"
 import { StringUtils } from "@/utils/string.utils"
 
 export class Cookie {
@@ -17,7 +17,7 @@ export class Cookie {
       secure: true,
       httpOnly: true,
       sameSite: "Lax",
-      expires: DateUtils.getDate(SESSION_EXPIRY, "sec"),
+      expires: getDate(SESSION_EXPIRY, "sec"),
       ...(domain && { domain }),
     }
   }

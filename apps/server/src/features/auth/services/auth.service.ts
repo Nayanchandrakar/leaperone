@@ -35,7 +35,7 @@ import type {
   UserNameContext,
   VerifyEmailContext,
 } from "@/types/auth.types"
-import { DateUtils } from "@/utils/date.utils"
+import { getDate } from "@/utils/date"
 import { RouteUtils } from "@/utils/route.utils"
 import { TokenUtils } from "@/utils/token.utils"
 
@@ -255,7 +255,7 @@ export class AuthService {
 
     const token = createId()
     const identifier = `reset-password:${token}`
-    const expiresAt = DateUtils.getDate(PASSWORD_RESET_EXPIRY, "sec")
+    const expiresAt = getDate(PASSWORD_RESET_EXPIRY, "sec")
 
     await createVerification({
       identifier,

@@ -23,3 +23,4 @@ export const PASSWORD_RESET_EXPIRY = 60 * 60 * 1
 
 // subscription
 export const TRIAL_PERIOD_DAYS = 7
+export const INVITATION_EXPIRY = 60 * 60 * 24 * 7

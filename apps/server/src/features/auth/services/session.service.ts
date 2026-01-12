@@ -7,7 +7,7 @@ import { redis } from "@/config/redis"
 import type { SessionRepository } from "@/features/auth/repositories/sesion.repository"
 import { Cookie } from "@/features/auth/utils/cookie.utils"
 import type { Session } from "@/types/global.types"
-import { DateUtils } from "@/utils/date.utils"
+import { getDate } from "@/utils/date"
 import { StringUtils } from "@/utils/string.utils"
 
 export class SessionService {
@@ -17,7 +17,7 @@ export class SessionService {
     const token = createId()
     const ipAddress = StringUtils.getRequestIp(c)
     const userAgent = c.req.header("User-Agent")
-    const expiresAt = DateUtils.getDate(SESSION_EXPIRY, "sec")
+    const expiresAt = getDate(SESSION_EXPIRY, "sec")
 
     const session: Session = {
       token,
@@ -79,8 +79,8 @@ export class SessionService {
 
     if (shouldBeUpdated) {
       const updatedSession = await this.update(token, {
-        expiresAt: DateUtils.getDate(SESSION_EXPIRY, "sec"),
         updatedAt: new Date(),
+        expiresAt: getDate(SESSION_EXPIRY, "sec"),
       })
 
       if (!updatedSession) {

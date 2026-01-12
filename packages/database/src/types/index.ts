@@ -9,6 +9,7 @@ import type { contactUs } from "../schema/contact-us"
 import type {
   accounts,
   file,
+  invitations,
   storage,
   subscription,
   verification,
@@ -48,6 +49,7 @@ export type InsertSubscription = typeof subscription.$inferInsert
 export type InsertFile = typeof file.$inferInsert
 export type InsertContactUs = typeof contactUs.$inferInsert
 export type InsertSupport = typeof support.$inferInsert
+export type InsertInvitation = typeof invitations.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]
@@ -72,4 +74,10 @@ export type GetFilesByStorageId = {
   pageSize: number
   storageId: string
   searchQuery?: string | undefined
+}
+
+export type CreateWorkspaceInviteAndUser = Omit<InsertInvitation, "roleId"> & {
+  name: string
+  jobRole: string
+  username: string
 }
