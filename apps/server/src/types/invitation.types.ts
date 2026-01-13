@@ -13,3 +13,5 @@ export type AcceptInvitationContext = Context<
   "/accept",
   ControllerIO<"json", AcceptInvitationSchema>
 >
+
+export type GetInvitedMembersContext = Context<HonoEnv, "/invited-members">

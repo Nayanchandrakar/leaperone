@@ -3,6 +3,7 @@ import {
   acceptInvitation,
   createWorkspaceInviteAndUser,
   getInvitationById,
+  getInvitationsByWorkspaceId,
 } from "@app/database/repository/invitation"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import { getUserByEmail, getUserByUserName } from "@app/database/repository/user"
@@ -13,7 +14,11 @@ import { hash } from "bcryptjs"
 import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
 import { sendMail } from "@/features/auth/utils/mail"
-import type { AcceptInvitationContext, InviteMemberContext } from "@/types/invitation.types"
+import type {
+  AcceptInvitationContext,
+  GetInvitedMembersContext,
+  InviteMemberContext,
+} from "@/types/invitation.types"
 import { getDate } from "@/utils/date"
 import { getInviteKey } from "@/utils/invite.utils"
 import { RouteUtils } from "@/utils/route.utils"
@@ -112,7 +117,7 @@ export class InvitationService {
       hashedPassword,
       status: "accepted",
       acceptedAt: new Date(),
-      email: invitation.email,
+      userId: invitation.userId,
     })
 
     if (!user) throw ApiError.badRequest(MSG.INVITATION.FAILED_TO_ACCEPT)
@@ -120,5 +125,20 @@ export class InvitationService {
     await redis.del(inviteKey)
 
     return c.json({ success: true, message: MSG.INVITATION.INVITE_ACCEPTED })
+  }
+
+  async getInvitedMembers(c: GetInvitedMembersContext) {
+    const { user } = c.get("session")
+    const workspace = c.get("workspace")
+
+    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"])
+
+    if (!canInvite) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    const invitations = await getInvitationsByWorkspaceId(workspace.id)
+
+    return c.json({ data: invitations })
   }
 }

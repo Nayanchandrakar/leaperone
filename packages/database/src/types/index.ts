@@ -76,14 +76,15 @@ export type GetFilesByStorageId = {
   searchQuery?: string | undefined
 }
 
-export type CreateWorkspaceInviteAndUser = Omit<InsertInvitation, "roleId"> & {
+export type CreateWorkspaceInviteAndUser = Omit<InsertInvitation, "roleId" | "userId"> & {
   name: string
+  email: string
   jobRole: string
   username: string
 }
 
 export type AcceptInvitation = {
-  email: string
+  userId: string
   acceptedAt: Date
   invitationId: string
   hashedPassword: string

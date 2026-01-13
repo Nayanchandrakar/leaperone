@@ -1,5 +1,5 @@
 import { ApiError } from "@app/error"
-import { and, eq } from "drizzle-orm"
+import { and, desc, eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts, invitations, roles, users, workspaceMembers } from "../schema"
 import type { AcceptInvitation, CreateWorkspaceInviteAndUser } from "../types"
@@ -68,7 +68,7 @@ export async function createWorkspaceInviteAndUser({
       const [invitation] = await tx
         .insert(invitations)
         .values({
-          email,
+          userId,
           inviterId,
           expiresAt,
           workspaceId,
@@ -90,7 +90,7 @@ export async function createWorkspaceInviteAndUser({
 }
 
 export async function acceptInvitation({
-  email,
+  userId,
   status,
   acceptedAt,
   invitationId,
@@ -98,28 +98,44 @@ export async function acceptInvitation({
 }: AcceptInvitation) {
   try {
     const data = await dbWs.transaction(async (tx) => {
-      const [user] = await tx
-        .select({ id: users.id })
-        .from(users)
-        .where(eq(users.email, email))
-        .limit(1)
-
-      if (!user) tx.rollback()
-
-      await tx.update(users).set({ emailVerified: true }).where(eq(users.email, email))
+      await tx.update(users).set({ emailVerified: true }).where(eq(users.id, userId))
 
       await tx
         .update(accounts)
         .set({ password: hashedPassword })
-        .where(and(eq(accounts.userId, user?.id!), eq(accounts.providerId, "credential")))
+        .where(and(eq(accounts.userId, userId), eq(accounts.providerId, "credential")))
 
       await tx
         .update(invitations)
         .set({ status, acceptedAt })
         .where(eq(invitations.id, invitationId))
 
-      return user
+      return true
     })
+
+    return data
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getInvitationsByWorkspaceId(workspaceId: string) {
+  try {
+    const data = await dbHttp
+      .select({
+        name: users.name,
+        email: users.email,
+        jobRole: users.jobRole,
+        username: users.username,
+        status: invitations.status,
+        expiresAt: invitations.expiresAt,
+        acceptedAt: invitations.acceptedAt,
+      })
+      .from(invitations)
+      .innerJoin(users, eq(invitations.userId, users.id))
+      .where(eq(invitations.workspaceId, workspaceId))
+      .orderBy(desc(invitations.createdAt))
 
     return data
   } catch (error) {

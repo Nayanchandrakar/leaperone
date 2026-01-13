@@ -4,7 +4,11 @@ import { HttpController } from "@/features/shared/controllers/http.controller"
 import { isAuth } from "@/middlewares/auth.middleware"
 import { hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
-import type { AcceptInvitationContext, InviteMemberContext } from "@/types/invitation.types"
+import type {
+  AcceptInvitationContext,
+  GetInvitedMembersContext,
+  InviteMemberContext,
+} from "@/types/invitation.types"
 
 export class InvitationController extends HttpController {
   constructor(private readonly invitationService: InvitationService) {
@@ -20,8 +24,8 @@ export class InvitationController extends HttpController {
       hasWorkspace,
       this.inviteMember,
     )
-
     this.router.post("/accept", zodValidator("json", acceptInvitationSchema), this.acceptInvitation)
+    this.router.get("/invited-members", isAuth, hasWorkspace, this.getInvitedMembers)
   }
 
   inviteMember = async (c: InviteMemberContext) => {
@@ -30,5 +34,9 @@ export class InvitationController extends HttpController {
 
   acceptInvitation = async (c: AcceptInvitationContext) => {
     return await this.invitationService.acceptInvitation(c)
+  }
+
+  getInvitedMembers = async (c: GetInvitedMembersContext) => {
+    return await this.invitationService.getInvitedMembers(c)
   }
 }

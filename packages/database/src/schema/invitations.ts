@@ -18,12 +18,14 @@ export const invitations = pgTable("invitation", {
   inviterId: text()
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
+  userId: text()
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
   roleId: text()
     .references(() => roles.id)
     .notNull(),
 
   status: invitationStatusEnum().default("pending").notNull(),
-  email: text().notNull(),
 
   acceptedAt: timestamp(),
   expiresAt: timestamp().notNull(),
