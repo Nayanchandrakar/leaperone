@@ -8,7 +8,13 @@ export const inviteMemberSchema = z.object({
   username,
 })
 
-export const acceptInvitationSchema = z.object({
-  token: z.string().min(1, { message: "Token is required" }),
-  password,
-})
+export const acceptInvitationSchema = z
+  .object({
+    password,
+    token: z.cuid2(),
+    confirmPassword: password,
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    error: "Passwords does not match",
+  })

@@ -112,8 +112,8 @@ export class AuthService {
 
     await sendMail({
       to: email,
-      subject: "Your leaperone email verification link",
       html: callbackString.toString(),
+      subject: "Your leaperone email verification link",
     })
 
     return c.json({ message: MSG.VERIFICATION.LINK_SENT })

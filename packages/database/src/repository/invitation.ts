@@ -2,12 +2,7 @@ import { ApiError } from "@app/error"
 import { and, eq } from "drizzle-orm"
 import { dbHttp, dbWs } from "../index"
 import { accounts, invitations, roles, users, workspaceMembers } from "../schema"
-import type { CreateWorkspaceInviteAndUser } from "../types"
-
-interface AcceptWorkspaceInviteAndSetPasswordParams {
-  token: string
-  password: string
-}
+import type { AcceptInvitation, CreateWorkspaceInviteAndUser } from "../types"
 
 export async function getInvitationById(invitationId: string) {
   try {
@@ -50,8 +45,8 @@ export async function createWorkspaceInviteAndUser({
       const userId = user?.id as string
 
       await tx.insert(accounts).values({
+        userId,
         password: null,
-        userId: userId,
         accountId: userId,
         providerId: "credential",
       })
@@ -94,65 +89,41 @@ export async function createWorkspaceInviteAndUser({
   }
 }
 
-export async function acceptWorkspaceInviteAndSetPassword({
-  token,
-  password,
-}: AcceptWorkspaceInviteAndSetPasswordParams) {
+export async function acceptInvitation({
+  email,
+  status,
+  acceptedAt,
+  invitationId,
+  hashedPassword,
+}: AcceptInvitation) {
   try {
     const data = await dbWs.transaction(async (tx) => {
-      // Load invitation (token is the invitation ID from Redis)
-      const [invitation] = await tx
-        .select()
-        .from(invitations)
-        .where(eq(invitations.id, token))
+      const [user] = await tx
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.email, email))
         .limit(1)
 
-      if (!invitation) {
-        throw ApiError.badRequest("Invitation not found")
-      }
+      if (!user) tx.rollback()
 
-      if (invitation.status === "accepted") {
-        throw ApiError.badRequest("Invitation already accepted")
-      }
+      await tx.update(users).set({ emailVerified: true }).where(eq(users.email, email))
 
-      if (invitation.expiresAt < new Date()) {
-        throw ApiError.badRequest("Invitation has expired")
-      }
-
-      // Get user by email
-      const [user] = await tx.select().from(users).where(eq(users.email, invitation.email)).limit(1)
-
-      if (!user) {
-        throw ApiError.badRequest("User not found")
-      }
-
-      // Update credential account password
       await tx
         .update(accounts)
-        .set({ password })
-        .where(and(eq(accounts.userId, user.id), eq(accounts.providerId, "credential")))
+        .set({ password: hashedPassword })
+        .where(and(eq(accounts.userId, user?.id!), eq(accounts.providerId, "credential")))
 
-      // Mark invitation as accepted
       await tx
         .update(invitations)
-        .set({
-          status: "accepted",
-          acceptedAt: new Date(),
-        })
-        .where(eq(invitations.id, token))
+        .set({ status, acceptedAt })
+        .where(eq(invitations.id, invitationId))
 
-      return {
-        userId: user.id,
-        success: true,
-      }
+      return user
     })
 
     return data
   } catch (error) {
     console.error(error)
-    if (error instanceof ApiError) {
-      throw error
-    }
     throw ApiError.internalServerError()
   }
 }

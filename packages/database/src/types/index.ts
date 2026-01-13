@@ -81,3 +81,11 @@ export type CreateWorkspaceInviteAndUser = Omit<InsertInvitation, "roleId"> & {
   jobRole: string
   username: string
 }
+
+export type AcceptInvitation = {
+  email: string
+  acceptedAt: Date
+  invitationId: string
+  hashedPassword: string
+  status: InvitationStatus
+}

@@ -93,10 +93,13 @@ export const MSG = {
   },
 
   INVITATION: {
+    EXPIRED: "Invitation has expired",
+    NOT_FOUND: "Invitation not found",
     FAILED_TO_CREATE: "Failed to create invitation",
+    FAILED_TO_ACCEPT: "Failed to accept invitation",
+    INVITE_ACCEPTED: "Your invitation has been accepted.",
     INVITE_SENT: "Invitation has been sent successfully.",
     SELF_INVITE: "You cannot invite yourself to the workspace.",
-    INVITE_ACCEPTED: "Your invitation has been accepted.",
     INVALID_OR_EXPIRED: "The invitation link is invalid or has expired.",
   },
 } as const
