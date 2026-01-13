@@ -11,6 +11,14 @@ export type Session = {
   expiresAt: Date
 }
 
+export type ImpersonationMetadata = {
+  expiresAt: Date
+  managerId: string
+  managerToken: string
+  managerEmail: string
+  impersonatedAt: Date
+}
+
 export type HonoEnv = {
   Variables: {
     session: FullSession
@@ -25,8 +33,9 @@ export type ActiveSession = {
 }
 
 export type FullSession = {
-  session: Session
   user: User
+  session: Session
+  impersonatedBy?: ImpersonationMetadata
 }
 
 export type ControllerIO<T extends keyof ValidationTargets, Schema> = {

@@ -6,7 +6,7 @@ import type { Context } from "hono"
 import { redis } from "@/config/redis"
 import type { SessionRepository } from "@/features/auth/repositories/sesion.repository"
 import { Cookie } from "@/features/auth/utils/cookie.utils"
-import type { Session } from "@/types/global.types"
+import type { FullSession, Session } from "@/types/global.types"
 import { getDate } from "@/utils/date"
 import { StringUtils } from "@/utils/string.utils"
 
@@ -41,7 +41,7 @@ export class SessionService {
       expiresAt: expiresAt.valueOf(),
     })
 
-    const fullSession = { user, session }
+    const fullSession: FullSession = { user, session }
 
     await Promise.all([
       redis.set(sessionKey, currentSessions, { ex: SESSION_EXPIRY }),
@@ -89,7 +89,12 @@ export class SessionService {
       }
 
       const maxAge = (updatedSession.expiresAt.valueOf() - Date.now()) / 1000
-      const data = { session: updatedSession, user: session.user }
+      const data = {
+        session: updatedSession,
+        user: session.user,
+        // Preserve impersonation metadata if it exists
+        ...(session.impersonatedBy && { impersonatedBy: session.impersonatedBy }),
+      }
 
       await redis.set(token, data, {
         ex: SESSION_EXPIRY,

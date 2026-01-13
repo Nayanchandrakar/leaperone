@@ -90,3 +90,15 @@ export type AcceptInvitation = {
   hashedPassword: string
   status: InvitationStatus
 }
+
+export type ImpersonationMetadata = {
+  expiresAt: Date
+  managerId: string
+  managerToken: string
+  managerEmail: string
+  impersonatedAt: Date
+}
+
+export type SessionWithImpersonation = {
+  impersonatedBy?: ImpersonationMetadata
+}

@@ -27,6 +27,10 @@ export const verifyToken = async (c: VerifyEmailContext, next: Next): Promise<an
 export const isAuth = async (c: Context, next: Next) => {
   const userSession = await sessionService.fromCtx(c)
   if (!userSession) throw ApiError.unauthorized()
+
+  // Session already contains impersonation metadata if it exists
+  // (stored when impersonation was initiated)
   c.set("session", userSession)
+
   await next()
 }

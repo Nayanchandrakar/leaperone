@@ -2,14 +2,19 @@ import { ApiError } from "@app/error"
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { dbHttp } from "../index"
 import { permissions as permissionTable, rolePermissions, roles, workspaceMembers } from "../schema"
-import type { PermissionType, RoleType } from "../types"
+import type { PermissionType, RoleType, SessionWithImpersonation } from "../types"
 
 export async function hasPermissions(
   userId: string,
   workspaceId: string,
   permissions: Array<PermissionType>,
+  session?: SessionWithImpersonation,
 ) {
   try {
+    // If impersonating, use manager's ID for permission checks
+    // Otherwise, use the provided userId
+    const effectiveUserId = session?.impersonatedBy?.managerId || userId
+
     const whereCondition =
       permissions.length > 1
         ? inArray(permissionTable.name, permissions)
@@ -24,7 +29,7 @@ export async function hasPermissions(
       .where(
         and(
           eq(workspaceMembers.workspaceId, workspaceId),
-          eq(workspaceMembers.userId, userId),
+          eq(workspaceMembers.userId, effectiveUserId),
           whereCondition,
         ),
       )

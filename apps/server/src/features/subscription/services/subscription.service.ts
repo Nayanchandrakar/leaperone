@@ -64,7 +64,8 @@ export class SubscriptionService {
   }
 
   async checkoutSession(c: CheckoutSessionContext) {
-    const user = c.get("session").user
+    const session = c.get("session")
+    const { user } = session
     const workspace = c.get("workspace")
     const { priceId, seats } = c.req.valid("json")
     const planDuration = SubscriptionUtils.getPlanDurationByPriceId(priceId)
@@ -73,7 +74,12 @@ export class SubscriptionService {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_PLAN_NOT_FOUND)
     }
 
-    const canPurchase = await hasPermissions(user.id, workspace.id, ["manage:subscription"])
+    const canPurchase = await hasPermissions(
+      user.id,
+      workspace.id,
+      ["manage:subscription"],
+      session,
+    )
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -163,10 +169,16 @@ export class SubscriptionService {
   }
 
   async billingPortal(c: CheckoutSessionContext) {
-    const user = c.get("session").user
+    const session = c.get("session")
+    const { user } = session
     const workspace = c.get("workspace")
 
-    const canPurchase = await hasPermissions(user.id, workspace.id, ["manage:subscription"])
+    const canPurchase = await hasPermissions(
+      user.id,
+      workspace.id,
+      ["manage:subscription"],
+      session,
+    )
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

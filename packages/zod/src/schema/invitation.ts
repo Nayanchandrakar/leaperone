@@ -18,3 +18,7 @@ export const acceptInvitationSchema = z
     path: ["confirmPassword"],
     error: "Passwords does not match",
   })
+
+export const accessAsMemberSchema = z.object({
+  memberId: z.cuid2(),
+})

@@ -1,4 +1,4 @@
-import { INVITATION_EXPIRY } from "@app/core/constants"
+import { INVITATION_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import {
   acceptInvitation,
   createWorkspaceInviteAndUser,
@@ -6,16 +6,22 @@ import {
   getInvitationsByWorkspaceId,
 } from "@app/database/repository/invitation"
 import { hasPermissions } from "@app/database/repository/role-permission"
-import { getUserByEmail, getUserByUserName } from "@app/database/repository/user"
+import { getUserByEmail, getUserById, getUserByUserName } from "@app/database/repository/user"
+import { getWorkspaceMember } from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger/index"
 import { createId } from "@paralleldrive/cuid2"
 import { hash } from "bcryptjs"
 import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
+import { sessionService } from "@/features/auth/modules/session.module"
+import { Cookie } from "@/features/auth/utils/cookie.utils"
 import { sendMail } from "@/features/auth/utils/mail"
+import type { FullSession } from "@/types/global.types"
 import type {
   AcceptInvitationContext,
+  AccessAsMemberContext,
+  ExitImpersonationContext,
   GetInvitedMembersContext,
   InviteMemberContext,
 } from "@/types/invitation.types"
@@ -25,7 +31,8 @@ import { RouteUtils } from "@/utils/route.utils"
 
 export class InvitationService {
   async inviteMember(c: InviteMemberContext) {
-    const { user } = c.get("session")
+    const session = c.get("session")
+    const { user } = session
     const workspace = c.get("workspace")
     const { email, jobRole, name, username } = c.req.valid("json")
 
@@ -33,7 +40,7 @@ export class InvitationService {
       throw ApiError.conflict(MSG.INVITATION.SELF_INVITE)
     }
 
-    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"])
+    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -128,10 +135,11 @@ export class InvitationService {
   }
 
   async getInvitedMembers(c: GetInvitedMembersContext) {
-    const { user } = c.get("session")
+    const session = c.get("session")
+    const { user } = session
     const workspace = c.get("workspace")
 
-    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"])
+    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -140,5 +148,112 @@ export class InvitationService {
     const invitations = await getInvitationsByWorkspaceId(workspace.id)
 
     return c.json({ data: invitations })
+  }
+
+  async accessAsMember(c: AccessAsMemberContext) {
+    const managerSession = c.get("session")
+    const { user } = managerSession
+    const workspace = c.get("workspace")
+    const { memberId } = c.req.valid("json")
+
+    // Check if manager has permission to manage members
+    // Note: We use managerSession here to check manager's permissions
+    // (not the impersonated session, since we're not impersonating yet)
+    const canManageMembers = await hasPermissions(
+      user.id,
+      workspace.id,
+      ["manage:members"],
+      managerSession,
+    )
+
+    if (!canManageMembers) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    // Prevent accessing own account
+    if (user.id === memberId) {
+      throw ApiError.badRequest(MSG.INVITATION.CANNOT_ACCESS_SELF)
+    }
+
+    // Verify the member exists in the workspace
+    const member = await getWorkspaceMember(memberId, workspace.id)
+
+    if (!member) {
+      throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
+    }
+
+    // Get the member user details
+    const memberUser = await getUserById(memberId)
+
+    if (!memberUser) {
+      throw ApiError.notFound(MSG.USER.NOT_FOUND)
+    }
+
+    // Check if member is restricted
+    if (memberUser.isRestricted) {
+      throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
+    }
+
+    // Create a new session for the member
+    const memberSession = await sessionService.create(c, memberUser)
+
+    if (!memberSession) {
+      throw ApiError.internalServerError(MSG.SESSION.FAILED_TO_CREATE)
+    }
+
+    // Enrich session with impersonation metadata (including manager token for restoration)
+    memberSession.impersonatedBy = {
+      managerId: user.id,
+      managerEmail: user.email,
+      impersonatedAt: new Date(),
+      managerToken: managerSession.session.token,
+      expiresAt: memberSession.session.expiresAt,
+    }
+
+    // Update the session in Redis with impersonation metadata
+    // (sessionService.create already stored it, but without metadata)
+    await redis.set(memberSession.session.token, memberSession, {
+      ex: SESSION_EXPIRY,
+    })
+
+    // Set the session cookie to switch to member's account
+    await Cookie.set(c, SESSION_COOKIE_NAME, memberSession.session.token)
+
+    logger.info(`Manager ${user.id} accessed as member ${memberId} in workspace ${workspace.id}`)
+
+    return c.json({
+      success: true,
+      data: { user: memberSession.user },
+      message: MSG.INVITATION.ACCESS_AS_MEMBER_SUCCESS,
+    })
+  }
+
+  async exitImpersonation(c: ExitImpersonationContext) {
+    const session = c.get("session")
+
+    // Check if this is an impersonation session
+    if (!session.impersonatedBy) {
+      throw ApiError.badRequest(MSG.INVITATION.NOT_IMPERSONATING)
+    }
+
+    const { managerToken } = session.impersonatedBy
+
+    // Get the manager's session from Redis using the stored token
+    const managerSession = await redis.get<FullSession>(managerToken)
+
+    if (!managerSession) {
+      throw ApiError.unauthorized(MSG.SESSION.EXPIRED)
+    }
+
+    // Restore the manager's session
+    await Cookie.set(c, SESSION_COOKIE_NAME, managerToken)
+
+    logger.info(`Manager ${managerSession.user.id} exited impersonation`)
+
+    return c.json({
+      success: true,
+      data: { user: managerSession.user },
+      message: MSG.INVITATION.EXIT_IMPERSONATION_SUCCESS,
+    })
   }
 }

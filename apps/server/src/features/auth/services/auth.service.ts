@@ -112,8 +112,8 @@ export class AuthService {
 
     await sendMail({
       to: email,
-      html: callbackString.toString(),
       subject: "Your leaperone email verification link",
+      html: callbackString.toString(),
     })
 
     return c.json({ message: MSG.VERIFICATION.LINK_SENT })
@@ -310,10 +310,15 @@ export class AuthService {
     const workspace = c.get("workspace")
 
     if (body.userId === session.user.id) {
-      throw ApiError.badRequest("You can not restrict yourself")
+      throw ApiError.badRequest(MSG.USER.CANNOT_RESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(session.user.id, workspace.id, ["manage:members"])
+    const canRestrict = await hasPermissions(
+      session.user.id,
+      workspace.id,
+      ["manage:members"],
+      session,
+    )
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -337,10 +342,15 @@ export class AuthService {
     const workspace = c.get("workspace")
 
     if (body.userId === session.user.id) {
-      throw ApiError.badRequest("You can unrestrict yourself")
+      throw ApiError.badRequest(MSG.USER.CANNOT_UNRESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(session.user.id, workspace.id, ["manage:members"])
+    const canRestrict = await hasPermissions(
+      session.user.id,
+      workspace.id,
+      ["manage:members"],
+      session,
+    )
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

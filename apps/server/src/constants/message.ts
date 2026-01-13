@@ -36,6 +36,8 @@ export const MSG = {
     USERNAME_EXISTS: "Username has been already taken",
     RESTRICTED_USER: "Your account has been restricted.",
     ALREADY_EXISTS: "User already exists. Use another email.",
+    CANNOT_RESTRICT_YOURSELF: "You cannot restrict yourself",
+    CANNOT_UNRESTRICT_YOURSELF: "You cannot unrestrict yourself",
     EMAIL_NOT_VERIFIED: "Verification link has been sent to your email.",
   },
 
@@ -101,5 +103,10 @@ export const MSG = {
     INVITE_SENT: "Invitation has been sent successfully.",
     SELF_INVITE: "You cannot invite yourself to the workspace.",
     INVALID_OR_EXPIRED: "The invitation link is invalid or has expired.",
+    MEMBER_NOT_FOUND: "Member not found in this workspace.",
+    CANNOT_ACCESS_SELF: "You cannot access your own account using this feature.",
+    ACCESS_AS_MEMBER_SUCCESS: "Successfully switched to member account.",
+    NOT_IMPERSONATING: "You are not currently impersonating a member.",
+    EXIT_IMPERSONATION_SUCCESS: "Successfully exited impersonation and restored your account.",
   },
 } as const
