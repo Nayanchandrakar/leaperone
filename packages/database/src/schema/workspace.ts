@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2"
-import { pgTable, text } from "drizzle-orm/pg-core"
+import { boolean, pgTable, text } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
 import { users } from "./users"
 
@@ -11,5 +11,6 @@ export const workspace = pgTable("workspace", {
     .unique()
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
+  createAndEdit: boolean().default(false).notNull(),
   ...timestamps,
 })

@@ -1,4 +1,4 @@
-import type { SocialLink } from "@app/core/types"
+import type { SocialLink } from "@app/types"
 import { ArrowUpRight } from "lucide-react"
 import { type FC, useCallback } from "react"
 import { ContactIcons } from "@/features/preview/components/shared/contact-icons"

@@ -1,4 +1,4 @@
-import type { GradientFill, GradientType } from "@app/core/types"
+import type { GradientFill, GradientType } from "@app/types"
 import { Field, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { RadioGroup, RadioGroupItem } from "@app/ui/components/radio-group"
 import { Slider } from "@app/ui/components/slider"

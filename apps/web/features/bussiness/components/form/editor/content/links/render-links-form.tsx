@@ -1,4 +1,4 @@
-import type { SocialLink } from "@app/core/types"
+import type { SocialLink } from "@app/types"
 import { memo, useCallback } from "react"
 import { LinkItemRenderer } from "@/features/bussiness/components/form/editor/content/links/link-item-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

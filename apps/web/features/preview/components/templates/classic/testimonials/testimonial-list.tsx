@@ -1,4 +1,4 @@
-import type { Testimonial } from "@app/core/types"
+import type { Testimonial } from "@app/types"
 import { TestimonialCard } from "@/features/preview/components/cards/classic/testimonial-card"
 
 interface TestimonialListProps {

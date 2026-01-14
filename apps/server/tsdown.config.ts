@@ -19,10 +19,10 @@ export default defineConfig(
       skipNodeModulesBundle: isProduction,
       noExternal: [
         "@app/nrpc",
+        "@app/types",
         "@app/error",
         "@app/logger",
         "@app/database",
-        "@app/core/types",
         "@app/core/utils",
         "@app/env/server",
         "@app/core/constants",

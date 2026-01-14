@@ -1,4 +1,4 @@
-import type { SocialLink } from "@app/core/types"
+import type { SocialLink } from "@app/types"
 import { Plus } from "lucide-react"
 import { SocialIcons } from "@/features/bussiness/components/shared/social-icons"
 

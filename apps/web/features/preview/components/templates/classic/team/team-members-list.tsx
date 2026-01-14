@@ -1,4 +1,4 @@
-import type { TeamMember } from "@app/core/types"
+import type { TeamMember } from "@app/types"
 import { TeamMemberCard } from "@/features/preview/components/cards/classic/team-member-card"
 
 interface TeamMemberListProps {

@@ -1,4 +1,4 @@
-import type { VideoSection as Content, YoutubeVideo } from "@app/core/types"
+import type { VideoSection as Content, YoutubeVideo } from "@app/types"
 import { memo, useMemo } from "react"
 import {
   SectionDescription,

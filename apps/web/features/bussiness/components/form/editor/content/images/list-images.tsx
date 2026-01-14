@@ -1,4 +1,4 @@
-import type { ImageLink } from "@app/core/types"
+import type { ImageLink } from "@app/types"
 import { memo, useCallback } from "react"
 import { ImageLinkItemRenderer } from "@/features/bussiness/components/form/editor/content/images/image-link-item-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

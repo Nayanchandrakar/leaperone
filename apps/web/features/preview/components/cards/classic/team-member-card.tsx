@@ -1,4 +1,4 @@
-import type { TeamMember } from "@app/core/types"
+import type { TeamMember } from "@app/types"
 import { Avatar, AvatarImage } from "@app/ui/components/avatar"
 import { useMemo } from "react"
 import { Member, MemberDescription, MemberName } from "@/features/preview/components/ui/member"

@@ -13,7 +13,7 @@ import type {
   TeamSection,
   TestimonialsSection,
   VideoSection,
-} from "@app/core/types"
+} from "@app/types"
 import { generateUUID } from "@/utils"
 
 // Factory functions that create new sections with fresh IDs

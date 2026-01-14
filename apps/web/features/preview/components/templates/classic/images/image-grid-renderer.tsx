@@ -1,4 +1,4 @@
-import type { ImageLink, ImageViewType } from "@app/core/types"
+import type { ImageLink, ImageViewType } from "@app/types"
 import { ImageGridCard } from "@/features/preview/components/cards/classic/image-grid-card"
 
 type ImageGridRendererProps = {

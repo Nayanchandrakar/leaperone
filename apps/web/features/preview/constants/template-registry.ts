@@ -1,4 +1,4 @@
-import type { TemplateKey } from "@app/core/types"
+import type { TemplateKey } from "@app/types"
 import type { TemplateComponent } from "@/features/preview/types"
 
 export const TEMPLATE_REGISTRY: Record<TemplateKey, () => Promise<{ default: TemplateComponent }>> =

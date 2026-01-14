@@ -1,4 +1,4 @@
-import type { TemplateKey } from "@app/core/types"
+import type { TemplateKey } from "@app/types"
 import dynamic from "next/dynamic"
 import { useMemo } from "react"
 import { TemplateLoading } from "@/features/preview/components/skeletons/template-loading"

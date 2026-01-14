@@ -1,4 +1,4 @@
-import type { ContentSectionType } from "@app/core/types"
+import type { ContentSectionType } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { memo, useCallback } from "react"

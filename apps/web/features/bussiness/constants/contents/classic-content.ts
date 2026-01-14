@@ -12,7 +12,7 @@ import type {
   TeamSection,
   TestimonialsSection,
   VideoSection,
-} from "@app/core/types"
+} from "@app/types"
 import { generateUUID } from "@/utils"
 
 export const CARD_PROFILE_SECTION: ProfileCardSection = {

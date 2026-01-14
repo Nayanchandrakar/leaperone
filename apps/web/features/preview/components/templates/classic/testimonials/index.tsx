@@ -1,4 +1,4 @@
-import type { TestimonialsSection } from "@app/core/types"
+import type { TestimonialsSection } from "@app/types"
 import { useMemo } from "react"
 import { TestimonialList } from "@/features/preview/components/templates/classic/testimonials/testimonial-list"
 import {

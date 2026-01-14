@@ -1,4 +1,4 @@
-import type { ContactItem } from "@app/core/types"
+import type { ContactItem } from "@app/types"
 import type { ContactItemType } from "@/features/bussiness/types"
 import { generateUUID } from "@/utils"
 

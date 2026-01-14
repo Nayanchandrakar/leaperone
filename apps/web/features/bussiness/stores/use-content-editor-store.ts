@@ -1,4 +1,4 @@
-import type { ContentSection, ContentSectionType, TemplateKey } from "@app/core/types"
+import type { ContentSection, ContentSectionType, TemplateKey } from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { CLASSIC_CONTENT } from "@/features/bussiness/constants/contents/classic-content"

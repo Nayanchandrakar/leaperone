@@ -1,4 +1,4 @@
-import type { BussinessHourSection as Content } from "@app/core/types"
+import type { BussinessHourSection as Content } from "@app/types"
 import { useMemo } from "react"
 import {
   SectionDescription,

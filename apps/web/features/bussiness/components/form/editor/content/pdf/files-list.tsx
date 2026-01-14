@@ -1,4 +1,4 @@
-import type { PdfFile } from "@app/core/types"
+import type { PdfFile } from "@app/types"
 import { memo, useCallback } from "react"
 import { PdfFileItemRenderer } from "@/features/bussiness/components/form/editor/content/pdf/pdf-file-item-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

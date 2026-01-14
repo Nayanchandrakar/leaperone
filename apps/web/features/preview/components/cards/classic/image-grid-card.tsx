@@ -1,4 +1,4 @@
-import type { ImageViewType } from "@app/core/types"
+import type { ImageViewType } from "@app/types"
 import Image from "next/image"
 
 type ImageGridCardProps = {

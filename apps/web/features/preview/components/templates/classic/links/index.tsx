@@ -1,4 +1,4 @@
-import type { LinkSection } from "@app/core/types"
+import type { LinkSection } from "@app/types"
 import { memo, useMemo } from "react"
 import { SocialLinkRow } from "@/features/preview/components/templates/classic/links/social-link-row"
 import {

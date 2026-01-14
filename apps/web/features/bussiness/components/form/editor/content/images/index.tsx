@@ -1,4 +1,4 @@
-import type { ImageViewType } from "@app/core/types"
+import type { ImageViewType } from "@app/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 
 import { memo, useMemo } from "react"

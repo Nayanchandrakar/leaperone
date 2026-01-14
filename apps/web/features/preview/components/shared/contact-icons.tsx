@@ -1,4 +1,4 @@
-import type { SocialLinkType } from "@app/core/types"
+import type { SocialLinkType } from "@app/types"
 import type { IconProps } from "@/types"
 
 export const ContactIcons: Record<SocialLinkType, (props: IconProps) => React.JSX.Element> = {

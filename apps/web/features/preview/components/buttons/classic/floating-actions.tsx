@@ -1,4 +1,4 @@
-import type { FloatingButtonSection } from "@app/core/types"
+import type { FloatingButtonSection } from "@app/types"
 import { Plus, QrCode, Share2 } from "lucide-react"
 import { Fragment, memo, useMemo } from "react"
 import { BussinessButton } from "@/features/preview/components/ui/bussines-button"

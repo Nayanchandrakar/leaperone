@@ -5,7 +5,7 @@ import type {
   QrCodeEditor,
   QrCodeFill,
   QrCodePatternStyle,
-} from "@app/core/types"
+} from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { QR_CODE_SETTINGS } from "@/features/bussiness/constants/home/qr-code-settings"

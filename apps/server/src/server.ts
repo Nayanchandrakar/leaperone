@@ -4,6 +4,7 @@ import { authController } from "@/features/auth/modules/auth.module"
 import { invitationController } from "@/features/invitation/modules/invitation.module"
 import { marketingController } from "@/features/marketing/modules/marketing.module"
 import { subscriptionController } from "@/features/subscription/modules/subscription.module"
+import { workspaceController } from "@/features/workspace/modules/workspace.module"
 
 const server = new BootStrap([
   authController,
@@ -11,6 +12,7 @@ const server = new BootStrap([
   invitationController,
   marketingController,
   subscriptionController,
+  workspaceController,
 ])
 
 server.listen()

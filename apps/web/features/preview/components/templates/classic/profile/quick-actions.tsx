@@ -1,4 +1,4 @@
-import type { Contact } from "@app/core/types"
+import type { Contact } from "@app/types"
 import { memo } from "react"
 import { ContactIcons } from "@/features/preview/components/shared/contact-icons"
 import { IconBadge } from "@/features/preview/components/ui/icon-badge"

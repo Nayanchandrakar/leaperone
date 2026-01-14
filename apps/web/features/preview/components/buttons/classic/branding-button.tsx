@@ -1,4 +1,4 @@
-import type { CardSettings } from "@app/core/types"
+import type { CardSettings } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import { memo } from "react"
 import { Icons } from "@/components/shared/icons"

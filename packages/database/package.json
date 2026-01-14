@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",
+    "@app/types": "workspace:*",
     "@types/node": "catalog:",
     "drizzle-kit": "catalog:",
     "typescript": "catalog:"

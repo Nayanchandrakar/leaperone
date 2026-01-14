@@ -1,4 +1,4 @@
-import type { SocialLinkType } from "@app/core/types"
+import type { SocialLinkType } from "@app/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { memo, useCallback, useMemo } from "react"

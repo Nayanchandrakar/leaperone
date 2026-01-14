@@ -1,4 +1,4 @@
-import type { PdfFileSection as Content } from "@app/core/types"
+import type { PdfFileSection as Content } from "@app/types"
 import { memo, useMemo } from "react"
 import { FilesList } from "@/features/preview/components/templates/classic/pdf/files-list"
 import {

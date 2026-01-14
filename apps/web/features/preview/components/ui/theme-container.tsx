@@ -1,4 +1,4 @@
-import type { DesignEditor } from "@app/core/types"
+import type { DesignEditor } from "@app/types"
 import type React from "react"
 
 type ThemeContainerProps = React.ComponentProps<"main"> & {

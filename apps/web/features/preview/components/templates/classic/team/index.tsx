@@ -1,4 +1,4 @@
-import type { TeamSection as Content } from "@app/core/types"
+import type { TeamSection as Content } from "@app/types"
 import { useMemo } from "react"
 import { TeamMembersList } from "@/features/preview/components/templates/classic/team/team-members-list"
 import {

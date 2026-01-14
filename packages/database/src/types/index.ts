@@ -50,6 +50,7 @@ export type InsertFile = typeof file.$inferInsert
 export type InsertContactUs = typeof contactUs.$inferInsert
 export type InsertSupport = typeof support.$inferInsert
 export type InsertInvitation = typeof invitations.$inferInsert
+export type InsertWorkspace = typeof workspace.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

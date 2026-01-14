@@ -1,4 +1,4 @@
-import type { ImageLink } from "@app/core/types"
+import type { ImageLink } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"

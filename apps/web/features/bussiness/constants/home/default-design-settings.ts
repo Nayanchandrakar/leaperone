@@ -1,4 +1,4 @@
-import type { DesignEditor } from "@app/core/types"
+import type { DesignEditor } from "@app/types"
 import { BACKGROUND_IMAGES } from "@/features/bussiness/constants/home/background-images"
 import { CARD_COLORS } from "@/features/bussiness/constants/home/card-colors"
 import { MODERN_FONTS } from "@/features/bussiness/constants/home/fonts"

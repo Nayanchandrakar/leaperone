@@ -1,4 +1,5 @@
 export * from "./accounts"
+export * from "./business-card"
 export * from "./contact-us"
 export * from "./file"
 export * from "./invitations"

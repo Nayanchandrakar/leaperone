@@ -1,4 +1,4 @@
-import type { Contact } from "@app/core/types"
+import type { Contact } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import { Plus } from "lucide-react"
 import { memo, useCallback } from "react"

@@ -1,4 +1,4 @@
-import type { QrCodeEditor } from "@app/core/types"
+import type { QrCodeEditor } from "@app/types"
 import QRCodeStyling from "qr-code-styling"
 import type React from "react"
 import { createContext, useContext, useEffect, useRef, useState } from "react"

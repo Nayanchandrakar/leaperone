@@ -1,4 +1,4 @@
-import type { ContactItem } from "@app/core/types"
+import type { ContactItem } from "@app/types"
 import { memo, useCallback } from "react"
 import { AddressContactForm } from "@/features/bussiness/components/form/editor/content/contact/address-contact-form"
 import { EmailContactForm } from "@/features/bussiness/components/form/editor/content/contact/email-contact-form"

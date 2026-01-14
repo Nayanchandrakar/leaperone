@@ -1,4 +1,4 @@
-import type { ProfileCardSection } from "@app/core/types"
+import type { ProfileCardSection } from "@app/types"
 import { ProfileImageWrapper } from "@/features/preview/components/templates/classic/profile/profile-image-wrapper"
 import { ProfileInfo } from "@/features/preview/components/templates/classic/profile/profile-info"
 import { QuickActions } from "@/features/preview/components/templates/classic/profile/quick-actions"

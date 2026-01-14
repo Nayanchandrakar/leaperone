@@ -1,4 +1,4 @@
-import type { QrCodeBodyShape, QrCodeEditor } from "@app/core/types"
+import type { QrCodeBodyShape, QrCodeEditor } from "@app/types"
 import { Icons } from "@/components/shared/icons"
 import type { QrCodeCornerStyle, QrCodeItem, QrCodePatternStyle } from "@/features/bussiness/types"
 

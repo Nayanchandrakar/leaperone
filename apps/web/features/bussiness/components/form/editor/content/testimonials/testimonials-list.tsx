@@ -1,4 +1,4 @@
-import type { Testimonial } from "@app/core/types"
+import type { Testimonial } from "@app/types"
 import { memo, useCallback } from "react"
 import { TestimonialItemRenderer } from "@/features/bussiness/components/form/editor/content/testimonials/testimonial-item-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

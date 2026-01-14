@@ -1,4 +1,4 @@
-import type { QrCodeEditor } from "@app/core/types"
+import type { QrCodeEditor } from "@app/types"
 import type { Gradient, Options } from "qr-code-styling"
 import { useMemo } from "react"
 

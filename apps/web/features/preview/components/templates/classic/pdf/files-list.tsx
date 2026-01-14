@@ -1,4 +1,4 @@
-import type { PdfFile } from "@app/core/types"
+import type { PdfFile } from "@app/types"
 import { FileCard } from "@/features/preview/components/cards/classic/file-card"
 
 interface FilesListProps {

@@ -1,4 +1,4 @@
-import type { ContentSection, FloatingButtonSection } from "@app/core/types"
+import type { ContentSection, FloatingButtonSection } from "@app/types"
 import { BussinessHourSection } from "@/features/preview/components/templates/classic/bussiness-hours"
 import { ContactDetailSection } from "@/features/preview/components/templates/classic/contact"
 import { CtaButtonSection } from "@/features/preview/components/templates/classic/cta-button"

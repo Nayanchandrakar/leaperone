@@ -1,4 +1,4 @@
-import type { CtaButtonSection as Content } from "@app/core/types"
+import type { CtaButtonSection as Content } from "@app/types"
 import { memo, useMemo } from "react"
 import { CtaButton } from "@/features/preview/components/buttons/classic/cta-button"
 import {

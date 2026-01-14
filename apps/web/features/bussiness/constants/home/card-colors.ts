@@ -1,4 +1,4 @@
-import type { Color } from "@app/core/types"
+import type { Color } from "@app/types"
 
 export const CARD_COLORS: Color[] = [
   {

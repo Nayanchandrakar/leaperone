@@ -1,4 +1,4 @@
-import type { SocialLink } from "@app/core/types"
+import type { SocialLink } from "@app/types"
 import { SocialMediaItem } from "@/features/bussiness/components/cards/home/social-media-item"
 
 type SocialMediaSectionProps = {

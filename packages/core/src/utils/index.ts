@@ -1,5 +1,5 @@
 import { getSubscriptionByWorkspaceId } from "@app/database/repository/subscription"
-import type { SubscriptionActive } from "../types"
+import type { SubscriptionActive } from "@app/types"
 
 export function isWithinRange(now: Date, start: Date | null, end: Date | null) {
   return !!(start && end && now >= start && now <= end)

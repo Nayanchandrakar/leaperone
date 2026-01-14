@@ -1,4 +1,4 @@
-import type { ProfileCardSection } from "@app/core/types"
+import type { ProfileCardSection } from "@app/types"
 import { cn } from "@app/ui/lib/utils"
 import { useMemo } from "react"
 import { SectionHeader, SectionTitle } from "@/features/preview/components/ui/section"

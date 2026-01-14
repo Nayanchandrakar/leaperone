@@ -43,6 +43,7 @@ import type {
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { qrCodeEditorSchema } from "../schema/qr-code-editor"
 import type { checkoutSessionSchema } from "../schema/subscription"
+import type { workspaceCardSettingSchema } from "../schema/workspace"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>
 export type LoginFormSchema = z.infer<typeof loginFormSchema>
@@ -83,3 +84,4 @@ export type TestimonialMemberSchema = z.infer<typeof testimonialMemberSchema>
 export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>
 export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
+export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>

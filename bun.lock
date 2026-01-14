@@ -121,6 +121,7 @@
       "version": "1.0.0",
       "dependencies": {
         "@app/database": "workspace:*",
+        "@app/types": "workspace:*",
       },
       "devDependencies": {
         "@app/tsconfig": "workspace:*",
@@ -182,6 +183,15 @@
     "packages/tsconfig": {
       "name": "@app/tsconfig",
       "version": "0.0.0",
+    },
+    "packages/types": {
+      "name": "@app/types",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@app/tsconfig": "workspace:*",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+      },
     },
     "packages/ui": {
       "name": "@app/ui",
@@ -372,6 +382,8 @@
     "@app/logger": ["@app/logger@workspace:packages/logger"],
 
     "@app/tsconfig": ["@app/tsconfig@workspace:packages/tsconfig"],
+
+    "@app/types": ["@app/types@workspace:packages/types"],
 
     "@app/ui": ["@app/ui@workspace:packages/ui"],
 

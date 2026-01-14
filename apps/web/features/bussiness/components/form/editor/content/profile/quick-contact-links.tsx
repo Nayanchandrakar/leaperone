@@ -1,4 +1,4 @@
-import type { Contact } from "@app/core/types"
+import type { Contact } from "@app/types"
 import { memo, useCallback } from "react"
 import { QuickContactItemRenderer } from "@/features/bussiness/components/form/editor/content/profile/quick-contact-item-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

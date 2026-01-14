@@ -1,4 +1,4 @@
-import type { Color } from "@app/core/types"
+import type { Color } from "@app/types"
 import { useCallback } from "react"
 import { ListComponent } from "@/components/shared/list-component"
 import { CardColorSwatch } from "@/features/bussiness/components/cards/home/card-color-swatch"

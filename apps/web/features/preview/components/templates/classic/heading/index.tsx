@@ -1,4 +1,4 @@
-import type { HeadingTextSection } from "@app/core/types"
+import type { HeadingTextSection } from "@app/types"
 import { memo, useMemo } from "react"
 import {
   SectionDescription,

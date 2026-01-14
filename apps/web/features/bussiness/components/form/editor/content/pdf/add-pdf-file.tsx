@@ -1,4 +1,4 @@
-import type { PdfFile } from "@app/core/types"
+import type { PdfFile } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import { PlusIcon } from "lucide-react"
 import { useCallback } from "react"

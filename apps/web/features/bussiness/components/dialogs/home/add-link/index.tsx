@@ -1,4 +1,4 @@
-import type { SocialLink } from "@app/core/types"
+import type { SocialLink } from "@app/types"
 import { Button } from "@app/ui/components/button"
 import {
   Dialog,

@@ -1,4 +1,4 @@
-import type { Period } from "@app/core/types"
+import type { Period } from "@app/types"
 import { useMemo } from "react"
 import { formatTime } from "@/features/preview/utils/format-time"
 

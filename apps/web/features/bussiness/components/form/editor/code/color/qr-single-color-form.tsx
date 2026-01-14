@@ -1,4 +1,4 @@
-import type { SingleColorFill } from "@app/core/types"
+import type { SingleColorFill } from "@app/types"
 import { Field, FieldLabel } from "@app/ui/components/field"
 import { memo, useCallback } from "react"
 import { useShallow } from "zustand/react/shallow"

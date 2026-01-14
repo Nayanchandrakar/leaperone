@@ -1,4 +1,4 @@
-import type { ContactDetailsSection } from "@app/core/types"
+import type { ContactDetailsSection } from "@app/types"
 import { memo, useMemo } from "react"
 import { LocationButton } from "@/features/preview/components/buttons/classic/location-button"
 import { ContactInfoList } from "@/features/preview/components/templates/classic/contact/contact-info-list"

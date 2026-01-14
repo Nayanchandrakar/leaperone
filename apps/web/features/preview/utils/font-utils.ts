@@ -1,4 +1,4 @@
-import type { Font } from "@app/core/types"
+import type { Font } from "@app/types"
 
 /**
  * Generates a Google Fonts URL with optimized weights, Latin subset, and font-display swap

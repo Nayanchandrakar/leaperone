@@ -1,4 +1,4 @@
-import type { ImagesTextLinksSection } from "@app/core/types"
+import type { ImagesTextLinksSection } from "@app/types"
 import { memo, useMemo } from "react"
 import {
   SectionDescription,

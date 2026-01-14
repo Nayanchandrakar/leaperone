@@ -1,4 +1,4 @@
-import type { Font } from "@app/core/types"
+import type { Font } from "@app/types"
 import { useEffect, useRef } from "react"
 import { getGoogleFontsUrl, isSystemFont } from "@/features/preview/utils/font-utils"
 

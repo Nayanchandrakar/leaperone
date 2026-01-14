@@ -7,7 +7,6 @@
   "private": true,
   "exports": {
     "./constants": "./src/constants/index.ts",
-    "./types": "./src/types/index.ts",
     "./utils": "./src/utils/index.ts"
   },
   "scripts": {
@@ -18,7 +17,8 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
-    "@app/database": "workspace:*"
+    "@app/database": "workspace:*",
+    "@app/types": "workspace:*"
   },
   "devDependencies": {
     "@app/tsconfig": "workspace:*",

@@ -1,4 +1,4 @@
-import type { ContactType } from "@app/core/types"
+import type { ContactType } from "@app/types"
 
 export function getEmailUrl(email: string) {
   return `mailto:${email}`

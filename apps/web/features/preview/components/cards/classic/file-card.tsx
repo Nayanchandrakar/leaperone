@@ -1,4 +1,4 @@
-import type { PdfFile } from "@app/core/types"
+import type { PdfFile } from "@app/types"
 import { Avatar, AvatarImage } from "@app/ui/components/avatar"
 import { ArrowUpRight } from "lucide-react"
 import { useMemo } from "react"

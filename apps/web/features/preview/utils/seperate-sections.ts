@@ -1,4 +1,4 @@
-import type { ContentSection, FloatingButtonSection } from "@app/core/types"
+import type { ContentSection, FloatingButtonSection } from "@app/types"
 
 /**
  * Utility function to separate content sections into main sections and floating button content.

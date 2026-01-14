@@ -1,4 +1,4 @@
-import type { ContentSection, DesignEditor, FloatingButtonSection } from "@app/core/types"
+import type { ContentSection, DesignEditor, FloatingButtonSection } from "@app/types"
 
 export type TemplateComponent = React.ComponentType<TemplateProps>
 export type ContentSections = Exclude<ContentSection, FloatingButtonSection>

@@ -1,4 +1,4 @@
-import type { Font } from "@app/core/types"
+import type { Font } from "@app/types"
 import { ListComponent } from "@/components/shared/list-component"
 import { FontSwatch } from "@/features/bussiness/components/cards/home/font-swatch"
 import type { FontOption } from "@/features/bussiness/types"

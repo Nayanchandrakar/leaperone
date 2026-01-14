@@ -5,7 +5,7 @@ import type {
   DesignEditor,
   Font,
   SectionBackground,
-} from "@app/core/types"
+} from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { DEFAULT_DESIGN_SETTINGS } from "@/features/bussiness/constants/home/default-design-settings"

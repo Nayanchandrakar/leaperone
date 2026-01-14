@@ -1,4 +1,4 @@
-import type { Period } from "@app/core/types"
+import type { Period } from "@app/types"
 import { BussinessHourCard } from "@/features/preview/components/cards/classic/bussiness-hour-card"
 import { SectionRoot } from "@/features/preview/components/ui/section"
 

@@ -1,4 +1,4 @@
-import type { ProfileCardSection } from "@app/core/types"
+import type { ProfileCardSection } from "@app/types"
 import Image from "next/image"
 import { Icons } from "@/components/shared/icons"
 

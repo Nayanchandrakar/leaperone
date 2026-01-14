@@ -1,4 +1,4 @@
-import type { ImageViewType } from "@app/core/types"
+import type { ImageViewType } from "@app/types"
 import { ListComponent } from "@/components/shared/list-component"
 import { ImageOrientation } from "@/features/bussiness/components/cards/home/image-orientation"
 import type { ImageView } from "@/features/bussiness/types"

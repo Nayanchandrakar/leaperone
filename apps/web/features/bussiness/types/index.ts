@@ -7,7 +7,7 @@ import type {
   QrCodeFill,
   SocialLinkType,
   TemplateKey,
-} from "@app/core/types"
+} from "@app/types"
 import type * as React from "react"
 import type { IconProps } from "@/types"
 

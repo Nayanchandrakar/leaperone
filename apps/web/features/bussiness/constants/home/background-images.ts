@@ -1,4 +1,4 @@
-import type { Background } from "@app/core/types"
+import type { Background } from "@app/types"
 
 export const BACKGROUND_IMAGES: Background[] = [
   {

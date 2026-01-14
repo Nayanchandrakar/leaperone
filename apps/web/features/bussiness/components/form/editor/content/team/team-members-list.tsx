@@ -1,4 +1,4 @@
-import type { TeamMember } from "@app/core/types"
+import type { TeamMember } from "@app/types"
 import { memo, useCallback } from "react"
 import { TeamMemberRenderer } from "@/features/bussiness/components/form/editor/content/team/team-member-renderer"
 import { SortableList } from "@/features/bussiness/components/ui/sortable-list"

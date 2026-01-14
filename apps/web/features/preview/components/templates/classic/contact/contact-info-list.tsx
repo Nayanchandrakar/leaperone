@@ -1,4 +1,4 @@
-import type { ContactAddressItem, ContactItem, EmailLink, PhoneLink } from "@app/core/types"
+import type { ContactAddressItem, ContactItem, EmailLink, PhoneLink } from "@app/types"
 import {
   ContactInfoItem,
   ContactInfoValue,
