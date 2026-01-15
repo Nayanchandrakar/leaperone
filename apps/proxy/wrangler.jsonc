@@ -1,8 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cloudflare",
+  "name": "proxy",
   "main": "src/index.ts",
-  "compatibility_date": "2025-07-16"
+  "compatibility_date": "2026-01-14"
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],

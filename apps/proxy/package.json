@@ -1,5 +1,5 @@
 {
-  "name": "cloudflare",
+  "name": "proxy",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
@@ -10,6 +10,6 @@
     "hono": "catalog:"
   },
   "devDependencies": {
-    "wrangler": "^4.29.1"
+    "wrangler": "catalog:"
   }
 }

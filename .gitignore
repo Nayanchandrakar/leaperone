@@ -36,6 +36,8 @@ coverage/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
+.dev.vars
 
 # -----------------------------------------------------------------------------
 # Diagnostic reports
@@ -52,6 +54,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+pnpm-debug.log*
 
 # -----------------------------------------------------------------------------
 # Process and lock files
@@ -82,6 +85,8 @@ pids/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .yarn-integrity
+.yarn/
+!.yarn/releases
 
 # -----------------------------------------------------------------------------
 # TypeScript
@@ -104,6 +109,9 @@ pids/
 # VSCode
 # -----------------------------------------------------------------------------
 .vscode-test/
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
 
 # -----------------------------------------------------------------------------
 # Package files
@@ -126,4 +134,16 @@ pids/
 # -----------------------------------------------------------------------------
 .cdk.staging
 cdk.out
-.vercel
+
+# -----------------------------------------------------------------------------
+# IDEA
+# -----------------------------------------------------------------------------
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf
+
+# -----------------------------------------------------------------------------
+# Wrangler
+# -----------------------------------------------------------------------------
+.wrangler
+
