@@ -1,4 +1,5 @@
 import { isSubscriptionActive } from "@app/core/utils"
+import { db } from "@app/database"
 import { getWorkspaceByOwnerId } from "@app/database/repository/workspace"
 import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
@@ -7,7 +8,7 @@ import type { HonoEnv } from "@/types/global.types"
 
 export const hasWorkspace = async (c: Context<HonoEnv>, next: Next) => {
   const session = c.get("session")
-  const workspace = await getWorkspaceByOwnerId(session.user.id)
+  const workspace = await getWorkspaceByOwnerId(db, session.user.id)
   if (!workspace) throw ApiError.badRequest(MSG.WORKSPACE.NOT_FOUND)
   c.set("workspace", workspace)
   await next()

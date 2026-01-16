@@ -1,26 +1,25 @@
 import { ApiError } from "@app/error"
 import { and, asc, desc, eq, ilike, inArray, sql } from "drizzle-orm"
-import { dbHttp, dbWs } from "../index"
 import { file, storage } from "../schema/index"
-import type { GetFilesByStorageId, InsertFile } from "../types"
+import type { DatabaseClient, GetFilesByStorageId, InsertFile } from "../types"
 
-export async function createFile(params: InsertFile) {
+export async function createFile(db: DatabaseClient, values: InsertFile) {
   try {
-    await dbHttp.insert(file).values(params)
+    await db.insert(file).values(values)
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
   }
 }
 
-export async function bootStrapFile(params: InsertFile[]) {
+export async function bootStrapFile(db: DatabaseClient, values: InsertFile[]) {
   try {
-    await dbWs.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       // create a new file entry
-      await tx.insert(file).values(params)
+      await tx.insert(file).values(values)
 
       // update the storage usage
-      for (const { storageId, size } of params) {
+      for (const { storageId, size } of values) {
         await tx
           .update(storage)
           .set({ usage: sql`${storage.usage} + ${size}` })
@@ -33,14 +32,10 @@ export async function bootStrapFile(params: InsertFile[]) {
   }
 }
 
-export async function getFilesByStorageId({
-  sortBy,
-  types,
-  offset,
-  pageSize,
-  storageId,
-  searchQuery,
-}: GetFilesByStorageId) {
+export async function getFilesByStorageId(
+  db: DatabaseClient,
+  { sortBy, types, offset, pageSize, storageId, searchQuery }: GetFilesByStorageId,
+) {
   try {
     const whereConditions = [eq(file.storageId, storageId)]
 
@@ -52,7 +47,7 @@ export async function getFilesByStorageId({
       whereConditions.push(ilike(file.name, `%${searchQuery}%`))
     }
 
-    const query = dbHttp
+    const query = db
       .select({
         id: file.id,
         ext: file.ext,
@@ -95,9 +90,13 @@ export async function getFilesByStorageId({
   }
 }
 
-export async function deleteFilesByStorageIdAndIds(storageId: string, ids: string[]) {
+export async function deleteFilesByStorageIdAndIds(
+  db: DatabaseClient,
+  storageId: string,
+  ids: string[],
+) {
   try {
-    const result = await dbHttp
+    const result = await db
       .delete(file)
       .where(and(eq(file.storageId, storageId), inArray(file.id, ids)))
       .returning({ key: file.key })

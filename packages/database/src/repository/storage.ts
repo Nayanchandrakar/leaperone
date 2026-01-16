@@ -1,11 +1,11 @@
 import { ApiError } from "@app/error"
 import { eq } from "drizzle-orm"
-import { dbHttp } from "../index"
 import { storage } from "../schema"
+import type { DatabaseClient } from "../types"
 
-export async function getStorageByWorkspaceId(workspaceId: string) {
+export async function getStorageByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
-    const [data] = await dbHttp
+    const [data] = await db
       .select()
       .from(storage)
       .where(eq(storage.workspaceId, workspaceId))
@@ -18,9 +18,9 @@ export async function getStorageByWorkspaceId(workspaceId: string) {
   }
 }
 
-export async function getStorageIdByWorkspaceId(workspaceId: string) {
+export async function getStorageIdByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
-    const [data] = await dbHttp
+    const [data] = await db
       .select()
       .from(storage)
       .where(eq(storage.workspaceId, workspaceId))

@@ -1,12 +1,16 @@
 import { ApiError } from "@app/error"
 import { and, desc, eq } from "drizzle-orm"
-import { dbHttp, dbWs } from "../index"
 import { accounts, invitations, roles, users, workspaceMembers } from "../schema"
-import type { AcceptInvitation, CreateWorkspaceInviteAndUser } from "../types"
+import type {
+  AcceptInvitation,
+  CreateWorkspaceInviteAndUser,
+  DatabaseClient,
+  DatabaseClientWs,
+} from "../types"
 
-export async function getInvitationById(invitationId: string) {
+export async function getInvitationById(db: DatabaseClient, invitationId: string) {
   try {
-    const [invitation] = await dbHttp
+    const [invitation] = await db
       .select()
       .from(invitations)
       .where(eq(invitations.id, invitationId))
@@ -19,17 +23,20 @@ export async function getInvitationById(invitationId: string) {
   }
 }
 
-export async function createWorkspaceInviteAndUser({
-  name,
-  email,
-  jobRole,
-  username,
-  expiresAt,
-  inviterId,
-  workspaceId,
-}: CreateWorkspaceInviteAndUser) {
+export async function createWorkspaceInviteAndUser(
+  db: DatabaseClientWs,
+  {
+    name,
+    email,
+    jobRole,
+    username,
+    expiresAt,
+    inviterId,
+    workspaceId,
+  }: CreateWorkspaceInviteAndUser,
+) {
   try {
-    const data = await dbWs.transaction(async (tx) => {
+    const data = await db.transaction(async (tx) => {
       const [user] = await tx
         .insert(users)
         .values({
@@ -89,15 +96,12 @@ export async function createWorkspaceInviteAndUser({
   }
 }
 
-export async function acceptInvitation({
-  userId,
-  status,
-  acceptedAt,
-  invitationId,
-  hashedPassword,
-}: AcceptInvitation) {
+export async function acceptInvitation(
+  db: DatabaseClient,
+  { userId, status, acceptedAt, invitationId, hashedPassword }: AcceptInvitation,
+) {
   try {
-    const data = await dbWs.transaction(async (tx) => {
+    const data = await db.transaction(async (tx) => {
       await tx.update(users).set({ emailVerified: true }).where(eq(users.id, userId))
 
       await tx
@@ -120,9 +124,9 @@ export async function acceptInvitation({
   }
 }
 
-export async function getInvitationsByWorkspaceId(workspaceId: string) {
+export async function getInvitationsByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
-    const data = await dbHttp
+    const data = await db
       .select({
         name: users.name,
         email: users.email,

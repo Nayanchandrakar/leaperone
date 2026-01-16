@@ -1,3 +1,4 @@
+import { dbHttp } from "@app/database/adapters/http"
 import { getLatestWorkspaceIdByUserId } from "@app/database/repository/workspace"
 import * as React from "react"
 
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export const AuthenticatedNavActions = async ({ user }: Props) => {
-  const workspace = await getLatestWorkspaceIdByUserId(user.id)
+  const workspace = await getLatestWorkspaceIdByUserId(dbHttp, user.id)
 
   return (
     <React.Fragment>

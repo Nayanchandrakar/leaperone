@@ -1,11 +1,11 @@
 import { ApiError } from "@app/error"
 import { and, eq } from "drizzle-orm"
-import { dbHttp } from "../index"
 import { workspaceMembers } from "../schema"
+import type { DatabaseClient } from "../types"
 
-export async function isMemberOfWorkspace(userId: string, workspaceId: string) {
+export async function isMemberOfWorkspace(db: DatabaseClient, userId: string, workspaceId: string) {
   try {
-    const [member] = await dbHttp
+    const [member] = await db
       .select({
         userId: workspaceMembers.userId,
         roleId: workspaceMembers.roleId,
@@ -24,9 +24,9 @@ export async function isMemberOfWorkspace(userId: string, workspaceId: string) {
   }
 }
 
-export async function getWorkspaceMember(userId: string, workspaceId: string) {
+export async function getWorkspaceMember(db: DatabaseClient, userId: string, workspaceId: string) {
   try {
-    const [member] = await dbHttp
+    const [member] = await db
       .select({
         userId: workspaceMembers.userId,
         roleId: workspaceMembers.roleId,

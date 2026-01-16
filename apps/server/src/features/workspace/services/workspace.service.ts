@@ -1,3 +1,4 @@
+import { db } from "@app/database"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import { getWorkspaceById, updateWorkspaceById } from "@app/database/repository/workspace"
 import { ApiError } from "@app/error"
@@ -10,13 +11,13 @@ export class WorkspaceService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canManage = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const workspaceData = await getWorkspaceById(workspace.id)
+    const workspaceData = await getWorkspaceById(db, workspace.id)
 
     if (!workspaceData) {
       throw ApiError.notFound(MSG.WORKSPACE.NOT_FOUND)
@@ -35,13 +36,13 @@ export class WorkspaceService {
     const workspace = c.get("workspace")
     const { createAndEdit } = c.req.valid("json")
 
-    const canManage = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const updated = await updateWorkspaceById(workspace.id, { createAndEdit })
+    const updated = await updateWorkspaceById(db, workspace.id, { createAndEdit })
 
     if (!updated) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)

@@ -5,24 +5,24 @@ import type { NeonDatabase } from "drizzle-orm/neon-serverless"
 import type { invitationStatus, subscriptionPlan, subscriptionStatus } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
-import type { contactUs } from "../schema/contact-us"
 import type {
   accounts,
   file,
   invitations,
   storage,
   subscription,
+  users,
   verification,
   workspace,
   workspaceMembers,
-} from "../schema/index"
+} from "../schema"
+import type { contactUs } from "../schema/contact-us"
 import type { support } from "../schema/support"
-import type { users } from "../schema/users"
 
-export type HttpConnectionType = NeonHttpDatabase
-export type WsConnectionType = NeonDatabase
+export type DatabaseClientWs = NeonDatabase
+export type DatabaseClient = NeonHttpDatabase | NeonDatabase
 
-export type ConfigOptions = {
+export type DatabaseConfig = {
   connectionString: string
   case: Casing
   cacheConfig: {

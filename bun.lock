@@ -36,7 +36,9 @@
     "apps/proxy": {
       "name": "proxy",
       "dependencies": {
-        "@app/database": "workspace:*",
+        "@neondatabase/serverless": "catalog:",
+        "@paralleldrive/cuid2": "catalog:",
+        "drizzle-orm": "catalog:",
         "hono": "catalog:",
       },
       "devDependencies": {

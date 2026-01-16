@@ -1,4 +1,5 @@
 import { INVITATION_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
+import { db } from "@app/database"
 import {
   acceptInvitation,
   createWorkspaceInviteAndUser,
@@ -40,25 +41,25 @@ export class InvitationService {
       throw ApiError.conflict(MSG.INVITATION.SELF_INVITE)
     }
 
-    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const existingUser = await getUserByEmail(email)
+    const existingUser = await getUserByEmail(db, email)
 
     if (existingUser) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
-    const usernameTaken = await getUserByUserName(username)
+    const usernameTaken = await getUserByUserName(db, username)
 
     if (usernameTaken) {
       throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
-    const invitation = await createWorkspaceInviteAndUser({
+    const invitation = await createWorkspaceInviteAndUser(db, {
       name,
       email,
       jobRole,
@@ -106,7 +107,7 @@ export class InvitationService {
       throw ApiError.badRequest(MSG.INVITATION.INVALID_OR_EXPIRED)
     }
 
-    const invitation = await getInvitationById(invitationId)
+    const invitation = await getInvitationById(db, invitationId)
 
     if (!invitation) {
       throw ApiError.badRequest(MSG.INVITATION.NOT_FOUND)
@@ -119,7 +120,7 @@ export class InvitationService {
     const hashedPassword = await hash(password, 10)
 
     // Accept the invitation and set the password
-    const user = await acceptInvitation({
+    const user = await acceptInvitation(db, {
       invitationId,
       hashedPassword,
       status: "accepted",
@@ -139,13 +140,13 @@ export class InvitationService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canInvite = await hasPermissions(user.id, workspace.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const invitations = await getInvitationsByWorkspaceId(workspace.id)
+    const invitations = await getInvitationsByWorkspaceId(db, workspace.id)
 
     return c.json({ data: invitations })
   }
@@ -160,6 +161,7 @@ export class InvitationService {
     // Note: We use managerSession here to check manager's permissions
     // (not the impersonated session, since we're not impersonating yet)
     const canManageMembers = await hasPermissions(
+      db,
       user.id,
       workspace.id,
       ["manage:members"],
@@ -176,14 +178,14 @@ export class InvitationService {
     }
 
     // Verify the member exists in the workspace
-    const member = await getWorkspaceMember(memberId, workspace.id)
+    const member = await getWorkspaceMember(db, memberId, workspace.id)
 
     if (!member) {
       throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
     }
 
     // Get the member user details
-    const memberUser = await getUserById(memberId)
+    const memberUser = await getUserById(db, memberId)
 
     if (!memberUser) {
       throw ApiError.notFound(MSG.USER.NOT_FOUND)

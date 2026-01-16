@@ -1,11 +1,10 @@
 import { ApiError } from "@app/error"
-import { dbHttp } from "../index"
 import { contactUs } from "../schema/contact-us"
-import type { InsertContactUs } from "../types"
+import type { DatabaseClient, InsertContactUs } from "../types"
 
-export async function createContact(values: InsertContactUs) {
+export async function createContact(db: DatabaseClient, values: InsertContactUs) {
   try {
-    await dbHttp.insert(contactUs).values(values)
+    await db.insert(contactUs).values(values)
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

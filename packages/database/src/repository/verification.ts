@@ -1,12 +1,11 @@
 import { ApiError } from "@app/error"
 import { desc, eq } from "drizzle-orm"
-import { dbHttp } from "../index"
 import { verification } from "../schema/index"
-import type { Verification } from "../types/index"
+import type { DatabaseClient, Verification } from "../types/index"
 
-export async function findVerificationByIdentifier(identifier: string) {
+export async function findVerificationByIdentifier(db: DatabaseClient, identifier: string) {
   try {
-    const [token] = await dbHttp
+    const [token] = await db
       .select()
       .from(verification)
       .where(eq(verification.identifier, identifier))
@@ -20,10 +19,11 @@ export async function findVerificationByIdentifier(identifier: string) {
 }
 
 export async function createVerification(
+  db: DatabaseClient,
   values: Omit<Verification, "createdAt" | "updatedAt" | "id">,
 ) {
   try {
-    await dbHttp.insert(verification).values(values)
+    await db.insert(verification).values(values)
     return true
   } catch (error) {
     console.error(error)

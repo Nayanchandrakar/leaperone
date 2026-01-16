@@ -1,5 +1,6 @@
 import { basename, extname } from "node:path"
 import { sanitizeString } from "@app/core/utils"
+import { db } from "@app/database"
 import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
 import { getStorageIdByWorkspaceId } from "@app/database/repository/storage"
 import type { Storage, Workspace } from "@app/database/types"
@@ -13,12 +14,12 @@ export class AssetService {
   constructor(private readonly storageService: StorageService) {}
 
   async deleteFiles(workspace: Workspace, ids: DeleteFilesSchema) {
-    const storage = await getStorageIdByWorkspaceId(workspace.id)
+    const storage = await getStorageIdByWorkspaceId(db, workspace.id)
     if (!storage) throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
 
     let count = 0
     const results = await Promise.allSettled(
-      (await deleteFilesByStorageIdAndIds(storage.id, ids)).map(({ key }) =>
+      (await deleteFilesByStorageIdAndIds(db, storage.id, ids)).map(({ key }) =>
         this.storageService.deleteObject(key),
       ),
     )
@@ -33,7 +34,7 @@ export class AssetService {
   }
 
   async getFiles(workspace: Workspace, { page, pageSize, sortBy, types, query }: GetFileSchema) {
-    const storage = await getStorageIdByWorkspaceId(workspace.id)
+    const storage = await getStorageIdByWorkspaceId(db, workspace.id)
 
     if (!storage) {
       throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
@@ -41,7 +42,7 @@ export class AssetService {
 
     const offset = (page - 1) * pageSize
 
-    const results = await getFilesByStorageId({
+    const results = await getFilesByStorageId(db, {
       offset,
       sortBy,
       types,

@@ -1,3 +1,4 @@
+import { db } from "@app/database"
 import { getStorageByWorkspaceId } from "@app/database/repository/storage"
 import { ApiError } from "@app/error"
 import type { Next } from "hono"
@@ -8,7 +9,7 @@ export const checkStorageQuota = async (c: PreSignedUrlContext, next: Next) => {
   const file = c.req.valid("json")
   const workspace = c.get("workspace")
 
-  const storage = await getStorageByWorkspaceId(workspace.id)
+  const storage = await getStorageByWorkspaceId(db, workspace.id)
   if (!storage) throw ApiError.notFound()
 
   const totalFileSize = file.reduce((acc, { size }) => acc + size, 0)

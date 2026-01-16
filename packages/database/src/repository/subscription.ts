@@ -1,12 +1,11 @@
 import { ApiError } from "@app/error"
 import { eq } from "drizzle-orm"
-import { dbHttp } from "../index"
 import { subscription, workspace } from "../schema"
-import type { InsertSubscription } from "../types"
+import type { DatabaseClient, InsertSubscription } from "../types"
 
-export async function getSubscriptionByWorkspaceId(workspaceId: string) {
+export async function getSubscriptionByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
-    const [data] = await dbHttp
+    const [data] = await db
       .select()
       .from(subscription)
       .where(eq(subscription.workspaceId, workspaceId))
@@ -20,9 +19,9 @@ export async function getSubscriptionByWorkspaceId(workspaceId: string) {
   }
 }
 
-export async function getSubscriptionByUserId(userId: string) {
+export async function getSubscriptionByUserId(db: DatabaseClient, userId: string) {
   try {
-    const [data] = await dbHttp
+    const [data] = await db
       .select({
         plan: subscription.plan,
         seats: subscription.seats,
@@ -41,9 +40,9 @@ export async function getSubscriptionByUserId(userId: string) {
   }
 }
 
-export async function upsertSubscription(values: InsertSubscription) {
+export async function upsertSubscription(db: DatabaseClient, values: InsertSubscription) {
   try {
-    const [result] = await dbHttp
+    const [result] = await db
       .insert(subscription)
       .values(values)
       .onConflictDoUpdate({
@@ -60,11 +59,12 @@ export async function upsertSubscription(values: InsertSubscription) {
 }
 
 export async function updateSubscriptionBySubscriptionId(
+  db: DatabaseClient,
   subscriptionId: string,
   overrides: Partial<InsertSubscription>,
 ) {
   try {
-    const [result] = await dbHttp
+    const [result] = await db
       .update(subscription)
       .set(overrides)
       .where(eq(subscription.subscriptionId, subscriptionId))

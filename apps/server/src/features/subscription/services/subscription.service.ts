@@ -1,4 +1,5 @@
 import { TRIAL_PERIOD_DAYS } from "@app/core/constants"
+import { db } from "@app/database"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   getSubscriptionByWorkspaceId,
@@ -75,6 +76,7 @@ export class SubscriptionService {
     }
 
     const canPurchase = await hasPermissions(
+      db,
       user.id,
       workspace.id,
       ["manage:subscription"],
@@ -109,7 +111,7 @@ export class SubscriptionService {
         }
 
         customerId = customer.id
-        await updateUserById(user.id, {
+        await updateUserById(db, user.id, {
           stripeCustomerId: customer.id,
         })
       } catch (error: any) {
@@ -120,7 +122,7 @@ export class SubscriptionService {
 
     const cancelUrl = RouteUtils.createAbsoluteRoute("/")
     const successUrl = RouteUtils.createAbsoluteRoute("/dashboard")
-    const subscription = await getSubscriptionByWorkspaceId(workspace.id)
+    const subscription = await getSubscriptionByWorkspaceId(db, workspace.id)
 
     // Create a checkout session only when there is no user subscription found or subscription is cancelled
     if (!subscription || CHECKOUT_STATUSES.includes(subscription.status)) {
@@ -174,6 +176,7 @@ export class SubscriptionService {
     const workspace = c.get("workspace")
 
     const canPurchase = await hasPermissions(
+      db,
       user.id,
       workspace.id,
       ["manage:subscription"],
@@ -184,7 +187,7 @@ export class SubscriptionService {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const subscription = await getSubscriptionByWorkspaceId(workspace.id)
+    const subscription = await getSubscriptionByWorkspaceId(db, workspace.id)
     if (!subscription || CHECKOUT_STATUSES.includes(subscription.status)) {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
     }
@@ -210,7 +213,7 @@ export class SubscriptionService {
 
         if (subscription && item) {
           const plan = SubscriptionUtils.getPlanFromQuantity(item.quantity!)
-          await upsertSubscription({
+          await upsertSubscription(db, {
             plan,
             workspaceId,
             seats: item.quantity,
@@ -243,7 +246,7 @@ export class SubscriptionService {
       if (subscription.customer && subscription.id && item) {
         const plan = SubscriptionUtils.getPlanFromQuantity(item.quantity!)
 
-        await updateSubscriptionBySubscriptionId(subscription.id, {
+        await updateSubscriptionBySubscriptionId(db, subscription.id, {
           plan,
           seats: item.quantity,
           priceId: item.price.id,
@@ -270,7 +273,7 @@ export class SubscriptionService {
 
     try {
       if (subscription.customer && subscription.id) {
-        await updateSubscriptionBySubscriptionId(subscription.id, {
+        await updateSubscriptionBySubscriptionId(db, subscription.id, {
           status: subscription.status,
         })
       }

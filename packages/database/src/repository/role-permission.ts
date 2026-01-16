@@ -1,10 +1,10 @@
 import { ApiError } from "@app/error"
 import { and, eq, inArray, sql } from "drizzle-orm"
-import { dbHttp } from "../index"
 import { permissions as permissionTable, rolePermissions, roles, workspaceMembers } from "../schema"
-import type { PermissionType, RoleType, SessionWithImpersonation } from "../types"
+import type { DatabaseClient, PermissionType, RoleType, SessionWithImpersonation } from "../types"
 
 export async function hasPermissions(
+  db: DatabaseClient,
   userId: string,
   workspaceId: string,
   permissions: Array<PermissionType>,
@@ -20,7 +20,7 @@ export async function hasPermissions(
         ? inArray(permissionTable.name, permissions)
         : eq(permissionTable.name, permissions[0] as string)
 
-    const result = await dbHttp
+    const result = await db
       .select({ exists: sql`1` })
       .from(workspaceMembers)
       .innerJoin(roles, eq(workspaceMembers.roleId, roles.id))
@@ -42,9 +42,9 @@ export async function hasPermissions(
   }
 }
 
-export async function getRoleByName(role: RoleType) {
+export async function getRoleByName(db: DatabaseClient, role: RoleType) {
   try {
-    const [data] = await dbHttp.select().from(roles).where(eq(roles.name, role)).limit(1)
+    const [data] = await db.select().from(roles).where(eq(roles.name, role)).limit(1)
 
     return data
   } catch (error) {

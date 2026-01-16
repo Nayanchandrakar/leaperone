@@ -1,4 +1,5 @@
 import { isSubscriptionActive } from "@app/core/utils"
+import { dbHttp } from "@app/database/adapters/http"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import { isMemberOfWorkspace } from "@app/database/repository/workspace-member"
 import type { PermissionType, WorkspaceMember } from "@app/database/types"
@@ -28,7 +29,11 @@ export class DashboardPipeline {
   }
 
   async checkMembership() {
-    const member = await isMemberOfWorkspace(this.ctx.session.user.id, this.ctx.param.workspaceId!)
+    const member = await isMemberOfWorkspace(
+      dbHttp,
+      this.ctx.session.user.id,
+      this.ctx.param.workspaceId!,
+    )
     if (!member) redirect("/not-found")
     this.ctx.member = member
   }
@@ -41,6 +46,7 @@ export class DashboardPipeline {
 
   async checkPermissions(permissions: Array<PermissionType>) {
     const hasPermission = await hasPermissions(
+      dbHttp,
       this.ctx.session.user.id,
       this.ctx.member?.workspaceId!,
       permissions,

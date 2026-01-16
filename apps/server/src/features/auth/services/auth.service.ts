@@ -1,4 +1,5 @@
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
+import { db } from "@app/database"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   bootStrapUser,
@@ -51,20 +52,20 @@ export class AuthService {
   async register(c: RegisterContext) {
     const { username, email, password, name, callbackUrl } = c.req.valid("json")
 
-    const isUserExist = await getUserByEmail(email)
+    const isUserExist = await getUserByEmail(db, email)
 
     if (isUserExist) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
-    const isUserNameTaken = await getUserByUserName(username)
+    const isUserNameTaken = await getUserByUserName(db, username)
 
     if (isUserNameTaken) {
       throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
     const hashedPassword = await hash(password, 10)
-    const data = await bootStrapUser({
+    const data = await bootStrapUser(db, {
       name,
       email,
       username,
@@ -89,7 +90,7 @@ export class AuthService {
     })
 
     // Update user with stripe customer id
-    const updatedUser = await updateUserById(data.user.id, {
+    const updatedUser = await updateUserById(db, data.user.id, {
       stripeCustomerId: stripeCustomer.id,
     })
 
@@ -122,7 +123,7 @@ export class AuthService {
   async login(c: LoginContext) {
     const input = c.req.valid("json")
 
-    const userWithAccounts = await getUserWithAccount(input.email)
+    const userWithAccounts = await getUserWithAccount(db, input.email)
 
     if (!userWithAccounts) {
       throw ApiError.unauthorized(MSG.ACCOUNT.NOT_FOUND)
@@ -203,7 +204,7 @@ export class AuthService {
       throw ApiError.validationError("Failed to parse payload data")
     }
 
-    const user = await getUserByEmail(data.email)
+    const user = await getUserByEmail(db, data.email)
 
     if (!user) {
       throw ApiError.unauthorized("User not found")
@@ -213,7 +214,7 @@ export class AuthService {
       throw ApiError.unauthorized("Email is already verified")
     }
 
-    const updatedUser = await updateUserByEmail(user.email, {
+    const updatedUser = await updateUserByEmail(db, user.email, {
       emailVerified: true,
     })
 
@@ -244,7 +245,7 @@ export class AuthService {
   async requestPasswordReset(c: PasswordResetContext) {
     const { email } = c.req.valid("json")
 
-    const user = await getUserByEmail(email)
+    const user = await getUserByEmail(db, email)
 
     if (!user) {
       return c.json({
@@ -257,7 +258,7 @@ export class AuthService {
     const identifier = `reset-password:${token}`
     const expiresAt = getDate(PASSWORD_RESET_EXPIRY, "sec")
 
-    await createVerification({
+    await createVerification(db, {
       identifier,
       expiresAt,
       value: user.id!,
@@ -284,7 +285,7 @@ export class AuthService {
     const { token, newPassword } = c.req.valid("json")
 
     const identifier = `reset-password:${token}`
-    const verification = await findVerificationByIdentifier(identifier)
+    const verification = await findVerificationByIdentifier(db, identifier)
 
     if (!verification || verification.expiresAt < new Date()) {
       throw ApiError.badRequest(MSG.PROVIDER.INVALID_TOKEN)
@@ -294,7 +295,7 @@ export class AuthService {
     const verificationId = verification.id
     const hashedPassword = await hash(newPassword, 10)
 
-    await updateUserAndDeleteVerification(userId, verificationId, {
+    await updateUserAndDeleteVerification(db, userId, verificationId, {
       password: hashedPassword,
     })
 
@@ -314,6 +315,7 @@ export class AuthService {
     }
 
     const canRestrict = await hasPermissions(
+      db,
       session.user.id,
       workspace.id,
       ["manage:members"],
@@ -324,7 +326,7 @@ export class AuthService {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const updatedUser = await updateUserById(body.userId, {
+    const updatedUser = await updateUserById(db, body.userId, {
       isRestricted: true,
     })
 
@@ -346,6 +348,7 @@ export class AuthService {
     }
 
     const canRestrict = await hasPermissions(
+      db,
       session.user.id,
       workspace.id,
       ["manage:members"],
@@ -356,7 +359,7 @@ export class AuthService {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const updatedUser = await updateUserById(body.userId, {
+    const updatedUser = await updateUserById(db, body.userId, {
       isRestricted: false,
     })
 

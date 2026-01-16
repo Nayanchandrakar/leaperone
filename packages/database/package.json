@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./repository/*": "./src/repository/*.ts",
+    "./adapters/*": "./src/adapters/*.ts",
     "./schema": "./src/schema/index.ts",
     "./utils": "./src/utils/index.ts",
     "./types": "./src/types/index.ts"

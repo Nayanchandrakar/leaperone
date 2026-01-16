@@ -1,19 +1,13 @@
 import { ApiError } from "@app/error"
 import { eq } from "drizzle-orm"
-import { dbHttp, dbWs } from "../index"
 import { accounts } from "../schema/accounts"
 import { roles, storage, verification, workspace, workspaceMembers } from "../schema/index"
 import { users } from "../schema/users"
-import type { Account, BootStrapUser, User } from "../types"
+import type { Account, BootStrapUser, DatabaseClient, User } from "../types"
 
-export async function getUserByEmail(email: string) {
+export async function getUserByEmail(db: DatabaseClient, email: string) {
   try {
-    const [user] = await dbHttp
-      .select()
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1)
-      .$withCache()
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1).$withCache()
     return user
   } catch (error) {
     console.error(error)
@@ -21,9 +15,9 @@ export async function getUserByEmail(email: string) {
   }
 }
 
-export async function getUserWithAccount(email: string) {
+export async function getUserWithAccount(db: DatabaseClient, email: string) {
   try {
-    const data = await dbHttp
+    const data = await db
       .select()
       .from(users)
       .innerJoin(accounts, eq(users.id, accounts.userId))
@@ -46,9 +40,9 @@ export async function getUserWithAccount(email: string) {
   }
 }
 
-export async function getUserByUserName(username: string) {
+export async function getUserByUserName(db: DatabaseClient, username: string) {
   try {
-    const [data] = await dbHttp
+    const [data] = await db
       .select({ id: users.id })
       .from(users)
       .where(eq(users.username, username))
@@ -61,16 +55,12 @@ export async function getUserByUserName(username: string) {
   }
 }
 
-export async function bootStrapUser({
-  email,
-  name,
-  username,
-  image,
-  password,
-  defaultRole,
-}: BootStrapUser) {
+export async function bootStrapUser(
+  db: DatabaseClient,
+  { email, name, username, image, password, defaultRole }: BootStrapUser,
+) {
   try {
-    const data = await dbWs.transaction(async (tx) => {
+    const data = await db.transaction(async (tx) => {
       const [user] = await tx
         .insert(users)
         .values({
@@ -132,13 +122,13 @@ export async function bootStrapUser({
   }
 }
 
-export async function updateUserByEmail(email: string, overrides: Partial<User>) {
+export async function updateUserByEmail(
+  db: DatabaseClient,
+  email: string,
+  overrides: Partial<User>,
+) {
   try {
-    const [user] = await dbHttp
-      .update(users)
-      .set(overrides)
-      .where(eq(users.email, email))
-      .returning()
+    const [user] = await db.update(users).set(overrides).where(eq(users.email, email)).returning()
     return user
   } catch (error) {
     console.error(error)
@@ -146,9 +136,9 @@ export async function updateUserByEmail(email: string, overrides: Partial<User>)
   }
 }
 
-export async function updateUserById(id: string, overrides: Partial<User>) {
+export async function updateUserById(db: DatabaseClient, id: string, overrides: Partial<User>) {
   try {
-    const [user] = await dbHttp.update(users).set(overrides).where(eq(users.id, id)).returning({
+    const [user] = await db.update(users).set(overrides).where(eq(users.id, id)).returning({
       id: users.id,
     })
 
@@ -160,12 +150,13 @@ export async function updateUserById(id: string, overrides: Partial<User>) {
 }
 
 export async function updateUserAndDeleteVerification(
+  db: DatabaseClient,
   userId: string,
   verificationId: string,
   overrides: Partial<Account>,
 ) {
   try {
-    const udpatedAccount = await dbWs.transaction(async (tx) => {
+    const udpatedAccount = await db.transaction(async (tx) => {
       const [data] = await tx
         .update(accounts)
         .set(overrides)
@@ -185,9 +176,9 @@ export async function updateUserAndDeleteVerification(
   }
 }
 
-export async function getUserById(userId: string) {
+export async function getUserById(db: DatabaseClient, userId: string) {
   try {
-    const [user] = await dbHttp.select().from(users).where(eq(users.id, userId)).limit(1)
+    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1)
 
     return user
   } catch (error) {

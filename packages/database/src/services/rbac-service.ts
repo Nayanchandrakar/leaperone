@@ -1,6 +1,6 @@
 import { PERMISSIONS } from "../constants/permissions"
 import { DEFAULT_ROLES } from "../constants/roles"
-import { dbHttp, dbWs } from "../index"
+import { db } from "../index"
 import {
   permissions as permissionTable,
   rolePermissions,
@@ -12,12 +12,12 @@ export class RBACService {
 
   static async initializeRBAC() {
     await Promise.all([
-      dbHttp.delete(permissionTable),
-      dbHttp.delete(rolePermissions),
-      dbHttp.delete(roleTable),
+      db.delete(permissionTable),
+      db.delete(rolePermissions),
+      db.delete(roleTable),
     ])
 
-    await dbWs.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       const permissions = await tx
         .insert(permissionTable)
         .values(RBACService.formattedPermissions())
