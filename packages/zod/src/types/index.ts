@@ -11,6 +11,7 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
+import type { createBusinessCardSchema } from "../schema/bussiness"
 import type {
   acceptInvitationSchema,
   accessAsMemberSchema,
@@ -39,3 +40,4 @@ export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>
 export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
 export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
+export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>

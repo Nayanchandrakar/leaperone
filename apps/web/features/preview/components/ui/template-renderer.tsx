@@ -1,4 +1,4 @@
-import type { TemplateKey } from "@app/types"
+import type { Template } from "@app/types"
 import dynamic from "next/dynamic"
 import { useMemo } from "react"
 import { TemplateLoading } from "@/features/preview/components/skeletons/template-loading"
@@ -6,7 +6,7 @@ import { TEMPLATE_REGISTRY } from "@/features/preview/constants/template-registr
 import type { TemplateProps } from "@/features/preview/types"
 
 type Props = TemplateProps & {
-  template: TemplateKey
+  template: Template
 }
 
 export const TemplateRenderer = ({ template, ...props }: Props) => {

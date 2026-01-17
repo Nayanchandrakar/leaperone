@@ -1,4 +1,4 @@
-import type { ContentEditor, DesignEditor, QrCodeEditor } from "@app/types"
+import type { ContentEditor, DesignEditor, QrCodeEditor, Template } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
 import { jsonb, pgTable, text } from "drizzle-orm/pg-core"
 import { timestamps } from "../utils"
@@ -11,9 +11,9 @@ export const businessCard = pgTable("business_card", {
   workspaceId: text()
     .references(() => workspace.id, { onDelete: "cascade" })
     .notNull(),
-  template: text().notNull(),
-  content: jsonb().notNull().$type<ContentEditor>(),
+  template: text().notNull().$type<Template>(),
   design: jsonb().notNull().$type<DesignEditor>(),
   qrCode: jsonb().notNull().$type<QrCodeEditor>(),
+  content: jsonb().notNull().$type<ContentEditor>(),
   ...timestamps,
 })

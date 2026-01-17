@@ -6,7 +6,7 @@ import type {
   ImageViewType,
   QrCodeFill,
   SocialLinkType,
-  TemplateKey,
+  Template as TemplateKey,
 } from "@app/types"
 import type * as React from "react"
 import type { IconProps } from "@/types"

@@ -1,16 +1,16 @@
-import type { ContentSection, ContentSectionType, TemplateKey } from "@app/types"
+import type { ContentSection, ContentSectionType, Template } from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 import { CLASSIC_CONTENT } from "@/features/bussiness/constants/contents/classic-content"
 import { SECTION_FACTORIES } from "@/features/bussiness/constants/contents/section-factories"
 
 type ContentEditorState = {
-  template: TemplateKey
+  template: Template
   sections: ContentSection[]
 }
 
 type ContentEditorActions = {
-  setTemplate: (template: TemplateKey) => void
+  setTemplate: (template: Template) => void
   addSection: (type: ContentSectionType) => void
   updateSectionField: (index: number, field: string[], value: unknown) => void
   updateSubSectionField: (

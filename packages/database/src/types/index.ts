@@ -15,6 +15,7 @@ import type {
   workspace,
   workspaceMembers,
 } from "../schema"
+import type { businessCard } from "../schema/business-card"
 import type { contactUs } from "../schema/contact-us"
 import type { support } from "../schema/support"
 
@@ -41,6 +42,7 @@ export type Subscription = typeof subscription.$inferSelect
 export type File = typeof file.$inferSelect
 export type Storage = typeof storage.$inferSelect
 export type WorkspaceMember = typeof workspaceMembers.$inferSelect
+export type BusinessCard = typeof businessCard.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert
@@ -50,6 +52,7 @@ export type InsertContactUs = typeof contactUs.$inferInsert
 export type InsertSupport = typeof support.$inferInsert
 export type InsertInvitation = typeof invitations.$inferInsert
 export type InsertWorkspace = typeof workspace.$inferInsert
+export type InsertBusinessCard = typeof businessCard.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

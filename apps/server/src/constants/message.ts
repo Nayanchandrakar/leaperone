@@ -109,4 +109,11 @@ export const MSG = {
     NOT_IMPERSONATING: "You are not currently impersonating a member.",
     EXIT_IMPERSONATION_SUCCESS: "Successfully exited impersonation and restored your account.",
   },
+
+  BUSINESS_CARD: {
+    NOT_FOUND: "Business card not found",
+    ALREADY_EXISTS: "Business card already exists for this workspace",
+    CREATED_SUCCESS: "Business card created successfully",
+    UPDATED_SUCCESS: "Business card updated successfully",
+  },
 } as const
