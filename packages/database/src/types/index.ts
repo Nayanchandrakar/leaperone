@@ -1,6 +1,5 @@
 import type { Casing } from "drizzle-orm"
 import type { CacheConfig } from "drizzle-orm/cache/core/types"
-import type { NeonHttpDatabase } from "drizzle-orm/neon-http"
 import type { NeonDatabase } from "drizzle-orm/neon-serverless"
 import type { invitationStatus, subscriptionPlan, subscriptionStatus } from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
@@ -20,7 +19,7 @@ import type { contactUs } from "../schema/contact-us"
 import type { support } from "../schema/support"
 
 export type DatabaseClientWs = NeonDatabase
-export type DatabaseClient = NeonHttpDatabase | NeonDatabase
+export type DatabaseClient = NeonDatabase
 
 export type DatabaseConfig = {
   connectionString: string

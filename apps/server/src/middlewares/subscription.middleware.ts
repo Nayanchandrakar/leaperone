@@ -1,5 +1,5 @@
-import { isSubscriptionActive } from "@app/core/utils"
 import { db } from "@app/database"
+import { isSubscriptionActive } from "@app/database/repository/subscription"
 import { getWorkspaceByOwnerId } from "@app/database/repository/workspace"
 import { ApiError } from "@app/error"
 import type { Context, Next } from "hono"
@@ -16,7 +16,7 @@ export const hasWorkspace = async (c: Context<HonoEnv>, next: Next) => {
 
 export const hasActiveSubscription = async (c: Context<HonoEnv>, next: Next) => {
   const workspace = c.get("workspace")
-  const { active } = await isSubscriptionActive(workspace.id)
+  const { active } = await isSubscriptionActive(db, workspace.id)
   if (!active) throw ApiError.forbidden(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
   await next()
 }

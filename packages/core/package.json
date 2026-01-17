@@ -6,8 +6,7 @@
   "main": "./src/index.ts",
   "private": true,
   "exports": {
-    "./constants": "./src/constants/index.ts",
-    "./utils": "./src/utils/index.ts"
+    "./constants": "./src/constants/index.ts"
   },
   "scripts": {
     "lint": "biome lint --write .",

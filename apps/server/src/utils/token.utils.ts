@@ -11,10 +11,10 @@ export class TokenUtils {
       exp: Math.floor(Date.now() / 1000) + expiresIn,
       iss: "leaperone",
     }
-    return await sign(payload, ENV.AUTH_SECRET)
+    return await sign(payload, ENV.AUTH_SECRET, "HS256")
   }
 
   static async verifyJwt(token: string) {
-    return await verify(token, ENV.AUTH_SECRET)
+    return await verify(token, ENV.AUTH_SECRET, "HS256")
   }
 }

@@ -1,5 +1,5 @@
 import { neonConfig, Pool } from "@neondatabase/serverless"
-import { drizzle } from "drizzle-orm/neon-serverless"
+import { drizzle, type NeonDatabase } from "drizzle-orm/neon-serverless"
 import { defaultDbConfig } from "../config/database"
 
 /**
@@ -26,4 +26,4 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL! })
  * const users = await dbWs.select().from(usersTable)
  * ```
  */
-export const dbWs = drizzle(pool, defaultDbConfig)
+export const dbWs = drizzle(pool, defaultDbConfig) as NeonDatabase

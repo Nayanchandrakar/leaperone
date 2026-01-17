@@ -1,5 +1,4 @@
 import { basename, extname } from "node:path"
-import { sanitizeString } from "@app/core/utils"
 import { db } from "@app/database"
 import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
 import { getStorageIdByWorkspaceId } from "@app/database/repository/storage"
@@ -9,6 +8,7 @@ import type { DeleteFilesSchema, GetFileSchema, PreSignedUrlSchema } from "@app/
 import { v4 as uuidv4 } from "uuid"
 import { MSG } from "@/constants/message"
 import type { StorageService } from "@/features/shared/services/storage.service"
+import { sanitizeString } from "@/utils/string"
 
 export class AssetService {
   constructor(private readonly storageService: StorageService) {}

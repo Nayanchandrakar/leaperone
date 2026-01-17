@@ -1,12 +1,7 @@
 import { ApiError } from "@app/error"
 import { and, desc, eq } from "drizzle-orm"
 import { accounts, invitations, roles, users, workspaceMembers } from "../schema"
-import type {
-  AcceptInvitation,
-  CreateWorkspaceInviteAndUser,
-  DatabaseClient,
-  DatabaseClientWs,
-} from "../types"
+import type { AcceptInvitation, CreateWorkspaceInviteAndUser, DatabaseClient } from "../types"
 
 export async function getInvitationById(db: DatabaseClient, invitationId: string) {
   try {
@@ -24,7 +19,7 @@ export async function getInvitationById(db: DatabaseClient, invitationId: string
 }
 
 export async function createWorkspaceInviteAndUser(
-  db: DatabaseClientWs,
+  db: DatabaseClient,
   {
     name,
     email,

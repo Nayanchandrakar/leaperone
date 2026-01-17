@@ -12,36 +12,11 @@ import type {
   verifyEmailSchema,
 } from "../schema/auth"
 import type {
-  backgroundSchema,
-  colorSchema,
-  contactAddressSchema,
-  gradientSchema,
-  imageLinkSchema,
-  teamMemberSchema,
-  testimonialMemberSchema,
-} from "../schema/common"
-import type {
-  contactItemSchema,
-  contactSchema,
-  contentEditorSchema,
-  floatingButtonSchema,
-  headingTextSchema,
-  imagesTextLinksSchema,
-  linkSectionSchema,
-  profileCardSchema,
-  socialLinksSchema,
-  teamSchema,
-  testimonialsSchema,
-  videoSchema,
-} from "../schema/content-editor"
-import type { designEditorSchema } from "../schema/design-editor"
-import type {
   acceptInvitationSchema,
   accessAsMemberSchema,
   inviteMemberSchema,
 } from "../schema/invitation"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
-import type { qrCodeEditorSchema } from "../schema/qr-code-editor"
 import type { checkoutSessionSchema } from "../schema/subscription"
 import type { workspaceCardSettingSchema } from "../schema/workspace"
 
@@ -60,27 +35,6 @@ export type RestrictUserSchema = z.infer<typeof restrictUserSchema>
 export type GetFileSchema = z.infer<typeof getFileSchema>
 export type DeleteFilesSchema = z.infer<typeof deleteFilesSchema>
 export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
-export type ContentEditorSchema = z.infer<typeof contentEditorSchema>
-export type ProfileCardSchema = z.infer<typeof profileCardSchema>
-export type HeadingTextSchema = z.infer<typeof headingTextSchema>
-export type ContactSchema = z.infer<typeof contactSchema>
-export type BackgroundSchema = z.infer<typeof backgroundSchema>
-export type DesignEditorSchema = z.infer<typeof designEditorSchema>
-export type ColorSchema = z.infer<typeof colorSchema>
-export type QrCodeEditorSchema = z.infer<typeof qrCodeEditorSchema>
-export type GradientSchema = z.infer<typeof gradientSchema>
-export type FloatingButtonSchema = z.infer<typeof floatingButtonSchema>
-export type VideoSchema = z.infer<typeof videoSchema>
-export type LinkSectionSchema = z.infer<typeof linkSectionSchema>
-export type SocialLinksSchema = z.infer<typeof socialLinksSchema>
-export type ContactAddressSchema = z.infer<typeof contactAddressSchema>
-export type ContactItemSchema = z.infer<typeof contactItemSchema>
-export type ImageLinkSchema = z.infer<typeof imageLinkSchema>
-export type ImagesTextLinksSchema = z.infer<typeof imagesTextLinksSchema>
-export type TeamSchema = z.infer<typeof teamSchema>
-export type TeamMemberSchema = z.infer<typeof teamMemberSchema>
-export type TestimonialsSchema = z.infer<typeof testimonialsSchema>
-export type TestimonialMemberSchema = z.infer<typeof testimonialMemberSchema>
 export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>
 export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>

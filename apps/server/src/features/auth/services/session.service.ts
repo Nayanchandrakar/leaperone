@@ -8,14 +8,14 @@ import type { SessionRepository } from "@/features/auth/repositories/sesion.repo
 import { Cookie } from "@/features/auth/utils/cookie.utils"
 import type { FullSession, Session } from "@/types/global.types"
 import { getDate } from "@/utils/date"
-import { StringUtils } from "@/utils/string.utils"
+import { getRequestIp } from "@/utils/string"
 
 export class SessionService {
   constructor(private readonly sessionRepository: SessionRepository) {}
 
   async create(c: Context, user: User) {
     const token = createId()
-    const ipAddress = StringUtils.getRequestIp(c)
+    const ipAddress = getRequestIp(c)
     const userAgent = c.req.header("User-Agent")
     const expiresAt = getDate(SESSION_EXPIRY, "sec")
 

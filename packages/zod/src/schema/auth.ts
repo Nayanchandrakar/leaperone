@@ -35,9 +35,9 @@ export const resetPasswordSchema = z.object({
 
 export const setNewPasswordSchema = z
   .object({
+    token: z.cuid2(),
     newPassword: password,
     confirmPassword: password,
-    token: z.cuid2(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     path: ["confirmPassword"],

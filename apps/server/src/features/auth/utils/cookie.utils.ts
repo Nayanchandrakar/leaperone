@@ -4,13 +4,13 @@ import type { Context } from "hono"
 import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie"
 import type { CookieOptions } from "hono/utils/cookie"
 import { getDate } from "@/utils/date"
-import { StringUtils } from "@/utils/string.utils"
+import { getRootDomain } from "@/utils/string"
 
 export class Cookie {
   private constructor() {}
 
   static createCookieOptions(): CookieOptions {
-    const domain = StringUtils.getRootDomain(ENV.FRONTEND_URL)
+    const domain = getRootDomain(ENV.FRONTEND_URL)
 
     return {
       path: "/",

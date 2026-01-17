@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless"
-import { drizzle } from "drizzle-orm/neon-http"
+import { drizzle, type NeonHttpDatabase } from "drizzle-orm/neon-http"
 import { defaultDbConfig } from "../config/database"
 
 /**
@@ -21,4 +21,4 @@ const client = neon(process.env.DATABASE_URL!)
  * const users = await dbHttp.select().from(usersTable)
  * ```
  */
-export const dbHttp = drizzle(client, defaultDbConfig)
+export const dbHttp = drizzle(client, defaultDbConfig) as NeonHttpDatabase

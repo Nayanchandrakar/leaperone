@@ -39,7 +39,7 @@ export class DashboardPipeline {
   }
 
   async checkSubscription() {
-    const subscription = await isSubscriptionActive(this.ctx.param.workspaceId!)
+    const subscription = await isSubscriptionActive(dbHttp, this.ctx.param.workspaceId!)
     if (!subscription) redirect("/not-found")
     this.ctx.subscription = subscription
   }
