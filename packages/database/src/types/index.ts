@@ -65,7 +65,7 @@ export type PermissionType = (typeof PERMISSIONS)[Permissions]
 export type RoleType = (typeof DEFAULT_ROLES)[number]["name"]
 
 // Types
-export type BootStrapUser = InsertUser & {
+export type CreateUser = InsertUser & {
   password: string
   defaultRole: RoleType
 }

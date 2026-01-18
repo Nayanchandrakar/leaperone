@@ -2,10 +2,10 @@ import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app
 import { db } from "@app/database"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
-  bootStrapUser,
+  createUser,
+  doesUserExistByUsernameOrEmail,
   getUserByEmail,
-  getUserByUserName,
-  getUserWithAccount,
+  getUserWithProviderAccount,
   updateUserAndDeleteVerification,
   updateUserByEmail,
   updateUserById,
@@ -52,20 +52,15 @@ export class AuthService {
   async register(c: RegisterContext) {
     const { username, email, password, name, callbackUrl } = c.req.valid("json")
 
-    const isUserExist = await getUserByEmail(db, email)
+    // Check if user already exists by username or email
+    const doesUserExist = await doesUserExistByUsernameOrEmail(db, username, email)
 
-    if (isUserExist) {
+    if (doesUserExist) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
     }
 
-    const isUserNameTaken = await getUserByUserName(db, username)
-
-    if (isUserNameTaken) {
-      throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
-    }
-
     const hashedPassword = await hash(password, 10)
-    const data = await bootStrapUser(db, {
+    const data = await createUser(db, {
       name,
       email,
       username,
@@ -123,30 +118,24 @@ export class AuthService {
   async login(c: LoginContext) {
     const input = c.req.valid("json")
 
-    const userWithAccounts = await getUserWithAccount(db, input.email)
+    const userWithAccounts = await getUserWithProviderAccount(db, input.email, "credential")
 
     if (!userWithAccounts) {
       throw ApiError.unauthorized(MSG.ACCOUNT.NOT_FOUND)
     }
 
-    const { user, accounts } = userWithAccounts
+    const { user, account } = userWithAccounts
 
     if (user?.isRestricted) {
       throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
     }
 
-    const credentialAccount = accounts.find((a) => a.providerId === "credential")
-
-    if (
-      !credentialAccount ||
-      !credentialAccount.password ||
-      !(await compare(input.password, credentialAccount.password))
-    ) {
+    if (!account || !account.password || !(await compare(input.password, account.password))) {
       throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
     }
 
     if (!user?.emailVerified && user) {
-      const token = await this.createEmailVerificationToken(user.email)
+      const token = await this.createEmailVerificationToken(input.email)
       const callbackString = RouteUtils.createRoute("/api/auth/verify-email", {
         token,
         callbackUrl: input.callbackUrl,
@@ -164,7 +153,7 @@ export class AuthService {
       return c.json({ message: MSG.VERIFICATION.LINK_SENT, success: false })
     }
 
-    const session = await this.sessionService.create(c, user!)
+    const session = await this.sessionService.create(c, user)
 
     if (!session) {
       throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)

@@ -6,14 +6,13 @@ export const users = pgTable("user", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
-  jobRole: text(),
-
   image: text(),
+  jobRole: text(),
   name: text().notNull(),
-  email: text().notNull().unique(),
-  isRestricted: boolean().default(false).notNull(),
-  emailVerified: boolean().default(false).notNull(),
   stripeCustomerId: text(),
+  email: text().notNull().unique(),
   username: text().notNull().unique(),
+  isRestricted: boolean().default(false).notNull(),
+  emailVerified: boolean().notNull().default(false),
   ...timestamps,
 })

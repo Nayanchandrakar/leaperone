@@ -1,9 +1,9 @@
 import { ApiError } from "@app/error"
-import { eq } from "drizzle-orm"
+import { and, eq, or, sql } from "drizzle-orm"
 import { accounts } from "../schema/accounts"
 import { roles, storage, verification, workspace, workspaceMembers } from "../schema/index"
 import { users } from "../schema/users"
-import type { Account, BootStrapUser, DatabaseClient, User } from "../types"
+import type { Account, CreateUser, DatabaseClient, User } from "../types"
 
 export async function getUserByEmail(db: DatabaseClient, email: string) {
   try {
@@ -15,25 +15,46 @@ export async function getUserByEmail(db: DatabaseClient, email: string) {
   }
 }
 
-export async function getUserWithAccount(db: DatabaseClient, email: string) {
+export async function doesUserExistByUsernameOrEmail(
+  db: DatabaseClient,
+  username: string,
+  email: string,
+) {
   try {
-    const data = await db
-      .select()
+    const [user] = await db
+      .select({ exists: sql`1` })
       .from(users)
-      .innerJoin(accounts, eq(users.id, accounts.userId))
-      .where(eq(users.email, email))
+      .where(or(eq(users.username, username), eq(users.email, email)))
+      .limit(1)
+
+    return Boolean(user?.exists)
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getUserWithProviderAccount(
+  db: DatabaseClient,
+  email: string,
+  providerId: string,
+) {
+  try {
+    const [userWithAcccount] = await db
+      .select({
+        user: users,
+        account: {
+          password: accounts.password,
+          providerId: accounts.providerId,
+        },
+      })
+      .from(users)
+      .innerJoin(accounts, eq(accounts.userId, users.id))
+      .where(and(eq(users.email, email), eq(accounts.providerId, providerId)))
+      .limit(1)
       .$withCache()
 
-    if (data.length === 0) {
-      return null
-    }
-
-    const formatted = {
-      user: data[0]?.user,
-      accounts: data.map((a) => a.account),
-    }
-
-    return formatted
+    return userWithAcccount
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
@@ -55,9 +76,9 @@ export async function getUserByUserName(db: DatabaseClient, username: string) {
   }
 }
 
-export async function bootStrapUser(
+export async function createUser(
   db: DatabaseClient,
-  { email, name, username, image, password, defaultRole }: BootStrapUser,
+  { email, name, username, image, password, defaultRole }: CreateUser,
 ) {
   try {
     const data = await db.transaction(async (tx) => {
@@ -66,8 +87,8 @@ export async function bootStrapUser(
         .values({
           email,
           name,
-          username,
           image,
+          username,
         })
         .returning({ id: users.id })
 
@@ -76,8 +97,8 @@ export async function bootStrapUser(
       const userId = user?.id as string
 
       await tx.insert(accounts).values({
+        userId,
         password,
-        userId: userId,
         accountId: userId,
         providerId: "credential",
       })
@@ -87,7 +108,7 @@ export async function bootStrapUser(
         .values({
           ownerId: userId,
         })
-        .returning()
+        .returning({ id: workspace.id })
 
       // Rollback the transaction if no workspace is created
       if (!userWorkspace) tx.rollback()
@@ -104,12 +125,13 @@ export async function bootStrapUser(
       })
 
       await tx.insert(storage).values({
+        userId,
         workspaceId,
       })
 
       return {
         user: {
-          id: user?.id!,
+          id: userId,
           workspaceId,
         },
       }

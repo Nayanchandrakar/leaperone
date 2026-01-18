@@ -12,6 +12,7 @@ export const invitations = pgTable("invitation", {
   id: text()
     .primaryKey()
     .$defaultFn(() => createId()),
+
   workspaceId: text()
     .references(() => workspace.id, { onDelete: "cascade" })
     .notNull(),
@@ -20,7 +21,8 @@ export const invitations = pgTable("invitation", {
     .notNull(),
   userId: text()
     .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
+    .notNull()
+    .unique(),
   roleId: text()
     .references(() => roles.id)
     .notNull(),
