@@ -18,6 +18,7 @@ import type {
 import type { businessCard } from "../schema/business-card"
 import type { contactUs } from "../schema/contact-us"
 import type { support } from "../schema/support"
+import type { workspaceSettings } from "../schema/workspace-settings"
 
 export type DatabaseClientWs = NeonDatabase
 export type DatabaseClient = NeonDatabase
@@ -43,6 +44,7 @@ export type File = typeof file.$inferSelect
 export type Storage = typeof storage.$inferSelect
 export type WorkspaceMember = typeof workspaceMembers.$inferSelect
 export type BusinessCard = typeof businessCard.$inferSelect
+export type WorkspaceSettings = typeof workspaceSettings.$inferSelect
 
 // Insert types
 export type InsertUser = typeof users.$inferInsert
@@ -53,6 +55,7 @@ export type InsertSupport = typeof support.$inferInsert
 export type InsertInvitation = typeof invitations.$inferInsert
 export type InsertWorkspace = typeof workspace.$inferInsert
 export type InsertBusinessCard = typeof businessCard.$inferInsert
+export type InsertWorkspaceSettings = typeof workspaceSettings.$inferInsert
 
 // Enum types
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]

@@ -1,7 +1,14 @@
 import { ApiError } from "@app/error"
 import { and, eq, or, sql } from "drizzle-orm"
 import { accounts } from "../schema/accounts"
-import { roles, storage, verification, workspace, workspaceMembers } from "../schema/index"
+import {
+  roles,
+  storage,
+  verification,
+  workspace,
+  workspaceMembers,
+  workspaceSettings,
+} from "../schema/index"
 import { users } from "../schema/users"
 import type { Account, CreateUser, DatabaseClient, User } from "../types"
 
@@ -127,6 +134,11 @@ export async function createUser(
       await tx.insert(storage).values({
         userId,
         workspaceId,
+      })
+
+      await tx.insert(workspaceSettings).values({
+        workspaceId,
+        createAndEdit: false,
       })
 
       return {

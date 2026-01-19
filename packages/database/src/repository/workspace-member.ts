@@ -44,3 +44,26 @@ export async function getWorkspaceMember(db: DatabaseClient, userId: string, wor
     throw ApiError.internalServerError()
   }
 }
+
+export async function removeMemberFromWorkspace(
+  db: DatabaseClient,
+  userId: string,
+  workspaceId: string,
+) {
+  try {
+    const [removed] = await db
+      .delete(workspaceMembers)
+      .where(
+        and(eq(workspaceMembers.userId, userId), eq(workspaceMembers.workspaceId, workspaceId)),
+      )
+      .returning({
+        userId: workspaceMembers.userId,
+        workspaceId: workspaceMembers.workspaceId,
+      })
+
+    return removed
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}

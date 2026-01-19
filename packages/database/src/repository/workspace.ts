@@ -1,6 +1,6 @@
 import { ApiError } from "@app/error"
 import { desc, eq } from "drizzle-orm"
-import { workspace } from "../schema"
+import { workspace, workspaceMembers } from "../schema"
 import type { DatabaseClient, InsertWorkspace } from "../types"
 
 export async function getWorkspaceByOwnerId(db: DatabaseClient, ownerId: string) {
@@ -54,6 +54,39 @@ export async function updateWorkspaceById(
       .returning({ id: workspace.id })
 
     return updated
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getWorkspaceByUserId(db: DatabaseClient, userId: string) {
+  try {
+    // First check if user owns a workspace
+    const [ownedWorkspace] = await db
+      .select()
+      .from(workspace)
+      .where(eq(workspace.ownerId, userId))
+      .limit(1)
+
+    if (ownedWorkspace) {
+      return ownedWorkspace
+    }
+
+    // If not an owner, check if user is a member of a workspace
+    const [memberWorkspace] = await db
+      .select({
+        id: workspace.id,
+        ownerId: workspace.ownerId,
+        createdAt: workspace.createdAt,
+        updatedAt: workspace.updatedAt,
+      })
+      .from(workspaceMembers)
+      .innerJoin(workspace, eq(workspaceMembers.workspaceId, workspace.id))
+      .where(eq(workspaceMembers.userId, userId))
+      .limit(1)
+
+    return memberWorkspace
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

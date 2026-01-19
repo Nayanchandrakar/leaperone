@@ -75,13 +75,7 @@ export class SubscriptionService {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_PLAN_NOT_FOUND)
     }
 
-    const canPurchase = await hasPermissions(
-      db,
-      user.id,
-      workspace.id,
-      ["manage:subscription"],
-      session,
-    )
+    const canPurchase = await hasPermissions(db, user.id, ["manage:subscription"], session)
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -175,13 +169,7 @@ export class SubscriptionService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canPurchase = await hasPermissions(
-      db,
-      user.id,
-      workspace.id,
-      ["manage:subscription"],
-      session,
-    )
+    const canPurchase = await hasPermissions(db, user.id, ["manage:subscription"], session)
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

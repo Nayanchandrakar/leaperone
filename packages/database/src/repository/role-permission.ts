@@ -6,7 +6,6 @@ import type { DatabaseClient, PermissionType, RoleType, SessionWithImpersonation
 export async function hasPermissions(
   db: DatabaseClient,
   userId: string,
-  workspaceId: string,
   permissions: Array<PermissionType>,
   session?: SessionWithImpersonation,
 ) {
@@ -20,19 +19,15 @@ export async function hasPermissions(
         ? inArray(permissionTable.name, permissions)
         : eq(permissionTable.name, permissions[0] as string)
 
+    // Since user can only belong to ONE workspace, we don't need workspaceId
+    // We just check the user's role permissions in their workspace
     const result = await db
       .select({ exists: sql`1` })
       .from(workspaceMembers)
       .innerJoin(roles, eq(workspaceMembers.roleId, roles.id))
       .innerJoin(rolePermissions, eq(roles.id, rolePermissions.roleId))
       .innerJoin(permissionTable, eq(rolePermissions.permissionId, permissionTable.id))
-      .where(
-        and(
-          eq(workspaceMembers.workspaceId, workspaceId),
-          eq(workspaceMembers.userId, effectiveUserId),
-          whereCondition,
-        ),
-      )
+      .where(and(eq(workspaceMembers.userId, effectiveUserId), whereCondition))
       .limit(1)
 
     return result.length > 0

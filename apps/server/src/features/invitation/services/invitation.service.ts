@@ -8,7 +8,11 @@ import {
 } from "@app/database/repository/invitation"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import { getUserByEmail, getUserById, getUserByUserName } from "@app/database/repository/user"
-import { getWorkspaceMember } from "@app/database/repository/workspace-member"
+import { getWorkspaceById } from "@app/database/repository/workspace"
+import {
+  getWorkspaceMember,
+  removeMemberFromWorkspace,
+} from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger/index"
 import { createId } from "@paralleldrive/cuid2"
@@ -41,7 +45,7 @@ export class InvitationService {
       throw ApiError.conflict(MSG.INVITATION.SELF_INVITE)
     }
 
-    const canInvite = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -140,7 +144,7 @@ export class InvitationService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canInvite = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, ["manage:members"], session)
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -160,13 +164,7 @@ export class InvitationService {
     // Check if manager has permission to manage members
     // Note: We use managerSession here to check manager's permissions
     // (not the impersonated session, since we're not impersonating yet)
-    const canManageMembers = await hasPermissions(
-      db,
-      user.id,
-      workspace.id,
-      ["manage:members"],
-      managerSession,
-    )
+    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"], managerSession)
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -256,6 +254,55 @@ export class InvitationService {
       success: true,
       data: { user: managerSession.user },
       message: MSG.INVITATION.EXIT_IMPERSONATION_SUCCESS,
+    })
+  }
+
+  async removeMember(c: AccessAsMemberContext) {
+    const session = c.get("session")
+    const { user } = session
+    const workspace = c.get("workspace")
+    const { memberId } = c.req.valid("json")
+
+    // Check if manager has permission to manage members
+    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"], session)
+
+    if (!canManageMembers) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    // Prevent removing yourself
+    if (user.id === memberId) {
+      throw ApiError.badRequest("You cannot remove yourself from the workspace")
+    }
+
+    // Verify the member exists in the workspace
+    const member = await getWorkspaceMember(db, memberId, workspace.id)
+
+    if (!member) {
+      throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
+    }
+
+    // Check if the member is the workspace owner
+    const workspaceData = await getWorkspaceById(db, workspace.id)
+    if (workspaceData?.ownerId === memberId) {
+      throw ApiError.badRequest("Cannot remove the workspace owner")
+    }
+
+    // Remove the member from the workspace
+    const removed = await removeMemberFromWorkspace(db, memberId, workspace.id)
+
+    if (!removed) {
+      throw ApiError.badRequest("Failed to remove member from workspace")
+    }
+
+    // Revoke all sessions for the removed member
+    await sessionService.revoke(memberId)
+
+    logger.info(`Manager ${user.id} removed member ${memberId} from workspace ${workspace.id}`)
+
+    return c.json({
+      success: true,
+      message: "Member has been successfully removed from the workspace",
     })
   }
 }

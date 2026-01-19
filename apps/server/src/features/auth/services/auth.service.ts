@@ -297,19 +297,12 @@ export class AuthService {
   async restrictUser(c: RestrictUserContext) {
     const body = c.req.valid("json")
     const session = c.get("session")
-    const workspace = c.get("workspace")
 
     if (body.userId === session.user.id) {
       throw ApiError.badRequest(MSG.USER.CANNOT_RESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(
-      db,
-      session.user.id,
-      workspace.id,
-      ["manage:members"],
-      session,
-    )
+    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"], session)
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -330,19 +323,12 @@ export class AuthService {
   async unRestrictUser(c: RestrictUserContext) {
     const body = c.req.valid("json")
     const session = c.get("session")
-    const workspace = c.get("workspace")
 
     if (body.userId === session.user.id) {
       throw ApiError.badRequest(MSG.USER.CANNOT_UNRESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(
-      db,
-      session.user.id,
-      workspace.id,
-      ["manage:members"],
-      session,
-    )
+    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"], session)
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

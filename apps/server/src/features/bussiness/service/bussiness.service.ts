@@ -10,6 +10,7 @@ import type { CreateBusinessCardContext, UpdateBusinessCardContext } from "@/typ
 
 export class BussinessService {
   async createBusinessCard(c: CreateBusinessCardContext) {
+    const session = c.get("session")
     const workspace = c.get("workspace")
     const values = c.req.valid("json")
 
@@ -25,6 +26,7 @@ export class BussinessService {
       content: values.content,
       template: values.template,
       workspaceId: workspace.id,
+      userId: session.user.id,
     })
 
     return c.json({

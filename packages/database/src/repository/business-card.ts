@@ -40,7 +40,7 @@ export async function getBusinessCardByWorkspaceId(db: DatabaseClient, workspace
 export async function updateBusinessCardById(
   db: DatabaseClient,
   id: string,
-  overrides: Partial<InsertBusinessCard>,
+  overrides: Partial<Omit<InsertBusinessCard, "workspaceId" | "userId">>,
 ) {
   try {
     const [updated] = await db

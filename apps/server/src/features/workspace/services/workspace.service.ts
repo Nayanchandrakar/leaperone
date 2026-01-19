@@ -1,6 +1,9 @@
 import { db } from "@app/database"
 import { hasPermissions } from "@app/database/repository/role-permission"
-import { getWorkspaceById, updateWorkspaceById } from "@app/database/repository/workspace"
+import {
+  getWorkspaceSettingsByWorkspaceId,
+  updateWorkspaceSettingsByWorkspaceId,
+} from "@app/database/repository/workspace-settings"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type { GetCardSettingsCtx, UpdateCardSettingCtx } from "@/types/workspace.types"
@@ -11,21 +14,21 @@ export class WorkspaceService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canManage = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, ["manage:members"], session)
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const workspaceData = await getWorkspaceById(db, workspace.id)
+    const workspaceSettings = await getWorkspaceSettingsByWorkspaceId(db, workspace.id)
 
-    if (!workspaceData) {
+    if (!workspaceSettings) {
       throw ApiError.notFound(MSG.WORKSPACE.NOT_FOUND)
     }
 
     return c.json({
       data: {
-        createAndEdit: workspaceData.createAndEdit,
+        createAndEdit: workspaceSettings.createAndEdit,
       },
     })
   }
@@ -36,13 +39,13 @@ export class WorkspaceService {
     const workspace = c.get("workspace")
     const { createAndEdit } = c.req.valid("json")
 
-    const canManage = await hasPermissions(db, user.id, workspace.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, ["manage:members"], session)
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const updated = await updateWorkspaceById(db, workspace.id, { createAndEdit })
+    const updated = await updateWorkspaceSettingsByWorkspaceId(db, workspace.id, { createAndEdit })
 
     if (!updated) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
