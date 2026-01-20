@@ -6,7 +6,12 @@ import {
 import type { InvitationService } from "@/features/invitation/services/invitation.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { isAuth } from "@/middlewares/auth.middleware"
-import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
+import {
+  hasActiveSubscription,
+  hasTeamPlan,
+  hasTeamPlanWithSeats,
+  hasWorkspace,
+} from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   AcceptInvitationContext,
@@ -29,16 +34,25 @@ export class InvitationController extends HttpController {
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
+      hasTeamPlanWithSeats,
       this.inviteMember,
     )
     this.router.post("/accept", zodValidator("json", acceptInvitationSchema), this.acceptInvitation)
-    this.router.get("/invited-members", isAuth, hasWorkspace, this.getInvitedMembers)
+    this.router.get(
+      "/invited-members",
+      isAuth,
+      hasWorkspace,
+      hasActiveSubscription,
+      hasTeamPlan,
+      this.getInvitedMembers,
+    )
     this.router.post(
       "/access-as-member",
       zodValidator("json", accessAsMemberSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
+      hasTeamPlan,
       this.accessAsMember,
     )
     this.router.delete(
@@ -47,9 +61,17 @@ export class InvitationController extends HttpController {
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
+      hasTeamPlan,
       this.removeMember,
     )
-    this.router.post("/exit-impersonation", isAuth, this.exitImpersonation)
+    this.router.post(
+      "/exit-impersonation",
+      isAuth,
+      hasWorkspace,
+      hasActiveSubscription,
+      hasTeamPlan,
+      this.exitImpersonation,
+    )
   }
 
   inviteMember = async (c: InviteMemberContext) => {

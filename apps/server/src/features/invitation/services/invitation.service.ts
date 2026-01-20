@@ -37,9 +37,9 @@ import { RouteUtils } from "@/utils/route.utils"
 
 export class InvitationService {
   async inviteMember(c: InviteMemberContext) {
-    const session = c.get("session")
-    const { user } = session
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
+
     const { email, jobRole, name, username } = c.req.valid("json")
 
     if (user.email === email || user.username === username) {
@@ -136,9 +136,9 @@ export class InvitationService {
   }
 
   async getInvitedMembers(c: GetInvitedMembersContext) {
-    const session = c.get("session")
-    const { user } = session
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
+    const subscription = c.get("subscription")
 
     const canInvite = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBERS])
 
@@ -148,7 +148,10 @@ export class InvitationService {
 
     const invitations = await getInvitationsByWorkspaceId(db, workspace.id)
 
-    return c.json({ data: invitations })
+    return c.json({
+      data: invitations,
+      seats: { used: invitations.length, total: subscription.seats },
+    })
   }
 
   async accessAsMember(c: AccessAsMemberContext) {
@@ -249,8 +252,7 @@ export class InvitationService {
   }
 
   async removeMember(c: AccessAsMemberContext) {
-    const session = c.get("session")
-    const { user } = session
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
     const { memberId } = c.req.valid("json")
 

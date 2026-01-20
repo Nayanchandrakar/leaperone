@@ -1,5 +1,5 @@
 import { ApiError } from "@app/error"
-import { and, eq } from "drizzle-orm"
+import { and, count, eq } from "drizzle-orm"
 import { users, workspaceMembers } from "../schema"
 import type { DatabaseClient } from "../types"
 
@@ -70,6 +70,20 @@ export async function removeMemberFromWorkspace(
       })
 
     return removed
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function countWorkspaceMembers(db: DatabaseClient, workspaceId: string) {
+  try {
+    const [result] = await db
+      .select({ count: count() })
+      .from(workspaceMembers)
+      .where(eq(workspaceMembers.workspaceId, workspaceId))
+
+    return result?.count ?? 0
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

@@ -25,6 +25,8 @@ export const MSG = {
       "Email verification is required before you can subscribe to a plan",
     SUBSCRIPTION_NOT_ACTIVE:
       "Your subscription is not active. Please update your billing to continue.",
+    NOT_ENOUGH_SEATS: "You have reached the maximum number of seats for your subscription.",
+    TEAM_PLAN_REQUIRED: "Team plan is required to access invitation features.",
   },
 
   USER: {
