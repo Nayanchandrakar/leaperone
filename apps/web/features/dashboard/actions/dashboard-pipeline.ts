@@ -45,12 +45,7 @@ export class DashboardPipeline {
   }
 
   async checkPermissions(permissions: Array<PermissionType>) {
-    const hasPermission = await hasPermissions(
-      dbHttp,
-      this.ctx.session.user.id,
-      this.ctx.member?.workspaceId!,
-      permissions,
-    )
+    const hasPermission = await hasPermissions(dbHttp, this.ctx.session.user.id, permissions)
     if (!hasPermission) redirect("/not-found")
     this.ctx.hasPermission = hasPermission
   }

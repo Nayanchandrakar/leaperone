@@ -9,6 +9,7 @@
       "@app/env/*": ["../../packages/env/src/*"],
       "@app/core/*": ["../../packages/core/src/*"],
       "@app/error/*": ["../../packages/error/src/*"],
+      "@app/types/*": ["../../packages/types/src/*"],
       "@app/logger/*": ["../../packages/logger/src/*"],
       "@app/database/*": ["../../packages/database/src/*"]
     }

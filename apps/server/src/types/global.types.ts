@@ -1,4 +1,5 @@
 import type { Storage, User, Workspace } from "@app/database/types"
+import type { SubscriptionActive } from "@app/types"
 import type { ValidationTargets } from "hono"
 
 export type Session = {
@@ -21,6 +22,7 @@ export type ImpersonationMetadata = {
 
 export type HonoEnv = {
   Variables: {
+    subscription: SubscriptionActive
     session: FullSession
     workspace: Workspace
     storage: Storage

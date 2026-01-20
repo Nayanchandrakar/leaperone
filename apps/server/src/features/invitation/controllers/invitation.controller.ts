@@ -6,11 +6,7 @@ import {
 import type { InvitationService } from "@/features/invitation/services/invitation.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { isAuth } from "@/middlewares/auth.middleware"
-import {
-  canInviteMembers,
-  hasActiveSubscription,
-  hasWorkspace,
-} from "@/middlewares/subscription.middleware"
+import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   AcceptInvitationContext,
@@ -33,7 +29,6 @@ export class InvitationController extends HttpController {
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
-      canInviteMembers,
       this.inviteMember,
     )
     this.router.post("/accept", zodValidator("json", acceptInvitationSchema), this.acceptInvitation)

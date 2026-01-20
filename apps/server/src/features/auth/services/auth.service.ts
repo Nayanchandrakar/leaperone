@@ -303,7 +303,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.CANNOT_RESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"], session)
+    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -329,7 +329,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.CANNOT_UNRESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"], session)
+    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

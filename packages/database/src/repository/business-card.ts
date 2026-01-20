@@ -5,7 +5,11 @@ import type { DatabaseClient, InsertBusinessCard } from "../types"
 
 export async function createBusinessCard(db: DatabaseClient, values: InsertBusinessCard) {
   try {
-    const [created] = await db.insert(businessCard).values(values).returning()
+    const [created] = await db
+      .insert(businessCard)
+      .values(values)
+      .returning({ id: businessCard.id })
+
     return created
   } catch (error) {
     console.error(error)
@@ -30,6 +34,7 @@ export async function getBusinessCardByWorkspaceId(db: DatabaseClient, workspace
       .from(businessCard)
       .where(eq(businessCard.workspaceId, workspaceId))
       .limit(1)
+
     return data
   } catch (error) {
     console.error(error)
@@ -47,7 +52,7 @@ export async function updateBusinessCardById(
       .update(businessCard)
       .set(overrides)
       .where(eq(businessCard.id, id))
-      .returning()
+      .returning({ id: businessCard.id })
 
     return updated
   } catch (error) {

@@ -24,10 +24,14 @@ export class BussinessService {
       qrCode: values.qrCode,
       design: values.design,
       content: values.content,
+      userId: session.user.id,
       template: values.template,
       workspaceId: workspace.id,
-      userId: session.user.id,
     })
+
+    if (!businessCard) {
+      throw ApiError.badRequest(MSG.BUSINESS_CARD.FAILED_TO_CREATE)
+    }
 
     return c.json({
       data: businessCard,
@@ -53,7 +57,7 @@ export class BussinessService {
     })
 
     if (!updated) {
-      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
+      throw ApiError.badRequest(MSG.BUSINESS_CARD.FAILED_TO_UPDATE)
     }
 
     return c.json({

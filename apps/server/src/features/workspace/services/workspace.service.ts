@@ -14,7 +14,7 @@ export class WorkspaceService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canManage = await hasPermissions(db, user.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -39,7 +39,7 @@ export class WorkspaceService {
     const workspace = c.get("workspace")
     const { createAndEdit } = c.req.valid("json")
 
-    const canManage = await hasPermissions(db, user.id, ["manage:members"], session)
+    const canManage = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

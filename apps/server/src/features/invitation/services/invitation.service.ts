@@ -45,7 +45,7 @@ export class InvitationService {
       throw ApiError.conflict(MSG.INVITATION.SELF_INVITE)
     }
 
-    const canInvite = await hasPermissions(db, user.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -139,7 +139,7 @@ export class InvitationService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canInvite = await hasPermissions(db, user.id, ["manage:members"], session)
+    const canInvite = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -159,7 +159,7 @@ export class InvitationService {
     // Check if manager has permission to manage members
     // Note: We use managerSession here to check manager's permissions
     // (not the impersonated session, since we're not impersonating yet)
-    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"], managerSession)
+    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -254,7 +254,7 @@ export class InvitationService {
     const { memberId } = c.req.valid("json")
 
     // Check if manager has permission to manage members
-    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"], session)
+    const canManageMembers = await hasPermissions(db, user.id, ["manage:members"])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

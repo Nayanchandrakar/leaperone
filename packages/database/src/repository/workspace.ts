@@ -1,6 +1,6 @@
 import { ApiError } from "@app/error"
 import { desc, eq, or } from "drizzle-orm"
-import { workspace, workspaceMembers } from "../schema"
+import { subscription, workspace, workspaceMembers } from "../schema"
 import type { DatabaseClient, InsertWorkspace } from "../types"
 
 export async function getWorkspaceByOwnerId(db: DatabaseClient, ownerId: string) {
@@ -78,6 +78,27 @@ export async function getWorkspaceByUserId(db: DatabaseClient, userId: string) {
       .leftJoin(workspaceMembers, eq(workspaceMembers.workspaceId, workspace.id))
       .where(or(eq(workspace.ownerId, userId), eq(workspaceMembers.userId, userId)))
       .limit(1)
+
+    return result
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getWorkspaceAndSubscriptionData(db: DatabaseClient, userId: string) {
+  try {
+    const [result] = await db
+      .select({
+        workspace: workspace,
+        subscription: subscription,
+      })
+      .from(workspace)
+      .leftJoin(subscription, eq(workspace.id, subscription.workspaceId))
+      .leftJoin(workspaceMembers, eq(workspaceMembers.workspaceId, workspace.id))
+      .where(or(eq(workspace.ownerId, userId), eq(workspaceMembers.userId, userId)))
+      .limit(1)
+      .$withCache()
 
     return result
   } catch (error) {
