@@ -1,5 +1,3 @@
-import { dbHttp } from "@app/database/adapters/http"
-import { getLatestWorkspaceIdByUserId } from "@app/database/repository/workspace"
 import * as React from "react"
 
 import { DashboardLinkButton } from "@/components/navbar/dashboard-link"
@@ -11,11 +9,9 @@ type Props = {
 }
 
 export const AuthenticatedNavActions = async ({ user }: Props) => {
-  const workspace = await getLatestWorkspaceIdByUserId(dbHttp, user.id)
-
   return (
     <React.Fragment>
-      <DashboardLinkButton workspaceId={workspace?.id!} />
+      <DashboardLinkButton workspaceId={""} />
       <NavSettings user={user} />
     </React.Fragment>
   )

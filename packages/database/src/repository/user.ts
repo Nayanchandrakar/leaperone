@@ -68,21 +68,6 @@ export async function getUserWithProviderAccount(
   }
 }
 
-export async function getUserByUserName(db: DatabaseClient, username: string) {
-  try {
-    const [data] = await db
-      .select({ id: users.id })
-      .from(users)
-      .where(eq(users.username, username))
-      .limit(1)
-
-    return Boolean(data?.id)
-  } catch (error) {
-    console.error(error)
-    return false
-  }
-}
-
 export async function createUser(
   db: DatabaseClient,
   { email, name, username, image, password, defaultRole }: CreateUser,
@@ -204,16 +189,6 @@ export async function updateUserAndDeleteVerification(
     })
 
     return udpatedAccount
-  } catch (error) {
-    console.error(error)
-    throw ApiError.internalServerError()
-  }
-}
-
-export async function getUserById(db: DatabaseClient, userId: string) {
-  try {
-    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1).$withCache()
-    return user
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

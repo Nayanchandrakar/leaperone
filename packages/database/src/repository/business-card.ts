@@ -17,16 +17,6 @@ export async function createBusinessCard(db: DatabaseClient, values: InsertBusin
   }
 }
 
-export async function getBusinessCardById(db: DatabaseClient, id: string) {
-  try {
-    const [data] = await db.select().from(businessCard).where(eq(businessCard.id, id)).limit(1)
-    return data
-  } catch (error) {
-    console.error(error)
-    throw ApiError.internalServerError()
-  }
-}
-
 export async function getBusinessCardByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
     const [data] = await db

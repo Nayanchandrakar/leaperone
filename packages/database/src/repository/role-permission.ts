@@ -1,7 +1,7 @@
 import { ApiError } from "@app/error"
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { permissions as permissionTable, rolePermissions, roles, workspaceMembers } from "../schema"
-import type { DatabaseClient, PermissionType, RoleType } from "../types"
+import type { DatabaseClient, PermissionType } from "../types"
 
 export async function hasPermissions(
   db: DatabaseClient,
@@ -26,17 +26,6 @@ export async function hasPermissions(
       .limit(1)
 
     return result.length > 0
-  } catch (error) {
-    console.error(error)
-    throw ApiError.internalServerError()
-  }
-}
-
-export async function getRoleByName(db: DatabaseClient, role: RoleType) {
-  try {
-    const [data] = await db.select().from(roles).where(eq(roles.name, role)).limit(1)
-
-    return data
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

@@ -3,9 +3,6 @@ import { and, eq } from "drizzle-orm"
 import { users, workspaceMembers } from "../schema"
 import type { DatabaseClient } from "../types"
 
-// Removed: isMemberOfWorkspace was identical to getWorkspaceMember
-// Use getWorkspaceMember instead for all workspace membership checks
-
 export async function getWorkspaceMember(db: DatabaseClient, userId: string, workspaceId: string) {
   try {
     const [member] = await db

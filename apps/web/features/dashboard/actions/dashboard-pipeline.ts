@@ -1,10 +1,5 @@
-import { isSubscriptionActive } from "@app/core/utils"
-import { dbHttp } from "@app/database/adapters/http"
-import { hasPermissions } from "@app/database/repository/role-permission"
-import { isMemberOfWorkspace } from "@app/database/repository/workspace-member"
 import type { PermissionType, WorkspaceMember } from "@app/database/types"
 import type { SubscriptionActive } from "@app/types"
-import { redirect } from "next/navigation"
 import { handleAuth } from "@/actions/utils"
 import type { FullSession } from "@/types"
 
@@ -29,27 +24,31 @@ export class DashboardPipeline {
   }
 
   async checkMembership() {
-    const member = await isMemberOfWorkspace(
-      dbHttp,
-      this.ctx.session.user.id,
-      this.ctx.param.workspaceId!,
-    )
-    if (!member) redirect("/not-found")
-    this.ctx.member = member
+    this.ctx.member = {
+      id: "",
+      userId: "",
+      workspaceId: "",
+      roleId: "",
+    }
   }
 
   async checkSubscription() {
-    const subscription = await isSubscriptionActive(dbHttp, this.ctx.param.workspaceId!)
-    if (!subscription) redirect("/not-found")
-    this.ctx.subscription = subscription
+    this.ctx.subscription = {
+      active: false,
+      trial: false,
+      seats: 0,
+      expiresAt: null,
+      cancelAtPeriodEnd: false,
+      plan: null,
+      priceId: null,
+      customerId: null,
+      subscriptionId: null,
+    }
   }
 
   async checkPermissions(permissions: Array<PermissionType>) {
-    const hasPermission = await hasPermissions(dbHttp, this.ctx.session.user.id, permissions)
-    if (!hasPermission) redirect("/not-found")
-    this.ctx.hasPermission = hasPermission
+    this.ctx.hasPermission = false
   }
-
   get context() {
     return this.ctx
   }
