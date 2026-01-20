@@ -1,5 +1,6 @@
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
+import { PERMISSIONS } from "@app/database/constants/permissions"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   createUser,
@@ -303,7 +304,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.CANNOT_RESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"])
+    const canRestrict = await hasPermissions(db, session.user.id, [PERMISSIONS.RESTRICT_MEMBERS])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -329,7 +330,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.CANNOT_UNRESTRICT_YOURSELF)
     }
 
-    const canRestrict = await hasPermissions(db, session.user.id, ["manage:members"])
+    const canRestrict = await hasPermissions(db, session.user.id, [PERMISSIONS.UNRESTRICT_MEMBERS])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

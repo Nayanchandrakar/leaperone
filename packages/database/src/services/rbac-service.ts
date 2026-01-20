@@ -12,9 +12,9 @@ export class RBACService {
 
   static async initializeRBAC() {
     await Promise.all([
+      db.delete(roleTable),
       db.delete(permissionTable),
       db.delete(rolePermissions),
-      db.delete(roleTable),
     ])
 
     await db.transaction(async (tx) => {

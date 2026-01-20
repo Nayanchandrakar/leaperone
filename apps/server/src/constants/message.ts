@@ -113,9 +113,11 @@ export const MSG = {
   BUSINESS_CARD: {
     NOT_FOUND: "Business card not found",
     ALREADY_EXISTS: "Business card already exists.",
+    FAILED_TO_UPDATE: "Failed to update business card",
     FAILED_TO_CREATE: "Failed to create business card",
     CREATED_SUCCESS: "Business card created successfully",
     UPDATED_SUCCESS: "Business card updated successfully",
-    FAILED_TO_UPDATE: "Failed to update business card",
+    PERMISSION_DENIED:
+      "You don’t have permission to manage business cards. Please contact your manager.",
   },
 } as const

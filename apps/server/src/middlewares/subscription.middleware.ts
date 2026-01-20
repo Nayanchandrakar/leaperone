@@ -15,11 +15,11 @@ export const hasWorkspace = async (c: Context<HonoEnv>, next: Next) => {
   c.set("workspace", workspace)
   c.set("subscription", subscription)
 
-  await next()
+  return await next()
 }
 
 export const hasActiveSubscription = async (c: Context<HonoEnv>, next: Next) => {
   const subscription = c.get("subscription")
   if (!subscription.active) throw ApiError.forbidden(MSG.SUBSCRIPTION.SUBSCRIPTION_NOT_ACTIVE)
-  await next()
+  return await next()
 }

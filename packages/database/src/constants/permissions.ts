@@ -1,10 +1,19 @@
 export const PERMISSIONS = {
-  // Subscription
+  // NFC Management
+  MANAGE_NFC: "manage:nfc",
+
+  // Subscription Management
   MANAGE_SUBSCRIPTION: "manage:subscription",
 
-  // Members
-  MANAGE_MEMBERS: "manage:members",
+  // Member Administration
+  ADD_MEMBERS: "add:members",
+  VIEW_MEMBERS: "view:members",
+  REMOVE_MEMBERS: "remove:members",
+  INVITE_MEMBERS: "invite:members",
+  ACCESS_AS_MEMBER: "access:as-member",
+  RESTRICT_MEMBERS: "restrict:members",
+  UNRESTRICT_MEMBERS: "unrestrict:members",
 
-  // NFC
-  MANAGE_NFC: "manage:nfc",
+  // Workspace Management
+  MANAGE_WORKSPACE: "manage:workspace",
 } as const

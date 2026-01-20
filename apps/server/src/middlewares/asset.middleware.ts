@@ -22,5 +22,5 @@ export const checkStorageQuota = async (c: PreSignedUrlContext, next: Next) => {
   }
 
   c.set("storage", storage)
-  await next()
+  return await next()
 }

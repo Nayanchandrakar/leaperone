@@ -1,4 +1,5 @@
 import { db } from "@app/database"
+import { PERMISSIONS } from "@app/database/constants/permissions"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   getWorkspaceSettingsByWorkspaceId,
@@ -10,11 +11,10 @@ import type { GetCardSettingsCtx, UpdateCardSettingCtx } from "@/types/workspace
 
 export class WorkspaceService {
   async getCardSettings(c: GetCardSettingsCtx) {
-    const session = c.get("session")
-    const { user } = session
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
 
-    const canManage = await hasPermissions(db, user.id, ["manage:members"])
+    const canManage = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_WORKSPACE])
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -34,12 +34,11 @@ export class WorkspaceService {
   }
 
   async updateCardSetting(c: UpdateCardSettingCtx) {
-    const session = c.get("session")
-    const { user } = session
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
     const { createAndEdit } = c.req.valid("json")
 
-    const canManage = await hasPermissions(db, user.id, ["manage:members"])
+    const canManage = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_WORKSPACE])
 
     if (!canManage) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
