@@ -10,6 +10,7 @@ export async function getWorkspaceSettingsByWorkspaceId(db: DatabaseClient, work
       .from(workspaceSettings)
       .where(eq(workspaceSettings.workspaceId, workspaceId))
       .limit(1)
+      .$withCache()
 
     return data
   } catch (error) {

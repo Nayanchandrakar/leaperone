@@ -1,5 +1,5 @@
 import { ApiError } from "@app/error"
-import { desc, eq } from "drizzle-orm"
+import { desc, eq, or } from "drizzle-orm"
 import { workspace, workspaceMembers } from "../schema"
 import type { DatabaseClient, InsertWorkspace } from "../types"
 
@@ -32,7 +32,12 @@ export async function getLatestWorkspaceIdByUserId(db: DatabaseClient, userId: s
 
 export async function getWorkspaceById(db: DatabaseClient, workspaceId: string) {
   try {
-    const [data] = await db.select().from(workspace).where(eq(workspace.id, workspaceId)).limit(1)
+    const [data] = await db
+      .select()
+      .from(workspace)
+      .where(eq(workspace.id, workspaceId))
+      .limit(1)
+      .$withCache()
 
     return data
   } catch (error) {
@@ -62,31 +67,19 @@ export async function updateWorkspaceById(
 
 export async function getWorkspaceByUserId(db: DatabaseClient, userId: string) {
   try {
-    // First check if user owns a workspace
-    const [ownedWorkspace] = await db
-      .select()
-      .from(workspace)
-      .where(eq(workspace.ownerId, userId))
-      .limit(1)
-
-    if (ownedWorkspace) {
-      return ownedWorkspace
-    }
-
-    // If not an owner, check if user is a member of a workspace
-    const [memberWorkspace] = await db
+    const [result] = await db
       .select({
         id: workspace.id,
         ownerId: workspace.ownerId,
         createdAt: workspace.createdAt,
         updatedAt: workspace.updatedAt,
       })
-      .from(workspaceMembers)
-      .innerJoin(workspace, eq(workspaceMembers.workspaceId, workspace.id))
-      .where(eq(workspaceMembers.userId, userId))
+      .from(workspace)
+      .leftJoin(workspaceMembers, eq(workspaceMembers.workspaceId, workspace.id))
+      .where(or(eq(workspace.ownerId, userId), eq(workspaceMembers.userId, userId)))
       .limit(1)
 
-    return memberWorkspace
+    return result
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

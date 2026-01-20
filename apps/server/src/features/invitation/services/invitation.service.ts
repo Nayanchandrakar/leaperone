@@ -7,10 +7,10 @@ import {
   getInvitationsByWorkspaceId,
 } from "@app/database/repository/invitation"
 import { hasPermissions } from "@app/database/repository/role-permission"
-import { getUserByEmail, getUserById, getUserByUserName } from "@app/database/repository/user"
-import { getWorkspaceById } from "@app/database/repository/workspace"
+import { doesUserExistByUsernameOrEmail } from "@app/database/repository/user"
 import {
   getWorkspaceMember,
+  getWorkspaceMemberWithUser,
   removeMemberFromWorkspace,
 } from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
@@ -51,16 +51,11 @@ export class InvitationService {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    const existingUser = await getUserByEmail(db, email)
+    // Single query to check both email and username existence
+    const userExists = await doesUserExistByUsernameOrEmail(db, username, email)
 
-    if (existingUser) {
+    if (userExists) {
       throw ApiError.conflict(MSG.USER.ALREADY_EXISTS)
-    }
-
-    const usernameTaken = await getUserByUserName(db, username)
-
-    if (usernameTaken) {
-      throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
     }
 
     const invitation = await createWorkspaceInviteAndUser(db, {
@@ -175,19 +170,14 @@ export class InvitationService {
       throw ApiError.badRequest(MSG.INVITATION.CANNOT_ACCESS_SELF)
     }
 
-    // Verify the member exists in the workspace
-    const member = await getWorkspaceMember(db, memberId, workspace.id)
+    // Optimized: Single query to get member with user details
+    const memberWithUser = await getWorkspaceMemberWithUser(db, memberId, workspace.id)
 
-    if (!member) {
+    if (!memberWithUser) {
       throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
     }
 
-    // Get the member user details
-    const memberUser = await getUserById(db, memberId)
-
-    if (!memberUser) {
-      throw ApiError.notFound(MSG.USER.NOT_FOUND)
-    }
+    const { user: memberUser } = memberWithUser
 
     // Check if member is restricted
     if (memberUser.isRestricted) {
@@ -283,8 +273,8 @@ export class InvitationService {
     }
 
     // Check if the member is the workspace owner
-    const workspaceData = await getWorkspaceById(db, workspace.id)
-    if (workspaceData?.ownerId === memberId) {
+    // Optimized: Use workspace from context instead of querying database again
+    if (workspace.ownerId === memberId) {
       throw ApiError.badRequest("Cannot remove the workspace owner")
     }
 

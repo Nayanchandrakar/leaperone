@@ -74,29 +74,30 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_CREATE)
     }
 
-    // Create a stripe customer after creating a user successfully
-    const stripeCustomer = await stripe.customers.create({
-      email,
-      name,
-      metadata: {
-        userId: data.user.id,
-        workspaceId: data.user.workspaceId,
-      },
-    })
+    // Parallelize Stripe customer creation and token generation
+    const [stripeCustomer, token] = await Promise.all([
+      stripe.customers.create({
+        email,
+        name,
+        metadata: {
+          userId: data.user.id,
+          workspaceId: data.user.workspaceId,
+        },
+      }),
+      this.createEmailVerificationToken(email),
+    ])
 
-    // Update user with stripe customer id
-    const updatedUser = await updateUserById(db, data.user.id, {
-      stripeCustomerId: stripeCustomer.id,
-    })
+    // Update user with stripe customer id and set username in Redis in parallel
+    const [updatedUser] = await Promise.all([
+      updateUserById(db, data.user.id, {
+        stripeCustomerId: stripeCustomer.id,
+      }),
+      redis.hset("username_records", { [username]: 1 }),
+    ])
 
     if (!updatedUser) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
-
-    const [_, token] = await Promise.all([
-      redis.hset("username_records", { [username]: 1 }),
-      this.createEmailVerificationToken(email),
-    ])
 
     const callbackString = RouteUtils.createRoute("/api/auth/verify-email", {
       token,

@@ -18,11 +18,21 @@ export async function bootStrapFile(db: DatabaseClient, values: InsertFile[]) {
       // create a new file entry
       await tx.insert(file).values(values)
 
-      // update the storage usage
+      // Group files by storageId and batch update storage usage
+      // This reduces N queries to 1 query per unique storageId
+      const storageUpdates = new Map<string, number>()
       for (const { storageId, size } of values) {
+        if (size) {
+          const currentTotal = storageUpdates.get(storageId) || 0
+          storageUpdates.set(storageId, currentTotal + size)
+        }
+      }
+
+      // Batch update storage usage for each unique storageId
+      for (const [storageId, totalSize] of storageUpdates) {
         await tx
           .update(storage)
-          .set({ usage: sql`${storage.usage} + ${size}` })
+          .set({ usage: sql`${storage.usage} + ${totalSize}` })
           .where(eq(storage.id, storageId))
       }
     })

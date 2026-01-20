@@ -212,8 +212,7 @@ export async function updateUserAndDeleteVerification(
 
 export async function getUserById(db: DatabaseClient, userId: string) {
   try {
-    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1)
-
+    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1).$withCache()
     return user
   } catch (error) {
     console.error(error)

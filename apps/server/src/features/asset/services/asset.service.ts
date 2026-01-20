@@ -1,7 +1,7 @@
 import { basename, extname } from "node:path"
 import { db } from "@app/database"
 import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
-import { getStorageIdByWorkspaceId } from "@app/database/repository/storage"
+import { getStorageByWorkspaceId } from "@app/database/repository/storage"
 import type { Storage, Workspace } from "@app/database/types"
 import { ApiError } from "@app/error/index"
 import type { DeleteFilesSchema, GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
@@ -14,7 +14,7 @@ export class AssetService {
   constructor(private readonly storageService: StorageService) {}
 
   async deleteFiles(workspace: Workspace, ids: DeleteFilesSchema) {
-    const storage = await getStorageIdByWorkspaceId(db, workspace.id)
+    const storage = await getStorageByWorkspaceId(db, workspace.id)
     if (!storage) throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
 
     let count = 0
@@ -34,7 +34,7 @@ export class AssetService {
   }
 
   async getFiles(workspace: Workspace, { page, pageSize, sortBy, types, query }: GetFileSchema) {
-    const storage = await getStorageIdByWorkspaceId(db, workspace.id)
+    const storage = await getStorageByWorkspaceId(db, workspace.id)
 
     if (!storage) {
       throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)

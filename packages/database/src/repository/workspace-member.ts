@@ -1,9 +1,12 @@
 import { ApiError } from "@app/error"
 import { and, eq } from "drizzle-orm"
-import { workspaceMembers } from "../schema"
+import { users, workspaceMembers } from "../schema"
 import type { DatabaseClient } from "../types"
 
-export async function isMemberOfWorkspace(db: DatabaseClient, userId: string, workspaceId: string) {
+// Removed: isMemberOfWorkspace was identical to getWorkspaceMember
+// Use getWorkspaceMember instead for all workspace membership checks
+
+export async function getWorkspaceMember(db: DatabaseClient, userId: string, workspaceId: string) {
   try {
     const [member] = await db
       .select({
@@ -24,21 +27,29 @@ export async function isMemberOfWorkspace(db: DatabaseClient, userId: string, wo
   }
 }
 
-export async function getWorkspaceMember(db: DatabaseClient, userId: string, workspaceId: string) {
+export async function getWorkspaceMemberWithUser(
+  db: DatabaseClient,
+  userId: string,
+  workspaceId: string,
+) {
   try {
-    const [member] = await db
+    const [result] = await db
       .select({
-        userId: workspaceMembers.userId,
-        roleId: workspaceMembers.roleId,
-        workspaceId: workspaceMembers.workspaceId,
+        member: {
+          userId: workspaceMembers.userId,
+          roleId: workspaceMembers.roleId,
+          workspaceId: workspaceMembers.workspaceId,
+        },
+        user: users,
       })
       .from(workspaceMembers)
+      .innerJoin(users, eq(workspaceMembers.userId, users.id))
       .where(
-        and(eq(workspaceMembers.workspaceId, workspaceId), eq(workspaceMembers.userId, userId)),
+        and(eq(workspaceMembers.userId, userId), eq(workspaceMembers.workspaceId, workspaceId)),
       )
       .limit(1)
 
-    return member
+    return result
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
