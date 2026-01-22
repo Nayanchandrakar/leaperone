@@ -1,4 +1,3 @@
-import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
@@ -22,11 +21,11 @@ import { SessionManager } from "@app/session"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
-import { deleteCookie, getCookie, setCookie } from "hono/cookie"
-import type { CookieOptions } from "hono/utils/cookie"
+import { deleteCookie, getCookie } from "hono/cookie"
 import { redis } from "@/config/redis"
 import { stripe } from "@/config/stripe"
 import { MSG } from "@/constants/message"
+import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
 import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
@@ -177,12 +176,7 @@ export class AuthService {
       throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)
     }
 
-    setCookie(
-      c,
-      SESSION_COOKIE_NAME,
-      session.session.token,
-      SESSION_COOKIE_OPTIONS as CookieOptions,
-    )
+    setSessionCookie(c, SESSION_COOKIE_NAME, session.session.token)
 
     return c.json({
       success: true,
@@ -261,12 +255,7 @@ export class AuthService {
         ipAddress: getRequestIp(c),
         userAgent: c.req.header("User-Agent"),
       })
-      setCookie(
-        c,
-        SESSION_COOKIE_NAME,
-        newSession.session.token,
-        SESSION_COOKIE_OPTIONS as CookieOptions,
-      )
+      setSessionCookie(c, SESSION_COOKIE_NAME, newSession.session.token)
     } else {
       const newSession = {
         user: updatedUser,

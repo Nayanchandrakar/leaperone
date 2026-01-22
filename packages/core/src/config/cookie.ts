@@ -5,6 +5,6 @@ export const SESSION_COOKIE_OPTIONS = {
   secure: true,
   httpOnly: true,
   sameSite: "Lax",
-  domain: ".leaperone.com",
+  domain: "localhost",
   expires: new Date(Date.now() + SESSION_EXPIRY * 1000),
 }

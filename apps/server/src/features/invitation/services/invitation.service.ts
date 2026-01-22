@@ -25,6 +25,7 @@ import { setCookie } from "hono/cookie"
 import type { CookieOptions } from "hono/utils/cookie"
 import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
+import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
 import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
@@ -228,12 +229,7 @@ export class InvitationService {
     })
 
     // Set the session cookie to switch to member's account
-    setCookie(
-      c,
-      SESSION_COOKIE_NAME,
-      memberSession.session.token,
-      SESSION_COOKIE_OPTIONS as CookieOptions,
-    )
+    setSessionCookie(c, SESSION_COOKIE_NAME, memberSession.session.token)
 
     logger.info(`Manager ${user.id} accessed as member ${memberId} in workspace ${workspace.id}`)
 
