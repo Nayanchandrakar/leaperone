@@ -36,9 +36,11 @@
     "apps/proxy": {
       "name": "proxy",
       "dependencies": {
-        "@neondatabase/serverless": "catalog:",
-        "@paralleldrive/cuid2": "catalog:",
-        "drizzle-orm": "catalog:",
+        "@app/core": "workspace:*",
+        "@app/error": "workspace:*",
+        "@app/session": "workspace:*",
+        "@app/types": "workspace:*",
+        "@upstash/redis": "catalog:",
         "hono": "catalog:",
       },
       "devDependencies": {
@@ -54,6 +56,8 @@
         "@app/env": "workspace:*",
         "@app/error": "workspace:*",
         "@app/logger": "workspace:*",
+        "@app/session": "workspace:*",
+        "@app/types": "workspace:*",
         "@app/zod": "workspace:*",
         "@aws-sdk/client-s3": "catalog:",
         "@aws-sdk/s3-request-presigner": "catalog:",
@@ -81,6 +85,8 @@
         "@app/database": "workspace:*",
         "@app/env": "workspace:*",
         "@app/error": "workspace:*",
+        "@app/session": "workspace:*",
+        "@app/types": "workspace:*",
         "@app/ui": "workspace:*",
         "@app/zod": "workspace:*",
         "@dnd-kit/core": "catalog:",
@@ -90,6 +96,7 @@
         "@hookform/resolvers": "catalog:",
         "@tanstack/react-form": "catalog:",
         "@tanstack/react-query": "catalog:",
+        "@upstash/redis": "catalog:",
         "axios": "catalog:",
         "babel-plugin-react-compiler": "catalog:",
         "date-fns": "catalog:",
@@ -182,6 +189,21 @@
       "devDependencies": {
         "@app/tsconfig": "workspace:*",
         "pino-pretty": "catalog:",
+      },
+    },
+    "packages/session": {
+      "name": "@app/session",
+      "version": "1.0.0",
+      "dependencies": {
+        "@app/core": "workspace:*",
+        "@app/error": "workspace:*",
+      },
+      "devDependencies": {
+        "@app/tsconfig": "workspace:*",
+        "@app/types": "workspace:*",
+        "@types/node": "catalog:",
+        "hono": "catalog:",
+        "typescript": "catalog:",
       },
     },
     "packages/tsconfig": {
@@ -385,6 +407,8 @@
     "@app/error": ["@app/error@workspace:packages/error"],
 
     "@app/logger": ["@app/logger@workspace:packages/logger"],
+
+    "@app/session": ["@app/session@workspace:packages/session"],
 
     "@app/tsconfig": ["@app/tsconfig@workspace:packages/tsconfig"],
 

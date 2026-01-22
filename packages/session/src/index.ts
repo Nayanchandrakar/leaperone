@@ -1,22 +1,26 @@
+import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { SESSION_COOKIE_NAME, SESSION_EXPIRY, SESSSION_UPDATE_AGE } from "@app/core/constants"
-import type { User } from "@app/database/types"
 import { ApiError } from "@app/error"
-import { createId } from "@paralleldrive/cuid2"
-import type { Context } from "hono"
-import { redis } from "@/config/redis"
-import type { SessionRepository } from "@/features/auth/repositories/sesion.repository"
-import { Cookie } from "@/features/auth/utils/cookie.utils"
-import type { FullSession, Session } from "@/types/global.types"
-import { getDate } from "@/utils/date"
-import { getRequestIp } from "@/utils/string"
+import type { ActiveSession, FullSession, Session } from "@app/types"
+import type { CookieOptions } from "hono/utils/cookie"
+import type {
+  CookieAdapter,
+  CreateSessionParams,
+  SessionManagerConfig,
+  StorageAdapter,
+} from "./types"
+import { getDate } from "./utils/date"
 
-export class SessionService {
-  constructor(private readonly sessionRepository: SessionRepository) {}
+export class SessionManager {
+  private storageAdapter: StorageAdapter
+  private cookieAdapter: CookieAdapter
 
-  async create(c: Context, user: User) {
-    const token = createId()
-    const ipAddress = getRequestIp(c)
-    const userAgent = c.req.header("User-Agent")
+  constructor(config: SessionManagerConfig) {
+    this.storageAdapter = config.storageAdapter
+    this.cookieAdapter = config.cookieAdapter
+  }
+
+  async create({ token, ipAddress, userAgent, user }: CreateSessionParams) {
     const expiresAt = getDate(SESSION_EXPIRY, "sec")
 
     const session: Session = {
@@ -30,13 +34,13 @@ export class SessionService {
     }
 
     const sessionKey = `active_sessions_${user.id}`
-    let currentSessions = await this.sessionRepository.getActiveSessions(user.id)
+    let currentSessions = await this.storageAdapter.get<ActiveSession[]>(sessionKey)
 
-    if (currentSessions.length > 0) {
+    if (currentSessions && currentSessions.length > 0) {
       currentSessions = currentSessions.filter((s) => s.expiresAt > Date.now())
     }
 
-    currentSessions.push({
+    currentSessions?.push({
       token,
       expiresAt: expiresAt.valueOf(),
     })
@@ -44,29 +48,29 @@ export class SessionService {
     const fullSession: FullSession = { user, session }
 
     await Promise.all([
-      redis.set(sessionKey, currentSessions, { ex: SESSION_EXPIRY }),
-      redis.set(token, fullSession, { ex: SESSION_EXPIRY }),
+      this.storageAdapter.set(sessionKey, currentSessions, { ex: SESSION_EXPIRY }),
+      this.storageAdapter.set(token, fullSession, { ex: SESSION_EXPIRY }),
     ])
 
     return fullSession
   }
 
-  async get(c: Context) {
-    const token = await Cookie.get(c, SESSION_COOKIE_NAME)
+  async get() {
+    const token = this.cookieAdapter.get(SESSION_COOKIE_NAME)
 
     if (!token) {
       throw ApiError.unauthorized()
     }
 
-    const session = await this.sessionRepository.getSessionByToken(token)
+    const session = await this.storageAdapter.get<FullSession>(token)
 
     if (!session) {
-      Cookie.delete(c, SESSION_COOKIE_NAME)
+      this.cookieAdapter.delete(SESSION_COOKIE_NAME)
       throw ApiError.unauthorized("No session found with this token")
     }
 
     if (session.session.expiresAt < new Date()) {
-      Cookie.delete(c, SESSION_COOKIE_NAME)
+      this.cookieAdapter.delete(SESSION_COOKIE_NAME)
       await this.delete(token)
       throw ApiError.unauthorized("Your session has been expired")
     }
@@ -84,7 +88,7 @@ export class SessionService {
       })
 
       if (!updatedSession) {
-        Cookie.delete(c, SESSION_COOKIE_NAME)
+        this.cookieAdapter.delete(SESSION_COOKIE_NAME)
         throw ApiError.unauthorized("Session update failed.")
       }
 
@@ -96,11 +100,12 @@ export class SessionService {
         ...(session.impersonatedBy && { impersonatedBy: session.impersonatedBy }),
       }
 
-      await redis.set(token, data, {
+      await this.storageAdapter.set(token, data, {
         ex: SESSION_EXPIRY,
       })
 
-      await Cookie.set(c, SESSION_COOKIE_NAME, session.session.token, {
+      this.cookieAdapter.set(SESSION_COOKIE_NAME, session.session.token, {
+        ...(SESSION_COOKIE_OPTIONS as CookieOptions),
         maxAge,
       })
 
@@ -112,7 +117,7 @@ export class SessionService {
 
   async update(token: string, overrides: Partial<Session>) {
     // Refetch Session to prevent race conditions
-    const fullSession = await this.sessionRepository.getSessionByToken(token)
+    const fullSession = await this.storageAdapter.get<FullSession>(token)
     if (!fullSession) return null
 
     const updatedSession: Session = {
@@ -126,50 +131,52 @@ export class SessionService {
   async delete(token: string) {
     // network requests
     const requests: Array<Promise<unknown>> = []
-    const session = await this.sessionRepository.getSessionByToken(token)
+    const session = await this.storageAdapter.get<FullSession>(token)
 
     if (session) {
       const userId = session.user.id
       const sessionKey = `active_sessions_${userId}`
-      let currentSessions = await this.sessionRepository.getActiveSessions(userId)
+      let currentSessions = await this.storageAdapter.get<ActiveSession[]>(sessionKey)
 
       // Remove the token from the active sessions
-      if (currentSessions.length > 0) {
+      if (currentSessions && currentSessions.length > 0) {
         currentSessions = currentSessions.filter((s) => s.token !== token)
         if (currentSessions.length > 0) {
           requests.push(
-            redis.set(sessionKey, currentSessions, {
+            this.storageAdapter.set(sessionKey, currentSessions, {
               ex: SESSION_EXPIRY,
             }),
           )
         } else {
-          requests.push(redis.del(sessionKey))
+          requests.push(this.storageAdapter.del(sessionKey))
         }
       }
     }
 
-    requests.push(redis.del(token))
+    requests.push(this.storageAdapter.del(token))
     await Promise.all(requests)
   }
 
   async revoke(userId: string) {
     const requests: Array<Promise<unknown>> = []
 
-    const currentSessions = await this.sessionRepository.getActiveSessions(userId)
+    const currentSessions = await this.storageAdapter.get<ActiveSession[]>(
+      `active_sessions_${userId}`,
+    )
     if (!currentSessions) return null
 
     for (const session of currentSessions) {
-      requests.push(this.sessionRepository.deleteSessionByToken(session.token))
+      requests.push(this.storageAdapter.del(session.token))
     }
 
-    requests.push(this.sessionRepository.deleteActiveSessions(userId))
+    requests.push(this.storageAdapter.del(`active_sessions_${userId}`))
     await Promise.all(requests)
     return null
   }
 
-  async fromCtx(c: Context) {
+  async fromCtx() {
     try {
-      return await this.get(c)
+      return await this.get()
     } catch {
       return null
     }

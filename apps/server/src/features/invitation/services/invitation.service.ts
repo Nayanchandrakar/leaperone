@@ -1,3 +1,4 @@
+import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { INVITATION_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
@@ -16,14 +17,17 @@ import {
 } from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger/index"
+import { SessionManager } from "@app/session"
+import type { FullSession } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
 import { hash } from "bcryptjs"
+import { setCookie } from "hono/cookie"
+import type { CookieOptions } from "hono/utils/cookie"
 import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
-import { sessionService } from "@/features/auth/modules/session.module"
-import { Cookie } from "@/features/auth/utils/cookie.utils"
 import { sendMail } from "@/features/auth/utils/mail"
-import type { FullSession } from "@/types/global.types"
+import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
+import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
 import type {
   AcceptInvitationContext,
   AccessAsMemberContext,
@@ -34,8 +38,10 @@ import type {
 import { getDate } from "@/utils/date"
 import { getInviteKey } from "@/utils/invite.utils"
 import { RouteUtils } from "@/utils/route.utils"
+import { getRequestIp } from "@/utils/string"
 
 export class InvitationService {
+  constructor(private readonly storageAdapter: RedisStorageAdapter) {}
   async inviteMember(c: InviteMemberContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
@@ -189,7 +195,18 @@ export class InvitationService {
     }
 
     // Create a new session for the member
-    const memberSession = await sessionService.create(c, memberUser)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+
+    const memberSession = await sessionManager.create({
+      user: memberUser,
+      token: createId(),
+      ipAddress: getRequestIp(c),
+      userAgent: c.req.header("User-Agent"),
+    })
 
     if (!memberSession) {
       throw ApiError.internalServerError(MSG.SESSION.FAILED_TO_CREATE)
@@ -205,13 +222,18 @@ export class InvitationService {
     }
 
     // Update the session in Redis with impersonation metadata
-    // (sessionService.create already stored it, but without metadata)
+    // (SessionManager.create already stored it, but without metadata)
     await redis.set(memberSession.session.token, memberSession, {
       ex: SESSION_EXPIRY,
     })
 
     // Set the session cookie to switch to member's account
-    await Cookie.set(c, SESSION_COOKIE_NAME, memberSession.session.token)
+    setCookie(
+      c,
+      SESSION_COOKIE_NAME,
+      memberSession.session.token,
+      SESSION_COOKIE_OPTIONS as CookieOptions,
+    )
 
     logger.info(`Manager ${user.id} accessed as member ${memberId} in workspace ${workspace.id}`)
 
@@ -240,7 +262,7 @@ export class InvitationService {
     }
 
     // Restore the manager's session
-    await Cookie.set(c, SESSION_COOKIE_NAME, managerToken)
+    setCookie(c, SESSION_COOKIE_NAME, managerToken, SESSION_COOKIE_OPTIONS as CookieOptions)
 
     logger.info(`Manager ${managerSession.user.id} exited impersonation`)
 
@@ -289,7 +311,12 @@ export class InvitationService {
     }
 
     // Revoke all sessions for the removed member
-    await sessionService.revoke(memberId)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+    await sessionManager.revoke(memberId)
 
     logger.info(`Manager ${user.id} removed member ${memberId} from workspace ${workspace.id}`)
 

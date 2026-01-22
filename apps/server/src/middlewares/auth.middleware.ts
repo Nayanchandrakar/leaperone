@@ -1,7 +1,9 @@
 import { ApiError } from "@app/error"
+import { SessionManager } from "@app/session"
 import type { Context, Next } from "hono"
 import { JwtTokenExpired } from "hono/utils/jwt/types"
-import { sessionService } from "@/features/auth/modules/session.module"
+import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
+import { storageAdapter } from "@/features/shared/adapters/redis.adapter"
 import type { VerifyEmailContext } from "@/types/auth.types"
 import { RouteUtils } from "@/utils/route.utils"
 import { TokenUtils } from "@/utils/token.utils"
@@ -25,7 +27,13 @@ export const verifyToken = async (c: VerifyEmailContext, next: Next): Promise<an
 }
 
 export const isAuth = async (c: Context, next: Next) => {
-  const userSession = await sessionService.fromCtx(c)
+  const cookieAdapter = new HonoCookieAdapter(c)
+  const sessionManager = new SessionManager({
+    cookieAdapter,
+    storageAdapter,
+  })
+
+  const userSession = await sessionManager.fromCtx()
   if (!userSession) throw ApiError.unauthorized()
 
   c.set("session", userSession)

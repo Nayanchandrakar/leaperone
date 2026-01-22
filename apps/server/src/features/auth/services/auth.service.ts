@@ -1,3 +1,4 @@
+import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
@@ -17,15 +18,18 @@ import {
 } from "@app/database/repository/verification"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger"
+import { SessionManager } from "@app/session"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
+import { deleteCookie, getCookie, setCookie } from "hono/cookie"
+import type { CookieOptions } from "hono/utils/cookie"
 import { redis } from "@/config/redis"
 import { stripe } from "@/config/stripe"
 import { MSG } from "@/constants/message"
-import type { SessionService } from "@/features/auth/services/session.service"
-import { Cookie } from "@/features/auth/utils/cookie.utils"
 import { sendMail } from "@/features/auth/utils/mail"
+import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
+import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
 import type {
   GetSessionContext,
   LoginContext,
@@ -39,10 +43,11 @@ import type {
 } from "@/types/auth.types"
 import { getDate } from "@/utils/date"
 import { RouteUtils } from "@/utils/route.utils"
+import { getRequestIp } from "@/utils/string"
 import { TokenUtils } from "@/utils/token.utils"
 
 export class AuthService {
-  constructor(private readonly sessionService: SessionService) {}
+  constructor(private readonly storageAdapter: RedisStorageAdapter) {}
 
   async findUserName(c: UserNameContext) {
     const input = c.req.valid("query")
@@ -155,13 +160,29 @@ export class AuthService {
       return c.json({ message: MSG.VERIFICATION.LINK_SENT, success: false })
     }
 
-    const session = await this.sessionService.create(c, user)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+
+    const session = await sessionManager.create({
+      user,
+      token: createId(),
+      ipAddress: getRequestIp(c),
+      userAgent: c.req.header("User-Agent"),
+    })
 
     if (!session) {
       throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)
     }
 
-    await Cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
+    setCookie(
+      c,
+      SESSION_COOKIE_NAME,
+      session.session.token,
+      SESSION_COOKIE_OPTIONS as CookieOptions,
+    )
 
     return c.json({
       success: true,
@@ -171,19 +192,30 @@ export class AuthService {
   }
 
   async getSession(c: GetSessionContext) {
-    return await this.sessionService.get(c)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+    return await sessionManager.get()
   }
 
   async logout(c: LogoutContext) {
-    const sessionCookieToken = await Cookie.get(c, SESSION_COOKIE_NAME)
+    const sessionCookieToken = getCookie(c, SESSION_COOKIE_NAME)
 
     if (!sessionCookieToken) {
-      Cookie.delete(c, SESSION_COOKIE_NAME)
+      deleteCookie(c, SESSION_COOKIE_NAME)
       throw ApiError.badRequest(MSG.SESSION.FAILED_TO_GET)
     }
 
-    await this.sessionService.delete(sessionCookieToken)
-    Cookie.delete(c, SESSION_COOKIE_NAME)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+
+    await sessionManager.delete(sessionCookieToken)
+    deleteCookie(c, SESSION_COOKIE_NAME)
   }
 
   async verifyEmail(c: VerifyEmailContext) {
@@ -214,11 +246,27 @@ export class AuthService {
     }
 
     // Sign-in user automatically after verification
-    const currentSession = await this.sessionService.fromCtx(c)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+
+    const currentSession = await sessionManager.fromCtx()
 
     if (!currentSession || currentSession.user.email !== data.email) {
-      const session = await this.sessionService.create(c, updatedUser)
-      await Cookie.set(c, SESSION_COOKIE_NAME, session.session.token)
+      const newSession = await sessionManager.create({
+        user: updatedUser,
+        token: createId(),
+        ipAddress: getRequestIp(c),
+        userAgent: c.req.header("User-Agent"),
+      })
+      setCookie(
+        c,
+        SESSION_COOKIE_NAME,
+        newSession.session.token,
+        SESSION_COOKIE_OPTIONS as CookieOptions,
+      )
     } else {
       const newSession = {
         user: updatedUser,
@@ -291,7 +339,12 @@ export class AuthService {
     })
 
     // Revoke multiple other sessions for this user
-    await this.sessionService.revoke(userId)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+    await sessionManager.revoke(userId)
 
     return c.json({ success: true, message: MSG.PASSWORD.RESET_SUCCESS })
   }
@@ -318,7 +371,12 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
 
-    await this.sessionService.revoke(updatedUser.id)
+    const cookieAdapter = new HonoCookieAdapter(c)
+    const sessionManager = new SessionManager({
+      cookieAdapter,
+      storageAdapter: this.storageAdapter,
+    })
+    await sessionManager.revoke(updatedUser.id)
     return c.json({ userId: updatedUser.id })
   }
 

@@ -16,6 +16,7 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "devDependencies": {
+    "@app/database": "workspace:*",
     "@app/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"

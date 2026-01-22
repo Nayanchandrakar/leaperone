@@ -23,6 +23,7 @@
     "@app/database": "workspace:*",
     "@app/env": "workspace:*",
     "@app/error": "workspace:*",
+    "@app/session": "workspace:*",
     "@app/types": "workspace:*",
     "@app/logger": "workspace:*",
     "@app/zod": "workspace:*",
