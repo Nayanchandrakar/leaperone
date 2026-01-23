@@ -1,5 +1,6 @@
 export * from "./common"
 export * from "./content-editor"
+export * from "./cookie"
 export * from "./design-editor"
 export * from "./qr-code-editor"
 export * from "./session"

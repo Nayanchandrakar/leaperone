@@ -17,7 +17,7 @@ import {
 } from "@app/database/repository/verification"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger"
-import { SessionManager } from "@app/session"
+import type { SessionService } from "@app/session"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
@@ -27,8 +27,6 @@ import { stripe } from "@/config/stripe"
 import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
-import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
-import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
 import type {
   GetSessionContext,
   LoginContext,
@@ -46,7 +44,7 @@ import { getRequestIp } from "@/utils/string"
 import { TokenUtils } from "@/utils/token.utils"
 
 export class AuthService {
-  constructor(private readonly storageAdapter: RedisStorageAdapter) {}
+  constructor(private readonly sessionService: SessionService) {}
 
   async findUserName(c: UserNameContext) {
     const input = c.req.valid("query")
@@ -159,13 +157,7 @@ export class AuthService {
       return c.json({ message: MSG.VERIFICATION.LINK_SENT, success: false })
     }
 
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-
-    const session = await sessionManager.create({
+    const session = await this.sessionService.create({
       user,
       token: createId(),
       ipAddress: getRequestIp(c),
@@ -186,12 +178,7 @@ export class AuthService {
   }
 
   async getSession(c: GetSessionContext) {
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-    return await sessionManager.get()
+    return await this.sessionService.get(c)
   }
 
   async logout(c: LogoutContext) {
@@ -202,13 +189,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.SESSION.FAILED_TO_GET)
     }
 
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-
-    await sessionManager.delete(sessionCookieToken)
+    await this.sessionService.delete(sessionCookieToken)
     deleteCookie(c, SESSION_COOKIE_NAME)
   }
 
@@ -240,16 +221,10 @@ export class AuthService {
     }
 
     // Sign-in user automatically after verification
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-
-    const currentSession = await sessionManager.fromCtx()
+    const currentSession = await this.sessionService.fromCtx(c)
 
     if (!currentSession || currentSession.user.email !== data.email) {
-      const newSession = await sessionManager.create({
+      const newSession = await this.sessionService.create({
         user: updatedUser,
         token: createId(),
         ipAddress: getRequestIp(c),
@@ -328,12 +303,7 @@ export class AuthService {
     })
 
     // Revoke multiple other sessions for this user
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-    await sessionManager.revoke(userId)
+    await this.sessionService.revoke(userId)
 
     return c.json({ success: true, message: MSG.PASSWORD.RESET_SUCCESS })
   }
@@ -360,12 +330,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
 
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-    await sessionManager.revoke(updatedUser.id)
+    await this.sessionService.revoke(updatedUser.id)
     return c.json({ userId: updatedUser.id })
   }
 

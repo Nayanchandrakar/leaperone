@@ -1,20 +1,20 @@
 import type { User } from "@app/database/types"
-import type { Session } from "@app/types/session"
-import type { CookieOptions } from "hono/utils/cookie"
+import type { CookieOptions, Session } from "@app/types"
+import type { Context } from "hono"
 
 export type StorageAdapter = {
-  del(...keys: string[]): Promise<void>
+  del(...keys: string[]): Promise<number>
   get<T>(key: string): Promise<T | null>
-  set<T>(key: string, value: T, options: { ex: number }): Promise<void>
+  set<T>(key: string, value: T, options: { ex: number }): Promise<"OK" | T | null>
 }
 
 export type CookieAdapter = {
-  delete: (name: string) => void
-  get: (name: string) => string | undefined
-  set: (name: string, value: string, overrides?: CookieOptions) => void
+  delete: (ctx: Context, name: string) => void
+  get: (ctx: Context, name: string) => string | undefined
+  set: (ctx: Context, name: string, value: string, overrides?: CookieOptions) => void
 }
 
-export type SessionManagerConfig = {
+export type SessionServiceConfig = {
   cookieAdapter: CookieAdapter
   storageAdapter: StorageAdapter
 }

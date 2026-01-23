@@ -17,12 +17,12 @@
   "author": "myleaper-organization",
   "license": "ISC",
   "dependencies": {
-    "@app/database": "workspace:*",
-    "@app/types": "workspace:*"
+    "@app/database": "workspace:*"
   },
   "devDependencies": {
-    "@app/tsconfig": "workspace:*",
+    "typescript": "catalog:",
     "@types/node": "catalog:",
-    "typescript": "catalog:"
+    "@app/types": "workspace:*",
+    "@app/tsconfig": "workspace:*"
   }
 }

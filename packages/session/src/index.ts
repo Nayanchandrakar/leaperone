@@ -2,22 +2,22 @@ import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { SESSION_COOKIE_NAME, SESSION_EXPIRY, SESSSION_UPDATE_AGE } from "@app/core/constants"
 import { ApiError } from "@app/error"
 import type { ActiveSession, FullSession, Session } from "@app/types"
-import type { CookieOptions } from "hono/utils/cookie"
+import type { Context } from "hono"
 import type {
   CookieAdapter,
   CreateSessionParams,
-  SessionManagerConfig,
+  SessionServiceConfig,
   StorageAdapter,
 } from "./types"
 import { getDate } from "./utils/date"
 
-export class SessionManager {
-  private storageAdapter: StorageAdapter
-  private cookieAdapter: CookieAdapter
+export class SessionService {
+  private readonly cookieAdapter: CookieAdapter
+  private readonly storageAdapter: StorageAdapter
 
-  constructor(config: SessionManagerConfig) {
-    this.storageAdapter = config.storageAdapter
+  constructor(config: SessionServiceConfig) {
     this.cookieAdapter = config.cookieAdapter
+    this.storageAdapter = config.storageAdapter
   }
 
   async create({ token, ipAddress, userAgent, user }: CreateSessionParams) {
@@ -55,8 +55,8 @@ export class SessionManager {
     return fullSession
   }
 
-  async get() {
-    const token = this.cookieAdapter.get(SESSION_COOKIE_NAME)
+  async get(ctx: Context) {
+    const token = this.cookieAdapter.get(ctx, SESSION_COOKIE_NAME)
 
     if (!token) {
       throw ApiError.unauthorized()
@@ -65,12 +65,12 @@ export class SessionManager {
     const session = await this.storageAdapter.get<FullSession>(token)
 
     if (!session) {
-      this.cookieAdapter.delete(SESSION_COOKIE_NAME)
+      this.cookieAdapter.delete(ctx, SESSION_COOKIE_NAME)
       throw ApiError.unauthorized("No session found with this token")
     }
 
     if (session.session.expiresAt < new Date()) {
-      this.cookieAdapter.delete(SESSION_COOKIE_NAME)
+      this.cookieAdapter.delete(ctx, SESSION_COOKIE_NAME)
       await this.delete(token)
       throw ApiError.unauthorized("Your session has been expired")
     }
@@ -88,7 +88,7 @@ export class SessionManager {
       })
 
       if (!updatedSession) {
-        this.cookieAdapter.delete(SESSION_COOKIE_NAME)
+        this.cookieAdapter.delete(ctx, SESSION_COOKIE_NAME)
         throw ApiError.unauthorized("Session update failed.")
       }
 
@@ -104,8 +104,8 @@ export class SessionManager {
         ex: SESSION_EXPIRY,
       })
 
-      this.cookieAdapter.set(SESSION_COOKIE_NAME, session.session.token, {
-        ...(SESSION_COOKIE_OPTIONS as CookieOptions),
+      this.cookieAdapter.set(ctx, SESSION_COOKIE_NAME, session.session.token, {
+        ...SESSION_COOKIE_OPTIONS,
         maxAge,
       })
 
@@ -174,9 +174,9 @@ export class SessionManager {
     return null
   }
 
-  async fromCtx() {
+  async fromCtx(ctx: Context) {
     try {
-      return await this.get()
+      return await this.get(ctx)
     } catch {
       return null
     }

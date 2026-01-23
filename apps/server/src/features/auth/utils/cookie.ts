@@ -1,11 +1,16 @@
 import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
+import type { CookieOptions } from "@app/types"
 import type { Context } from "hono"
 import { setCookie } from "hono/cookie"
-import type { CookieOptions } from "hono/utils/cookie"
 
-export function setSessionCookie(c: Context, name: string, value: string, options?: CookieOptions) {
+export function setSessionCookie(
+  c: Context,
+  name: string,
+  value: string,
+  overrides?: CookieOptions,
+) {
   return setCookie(c, name, value, {
-    ...(SESSION_COOKIE_OPTIONS as CookieOptions),
-    ...options,
+    ...SESSION_COOKIE_OPTIONS,
+    ...overrides,
   })
 }

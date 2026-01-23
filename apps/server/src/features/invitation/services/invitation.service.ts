@@ -17,7 +17,7 @@ import {
 } from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger/index"
-import { SessionManager } from "@app/session"
+import type { SessionService } from "@app/session"
 import type { FullSession } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
 import { hash } from "bcryptjs"
@@ -27,8 +27,6 @@ import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
-import { HonoCookieAdapter } from "@/features/shared/adapters/cookie.adapter"
-import type { RedisStorageAdapter } from "@/features/shared/adapters/redis.adapter"
 import type {
   AcceptInvitationContext,
   AccessAsMemberContext,
@@ -42,7 +40,8 @@ import { RouteUtils } from "@/utils/route.utils"
 import { getRequestIp } from "@/utils/string"
 
 export class InvitationService {
-  constructor(private readonly storageAdapter: RedisStorageAdapter) {}
+  constructor(private readonly sessionService: SessionService) {}
+
   async inviteMember(c: InviteMemberContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
@@ -196,13 +195,7 @@ export class InvitationService {
     }
 
     // Create a new session for the member
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-
-    const memberSession = await sessionManager.create({
+    const memberSession = await this.sessionService.create({
       user: memberUser,
       token: createId(),
       ipAddress: getRequestIp(c),
@@ -307,12 +300,7 @@ export class InvitationService {
     }
 
     // Revoke all sessions for the removed member
-    const cookieAdapter = new HonoCookieAdapter(c)
-    const sessionManager = new SessionManager({
-      cookieAdapter,
-      storageAdapter: this.storageAdapter,
-    })
-    await sessionManager.revoke(memberId)
+    await this.sessionService.revoke(memberId)
 
     logger.info(`Manager ${user.id} removed member ${memberId} from workspace ${workspace.id}`)
 
