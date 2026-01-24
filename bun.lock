@@ -36,14 +36,14 @@
     "apps/proxy": {
       "name": "proxy",
       "dependencies": {
-        "@app/core": "workspace:*",
-        "@app/error": "workspace:*",
-        "@app/session": "workspace:*",
-        "@app/types": "workspace:*",
+        "@neondatabase/serverless": "catalog:",
         "@upstash/redis": "catalog:",
         "hono": "catalog:",
+        "hono-geo-middleware": "^0.1.2",
       },
       "devDependencies": {
+        "@app/tsconfig": "workspace:*",
+        "@cloudflare/workers-types": "catalog:",
         "wrangler": "catalog:",
       },
     },
@@ -214,6 +214,7 @@
       "name": "@app/types",
       "version": "1.0.0",
       "devDependencies": {
+        "@app/database": "workspace:*",
         "@app/tsconfig": "workspace:*",
         "@types/node": "catalog:",
         "typescript": "catalog:",
@@ -297,6 +298,7 @@
     "@aws-sdk/client-s3": "^3.888.0",
     "@aws-sdk/s3-request-presigner": "^3.888.0",
     "@biomejs/biome": "2.2.0",
+    "@cloudflare/workers-types": "^4.20260124.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
@@ -549,6 +551,8 @@
     "@cloudflare/workerd-linux-arm64": ["@cloudflare/workerd-linux-arm64@1.20260111.0", "", { "os": "linux", "cpu": "arm64" }, "sha512-wFVKxNvCyjRaAcgiSnJNJAmIos3p3Vv6Uhf4pFUZ9JIxr69GNlLWlm9SdCPvtwNFAjzSoDaKzDwjj5xqpuCS6Q=="],
 
     "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20260111.0", "", { "os": "win32", "cpu": "x64" }, "sha512-zWgd77L7OI1BxgBbG+2gybDahIMgPX5iNo6e3LqcEz1Xm3KfiqgnDyMBcxeQ7xDrj7fHUGAlc//QnKvDchuUoQ=="],
+
+    "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20260124.0", "", {}, "sha512-h6TJlew6AtGuEXFc+k5ifalk+tg3fkg0lla6XbMAb2AKKfJGwlFNTwW2xyT/Ha92KY631CIJ+Ace08DPdFohdA=="],
 
     "@commitlint/config-conventional": ["@commitlint/config-conventional@20.0.0", "", { "dependencies": { "@commitlint/types": "^20.0.0", "conventional-changelog-conventionalcommits": "^7.0.2" } }, "sha512-q7JroPIkDBtyOkVe9Bca0p7kAUYxZMxkrBArCfuD3yN4KjRAenP9PmYwnn7rsw8Q+hHq1QB2BRmBh0/Z19ZoJw=="],
 
@@ -1357,6 +1361,8 @@
     "help-me": ["help-me@5.0.0", "", {}, "sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg=="],
 
     "hono": ["hono@4.11.4", "", {}, "sha512-U7tt8JsyrxSRKspfhtLET79pU8K+tInj5QZXs1jSugO1Vq5dFj3kmZsRldo29mTBfcjDRVRXrEZ6LS63Cog9ZA=="],
+
+    "hono-geo-middleware": ["hono-geo-middleware@0.1.2", "", { "peerDependencies": { "hono": "*" } }, "sha512-PwBRfdmIf8ug4dgjxRUrUFKFj47G3koq7gJnBf/hVOhepmml8ikmqjN6mVdX3dBLt9XSTKVRmpNxO/euTfJgZg=="],
 
     "hookable": ["hookable@5.5.3", "", {}, "sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ=="],
 

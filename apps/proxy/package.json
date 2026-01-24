@@ -7,9 +7,13 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "@neondatabase/serverless": "catalog:",
+    "@upstash/redis": "catalog:",
     "hono": "catalog:"
   },
   "devDependencies": {
+    "@app/tsconfig": "workspace:*",
+    "@cloudflare/workers-types": "catalog:",
     "wrangler": "catalog:"
   }
 }
