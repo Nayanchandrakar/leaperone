@@ -1,4 +1,9 @@
 import { SessionService } from "@app/session"
-import { cookieAdapter, storageAdapter } from "@/utils/adapter"
+import { deleteCookie, getCookie, setCookie } from "hono/cookie"
+import { redis } from "@/config/redis"
 
-export const sessionService = new SessionService({ cookieAdapter, storageAdapter })
+export const sessionService = new SessionService(redis, {
+  get: getCookie,
+  set: setCookie,
+  delete: deleteCookie,
+})

@@ -2,23 +2,14 @@ import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { SESSION_COOKIE_NAME, SESSION_EXPIRY, SESSSION_UPDATE_AGE } from "@app/core/constants"
 import { ApiError } from "@app/error"
 import type { ActiveSession, FullSession, Session } from "@app/types"
-import type { Context } from "hono"
-import type {
-  CookieAdapter,
-  CreateSessionParams,
-  SessionServiceConfig,
-  StorageAdapter,
-} from "./types"
+import type { CookieAdapter, CreateSessionParams, StorageAdapter } from "./types"
 import { getDate } from "./utils/date"
 
-export class SessionService {
-  private readonly cookieAdapter: CookieAdapter
-  private readonly storageAdapter: StorageAdapter
-
-  constructor(config: SessionServiceConfig) {
-    this.cookieAdapter = config.cookieAdapter
-    this.storageAdapter = config.storageAdapter
-  }
+export class SessionService<T> {
+  constructor(
+    private readonly storageAdapter: StorageAdapter,
+    private readonly cookieAdapter: CookieAdapter<T>,
+  ) {}
 
   async create({ token, ipAddress, userAgent, user }: CreateSessionParams) {
     const expiresAt = getDate(SESSION_EXPIRY, "sec")
@@ -55,7 +46,7 @@ export class SessionService {
     return fullSession
   }
 
-  async get(ctx: Context) {
+  async get(ctx: T) {
     const token = this.cookieAdapter.get(ctx, SESSION_COOKIE_NAME)
 
     if (!token) {
@@ -174,7 +165,7 @@ export class SessionService {
     return null
   }
 
-  async fromCtx(ctx: Context) {
+  async fromCtx(ctx: T) {
     try {
       return await this.get(ctx)
     } catch {

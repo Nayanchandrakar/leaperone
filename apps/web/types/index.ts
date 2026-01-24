@@ -1,3 +1,5 @@
+import type { NextRequest, NextResponse } from "next/server"
+
 export type IconProps = React.HTMLAttributes<SVGElement>
 
 export type FullSession = {
@@ -31,3 +33,5 @@ export type Session = FullSession["session"]
 export type User = FullSession["user"]
 
 export type Nullable<T> = T | null
+
+export type NextContext = { request: NextRequest; response: NextResponse }
