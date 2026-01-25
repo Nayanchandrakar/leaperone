@@ -8,7 +8,7 @@ import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type { CreateBusinessCardContext, UpdateBusinessCardContext } from "@/types/bussiness.types"
 
-export class BussinessService {
+export class BusinessService {
   async createBusinessCard(c: CreateBusinessCardContext) {
     const session = c.get("session")
     const workspace = c.get("workspace")
@@ -21,12 +21,14 @@ export class BussinessService {
     }
 
     const businessCard = await createBusinessCard(db, {
+      status: "active",
       qrCode: values.qrCode,
       design: values.design,
       content: values.content,
       userId: session.user.id,
       template: values.template,
       workspaceId: workspace.id,
+      identifier: session.user.username, // By default, the identifier is the username of the user
     })
 
     if (!businessCard) {

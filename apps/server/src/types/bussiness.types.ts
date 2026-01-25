@@ -4,12 +4,12 @@ import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
 export type CreateBusinessCardContext = Context<
   HonoEnv,
-  "/bussiness-card/create",
+  "/business-card/create",
   ControllerIO<"json", CreateBusinessCardSchema>
 >
 
 export type UpdateBusinessCardContext = Context<
   HonoEnv,
-  "/bussiness-card/edit",
+  "/business-card/edit",
   ControllerIO<"json", Partial<CreateBusinessCardSchema>>
 >

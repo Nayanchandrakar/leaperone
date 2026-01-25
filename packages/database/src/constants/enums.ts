@@ -1,4 +1,5 @@
 export const subscriptionPlan = ["individual", "team"] as const
+export const businessCardStatus = ["active", "inactive"] as const
 export const subscriptionStatus = [
   "active",
   "incomplete",
