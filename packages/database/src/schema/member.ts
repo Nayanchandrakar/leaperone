@@ -1,5 +1,6 @@
 import { createId } from "@paralleldrive/cuid2"
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { pgTable, text } from "drizzle-orm/pg-core"
+import { timestamps } from "../utils"
 import { roles } from "./roles"
 import { users } from "./users"
 import { workspace } from "./workspace"
@@ -19,8 +20,5 @@ export const workspaceMembers = pgTable("workspace_members", {
   roleId: text()
     .references(() => roles.id)
     .notNull(),
-  joinedAt: timestamp().defaultNow().notNull(),
-  updatedAt: timestamp()
-    .defaultNow()
-    .$onUpdate(() => new Date()),
+  ...timestamps,
 })
