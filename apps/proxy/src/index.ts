@@ -10,9 +10,9 @@ import { getBusinessCardByIdentifier } from "@/database/repositories/business-ca
 import { BotPage } from "@/html/bot-page"
 import type { Bindings } from "@/types/global.types"
 import { detectBot } from "@/utils/bot-detection"
-import { getIdentityHash } from "@/utils/get-identity-hash"
+import { generateDeviceFingerprint } from "@/utils/hash"
 import { getClientIp } from "@/utils/ip"
-import { parseUA } from "@/utils/parse-user-agent"
+import { parseUA } from "@/utils/parse-ua"
 
 const proxy = new Hono<{ Bindings: Bindings }>()
 
@@ -49,7 +49,7 @@ proxy.get("/:identifier", async (c) => {
 
   const cookieName = `leaper_id_${identifier}`
   let clickId = getCookie(c, cookieName)
-  const identityHash = await getIdentityHash(ip, ua)
+  const identityHash = await generateDeviceFingerprint(ip, ua)
 
   let clickCacheResult = null
 
@@ -67,7 +67,7 @@ proxy.get("/:identifier", async (c) => {
     }),
   )
 
-  const redirectUrl = `${c.env.FRONTEND_URL}/${cachedLink.businessCardId}`
+  const redirectUrl = `${c.env.FRONTEND_URL}/${cachedLink.id}`
 
   // Dont track clicks for HEAD requests
   if (c.req.method === "HEAD") {

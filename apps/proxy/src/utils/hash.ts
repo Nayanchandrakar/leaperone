@@ -14,6 +14,6 @@ export async function hashStringSHA256(str: string) {
   return hashHex
 }
 
-export async function getIdentityHash(ip: string, ua: string) {
+export async function generateDeviceFingerprint(ip: string, ua: string) {
   return await hashStringSHA256(`${ip}-${ua}`)
 }

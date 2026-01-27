@@ -26,7 +26,7 @@ export type ParsedUA = {
 }
 
 export type CachedLink = {
+  id: string
   userId: string
   workspaceId: string
-  businessCardId: string
 }
