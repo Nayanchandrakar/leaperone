@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2"
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { doublePrecision, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 import { businessCard } from "./business-card"
 import { users } from "./users"
 import { workspace } from "./workspace"
@@ -23,11 +23,6 @@ export const analytics = pgTable("analytics", {
 
   // Network
   ip: text(),
-  isBot: boolean(),
-
-  // Referer tracking
-  referer: text(),
-  refererUrl: text(),
 
   // Device information
   device: text(),
@@ -39,8 +34,8 @@ export const analytics = pgTable("analytics", {
   country: text(),
   region: text(),
   city: text(),
-  latitude: text(),
-  longitude: text(),
+  latitude: doublePrecision(),
+  longitude: doublePrecision(),
 
   // Browser information
   browser: text(),

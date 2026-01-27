@@ -1,3 +1,4 @@
+CREATE TYPE "public"."status" AS ENUM('active', 'inactive');--> statement-breakpoint
 CREATE TYPE "public"."invitation_status" AS ENUM('accepted', 'pending');--> statement-breakpoint
 CREATE TYPE "public"."subscription_plan" AS ENUM('individual', 'team');--> statement-breakpoint
 CREATE TYPE "public"."subscription_status" AS ENUM('active', 'incomplete', 'incomplete_expired', 'trialing', 'past_due', 'canceled', 'unpaid', 'paused');--> statement-breakpoint
@@ -18,18 +19,48 @@ CREATE TABLE "account" (
 	CONSTRAINT "account_providerId_userId_unique" UNIQUE("provider_id","user_id")
 );
 --> statement-breakpoint
+CREATE TABLE "analytics" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"workspace_id" text NOT NULL,
+	"business_card_id" text NOT NULL,
+	"ip" text,
+	"device" text,
+	"device_vendor" text,
+	"device_model" text,
+	"continent" text,
+	"country" text,
+	"region" text,
+	"city" text,
+	"latitude" double precision,
+	"longitude" double precision,
+	"browser" text,
+	"browser_version" text,
+	"engine" text,
+	"engine_version" text,
+	"os" text,
+	"os_version" text,
+	"cpu_architecture" text,
+	"ua" text,
+	"clicked_at" timestamp NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "business_card" (
 	"id" text PRIMARY KEY NOT NULL,
 	"workspace_id" text NOT NULL,
 	"user_id" text NOT NULL,
+	"identifier" text NOT NULL,
 	"template" text NOT NULL,
 	"design" jsonb NOT NULL,
 	"qr_code" jsonb NOT NULL,
 	"content" jsonb NOT NULL,
+	"status" "status" DEFAULT 'active' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "business_card_workspaceId_unique" UNIQUE("workspace_id"),
-	CONSTRAINT "business_card_userId_unique" UNIQUE("user_id")
+	CONSTRAINT "business_card_userId_unique" UNIQUE("user_id"),
+	CONSTRAINT "business_card_identifier_unique" UNIQUE("identifier")
 );
 --> statement-breakpoint
 CREATE TABLE "contact-us" (
@@ -77,7 +108,7 @@ CREATE TABLE "workspace_members" (
 	"user_id" text NOT NULL,
 	"workspace_id" text NOT NULL,
 	"role_id" text NOT NULL,
-	"joined_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "workspace_members_userId_unique" UNIQUE("user_id")
 );
@@ -193,7 +224,25 @@ CREATE TABLE "workspace_settings" (
 	CONSTRAINT "workspace_settings_workspaceId_unique" UNIQUE("workspace_id")
 );
 --> statement-breakpoint
+CREATE TABLE "workspace_stats" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"bussiness_card_id" text NOT NULL,
+	"workspace_id" text NOT NULL,
+	"total_clicks" integer DEFAULT 0 NOT NULL,
+	"monthly_clicks" integer DEFAULT 0 NOT NULL,
+	"period" timestamp NOT NULL,
+	"last_click_at" timestamp NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "workspace_stats_userId_unique" UNIQUE("user_id"),
+	CONSTRAINT "workspace_stats_bussinessCardId_unique" UNIQUE("bussiness_card_id"),
+	CONSTRAINT "workspace_stats_workspaceId_unique" UNIQUE("workspace_id")
+);
+--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "analytics" ADD CONSTRAINT "analytics_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "analytics" ADD CONSTRAINT "analytics_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "analytics" ADD CONSTRAINT "analytics_business_card_id_business_card_id_fk" FOREIGN KEY ("business_card_id") REFERENCES "public"."business_card"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "business_card" ADD CONSTRAINT "business_card_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "business_card" ADD CONSTRAINT "business_card_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "file" ADD CONSTRAINT "file_storage_id_storage_id_fk" FOREIGN KEY ("storage_id") REFERENCES "public"."storage"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -212,4 +261,7 @@ ALTER TABLE "storage" ADD CONSTRAINT "storage_user_id_user_id_fk" FOREIGN KEY ("
 ALTER TABLE "storage" ADD CONSTRAINT "storage_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "subscription" ADD CONSTRAINT "subscription_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workspace" ADD CONSTRAINT "workspace_owner_id_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "workspace_settings" ADD CONSTRAINT "workspace_settings_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "workspace_settings" ADD CONSTRAINT "workspace_settings_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "workspace_stats" ADD CONSTRAINT "workspace_stats_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "workspace_stats" ADD CONSTRAINT "workspace_stats_bussiness_card_id_business_card_id_fk" FOREIGN KEY ("bussiness_card_id") REFERENCES "public"."business_card"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "workspace_stats" ADD CONSTRAINT "workspace_stats_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;

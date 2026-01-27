@@ -5,5 +5,9 @@ export async function getBusinessCardByIdentifier(sql: Database, identifier: str
     `SELECT id, workspace_id, user_id FROM business_card WHERE identifier = $1 AND status = 'active' LIMIT 1`,
     [identifier],
   )
-  return result as CachedLink
+  return {
+    userId: result.user_id,
+    businessCardId: result.id,
+    workspaceId: result.workspace_id,
+  } as CachedLink
 }
