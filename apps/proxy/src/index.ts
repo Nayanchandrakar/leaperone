@@ -1,8 +1,8 @@
 import { neon } from "@neondatabase/serverless"
+import { createId } from "@paralleldrive/cuid2"
 import { Hono } from "hono"
 import { generateCookie, getCookie } from "hono/cookie"
 import { poweredBy } from "hono/powered-by"
-import { nanoid } from "nanoid"
 import { ClickCache } from "@/cache/click.cache"
 import { LinkCache } from "@/cache/link.cache"
 import { getCacheClient } from "@/config/cache"
@@ -57,7 +57,7 @@ proxy.get("/:identifier", async (c) => {
 
   if (!clickId) {
     clickCacheResult = await clickCache.get(identifier, identityHash)
-    clickId = clickCacheResult || nanoid(16)
+    clickId = clickCacheResult || createId()
   }
 
   c.res.headers.set(
@@ -83,14 +83,15 @@ proxy.get("/:identifier", async (c) => {
         clickCacheResult = await clickCache.get(identifier, identityHash)
       }
 
-      // if (clickCacheResult) {
-      //   return null
-      // }
+      if (clickCacheResult) {
+        return null
+      }
 
       // Cloudflare properties
       const cf = c.req.raw.cf
 
       const clickRecord = {
+        id: createId(),
         ip: !cf.isEUCountry ? ip : null, // Only store IP if not in EU countries
         userId: cachedLink.userId,
         workspaceId: cachedLink.workspaceId,
@@ -102,6 +103,7 @@ proxy.get("/:identifier", async (c) => {
 
       console.info("[Click Recorded]", clickRecord, cachedLink)
 
+      // @ts-expect-error
       await createAnalytics(sql, clickRecord)
 
       await clickCache.set(identifier, identityHash, clickId)

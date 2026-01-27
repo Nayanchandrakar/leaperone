@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "hono": "catalog:",
-    "nanoid": "catalog:",
     "ua-parser-js": "^2.0.0",
     "@upstash/redis": "catalog:",
     "@paralleldrive/cuid2": "catalog:",

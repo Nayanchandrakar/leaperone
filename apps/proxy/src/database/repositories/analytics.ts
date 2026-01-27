@@ -5,6 +5,7 @@ export async function createAnalytics(sql: Database, values: InsertAnalytics) {
   const result = await sql.query(
     `
       INSERT INTO analytics (
+        id,
         ip,
         user_id,
         workspace_id,
@@ -32,10 +33,11 @@ export async function createAnalytics(sql: Database, values: InsertAnalytics) {
         $9, $10, $11, $12,
         $13, $14, $15, $16,
         $17, $18, $19, $20,
-        $21
+        $21, $22
       )
     `,
     [
+      values.id,
       values.ip,
       values.userId,
       values.workspaceId,
