@@ -10,8 +10,7 @@
     "jsxImportSource": "hono/jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@app/session/*": ["../../packages/session/src/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src/**/*"],

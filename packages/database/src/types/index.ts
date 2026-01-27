@@ -6,6 +6,7 @@ import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
 import type {
   accounts,
+  analytics,
   file,
   invitations,
   storage,
@@ -42,11 +43,13 @@ export type Workspace = typeof workspace.$inferSelect
 export type Subscription = typeof subscription.$inferSelect
 export type File = typeof file.$inferSelect
 export type Storage = typeof storage.$inferSelect
+export type Analytics = typeof analytics.$inferSelect
 export type WorkspaceMember = typeof workspaceMembers.$inferSelect
 export type BusinessCard = typeof businessCard.$inferSelect
 export type WorkspaceSettings = typeof workspaceSettings.$inferSelect
 
 // Insert types
+export type InsertAnalytics = typeof analytics.$inferInsert
 export type InsertUser = typeof users.$inferInsert
 export type InsertSubscription = typeof subscription.$inferInsert
 export type InsertFile = typeof file.$inferInsert

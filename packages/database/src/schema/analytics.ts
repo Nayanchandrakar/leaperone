@@ -25,6 +25,10 @@ export const analytics = pgTable("analytics", {
   ip: text(),
   isBot: boolean(),
 
+  // Referer tracking
+  referer: text(),
+  refererUrl: text(),
+
   // Device information
   device: text(),
   deviceVendor: text(),

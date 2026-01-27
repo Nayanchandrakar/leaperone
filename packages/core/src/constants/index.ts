@@ -24,3 +24,7 @@ export const PASSWORD_RESET_EXPIRY = 60 * 60 * 1
 // subscription
 export const TRIAL_PERIOD_DAYS = 7
 export const INVITATION_EXPIRY = 60 * 60 * 24 * 7
+
+// Proxy
+export const CLICK_CACHE_TTL = 60 * 60
+export const LINK_CACHE_TTL = 60 * 60 * 24
