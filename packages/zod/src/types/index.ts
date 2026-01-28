@@ -1,5 +1,6 @@
 import type z from "zod"
 import type { nameChangeFormSchema } from "../schema/account"
+import type { getAnalyticsSchema } from "../schema/analytics"
 import type { deleteFilesSchema, getFileSchema, preSignedUrlSchema } from "../schema/asset"
 import type {
   emailSchema,
@@ -41,3 +42,4 @@ export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>
 export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
 export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
+export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>

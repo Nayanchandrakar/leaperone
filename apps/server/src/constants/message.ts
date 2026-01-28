@@ -122,4 +122,9 @@ export const MSG = {
     PERMISSION_DENIED:
       "You don’t have permission to manage business cards. Please contact your manager.",
   },
+
+  ANALYTICS: {
+    MEMBER_NOT_ACCESSIBLE: "You don't have access to this member's analytics",
+    FAILED_TO_FETCH: "Failed to fetch analytics data",
+  },
 } as const

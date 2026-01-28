@@ -14,6 +14,9 @@ export const PERMISSIONS = {
   RESTRICT_MEMBERS: "restrict:members",
   UNRESTRICT_MEMBERS: "unrestrict:members",
 
+  // Analytics
+  VIEW_MEMBER_ANALYTICS: "view:member-analytics",
+
   // Workspace Management
   MANAGE_WORKSPACE: "manage:workspace",
 } as const
