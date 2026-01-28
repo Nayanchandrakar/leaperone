@@ -11,9 +11,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@app/core/*": ["../../packages/core/src/*"],
       "@app/database/*": ["../../packages/database/src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test.ts"],
   "exclude": ["node_modules"]
 }

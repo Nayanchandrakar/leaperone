@@ -9,6 +9,7 @@
   "dependencies": {
     "hono": "catalog:",
     "ua-parser-js": "^2.0.0",
+    "@app/core": "workspace:*",
     "@upstash/redis": "catalog:",
     "@paralleldrive/cuid2": "catalog:",
     "@neondatabase/serverless": "catalog:"

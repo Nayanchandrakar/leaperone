@@ -7,9 +7,9 @@ export function parseGeoLocation(cf: CfProperties) {
   return {
     latitude,
     longitude,
-    city: cf.city || "Unknown",
-    region: cf.region || "Unknown",
-    country: cf.country || "Unknown",
-    continent: cf.continent || "Unknown",
+    city: (cf.city as string) || "Unknown",
+    region: (cf.region as string) || "Unknown",
+    country: (cf.country as string) || "Unknown",
+    continent: (cf.continent as string) || "Unknown",
   }
 }

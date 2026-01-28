@@ -30,9 +30,5 @@ export const workspaceStats = pgTable("workspace_stats", {
   // Monthly stats
   monthlyClicks: integer().default(0).notNull(),
 
-  // Period stats
-  period: timestamp().notNull(),
-
   lastClickAt: timestamp().notNull(),
-  createdAt: timestamp().notNull().defaultNow(),
 })

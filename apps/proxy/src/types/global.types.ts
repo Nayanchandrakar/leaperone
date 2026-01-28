@@ -1,6 +1,6 @@
-import type { NeonQueryFunction } from "@neondatabase/serverless"
+import type { Pool } from "@neondatabase/serverless"
 
-export type Database = NeonQueryFunction<false, false>
+export type Database = Pool
 
 export type Bindings = {
   DATABASE_URL: string

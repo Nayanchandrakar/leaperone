@@ -24,6 +24,9 @@ export const analytics = pgTable("analytics", {
   // Network
   ip: text(),
 
+  // Trigger source
+  trigger: text(),
+
   // Device information
   device: text(),
   deviceVendor: text(),
