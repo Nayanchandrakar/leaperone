@@ -17,7 +17,11 @@ export const FILE_TYPES = IMAGE_TYPES
 
 // session
 export const SESSION_EXPIRY = 60 * 60 * 24 * 7
-export const SESSION_COOKIE_NAME = "__Secure.leaper.session_token"
+export const SESSION_COOKIE_NAME = "__Secure.leaperone.session_token"
+
+export const MANAGER_SESSION_EXPIRY = 60 * 60
+export const MANAGER_SESSION_COOKIE_NAME = "__Secure.leaperone.manager_session_token"
+
 export const SESSSION_UPDATE_AGE = 60 * 60 * 24
 export const PASSWORD_RESET_EXPIRY = 60 * 60 * 1
 

@@ -11,7 +11,7 @@ export const inviteMemberSchema = z.object({
 export const acceptInvitationSchema = z
   .object({
     password,
-    token: z.cuid2(),
+    token: z.cuid2().trim(),
     confirmPassword: password,
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -20,5 +20,5 @@ export const acceptInvitationSchema = z
   })
 
 export const accessAsMemberSchema = z.object({
-  memberId: z.cuid2(),
+  memberId: z.cuid2().trim(),
 })

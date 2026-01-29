@@ -26,6 +26,7 @@
     "typescript": "catalog:",
     "@types/node": "catalog:",
     "@app/types": "workspace:*",
+    "@upstash/redis": "catalog:",
     "@app/tsconfig": "workspace:*"
   }
 }

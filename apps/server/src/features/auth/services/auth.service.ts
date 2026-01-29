@@ -21,6 +21,7 @@ import type { SessionService } from "@app/session"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
 import { compare, hash } from "bcryptjs"
+import type { Context } from "hono"
 import { deleteCookie, getCookie } from "hono/cookie"
 import { redis } from "@/config/redis"
 import { stripe } from "@/config/stripe"
@@ -44,7 +45,7 @@ import { getRequestIp } from "@/utils/string"
 import { TokenUtils } from "@/utils/token.utils"
 
 export class AuthService {
-  constructor(private readonly sessionService: SessionService) {}
+  constructor(private readonly sessionService: SessionService<Context>) {}
 
   async findUserName(c: UserNameContext) {
     const input = c.req.valid("query")

@@ -5,17 +5,10 @@ export type Session = {
   userId: string
   ipAddress: string | undefined
   userAgent: string | undefined
+  impersonatedBy: string | null
   createdAt: Date
   updatedAt: Date
   expiresAt: Date
-}
-
-export type ImpersonationMetadata = {
-  expiresAt: Date
-  managerId: string
-  managerToken: string
-  managerEmail: string
-  impersonatedAt: Date
 }
 
 export type ActiveSession = {
@@ -26,5 +19,4 @@ export type ActiveSession = {
 export type FullSession = {
   user: User
   session: Session
-  impersonatedBy?: ImpersonationMetadata
 }

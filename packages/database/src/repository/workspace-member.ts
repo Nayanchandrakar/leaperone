@@ -6,11 +6,7 @@ import type { DatabaseClient } from "../types"
 export async function getWorkspaceMember(db: DatabaseClient, userId: string, workspaceId: string) {
   try {
     const [member] = await db
-      .select({
-        userId: workspaceMembers.userId,
-        roleId: workspaceMembers.roleId,
-        workspaceId: workspaceMembers.workspaceId,
-      })
+      .select({ roleId: workspaceMembers.roleId })
       .from(workspaceMembers)
       .where(
         and(eq(workspaceMembers.workspaceId, workspaceId), eq(workspaceMembers.userId, userId)),
@@ -31,14 +27,7 @@ export async function getWorkspaceMemberWithUser(
 ) {
   try {
     const [result] = await db
-      .select({
-        member: {
-          userId: workspaceMembers.userId,
-          roleId: workspaceMembers.roleId,
-          workspaceId: workspaceMembers.workspaceId,
-        },
-        user: users,
-      })
+      .select({ user: users })
       .from(workspaceMembers)
       .innerJoin(users, eq(workspaceMembers.userId, users.id))
       .where(
@@ -46,7 +35,7 @@ export async function getWorkspaceMemberWithUser(
       )
       .limit(1)
 
-    return result
+    return result?.user
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

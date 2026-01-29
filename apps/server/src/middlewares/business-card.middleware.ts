@@ -10,7 +10,7 @@ export const canManageBusinessCard = async (c: Context<HonoEnv>, next: Next) => 
   const workspace = c.get("workspace")
 
   // If user is being impersonated by a manager, allow management
-  if (session.impersonatedBy) {
+  if (session.session.impersonatedBy) {
     return await next()
   }
 

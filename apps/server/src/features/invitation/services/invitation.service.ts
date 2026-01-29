@@ -1,5 +1,9 @@
-import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
-import { INVITATION_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
+import {
+  INVITATION_EXPIRY,
+  MANAGER_SESSION_COOKIE_NAME,
+  MANAGER_SESSION_EXPIRY,
+  SESSION_COOKIE_NAME,
+} from "@app/core/constants"
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
 import {
@@ -21,8 +25,8 @@ import type { SessionService } from "@app/session"
 import type { FullSession } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
 import { hash } from "bcryptjs"
-import { setCookie } from "hono/cookie"
-import type { CookieOptions } from "hono/utils/cookie"
+import type { Context } from "hono"
+import { deleteCookie, getCookie } from "hono/cookie"
 import { redis } from "@/config/redis"
 import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
@@ -40,7 +44,7 @@ import { RouteUtils } from "@/utils/route.utils"
 import { getRequestIp } from "@/utils/string"
 
 export class InvitationService {
-  constructor(private readonly sessionService: SessionService) {}
+  constructor(private readonly sessionService: SessionService<Context>) {}
 
   async inviteMember(c: InviteMemberContext) {
     const { user } = c.get("session")
@@ -161,70 +165,63 @@ export class InvitationService {
   }
 
   async accessAsMember(c: AccessAsMemberContext) {
-    const managerSession = c.get("session")
-    const { user } = managerSession
+    const { user, session } = c.get("session")
     const workspace = c.get("workspace")
     const { memberId } = c.req.valid("json")
 
-    // Check if manager has permission to manage members
-    // Note: We use managerSession here to check manager's permissions
-    // (not the impersonated session, since we're not impersonating yet)
+    // Verify owner has permission to impersonate members
     const canManageMembers = await hasPermissions(db, user.id, [PERMISSIONS.ACCESS_AS_MEMBER])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    // Prevent accessing own account
+    // Check if owner is already impersonating another user
+    if (session.impersonatedBy) {
+      throw ApiError.badRequest(MSG.INVITATION.ALREADY_IMPERSONATING)
+    }
+
+    // Prevent self-impersonation to avoid session conflicts
     if (user.id === memberId) {
       throw ApiError.badRequest(MSG.INVITATION.CANNOT_ACCESS_SELF)
     }
 
-    // Optimized: Single query to get member with user details
-    const memberWithUser = await getWorkspaceMemberWithUser(db, memberId, workspace.id)
+    const memberUser = await getWorkspaceMemberWithUser(db, memberId, workspace.id)
 
-    if (!memberWithUser) {
+    if (!memberUser) {
       throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
     }
 
-    const { user: memberUser } = memberWithUser
-
-    // Check if member is restricted
+    // Restricted users cannot be impersonated for security reasons
     if (memberUser.isRestricted) {
       throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
     }
 
-    // Create a new session for the member
     const memberSession = await this.sessionService.create({
       user: memberUser,
       token: createId(),
       ipAddress: getRequestIp(c),
       userAgent: c.req.header("User-Agent"),
+      overrides: {
+        impersonatedBy: user.id,
+        ttl: MANAGER_SESSION_EXPIRY,
+      },
     })
 
     if (!memberSession) {
       throw ApiError.internalServerError(MSG.SESSION.FAILED_TO_CREATE)
     }
 
-    // Enrich session with impersonation metadata (including manager token for restoration)
-    memberSession.impersonatedBy = {
-      managerId: user.id,
-      managerEmail: user.email,
-      impersonatedAt: new Date(),
-      managerToken: managerSession.session.token,
-      expiresAt: memberSession.session.expiresAt,
-    }
+    // Clear the current session cookie to prevent conflicts
+    deleteCookie(c, SESSION_COOKIE_NAME)
 
-    // Update the session in Redis with impersonation metadata
-    // (SessionManager.create already stored it, but without metadata)
-    await redis.set(memberSession.session.token, memberSession, {
-      ex: SESSION_EXPIRY,
-    })
+    // Store owner's original session token in a separate cookie
+    // This allows restoration when exiting impersonation
+    setSessionCookie(c, MANAGER_SESSION_COOKIE_NAME, session.token)
 
-    // Set the session cookie to switch to member's account
+    // Set the member's session as the active session
+    // Owner now operates with member's permissions and context
     setSessionCookie(c, SESSION_COOKIE_NAME, memberSession.session.token)
-
-    logger.info(`Manager ${user.id} accessed as member ${memberId} in workspace ${workspace.id}`)
 
     return c.json({
       success: true,
@@ -234,30 +231,59 @@ export class InvitationService {
   }
 
   async exitImpersonation(c: ExitImpersonationContext) {
-    const session = c.get("session")
+    const { user, session } = c.get("session")
 
     // Check if this is an impersonation session
     if (!session.impersonatedBy) {
       throw ApiError.badRequest(MSG.INVITATION.NOT_IMPERSONATING)
     }
 
-    const { managerToken } = session.impersonatedBy
-
-    // Get the manager's session from Redis using the stored token
-    const managerSession = await redis.get<FullSession>(managerToken)
-
-    if (!managerSession) {
-      throw ApiError.unauthorized(MSG.SESSION.EXPIRED)
+    // A restricted user's session should not be able to exit impersonation
+    if (user.isRestricted) {
+      throw ApiError.forbidden(MSG.USER.RESTRICTED_USER)
     }
 
-    // Restore the manager's session
-    setCookie(c, SESSION_COOKIE_NAME, managerToken, SESSION_COOKIE_OPTIONS as CookieOptions)
+    const impersonatedById = session.impersonatedBy
 
-    logger.info(`Manager ${managerSession.user.id} exited impersonation`)
+    // Verify owner has permission to exit impersonation
+    const canExitImpersonation = await hasPermissions(db, impersonatedById, [
+      PERMISSIONS.ACCESS_AS_MEMBER,
+    ])
+
+    if (!canExitImpersonation) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+    }
+
+    // Get the owner's session token from the cookie
+    const ownerToken = getCookie(c, MANAGER_SESSION_COOKIE_NAME)
+
+    if (!ownerToken) {
+      throw ApiError.badRequest(MSG.SESSION.FAILED_TO_GET)
+    }
+
+    // Get the owner's session from Redis using the stored token
+    const ownerSession = await redis.get<FullSession>(ownerToken)
+
+    // Verify the owner session belongs to the user who initiated impersonation
+    if (!ownerSession || ownerSession.user.id !== impersonatedById) {
+      throw ApiError.forbidden(MSG.INVITATION.SESSION_MISMATCH)
+    }
+
+    // Delete the current impersonated session from Redis
+    await this.sessionService.delete(session.token)
+
+    // Clear the current impersonated session cookie
+    deleteCookie(c, SESSION_COOKIE_NAME)
+
+    // Restore the owner's session cookie
+    setSessionCookie(c, SESSION_COOKIE_NAME, ownerToken)
+
+    // Delete the owner session backup cookie as it's no longer needed
+    deleteCookie(c, MANAGER_SESSION_COOKIE_NAME)
 
     return c.json({
       success: true,
-      data: { user: managerSession.user },
+      data: { user: ownerSession.user },
       message: MSG.INVITATION.EXIT_IMPERSONATION_SUCCESS,
     })
   }
@@ -267,16 +293,16 @@ export class InvitationService {
     const workspace = c.get("workspace")
     const { memberId } = c.req.valid("json")
 
+    // Prevent removing yourself
+    if (user.id === memberId) {
+      throw ApiError.badRequest(MSG.INVITATION.CANNOT_REMOVE_YOURSELF)
+    }
+
     // Check if manager has permission to manage members
     const canManageMembers = await hasPermissions(db, user.id, [PERMISSIONS.REMOVE_MEMBERS])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
-    }
-
-    // Prevent removing yourself
-    if (user.id === memberId) {
-      throw ApiError.badRequest("You cannot remove yourself from the workspace")
     }
 
     // Verify the member exists in the workspace
@@ -286,27 +312,19 @@ export class InvitationService {
       throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
     }
 
-    // Check if the member is the workspace owner
-    // Optimized: Use workspace from context instead of querying database again
-    if (workspace.ownerId === memberId) {
-      throw ApiError.badRequest("Cannot remove the workspace owner")
-    }
-
     // Remove the member from the workspace
     const removed = await removeMemberFromWorkspace(db, memberId, workspace.id)
 
     if (!removed) {
-      throw ApiError.badRequest("Failed to remove member from workspace")
+      throw ApiError.badRequest(MSG.INVITATION.FAILED_TO_REMOVE_MEMBER)
     }
 
     // Revoke all sessions for the removed member
     await this.sessionService.revoke(memberId)
 
-    logger.info(`Manager ${user.id} removed member ${memberId} from workspace ${workspace.id}`)
-
     return c.json({
       success: true,
-      message: "Member has been successfully removed from the workspace",
+      message: MSG.INVITATION.MEMBER_REMOVED_SUCCESS,
     })
   }
 }

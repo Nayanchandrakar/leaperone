@@ -2,46 +2,59 @@ import { SESSION_COOKIE_OPTIONS } from "@app/core/config/cookie"
 import { SESSION_COOKIE_NAME, SESSION_EXPIRY, SESSSION_UPDATE_AGE } from "@app/core/constants"
 import { ApiError } from "@app/error"
 import type { ActiveSession, FullSession, Session } from "@app/types"
-import type { CookieAdapter, CreateSessionParams, StorageAdapter } from "./types"
+import type { Redis } from "@upstash/redis"
+import type { CookieAdapter, CreateSessionParams } from "./types"
 import { getDate } from "./utils/date"
 
 export class SessionService<T> {
   constructor(
-    private readonly storageAdapter: StorageAdapter,
+    private readonly storageAdapter: Redis,
     private readonly cookieAdapter: CookieAdapter<T>,
   ) {}
 
-  async create({ token, ipAddress, userAgent, user }: CreateSessionParams) {
-    const expiresAt = getDate(SESSION_EXPIRY, "sec")
+  async create({ token, ipAddress, userAgent, user, overrides }: CreateSessionParams) {
+    const now = new Date()
+    const ttl = overrides?.ttl ?? SESSION_EXPIRY
+    const expiresAt = getDate(ttl, "sec")
 
+    // Create session object
     const session: Session = {
       token,
       ipAddress,
       userAgent,
-      expiresAt,
       userId: user.id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      impersonatedBy: overrides?.impersonatedBy ?? null,
+      expiresAt,
+      createdAt: now,
+      updatedAt: now,
     }
-
-    const sessionKey = `active_sessions_${user.id}`
-    let currentSessions = await this.storageAdapter.get<ActiveSession[]>(sessionKey)
-
-    if (currentSessions && currentSessions.length > 0) {
-      currentSessions = currentSessions.filter((s) => s.expiresAt > Date.now())
-    }
-
-    currentSessions?.push({
-      token,
-      expiresAt: expiresAt.valueOf(),
-    })
 
     const fullSession: FullSession = { user, session }
 
-    await Promise.all([
-      this.storageAdapter.set(sessionKey, currentSessions, { ex: SESSION_EXPIRY }),
-      this.storageAdapter.set(token, fullSession, { ex: SESSION_EXPIRY }),
-    ])
+    // Build active session tracking entry
+    const activeSession: ActiveSession = {
+      token,
+      expiresAt: session.expiresAt.valueOf(),
+    }
+
+    // Get user's active sessions list
+    const sessionsKey = `active_sessions_${user.id}`
+    const activeSessions = await this.storageAdapter.get<ActiveSession[]>(sessionsKey)
+
+    // Remove expired sessions and add the new one
+    const timestamp = Date.now()
+    const validSessions = activeSessions
+      ? activeSessions.filter((s) => s.expiresAt > timestamp)
+      : []
+
+    validSessions.push(activeSession)
+
+    const pipeline = this.storageAdapter.pipeline()
+    pipeline.set(sessionsKey, validSessions, { ex: ttl })
+    pipeline.set(token, fullSession, { ex: ttl })
+
+    // Save both the session data and active sessions list using Redis pipeline
+    await pipeline.exec()
 
     return fullSession
   }
@@ -84,11 +97,9 @@ export class SessionService<T> {
       }
 
       const maxAge = (updatedSession.expiresAt.valueOf() - Date.now()) / 1000
-      const data = {
+      const data: FullSession = {
         session: updatedSession,
         user: session.user,
-        // Preserve impersonation metadata if it exists
-        ...(session.impersonatedBy && { impersonatedBy: session.impersonatedBy }),
       }
 
       await this.storageAdapter.set(token, data, {
@@ -100,7 +111,7 @@ export class SessionService<T> {
         maxAge,
       })
 
-      return { ...data }
+      return data
     }
 
     return session
