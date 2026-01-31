@@ -1,9 +1,11 @@
 import { db } from "@app/database"
+import { PERMISSIONS } from "@app/database/constants/permissions"
 import {
   getAnalyticsData,
   getInvitedMembersForAnalytics,
   getTotalScansCount,
 } from "@app/database/repository/analytics"
+import { hasPermissions } from "@app/database/repository/role-permission"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type { GetAnalyticsContext } from "@/types/analytics.types"
@@ -14,37 +16,37 @@ export class AnalyticsService {
     const workspace = c.get("workspace")
     const subscription = c.get("subscription")
 
-    const { fromDate, toDate, scope } = c.req.valid("query")
+    const { fromDate, toDate, ids } = c.req.valid("query")
 
-    // Only team plan users can view other members' analytics
-    if (scope !== "myself" && subscription.plan !== "team") {
-      throw ApiError.forbidden(MSG.SUBSCRIPTION.TEAM_PLAN_REQUIRED)
+    // - Users can always view their own analytics
+    // - To view others' analytics: need team plan + VIEW_MEMBER_ANALYTICS permission
+    // - Database joins ensure only workspace members' data is accessible
+    const isViewingOthers = ids.length > 1 || !ids.includes(user.id)
+
+    if (isViewingOthers) {
+      // Must have team plan for multi-member analytics
+      if (subscription.plan !== "team") {
+        throw ApiError.forbidden(MSG.SUBSCRIPTION.TEAM_PLAN_REQUIRED)
+      }
+
+      // Must have permission to view member analytics within the workspace
+      const hasPermission = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
+
+      if (!hasPermission) {
+        throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+      }
     }
 
-    // Determine target user IDs for total count calculation
-    let targetUserIds: string[] = [user.id]
-
-    if (scope === "everyone") {
-      const members = await getInvitedMembersForAnalytics(db, workspace.id, user.id)
-      targetUserIds = [user.id, ...members.map((m) => m.userId)]
-    } else if (scope !== "myself") {
-      // Specific member - will be validated in repository
-      targetUserIds = [scope]
-    }
-
-    // Fetch analytics records for the selected date range and scope
+    // Fetch analytics records for the selected date range and user IDs
     const records = await getAnalyticsData(db, {
-      userId: user.id,
       workspaceId: workspace.id,
       fromDate,
       toDate,
-      scope,
+      ids,
     })
 
-    // Get total scans count (all time) for the selected scope
-    const totalScans = await getTotalScansCount(db, workspace.id, targetUserIds)
-
-    // Return structured data - client handles aggregation, filtering, and formatting
+    // Get total scans count (all time)
+    const totalScans = await getTotalScansCount(db, workspace.id, ids)
     return c.json({
       data: {
         totalScans,
@@ -52,9 +54,9 @@ export class AnalyticsService {
         records,
       },
       meta: {
-        scope, // "myself" | "everyone" | specific user ID
-        fromDate: fromDate.toISOString(),
+        ids,
         toDate: toDate.toISOString(),
+        fromDate: fromDate.toISOString(),
       },
     })
   }
@@ -62,14 +64,15 @@ export class AnalyticsService {
   async getInvitedMembers(c: GetAnalyticsContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
-    const subscription = c.get("subscription")
 
-    // Business logic: Only team plan users can view invited members list
-    if (subscription.plan !== "team") {
-      throw ApiError.forbidden(MSG.SUBSCRIPTION.TEAM_PLAN_REQUIRED)
+    // Must have permission to view member analytics (which includes seeing member list)
+    const hasPermission = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
+
+    if (!hasPermission) {
+      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    // Fetch invited members for the workspace
+    // Fetch workspace members for analytics (excluding current user)
     const members = await getInvitedMembersForAnalytics(db, workspace.id, user.id)
 
     // Return raw member data - client handles display and formatting

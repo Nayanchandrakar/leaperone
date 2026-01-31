@@ -1,79 +1,16 @@
 import { ApiError } from "@app/error"
-import { and, between, eq, inArray, sql } from "drizzle-orm"
-import { analytics, invitations, users } from "../schema"
-import type { DatabaseClient } from "../types"
+import { and, between, eq, inArray, ne, sum } from "drizzle-orm"
+import { analytics, users, workspaceMembers, workspaceStats } from "../schema"
+import type { DatabaseClient, GetAnalyticsParams } from "../types"
 
-export type GetAnalyticsParams = {
-  userId: string
-  workspaceId: string
-  fromDate: Date
-  toDate: Date
-  scope: "myself" | "everyone" | string
-}
-
-export type AnalyticsRecord = {
-  id: string
-  userId: string
-  name: string | null
-  device: string | null
-  deviceVendor: string | null
-  deviceModel: string | null
-  browser: string | null
-  browserVersion: string | null
-  os: string | null
-  osVersion: string | null
-  country: string | null
-  region: string | null
-  city: string | null
-  latitude: number | null
-  longitude: number | null
-  clickedAt: Date
-}
-
-/**
- * Get analytics records with date range and scope filtering.
- * Returns raw data that client will aggregate for charts.
- */
 export async function getAnalyticsData(
   db: DatabaseClient,
-  { userId, workspaceId, fromDate, toDate, scope }: GetAnalyticsParams,
-): Promise<AnalyticsRecord[]> {
+  { workspaceId, fromDate, toDate, ids }: GetAnalyticsParams,
+) {
   try {
-    // Determine which user IDs to include based on scope
-    let targetUserIds: string[]
-
-    if (scope === "myself") {
-      targetUserIds = [userId]
-    } else if (scope === "everyone") {
-      // Get all invited member user IDs + the current user
-      const invitedMembers = await db
-        .select({ userId: invitations.userId })
-        .from(invitations)
-        .where(and(eq(invitations.workspaceId, workspaceId), eq(invitations.inviterId, userId)))
-
-      targetUserIds = [userId, ...invitedMembers.map((m) => m.userId)]
-    } else {
-      // Specific member ID provided - verify they are an invited member
-      const [invitedMember] = await db
-        .select({ userId: invitations.userId })
-        .from(invitations)
-        .where(
-          and(
-            eq(invitations.workspaceId, workspaceId),
-            eq(invitations.inviterId, userId),
-            eq(invitations.userId, scope),
-          ),
-        )
-        .limit(1)
-
-      if (!invitedMember) {
-        throw ApiError.forbidden("You don't have access to this member's analytics")
-      }
-
-      targetUserIds = [scope]
-    }
-
-    // Single optimized query with date range and user filtering
+    // Query analytics filtered by workspaceId and user IDs
+    // Since analytics are already scoped to workspaceId, we don't need to join workspace_members
+    // The middleware ensures the user has access to this workspace
     const records = await db
       .select({
         id: analytics.id,
@@ -98,7 +35,7 @@ export async function getAnalyticsData(
       .where(
         and(
           eq(analytics.workspaceId, workspaceId),
-          inArray(analytics.userId, targetUserIds),
+          inArray(analytics.userId, ids),
           between(analytics.clickedAt, fromDate, toDate),
         ),
       )
@@ -112,20 +49,16 @@ export async function getAnalyticsData(
 }
 
 /**
- * Get total scan count for a workspace (all time)
+ * Get total scan count for a workspace (all time) using workspace_stats
  */
-export async function getTotalScansCount(
-  db: DatabaseClient,
-  workspaceId: string,
-  userIds: string[],
-): Promise<number> {
+export async function getTotalScansCount(db: DatabaseClient, workspaceId: string, ids: string[]) {
   try {
     const [result] = await db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(analytics)
-      .where(and(eq(analytics.workspaceId, workspaceId), inArray(analytics.userId, userIds)))
+      .select({ total: sum(workspaceStats.totalClicks) })
+      .from(workspaceStats)
+      .where(and(eq(workspaceStats.workspaceId, workspaceId), inArray(workspaceStats.userId, ids)))
 
-    return result?.count ?? 0
+    return Number(result?.total ?? 0)
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
@@ -138,17 +71,21 @@ export async function getTotalScansCount(
 export async function getInvitedMembersForAnalytics(
   db: DatabaseClient,
   workspaceId: string,
-  inviterId: string,
-): Promise<{ userId: string; name: string }[]> {
+  userId: string,
+) {
   try {
+    // Return all workspace members (excluding the current user) since workspace members
+    // can view each other's analytics
     const members = await db
       .select({
-        userId: invitations.userId,
+        memberId: workspaceMembers.userId,
         name: users.name,
       })
-      .from(invitations)
-      .innerJoin(users, eq(invitations.userId, users.id))
-      .where(and(eq(invitations.workspaceId, workspaceId), eq(invitations.inviterId, inviterId)))
+      .from(workspaceMembers)
+      .innerJoin(users, eq(workspaceMembers.userId, users.id))
+      .where(
+        and(eq(workspaceMembers.workspaceId, workspaceId), ne(workspaceMembers.userId, userId)),
+      )
 
     return members
   } catch (error) {
