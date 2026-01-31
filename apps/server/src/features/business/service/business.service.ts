@@ -1,20 +1,32 @@
 import { db } from "@app/database"
 import {
   createBusinessCard,
-  getBusinessCardByWorkspaceIdAndUserId,
+  getCardByWorkspaceIdAndUserId,
+  getCardIdByWorkspaceIdAndUserId,
   updateBusinessCardById,
 } from "@app/database/repository/business-card"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
-import type { CreateBusinessCardContext, UpdateBusinessCardContext } from "@/types/bussiness.types"
+import type {
+  CreateBusinessCardContext,
+  GetBusinessCardContext,
+  UpdateBusinessCardContext,
+} from "@/types/bussiness.types"
 
 export class BusinessService {
+  async getBusinessCard(c: GetBusinessCardContext) {
+    const { user } = c.get("session")
+    const workspace = c.get("workspace")
+    const card = await getCardByWorkspaceIdAndUserId(db, workspace.id, user.id)
+    return c.json({ data: card })
+  }
+
   async createBusinessCard(c: CreateBusinessCardContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
     const values = c.req.valid("json")
 
-    const existingCard = await getBusinessCardByWorkspaceIdAndUserId(db, workspace.id, user.id)
+    const existingCard = await getCardIdByWorkspaceIdAndUserId(db, workspace.id, user.id)
 
     if (existingCard) {
       throw ApiError.badRequest(MSG.BUSINESS_CARD.ALREADY_EXISTS)
@@ -46,7 +58,7 @@ export class BusinessService {
     const workspace = c.get("workspace")
     const values = c.req.valid("json")
 
-    const existingCard = await getBusinessCardByWorkspaceIdAndUserId(db, workspace.id, user.id)
+    const existingCard = await getCardIdByWorkspaceIdAndUserId(db, workspace.id, user.id)
 
     if (!existingCard) {
       throw ApiError.notFound(MSG.BUSINESS_CARD.NOT_FOUND)

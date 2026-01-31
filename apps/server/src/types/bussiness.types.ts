@@ -13,3 +13,5 @@ export type UpdateBusinessCardContext = Context<
   "/business-card/edit",
   ControllerIO<"json", Partial<CreateBusinessCardSchema>>
 >
+
+export type GetBusinessCardContext = Context<HonoEnv, "/business-card", ControllerIO<"json", void>>

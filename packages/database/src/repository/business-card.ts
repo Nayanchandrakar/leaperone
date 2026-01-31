@@ -17,7 +17,32 @@ export async function createBusinessCard(db: DatabaseClient, values: InsertBusin
   }
 }
 
-export async function getBusinessCardByWorkspaceIdAndUserId(
+export async function getCardByWorkspaceIdAndUserId(
+  db: DatabaseClient,
+  workspaceId: string,
+  userId: string,
+) {
+  try {
+    const [data] = await db
+      .select({
+        qrCode: businessCard.qrCode,
+        status: businessCard.status,
+        template: businessCard.template,
+        identifier: businessCard.identifier,
+      })
+      .from(businessCard)
+      .where(and(eq(businessCard.workspaceId, workspaceId), eq(businessCard.userId, userId)))
+      .limit(1)
+      .$withCache()
+
+    return data
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getCardIdByWorkspaceIdAndUserId(
   db: DatabaseClient,
   workspaceId: string,
   userId: string,
@@ -28,6 +53,7 @@ export async function getBusinessCardByWorkspaceIdAndUserId(
       .from(businessCard)
       .where(and(eq(businessCard.workspaceId, workspaceId), eq(businessCard.userId, userId)))
       .limit(1)
+      .$withCache()
 
     return data
   } catch (error) {

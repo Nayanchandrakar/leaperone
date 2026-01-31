@@ -5,7 +5,11 @@ import { isAuth } from "@/middlewares/auth.middleware"
 import { canManageBusinessCard } from "@/middlewares/business-card.middleware"
 import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
-import type { CreateBusinessCardContext, UpdateBusinessCardContext } from "@/types/bussiness.types"
+import type {
+  CreateBusinessCardContext,
+  GetBusinessCardContext,
+  UpdateBusinessCardContext,
+} from "@/types/bussiness.types"
 
 export class BusinessController extends HttpController {
   constructor(private readonly businessService: BusinessService) {
@@ -14,6 +18,8 @@ export class BusinessController extends HttpController {
   }
 
   protected override initializeRoutes(): void {
+    this.router.get("/", isAuth, hasWorkspace, hasActiveSubscription, this.getBusinessCard)
+
     this.router.post(
       "/create",
       zodValidator("json", createBusinessCardSchema),
@@ -32,6 +38,10 @@ export class BusinessController extends HttpController {
       canManageBusinessCard,
       this.updateBusinessCard,
     )
+  }
+
+  getBusinessCard = async (c: GetBusinessCardContext) => {
+    return await this.businessService.getBusinessCard(c)
   }
 
   createBusinessCard = async (c: CreateBusinessCardContext) => {
