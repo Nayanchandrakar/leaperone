@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2"
-import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { pgEnum, pgTable, text, timestamp, unique } from "drizzle-orm/pg-core"
 import { invitationStatus } from "../constants/enums"
 import { timestamps } from "../utils"
 import { roles } from "./roles"
@@ -8,28 +8,31 @@ import { workspace } from "./workspace"
 
 export const invitationStatusEnum = pgEnum("invitation_status", invitationStatus)
 
-export const invitations = pgTable("invitation", {
-  id: text()
-    .primaryKey()
-    .$defaultFn(() => createId()),
+export const invitations = pgTable(
+  "invitation",
+  {
+    id: text()
+      .primaryKey()
+      .$defaultFn(() => createId()),
 
-  workspaceId: text()
-    .references(() => workspace.id, { onDelete: "cascade" })
-    .notNull(),
-  inviterId: text()
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull(),
-  userId: text()
-    .references(() => users.id, { onDelete: "cascade" })
-    .notNull()
-    .unique(),
-  roleId: text()
-    .references(() => roles.id)
-    .notNull(),
+    workspaceId: text()
+      .references(() => workspace.id, { onDelete: "cascade" })
+      .notNull(),
+    inviterId: text()
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    userId: text()
+      .references(() => users.id, { onDelete: "cascade" })
+      .notNull(),
+    roleId: text()
+      .references(() => roles.id)
+      .notNull(),
 
-  status: invitationStatusEnum().default("pending").notNull(),
+    status: invitationStatusEnum().default("pending").notNull(),
 
-  acceptedAt: timestamp(),
-  expiresAt: timestamp().notNull(),
-  ...timestamps,
-})
+    acceptedAt: timestamp(),
+    expiresAt: timestamp().notNull(),
+    ...timestamps,
+  },
+  (t) => [unique().on(t.workspaceId, t.userId)],
+)

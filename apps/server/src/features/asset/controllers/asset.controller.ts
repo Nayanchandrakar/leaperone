@@ -44,17 +44,17 @@ export class AssetController extends HttpController {
   }
 
   generateSignedUrl = async (c: PreSignedUrlContext) => {
-    const data = await this.assetService.generateSignedUrls(c.get("storage"), c.req.valid("json"))
+    const data = await this.assetService.generateSignedUrls(c)
     return c.json({ data })
   }
 
   getFiles = async (c: GetFileContext) => {
-    const result = await this.assetService.getFiles(c.get("workspace"), c.req.valid("json"))
+    const result = await this.assetService.getFiles(c)
     return c.json(result)
   }
 
   deleteFiles = async (c: DeleteFilesContext) => {
-    const result = await this.assetService.deleteFiles(c.get("workspace"), c.req.valid("json"))
+    const result = await this.assetService.deleteFiles(c)
     return c.json(result)
   }
 }

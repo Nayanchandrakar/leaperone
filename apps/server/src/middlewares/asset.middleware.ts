@@ -1,15 +1,16 @@
 import { db } from "@app/database"
-import { getStorageByWorkspaceId } from "@app/database/repository/storage"
+import { getStorageByWorkspaceIdAndUserId } from "@app/database/repository/storage"
 import { ApiError } from "@app/error"
 import type { Next } from "hono"
 import type { PreSignedUrlContext } from "@/types/asset.types"
 import { SystemFormatter } from "@/utils/format.utils"
 
 export const checkStorageQuota = async (c: PreSignedUrlContext, next: Next) => {
+  const { user } = c.get("session")
   const file = c.req.valid("json")
   const workspace = c.get("workspace")
 
-  const storage = await getStorageByWorkspaceId(db, workspace.id)
+  const storage = await getStorageByWorkspaceIdAndUserId(db, workspace.id, user.id)
   if (!storage) throw ApiError.notFound()
 
   const totalFileSize = file.reduce((acc, { size }) => acc + size, 0)

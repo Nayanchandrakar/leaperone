@@ -1,21 +1,28 @@
 import { basename, extname } from "node:path"
 import { db } from "@app/database"
 import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
-import { getStorageByWorkspaceId } from "@app/database/repository/storage"
-import type { Storage, Workspace } from "@app/database/types"
+import { getStorageByWorkspaceIdAndUserId } from "@app/database/repository/storage"
 import { ApiError } from "@app/error/index"
-import type { DeleteFilesSchema, GetFileSchema, PreSignedUrlSchema } from "@app/zod/types"
+import type { PreSignedUrlSchema } from "@app/zod/types"
 import { v4 as uuidv4 } from "uuid"
 import { MSG } from "@/constants/message"
 import type { StorageService } from "@/features/shared/services/storage.service"
+import type { DeleteFilesContext, GetFileContext, PreSignedUrlContext } from "@/types/asset.types"
 import { sanitizeString } from "@/utils/string"
 
 export class AssetService {
   constructor(private readonly storageService: StorageService) {}
 
-  async deleteFiles(workspace: Workspace, ids: DeleteFilesSchema) {
-    const storage = await getStorageByWorkspaceId(db, workspace.id)
-    if (!storage) throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
+  async deleteFiles(c: DeleteFilesContext) {
+    const ids = c.req.valid("json")
+    const session = c.get("session")
+    const workspace = c.get("workspace")
+
+    const storage = await getStorageByWorkspaceIdAndUserId(db, workspace.id, session.user.id)
+
+    if (!storage) {
+      throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
+    }
 
     let count = 0
     const results = await Promise.allSettled(
@@ -33,8 +40,12 @@ export class AssetService {
     return { count }
   }
 
-  async getFiles(workspace: Workspace, { page, pageSize, sortBy, types, query }: GetFileSchema) {
-    const storage = await getStorageByWorkspaceId(db, workspace.id)
+  async getFiles(c: GetFileContext) {
+    const session = c.get("session")
+    const workspace = c.get("workspace")
+    const { page, pageSize, sortBy, types, query } = c.req.valid("json")
+
+    const storage = await getStorageByWorkspaceIdAndUserId(db, workspace.id, session.user.id)
 
     if (!storage) {
       throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
@@ -55,7 +66,10 @@ export class AssetService {
     return { results, nextPage }
   }
 
-  async generateSignedUrls(storage: Storage, params: PreSignedUrlSchema) {
+  async generateSignedUrls(c: PreSignedUrlContext) {
+    const storage = c.get("storage")
+    const params = c.req.valid("json")
+
     const response = []
     const results = await Promise.allSettled(
       this.createBatchPreSignedUrls(storage.id, storage.workspaceId, params),

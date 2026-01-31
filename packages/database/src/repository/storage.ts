@@ -1,14 +1,18 @@
 import { ApiError } from "@app/error"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { storage } from "../schema"
 import type { DatabaseClient } from "../types"
 
-export async function getStorageByWorkspaceId(db: DatabaseClient, workspaceId: string) {
+export async function getStorageByWorkspaceIdAndUserId(
+  db: DatabaseClient,
+  workspaceId: string,
+  userId: string,
+) {
   try {
     const [data] = await db
       .select()
       .from(storage)
-      .where(eq(storage.workspaceId, workspaceId))
+      .where(and(eq(storage.workspaceId, workspaceId), eq(storage.userId, userId)))
       .limit(1)
 
     return data

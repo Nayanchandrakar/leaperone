@@ -76,7 +76,6 @@ export async function createAnalytics(sql: Database, values: InsertAnalytics) {
         INSERT INTO workspace_stats (
           id,
           user_id,
-          bussiness_card_id,
           workspace_id,
           total_clicks,
           monthly_clicks,
@@ -85,12 +84,11 @@ export async function createAnalytics(sql: Database, values: InsertAnalytics) {
           $1,
           $2,
           $3,
-          $4,
           1,
           1,
-          $5
+          $4
         )
-        ON CONFLICT (bussiness_card_id)
+        ON CONFLICT (user_id, workspace_id)
         DO UPDATE SET
           total_clicks = workspace_stats.total_clicks + 1,
           monthly_clicks = CASE
@@ -100,7 +98,7 @@ export async function createAnalytics(sql: Database, values: InsertAnalytics) {
           END,
           last_click_at = EXCLUDED.last_click_at
       `,
-      [createId(), values.userId, values.businessCardId, values.workspaceId, values.clickedAt],
+      [createId(), values.userId, values.workspaceId, values.clickedAt],
     )
 
     await sql.query("COMMIT")

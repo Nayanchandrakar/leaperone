@@ -1,5 +1,5 @@
 import { ApiError } from "@app/error"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { businessCard } from "../schema/business-card"
 import type { DatabaseClient, InsertBusinessCard } from "../types"
 
@@ -17,12 +17,16 @@ export async function createBusinessCard(db: DatabaseClient, values: InsertBusin
   }
 }
 
-export async function getBusinessCardByWorkspaceId(db: DatabaseClient, workspaceId: string) {
+export async function getBusinessCardByWorkspaceIdAndUserId(
+  db: DatabaseClient,
+  workspaceId: string,
+  userId: string,
+) {
   try {
     const [data] = await db
       .select({ id: businessCard.id })
       .from(businessCard)
-      .where(eq(businessCard.workspaceId, workspaceId))
+      .where(and(eq(businessCard.workspaceId, workspaceId), eq(businessCard.userId, userId)))
       .limit(1)
 
     return data
