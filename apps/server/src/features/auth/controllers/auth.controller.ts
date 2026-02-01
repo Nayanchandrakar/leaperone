@@ -11,7 +11,11 @@ import {
 import type { AuthService } from "@/features/auth/services/auth.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { isAuth, verifyToken } from "@/middlewares/auth.middleware"
-import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
+import {
+  hasActiveSubscription,
+  hasTeamPlan,
+  hasWorkspace,
+} from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   ChangePasswordContext,
@@ -60,6 +64,8 @@ export class AuthController extends HttpController {
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
+      hasTeamPlan,
+      this.restrictUser,
     )
     this.router.post(
       "/unrestrict-user",
@@ -67,6 +73,8 @@ export class AuthController extends HttpController {
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
+      hasTeamPlan,
+      this.unRestrictUser,
     )
     this.router.post(
       "/change-password",

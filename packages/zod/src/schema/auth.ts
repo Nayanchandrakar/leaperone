@@ -55,5 +55,5 @@ export const setNewPasswordSchema = z
   })
 
 export const restrictUserSchema = z.object({
-  userId: z.cuid2(),
+  memberId: z.cuid2(),
 })

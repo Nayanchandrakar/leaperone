@@ -34,7 +34,13 @@ export class UserService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
 
-    promises.push(this.sessionService.refresh({ id: updatedUser.id, ...body }))
+    promises.push(
+      this.sessionService.refresh({
+        id: updatedUser.id,
+        updatedAt: new Date(),
+        ...body,
+      }),
+    )
     await Promise.all(promises)
 
     return c.json({ message: MSG.GENERAL.SUCCESS })
