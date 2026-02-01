@@ -6,6 +6,7 @@ import { businessController } from "@/features/business/modules/business.module"
 import { invitationController } from "@/features/invitation/modules/invitation.module"
 import { marketingController } from "@/features/marketing/modules/marketing.module"
 import { subscriptionController } from "@/features/subscription/modules/subscription.module"
+import { userController } from "@/features/user/modules/user.module"
 import { workspaceController } from "@/features/workspace/modules/workspace.module"
 
 const server = new BootStrap([
@@ -16,6 +17,7 @@ const server = new BootStrap([
   invitationController,
   marketingController,
   subscriptionController,
+  userController,
   workspaceController,
 ])
 

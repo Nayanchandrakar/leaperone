@@ -20,6 +20,7 @@ import type {
 } from "../schema/invitation"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
+import type { updateProfileSchema } from "../schema/user"
 import type { workspaceCardSettingSchema } from "../schema/workspace"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>
@@ -43,3 +44,4 @@ export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
 export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
+export type UpateProfileSchema = z.infer<typeof updateProfileSchema>

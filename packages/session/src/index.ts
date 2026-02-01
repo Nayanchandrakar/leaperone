@@ -160,20 +160,76 @@ export class SessionService<T> {
   }
 
   async revoke(userId: string) {
-    const requests: Array<Promise<unknown>> = []
+    const sessionsKey = `active_sessions_${userId}`
+    const currentSessions = await this.storageAdapter.get<ActiveSession[]>(sessionsKey)
 
-    const currentSessions = await this.storageAdapter.get<ActiveSession[]>(
-      `active_sessions_${userId}`,
-    )
     if (!currentSessions) return null
 
+    const pipeline = this.storageAdapter.pipeline()
+
     for (const session of currentSessions) {
-      requests.push(this.storageAdapter.del(session.token))
+      pipeline.del(session.token)
     }
 
-    requests.push(this.storageAdapter.del(`active_sessions_${userId}`))
-    await Promise.all(requests)
+    pipeline.del(sessionsKey)
+    await pipeline.exec()
     return null
+  }
+
+  async refresh(user: Partial<FullSession["user"]>) {
+    const sessionsKey = `active_sessions_${user.id}`
+    const activeSessions = await this.storageAdapter.get<ActiveSession[]>(sessionsKey)
+
+    if (!activeSessions?.length) {
+      return null
+    }
+
+    const timestamp = Date.now()
+    const validSessions = activeSessions.filter((s) => s.expiresAt > timestamp)
+
+    if (!validSessions.length) {
+      await this.storageAdapter.del(sessionsKey)
+      return null
+    }
+
+    const fullSessions = await this.storageAdapter.mget<FullSession[]>(
+      validSessions.map((s) => s.token),
+    )
+
+    const pipeline = this.storageAdapter.pipeline()
+    const updatedValidSessions: ActiveSession[] = []
+
+    for (let i = 0; i < fullSessions.length; i++) {
+      const fullSession = fullSessions[i]
+      const activeSession = validSessions[i]
+
+      if (fullSession && activeSession) {
+        const remainingTtl = Math.floor(
+          (new Date(fullSession.session.expiresAt).valueOf() - timestamp) / 1000,
+        )
+
+        if (remainingTtl > 0) {
+          pipeline.set(
+            fullSession.session.token,
+            {
+              user: { ...fullSession.user, ...user },
+              session: fullSession.session,
+            },
+            { ex: remainingTtl },
+          )
+          updatedValidSessions.push(activeSession)
+        }
+      }
+    }
+
+    if (updatedValidSessions.length) {
+      pipeline.set(sessionsKey, updatedValidSessions, { ex: SESSION_EXPIRY })
+    } else {
+      pipeline.del(sessionsKey)
+    }
+
+    await pipeline.exec()
+    return user
   }
 
   async fromCtx(ctx: T) {

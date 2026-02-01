@@ -41,6 +41,20 @@ export async function doesUserExistByUsernameOrEmail(
   }
 }
 
+export async function doesUserExistByUsername(db: DatabaseClient, username: string) {
+  try {
+    const [data] = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
+    return data
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
 export async function getUserWithProviderAccount(
   db: DatabaseClient,
   email: string,
