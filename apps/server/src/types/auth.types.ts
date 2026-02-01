@@ -4,6 +4,7 @@ import type {
   RegisterFormSchema,
   ResetPasswordSchema,
   RestrictUserSchema,
+  UpdatePasswordSchema,
   UserNameFormSchema,
   VerifyEmailSchema,
 } from "@app/zod/types"
@@ -45,6 +46,12 @@ export type VerifyEmailContext = Context<
   HonoEnv,
   "/verify-email",
   ControllerIO<"query", VerifyEmailSchema>
+>
+
+export type ChangePasswordContext = Context<
+  HonoEnv,
+  "/change-password",
+  ControllerIO<"json", UpdatePasswordSchema>
 >
 
 export type GetSessionContext = Context<HonoEnv, "/get-session">

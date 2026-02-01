@@ -9,6 +9,7 @@ import type {
   resetPasswordSchema,
   restrictUserSchema,
   setNewPasswordSchema,
+  updatePasswordSchema,
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
@@ -45,3 +46,4 @@ export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSche
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
 export type UpateProfileSchema = z.infer<typeof updateProfileSchema>
+export type UpdatePasswordSchema = z.infer<typeof updatePasswordSchema>

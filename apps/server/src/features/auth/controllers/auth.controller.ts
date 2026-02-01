@@ -4,6 +4,7 @@ import {
   registerFormSchema,
   resetPasswordSchema,
   restrictUserSchema,
+  updatePasswordSchema,
   userNameSchema,
   verifyEmailSchema,
 } from "@app/zod/schema/auth"
@@ -13,6 +14,7 @@ import { isAuth, verifyToken } from "@/middlewares/auth.middleware"
 import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
+  ChangePasswordContext,
   GetSessionContext,
   LoginContext,
   LogoutContext,
@@ -66,6 +68,12 @@ export class AuthController extends HttpController {
       hasWorkspace,
       hasActiveSubscription,
     )
+    this.router.post(
+      "/change-password",
+      zodValidator("json", updatePasswordSchema),
+      isAuth,
+      this.changePassword,
+    )
   }
 
   userName = async (c: UserNameContext) => {
@@ -108,5 +116,9 @@ export class AuthController extends HttpController {
 
   unRestrictUser = async (c: RestrictUserContext) => {
     return await this.authService.unRestrictUser(c)
+  }
+
+  changePassword = async (c: ChangePasswordContext) => {
+    return await this.authService.changePassword(c)
   }
 }

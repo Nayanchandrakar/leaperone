@@ -1,6 +1,7 @@
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
+import { updateAccountPassword } from "@app/database/repository/account"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   createUser,
@@ -29,6 +30,7 @@ import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import type {
+  ChangePasswordContext,
   GetSessionContext,
   LoginContext,
   LogoutContext,
@@ -362,5 +364,58 @@ export class AuthService {
 
   async createEmailVerificationToken(email: string) {
     return await TokenUtils.signJwt({ email }, 3600)
+  }
+
+  async changePassword(c: ChangePasswordContext) {
+    const session = c.get("session")
+    const { newPassword, currentPassword } = c.req.valid("json")
+
+    // Get user with account to verify current password
+    const userWithAccounts = await getUserWithProviderAccount(db, session.user.email, "credential")
+
+    if (!userWithAccounts) {
+      throw ApiError.unauthorized(MSG.ACCOUNT.NOT_FOUND)
+    }
+
+    const { user, account } = userWithAccounts
+
+    // Verify current password
+    if (!account || !account.password || !(await compare(currentPassword, account.password))) {
+      throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
+    }
+
+    // Hash new password
+    const hashedPassword = await hash(newPassword, 10)
+
+    // Update account password
+    const updatedAccount = await updateAccountPassword(db, account.id, hashedPassword)
+
+    if (!updatedAccount) {
+      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
+    }
+
+    // Revoke other sessions for this user (but keep current one)
+    await this.sessionService.revoke(user.id)
+
+    // Create new session for the user
+    const newSession = await this.sessionService.create({
+      user: user,
+      token: createId(),
+      ipAddress: getRequestIp(c),
+      userAgent: c.req.header("User-Agent"),
+    })
+
+    if (!newSession) {
+      throw ApiError.unauthorized(MSG.SESSION.FAILED_TO_CREATE)
+    }
+
+    // Set session cookie with new session
+    setSessionCookie(c, SESSION_COOKIE_NAME, newSession.session.token)
+
+    return c.json({
+      success: true,
+      message: MSG.PASSWORD.CHANGE_SUCCESS,
+      data: { user: newSession.user },
+    })
   }
 }

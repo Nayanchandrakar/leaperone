@@ -65,6 +65,7 @@ export async function getUserWithProviderAccount(
       .select({
         user: users,
         account: {
+          id: accounts.id,
           password: accounts.password,
           providerId: accounts.providerId,
         },

@@ -33,6 +33,16 @@ export const resetPasswordSchema = z.object({
   newPassword: password,
 })
 
+export const updatePasswordSchema = z
+  .object({
+    newPassword: password,
+    currentPassword: password,
+  })
+  .refine((data) => data.newPassword !== data.currentPassword, {
+    path: ["newPassword"],
+    message: "New password must be different from current password",
+  })
+
 export const setNewPasswordSchema = z
   .object({
     token: z.cuid2(),
