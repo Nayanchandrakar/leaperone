@@ -3,3 +3,5 @@ import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
 export type GetAnalyticsContext = Context<HonoEnv, "/", ControllerIO<"query", GetAnalyticsSchema>>
+
+export type OverviewContext = Context<HonoEnv, "/overview">

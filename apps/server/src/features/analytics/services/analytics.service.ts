@@ -6,9 +6,10 @@ import {
   getTotalScansCount,
 } from "@app/database/repository/analytics"
 import { hasPermissions } from "@app/database/repository/role-permission"
+import { getWorkspaceOverview } from "@app/database/repository/workspace"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
-import type { GetAnalyticsContext } from "@/types/analytics.types"
+import type { GetAnalyticsContext, OverviewContext } from "@/types/analytics.types"
 
 export class AnalyticsService {
   async getAnalytics(c: GetAnalyticsContext) {
@@ -78,6 +79,29 @@ export class AnalyticsService {
     // Return raw member data - client handles display and formatting
     return c.json({
       data: members,
+    })
+  }
+
+  async getOverview(c: OverviewContext) {
+    const { user } = c.get("session")
+    const workspace = c.get("workspace")
+    const subscription = c.get("subscription")
+
+    // Single database call to get all overview data
+    const overview = await getWorkspaceOverview(db, workspace.id, user.id)
+
+    if (!overview) {
+      throw ApiError.notFound(MSG.ANALYTICS.OVERVIEW_NOT_FOUND)
+    }
+
+    return c.json({
+      data: {
+        formsSubmitted: 0,
+        seatsUsed: overview.seatsUsed,
+        totalSeats: subscription.seats,
+        totalClicks: overview.totalClicks,
+        currentMonthClicks: overview.monthlyClicks,
+      },
     })
   }
 }
