@@ -23,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
-        <ReactScan />
-      </head>
+      <ReactScan />
       <body className={`${inter.className} antialiased`}>
         <Provider>{children}</Provider>
       </body>

@@ -46,7 +46,7 @@ export class DashboardPipeline {
     }
   }
 
-  async checkPermissions(permissions: Array<PermissionType>) {
+  async checkPermissions(_permissions: Array<PermissionType>) {
     this.ctx.hasPermission = false
   }
   get context() {

@@ -17,7 +17,7 @@ const buttonVariants = cva(
         "green-outline":
           "bg-none hover:bg-primary/5 text-primary hover:text-primary/90 border border-primary",
         "gray-outline":
-          "bg-neon hover:bg-zinc-50 text-muted-foreground hover:text-muted-foreground/90 border border-border",
+          "bg-none hover:bg-zinc-50 text-muted-foreground hover:text-muted-foreground/90 border border-border",
       },
       size: {
         default: "h-9 px-5 py-2",
