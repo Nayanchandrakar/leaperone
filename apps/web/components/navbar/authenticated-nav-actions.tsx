@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { DashboardLinkButton } from "@/components/navbar/dashboard-link"
 import { NavSettings } from "@/components/navbar/nav-settings"
 import type { User } from "@/types"
@@ -8,10 +7,10 @@ type Props = {
   user: User
 }
 
-export const AuthenticatedNavActions = async ({ user }: Props) => {
+export const AuthenticatedNavActions = ({ user }: Props) => {
   return (
     <React.Fragment>
-      <DashboardLinkButton workspaceId={""} />
+      <DashboardLinkButton />
       <NavSettings user={user} />
     </React.Fragment>
   )

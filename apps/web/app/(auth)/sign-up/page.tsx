@@ -1,5 +1,4 @@
 import { Fragment } from "react"
-import { handleAuth } from "@/actions/utils"
 import { APP_URL } from "@/constants/app"
 import { SignupForm } from "@/features/auth/components/forms/sign-up"
 import { AuthContent, AuthForm, AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
@@ -10,10 +9,7 @@ interface ICreateAccountPage {
 }
 
 export default async function CreateAccountPage({ searchParams }: ICreateAccountPage) {
-  const [{ callbackUrl = APP_URL }] = await Promise.all([
-    searchParams,
-    handleAuth({ mode: "block" }),
-  ])
+  const { callbackUrl = APP_URL } = await searchParams
 
   return (
     <Fragment>

@@ -1,5 +1,4 @@
 import { Fragment } from "react"
-import { handleAuth } from "@/actions/utils"
 import { APP_URL } from "@/constants/app"
 import { LoginForm } from "@/features/auth/components/forms/login"
 import { AuthContent, AuthForm, AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
@@ -10,10 +9,7 @@ interface ILoginPage {
 }
 
 export default async function LoginPage({ searchParams }: ILoginPage) {
-  const [{ callbackUrl = APP_URL }] = await Promise.all([
-    searchParams,
-    handleAuth({ mode: "block" }),
-  ])
+  const { callbackUrl = APP_URL } = await searchParams
 
   return (
     <Fragment>
@@ -23,7 +19,6 @@ export default async function LoginPage({ searchParams }: ILoginPage) {
           <LoginForm callbackUrl={callbackUrl} />
         </AuthForm>
       </AuthWrapper>
-
       <AuthContent>
         <AuthWrapper>login page content</AuthWrapper>
       </AuthContent>
