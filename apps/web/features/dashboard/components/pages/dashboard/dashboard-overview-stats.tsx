@@ -1,8 +1,11 @@
+"use client"
+
 import {
   MetricCard,
   MetricCardLabel,
   MetricCardValue,
 } from "@/features/dashboard/components/cards/dashboard/metric-card"
+import { OverviewCardSkeleton } from "@/features/dashboard/components/skeletons/dashboard"
 import {
   DashboardStats,
   DashboardStatsFooter,
@@ -10,33 +13,43 @@ import {
   DashboardStatsLink,
   DashboardStatsTitle,
 } from "@/features/dashboard/components/ui/dashboard-stats"
+import { useDashboardOverview } from "@/features/dashboard/hooks/dashboard/use-dashboard-overview"
 
 export const DashboardOverviewStats = () => {
+  const { data, isPending, isError } = useDashboardOverview()
+
   return (
     <DashboardStats>
       <DashboardStatsTitle>Overview</DashboardStatsTitle>
       <DashboardStatsGrid>
-        <MetricCard>
-          <MetricCardLabel>Total scans of your card</MetricCardLabel>
-          <MetricCardValue>5689</MetricCardValue>
-        </MetricCard>
+        {isPending || isError ? (
+          <OverviewCardSkeleton />
+        ) : (
+          <>
+            <MetricCard>
+              <MetricCardLabel>Total scans of your card</MetricCardLabel>
+              <MetricCardValue>{data?.totalClicks ?? 0}</MetricCardValue>
+            </MetricCard>
 
-        <MetricCard>
-          <MetricCardLabel>Current Month Scans</MetricCardLabel>
-          <MetricCardValue>426</MetricCardValue>
-        </MetricCard>
+            <MetricCard>
+              <MetricCardLabel>Current Month Scans</MetricCardLabel>
+              <MetricCardValue>{data?.currentMonthClicks ?? 0}</MetricCardValue>
+            </MetricCard>
 
-        <MetricCard>
-          <MetricCardLabel>Number of forms submited</MetricCardLabel>
-          <MetricCardValue>73</MetricCardValue>
-        </MetricCard>
+            <MetricCard>
+              <MetricCardLabel>Number of forms submitted</MetricCardLabel>
+              <MetricCardValue>{data?.formsSubmitted ?? 0}</MetricCardValue>
+            </MetricCard>
 
-        <MetricCard>
-          <MetricCardLabel>Leaper One seats in use</MetricCardLabel>
-          <MetricCardValue>4/5</MetricCardValue>
-        </MetricCard>
+            <MetricCard>
+              <MetricCardLabel>Leaper One seats in use</MetricCardLabel>
+              <MetricCardValue>
+                {data?.seatsUsed ?? 0}/{data?.totalSeats ?? 0}
+              </MetricCardValue>
+            </MetricCard>
+          </>
+        )}
       </DashboardStatsGrid>
-
       <DashboardStatsFooter>
         <DashboardStatsLink href="/analytics">View more analytics</DashboardStatsLink>
       </DashboardStatsFooter>

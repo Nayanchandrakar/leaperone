@@ -95,13 +95,11 @@ export class AnalyticsService {
     }
 
     return c.json({
-      data: {
-        formsSubmitted: 0,
-        seatsUsed: overview.seatsUsed,
-        totalSeats: subscription.seats,
-        totalClicks: overview.totalClicks,
-        currentMonthClicks: overview.monthlyClicks,
-      },
+      formsSubmitted: 0,
+      seatsUsed: overview.seatsUsed,
+      totalSeats: subscription.seats,
+      totalClicks: overview.totalClicks,
+      currentMonthClicks: overview.monthlyClicks,
     })
   }
 }

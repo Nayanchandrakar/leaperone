@@ -54,3 +54,11 @@ export type GetFilesRes = {
 export type DeleteFilesRes = {
   count: number
 }
+
+export type GetDashboardOverviewRes = {
+  seatsUsed: number
+  totalSeats: number
+  totalClicks: number
+  formsSubmitted: number
+  currentMonthClicks: number
+}

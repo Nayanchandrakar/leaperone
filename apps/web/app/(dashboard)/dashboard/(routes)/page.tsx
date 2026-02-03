@@ -7,7 +7,7 @@ import { DashboardGreeting } from "@/features/dashboard/components/ui/dashboard-
 export default function DashboardPage() {
   return (
     <DashboardContainer>
-      <DashboardGreeting name={"user.name"} />
+      <DashboardGreeting name="John Doe" />
       <DashboardOverviewStats />
       <DashboardBussinessCard />
       <DashboardQuickActions />

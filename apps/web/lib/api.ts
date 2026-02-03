@@ -19,6 +19,7 @@ import type {
   BillingPortalMutationRes,
   ContactUsMutationRes,
   DeleteFilesRes,
+  GetDashboardOverviewRes,
   GetFilesRes,
   GetPresignedUrlRes,
   GetUserNameRes,
@@ -83,4 +84,8 @@ export async function getFiles(params: GetFileSchema) {
 
 export async function deleteFilesMutation(params: DeleteFilesSchema) {
   return await API.delete<DeleteFilesRes>("/asset/files", { data: params, timeout: 10000 })
+}
+
+export async function getDashboardOverview() {
+  return await API.get<GetDashboardOverviewRes>("/analytics/overview")
 }

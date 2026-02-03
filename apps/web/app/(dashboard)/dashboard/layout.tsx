@@ -7,6 +7,8 @@ type DashboardLayoutProps = {
   children: React.ReactNode
 }
 
+export const dynamic = "force-static"
+
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
