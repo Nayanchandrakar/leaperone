@@ -20,6 +20,7 @@ import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   ChangePasswordContext,
   GetSessionContext,
+  IsManagerContext,
   LoginContext,
   LogoutContext,
   PasswordResetContext,
@@ -82,6 +83,7 @@ export class AuthController extends HttpController {
       isAuth,
       this.changePassword,
     )
+    this.router.get("/is-manager", isAuth, this.isManager)
   }
 
   userName = async (c: UserNameContext) => {
@@ -128,5 +130,9 @@ export class AuthController extends HttpController {
 
   changePassword = async (c: ChangePasswordContext) => {
     return await this.authService.changePassword(c)
+  }
+
+  isManager = async (c: IsManagerContext) => {
+    return await this.authService.isManager(c)
   }
 }

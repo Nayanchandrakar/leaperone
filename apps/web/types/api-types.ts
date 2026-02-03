@@ -62,3 +62,7 @@ export type GetDashboardOverviewRes = {
   formsSubmitted: number
   currentMonthClicks: number
 }
+
+export type GetIsManagerRes = {
+  isManager: boolean
+}

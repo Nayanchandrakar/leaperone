@@ -7,35 +7,35 @@ import {
   SmartphoneNfc,
   UsersRound,
 } from "lucide-react"
-import type { DashboardNavMainItem, DashboardNavSettingItem } from "@/features/dashboard/types"
+import type { DashboardNavItem, DashboardNavSettingItem } from "@/features/dashboard/types"
 
-export const DASHBOARD_NAV_MAIN: DashboardNavMainItem[] = [
+export const DASHBOARD_NAV: DashboardNavItem[] = [
   {
     title: "Home",
-    url: "dashboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
     title: "Team",
-    url: "teams",
     icon: UsersRound,
-    teamOnly: true,
+    url: "/dashboard/teams",
+    managerOnly: true,
   },
   {
     title: "Analytics",
-    url: "analytics",
+    url: "/dashboard/analytics",
     icon: ChartNoAxesCombined,
   },
 
   {
     title: "Form Responses",
-    url: "form-responses",
+    url: "/dashboard/form-responses",
     icon: FileText,
   },
 
   {
     title: "File/Asset Manager",
-    url: "asset-manager",
+    url: "/dashboard/asset-manager",
     icon: Folders,
   },
 ]
@@ -43,46 +43,47 @@ export const DASHBOARD_NAV_MAIN: DashboardNavMainItem[] = [
 export const DASHBOARD_NAV_SETTINGS: DashboardNavSettingItem[] = [
   {
     title: "NFC Hardware",
-    url: "nfc-hardware",
+    url: "/dashboard/nfc-hardware",
     icon: SmartphoneNfc,
     items: [
       {
         title: "Shop NFC Kits",
-        url: "shop-nfc",
+        url: "/dashboard/shop-nfc",
       },
       {
         title: "Activate NFC items",
-        url: "activate-nfc",
+        url: "/dashboard/activate-nfc",
       },
     ],
   },
-
   {
     title: "Settings",
-    url: "settings",
+    url: "/dashboard/settings",
     icon: Settings,
     items: [
       {
         title: "Account Settings",
-        url: "account-settings",
+        url: "/dashboard/account-settings",
       },
       {
         title: "Manage Subscriptions",
-        url: "subscription",
+        url: "/dashboard/subscription",
+        managerOnly: true,
       },
 
       {
         title: "Team Settings",
-        url: "team-settings",
+        url: "/dashboard/team-settings",
+        managerOnly: true,
       },
 
       {
         title: "Notifications",
-        url: "notifications",
+        url: "/dashboard/notifications",
       },
       {
         title: "Form Terms & Privacy",
-        url: "terms-and-privacy",
+        url: "/dashboard/terms-and-privacy",
       },
     ],
   },

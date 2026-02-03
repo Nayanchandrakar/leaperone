@@ -17,17 +17,18 @@ export type isRouteActiveProps = {
   depth?: number
 }
 
-export type DashboardNavMainItem = {
+export type DashboardNavItem = {
   title: string
   url: string
   icon: LucideIcon
-  teamOnly?: boolean
+  managerOnly?: boolean
 }
 
-export type DashboardNavSettingItem = Omit<DashboardNavMainItem, "teamOnly"> & {
+export type DashboardNavSettingItem = DashboardNavItem & {
   items: {
-    title: string
     url: string
+    title: string
+    managerOnly?: boolean
   }[]
 }
 

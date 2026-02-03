@@ -25,8 +25,8 @@ export const verifyToken = async (c: VerifyEmailContext, next: Next) => {
 }
 
 export const isAuth = async (c: Context, next: Next) => {
-  const userSession = await sessionService.fromCtx(c)
-  if (!userSession) throw ApiError.unauthorized()
-  c.set("session", userSession)
+  const session = await sessionService.fromCtx(c)
+  if (!session) throw ApiError.unauthorized()
+  c.set("session", session)
   return await next()
 }

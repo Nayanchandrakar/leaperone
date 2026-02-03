@@ -33,6 +33,7 @@ import { sendMail } from "@/features/auth/utils/mail"
 import type {
   ChangePasswordContext,
   GetSessionContext,
+  IsManagerContext,
   LoginContext,
   LogoutContext,
   PasswordResetContext,
@@ -444,5 +445,11 @@ export class AuthService {
       message: MSG.PASSWORD.CHANGE_SUCCESS,
       data: { user: newSession.user },
     })
+  }
+
+  async isManager(c: IsManagerContext) {
+    const { user } = c.get("session")
+    const isManager = await hasPermissions(db, user.id, [PERMISSIONS.INVITE_MEMBERS])
+    return c.json({ isManager })
   }
 }

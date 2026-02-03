@@ -21,6 +21,7 @@ import type {
   DeleteFilesRes,
   GetDashboardOverviewRes,
   GetFilesRes,
+  GetIsManagerRes,
   GetPresignedUrlRes,
   GetUserNameRes,
   LoginMutationRes,
@@ -88,4 +89,8 @@ export async function deleteFilesMutation(params: DeleteFilesSchema) {
 
 export async function getDashboardOverview() {
   return await API.get<GetDashboardOverviewRes>("/analytics/overview")
+}
+
+export async function getIsManager() {
+  return await API.get<GetIsManagerRes>("/auth/is-manager")
 }

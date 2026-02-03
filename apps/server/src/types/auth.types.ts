@@ -54,5 +54,6 @@ export type ChangePasswordContext = Context<
   ControllerIO<"json", UpdatePasswordSchema>
 >
 
+export type IsManagerContext = Context<HonoEnv, "/is-manager">
 export type GetSessionContext = Context<HonoEnv, "/get-session">
 export type LogoutContext = Context<HonoEnv, "/logout">
