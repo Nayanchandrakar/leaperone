@@ -1,34 +1,32 @@
-import { FileSearch, IdCard, ShoppingCart, SmartphoneNfc, UserRoundPlus } from "lucide-react"
+import { FileSearch, IdCard, ShoppingCart, UserRoundPlus } from "lucide-react"
 
 export const QUICK_ACTIONS = [
   {
     id: 48293,
-    title: "Share Business Card",
-    Icon: IdCard,
     href: "/",
+    Icon: IdCard,
+    managerOnly: false,
+    title: "Share Business Card",
   },
   {
     id: 13764,
-    title: "Check Form Responses",
-    Icon: FileSearch,
     href: "/",
+    Icon: FileSearch,
+    managerOnly: false,
+    title: "Check Form Responses",
   },
   {
     id: 92571,
-    title: "Invite Team Member",
-    Icon: UserRoundPlus,
     href: "/",
+    managerOnly: true,
+    Icon: UserRoundPlus,
+    title: "Invite Team Member",
   },
   {
     id: 68420,
-    title: "Buy NFC Items",
+    href: "/",
+    managerOnly: false,
     Icon: ShoppingCart,
-    href: "/",
-  },
-  {
-    id: 31958,
-    title: "Activate NFC Card",
-    Icon: SmartphoneNfc,
-    href: "/",
+    title: "Buy NFC Items",
   },
 ]

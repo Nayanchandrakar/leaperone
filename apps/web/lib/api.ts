@@ -4,6 +4,7 @@ import type {
   DeleteFilesSchema,
   EmailSchema,
   GetFileSchema,
+  GetPermissionSchema,
   LoginFormSchema,
   PreSignedUrlSchema,
   RegisterFormSchema,
@@ -21,7 +22,7 @@ import type {
   DeleteFilesRes,
   GetDashboardOverviewRes,
   GetFilesRes,
-  GetIsManagerRes,
+  GetPermissionRes,
   GetPresignedUrlRes,
   GetUserNameRes,
   LoginMutationRes,
@@ -91,6 +92,6 @@ export async function getDashboardOverview() {
   return await API.get<GetDashboardOverviewRes>("/analytics/overview")
 }
 
-export async function getIsManager() {
-  return await API.get<GetIsManagerRes>("/auth/is-manager")
+export async function getPermission(params: GetPermissionSchema) {
+  return await API.get<GetPermissionRes>("/auth/permission", { params })
 }

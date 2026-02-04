@@ -1,5 +1,6 @@
 import type {
   EmailSchema,
+  GetPermissionSchema,
   LoginFormSchema,
   RegisterFormSchema,
   ResetPasswordSchema,
@@ -54,6 +55,11 @@ export type ChangePasswordContext = Context<
   ControllerIO<"json", UpdatePasswordSchema>
 >
 
-export type IsManagerContext = Context<HonoEnv, "/is-manager">
+export type GetPermissionContext = Context<
+  HonoEnv,
+  "/permission",
+  ControllerIO<"query", GetPermissionSchema>
+>
+
 export type GetSessionContext = Context<HonoEnv, "/get-session">
 export type LogoutContext = Context<HonoEnv, "/logout">

@@ -63,6 +63,6 @@ export type GetDashboardOverviewRes = {
   currentMonthClicks: number
 }
 
-export type GetIsManagerRes = {
-  isManager: boolean
+export type GetPermissionRes = {
+  hasPermission: boolean
 }

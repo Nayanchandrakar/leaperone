@@ -17,6 +17,7 @@ import {
   findVerificationByIdentifier,
 } from "@app/database/repository/verification"
 import { getWorkspaceMember } from "@app/database/repository/workspace-member"
+import type { PermissionType } from "@app/database/types"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger"
 import type { SessionService } from "@app/session"
@@ -32,8 +33,8 @@ import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import type {
   ChangePasswordContext,
+  GetPermissionContext,
   GetSessionContext,
-  IsManagerContext,
   LoginContext,
   LogoutContext,
   PasswordResetContext,
@@ -447,9 +448,10 @@ export class AuthService {
     })
   }
 
-  async isManager(c: IsManagerContext) {
+  async getPermission(c: GetPermissionContext) {
     const { user } = c.get("session")
-    const isManager = await hasPermissions(db, user.id, [PERMISSIONS.INVITE_MEMBERS])
-    return c.json({ isManager })
+    const { permission } = c.req.valid("query")
+    const hasPermission = await hasPermissions(db, user.id, [permission as PermissionType])
+    return c.json({ hasPermission })
   }
 }

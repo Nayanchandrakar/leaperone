@@ -1,5 +1,6 @@
 import {
   emailSchema,
+  getPermissionSchema,
   loginFormSchema,
   registerFormSchema,
   resetPasswordSchema,
@@ -19,8 +20,8 @@ import {
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   ChangePasswordContext,
+  GetPermissionContext,
   GetSessionContext,
-  IsManagerContext,
   LoginContext,
   LogoutContext,
   PasswordResetContext,
@@ -83,7 +84,12 @@ export class AuthController extends HttpController {
       isAuth,
       this.changePassword,
     )
-    this.router.get("/is-manager", isAuth, this.isManager)
+    this.router.get(
+      "/permission",
+      zodValidator("query", getPermissionSchema),
+      isAuth,
+      this.getPermission,
+    )
   }
 
   userName = async (c: UserNameContext) => {
@@ -132,7 +138,7 @@ export class AuthController extends HttpController {
     return await this.authService.changePassword(c)
   }
 
-  isManager = async (c: IsManagerContext) => {
-    return await this.authService.isManager(c)
+  getPermission = async (c: GetPermissionContext) => {
+    return await this.authService.getPermission(c)
   }
 }

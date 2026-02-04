@@ -35,3 +35,15 @@ export const SidebarSkeleton = () => {
     </SidebarGroup>
   )
 }
+
+export const QuickActionCardSkeleton = () => {
+  return Array.from({ length: 4 }).map((_, index) => (
+    <div
+      key={index}
+      className="border border-zinc-300 rounded-xl px-6 py-7 flex flex-col gap-3 items-center"
+    >
+      <Skeleton className="size-6" />
+      <Skeleton className="w-full h-4" />
+    </div>
+  ))
+}

@@ -4,6 +4,7 @@ import type { getAnalyticsSchema } from "../schema/analytics"
 import type { deleteFilesSchema, getFileSchema, preSignedUrlSchema } from "../schema/asset"
 import type {
   emailSchema,
+  getPermissionSchema,
   loginFormSchema,
   registerFormSchema,
   resetPasswordSchema,
@@ -47,3 +48,4 @@ export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
 export type UpateProfileSchema = z.infer<typeof updateProfileSchema>
 export type UpdatePasswordSchema = z.infer<typeof updatePasswordSchema>
+export type GetPermissionSchema = z.infer<typeof getPermissionSchema>
