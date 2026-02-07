@@ -1,6 +1,6 @@
 import { ApiError } from "@app/error"
 import { and, desc, eq } from "drizzle-orm"
-import { accounts, invitations, roles, users, workspaceMembers } from "../schema"
+import { accounts, invitations, roles, storage, users, workspaceMembers } from "../schema"
 import type { AcceptInvitation, CreateWorkspaceInviteAndUser, DatabaseClient } from "../types"
 
 export async function getInvitationById(db: DatabaseClient, invitationId: string) {
@@ -65,6 +65,11 @@ export async function createWorkspaceInviteAndUser(
         userId,
         workspaceId,
         roleId: role?.id!,
+      })
+
+      await tx.insert(storage).values({
+        userId,
+        workspaceId,
       })
 
       const [invitation] = await tx

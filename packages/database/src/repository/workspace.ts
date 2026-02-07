@@ -30,18 +30,24 @@ export async function getWorkspaceOverview(
   userId: string,
 ) {
   try {
+    // Use a subquery to always get seatsUsed, then LEFT JOIN workspaceStats
+    // This ensures we return seatsUsed even if workspaceStats doesn't exist
     const [result] = await db
       .select({
-        totalClicks: workspaceStats.totalClicks,
-        monthlyClicks: workspaceStats.monthlyClicks,
         seatsUsed: sql<number>`(
-        SELECT COUNT(*)::INTEGER
-        FROM ${workspaceMembers}
-        WHERE ${workspaceMembers.workspaceId} = ${workspaceStats.workspaceId}
-      )`,
+          SELECT COUNT(*)::INTEGER
+          FROM ${workspaceMembers}
+          WHERE ${workspaceMembers.workspaceId} = ${workspaceId}
+        )`,
+        totalClicks: sql<number>`COALESCE(${workspaceStats.totalClicks}, 0)`,
+        monthlyClicks: sql<number>`COALESCE(${workspaceStats.monthlyClicks}, 0)`,
       })
-      .from(workspaceStats)
-      .where(and(eq(workspaceStats.workspaceId, workspaceId), eq(workspaceStats.userId, userId)))
+      .from(sql`(SELECT 1) AS dummy`)
+      .leftJoin(
+        workspaceStats,
+        and(eq(workspaceStats.workspaceId, workspaceId), eq(workspaceStats.userId, userId)),
+      )
+      .limit(1)
 
     return result
   } catch (error) {
