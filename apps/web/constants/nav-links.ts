@@ -1,34 +1,34 @@
 import { CreditCard, IdCard, LifeBuoy, User } from "lucide-react"
-import type { SidebarNavItems } from "@/features/dashboard/types"
+import type { DashboardNavItem } from "@/features/dashboard/types"
 
-export const NAV_LINKS: SidebarNavItems[] = [
+export const NAV_LINKS: DashboardNavItem[] = [
   {
-    name: "Smart Bussiness Card Maker",
-    url: "/",
+    title: "Smart Bussiness Card Maker",
+    href: "/",
     icon: IdCard,
   },
 
   {
-    name: "Pricing",
-    url: "/pricing",
+    title: "Pricing",
+    href: "/pricing",
     icon: CreditCard,
   },
 
   {
-    name: "How it Works",
-    url: "/privacy-policy",
+    title: "How it Works",
+    href: "/privacy-policy",
     icon: IdCard,
   },
 
   {
-    name: "Support",
-    url: "/faq-support",
+    title: "Support",
+    href: "/faq-support",
     icon: LifeBuoy,
   },
 
   {
-    name: "Contact us",
-    url: "/contact-us",
+    title: "Contact us",
+    href: "/contact-us",
     icon: User,
   },
 ]

@@ -13,10 +13,10 @@ import {
   DashboardStatsLink,
   DashboardStatsTitle,
 } from "@/features/dashboard/components/ui/dashboard-stats"
-import { useDashboardOverview } from "@/features/dashboard/hooks/dashboard/use-dashboard-overview"
+import { useWorkspaceStats } from "@/features/dashboard/hooks/dashboard/use-workspace-stats"
 
 export const DashboardOverviewStats = () => {
-  const { data, isPending, isError } = useDashboardOverview()
+  const { data, isPending, isError } = useWorkspaceStats()
 
   return (
     <DashboardStats>
@@ -51,7 +51,7 @@ export const DashboardOverviewStats = () => {
         )}
       </DashboardStatsGrid>
       <DashboardStatsFooter>
-        <DashboardStatsLink href="/analytics">View more analytics</DashboardStatsLink>
+        <DashboardStatsLink href="/dashboard/analytics">View more analytics</DashboardStatsLink>
       </DashboardStatsFooter>
     </DashboardStats>
   )

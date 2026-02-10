@@ -10,7 +10,7 @@ export const AuthLayout = ({ children, className, ...props }: React.ComponentPro
 
 export const AuthWrapper = ({ children, className, ...props }: React.ComponentProps<"div">) => {
   return (
-    <div className={cn("p-6 sm:sm:p-7 md:p-8 relative", className)} {...props}>
+    <div className={cn("p-6 sm:p-7 md:p-8 relative", className)} {...props}>
       {children}
     </div>
   )

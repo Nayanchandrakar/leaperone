@@ -24,11 +24,7 @@ export async function getWorkspaceAndSubscriptionData(db: DatabaseClient, userId
   }
 }
 
-export async function getWorkspaceOverview(
-  db: DatabaseClient,
-  workspaceId: string,
-  userId: string,
-) {
+export async function getWorkspaceStats(db: DatabaseClient, workspaceId: string, userId: string) {
   try {
     // Use a subquery to always get seatsUsed, then LEFT JOIN workspaceStats
     // This ensures we return seatsUsed even if workspaceStats doesn't exist

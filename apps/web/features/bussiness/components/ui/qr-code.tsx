@@ -5,12 +5,13 @@ import { createContext, useContext, useEffect, useRef, useState } from "react"
 import { useQrCodeOptions } from "@/features/bussiness/hooks/home/use-qr-code-options"
 
 type QrCodeContextValue = {
+  qrCodeInstance: QRCodeStyling | undefined
   containerRef: React.RefObject<HTMLDivElement | null>
 }
 
 type QrCodeProviderProps = {
   children: React.ReactNode
-  settings: Partial<QrCodeEditor>
+  options: Partial<QrCodeEditor>
 }
 
 const QrCodeContext = createContext<QrCodeContextValue | null>(null)
@@ -23,12 +24,12 @@ export const useQrCodeContext = () => {
   return context
 }
 
-export const QrCodeProvider = ({ children, settings }: QrCodeProviderProps) => {
+export const QrCodeProvider = ({ children, options }: QrCodeProviderProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [qrCodeInstance, setQrCodeInstance] = useState<QRCodeStyling | undefined>(undefined)
 
-  // Compute QR code options from settings
-  const qrCodeOptions = useQrCodeOptions(settings)
+  // Compute QR code options from options
+  const qrCodeOptions = useQrCodeOptions(options)
 
   // Initialize QRCodeStyling instance if it doesn't exist
   useEffect(() => {
@@ -58,7 +59,11 @@ export const QrCodeProvider = ({ children, settings }: QrCodeProviderProps) => {
     }
   }, [qrCodeInstance, qrCodeOptions])
 
-  return <QrCodeContext.Provider value={{ containerRef }}>{children}</QrCodeContext.Provider>
+  return (
+    <QrCodeContext.Provider value={{ containerRef, qrCodeInstance }}>
+      {children}
+    </QrCodeContext.Provider>
+  )
 }
 
 export const QrCodePreview = () => {

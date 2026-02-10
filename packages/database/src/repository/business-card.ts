@@ -25,6 +25,7 @@ export async function getCardByWorkspaceIdAndUserId(
   try {
     const [data] = await db
       .select({
+        id: businessCard.id,
         qrCode: businessCard.qrCode,
         status: businessCard.status,
         template: businessCard.template,
@@ -75,6 +76,31 @@ export async function updateBusinessCardById(
       .returning({ id: businessCard.id })
 
     return updated
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function deleteBusinessCardById(
+  db: DatabaseClient,
+  workspaceId: string,
+  userId: string,
+  id: string,
+) {
+  try {
+    const [deleted] = await db
+      .delete(businessCard)
+      .where(
+        and(
+          eq(businessCard.id, id),
+          eq(businessCard.userId, userId),
+          eq(businessCard.workspaceId, workspaceId),
+        ),
+      )
+      .returning({ id: businessCard.id })
+
+    return deleted
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

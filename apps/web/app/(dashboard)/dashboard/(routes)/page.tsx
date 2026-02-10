@@ -1,16 +1,16 @@
-import { DashboardBussinessCard } from "@/features/dashboard/components/pages/dashboard/dashboard-bussiness-card"
+import { ShareBusinessCardDialog } from "@/features/dashboard/components/dialogs/dashboard/share-business-card-dialog"
+import { BusinessCardSection } from "@/features/dashboard/components/pages/dashboard/business-card-section"
 import { DashboardOverviewStats } from "@/features/dashboard/components/pages/dashboard/dashboard-overview-stats"
-import { DashboardQuickActions } from "@/features/dashboard/components/pages/dashboard/dashboard-quick-actions"
+import { QuickActions } from "@/features/dashboard/components/pages/dashboard/quick-actions"
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
-import { DashboardGreeting } from "@/features/dashboard/components/ui/dashboard-greeting"
 
 export default function DashboardPage() {
   return (
     <DashboardContainer>
-      <DashboardGreeting name="John Doe" />
       <DashboardOverviewStats />
-      <DashboardBussinessCard />
-      <DashboardQuickActions />
+      <BusinessCardSection />
+      <QuickActions />
+      <ShareBusinessCardDialog title="Share Business Card" />
     </DashboardContainer>
   )
 }

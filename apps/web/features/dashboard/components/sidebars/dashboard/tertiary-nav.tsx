@@ -16,11 +16,11 @@ export const TertiaryNav = () => {
       <SidebarGroupContent>
         <SidebarMenu>
           {NAV_LINKS.map((item) => (
-            <SidebarMenuItem key={item.name}>
+            <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <Link href={item.url}>
+                <Link href={item.href}>
                   <item.icon />
-                  <span>{item.name}</span>
+                  <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

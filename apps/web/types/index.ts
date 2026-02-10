@@ -2,35 +2,33 @@ import type { NextRequest, NextResponse } from "next/server"
 
 export type IconProps = React.HTMLAttributes<SVGElement>
 
-export type FullSession = {
-  session: {
-    token: string
-    userId: string
-    createdAt: string
-    updatedAt: string
-    expiresAt: string
-    ipAddress: string | undefined
-    userAgent: string | undefined
-  }
-  user: {
-    id: string
-    email: string
-    name: string
-    username: string
-    createdAt: string
-    image: string | null
-    isRestricted: boolean
-    emailVerified: boolean
-    updatedAt: string | null
-    stripeCustomerId: string | null
-  }
+export type Session = {
+  token: string
+  userId: string
+  createdAt: string
+  updatedAt: string
+  expiresAt: string
+  ipAddress: string | undefined
+  userAgent: string | undefined
 }
 
-export type PanelType = "single" | "multiple"
+export type User = {
+  id: string
+  email: string
+  name: string
+  username: string
+  createdAt: string
+  image: string | null
+  isRestricted: boolean
+  emailVerified: boolean
+  updatedAt: string | null
+  stripeCustomerId: string | null
+}
 
-export type Session = FullSession["session"]
-
-export type User = FullSession["user"]
+export type FullSession = {
+  user: User
+  session: Session
+}
 
 export type Nullable<T> = T | null
 

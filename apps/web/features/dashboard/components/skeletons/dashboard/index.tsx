@@ -47,3 +47,25 @@ export const QuickActionCardSkeleton = () => {
     </div>
   ))
 }
+
+export const BusinessCardSkeleton = () => {
+  return (
+    <div className="border rounded-xl divide-y min-[1290px]:divide-x divide-border grid min-[1290px]:grid-cols-[auto_auto]">
+      <div className="p-6 space-y-2.5">
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-60" />
+          <Skeleton className="size-4" />
+        </div>
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-44" />
+          <Skeleton className="size-4" />
+        </div>
+      </div>
+      <div className="p-6 flex flex-wrap items-center gap-3">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Skeleton key={index} className="h-9 w-32 rounded-full" />
+        ))}
+      </div>
+    </div>
+  )
+}

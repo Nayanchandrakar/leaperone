@@ -21,8 +21,8 @@ export const DashboardSidebar = () => {
           <SidebarSkeleton />
         ) : (
           <>
-            <PrimaryNav isManager={!!data?.hasPermission} />
-            <SecondaryNav isManager={!!data?.hasPermission} />
+            <PrimaryNav isManager={!!data?.permission} />
+            <SecondaryNav isManager={!!data?.permission} />
             <TertiaryNav />
           </>
         )}

@@ -1,15 +1,21 @@
 import type {
   CheckoutSessionSchema,
   ContactUsFormSchema,
+  DeleteCardSchema,
   DeleteFilesSchema,
   EmailSchema,
+  GetAnalyticsSchema,
   GetFileSchema,
   GetPermissionSchema,
+  InviteMemberSchema,
   LoginFormSchema,
+  PasswordSetupSchema,
   PreSignedUrlSchema,
   RegisterFormSchema,
   ResetPasswordSchema,
+  RestrictUserSchema,
   SupportFormSchema,
+  ToogleCardStatusSchema,
   UserNameFormSchema,
 } from "@app/zod/types"
 import type { AxiosRequestConfig } from "axios"
@@ -19,17 +25,24 @@ import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
   ContactUsMutationRes,
+  DeleteCardRes,
   DeleteFilesRes,
-  GetDashboardOverviewRes,
+  GetAnalyticsRes,
+  GetBusinessCardsRes,
   GetFilesRes,
+  GetInvitedMembersRes,
   GetPermissionRes,
   GetPresignedUrlRes,
   GetUserNameRes,
+  GetWorkspaceSettingsRes,
+  GetWorkspaceStatsRes,
   LoginMutationRes,
   LogoutMutationRes,
+  PasswordSetupMutationRes,
   RegisterMutationRes,
   requestPasswordResetMutRes,
   resetPasswordMutationRes,
+  ToogleCardStatusRes,
 } from "@/types/api-types"
 
 export async function fetchSession(config?: AxiosRequestConfig) {
@@ -88,10 +101,50 @@ export async function deleteFilesMutation(params: DeleteFilesSchema) {
   return await API.delete<DeleteFilesRes>("/asset/files", { data: params, timeout: 10000 })
 }
 
-export async function getDashboardOverview() {
-  return await API.get<GetDashboardOverviewRes>("/analytics/overview")
+export async function getWorkspaceStats() {
+  return await API.get<GetWorkspaceStatsRes>("/workspace/stats")
+}
+
+export async function getAnalytics(params: GetAnalyticsSchema) {
+  return await API.get<GetAnalyticsRes>("/analytics", { params })
 }
 
 export async function getPermission(params: GetPermissionSchema) {
   return await API.get<GetPermissionRes>("/auth/permission", { params })
+}
+
+// NEED_TO_UPDATE
+export async function getInvitedMembers() {
+  return await API.get<GetInvitedMembersRes>("/invitation/invited-members")
+}
+
+// NEED_TO_UPDATE
+export async function inviteMemberMutation(params: InviteMemberSchema) {
+  return await API.post("/invitation/invite", params)
+}
+
+// NEED_TO_UPDATE
+export async function accessAsMemberMutation(params: RestrictUserSchema) {
+  return await API.post("/invitation/access-as-member", params)
+}
+
+export async function getWorkspaceSettings() {
+  return await API.get<GetWorkspaceSettingsRes>("/workspace/settings")
+}
+
+// NEED_TO_UPDATE
+export async function passwordSetupMutation(params: PasswordSetupSchema) {
+  return await API.post<PasswordSetupMutationRes>("/invitation/password-setup", params)
+}
+
+export async function getBusinessCards() {
+  return await API.get<GetBusinessCardsRes>("/business-card")
+}
+
+export async function deleteCardMutation(data: DeleteCardSchema) {
+  return await API.delete<DeleteCardRes>("/business-card/delete", { data })
+}
+
+export async function toogleCardStatusMutation(data: ToogleCardStatusSchema) {
+  return await API.put<ToogleCardStatusRes>("/business-card/status", data)
 }

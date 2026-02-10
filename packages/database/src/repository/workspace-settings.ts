@@ -6,7 +6,9 @@ import type { DatabaseClient, InsertWorkspaceSettings } from "../types"
 export async function getWorkspaceSettingsByWorkspaceId(db: DatabaseClient, workspaceId: string) {
   try {
     const [data] = await db
-      .select()
+      .select({
+        createAndEdit: workspaceSettings.createAndEdit,
+      })
       .from(workspaceSettings)
       .where(eq(workspaceSettings.workspaceId, workspaceId))
       .limit(1)

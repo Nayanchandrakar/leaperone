@@ -4,7 +4,6 @@ import { useMemo } from "react"
 
 /**
  * React hook to generate QR code options for qr-code-styling based on user/editor settings.
- * Uses useMemo for performance and to avoid unnecessary recalculations.
  *
  * @param settings - Partial QR code editor schema from form or state.
  * @returns Options for qr-code-styling QRCodeStyling instance.

@@ -12,30 +12,30 @@ import type { DashboardNavItem, DashboardNavSettingItem } from "@/features/dashb
 export const DASHBOARD_NAV: DashboardNavItem[] = [
   {
     title: "Home",
-    url: "/dashboard",
+    href: "/dashboard",
     icon: Home,
   },
   {
     title: "Team",
     icon: UsersRound,
-    url: "/dashboard/teams",
+    href: "/dashboard/teams",
     managerOnly: true,
   },
   {
     title: "Analytics",
-    url: "/dashboard/analytics",
+    href: "/dashboard/analytics",
     icon: ChartNoAxesCombined,
   },
 
   {
     title: "Form Responses",
-    url: "/dashboard/form-responses",
+    href: "/dashboard/form-responses",
     icon: FileText,
   },
 
   {
     title: "File/Asset Manager",
-    url: "/dashboard/asset-manager",
+    href: "/dashboard/asset-manager",
     icon: Folders,
   },
 ]
@@ -43,47 +43,42 @@ export const DASHBOARD_NAV: DashboardNavItem[] = [
 export const DASHBOARD_NAV_SETTINGS: DashboardNavSettingItem[] = [
   {
     title: "NFC Hardware",
-    url: "/dashboard/nfc-hardware",
+    href: "/dashboard/nfc-hardware",
     icon: SmartphoneNfc,
     items: [
       {
         title: "Shop NFC Kits",
-        url: "/dashboard/shop-nfc",
+        href: "/dashboard/shop-nfc",
       },
       {
         title: "Activate NFC items",
-        url: "/dashboard/activate-nfc",
+        href: "/dashboard/activate-nfc",
       },
     ],
   },
   {
     title: "Settings",
-    url: "/dashboard/settings",
+    href: "/dashboard/settings",
     icon: Settings,
     items: [
       {
         title: "Account Settings",
-        url: "/dashboard/account-settings",
+        href: "/dashboard/account-settings",
       },
       {
         title: "Manage Subscriptions",
-        url: "/dashboard/subscription",
+        href: "/dashboard/subscription",
         managerOnly: true,
       },
 
       {
         title: "Team Settings",
-        url: "/dashboard/team-settings",
+        href: "/dashboard/team-settings",
         managerOnly: true,
-      },
-
-      {
-        title: "Notifications",
-        url: "/dashboard/notifications",
       },
       {
         title: "Form Terms & Privacy",
-        url: "/dashboard/terms-and-privacy",
+        href: "/dashboard/terms-and-privacy",
       },
     ],
   },

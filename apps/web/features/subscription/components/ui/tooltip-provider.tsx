@@ -14,7 +14,7 @@ export const ToolTipProvider = ({ Icon = Info, content, iconClassName }: IToolTi
       <TooltipTrigger>
         <Icon className={cn("size-4", iconClassName)} />
       </TooltipTrigger>
-      <TooltipContent>{content}</TooltipContent>
+      <TooltipContent className="max-w-50 text-center">{content}</TooltipContent>
     </Tooltip>
   )
 }

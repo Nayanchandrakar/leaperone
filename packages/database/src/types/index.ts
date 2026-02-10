@@ -1,7 +1,12 @@
 import type { Casing } from "drizzle-orm"
 import type { CacheConfig } from "drizzle-orm/cache/core/types"
 import type { NeonDatabase } from "drizzle-orm/neon-serverless"
-import type { invitationStatus, subscriptionPlan, subscriptionStatus } from "../constants/enums"
+import type {
+  businessCardStatus,
+  invitationStatus,
+  subscriptionPlan,
+  subscriptionStatus,
+} from "../constants/enums"
 import type { PERMISSIONS } from "../constants/permissions"
 import type { DEFAULT_ROLES } from "../constants/roles"
 import type {
@@ -64,6 +69,7 @@ export type InsertWorkspaceSettings = typeof workspaceSettings.$inferInsert
 export type SubscriptionPlan = (typeof subscriptionPlan)[number]
 export type InvitationStatus = (typeof invitationStatus)[number]
 export type SubscriptionStatus = (typeof subscriptionStatus)[number]
+export type BusinessCardStatus = (typeof businessCardStatus)[number]
 
 // Constants
 export type Permissions = keyof typeof PERMISSIONS

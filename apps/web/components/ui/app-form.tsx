@@ -1,7 +1,6 @@
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form"
 import { RadioField } from "@/components/form/radio-field"
 import { SelectField } from "@/components/form/select-field"
-import { SwitchField } from "@/components/form/switch-field"
 import { TextField } from "@/components/form/text-field"
 
 // export useFieldContext for use in your custom components
@@ -13,7 +12,6 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
   fieldComponents: {
     TextField,
     SelectField,
-    SwitchField,
     RadioField,
   },
   formComponents: {},

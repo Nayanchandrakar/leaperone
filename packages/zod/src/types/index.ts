@@ -14,11 +14,15 @@ import type {
   userNameSchema,
   verifyEmailSchema,
 } from "../schema/auth"
-import type { createBusinessCardSchema } from "../schema/bussiness"
 import type {
-  acceptInvitationSchema,
+  createBusinessCardSchema,
+  deleteCardSchema,
+  toogleCardStatusSchema,
+} from "../schema/bussiness"
+import type {
   accessAsMemberSchema,
   inviteMemberSchema,
+  passwordSetupSchema,
 } from "../schema/invitation"
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
@@ -41,7 +45,7 @@ export type GetFileSchema = z.infer<typeof getFileSchema>
 export type DeleteFilesSchema = z.infer<typeof deleteFilesSchema>
 export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
 export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
-export type AcceptInvitationSchema = z.infer<typeof acceptInvitationSchema>
+export type PasswordSetupSchema = z.infer<typeof passwordSetupSchema>
 export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
 export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
@@ -49,3 +53,5 @@ export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
 export type UpateProfileSchema = z.infer<typeof updateProfileSchema>
 export type UpdatePasswordSchema = z.infer<typeof updatePasswordSchema>
 export type GetPermissionSchema = z.infer<typeof getPermissionSchema>
+export type DeleteCardSchema = z.infer<typeof deleteCardSchema>
+export type ToogleCardStatusSchema = z.infer<typeof toogleCardStatusSchema>

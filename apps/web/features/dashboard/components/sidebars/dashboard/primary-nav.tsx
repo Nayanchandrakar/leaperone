@@ -25,8 +25,8 @@ export const PrimaryNav = ({ isManager }: PrimaryNavProps) => {
 
           return (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild isActive={currentPath === item.url}>
-                <Link href={item.url}>
+              <SidebarMenuButton asChild isActive={currentPath === item.href}>
+                <Link href={item.href}>
                   <item.icon />
                   <span>{item.title}</span>
                 </Link>

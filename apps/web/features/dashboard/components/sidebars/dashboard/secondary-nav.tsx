@@ -43,8 +43,8 @@ export const SecondaryNav = ({ isManager }: SecondaryNavProps) => {
 
                       return (
                         <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild isActive={currentPath === subItem.url}>
-                            <Link href={subItem.url}>{subItem.title}</Link>
+                          <SidebarMenuSubButton asChild isActive={currentPath === subItem.href}>
+                            <Link href={subItem.href}>{subItem.title}</Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       )
