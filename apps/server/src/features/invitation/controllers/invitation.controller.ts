@@ -1,7 +1,7 @@
 import {
-  acceptInvitationSchema,
   accessAsMemberSchema,
   inviteMemberSchema,
+  passwordSetupSchema,
 } from "@app/zod/schema/invitation"
 import type { InvitationService } from "@/features/invitation/services/invitation.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
@@ -14,11 +14,11 @@ import {
 } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
-  AcceptInvitationContext,
   AccessAsMemberContext,
   ExitImpersonationContext,
   GetInvitedMembersContext,
   InviteMemberContext,
+  PasswordSetupContext,
 } from "@/types/invitation.types"
 
 export class InvitationController extends HttpController {
@@ -37,7 +37,11 @@ export class InvitationController extends HttpController {
       hasTeamPlanWithSeats,
       this.inviteMember,
     )
-    this.router.post("/accept", zodValidator("json", acceptInvitationSchema), this.acceptInvitation)
+    this.router.post(
+      "/password-setup",
+      zodValidator("json", passwordSetupSchema),
+      this.passwordSetup,
+    )
     this.router.get(
       "/invited-members",
       isAuth,
@@ -78,8 +82,8 @@ export class InvitationController extends HttpController {
     return await this.invitationService.inviteMember(c)
   }
 
-  acceptInvitation = async (c: AcceptInvitationContext) => {
-    return await this.invitationService.acceptInvitation(c)
+  passwordSetup = async (c: PasswordSetupContext) => {
+    return await this.invitationService.passwordSetup(c)
   }
 
   getInvitedMembers = async (c: GetInvitedMembersContext) => {

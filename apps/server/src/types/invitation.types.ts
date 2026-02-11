@@ -1,8 +1,4 @@
-import type {
-  AcceptInvitationSchema,
-  AccessAsMemberSchema,
-  InviteMemberSchema,
-} from "@app/zod/types"
+import type { AccessAsMemberSchema, InviteMemberSchema, PasswordSetupSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
@@ -12,10 +8,10 @@ export type InviteMemberContext = Context<
   ControllerIO<"json", InviteMemberSchema>
 >
 
-export type AcceptInvitationContext = Context<
+export type PasswordSetupContext = Context<
   HonoEnv,
-  "/accept",
-  ControllerIO<"json", AcceptInvitationSchema>
+  "/password-setup",
+  ControllerIO<"json", PasswordSetupSchema>
 >
 
 export type GetInvitedMembersContext = Context<HonoEnv, "/invited-members">

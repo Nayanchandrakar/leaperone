@@ -1,15 +1,19 @@
 import { db } from "@app/database"
 import {
   createBusinessCard,
+  deleteBusinessCardById,
   getCardByWorkspaceIdAndUserId,
   getCardIdByWorkspaceIdAndUserId,
   updateBusinessCardById,
 } from "@app/database/repository/business-card"
+import type { BusinessCardStatus } from "@app/database/types"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type {
   CreateBusinessCardContext,
+  DeleteCardContext,
   GetBusinessCardContext,
+  ToogleCardStatusContext,
   UpdateBusinessCardContext,
 } from "@/types/bussiness.types"
 
@@ -18,7 +22,7 @@ export class BusinessService {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
     const card = await getCardByWorkspaceIdAndUserId(db, workspace.id, user.id)
-    return c.json({ data: card })
+    return c.json({ card })
   }
 
   async createBusinessCard(c: CreateBusinessCardContext) {
@@ -79,5 +83,44 @@ export class BusinessService {
       data: updated,
       message: MSG.BUSINESS_CARD.UPDATED_SUCCESS,
     })
+  }
+
+  async deleteBusinessCard(c: DeleteCardContext) {
+    const { user } = c.get("session")
+    const { id } = c.req.valid("json")
+    const workspace = c.get("workspace")
+
+    const deleted = await deleteBusinessCardById(db, workspace.id, user.id, id)
+
+    if (!deleted) {
+      throw ApiError.notFound(MSG.BUSINESS_CARD.NOT_FOUND)
+    }
+
+    return c.json({ message: MSG.BUSINESS_CARD.DELETED_SUCCESS })
+  }
+
+  async toggleBusinessCardStatus(c: ToogleCardStatusContext) {
+    const { user } = c.get("session")
+    const workspace = c.get("workspace")
+    const { id, status } = c.req.valid("json")
+
+    const existingCard = await getCardIdByWorkspaceIdAndUserId(db, workspace.id, user.id)
+
+    if (!existingCard) {
+      throw ApiError.notFound(MSG.BUSINESS_CARD.NOT_FOUND)
+    }
+
+    const toggled = await updateBusinessCardById(db, id, { status })
+
+    if (!toggled) {
+      throw ApiError.badRequest(MSG.BUSINESS_CARD.FAILED_TO_TOGGLE_STATUS)
+    }
+
+    const message: Record<BusinessCardStatus, string> = {
+      active: MSG.BUSINESS_CARD.ACTIVATED_SUCCESS,
+      inactive: MSG.BUSINESS_CARD.DEACTIVATED_SUCCESS,
+    }
+
+    return c.json({ message: message[status] })
   }
 }

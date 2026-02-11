@@ -8,7 +8,7 @@ import {
   hasWorkspace,
 } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
-import type { GetAnalyticsContext, OverviewContext } from "@/types/analytics.types"
+import type { GetAnalyticsContext } from "@/types/analytics.types"
 
 export class AnalyticsController extends HttpController {
   constructor(private readonly analyticsService: AnalyticsService) {
@@ -25,7 +25,6 @@ export class AnalyticsController extends HttpController {
       hasActiveSubscription,
       this.getAnalytics,
     )
-    this.router.get("/overview", isAuth, hasWorkspace, hasActiveSubscription, this.getOverview)
     this.router.get(
       "/members",
       isAuth,
@@ -38,10 +37,6 @@ export class AnalyticsController extends HttpController {
 
   getAnalytics = async (c: GetAnalyticsContext) => {
     return await this.analyticsService.getAnalytics(c)
-  }
-
-  getOverview = async (c: OverviewContext) => {
-    return await this.analyticsService.getOverview(c)
   }
 
   getInvitedMembers = async (c: GetAnalyticsContext) => {

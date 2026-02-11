@@ -1,4 +1,8 @@
-import { createBusinessCardSchema } from "@app/zod/schema/bussiness"
+import {
+  createBusinessCardSchema,
+  deleteCardSchema,
+  toogleCardStatusSchema,
+} from "@app/zod/schema/bussiness"
 import type { BusinessService } from "@/features/business/service/business.service"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import { isAuth } from "@/middlewares/auth.middleware"
@@ -7,7 +11,9 @@ import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
   CreateBusinessCardContext,
+  DeleteCardContext,
   GetBusinessCardContext,
+  ToogleCardStatusContext,
   UpdateBusinessCardContext,
 } from "@/types/bussiness.types"
 
@@ -17,7 +23,7 @@ export class BusinessController extends HttpController {
     this.initializeRoutes()
   }
 
-  protected override initializeRoutes(): void {
+  protected override initializeRoutes() {
     this.router.get("/", isAuth, hasWorkspace, hasActiveSubscription, this.getBusinessCard)
 
     this.router.post(
@@ -29,6 +35,7 @@ export class BusinessController extends HttpController {
       canManageBusinessCard,
       this.createBusinessCard,
     )
+
     this.router.put(
       "/edit",
       zodValidator("json", createBusinessCardSchema.partial()),
@@ -37,6 +44,24 @@ export class BusinessController extends HttpController {
       hasActiveSubscription,
       canManageBusinessCard,
       this.updateBusinessCard,
+    )
+
+    this.router.put(
+      "/status",
+      zodValidator("json", toogleCardStatusSchema),
+      isAuth,
+      hasWorkspace,
+      hasActiveSubscription,
+      this.toggleBusinessCardStatus,
+    )
+
+    this.router.delete(
+      "/delete",
+      zodValidator("json", deleteCardSchema),
+      isAuth,
+      hasWorkspace,
+      hasActiveSubscription,
+      this.deleteBusinessCard,
     )
   }
 
@@ -50,5 +75,13 @@ export class BusinessController extends HttpController {
 
   updateBusinessCard = async (c: UpdateBusinessCardContext) => {
     return await this.businessService.updateBusinessCard(c)
+  }
+
+  deleteBusinessCard = async (c: DeleteCardContext) => {
+    return await this.businessService.deleteBusinessCard(c)
+  }
+
+  toggleBusinessCardStatus = async (c: ToogleCardStatusContext) => {
+    return await this.businessService.toggleBusinessCardStatus(c)
   }
 }

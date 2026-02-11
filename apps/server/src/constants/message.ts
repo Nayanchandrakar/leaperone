@@ -122,8 +122,12 @@ export const MSG = {
     ALREADY_EXISTS: "Business card already exists.",
     FAILED_TO_UPDATE: "Failed to update business card",
     FAILED_TO_CREATE: "Failed to create business card",
+    FAILED_TO_TOGGLE_STATUS: "Failed to toggle business card status",
     CREATED_SUCCESS: "Business card created successfully",
     UPDATED_SUCCESS: "Business card updated successfully",
+    DELETED_SUCCESS: "Business card deleted successfully",
+    ACTIVATED_SUCCESS: "Business card activated successfully",
+    DEACTIVATED_SUCCESS: "Business card deactivated successfully",
     PERMISSION_DENIED:
       "You don’t have permission to manage business cards. Please contact your manager.",
   },

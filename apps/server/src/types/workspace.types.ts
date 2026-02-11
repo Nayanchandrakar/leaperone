@@ -4,7 +4,10 @@ import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
 export type UpdateCardSettingCtx = Context<
   HonoEnv,
-  "/card-setting",
+  "/dashboard/card-setting",
   ControllerIO<"json", WorkspaceCardSettingSchema>
 >
-export type GetCardSettingsCtx = Context<HonoEnv, "/settings">
+
+export type GetWorkspaceStatsCtx = Context<HonoEnv, "/dashboard/stats">
+
+export type GetCardSettingsCtx = Context<HonoEnv, "/dashboard/settings">

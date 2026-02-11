@@ -32,11 +32,11 @@ import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import type {
-  AcceptInvitationContext,
   AccessAsMemberContext,
   ExitImpersonationContext,
   GetInvitedMembersContext,
   InviteMemberContext,
+  PasswordSetupContext,
 } from "@/types/invitation.types"
 import { getDate } from "@/utils/date"
 import { getInviteKey } from "@/utils/invite.utils"
@@ -106,7 +106,7 @@ export class InvitationService {
     return c.json({ message: MSG.INVITATION.INVITE_SENT })
   }
 
-  async acceptInvitation(c: AcceptInvitationContext) {
+  async passwordSetup(c: PasswordSetupContext) {
     const { token, password } = c.req.valid("json")
 
     // Get the invitation id from the redis

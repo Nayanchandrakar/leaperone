@@ -451,7 +451,7 @@ export class AuthService {
   async getPermission(c: GetPermissionContext) {
     const { user } = c.get("session")
     const { permission } = c.req.valid("query")
-    const hasPermission = await hasPermissions(db, user.id, [permission as PermissionType])
-    return c.json({ hasPermission })
+    const permissionResult = await hasPermissions(db, user.id, [permission as PermissionType])
+    return c.json({ permission: permissionResult })
   }
 }

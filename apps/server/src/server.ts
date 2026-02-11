@@ -7,7 +7,7 @@ import { invitationController } from "@/features/invitation/modules/invitation.m
 import { marketingController } from "@/features/marketing/modules/marketing.module"
 import { subscriptionController } from "@/features/subscription/modules/subscription.module"
 import { userController } from "@/features/user/modules/user.module"
-import { workspaceController } from "@/features/workspace/modules/workspace.module"
+import { workspaceController } from "@/features/worskpace/modules/workspace.module"
 
 const server = new BootStrap([
   analyticsController,
