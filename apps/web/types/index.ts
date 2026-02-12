@@ -8,6 +8,7 @@ export type Session = {
   createdAt: string
   updatedAt: string
   expiresAt: string
+  impersonatedBy: string | null
   ipAddress: string | undefined
   userAgent: string | undefined
 }

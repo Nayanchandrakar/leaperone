@@ -1,4 +1,4 @@
-import type { BusinessCard, File } from "@app/database/types"
+import type { BusinessCard, File, InvitationStatus } from "@app/database/types"
 
 export type LogoutMutationRes = {
   message: string
@@ -77,20 +77,20 @@ export type ToogleCardStatusRes = {
 }
 
 // NEED_TO_UPDATE
+
 export type InvitedMember = {
-  userId: string
   name: string
-  email: string
+  image: string
+  memberId: string
+  expiresAt: Date
   jobRole: string | null
-  username: string
-  status: "pending" | "accepted"
-  expiresAt: string | Date | null
-  acceptedAt: string | Date | null
+  status: InvitationStatus
+  isRestricted?: boolean
 }
 
 // NEED_TO_UPDATE
 export type GetInvitedMembersRes = {
-  data: InvitedMember[]
+  members: InvitedMember[]
   seats: {
     used: number
     total: number
@@ -140,5 +140,9 @@ export type GetBusinessCardsRes = {
 }
 
 export type DeleteCardRes = {
+  message: string
+}
+
+export type ExitImpersonationMutationRes = {
   message: string
 }

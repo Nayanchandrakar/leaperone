@@ -1,5 +1,5 @@
 import { TeamManagementButtons } from "@/features/dashboard/components/buttons/teams/team-management-buttons"
-import { TeamMemberSearchBar } from "@/features/dashboard/components/pages/teams/team-member-search-bar"
+import { TeamMemberSearchBar } from "@/features/dashboard/components/pages/teams/team-member-searchbar"
 
 export const TeamsControlBar = () => {
   return (

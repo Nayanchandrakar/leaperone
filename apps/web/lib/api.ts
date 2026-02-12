@@ -7,6 +7,7 @@ import type {
   GetAnalyticsSchema,
   GetFileSchema,
   GetPermissionSchema,
+  ImpersonateSchema,
   InviteMemberSchema,
   LoginFormSchema,
   PasswordSetupSchema,
@@ -27,6 +28,7 @@ import type {
   ContactUsMutationRes,
   DeleteCardRes,
   DeleteFilesRes,
+  ExitImpersonationMutationRes,
   GetAnalyticsRes,
   GetBusinessCardsRes,
   GetFilesRes,
@@ -124,8 +126,12 @@ export async function inviteMemberMutation(params: InviteMemberSchema) {
 }
 
 // NEED_TO_UPDATE
-export async function accessAsMemberMutation(params: RestrictUserSchema) {
-  return await API.post("/invitation/access-as-member", params)
+export async function impersonateMutation(params: ImpersonateSchema) {
+  return await API.post<{ message: string }>("/invitation/impersonate", params)
+}
+
+export async function exitImpersonationMutation() {
+  return await API.post<ExitImpersonationMutationRes>("/invitation/exit-impersonation")
 }
 
 export async function getWorkspaceSettings() {
@@ -147,4 +153,8 @@ export async function deleteCardMutation(data: DeleteCardSchema) {
 
 export async function toogleCardStatusMutation(data: ToogleCardStatusSchema) {
   return await API.put<ToogleCardStatusRes>("/business-card/status", data)
+}
+
+export async function restrictUserMutation(params: RestrictUserSchema) {
+  return await API.put<{ message: string }>("/auth/restrict", params)
 }

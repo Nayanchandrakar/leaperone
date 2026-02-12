@@ -1,5 +1,6 @@
-import { Button } from "@app/ui/components/button"
+import { Button, buttonVariants } from "@app/ui/components/button"
 import { Plus, Settings } from "lucide-react"
+import Link from "next/link"
 
 export const TeamManagementButtons = () => {
   return (
@@ -9,10 +10,13 @@ export const TeamManagementButtons = () => {
         <span>Add Team Member</span>
       </Button>
 
-      <Button type="button" variant="green-outline">
-        <Settings className="size-4" />
-        <span>Team Settings</span>
-      </Button>
+      <Link
+        href="/dashboard/team-settings"
+        className={buttonVariants({ variant: "green-outline" })}
+      >
+        <Settings />
+        Team Settings
+      </Link>
     </div>
   )
 }

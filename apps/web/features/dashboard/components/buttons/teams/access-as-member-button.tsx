@@ -1,9 +1,19 @@
-import { Button } from "@app/ui/components/button"
+import { DropdownMenuItem } from "@app/ui/components/dropdown-menu"
+import { UserCircle } from "lucide-react"
+import { useImpersonateMember } from "@/features/dashboard/hooks/teams/use-impersonate-member"
 
-export const AccessAsMemberButton = () => {
+interface AccessAsMemberButtonProps {
+  memberId: string
+  isRestricted: boolean
+}
+
+export const AccessAsMemberButton = ({ memberId, isRestricted }: AccessAsMemberButtonProps) => {
+  const { mutate, isPending } = useImpersonateMember()
+
   return (
-    <Button variant="gray-outline" size="sm">
+    <DropdownMenuItem onClick={() => mutate({ memberId })} disabled={isPending || isRestricted}>
+      <UserCircle />
       Access as Member
-    </Button>
+    </DropdownMenuItem>
   )
 }
