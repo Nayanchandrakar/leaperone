@@ -1,4 +1,3 @@
-import { ApiError } from "@app/error"
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { permissions as permissionTable, rolePermissions, roles, workspaceMembers } from "../schema"
 import type { DatabaseClient, PermissionType } from "../types"
@@ -28,6 +27,7 @@ export async function hasPermissions(
     return result.length > 0
   } catch (error) {
     console.error(error)
-    throw ApiError.internalServerError()
+    // throw ApiError.internalServerError()
+    return false
   }
 }

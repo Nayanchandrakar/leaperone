@@ -129,12 +129,12 @@ export async function getInvitationsByWorkspaceId(db: DatabaseClient, workspaceI
     const data = await db
       .select({
         name: users.name,
-        email: users.email,
+        image: users.image,
         jobRole: users.jobRole,
-        username: users.username,
         status: invitations.status,
+        memberId: invitations.userId,
+        isRestricted: users.isRestricted,
         expiresAt: invitations.expiresAt,
-        acceptedAt: invitations.acceptedAt,
       })
       .from(invitations)
       .innerJoin(users, eq(invitations.userId, users.id))

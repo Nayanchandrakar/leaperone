@@ -1,5 +1,5 @@
 import {
-  accessAsMemberSchema,
+  impersonateSchema,
   inviteMemberSchema,
   passwordSetupSchema,
 } from "@app/zod/schema/invitation"
@@ -14,9 +14,9 @@ import {
 } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
-  AccessAsMemberContext,
   ExitImpersonationContext,
   GetInvitedMembersContext,
+  ImpersonateContext,
   InviteMemberContext,
   PasswordSetupContext,
 } from "@/types/invitation.types"
@@ -51,22 +51,22 @@ export class InvitationController extends HttpController {
       this.getInvitedMembers,
     )
     this.router.post(
-      "/access-as-member",
-      zodValidator("json", accessAsMemberSchema),
+      "/impersonate",
+      zodValidator("json", impersonateSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
       hasTeamPlan,
-      this.accessAsMember,
+      this.impersonate,
     )
     this.router.delete(
-      "/remove-member",
-      zodValidator("json", accessAsMemberSchema),
+      "/exit-impersonation",
+      zodValidator("json", impersonateSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
       hasTeamPlan,
-      this.removeMember,
+      this.exitImpersonation,
     )
     this.router.post(
       "/exit-impersonation",
@@ -90,15 +90,15 @@ export class InvitationController extends HttpController {
     return await this.invitationService.getInvitedMembers(c)
   }
 
-  accessAsMember = async (c: AccessAsMemberContext) => {
-    return await this.invitationService.accessAsMember(c)
+  impersonate = async (c: ImpersonateContext) => {
+    return await this.invitationService.impersonate(c)
   }
 
   exitImpersonation = async (c: ExitImpersonationContext) => {
     return await this.invitationService.exitImpersonation(c)
   }
 
-  removeMember = async (c: AccessAsMemberContext) => {
+  removeMember = async (c: ImpersonateContext) => {
     return await this.invitationService.removeMember(c)
   }
 }

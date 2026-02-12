@@ -20,7 +20,7 @@ import type {
   toogleCardStatusSchema,
 } from "../schema/bussiness"
 import type {
-  accessAsMemberSchema,
+  impersonateSchema,
   inviteMemberSchema,
   passwordSetupSchema,
 } from "../schema/invitation"
@@ -46,7 +46,7 @@ export type DeleteFilesSchema = z.infer<typeof deleteFilesSchema>
 export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
 export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type PasswordSetupSchema = z.infer<typeof passwordSetupSchema>
-export type AccessAsMemberSchema = z.infer<typeof accessAsMemberSchema>
+export type ImpersonateSchema = z.infer<typeof impersonateSchema>
 export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>

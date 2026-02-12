@@ -32,9 +32,9 @@ import { MSG } from "@/constants/message"
 import { setSessionCookie } from "@/features/auth/utils/cookie"
 import { sendMail } from "@/features/auth/utils/mail"
 import type {
-  AccessAsMemberContext,
   ExitImpersonationContext,
   GetInvitedMembersContext,
+  ImpersonateContext,
   InviteMemberContext,
   PasswordSetupContext,
 } from "@/types/invitation.types"
@@ -159,12 +159,12 @@ export class InvitationService {
     const invitations = await getInvitationsByWorkspaceId(db, workspace.id)
 
     return c.json({
-      data: invitations,
+      members: invitations,
       seats: { used: invitations.length, total: subscription.seats },
     })
   }
 
-  async accessAsMember(c: AccessAsMemberContext) {
+  async impersonate(c: ImpersonateContext) {
     const { user, session } = c.get("session")
     const workspace = c.get("workspace")
     const { memberId } = c.req.valid("json")
@@ -223,11 +223,7 @@ export class InvitationService {
     // Owner now operates with member's permissions and context
     setSessionCookie(c, SESSION_COOKIE_NAME, memberSession.session.token)
 
-    return c.json({
-      success: true,
-      data: { user: memberSession.user },
-      message: MSG.INVITATION.ACCESS_AS_MEMBER_SUCCESS,
-    })
+    return c.json({ message: MSG.INVITATION.IMPERSONATE_SUCCESS })
   }
 
   async exitImpersonation(c: ExitImpersonationContext) {
@@ -288,7 +284,7 @@ export class InvitationService {
     })
   }
 
-  async removeMember(c: AccessAsMemberContext) {
+  async removeMember(c: ImpersonateContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
     const { memberId } = c.req.valid("json")

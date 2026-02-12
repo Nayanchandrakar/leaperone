@@ -1,5 +1,5 @@
 import z from "zod"
-import { callbackUrl, email, name, password, username } from "../utils"
+import { callbackUrl, email, id, name, password, username } from "../utils"
 
 export const registerFormSchema = z.object({
   name,
@@ -55,7 +55,8 @@ export const setNewPasswordSchema = z
   })
 
 export const restrictUserSchema = z.object({
-  memberId: z.cuid2(),
+  memberId: id,
+  restrict: z.boolean(),
 })
 
 export const getPermissionSchema = z.object({

@@ -6,6 +6,6 @@ export const getAnalyticsSchema = z.object({
   ids: z
     .array(z.cuid2())
     .min(1)
-    .max(10)
+    .max(11)
     .transform((arr) => [...new Set(arr)]),
 })

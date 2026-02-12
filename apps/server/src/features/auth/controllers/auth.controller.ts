@@ -27,7 +27,7 @@ import type {
   PasswordResetContext,
   RegisterContext,
   ResetPasswordContext,
-  RestrictUserContext,
+  RestrictUserCtx,
   UserNameContext,
   VerifyEmailContext,
 } from "@/types/auth.types"
@@ -60,23 +60,14 @@ export class AuthController extends HttpController {
       verifyToken,
       this.verifyEmail,
     )
-    this.router.post(
-      "/restrict-user",
+    this.router.put(
+      "/restrict",
       zodValidator("json", restrictUserSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
       hasTeamPlan,
       this.restrictUser,
-    )
-    this.router.post(
-      "/unrestrict-user",
-      zodValidator("json", restrictUserSchema),
-      isAuth,
-      hasWorkspace,
-      hasActiveSubscription,
-      hasTeamPlan,
-      this.unRestrictUser,
     )
     this.router.post(
       "/change-password",
@@ -126,12 +117,8 @@ export class AuthController extends HttpController {
     return await this.authService.resetPassword(c)
   }
 
-  restrictUser = async (c: RestrictUserContext) => {
+  restrictUser = async (c: RestrictUserCtx) => {
     return await this.authService.restrictUser(c)
-  }
-
-  unRestrictUser = async (c: RestrictUserContext) => {
-    return await this.authService.unRestrictUser(c)
   }
 
   changePassword = async (c: ChangePasswordContext) => {

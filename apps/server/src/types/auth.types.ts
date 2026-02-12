@@ -37,9 +37,9 @@ export type ResetPasswordContext = Context<
   ControllerIO<"json", ResetPasswordSchema>
 >
 
-export type RestrictUserContext = Context<
+export type RestrictUserCtx = Context<
   HonoEnv,
-  "/reset-password",
+  "/restrict",
   ControllerIO<"json", RestrictUserSchema>
 >
 

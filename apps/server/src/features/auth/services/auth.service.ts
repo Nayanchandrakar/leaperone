@@ -40,7 +40,7 @@ import type {
   PasswordResetContext,
   RegisterContext,
   ResetPasswordContext,
-  RestrictUserContext,
+  RestrictUserCtx,
   UserNameContext,
   VerifyEmailContext,
 } from "@/types/auth.types"
@@ -314,81 +314,56 @@ export class AuthService {
     return c.json({ success: true, message: MSG.PASSWORD.RESET_SUCCESS })
   }
 
-  async restrictUser(c: RestrictUserContext) {
-    const session = c.get("session")
+  async restrictUser(c: RestrictUserCtx) {
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
-    const { memberId } = c.req.valid("json")
+    const { memberId, restrict } = c.req.valid("json")
 
-    if (memberId === session.user.id) {
-      throw ApiError.badRequest(MSG.USER.CANNOT_RESTRICT_YOURSELF)
+    // If the user tries to restrict/unrestrict themselves, throw immediately
+    if (memberId === user.id) {
+      throw ApiError.badRequest(MSG.USER.SELF_RESTRICT_DENIED)
     }
 
-    // Check if the current user has permission to restrict members (only workspace owner)
-    const canRestrict = await hasPermissions(db, session.user.id, [PERMISSIONS.RESTRICT_MEMBERS])
+    // Check if the current user has permission to restrict/unrestrict members (only workspace owner)
+    const canRestrict = await hasPermissions(db, user.id, [
+      restrict ? PERMISSIONS.RESTRICT_MEMBERS : PERMISSIONS.UNRESTRICT_MEMBERS,
+    ])
 
     if (!canRestrict) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
-    // Check if the user to be restricted is a member of the same workspace
+    // Fetch the target member (the one to restrict/unrestrict) from the workspace
     const member = await getWorkspaceMember(db, memberId, workspace.id)
 
     if (!member) {
       throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
     }
 
+    // Actually update restricted status on the member
     const updatedUser = await updateUserById(db, memberId, {
-      isRestricted: true,
+      isRestricted: restrict,
     })
 
     if (!updatedUser) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
 
-    await this.sessionService.revoke(memberId)
-    return c.json({ meta: { memberId } })
-  }
-
-  async unRestrictUser(c: RestrictUserContext) {
-    const session = c.get("session")
-    const workspace = c.get("workspace")
-    const { memberId } = c.req.valid("json")
-
-    if (memberId === session.user.id) {
-      throw ApiError.badRequest(MSG.USER.CANNOT_UNRESTRICT_YOURSELF)
+    if (restrict) {
+      // Revoke sessions when restricting user
+      await this.sessionService.revoke(memberId)
+    } else {
+      // Refresh session when unrestricting user
+      await this.sessionService.refresh({
+        id: updatedUser.id,
+        isRestricted: false,
+        updatedAt: new Date(),
+      })
     }
 
-    // Check if the current user has permission to unrestrict members (only workspace owner)
-    const canUnrestrict = await hasPermissions(db, session.user.id, [
-      PERMISSIONS.UNRESTRICT_MEMBERS,
-    ])
-
-    if (!canUnrestrict) {
-      throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
-    }
-
-    // Check if the user to be unrestricted is a member of the same workspace
-    const member = await getWorkspaceMember(db, memberId, workspace.id)
-
-    if (!member) {
-      throw ApiError.notFound(MSG.INVITATION.MEMBER_NOT_FOUND)
-    }
-
-    const updatedUser = await updateUserById(db, memberId, {
-      isRestricted: false,
+    return c.json({
+      message: restrict ? MSG.USER.RESTRICTED_USER : MSG.USER.UNRESTRICTED_USER,
     })
-
-    if (!updatedUser) {
-      throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
-    }
-
-    await this.sessionService.refresh({
-      id: updatedUser.id,
-      isRestricted: false,
-      updatedAt: new Date(),
-    })
-
-    return c.json({ meta: { memberId } })
   }
 
   async createEmailVerificationToken(email: string) {

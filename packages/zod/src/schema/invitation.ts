@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { email, jobRole, name, password, username } from "../utils"
+import { email, id, jobRole, name, password, username } from "../utils"
 
 export const inviteMemberSchema = z.object({
   name,
@@ -8,10 +8,10 @@ export const inviteMemberSchema = z.object({
   username,
 })
 
-export const acceptInvitationSchema = z
+export const passwordSetupSchema = z
   .object({
     password,
-    token: z.cuid2().trim(),
+    token: id,
     confirmPassword: password,
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -19,6 +19,4 @@ export const acceptInvitationSchema = z
     error: "Passwords does not match",
   })
 
-export const accessAsMemberSchema = z.object({
-  memberId: z.cuid2().trim(),
-})
+export const impersonateSchema = z.object({ memberId: id })
