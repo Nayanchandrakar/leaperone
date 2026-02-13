@@ -71,7 +71,7 @@ export const BusinessCardItem = ({
             <ToogleCardStatus id={id} status={status} />
             <DropdownMenuItem>Change Card Link</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DeleteCardButton id={id} />
+            <DeleteCardButton businessCardId={id} />
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

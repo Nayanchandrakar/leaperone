@@ -1,8 +1,8 @@
 import type { InvitationStatus } from "@app/database/types"
 
-export function getStatusColor(status: InvitationStatus, expiresAt: string) {
+export function getStatusColor(status: InvitationStatus, isRestricted: boolean) {
   // If invitation has expired and is still pending, show red color
-  if (status === "pending" && new Date(expiresAt) < new Date()) {
+  if (isRestricted) {
     return "#ef4444"
   }
 

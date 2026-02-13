@@ -1,0 +1,55 @@
+import {
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from "@app/ui/components/dropdown-menu"
+import { CreditCard, Edit, Eye, PlusCircle } from "lucide-react"
+import Link from "next/link"
+import { DeleteCardButton } from "@/features/dashboard/components/buttons/dashboard/delete-card-button"
+import { useImpersonateMember } from "@/features/dashboard/hooks/teams/use-impersonate-member"
+
+type BusinessCardActionsProps = {
+  memberId: string
+  businessCardId: string | null
+}
+
+export const BusinessCardActions = ({ memberId, businessCardId }: BusinessCardActionsProps) => {
+  const { mutate, isPending } = useImpersonateMember()
+
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <CreditCard />
+        Business Card Actions
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuSubContent className="w-38">
+          <DropdownMenuItem disabled={!businessCardId} asChild>
+            <Link href={`/preview/${memberId}`}>
+              <Eye />
+              View card
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem disabled={isPending} onClick={() => mutate({ memberId, path: "/" })}>
+            <PlusCircle />
+            Create card
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            disabled={isPending || !businessCardId}
+            onClick={() => mutate({ memberId, path: "/?mode=edit" })}
+          >
+            <Edit />
+            Edit card
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DeleteCardButton businessCardId={businessCardId} />
+        </DropdownMenuSubContent>
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
+  )
+}

@@ -115,7 +115,6 @@ export async function getPermission(params: GetPermissionSchema) {
   return await API.get<GetPermissionRes>("/auth/permission", { params })
 }
 
-// NEED_TO_UPDATE
 export async function getInvitedMembers() {
   return await API.get<GetInvitedMembersRes>("/invitation/invited-members")
 }

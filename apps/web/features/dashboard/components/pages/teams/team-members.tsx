@@ -98,5 +98,5 @@ const MembersGridContent = ({ members }: MembersListProps) => {
 
 const MembersList = ({ members }: MembersListProps) => {
   if (!members.length) return null
-  return members.map((member) => <MemberItem key={member.memberId} member={member} />)
+  return members.map((member) => <MemberItem key={member.memberId} {...member} />)
 }

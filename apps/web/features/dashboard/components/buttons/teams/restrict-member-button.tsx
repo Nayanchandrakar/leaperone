@@ -17,12 +17,12 @@ export const RestrictMemberButton = ({ memberId, isRestricted }: RestrictMemberB
     >
       {isRestricted ? (
         <>
-          <Unlock className="size-4 mr-2" />
+          <Unlock />
           Enable Account
         </>
       ) : (
         <>
-          <Lock className="size-4 mr-2" />
+          <Lock />
           Disable Account
         </>
       )}

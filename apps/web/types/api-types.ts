@@ -76,16 +76,15 @@ export type ToogleCardStatusRes = {
   message: string
 }
 
-// NEED_TO_UPDATE
-
 export type InvitedMember = {
   name: string
   image: string
-  memberId: string
   expiresAt: Date
+  memberId: string
+  isRestricted: boolean
   jobRole: string | null
   status: InvitationStatus
-  isRestricted?: boolean
+  businessCardId: string | null
 }
 
 // NEED_TO_UPDATE
