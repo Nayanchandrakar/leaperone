@@ -13,10 +13,15 @@ import { useImpersonateMember } from "@/features/dashboard/hooks/teams/use-imper
 
 type BusinessCardActionsProps = {
   memberId: string
+  isRestricted: boolean
   businessCardId: string | null
 }
 
-export const BusinessCardActions = ({ memberId, businessCardId }: BusinessCardActionsProps) => {
+export const BusinessCardActions = ({
+  memberId,
+  isRestricted,
+  businessCardId,
+}: BusinessCardActionsProps) => {
   const { mutate, isPending } = useImpersonateMember()
 
   return (
@@ -26,7 +31,7 @@ export const BusinessCardActions = ({ memberId, businessCardId }: BusinessCardAc
         Business Card Actions
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
-        <DropdownMenuSubContent className="w-38">
+        <DropdownMenuSubContent className="w-40">
           <DropdownMenuItem disabled={!businessCardId} asChild>
             <Link href={`/preview/${memberId}`}>
               <Eye />
@@ -34,7 +39,10 @@ export const BusinessCardActions = ({ memberId, businessCardId }: BusinessCardAc
             </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem disabled={isPending} onClick={() => mutate({ memberId, path: "/" })}>
+          <DropdownMenuItem
+            disabled={isPending || isRestricted}
+            onClick={() => mutate({ memberId, path: "/" })}
+          >
             <PlusCircle />
             Create card
           </DropdownMenuItem>
