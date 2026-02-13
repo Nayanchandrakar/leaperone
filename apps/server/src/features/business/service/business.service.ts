@@ -1,7 +1,7 @@
 import { db } from "@app/database"
 import {
   createBusinessCard,
-  deleteBusinessCardById,
+  deleteBusinessCardWithPermission,
   getCardByWorkspaceIdAndUserId,
   getCardIdByWorkspaceIdAndUserId,
   updateBusinessCardById,
@@ -90,7 +90,13 @@ export class BusinessService {
     const { id } = c.req.valid("json")
     const workspace = c.get("workspace")
 
-    const deleted = await deleteBusinessCardById(db, workspace.id, user.id, id)
+    const deleted = await deleteBusinessCardWithPermission(
+      db,
+      user.id,
+      workspace.id,
+      workspace.ownerId,
+      id,
+    )
 
     if (!deleted) {
       throw ApiError.notFound(MSG.BUSINESS_CARD.NOT_FOUND)

@@ -106,3 +106,31 @@ export async function deleteBusinessCardById(
     throw ApiError.internalServerError()
   }
 }
+
+export async function deleteBusinessCardWithPermission(
+  db: DatabaseClient,
+  userId: string,
+  workspaceId: string,
+  workspaceOwnerId: string,
+  businessCardId: string,
+) {
+  try {
+    // Workspace owner can delete any card in their workspace,
+    // Regular members can only delete their own cards.
+    const whereArgs = [
+      eq(businessCard.id, businessCardId),
+      eq(businessCard.workspaceId, workspaceId),
+      workspaceOwnerId === userId ? undefined : eq(businessCard.userId, userId),
+    ].filter(Boolean)
+
+    const [deleted] = await db
+      .delete(businessCard)
+      .where(and(...whereArgs))
+      .returning({ id: businessCard.id })
+
+    return deleted
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}

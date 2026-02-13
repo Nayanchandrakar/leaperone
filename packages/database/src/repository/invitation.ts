@@ -1,6 +1,14 @@
 import { ApiError } from "@app/error"
 import { and, desc, eq } from "drizzle-orm"
-import { accounts, invitations, roles, storage, users, workspaceMembers } from "../schema"
+import {
+  accounts,
+  businessCard,
+  invitations,
+  roles,
+  storage,
+  users,
+  workspaceMembers,
+} from "../schema"
 import type { AcceptInvitation, CreateWorkspaceInviteAndUser, DatabaseClient } from "../types"
 
 export async function getInvitationById(db: DatabaseClient, invitationId: string) {
@@ -133,11 +141,16 @@ export async function getInvitationsByWorkspaceId(db: DatabaseClient, workspaceI
         jobRole: users.jobRole,
         status: invitations.status,
         memberId: invitations.userId,
+        businessCardId: businessCard.id,
         isRestricted: users.isRestricted,
         expiresAt: invitations.expiresAt,
       })
       .from(invitations)
       .innerJoin(users, eq(invitations.userId, users.id))
+      .leftJoin(
+        businessCard,
+        and(eq(businessCard.userId, invitations.userId), eq(businessCard.workspaceId, workspaceId)),
+      )
       .where(eq(invitations.workspaceId, workspaceId))
       .orderBy(desc(invitations.createdAt))
 

@@ -120,7 +120,7 @@ export const MSG = {
   },
 
   BUSINESS_CARD: {
-    NOT_FOUND: "Business card not found",
+    NOT_FOUND: "Business card not found.",
     ALREADY_EXISTS: "Business card already exists.",
     FAILED_TO_UPDATE: "Failed to update business card",
     FAILED_TO_CREATE: "Failed to create business card",
