@@ -7,9 +7,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@app/ui/components/dropdown-menu"
+import { cn } from "@app/ui/lib/utils"
 import { Edit, Eye, MoreVertical, Share2 } from "lucide-react"
 import Link from "next/link"
-
 import { CopyCardLink } from "@/features/dashboard/components/buttons/dashboard/copy-card-link"
 import { DeleteCardButton } from "@/features/dashboard/components/buttons/dashboard/delete-card-button"
 import { DownloadQRMenu } from "@/features/dashboard/components/buttons/dashboard/download-qr-menu"
@@ -26,6 +26,7 @@ type BusinessCardItemProps = {
 export const BusinessCardItem = ({
   item: { id, status, identifier, qrCode },
 }: BusinessCardItemProps) => {
+  const isInactive = status === "inactive"
   const openDialog = useShareBusinessCard((state) => state.openDialog)
 
   return (
@@ -34,7 +35,10 @@ export const BusinessCardItem = ({
         <CopyCardLink link={createBusinessCardLink(id)} />
         <div className="flex items-center gap-2 w-fit">
           <p className="font-normal text-sm text-muted-foreground">
-            Card Status: <span className="text-primary capitalize">{status}</span>
+            Card Status: &nbsp;
+            <span className={cn("capitalize", isInactive ? "text-destructive" : "text-primary")}>
+              {status}
+            </span>
           </p>
           <ToolTipProvider content={STAUS_TOOLTIP_CONTENT[status]} />
         </div>

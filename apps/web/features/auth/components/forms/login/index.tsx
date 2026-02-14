@@ -58,8 +58,9 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  variant="gray"
                   type="email"
+                  variant="gray"
+                  autoComplete="new-password"
                   placeholder="Enter your email address"
                   disabled={isPending}
                   {...field}
@@ -88,8 +89,9 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
               <FormControl>
                 <PasswordInput
                   variant="gray"
-                  placeholder="Enter your password"
                   disabled={isPending}
+                  autoComplete="new-password"
+                  placeholder="Enter your password"
                   {...field}
                 />
               </FormControl>

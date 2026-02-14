@@ -120,9 +120,8 @@ export async function getInvitedMembers() {
   return await API.get<GetInvitedMembersRes>("/invitation/invited-members")
 }
 
-// NEED_TO_UPDATE
 export async function inviteMemberMutation(params: InviteMemberSchema) {
-  return await API.post("/invitation/invite", params)
+  return await API.post<{ message: string }>("/invitation/invite", params)
 }
 
 // NEED_TO_UPDATE

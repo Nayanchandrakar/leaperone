@@ -71,13 +71,13 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => mutate(data))}
         className="w-full max-w-md space-y-6"
+        onSubmit={form.handleSubmit((data) => mutate(data))}
       >
         <AuthHeader className="mb-12 text-center">
           <AuthTitle>Create Your Account</AuthTitle>
           <AuthDescription>
-            Unlock Leaper CRM with a paid plan, your first 7 days are free!
+            Unlock Leaper One with a paid plan, your first 7 days are free!
           </AuthDescription>
         </AuthHeader>
 
@@ -90,18 +90,18 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
               <FormControl>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 flex items-center border-r px-3 text-sm font-normal text-muted-foreground">
-                    myleaper.com
+                    leaperone.com
                   </span>
                   <Input
                     variant="gray"
                     className="pl-32"
-                    placeholder="Enter your username"
                     disabled={isPending}
+                    autoComplete="new-password"
+                    placeholder="Enter your username"
                     {...field}
                   />
                 </div>
               </FormControl>
-
               <RenderMessage queryError={error} isLoading={isLoading} exists={isUserNameTaken} />
             </FormItem>
           )}
@@ -116,8 +116,9 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
               <FormControl>
                 <Input
                   variant="gray"
-                  placeholder="Enter your full name"
                   disabled={isPending}
+                  autoComplete="new-password"
+                  placeholder="Enter your full name"
                   {...field}
                 />
               </FormControl>
@@ -134,10 +135,11 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  variant="gray"
                   type="email"
-                  placeholder="Enter your email address"
+                  variant="gray"
                   disabled={isPending}
+                  autoComplete="new-password"
+                  placeholder="Enter your email address"
                   {...field}
                 />
               </FormControl>
@@ -155,8 +157,9 @@ export const SignupForm = ({ callbackUrl }: ISignupForm) => {
               <FormControl>
                 <PasswordInput
                   variant="gray"
-                  placeholder="Enter your password"
                   disabled={isPending}
+                  autoComplete="new-password"
+                  placeholder="Enter your password"
                   {...field}
                 />
               </FormControl>

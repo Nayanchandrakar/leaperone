@@ -2,7 +2,7 @@ import { CLIENT_ENV } from "@app/env/web/client"
 import axios from "axios"
 
 export const API = axios.create({
-  timeout: 5000,
+  timeout: 7000,
   withCredentials: true,
   baseURL: `${CLIENT_ENV.NEXT_PUBLIC_SERVER_URL}/api`,
 })
