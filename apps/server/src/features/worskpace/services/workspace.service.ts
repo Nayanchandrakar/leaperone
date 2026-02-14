@@ -39,19 +39,22 @@ export class WorkspaceService {
     const workspace = c.get("workspace")
     const subscription = c.get("subscription")
 
-    // Single database call to get all overview data
     const overview = await getWorkspaceStats(db, workspace.id, user.id)
 
     if (!overview) {
       throw ApiError.notFound(MSG.ANALYTICS.OVERVIEW_NOT_FOUND)
     }
 
+    const isOwner = workspace.ownerId === user.id
+    overview.seatsUsed = isOwner ? overview.seatsUsed : 1
+    subscription.seats = isOwner ? subscription.seats : 1
+
     return c.json({
-      formsSubmitted: 0,
       seatsUsed: overview.seatsUsed,
       totalSeats: subscription.seats,
       totalClicks: overview.totalClicks,
       currentMonthClicks: overview.monthlyClicks,
+      formsSubmitted: 0, // Placeholder; update implementation if/when supported
     })
   }
 
