@@ -1,6 +1,4 @@
 import { db } from "@app/database"
-import { PERMISSIONS } from "@app/database/constants/permissions"
-import { hasPermissions } from "@app/database/repository/role-permission"
 import { getWorkspaceStats } from "@app/database/repository/workspace"
 import {
   getWorkspaceSettingsByWorkspaceId,
@@ -9,19 +7,19 @@ import {
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type {
-  GetCardSettingsCtx,
+  GetWorkspaceSettingsCtx,
   GetWorkspaceStatsCtx,
-  UpdateCardSettingCtx,
+  UpdateWorkspaceSettingsCtx,
 } from "@/types/workspace.types"
 
 export class WorkspaceService {
-  async getCardSettings(c: GetCardSettingsCtx) {
+  async getWorkspaceSettings(c: GetWorkspaceSettingsCtx) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
 
-    const canManage = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_WORKSPACE])
+    const isOwner = workspace.ownerId === user.id
 
-    if (!canManage) {
+    if (!isOwner) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
@@ -58,14 +56,14 @@ export class WorkspaceService {
     })
   }
 
-  async updateCardSetting(c: UpdateCardSettingCtx) {
+  async updateWorkspaceSettings(c: UpdateWorkspaceSettingsCtx) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
     const { createAndEdit } = c.req.valid("json")
 
-    const canManage = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_WORKSPACE])
+    const isOwner = workspace.ownerId === user.id
 
-    if (!canManage) {
+    if (!isOwner) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
@@ -75,6 +73,6 @@ export class WorkspaceService {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
     }
 
-    return c.json({ data: { createAndEdit } })
+    return c.json({ message: MSG.GENERAL.SUCCESS })
   }
 }

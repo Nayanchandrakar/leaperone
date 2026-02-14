@@ -3,15 +3,17 @@ import { cn } from "@app/ui/lib/utils"
 
 type TeamPermissionCardProps = {
   title: string
-  checked: boolean
   className?: string
   description: string
+  checked: boolean | undefined
+  disabled?: boolean
   onCheckedChange: (checked: boolean) => void
 }
 
 export const TeamPermissionCard = ({
   title,
   checked,
+  disabled,
   className,
   description,
   onCheckedChange,
@@ -27,7 +29,8 @@ export const TeamPermissionCard = ({
         <h3 className="font-medium text-sm">{title}</h3>
         <p className="font-normal text-xs text-muted-foreground">{description}</p>
       </div>
-      <Switch checked={checked} onCheckedChange={onCheckedChange} />
+
+      <Switch checked={Boolean(checked)} onCheckedChange={onCheckedChange} disabled={disabled} />
     </div>
   )
 }

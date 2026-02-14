@@ -3,6 +3,8 @@ import { Button } from "@app/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@app/ui/components/dropdown-menu"
@@ -54,11 +56,18 @@ export const MemberItem = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" className="w-56">
-          <ImpersonationButton memberId={memberId} isRestricted={isRestricted} />
-          <BusinessCardActions businessCardId={businessCardId} memberId={memberId} />
-          <RestrictMemberButton memberId={memberId} isRestricted={isRestricted} />
-          <DropdownMenuSeparator />
-          <DeleteMemberButton />
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Member Actions</DropdownMenuLabel>
+            <ImpersonationButton memberId={memberId} isRestricted={isRestricted} />
+            <BusinessCardActions
+              memberId={memberId}
+              isRestricted={isRestricted}
+              businessCardId={businessCardId}
+            />
+            <RestrictMemberButton memberId={memberId} isRestricted={isRestricted} />
+            <DropdownMenuSeparator />
+            <DeleteMemberButton />
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

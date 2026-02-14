@@ -27,7 +27,7 @@ import type {
 import type { contactUsFormSchema, supportFormSchema } from "../schema/marketing"
 import type { checkoutSessionSchema } from "../schema/subscription"
 import type { updateProfileSchema } from "../schema/user"
-import type { workspaceCardSettingSchema } from "../schema/workspace"
+import type { workspaceSettingsSchema } from "../schema/workspace"
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>
 export type LoginFormSchema = z.infer<typeof loginFormSchema>
@@ -47,7 +47,7 @@ export type NameChangeFormSchema = z.infer<typeof nameChangeFormSchema>
 export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type PasswordSetupSchema = z.infer<typeof passwordSetupSchema>
 export type ImpersonateSchema = z.infer<typeof impersonateSchema>
-export type WorkspaceCardSettingSchema = z.infer<typeof workspaceCardSettingSchema>
+export type WorkspaceSettingsSchema = z.infer<typeof workspaceSettingsSchema>
 export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
 export type UpateProfileSchema = z.infer<typeof updateProfileSchema>

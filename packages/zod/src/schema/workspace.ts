@@ -1,5 +1,5 @@
 import { z } from "zod"
 
-export const workspaceCardSettingSchema = z.object({
+export const workspaceSettingsSchema = z.object({
   createAndEdit: z.boolean(),
 })

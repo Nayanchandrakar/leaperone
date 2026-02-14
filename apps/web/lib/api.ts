@@ -18,6 +18,7 @@ import type {
   SupportFormSchema,
   ToogleCardStatusSchema,
   UserNameFormSchema,
+  WorkspaceSettingsSchema,
 } from "@app/zod/types"
 import type { AxiosRequestConfig } from "axios"
 import { API } from "@/config/axios"
@@ -135,6 +136,10 @@ export async function exitImpersonationMutation() {
 
 export async function getWorkspaceSettings() {
   return await API.get<GetWorkspaceSettingsRes>("/workspace/settings")
+}
+
+export async function updateWorkspaceSettings(params: WorkspaceSettingsSchema) {
+  return await API.put<{ message: string }>("/workspace/settings", params)
 }
 
 // NEED_TO_UPDATE

@@ -1,4 +1,4 @@
-import { workspaceCardSettingSchema } from "@app/zod/schema/workspace"
+import { workspaceSettingsSchema } from "@app/zod/schema/workspace"
 import { HttpController } from "@/features/shared/controllers/http.controller"
 import type { WorkspaceService } from "@/features/worskpace/services/workspace.service"
 import { isAuth } from "@/middlewares/auth.middleware"
@@ -9,9 +9,9 @@ import {
 } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
-  GetCardSettingsCtx,
+  GetWorkspaceSettingsCtx,
   GetWorkspaceStatsCtx,
-  UpdateCardSettingCtx,
+  UpdateWorkspaceSettingsCtx,
 } from "@/types/workspace.types"
 
 export class WorkspaceController extends HttpController {
@@ -29,17 +29,17 @@ export class WorkspaceController extends HttpController {
       hasWorkspace,
       hasActiveSubscription,
       hasTeamPlan,
-      this.getCardSettings,
+      this.getWorkspaceSettings,
     )
 
     this.router.put(
-      "/card-setting",
-      zodValidator("json", workspaceCardSettingSchema),
+      "/settings",
+      zodValidator("json", workspaceSettingsSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
       hasTeamPlan,
-      this.updateCardSetting,
+      this.updateWorkspaceSettings,
     )
   }
 
@@ -47,11 +47,11 @@ export class WorkspaceController extends HttpController {
     return await this.workspaceService.getWorkspaceStats(c)
   }
 
-  getCardSettings = async (c: GetCardSettingsCtx) => {
-    return await this.workspaceService.getCardSettings(c)
+  getWorkspaceSettings = async (c: GetWorkspaceSettingsCtx) => {
+    return await this.workspaceService.getWorkspaceSettings(c)
   }
 
-  updateCardSetting = async (c: UpdateCardSettingCtx) => {
-    return await this.workspaceService.updateCardSetting(c)
+  updateWorkspaceSettings = async (c: UpdateWorkspaceSettingsCtx) => {
+    return await this.workspaceService.updateWorkspaceSettings(c)
   }
 }

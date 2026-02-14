@@ -1,13 +1,13 @@
-import type { WorkspaceCardSettingSchema } from "@app/zod/types"
+import type { WorkspaceSettingsSchema } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
-export type UpdateCardSettingCtx = Context<
+export type UpdateWorkspaceSettingsCtx = Context<
   HonoEnv,
-  "/dashboard/card-setting",
-  ControllerIO<"json", WorkspaceCardSettingSchema>
+  "/dashboard/settings",
+  ControllerIO<"json", WorkspaceSettingsSchema>
 >
 
 export type GetWorkspaceStatsCtx = Context<HonoEnv, "/dashboard/stats">
 
-export type GetCardSettingsCtx = Context<HonoEnv, "/dashboard/settings">
+export type GetWorkspaceSettingsCtx = Context<HonoEnv, "/dashboard/settings">
