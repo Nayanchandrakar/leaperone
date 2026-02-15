@@ -51,3 +51,23 @@ export async function getWorkspaceStats(db: DatabaseClient, workspaceId: string,
     throw ApiError.internalServerError()
   }
 }
+
+/**
+ * Check if a user is a member of the workspace
+ */
+export async function isWorkspaceMember(db: DatabaseClient, workspaceId: string, userId: string) {
+  try {
+    const [member] = await db
+      .select({ userId: workspaceMembers.userId })
+      .from(workspaceMembers)
+      .where(
+        and(eq(workspaceMembers.workspaceId, workspaceId), eq(workspaceMembers.userId, userId)),
+      )
+      .limit(1)
+
+    return !!member
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}

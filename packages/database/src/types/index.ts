@@ -118,9 +118,9 @@ export type SessionWithImpersonation = {
   impersonatedBy?: ImpersonationMetadata
 }
 
-export type GetAnalyticsParams = {
-  workspaceId: string
-  fromDate: Date
+export type AnalyticsParams = {
   toDate: Date
-  ids: string[]
+  fromDate: Date
+  memberId: string
+  workspaceId: string
 }

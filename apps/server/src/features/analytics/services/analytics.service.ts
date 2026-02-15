@@ -1,11 +1,9 @@
 import { db } from "@app/database"
 import { PERMISSIONS } from "@app/database/constants/permissions"
-import {
-  getAnalyticsData,
-  getInvitedMembersForAnalytics,
-  getTotalScansCount,
-} from "@app/database/repository/analytics"
+import { getAnalyticsData, getInvitedMembersForAnalytics } from "@app/database/repository/analytics"
 import { hasPermissions } from "@app/database/repository/role-permission"
+import { isWorkspaceMember } from "@app/database/repository/workspace"
+import { getTotalClicks } from "@app/database/repository/workspace-stats"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type { GetAnalyticsContext } from "@/types/analytics.types"
@@ -14,50 +12,44 @@ export class AnalyticsService {
   async getAnalytics(c: GetAnalyticsContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
-    const subscription = c.get("subscription")
+    const { plan } = c.get("subscription")
 
-    const { fromDate, toDate, ids } = c.req.valid("query")
+    const { fromDate, toDate, memberId } = c.req.valid("query")
 
-    // - Users can always view their own analytics
-    // - To view others' analytics: need team plan + VIEW_MEMBER_ANALYTICS permission
-    // - Database joins ensure only workspace members' data is accessible
-    const isViewingOthers = ids.length > 1 || !ids.includes(user.id)
-
-    if (isViewingOthers) {
-      // Must have team plan for multi-member analytics
-      if (subscription.plan !== "team") {
-        throw ApiError.forbidden(MSG.SUBSCRIPTION.TEAM_PLAN_REQUIRED)
+    // Validate memberId access based on subscription plan
+    if (memberId === user.id) {
+      // User is requesting their own analytics - always allowed
+    } else {
+      // User is requesting someone else's analytics
+      if (plan === "individual") {
+        // Individual plan users can only view their own analytics
+        throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
       }
 
-      // Must have permission to view member analytics within the workspace
-      const hasPermission = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
+      // Team plan users can view other workspace members' analytics
+      const isMember = await isWorkspaceMember(db, workspace.id, memberId)
 
-      if (!hasPermission) {
-        throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
+      // But we need to verify the requested memberId is actually a workspace member
+      if (!isMember) {
+        throw ApiError.notFound(MSG.ANALYTICS.MEMBER_NOT_ACCESSIBLE)
       }
     }
 
-    // Fetch analytics records for the selected date range and user IDs
+    // Fetch analytics records for the selected member
     const records = await getAnalyticsData(db, {
-      workspaceId: workspace.id,
-      fromDate,
       toDate,
-      ids,
+      fromDate,
+      memberId,
+      workspaceId: workspace.id,
     })
 
-    // Get total scans count (all time)
-    const totalScans = await getTotalScansCount(db, workspace.id, ids)
+    // Get total scans count for this member (all time)
+    const totalClicks = await getTotalClicks(db, workspace.id, memberId)
+
     return c.json({
-      data: {
-        totalScans,
-        scansInRange: records.length,
-        records,
-      },
-      meta: {
-        ids,
-        toDate: toDate.toISOString(),
-        fromDate: fromDate.toISOString(),
-      },
+      records,
+      totalClicks,
+      scansInRange: records.length,
     })
   }
 
@@ -75,9 +67,8 @@ export class AnalyticsService {
     // Fetch workspace members for analytics (excluding current user)
     const members = await getInvitedMembersForAnalytics(db, workspace.id, user.id)
 
-    // Return raw member data - client handles display and formatting
     return c.json({
-      data: members,
+      members,
     })
   }
 }
