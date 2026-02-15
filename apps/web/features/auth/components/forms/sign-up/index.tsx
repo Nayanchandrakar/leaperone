@@ -1,192 +1,131 @@
 "use client"
 
 import { Button } from "@app/ui/components/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@app/ui/components/form"
-import { Input } from "@app/ui/components/input"
+import { Field, FieldDescription, FieldError, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { registerFormSchema } from "@app/zod/schema/auth"
-import type { RegisterFormSchema } from "@app/zod/types"
-import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
-import { useForm } from "react-hook-form"
+import { useAppForm } from "@/components/ui/app-form"
 import { PasswordInput } from "@/components/ui/password-input"
-import { RenderMessage } from "@/features/auth/components/forms/sign-up/render-username-message"
+import { UserNameField } from "@/features/auth/components/forms/sign-up/username-field"
 import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useRegister } from "@/features/auth/hooks/sign-up/use-register"
-import {
-  useAccountFormContext,
-  useUsernameError,
-} from "@/features/auth/hooks/sign-up/use-username-check"
 
-interface ISignupForm {
+interface SignupFormProps {
   callbackUrl: string
 }
 
-export const SignupForm = ({ callbackUrl }: ISignupForm) => {
-  const { mutate, isPending } = useRegister()
+export const SignupForm = ({ callbackUrl = "/" }: SignupFormProps) => {
+  const { mutateAsync, isPending } = useRegister()
 
-  const form = useForm<RegisterFormSchema>({
-    resolver: zodResolver(registerFormSchema),
-    mode: "onChange",
+  const form = useAppForm({
     defaultValues: {
-      username: "",
-      email: "",
       name: "",
+      email: "",
+      username: "",
       password: "",
       callbackUrl,
     },
+    validators: {
+      onChange: registerFormSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await mutateAsync(value)
+    },
   })
-
-  const {
-    error,
-    isValid,
-    isError,
-    setError,
-    isLoading,
-    usernameError,
-    isUserNameTaken,
-    clearErrors,
-  } = useAccountFormContext(form)
-
-  useUsernameError({
-    error,
-    setError,
-    isLoading,
-    clearErrors,
-    isUserNameTaken,
-    usernameErrorType: usernameError?.type,
-  })
-
-  const isSubmissionDisabled = [isError, !isValid, isLoading, isPending, isUserNameTaken].some(
-    Boolean,
-  )
 
   return (
-    <Form {...form}>
+    <form.AppForm>
       <form
-        className="w-full max-w-md space-y-6"
-        onSubmit={form.handleSubmit((data) => mutate(data))}
+        onSubmit={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          form.handleSubmit()
+        }}
+        className="w-full max-w-md"
       >
-        <AuthHeader className="mb-12 text-center">
+        <AuthHeader className="mb-12">
           <AuthTitle>Create Your Account</AuthTitle>
           <AuthDescription>
             Unlock Leaper One with a paid plan, your first 7 days are free!
           </AuthDescription>
         </AuthHeader>
 
-        <FormField
-          name="username"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="data-[error=true]:text-black">Username</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center border-r px-3 text-sm font-normal text-muted-foreground">
-                    leaperone.com
-                  </span>
-                  <Input
+        <FieldSet>
+          <UserNameField form={form} fields={{ username: "username" }} disabled={isPending} />
+
+          <form.AppField
+            name="name"
+            children={({ TextField }) => (
+              <TextField
+                type="text"
+                variant="gray"
+                label="Full Name"
+                disabled={isPending}
+                autoComplete="new-password"
+                placeholder="Enter your full name"
+              />
+            )}
+          />
+
+          <form.AppField
+            name="email"
+            children={({ TextField }) => (
+              <TextField
+                type="email"
+                label="Email"
+                variant="gray"
+                disabled={isPending}
+                autoComplete="new-password"
+                placeholder="Enter your email address"
+              />
+            )}
+          />
+
+          <form.AppField
+            name="password"
+            children={({ state, name, handleBlur, handleChange }) => {
+              const isInvalid = state.meta.isTouched && !state.meta.isValid
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={name}>Password</FieldLabel>
+                  <PasswordInput
                     variant="gray"
-                    className="pl-32"
+                    id={name}
+                    name={name}
+                    onBlur={handleBlur}
+                    value={state.value}
                     disabled={isPending}
+                    aria-invalid={isInvalid}
                     autoComplete="new-password"
-                    placeholder="Enter your username"
-                    {...field}
+                    placeholder="Enter your password"
+                    onChange={(e) => handleChange(e.target.value)}
                   />
-                </div>
-              </FormControl>
-              <RenderMessage queryError={error} isLoading={isLoading} exists={isUserNameTaken} />
-            </FormItem>
-          )}
-        />
+                  {isInvalid && <FieldError errors={state.meta.errors} />}
+                </Field>
+              )
+            }}
+          />
 
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input
-                  variant="gray"
-                  disabled={isPending}
-                  autoComplete="new-password"
-                  placeholder="Enter your full name"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FieldDescription className="text-xs text-center">
+            By clicking continue, you agree to our&nbsp;
+            <Link href="/terms-of-service">Terms of Service</Link> and&nbsp;
+            <Link href="/privacy-policy">Privacy Policy</Link>
+          </FieldDescription>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  variant="gray"
-                  disabled={isPending}
-                  autoComplete="new-password"
-                  placeholder="Enter your email address"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          name="password"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  variant="gray"
-                  disabled={isPending}
-                  autoComplete="new-password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="text-center text-xs text-muted-foreground">
-          By creating an account, you agree to our&nbsp;
-          <Link tabIndex={-1} href="/terms-and-condition" className="underline hover:text-primary">
-            Terms of Service
-          </Link>
-          &nbsp;and&nbsp;
-          <Link tabIndex={-1} href="/privacy-policy" className="underline hover:text-primary">
-            Privacy Policy
-          </Link>
-        </div>
-
-        <div className="flex flex-col items-center gap-4">
-          <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
-            Create Account
-          </Button>
-
-          <AuthRedirect linkHref="/login" linkMessage="Log In" message="Already have an account?" />
-        </div>
+          <div className="space-y-4">
+            <form.Subscribe
+              selector={({ canSubmit, isPristine }) => !canSubmit || isPristine}
+              children={(isDisabled) => (
+                <Button size="lg" type="submit" className="w-full" disabled={isDisabled}>
+                  Create Account
+                </Button>
+              )}
+            />
+            <AuthRedirect href="/login" linkText="Log In" text="Already have an account?" />
+          </div>
+        </FieldSet>
       </form>
-    </Form>
+    </form.AppForm>
   )
 }

@@ -1,117 +1,111 @@
 "use client"
 
 import { Button } from "@app/ui/components/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@app/ui/components/form"
-import { Input } from "@app/ui/components/input"
+import { Field, FieldError, FieldLabel, FieldSet } from "@app/ui/components/field"
 import { loginFormSchema } from "@app/zod/schema/auth"
-import type { LoginFormSchema } from "@app/zod/types"
-import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
-import { useForm } from "react-hook-form"
+import { useAppForm } from "@/components/ui/app-form"
 import { PasswordInput } from "@/components/ui/password-input"
 import { AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { AuthRedirect } from "@/features/auth/components/ui/auth-redirect"
 import { useLogin } from "@/features/auth/hooks/login/use-login"
 
-interface ILoginForm {
+interface LoginFormProps {
   callbackUrl: string
 }
 
-export const LoginForm = ({ callbackUrl }: ILoginForm) => {
-  const { mutate, isPending } = useLogin()
+export const LoginForm = ({ callbackUrl = "/" }: LoginFormProps) => {
+  const { mutateAsync, isPending } = useLogin()
 
-  const form = useForm<LoginFormSchema>({
-    resolver: zodResolver(loginFormSchema),
-    mode: "onChange",
+  const form = useAppForm({
     defaultValues: {
       email: "",
       password: "",
       callbackUrl,
     },
+    validators: {
+      onChange: loginFormSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await mutateAsync(value)
+    },
   })
 
-  const formState = form.formState
-  const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
-
   return (
-    <Form {...form}>
+    <form.AppForm>
       <form
-        onSubmit={form.handleSubmit((data) => mutate(data))}
-        className="w-full max-w-md space-y-6"
+        onSubmit={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          form.handleSubmit()
+        }}
+        className="w-full max-w-md"
       >
-        <AuthHeader className="mb-12 text-center">
+        <AuthHeader className="mb-12">
           <AuthTitle>Welcome Back</AuthTitle>
         </AuthHeader>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  variant="gray"
-                  autoComplete="new-password"
-                  placeholder="Enter your email address"
-                  disabled={isPending}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Password
-                <Link
-                  tabIndex={-1}
-                  href="/forgot-password"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-accent-foreground"
-                >
-                  Forgot your password?
-                </Link>
-              </FormLabel>
-              <FormControl>
-                <PasswordInput
-                  variant="gray"
-                  disabled={isPending}
-                  autoComplete="new-password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="flex flex-col items-center gap-4">
-          <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
-            Log In
-          </Button>
-
-          <AuthRedirect
-            linkHref="/sign-up"
-            linkMessage="Sign up"
-            message="Don't have an account?"
+        <FieldSet>
+          <form.AppField
+            name="email"
+            children={({ TextField }) => (
+              <TextField
+                type="email"
+                label="Email"
+                variant="gray"
+                disabled={isPending}
+                autoComplete="new-password"
+                placeholder="Enter your email address"
+              />
+            )}
           />
-        </div>
+
+          <form.AppField
+            name="password"
+            children={({ state, name, handleBlur, handleChange }) => {
+              const isInvalid = state.meta.isTouched && !state.meta.isValid
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={name}>
+                    Password
+                    <Link
+                      href="/forgot-password"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-accent-foreground"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </FieldLabel>
+                  <PasswordInput
+                    variant="gray"
+                    id={name}
+                    name={name}
+                    onBlur={handleBlur}
+                    value={state.value}
+                    disabled={isPending}
+                    aria-invalid={isInvalid}
+                    autoComplete="new-password"
+                    placeholder="Enter your password"
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {isInvalid && <FieldError errors={state.meta.errors} />}
+                </Field>
+              )
+            }}
+          />
+
+          <div className="space-y-4">
+            <form.Subscribe
+              selector={({ canSubmit, isPristine }) => !canSubmit || isPristine}
+              children={(isDisabled) => (
+                <Button size="lg" type="submit" className="w-full" disabled={isDisabled}>
+                  Log In
+                </Button>
+              )}
+            />
+            <AuthRedirect href="/sign-up" linkText="Sign up" text="Don't have an account?" />
+          </div>
+        </FieldSet>
       </form>
-    </Form>
+    </form.AppForm>
   )
 }

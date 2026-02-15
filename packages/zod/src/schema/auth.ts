@@ -6,13 +6,13 @@ export const registerFormSchema = z.object({
   email,
   password,
   username,
-  callbackUrl: callbackUrl.default("/").optional(),
+  callbackUrl,
 })
 
 export const loginFormSchema = z.object({
-  password,
   email,
-  callbackUrl: callbackUrl.default("/").optional(),
+  password,
+  callbackUrl,
 })
 
 export const userNameSchema = z.object({

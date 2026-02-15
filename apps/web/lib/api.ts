@@ -64,8 +64,8 @@ export async function loginMutation(params: LoginFormSchema) {
   return await API.post<LoginMutationRes>("/auth/login", params)
 }
 
-export async function getUserName(params: UserNameFormSchema) {
-  return await API.get<GetUserNameRes>("/auth/username", { params })
+export async function getUserName(params: UserNameFormSchema, signal: AbortSignal) {
+  return await API.get<GetUserNameRes>("/auth/username", { params, signal })
 }
 
 export async function requestPasswordResetMutation(params: EmailSchema) {

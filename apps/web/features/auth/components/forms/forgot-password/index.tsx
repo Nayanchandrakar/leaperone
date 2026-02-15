@@ -1,41 +1,36 @@
 "use client"
 
 import { Button } from "@app/ui/components/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@app/ui/components/form"
-import { Input } from "@app/ui/components/input"
+import { FieldSet } from "@app/ui/components/field"
 import { emailSchema } from "@app/zod/schema/auth"
-import type { EmailSchema } from "@app/zod/types"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useAppForm } from "@/components/ui/app-form"
 import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { useRequestPasswordReset } from "@/features/auth/hooks/forgot-password/use-forgot-password"
 
 export const ForgotPasswordForm = () => {
-  const { mutate, isPending } = useRequestPasswordReset()
+  const { mutateAsync, isPending } = useRequestPasswordReset()
 
-  const form = useForm<EmailSchema>({
-    resolver: zodResolver(emailSchema),
-    mode: "onChange",
+  const form = useAppForm({
     defaultValues: {
       email: "",
     },
+    validators: {
+      onChange: emailSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await mutateAsync(value)
+    },
   })
 
-  const formState = form.formState
-  const isSubmissionDisabled = [isPending, !formState.isValid].some(Boolean)
-
   return (
-    <Form {...form}>
+    <form.AppForm>
       <form
-        onSubmit={form.handleSubmit((data) => mutate(data))}
-        className="w-full max-w-md space-y-6"
+        onSubmit={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          form.handleSubmit()
+        }}
+        className="w-full max-w-md"
       >
         <AuthHeader className="mb-12 text-center">
           <AuthTitle>Forgot Password</AuthTitle>
@@ -44,30 +39,31 @@ export const ForgotPasswordForm = () => {
           </AuthDescription>
         </AuthHeader>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  variant="gray"
-                  disabled={isPending}
-                  placeholder="Enter your email address"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FieldSet>
+          <form.AppField
+            name="email"
+            children={({ TextField }) => (
+              <TextField
+                type="email"
+                label="Email"
+                variant="gray"
+                disabled={isPending}
+                autoComplete="new-password"
+                placeholder="Enter your email address"
+              />
+            )}
+          />
 
-        <Button size="lg" type="submit" className="w-full" disabled={isSubmissionDisabled}>
-          Submit
-        </Button>
+          <form.Subscribe
+            selector={({ canSubmit, isPristine }) => !canSubmit || isPristine}
+            children={(isDisabled) => (
+              <Button size="lg" type="submit" className="w-full" disabled={isDisabled}>
+                Submit
+              </Button>
+            )}
+          />
+        </FieldSet>
       </form>
-    </Form>
+    </form.AppForm>
   )
 }
