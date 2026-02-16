@@ -33,10 +33,10 @@ export const analytics = pgTable("analytics", {
   deviceModel: text(),
 
   // Location information
-  continent: text(),
-  country: text(),
-  region: text(),
-  city: text(),
+  continent: text().notNull(),
+  country: text().notNull(),
+  region: text().notNull(),
+  city: text().notNull(),
   latitude: doublePrecision(),
   longitude: doublePrecision(),
 

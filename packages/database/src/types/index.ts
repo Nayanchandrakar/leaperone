@@ -119,8 +119,8 @@ export type SessionWithImpersonation = {
 }
 
 export type AnalyticsParams = {
-  toDate: Date
-  fromDate: Date
+  to: Date
+  from: Date
   memberId: string
   workspaceId: string
 }

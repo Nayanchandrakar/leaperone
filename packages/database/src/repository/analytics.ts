@@ -1,11 +1,11 @@
 import { ApiError } from "@app/error"
-import { and, eq, ne } from "drizzle-orm"
+import { and, eq, gte, lte, ne } from "drizzle-orm"
 import { analytics, users, workspaceMembers } from "../schema"
 import type { AnalyticsParams, DatabaseClient } from "../types"
 
 export async function getAnalyticsData(
   db: DatabaseClient,
-  { workspaceId, fromDate, toDate, memberId }: AnalyticsParams,
+  { workspaceId, from, to, memberId }: AnalyticsParams,
 ) {
   try {
     // Query analytics filtered by workspaceId, memberId, and date range
@@ -30,9 +30,10 @@ export async function getAnalyticsData(
       .from(analytics)
       .where(
         and(
+          lte(analytics.clickedAt, to),
+          gte(analytics.clickedAt, from),
           eq(analytics.userId, memberId),
           eq(analytics.workspaceId, workspaceId),
-          // between(analytics.clickedAt, fromDate, toDate),
         ),
       )
 

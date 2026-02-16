@@ -14,20 +14,19 @@ export class AnalyticsService {
     const workspace = c.get("workspace")
     const { plan } = c.get("subscription")
 
-    const { fromDate, toDate, memberId } = c.req.valid("query")
+    const { from, to, memberId } = c.req.valid("query")
 
-    // Validate memberId access based on subscription plan
-    if (memberId === user.id) {
-      // User is requesting their own analytics - always allowed
-    } else {
-      // User is requesting someone else's analytics
+    // If no memberId provided, use the current user's ID
+    const targetMemberId = memberId || user.id
+
+    if (targetMemberId !== user.id) {
+      // Not requesting own analytics
       if (plan === "individual") {
-        // Individual plan users can only view their own analytics
         throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
       }
 
       // Team plan users can view other workspace members' analytics
-      const isMember = await isWorkspaceMember(db, workspace.id, memberId)
+      const isMember = await isWorkspaceMember(db, workspace.id, targetMemberId)
 
       // But we need to verify the requested memberId is actually a workspace member
       if (!isMember) {
@@ -35,16 +34,16 @@ export class AnalyticsService {
       }
     }
 
-    // Fetch analytics records for the selected member
-    const records = await getAnalyticsData(db, {
-      toDate,
-      fromDate,
-      memberId,
-      workspaceId: workspace.id,
-    })
-
-    // Get total scans count for this member (all time)
-    const totalClicks = await getTotalClicks(db, workspace.id, memberId)
+    // STEP 4: Data retrieval
+    const [records, totalClicks] = await Promise.all([
+      getAnalyticsData(db, {
+        to,
+        from,
+        memberId: targetMemberId,
+        workspaceId: workspace.id,
+      }),
+      getTotalClicks(db, workspace.id, targetMemberId),
+    ])
 
     return c.json({
       records,
@@ -58,17 +57,15 @@ export class AnalyticsService {
     const workspace = c.get("workspace")
 
     // Must have permission to view member analytics (which includes seeing member list)
-    const hasPermission = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
+    const canViewMembers = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
 
-    if (!hasPermission) {
+    if (!canViewMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
     }
 
     // Fetch workspace members for analytics (excluding current user)
-    const members = await getInvitedMembersForAnalytics(db, workspace.id, user.id)
+    const invitedMembers = await getInvitedMembersForAnalytics(db, workspace.id, user.id)
 
-    return c.json({
-      members,
-    })
+    return c.json({ members: invitedMembers })
   }
 }
