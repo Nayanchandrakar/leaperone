@@ -1,4 +1,4 @@
-import type { BusinessCard, File, InvitationStatus } from "@app/database/types"
+import type { Analytics, BusinessCard, File, InvitationStatus } from "@app/database/types"
 
 export type LogoutMutationRes = {
   message: string
@@ -100,38 +100,10 @@ export type GetWorkspaceSettingsRes = {
   createAndEdit: boolean
 }
 
-// NEED_TO_UPDATE
-export type AnalyticsRecord = {
-  id: string
-  userId: string
-  name: string
-  device: string | null
-  deviceVendor: string | null
-  deviceModel: string | null
-  browser: string | null
-  browserVersion: string | null
-  os: string | null
-  osVersion: string | null
-  country: string | null
-  region: string | null
-  city: string | null
-  latitude: number | null
-  longitude: number | null
-  clickedAt: Date | string
-}
-
-// NEED_TO_UPDATE
 export type GetAnalyticsRes = {
-  data: {
-    totalScans: number
-    scansInRange: number
-    records: AnalyticsRecord[]
-  }
-  meta: {
-    ids: string[]
-    toDate: string
-    fromDate: string
-  }
+  totalClicks: number
+  scansInRange: number
+  records: Analytics[]
 }
 
 export type GetBusinessCardsRes = {

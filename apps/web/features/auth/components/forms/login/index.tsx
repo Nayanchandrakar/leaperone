@@ -69,6 +69,7 @@ export const LoginForm = ({ callbackUrl = "/" }: LoginFormProps) => {
                   <FieldLabel htmlFor={name}>
                     Password
                     <Link
+                      tabIndex={-1}
                       href="/forgot-password"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-accent-foreground"
                     >

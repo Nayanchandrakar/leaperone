@@ -1,14 +1,12 @@
-import type { CHART_TIME_RANGES } from "@app/core/constants"
-
 export type GeoDataItem = {
   label: string
   count: number
   percentage: number
 }
 
-export type ChartTimeRange = (typeof CHART_TIME_RANGES)[number]
+export type TimeRangeValue = "today" | "last-3-days" | "last-7-days" | "last-30-days" | "all-time"
 
-export type AnalyticsTimeRange = {
-  title: string
-  value: ChartTimeRange
-}
+export type TimeRangeData = {
+  label: string
+  value: TimeRangeValue
+}[]

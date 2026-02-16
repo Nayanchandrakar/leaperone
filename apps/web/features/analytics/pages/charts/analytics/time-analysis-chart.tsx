@@ -9,6 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@app/ui/components/chart"
+import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
@@ -32,7 +33,10 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export const TimeAnalysisChart = () => {
+interface TimeAnalysisChartProps {
+  isPending: boolean
+}
+export const TimeAnalysisChart = ({ isPending }: TimeAnalysisChartProps) => {
   return (
     <section className="flex flex-col gap-5">
       <ChartHeading>
@@ -40,42 +44,53 @@ export const TimeAnalysisChart = () => {
         <ChartDescription>This inform at what time scans are done</ChartDescription>
       </ChartHeading>
 
-      <Card className=" text-muted-foreground bg-muted shadow-none border-zinc-300">
-        <CardHeader>
-          <CardTitle className="font-medium text-base ">
-            Scan count by Time for Last 7 days
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer
-            config={chartConfig}
-            className="[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-zinc-200"
-          >
-            <BarChart accessibilityLayer data={chartData}>
-              <CartesianGrid vertical={false} stroke="var(--border)" />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={true}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
+      {isPending ? (
+        <Skeleton className="min-h-96.5" />
+      ) : (
+        <Card className=" text-muted-foreground bg-muted shadow-none border-zinc-300">
+          <CardHeader>
+            <CardTitle className="font-medium text-base ">
+              Scan count by Time for Last 7 days
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer
+              config={chartConfig}
+              className="[&_.recharts-rectangle.recharts-tooltip-cursor]:fill-zinc-200"
+            >
+              <BarChart accessibilityLayer data={chartData}>
+                <CartesianGrid vertical={false} stroke="var(--border)" />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={true}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
 
-              <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-              <ChartLegend content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />} />
-              <Bar
-                dataKey="desktop"
-                stackId="a"
-                fill="var(--color-desktop)"
-                radius={[0, 0, 4, 4]}
-              />
+                <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                <ChartLegend
+                  content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />}
+                />
+                <Bar
+                  dataKey="desktop"
+                  stackId="a"
+                  fill="var(--color-desktop)"
+                  radius={[0, 0, 4, 4]}
+                />
 
-              <Bar dataKey="mobile" stackId="a" fill="var(--color-mobile)" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
+                <Bar
+                  dataKey="mobile"
+                  stackId="a"
+                  fill="var(--color-mobile)"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      )}
     </section>
   )
 }

@@ -1,7 +1,10 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
-export const LocationAnalysisMap = () => {
+interface LocationAnalysisMapProps {
+  isPending: boolean
+}
+export const LocationAnalysisMap = ({ isPending }: LocationAnalysisMapProps) => {
   return (
     <section className="flex flex-col gap-5 w-full xl:col-span-2">
       <ChartHeading>

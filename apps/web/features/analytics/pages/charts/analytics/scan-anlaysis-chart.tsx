@@ -9,7 +9,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@app/ui/components/chart"
+import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import type { GetAnalyticsRes } from "@/types/api-types"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -31,7 +33,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export const ScanAnalysisChart = () => {
+interface ScanAnalysisChartProps {
+  isPending: boolean
+  data: GetAnalyticsRes
+}
+
+export const ScanAnalysisChart = ({ isPending, data }: ScanAnalysisChartProps) => {
+  if (isPending) {
+    return <Skeleton className="min-h-96.5" />
+  }
+
   return (
     <Card className=" text-muted-foreground bg-muted shadow-none border-zinc-300">
       <CardHeader>

@@ -5,17 +5,23 @@ import { DayAnalysisChart } from "@/features/analytics/pages/charts/analytics/da
 import { DeviceAnalysisChart } from "@/features/analytics/pages/charts/analytics/device-anlaysis-chart"
 import { ScanAnalysisChart } from "@/features/analytics/pages/charts/analytics/scan-anlaysis-chart"
 import { TimeAnalysisChart } from "@/features/analytics/pages/charts/analytics/time-analysis-chart"
+import type { GetAnalyticsRes } from "@/types/api-types"
 
-export const AnalyticsCharts = () => {
+interface AnalyticsChartsProps {
+  isPending: boolean
+  data: GetAnalyticsRes
+}
+
+export const AnalyticsCharts = ({ isPending, data }: AnalyticsChartsProps) => {
   return (
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-11 mt-8">
-      <ScanInfo />
-      <ScanAnalysisChart />
-      <TimeAnalysisChart />
-      <DayAnalysisChart />
-      <DeviceAnalysisChart />
-      <BrowserAnalysisChart />
-      <LocationAnalysisMap />
+      <ScanInfo isPending={isPending} data={data} />
+      <ScanAnalysisChart isPending={isPending} data={data} />
+      <TimeAnalysisChart isPending={isPending} />
+      <DayAnalysisChart isPending={isPending} />
+      <DeviceAnalysisChart isPending={isPending} />
+      <BrowserAnalysisChart isPending={isPending} />
+      <LocationAnalysisMap isPending={isPending} />
     </section>
   )
 }

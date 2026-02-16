@@ -1,37 +1,26 @@
-import { GeoChartCard } from "@/features/analytics/cards/analytics/geo-chart-card"
-import type { GeoDataItem } from "@/features/analytics/types"
+import { Skeleton } from "@app/ui/components/skeleton"
+import { TopCities } from "@/features/analytics/cards/analytics/top-cities"
+import { TopCountries } from "@/features/analytics/cards/analytics/top-countries"
+import { TopRegions } from "@/features/analytics/cards/analytics/top-regions"
+import type { GetAnalyticsRes } from "@/types/api-types"
 
-const mockCountriesData: GeoDataItem[] = [
-  { label: "Canada", count: 197, percentage: 36 },
-  { label: "Germany", count: 156, percentage: 28 },
-  { label: "India", count: 72, percentage: 17 },
-  { label: "Brazil", count: 65, percentage: 14 },
-  { label: "Australia", count: 36, percentage: 5 },
-]
+interface TopGeoListProps {
+  isPending: boolean
+  data: GetAnalyticsRes
+}
 
-const mockStatesData: GeoDataItem[] = [
-  { label: "Ontario (CA)", count: 98, percentage: 23 },
-  { label: "Bavaria (DE)", count: 72, percentage: 19 },
-  { label: "British Columbia (CA)", count: 62, percentage: 14 },
-  { label: "North Rhine-Westphalia (DE)", count: 43, percentage: 10 },
-  { label: "Karnataka (IN)", count: 36, percentage: 5 },
-]
-
-const mockCitiesData: GeoDataItem[] = [
-  { label: "Ontario (CA)", count: 98, percentage: 23 },
-  { label: "Bavaria (DE)", count: 72, percentage: 19 },
-  { label: "British Columbia (CA)", count: 62, percentage: 14 },
-  { label: "North Rhine-Westphalia (DE)", count: 43, percentage: 10 },
-  { label: "Karnataka (IN)", count: 36, percentage: 5 },
-  { label: "Rio de Janeiro", count: 32, percentage: 4 },
-]
-
-export const TopGeoList = () => {
+export const TopGeoList = ({ isPending, data }: TopGeoListProps) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
-      <GeoChartCard title="Countries - Till Top 10" data={mockCountriesData} />
-      <GeoChartCard title="States - Till Top 10" data={mockStatesData} />
-      <GeoChartCard title="Cities - Till Top 10" data={mockCitiesData} />
+      {isPending ? (
+        Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className="min-h-84" />)
+      ) : (
+        <>
+          <TopCountries data={data} />
+          <TopRegions data={data} />
+          <TopCities data={data} />
+        </>
+      )}
     </section>
   )
 }

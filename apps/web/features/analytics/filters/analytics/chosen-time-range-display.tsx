@@ -1,15 +1,19 @@
 "use client"
 
 import { format } from "date-fns"
-import { useAnalyticsFilter } from "@/features/analytics/hooks/analytics/use-analytics-filter"
-import { extractDate } from "@/features/analytics/utils/analytics/extract-date"
+import { useShallow } from "zustand/react/shallow"
+import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
 
 export const ChosenTimeRangeDisplay = () => {
-  const timeRange = useAnalyticsFilter((state) => state.timeRange)
-  const { startDate, endDate } = extractDate(timeRange?.value!)
+  const { from, to } = useTimeRange(
+    useShallow((state) => ({
+      to: state.to,
+      from: state.from,
+    })),
+  )
 
-  const startDateFormatted = format(startDate, "dd MMM, yyyy")
-  const endDateFormatted = format(endDate, "dd MMM, yyyy")
+  const startDateFormatted = format(from, "dd MMM, yyyy")
+  const endDateFormatted = format(to, "dd MMM, yyyy")
   const dates = `${startDateFormatted} - ${endDateFormatted}`
 
   return (

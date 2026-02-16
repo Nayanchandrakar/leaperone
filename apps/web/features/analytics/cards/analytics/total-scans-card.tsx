@@ -4,11 +4,15 @@ import {
   MetricCardValue,
 } from "@/features/dashboard/components/cards/dashboard/metric-card"
 
-export const TotalScansCard = () => {
+interface TotalScansCardProps {
+  totalScans: number
+}
+
+export const TotalScansCard = ({ totalScans = 0 }: TotalScansCardProps) => {
   return (
     <MetricCard>
       <MetricCardLabel>Total scans of your card</MetricCardLabel>
-      <MetricCardValue>5689</MetricCardValue>
+      <MetricCardValue>{totalScans}</MetricCardValue>
     </MetricCard>
   )
 }
