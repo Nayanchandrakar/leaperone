@@ -13,13 +13,13 @@ export const TopRegions = ({ data }: TopRegionProps) => {
 
   return (
     <MetricCard>
-      <CardTitle className="text-base text-muted-foreground">Cities - Till Top 10</CardTitle>
+      <CardTitle className="text-base text-muted-foreground">States - Till Top 10</CardTitle>
       <div className="space-y-4">
-        {topRegions.map(({ count, country, region }) => {
+        {topRegions.map(({ count, country, region }, index) => {
           const percentage = Math.round((count / data.scansInRange) * 100)
           return (
             <GeoChartItem
-              key={country}
+              key={index}
               count={count}
               percentage={percentage}
               label={`${region} (${country})`}

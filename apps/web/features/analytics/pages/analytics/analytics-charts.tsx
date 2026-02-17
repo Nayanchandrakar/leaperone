@@ -17,10 +17,10 @@ export const AnalyticsCharts = ({ isPending, data }: AnalyticsChartsProps) => {
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-11 mt-8">
       <ScanInfo isPending={isPending} data={data} />
       <ScanAnalysisChart isPending={isPending} data={data} />
-      <TimeAnalysisChart isPending={isPending} />
-      <DayAnalysisChart isPending={isPending} />
-      <DeviceAnalysisChart isPending={isPending} />
-      <BrowserAnalysisChart isPending={isPending} />
+      <TimeAnalysisChart isPending={isPending} records={data?.records} />
+      <DayAnalysisChart isPending={isPending} records={data?.records} />
+      <DeviceAnalysisChart isPending={isPending} records={data?.records} />
+      <BrowserAnalysisChart isPending={isPending} records={data?.records} />
       <LocationAnalysisMap isPending={isPending} />
     </section>
   )

@@ -18,11 +18,11 @@ export const TopCountries = ({ data }: TopCountryProps) => {
     <MetricCard>
       <CardTitle className="text-base text-muted-foreground">Countries - Till Top 10</CardTitle>
       <div className="space-y-4">
-        {topCountries.map(([country, count]) => {
+        {topCountries.map(([country, count], index) => {
           const percentage = Math.round((count / data.scansInRange) * 100)
           return (
             <GeoChartItem
-              key={country}
+              key={index}
               count={count}
               percentage={percentage}
               label={countryFormatter.of(country)!}

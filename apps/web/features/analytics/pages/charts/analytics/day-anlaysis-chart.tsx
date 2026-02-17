@@ -1,5 +1,6 @@
 "use client"
 
+import type { Analytics } from "@app/database/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
 import {
   type ChartConfig,
@@ -11,16 +12,8 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { useDayAnalysis } from "@/features/analytics/hooks/analytics/use-day-analysis"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
 
 const chartConfig = {
   desktop: {
@@ -35,8 +28,11 @@ const chartConfig = {
 
 interface DayAnalysisChartProps {
   isPending: boolean
+  records: Analytics[]
 }
-export const DayAnalysisChart = ({ isPending }: DayAnalysisChartProps) => {
+
+export const DayAnalysisChart = ({ isPending, records }: DayAnalysisChartProps) => {
+  const chartData = useDayAnalysis(records)
   return (
     <section className="flex flex-col gap-5">
       <ChartHeading>
@@ -61,7 +57,7 @@ export const DayAnalysisChart = ({ isPending }: DayAnalysisChartProps) => {
               <BarChart accessibilityLayer data={chartData}>
                 <CartesianGrid vertical={false} stroke="var(--border)" />
                 <XAxis
-                  dataKey="month"
+                  dataKey="day"
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}

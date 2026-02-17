@@ -1,7 +1,7 @@
 import { endOfDay } from "date-fns"
 import { create } from "zustand"
 import type { TimeRangeValue } from "@/features/analytics/types"
-import { getStartDateByTimeRange } from "@/features/analytics/utils/analytics/extract-date"
+import { getStartDateByTimeRange } from "@/features/analytics/utils/analytics"
 
 type TimeRangeStore = {
   to: Date

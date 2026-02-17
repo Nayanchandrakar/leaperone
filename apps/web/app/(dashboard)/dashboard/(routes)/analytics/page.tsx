@@ -10,6 +10,8 @@ import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-hea
 export default function AnalyticsPage() {
   const { data, isPending } = useAnalytics()
 
+  console.log(data)
+
   return (
     <DashboardContainer>
       <DashboardTitle>Analytics</DashboardTitle>

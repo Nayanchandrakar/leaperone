@@ -11,16 +11,9 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { useScanAnalysis } from "@/features/analytics/hooks/analytics/use-scan-analysis"
+import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
 import type { GetAnalyticsRes } from "@/types/api-types"
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
 
 const chartConfig = {
   desktop: {
@@ -38,7 +31,10 @@ interface ScanAnalysisChartProps {
   data: GetAnalyticsRes
 }
 
-export const ScanAnalysisChart = ({ isPending, data }: ScanAnalysisChartProps) => {
+export const ScanAnalysisChart = ({ data, isPending }: ScanAnalysisChartProps) => {
+  const timeRange = useTimeRange((state) => state.timeRange)
+  const chartData = useScanAnalysis(data?.records, timeRange)
+
   if (isPending) {
     return <Skeleton className="min-h-96.5" />
   }
@@ -55,19 +51,11 @@ export const ScanAnalysisChart = ({ isPending, data }: ScanAnalysisChartProps) =
         >
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} stroke="var(--border)" />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={true}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
+            <XAxis dataKey="date" tickLine={false} tickMargin={10} axisLine={true} />
             <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
-
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <ChartLegend content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />} />
-            <Bar dataKey="desktop" stackId="a" fill="var(--color-desktop)" radius={[0, 0, 4, 4]} />
-
+            <Bar dataKey="desktop" stackId="a" fill="var(--color-desktop)" />
             <Bar dataKey="mobile" stackId="a" fill="var(--color-mobile)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ChartContainer>
