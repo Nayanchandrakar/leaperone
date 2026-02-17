@@ -1,6 +1,5 @@
 import { PASSWORD_RESET_EXPIRY, SESSION_COOKIE_NAME, SESSION_EXPIRY } from "@app/core/constants"
 import { db } from "@app/database"
-import { PERMISSIONS } from "@app/database/constants/permissions"
 import { updateAccountPassword } from "@app/database/repository/account"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
@@ -19,7 +18,6 @@ import {
 import { getWorkspaceMember } from "@app/database/repository/workspace-member"
 import type { PermissionType } from "@app/database/types"
 import { ApiError } from "@app/error"
-import { logger } from "@app/logger"
 import type { SessionService } from "@app/session"
 import { emailSchema } from "@app/zod/schema/auth"
 import { createId } from "@paralleldrive/cuid2"
@@ -113,9 +111,6 @@ export class AuthService {
       callbackUrl,
     })
 
-    // TODO: Trigger an email to users email from here
-    logger.info(callbackString.toString())
-
     await sendMail({
       to: email,
       subject: "Your leaperone email verification link",
@@ -150,9 +145,6 @@ export class AuthService {
         token,
         callbackUrl: input.callbackUrl,
       })
-
-      // TODO: send email verification link from here
-      logger.info(callbackString.toString())
 
       await sendMail({
         to: input.email,
@@ -275,9 +267,6 @@ export class AuthService {
 
     const callbackString = RouteUtils.createRoute(`/reset-password/${token}`, undefined, false)
 
-    // TODO: send this callbackString to users email address
-    logger.info(callbackString.toString())
-
     await sendMail({
       to: email,
       subject: "Your leaperone password reset verification link",
@@ -326,7 +315,7 @@ export class AuthService {
 
     // Check if the current user has permission to restrict/unrestrict members (only workspace owner)
     const canRestrict = await hasPermissions(db, user.id, [
-      restrict ? PERMISSIONS.RESTRICT_MEMBERS : PERMISSIONS.UNRESTRICT_MEMBERS,
+      restrict ? "restrict:members" : "unrestrict:members",
     ])
 
     if (!canRestrict) {

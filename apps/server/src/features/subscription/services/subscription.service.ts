@@ -1,6 +1,5 @@
 import { TRIAL_PERIOD_DAYS } from "@app/core/constants"
 import { db } from "@app/database"
-import { PERMISSIONS } from "@app/database/constants/permissions"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import {
   getSubscriptionByWorkspaceId,
@@ -76,7 +75,7 @@ export class SubscriptionService {
       throw ApiError.badRequest(MSG.SUBSCRIPTION.SUBSCRIPTION_PLAN_NOT_FOUND)
     }
 
-    const canPurchase = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_SUBSCRIPTION])
+    const canPurchase = await hasPermissions(db, user.id, ["manage:subscription"])
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -170,7 +169,7 @@ export class SubscriptionService {
     const { user } = session
     const workspace = c.get("workspace")
 
-    const canPurchase = await hasPermissions(db, user.id, [PERMISSIONS.MANAGE_SUBSCRIPTION])
+    const canPurchase = await hasPermissions(db, user.id, ["manage:subscription"])
 
     if (!canPurchase) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

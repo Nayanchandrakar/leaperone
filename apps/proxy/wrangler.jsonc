@@ -2,7 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "proxy",
   "main": "src/index.ts",
-  "compatibility_date": "2026-01-11"
-  // NOTE: DATABASE_URL, UPSTASH_REDIS_REST_URL, and UPSTASH_REDIS_REST_TOKEN
-  // should be set in .dev.vars for local development or via wrangler secret for production
+  "compatibility_date": "2026-01-11",
+  "env": {
+    "test": {},
+    "production": {},
+    "development": {}
+  }
 }

@@ -41,7 +41,7 @@
         "@paralleldrive/cuid2": "catalog:",
         "@upstash/redis": "catalog:",
         "hono": "catalog:",
-        "ua-parser-js": "^2.0.0",
+        "ua-parser-js": "catalog:",
       },
       "devDependencies": {
         "@app/database": "workspace:*",
@@ -218,7 +218,6 @@
       "name": "@app/types",
       "version": "1.0.0",
       "devDependencies": {
-        "@app/database": "workspace:*",
         "@app/tsconfig": "workspace:*",
         "@types/node": "catalog:",
         "typescript": "catalog:",

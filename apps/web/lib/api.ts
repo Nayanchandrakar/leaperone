@@ -1,3 +1,4 @@
+import type { FullSession } from "@app/types"
 import type {
   CheckoutSessionSchema,
   ContactUsFormSchema,
@@ -22,7 +23,6 @@ import type {
 } from "@app/zod/types"
 import type { AxiosRequestConfig } from "axios"
 import { API } from "@/config/axios"
-import type { FullSession } from "@/types"
 import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,

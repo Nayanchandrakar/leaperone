@@ -2,13 +2,13 @@
   "name": "proxy",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify",
+    "deploy": "wrangler deploy --env test --minify",
+    "dev": "wrangler dev --env development",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
     "hono": "catalog:",
-    "ua-parser-js": "^2.0.0",
+    "ua-parser-js": "catalog:",
     "@app/core": "workspace:*",
     "@upstash/redis": "catalog:",
     "@paralleldrive/cuid2": "catalog:",

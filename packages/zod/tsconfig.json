@@ -9,6 +9,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
+      "@app/zod/*": ["../../packages/zod/src/*"],
       "@app/core/*": ["../../packages/core/src/*"]
     }
   },

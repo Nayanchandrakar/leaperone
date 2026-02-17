@@ -1,6 +1,6 @@
+import type { User } from "@app/types"
 import { AuthenticatedNavActions } from "@/components/navbar/authenticated-nav-actions"
 import { UnauthenticatedNavActions } from "@/components/navbar/unauthenticated-nav-actions"
-import type { User } from "@/types"
 
 type Props = {
   user: User

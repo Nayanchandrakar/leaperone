@@ -1,5 +1,4 @@
 import { db } from "@app/database"
-import { PERMISSIONS } from "@app/database/constants/permissions"
 import { getAnalyticsData, getInvitedMembersForAnalytics } from "@app/database/repository/analytics"
 import { hasPermissions } from "@app/database/repository/role-permission"
 import { isWorkspaceMember } from "@app/database/repository/workspace"
@@ -57,7 +56,7 @@ export class AnalyticsService {
     const workspace = c.get("workspace")
 
     // Must have permission to view member analytics (which includes seeing member list)
-    const canViewMembers = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBER_ANALYTICS])
+    const canViewMembers = await hasPermissions(db, user.id, ["view:member-analytics"])
 
     if (!canViewMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

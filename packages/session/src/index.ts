@@ -7,10 +7,13 @@ import type { CookieAdapter, CreateSessionParams } from "./types"
 import { getDate } from "./utils/date"
 
 export class SessionService<T> {
-  constructor(
-    private readonly storageAdapter: Redis,
-    private readonly cookieAdapter: CookieAdapter<T>,
-  ) {}
+  private readonly storageAdapter: Redis
+  private readonly cookieAdapter: CookieAdapter<T>
+
+  constructor(storageAdapter: Redis, cookieAdapter: CookieAdapter<T>) {
+    this.storageAdapter = storageAdapter
+    this.cookieAdapter = cookieAdapter
+  }
 
   async create({ token, ipAddress, userAgent, user, overrides }: CreateSessionParams) {
     const now = new Date()

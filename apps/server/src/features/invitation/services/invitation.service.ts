@@ -5,7 +5,6 @@ import {
   SESSION_COOKIE_NAME,
 } from "@app/core/constants"
 import { db } from "@app/database"
-import { PERMISSIONS } from "@app/database/constants/permissions"
 import {
   acceptInvitation,
   createWorkspaceInviteAndUser,
@@ -20,7 +19,6 @@ import {
   removeMemberFromWorkspace,
 } from "@app/database/repository/workspace-member"
 import { ApiError } from "@app/error"
-import { logger } from "@app/logger/index"
 import type { SessionService } from "@app/session"
 import type { FullSession } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
@@ -56,7 +54,7 @@ export class InvitationService {
       throw ApiError.conflict(MSG.INVITATION.SELF_INVITE)
     }
 
-    const canInvite = await hasPermissions(db, user.id, [PERMISSIONS.INVITE_MEMBERS])
+    const canInvite = await hasPermissions(db, user.id, ["invite:members"])
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -93,9 +91,7 @@ export class InvitationService {
       }),
     ])
 
-    const inviteLink = RouteUtils.createAbsoluteRoute(`/invite/accept?token=${token}`)
-
-    logger.info(inviteLink)
+    const inviteLink = RouteUtils.createAbsoluteRoute(`/password-setup/${token}`)
 
     await sendMail({
       to: email,
@@ -150,7 +146,7 @@ export class InvitationService {
     const workspace = c.get("workspace")
     const subscription = c.get("subscription")
 
-    const canInvite = await hasPermissions(db, user.id, [PERMISSIONS.VIEW_MEMBERS])
+    const canInvite = await hasPermissions(db, user.id, ["view:members"])
 
     if (!canInvite) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -170,7 +166,7 @@ export class InvitationService {
     const { memberId } = c.req.valid("json")
 
     // Verify owner has permission to impersonate members
-    const canManageMembers = await hasPermissions(db, user.id, [PERMISSIONS.ACCESS_AS_MEMBER])
+    const canManageMembers = await hasPermissions(db, user.id, ["access:as-member"])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -242,9 +238,7 @@ export class InvitationService {
     const impersonatedById = session.impersonatedBy
 
     // Verify owner has permission to exit impersonation
-    const canExitImpersonation = await hasPermissions(db, impersonatedById, [
-      PERMISSIONS.ACCESS_AS_MEMBER,
-    ])
+    const canExitImpersonation = await hasPermissions(db, impersonatedById, ["access:as-member"])
 
     if (!canExitImpersonation) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)
@@ -295,7 +289,7 @@ export class InvitationService {
     }
 
     // Check if manager has permission to manage members
-    const canManageMembers = await hasPermissions(db, user.id, [PERMISSIONS.REMOVE_MEMBERS])
+    const canManageMembers = await hasPermissions(db, user.id, ["remove:members"])
 
     if (!canManageMembers) {
       throw ApiError.forbidden(MSG.GENERAL.PERMISSION_DENIED)

@@ -1,4 +1,16 @@
-import type { User } from "@app/database/types"
+export type User = {
+  name: string
+  id: string
+  image: string | null
+  jobRole: string | null
+  stripeCustomerId: string | null
+  email: string
+  username: string
+  isRestricted: boolean
+  emailVerified: boolean
+  createdAt: Date
+  updatedAt: Date | null
+}
 
 export type Session = {
   token: string

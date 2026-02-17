@@ -11,11 +11,11 @@
         "UPSTASH_REDIS_REST_TOKEN",
         "NEXT_PUBLIC_STRIPE_ANNUAL_PRICE_ID",
         "NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID",
-
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
         "AWS_REGION",
-        "S3_UPLOAD_BUCKET"
+        "S3_UPLOAD_BUCKET",
+        "NEXT_PUBLIC_PROXY_URL"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     }

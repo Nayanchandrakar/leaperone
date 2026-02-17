@@ -31,15 +31,15 @@ RUN bun run build
 FROM base AS runner
 WORKDIR /app
 
-# Add non-root user
-RUN addgroup --system --gid 1001 bunjs 
-RUN adduser --system --uid 1001 leaperone
+# Add non-root user and group using Debian commands (for oven/bun base)
+RUN groupadd -g 1001 bunjs && \
+    useradd -u 1001 -g bunjs -m -s /bin/sh leaperone
 USER leaperone
 
 # Copy built app to final image with correct permissions
-COPY --from=builder --chown=leaperone:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=leaperone:nodejs /app/apps/server/dist ./dist
-COPY --from=builder --chown=leaperone:nodejs /app/apps/server/package.json ./package.json
+COPY --from=builder --chown=leaperone:bunjs /app/node_modules ./node_modules
+COPY --from=builder --chown=leaperone:bunjs /app/apps/server/dist ./dist
+COPY --from=builder --chown=leaperone:bunjs /app/apps/server/package.json ./package.json
 
 EXPOSE 8080
 

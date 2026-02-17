@@ -1,4 +1,6 @@
 import { ENV } from "@app/env/server"
+import { logger } from "@app/logger"
+import { isDevelopment } from "@/config/env"
 import { resend } from "@/config/resend"
 
 type SendMailProps = {
@@ -8,10 +10,14 @@ type SendMailProps = {
 }
 
 export async function sendMail({ to, subject, html }: SendMailProps) {
-  await resend.emails.send({
-    to,
-    html,
-    subject,
-    from: ENV.RESEND_MAIL,
-  })
+  if (isDevelopment) {
+    logger.info(html)
+  } else {
+    await resend.emails.send({
+      to,
+      html,
+      subject,
+      from: ENV.RESEND_MAIL,
+    })
+  }
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import type { User } from "@app/types"
 import { Avatar, AvatarFallback, AvatarImage } from "@app/ui/components/avatar"
 import {
   DropdownMenu,
@@ -12,7 +13,6 @@ import {
 import { LogOutIcon, Settings } from "lucide-react"
 import Link from "next/link"
 import { useLogout } from "@/features/auth/hooks/logout/use-logout"
-import type { User } from "@/types"
 
 interface NavSettingProps {
   user: User
