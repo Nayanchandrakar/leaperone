@@ -1,6 +1,6 @@
 "use client"
 
-import type { Analytics } from "@app/database/types"
+import type { DeviceAnalysisRow } from "@app/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
 import {
   type ChartConfig,
@@ -10,6 +10,7 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Pie, PieChart } from "recharts"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 import { useDeviceAnalysis } from "@/features/analytics/hooks/analytics/use-device-analysis"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
@@ -23,11 +24,12 @@ const chartConfig = {
 
 interface DeviceAnalysisChartProps {
   isPending: boolean
-  records: Analytics[]
+  rows: DeviceAnalysisRow[]
 }
 
-export const DeviceAnalysisChart = ({ isPending, records }: DeviceAnalysisChartProps) => {
-  const chartData = useDeviceAnalysis(records)
+export const DeviceAnalysisChart = ({ isPending, rows }: DeviceAnalysisChartProps) => {
+  const timeRangeLabel = useAnalyticsStore((state) => state.timeRangeLabel)
+  const chartData = useDeviceAnalysis(rows)
 
   return (
     <section className="flex flex-col gap-5">
@@ -44,7 +46,7 @@ export const DeviceAnalysisChart = ({ isPending, records }: DeviceAnalysisChartP
         <Card className="flex flex-col bg-muted shadow-none border-zinc-300">
           <CardHeader>
             <CardTitle className="font-medium text-base text-muted-foreground">
-              Device Analysis for Last 7 days
+              Device Analysis for {timeRangeLabel}
             </CardTitle>
           </CardHeader>
 

@@ -1,13 +1,17 @@
 import { ChosenTimeRangeDisplay } from "@/features/analytics/filters/analytics/chosen-time-range-display"
 import { DateRangePicker } from "@/features/analytics/filters/analytics/date-range-picker"
-// import { WhoseAnalyticsFilter } from "@/features/analytics/filters/analytics/whose-analytics-filter"
+import { SwitchMember } from "@/features/analytics/filters/analytics/switch-member"
 
-export const AnalyticsFilter = () => {
+interface AnalyticsFilterProps {
+  isDisabled: boolean
+}
+
+export const AnalyticsFilter = ({ isDisabled }: AnalyticsFilterProps) => {
   return (
     <div className="border-y mt-8 py-4 flex items-center justify-between gap-3">
-      <DateRangePicker />
+      <DateRangePicker isDisabled={isDisabled} />
       <ChosenTimeRangeDisplay />
-      {/* <WhoseAnalyticsFilter /> */}
+      <SwitchMember isDisabled={isDisabled} />
     </div>
   )
 }

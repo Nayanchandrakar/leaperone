@@ -1,5 +1,3 @@
-"use client"
-
 import {
   Select,
   SelectContent,
@@ -10,15 +8,18 @@ import {
 } from "@app/ui/components/select"
 import { useShallow } from "zustand/react/shallow"
 import { TIME_RANGES } from "@/features/analytics/constants/analytics/time-ranges"
-import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
-import type { TimeRangeValue } from "@/features/analytics/types"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 import {
   SortFilterBar,
   SortFilterBarLabel,
 } from "@/features/dashboard/components/ui/sort-filter-bar"
 
-export const DateRangePicker = () => {
-  const { timeRange, setTimeRange } = useTimeRange(
+interface DateRangePickerProps {
+  isDisabled: boolean
+}
+
+export const DateRangePicker = ({ isDisabled }: DateRangePickerProps) => {
+  const { timeRange, setTimeRange } = useAnalyticsStore(
     useShallow((state) => ({
       timeRange: state.timeRange,
       setTimeRange: state.setTimeRange,
@@ -28,7 +29,7 @@ export const DateRangePicker = () => {
   return (
     <SortFilterBar>
       <SortFilterBarLabel>Analytics Time Range</SortFilterBarLabel>
-      <Select defaultValue={timeRange} onValueChange={(type: TimeRangeValue) => setTimeRange(type)}>
+      <Select disabled={isDisabled} defaultValue={timeRange} onValueChange={setTimeRange}>
         <SelectTrigger className="w-40 rounded-full bg-muted border-zinc-200">
           <SelectValue />
         </SelectTrigger>

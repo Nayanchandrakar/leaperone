@@ -1,4 +1,4 @@
-import type { Analytics, BusinessCard, File, InvitationStatus } from "@app/database/types"
+import type { BusinessCard, File, InvitationStatus } from "@app/database/types"
 
 export type LogoutMutationRes = {
   message: string
@@ -87,7 +87,6 @@ export type InvitedMember = {
   businessCardId: string | null
 }
 
-// NEED_TO_UPDATE
 export type GetInvitedMembersRes = {
   members: InvitedMember[]
   seats: {
@@ -100,12 +99,6 @@ export type GetWorkspaceSettingsRes = {
   createAndEdit: boolean
 }
 
-export type GetAnalyticsRes = {
-  totalClicks: number
-  scansInRange: number
-  records: Analytics[]
-}
-
 export type GetBusinessCardsRes = {
   card: Pick<BusinessCard, "id" | "qrCode" | "status" | "template" | "identifier">
 }
@@ -116,4 +109,13 @@ export type DeleteCardRes = {
 
 export type ExitImpersonationMutationRes = {
   message: string
+}
+
+export type AnalyticsMember = {
+  name: string
+  memberId: string
+}
+
+export type GetAnalyticsMembersRes = {
+  members: AnalyticsMember[]
 }

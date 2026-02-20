@@ -1,6 +1,6 @@
 "use client"
 
-import type { Analytics } from "@app/database/types"
+import type { TimeAnalysisRow } from "@app/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
 import {
   type ChartConfig,
@@ -12,6 +12,7 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 import { useTimeAnalysis } from "@/features/analytics/hooks/analytics/use-time-analysis"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
@@ -28,11 +29,12 @@ const chartConfig = {
 
 interface TimeAnalysisChartProps {
   isPending: boolean
-  records: Analytics[]
+  rows: TimeAnalysisRow[]
 }
 
-export const TimeAnalysisChart = ({ isPending, records }: TimeAnalysisChartProps) => {
-  const chartData = useTimeAnalysis(records)
+export const TimeAnalysisChart = ({ isPending, rows }: TimeAnalysisChartProps) => {
+  const timeRangeLabel = useAnalyticsStore((state) => state.timeRangeLabel)
+  const chartData = useTimeAnalysis(rows)
 
   return (
     <section className="flex flex-col gap-5">
@@ -47,7 +49,7 @@ export const TimeAnalysisChart = ({ isPending, records }: TimeAnalysisChartProps
         <Card className=" text-muted-foreground bg-muted shadow-none border-zinc-300">
           <CardHeader>
             <CardTitle className="font-medium text-base ">
-              Scan count by Time for Last 7 days
+              Scan count by Time for {timeRangeLabel}
             </CardTitle>
           </CardHeader>
           <CardContent>

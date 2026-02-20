@@ -12,36 +12,28 @@ const PROTECTED_ROUTES = new Set(["/dashboard"])
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-
   const response = NextResponse.next()
   const session = await sessionService.fromCtx({ request, response })
-
   const isPublicRoute = PUBLIC_ROUTES.has(pathname)
   const isProtectedRoute = PROTECTED_ROUTES.has(pathname) || pathname.startsWith("/dashboard")
-
   // Redirect unauthenticated users trying to access protected routes
   if (!session && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
-
   // Check subscription status for dashboard routes
   if (session && isProtectedRoute) {
     try {
       // @ts-expect-error
       const subscriptionData = await getWorkspaceWithSubscription(dbHttp, session.user.id)
-
       // No subscription at all - redirect to pricing
       if (!subscriptionData.subscription || !subscriptionData.subscription.subscriptionId) {
         return NextResponse.redirect(new URL("/pricing", request.url))
       }
-
       const { active, cancelAtPeriodEnd } = subscriptionData.subscription
-
       // Subscription is not active (expired) - redirect to expired page
       if (!active) {
         return NextResponse.redirect(new URL("/expired", request.url))
       }
-
       // Subscription is canceled - redirect to cancelled page
       if (cancelAtPeriodEnd) {
         return NextResponse.redirect(new URL("/cancelled", request.url))
@@ -52,12 +44,10 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/pricing", request.url))
     }
   }
-
   // Redirect authenticated users away from public auth pages
   if (session && isPublicRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url))
   }
-
   return response
 }
 

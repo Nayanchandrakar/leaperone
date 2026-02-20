@@ -1,12 +1,12 @@
+import type { AnalyticsResult } from "@app/types"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { TopCities } from "@/features/analytics/cards/analytics/top-cities"
 import { TopCountries } from "@/features/analytics/cards/analytics/top-countries"
 import { TopRegions } from "@/features/analytics/cards/analytics/top-regions"
-import type { GetAnalyticsRes } from "@/types/api-types"
 
 interface TopGeoListProps {
   isPending: boolean
-  data: GetAnalyticsRes
+  data: AnalyticsResult
 }
 
 export const TopGeoList = ({ isPending, data }: TopGeoListProps) => {

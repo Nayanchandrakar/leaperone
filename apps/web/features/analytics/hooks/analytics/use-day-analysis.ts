@@ -1,5 +1,4 @@
-import type { Analytics } from "@app/database/types"
-import { format, parseISO } from "date-fns"
+import type { DayAnalysisRow } from "@app/types"
 import { useMemo } from "react"
 
 export type GroupedResult = {
@@ -8,50 +7,44 @@ export type GroupedResult = {
   desktop: number
 }
 
-export const useDayAnalysis = (records: Analytics[]) => {
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const
+
+/**
+ * Transforms pre-aggregated day analysis rows from the server.
+ * Receives ~14 rows max (7 days × 2 device types) instead of millions.
+ */
+export const useDayAnalysis = (rows: DayAnalysisRow[] | undefined) => {
   return useMemo(() => {
-    if (!records?.length) return []
+    if (!rows?.length) return []
 
-    const grouped = new Map<string, [mobile: number, desktop: number]>()
-    const len = records.length
+    // Use a fixed-size array for O(1) access by day index
+    const days: [mobile: number, desktop: number][] = Array.from({ length: 7 }, () => [0, 0])
 
-    for (let i = 0; i < len; ++i) {
-      const r = records[i]!
-      const isoString = r.clickedAt as unknown as string
+    for (let i = 0, len = rows.length; i < len; ++i) {
+      const r = rows[i]!
+      const dayIdx = r.day_of_week // 0=Sun .. 6=Sat from postgres dow
 
-      const dayKey = format(parseISO(isoString), "EEE")
-
-      const counts = grouped.get(dayKey)
-      if (counts === undefined) {
-        grouped.set(dayKey, [0, 0])
-      }
-
-      // Direct array access for speed
       if (r.device === "Mobile") {
-        grouped.get(dayKey)![0]++
+        days[dayIdx]![0] += r.count
       } else {
-        grouped.get(dayKey)![1]++
+        days[dayIdx]![1] += r.count
       }
     }
 
-    const dayOrder = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const
-
+    // Only include days that have data, already in correct order
     const result: GroupedResult[] = []
 
-    for (const [day, counts] of grouped) {
-      result.push({
-        day,
-        mobile: counts[0],
-        desktop: counts[1],
-      })
+    for (let d = 0; d < 7; ++d) {
+      const counts = days[d]!
+      if (counts[0] > 0 || counts[1] > 0) {
+        result.push({
+          day: DAY_NAMES[d]!,
+          mobile: counts[0],
+          desktop: counts[1],
+        })
+      }
     }
 
-    result.sort(
-      (a, b) =>
-        dayOrder.indexOf(a.day as (typeof dayOrder)[number]) -
-        dayOrder.indexOf(b.day as (typeof dayOrder)[number]),
-    )
-
     return result
-  }, [records])
+  }, [rows])
 }

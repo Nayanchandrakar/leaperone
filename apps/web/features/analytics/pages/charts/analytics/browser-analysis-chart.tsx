@@ -1,6 +1,6 @@
 "use client"
 
-import type { Analytics } from "@app/database/types"
+import type { BrowserAnalysisRow } from "@app/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
 import {
   type ChartConfig,
@@ -10,6 +10,7 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Pie, PieChart } from "recharts"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 import { useBrowserAnalysis } from "@/features/analytics/hooks/analytics/use-browser-analysis"
 import { ChartDescription, ChartHeading, ChartTitle } from "@/features/analytics/ui/chart-heading"
 
@@ -23,11 +24,12 @@ const chartConfig = {
 
 interface BrowserAnalysisChartProps {
   isPending: boolean
-  records: Analytics[]
+  rows: BrowserAnalysisRow[]
 }
 
-export const BrowserAnalysisChart = ({ isPending, records }: BrowserAnalysisChartProps) => {
-  const chartData = useBrowserAnalysis(records)
+export const BrowserAnalysisChart = ({ isPending, rows }: BrowserAnalysisChartProps) => {
+  const timeRangeLabel = useAnalyticsStore((state) => state.timeRangeLabel)
+  const chartData = useBrowserAnalysis(rows)
 
   return (
     <section className="flex flex-col gap-5">
@@ -42,7 +44,7 @@ export const BrowserAnalysisChart = ({ isPending, records }: BrowserAnalysisChar
         <Card className="flex flex-col bg-muted shadow-none border-zinc-300">
           <CardHeader>
             <CardTitle className="font-medium text-base text-muted-foreground">
-              Browser Analysis for Last 7 days
+              Browser Analysis for {timeRangeLabel}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pb-0">

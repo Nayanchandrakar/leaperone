@@ -1,5 +1,6 @@
 "use client"
 
+import type { AnalyticsResult } from "@app/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
 import {
   type ChartConfig,
@@ -11,9 +12,9 @@ import {
 } from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { useShallow } from "zustand/react/shallow"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 import { useScanAnalysis } from "@/features/analytics/hooks/analytics/use-scan-analysis"
-import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
-import type { GetAnalyticsRes } from "@/types/api-types"
 
 const chartConfig = {
   desktop: {
@@ -28,12 +29,18 @@ const chartConfig = {
 
 interface ScanAnalysisChartProps {
   isPending: boolean
-  data: GetAnalyticsRes
+  data: AnalyticsResult
 }
 
 export const ScanAnalysisChart = ({ data, isPending }: ScanAnalysisChartProps) => {
-  const timeRange = useTimeRange((state) => state.timeRange)
-  const chartData = useScanAnalysis(data?.records, timeRange)
+  const { timeRange, timeRangeLabel } = useAnalyticsStore(
+    useShallow((state) => ({
+      timeRange: state.timeRange,
+      timeRangeLabel: state.timeRangeLabel,
+    })),
+  )
+
+  const chartData = useScanAnalysis(data?.scanAnalysis, timeRange)
 
   if (isPending) {
     return <Skeleton className="min-h-96.5" />
@@ -42,7 +49,7 @@ export const ScanAnalysisChart = ({ data, isPending }: ScanAnalysisChartProps) =
   return (
     <Card className=" text-muted-foreground bg-muted shadow-none border-zinc-300">
       <CardHeader>
-        <CardTitle className="font-medium text-base ">Scan Analysis for Last 7 days</CardTitle>
+        <CardTitle className="font-medium text-base ">Scan Analysis for {timeRangeLabel}</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer

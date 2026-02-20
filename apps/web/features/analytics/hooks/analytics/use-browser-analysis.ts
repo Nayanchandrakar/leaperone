@@ -1,4 +1,4 @@
-import type { Analytics } from "@app/database/types"
+import type { BrowserAnalysisRow } from "@app/types"
 import { useMemo } from "react"
 import { lightenColor } from "@/features/analytics/utils/analytics"
 
@@ -10,32 +10,37 @@ export type BrowserAnalysisResult = {
 
 const BASE_COLOR = "#0A9521"
 
-export const useBrowserAnalysis = (records: Analytics[]): BrowserAnalysisResult[] => {
+/**
+ * Transforms pre-aggregated browser rows from the server.
+ * Rows are already sorted by count desc — we just compute colors.
+ */
+export const useBrowserAnalysis = (
+  rows: BrowserAnalysisRow[] | undefined,
+): BrowserAnalysisResult[] => {
   return useMemo(() => {
-    if (!records?.length) return []
+    if (!rows?.length) return []
 
-    const browserCounts = new Map<string, number>()
+    const len = rows.length
 
-    for (const { browser } of records) {
-      const browserName = browser || "Unknown"
-      browserCounts.set(browserName, (browserCounts.get(browserName) ?? 0) + 1)
-    }
-
-    const entries = Array.from(browserCounts.entries())
-
-    // Sort by count so most used browser appears first
-    entries.sort((a, b) => b[1] - a[1])
-
-    const counts = entries.map(([, count]) => count)
-    const minCount = Math.min(...counts)
-    const maxCount = Math.max(...counts)
+    // Rows are pre-sorted desc by count from the server
+    const maxCount = rows[0]!.count
+    const minCount = rows[len - 1]!.count
     const range = maxCount === minCount ? 1 : maxCount - minCount
 
-    return entries.map(([browser, count]) => {
-      const normalized = (count - minCount) / range // 0 (least) -> 1 (most)
+    const result = new Array<BrowserAnalysisResult>(len)
+
+    for (let i = 0; i < len; ++i) {
+      const r = rows[i]!
+      const normalized = (r.count - minCount) / range
       const fill = lightenColor(BASE_COLOR, normalized * 0.85)
 
-      return { browser, clicks: count, fill }
-    })
-  }, [records])
+      result[i] = {
+        browser: r.browser!,
+        clicks: r.count,
+        fill,
+      }
+    }
+
+    return result
+  }, [rows])
 }

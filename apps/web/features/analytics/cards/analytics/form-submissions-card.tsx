@@ -1,13 +1,14 @@
+import type { AnalyticsResult } from "@app/types"
 import {
   MetricCard,
   MetricCardLabel,
   MetricCardValue,
 } from "@/features/dashboard/components/cards/dashboard/metric-card"
-import type { GetAnalyticsRes } from "@/types/api-types"
 
 interface FormsSubmittedCardProps {
-  data: GetAnalyticsRes
+  data: AnalyticsResult
 }
+
 export const FormsSubmittedCard = ({ data }: FormsSubmittedCardProps) => {
   return (
     <MetricCard>

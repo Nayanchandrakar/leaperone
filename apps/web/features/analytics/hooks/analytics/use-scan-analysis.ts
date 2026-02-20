@@ -1,8 +1,7 @@
-import type { Analytics } from "@app/database/types"
-import { getHours } from "date-fns"
+import type { ScanAnalysisRow } from "@app/types"
 import { useMemo } from "react"
 import type { TimeRangeValue } from "@/features/analytics/types"
-import { format4HourBlock, getDateKey, getDateMonthKey } from "@/features/analytics/utils/analytics"
+import { getDateMonthKey } from "@/features/analytics/utils/analytics"
 
 export type GroupedResult = {
   date: string
@@ -10,66 +9,47 @@ export type GroupedResult = {
   desktop: number
 }
 
-export const useScanAnalysis = (records: Analytics[], timeRange: TimeRangeValue) => {
+/**
+ * Transforms pre-aggregated scan analysis rows (already grouped by day on the server)
+ * into chart-ready data. Applies a display label per timeRange — no raw record iteration.
+ */
+export const useScanAnalysis = (rows: ScanAnalysisRow[] | undefined, timeRange: TimeRangeValue) => {
   return useMemo(() => {
-    if (!records?.length) return []
+    if (!rows?.length) return []
 
     const grouped = new Map<string, [mobile: number, desktop: number]>()
-    const len = records.length
 
-    for (let i = 0; i < len; ++i) {
-      const r = records[i]!
-      const isoString = r.clickedAt as unknown as string
+    for (let i = 0, len = rows.length; i < len; ++i) {
+      const r = rows[i]!
+      // r.day is already a date-truncated string like "2024-03-15T00:00:00.000Z"
+      const dayStr = r.day as string
 
-      let dateStr: string
+      // Select display label based on timeRange granularity
+      const dateStr =
+        timeRange === "all-time"
+          ? dayStr.substring(0, 4) // year: "2024"
+          : getDateMonthKey(dayStr) // "15 Mar"
 
-      switch (timeRange) {
-        case "today":
-          dateStr = format4HourBlock(isoString)
-          break
-        case "last-3-days": {
-          const hour = getHours(isoString)
-          const period = hour < 12 ? "AM" : "PM"
-          dateStr = `${getDateMonthKey(isoString)} ${period}`
-          break
-        }
-        case "all-time":
-          dateStr = isoString.substring(0, 4)
-          break
-        case "last-7-days":
-        case "last-30-days":
-          dateStr = getDateMonthKey(isoString)
-          break
-        default:
-          dateStr = getDateKey(isoString)
-          break
-      }
-
-      const counts = grouped.get(dateStr)
+      let counts = grouped.get(dateStr)
       if (counts === undefined) {
-        grouped.set(dateStr, [0, 0])
+        counts = [0, 0]
+        grouped.set(dateStr, counts)
       }
 
-      // Direct array access for speed
       if (r.device === "Mobile") {
-        grouped.get(dateStr)![0]++
+        counts[0] += r.count
       } else {
-        grouped.get(dateStr)![1]++
+        counts[1] += r.count
       }
     }
 
-    // Pre-allocate exact size array
     const result = new Array<GroupedResult>(grouped.size)
     let idx = 0
 
     for (const [date, counts] of grouped) {
-      result[idx++] = {
-        date,
-        mobile: counts[0],
-        desktop: counts[1],
-      }
+      result[idx++] = { date, mobile: counts[0], desktop: counts[1] }
     }
 
     return result
-  }, [records, timeRange])
+  }, [rows, timeRange])
 }

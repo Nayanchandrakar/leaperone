@@ -1,4 +1,4 @@
-import type { FullSession } from "@app/types"
+import type { AnalyticsResult, FullSession } from "@app/types"
 import type {
   CheckoutSessionSchema,
   ContactUsFormSchema,
@@ -30,7 +30,7 @@ import type {
   DeleteCardRes,
   DeleteFilesRes,
   ExitImpersonationMutationRes,
-  GetAnalyticsRes,
+  GetAnalyticsMembersRes,
   GetBusinessCardsRes,
   GetFilesRes,
   GetInvitedMembersRes,
@@ -109,7 +109,11 @@ export async function getWorkspaceStats() {
 }
 
 export async function getAnalytics(params: GetAnalyticsSchema) {
-  return await API.get<GetAnalyticsRes>("/analytics", { params })
+  return await API.get<AnalyticsResult>("/analytics", { params })
+}
+
+export async function getAnalyticsMembers() {
+  return await API.get<GetAnalyticsMembersRes>("/analytics/members")
 }
 
 export async function getPermission(params: GetPermissionSchema) {

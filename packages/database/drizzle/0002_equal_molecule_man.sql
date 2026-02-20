@@ -1,0 +1,1 @@
+CREATE INDEX "analytics_ws_user_time_idx" ON "analytics" USING btree ("workspace_id","user_id","clicked_at");

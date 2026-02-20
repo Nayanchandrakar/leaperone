@@ -1,6 +1,5 @@
-import type { Analytics } from "@app/database/types"
+import type { TimeAnalysisRow } from "@app/types"
 import { useMemo } from "react"
-import { format4HourBlock } from "@/features/analytics/utils/analytics"
 
 export type GroupedResult = {
   time: string
@@ -8,33 +7,47 @@ export type GroupedResult = {
   desktop: number
 }
 
-export const useTimeAnalysis = (records: Analytics[]) => {
+const HOUR_BLOCK_LABELS = [
+  "12AM-04AM",
+  "04AM-08AM",
+  "08AM-12PM",
+  "12PM-04PM",
+  "04PM-08PM",
+  "08PM-12AM",
+] as const
+
+function formatHourBlock(block: number): string {
+  const index = block / 4
+  return HOUR_BLOCK_LABELS[index] ?? `${block}h`
+}
+
+/**
+ * Transforms pre-aggregated time analysis rows from the server.
+ * Receives ~12 rows max (6 blocks × 2 device types) instead of millions.
+ */
+export const useTimeAnalysis = (rows: TimeAnalysisRow[] | undefined) => {
   return useMemo(() => {
-    if (!records?.length) return []
+    if (!rows?.length) return []
 
     const grouped = new Map<string, [mobile: number, desktop: number]>()
-    const len = records.length
 
-    for (let i = 0; i < len; ++i) {
-      const r = records[i]!
-      const isoString = r.clickedAt as unknown as string
+    for (let i = 0, len = rows.length; i < len; ++i) {
+      const r = rows[i]!
+      const timeLabel = formatHourBlock(r.hour_block)
 
-      const dateStr = format4HourBlock(isoString)
-
-      const counts = grouped.get(dateStr)
+      let counts = grouped.get(timeLabel)
       if (counts === undefined) {
-        grouped.set(dateStr, [0, 0])
+        counts = [0, 0]
+        grouped.set(timeLabel, counts)
       }
 
-      // Direct array access for speed
       if (r.device === "Mobile") {
-        grouped.get(dateStr)![0]++
+        counts[0] += r.count
       } else {
-        grouped.get(dateStr)![1]++
+        counts[1] += r.count
       }
     }
 
-    // Pre-allocate exact size array
     const result = new Array<GroupedResult>(grouped.size)
     let idx = 0
 
@@ -47,5 +60,5 @@ export const useTimeAnalysis = (records: Analytics[]) => {
     }
 
     return result
-  }, [records])
+  }, [rows])
 }

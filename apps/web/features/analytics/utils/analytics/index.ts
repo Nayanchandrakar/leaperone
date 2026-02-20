@@ -1,5 +1,6 @@
-import { format, getHours, getMonth, parseISO, startOfDay, subDays } from "date-fns"
+import { getHours, startOfDay, subDays } from "date-fns"
 import { MONTH_NAMES } from "@/features/analytics/constants/analytics/months"
+import { TIME_RANGES } from "@/features/analytics/constants/analytics/time-ranges"
 import type { TimeRangeValue } from "@/features/analytics/types"
 
 // Date key extraction - hybrid approach
@@ -8,9 +9,11 @@ export function getDateKey(isoString: string) {
 }
 
 export function getDateMonthKey(isoString: string) {
-  const date = parseISO(isoString)
-  const day = format(date, "d MMM").substring(0, 2)
-  const month = MONTH_NAMES[getMonth(date)]
+  // Direct string parsing of ISO format: "2024-03-15T..."
+  // Month is at index 5-7, day is at index 8-10
+  const monthIndex = Number.parseInt(isoString.substring(5, 7), 10) - 1
+  const day = Number.parseInt(isoString.substring(8, 10), 10)
+  const month = MONTH_NAMES[monthIndex]
   return `${day} ${month}`
 }
 
@@ -31,7 +34,7 @@ export function format4HourBlock(isoString: string) {
   return `${startTime}-${endTime}`
 }
 
-export function getStartDateByTimeRange(timeRange: TimeRangeValue) {
+export function getDateByTimeRange(timeRange: TimeRangeValue) {
   const now = new Date()
 
   switch (timeRange) {
@@ -48,6 +51,10 @@ export function getStartDateByTimeRange(timeRange: TimeRangeValue) {
     default:
       return startOfDay(now)
   }
+}
+
+export function getTimeRangeLabel(value: TimeRangeValue) {
+  return TIME_RANGES.find((range) => range.value === value)?.label ?? ""
 }
 
 // Color utilities

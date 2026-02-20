@@ -1,4 +1,4 @@
-import type { Analytics } from "@app/database/types"
+import type { DeviceAnalysisRow } from "@app/types"
 import { useMemo } from "react"
 import { lightenColor } from "@/features/analytics/utils/analytics"
 
@@ -10,34 +10,37 @@ export type DeviceAnalysisResult = {
 
 const BASE_COLOR = "#0A9521"
 
-export const useDeviceAnalysis = (records: Analytics[]): DeviceAnalysisResult[] => {
+/**
+ * Transforms pre-aggregated device/OS rows from the server.
+ * Rows are already sorted by count desc — we just compute colors.
+ */
+export const useDeviceAnalysis = (
+  rows: DeviceAnalysisRow[] | undefined,
+): DeviceAnalysisResult[] => {
   return useMemo(() => {
-    if (!records?.length) return []
+    if (!rows?.length) return []
 
-    const osCounts = new Map<string, number>()
+    const len = rows.length
 
-    for (const { os } of records) {
-      const osName = os || "Unknown"
-      osCounts.set(osName, (osCounts.get(osName) ?? 0) + 1)
-    }
-
-    const entries = Array.from(osCounts.entries())
-
-    // Sort by count so most used OS appears first
-    entries.sort((a, b) => b[1] - a[1])
-
-    const counts = entries.map(([, count]) => count)
-    const minCount = Math.min(...counts)
-    const maxCount = Math.max(...counts)
+    // Rows are pre-sorted desc by count from the server
+    const maxCount = rows[0]!.count
+    const minCount = rows[len - 1]!.count
     const range = maxCount === minCount ? 1 : maxCount - minCount
 
-    return entries.map(([os, count]) => {
-      const normalized = (count - minCount) / range // 0 (least) -> 1 (most)
-      // Least clicked OS -> darkest BASE_COLOR
-      // Most clicked OS -> lightest variant of BASE_COLOR
+    const result = new Array<DeviceAnalysisResult>(len)
+
+    for (let i = 0; i < len; ++i) {
+      const r = rows[i]!
+      const normalized = (r.count - minCount) / range
       const fill = lightenColor(BASE_COLOR, normalized * 0.85)
 
-      return { os, clicks: count, fill }
-    })
-  }, [records])
+      result[i] = {
+        clicks: r.count,
+        os: r.os!,
+        fill,
+      }
+    }
+
+    return result
+  }, [rows])
 }

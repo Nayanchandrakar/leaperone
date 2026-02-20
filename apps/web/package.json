@@ -24,6 +24,7 @@
     "@app/types": "workspace:*",
     "@app/ui": "workspace:*",
     "@app/zod": "workspace:*",
+    "@vnedyalk0v/react19-simple-maps": "catalog:",
     "@hookform/resolvers": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@upstash/redis": "catalog:",

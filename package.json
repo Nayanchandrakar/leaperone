@@ -101,6 +101,7 @@
       "@upstash/redis": "^1.35.3",
       "@neondatabase/serverless": "^1.0.1",
       "@faker-js/faker": "^10.1.0",
+      "@vnedyalk0v/react19-simple-maps": "^2.0.2",
       "@hono/node-server": "^1.18.2",
       "bcryptjs": "^3.0.2",
       "wrangler": "^4.59.1",

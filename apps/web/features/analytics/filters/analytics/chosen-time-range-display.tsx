@@ -2,24 +2,25 @@
 
 import { format } from "date-fns"
 import { useShallow } from "zustand/react/shallow"
-import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
+import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
 
 export const ChosenTimeRangeDisplay = () => {
-  const { from, to } = useTimeRange(
+  const { from, to } = useAnalyticsStore(
     useShallow((state) => ({
       to: state.to,
       from: state.from,
     })),
   )
 
-  const startDateFormatted = format(from, "dd MMM, yyyy")
-  const endDateFormatted = format(to, "dd MMM, yyyy")
-  const dates = `${startDateFormatted} - ${endDateFormatted}`
+  const startDate = format(from, "dd MMM, yyyy")
+  const endDate = format(to, "dd MMM, yyyy")
 
   return (
     <p className="text-muted-foreground text-sm text-right">
       <span className="font-medium">Dates of chosen time range: </span>
-      <span className="font-normal">{dates}</span>
+      <span className="font-normal">
+        {startDate} - {endDate}
+      </span>
     </p>
   )
 }

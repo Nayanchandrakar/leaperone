@@ -1,20 +1,23 @@
 import { useQuery } from "@tanstack/react-query"
-import { useShallow } from "zustand/react/shallow"
-import { useTimeRange } from "@/features/analytics/hooks/analytics/use-time-range"
 import { getAnalytics } from "@/lib/api"
 
-export const useAnalytics = () => {
-  const { from, to } = useTimeRange(
-    useShallow((state) => ({
-      to: state.to,
-      from: state.from,
-    })),
-  )
+type UseAnalyticsParams = {
+  to: Date
+  from: Date
+  memberId: string | undefined
+}
+
+export const useAnalytics = ({ from, to, memberId }: UseAnalyticsParams) => {
   return useQuery({
-    queryKey: ["analytics", from, to],
+    // Use ISO string for stable cache keys — Date objects create new references every render
+    queryKey: ["analytics", from.toISOString(), to.toISOString(), memberId],
     queryFn: async () => {
-      const { data } = await getAnalytics({ to, from })
+      const { data } = await getAnalytics({ from, to, memberId })
       return data
     },
+    // Keep previous data visible while refetching (avoids flash-of-skeleton)
+    placeholderData: (previousData) => previousData,
+    // Stale for 30s — analytics data doesn't change that frequently
+    staleTime: 30_000,
   })
 }
