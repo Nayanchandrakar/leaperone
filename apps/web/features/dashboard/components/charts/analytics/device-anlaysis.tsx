@@ -1,6 +1,12 @@
 import type { DeviceAnalysisRow } from "@app/types"
 import { Card, CardContent, CardHeader, CardTitle } from "@app/ui/components/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@app/ui/components/chart"
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@app/ui/components/chart"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { Pie, PieChart } from "recharts"
 import {
@@ -41,13 +47,15 @@ export const DeviceAnalysis = ({ isPending, rows }: DeviceAnalysisProps) => {
           </CardHeader>
 
           <CardContent className="flex-1 pb-0">
-            <ChartContainer
-              config={CHART_CONFIG}
-              className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[250px] pb-0"
-            >
+            <ChartContainer config={CHART_CONFIG} className="mx-auto aspect-square max-h-75 mb-4">
               <PieChart>
                 <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                <Pie data={chartData} dataKey="clicks" nameKey="os" />
+                <Pie nameKey="os" data={chartData} dataKey="clicks" />
+                <ChartLegend
+                  // @ts-expect-error missing payload injected by recharts
+                  content={<ChartLegendContent nameKey="os" />}
+                  className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                />
               </PieChart>
             </ChartContainer>
           </CardContent>

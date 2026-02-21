@@ -4,8 +4,8 @@ import { lightenColor } from "@/features/dashboard/utils/analytics"
 
 export type DeviceAnalysisResult = {
   os: string
-  clicks: number
   fill: string
+  clicks: number
 }
 
 const BASE_COLOR = "#0A9521"
