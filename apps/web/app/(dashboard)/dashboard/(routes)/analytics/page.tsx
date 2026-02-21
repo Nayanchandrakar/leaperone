@@ -45,6 +45,7 @@ export default function AnalyticsPage() {
         scanAnalysis={scanAnalysis}
         timeAnalysis={timeAnalysis}
         scansInRange={scansInRange}
+        topCountries={topCountries}
         deviceAnalysis={deviceAnalysis}
         browserAnalysis={browserAnalysis}
       />

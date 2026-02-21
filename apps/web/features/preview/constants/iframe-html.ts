@@ -22,7 +22,7 @@ export const IFRAME_HTML = `
 
     <!-- Main app CSS -->
     ${isDev ? DEV_STYLESHEET : ""}
-    <link rel="stylesheet" href="/_next/static/chunks/53a04f64db178d85.css" data-precedence="next" />
+    <link rel="stylesheet" href="/_next/static/chunks/1e4d4b3faa85cc35.css" data-precedence="next" />
     <link rel="stylesheet" href="/_next/static/chunks/d41ba60faff93bff.css" data-precedence="next" />
 
     <!-- Minified baseline CSS with font optimization -->
