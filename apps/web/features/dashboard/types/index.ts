@@ -5,8 +5,9 @@ import type { LucideIcon } from "lucide-react"
 
 // Filters
 export type FileCategory = "all" | "image"
-export type FileStatus = "uploaded" | "uploading" | "error"
 export type SortOptions = (typeof SORT_OPTIONS)[number]
+export type FileStatus = "uploaded" | "uploading" | "error"
+export type TimeRangeValue = "today" | "last-3-days" | "last-7-days" | "last-30-days" | "all-time"
 
 export type DashboardNavItem = {
   href: string
@@ -42,3 +43,14 @@ export type FileSortOptions = {
 }
 
 export type AssetFile = Omit<File, "storageId">
+
+export type GeoDataItem = {
+  label: string
+  count: number
+  percentage: number
+}
+
+export type TimeRangeData = {
+  label: string
+  value: TimeRangeValue
+}[]

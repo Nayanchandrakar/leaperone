@@ -1,16 +1,16 @@
 "use client"
 
 import { useShallow } from "zustand/react/shallow"
-import { useAnalytics } from "@/features/analytics/hooks/analytics/use-analytics"
-import { useAnalyticsStore } from "@/features/analytics/hooks/analytics/use-analytics-store"
-import { AnalyticsCharts } from "@/features/analytics/pages/analytics/analytics-charts"
-import { AnalyticsFilter } from "@/features/analytics/pages/analytics/analytics-filter"
-import { TopGeoList } from "@/features/analytics/pages/analytics/top-geo-list"
+import { AnalyticsFilters } from "@/features/dashboard/components/filters/analytics"
+import { AnalyticsCharts } from "@/features/dashboard/components/pages/analytics/analytics-charts"
+import { TopGeoList } from "@/features/dashboard/components/pages/analytics/top-geo-list"
 import { DashboardContainer } from "@/features/dashboard/components/ui/dashboard-container"
 import { DashboardTitle } from "@/features/dashboard/components/ui/dashboard-heading"
+import { useAnalytics } from "@/features/dashboard/hooks/analytics/use-analytics"
+import { useAnalyticsStore } from "@/features/dashboard/hooks/analytics/use-analytics-store"
 
 export default function AnalyticsPage() {
-  const storevalues = useAnalyticsStore(
+  const storeValues = useAnalyticsStore(
     useShallow((state) => ({
       to: state.to,
       from: state.from,
@@ -18,14 +18,43 @@ export default function AnalyticsPage() {
     })),
   )
 
-  const { data, isPending } = useAnalytics(storevalues)
+  const { data, isPending } = useAnalytics(storeValues)
+
+  const {
+    topCities = [],
+    topRegions = [],
+    totalClicks = 0,
+    scansInRange = 0,
+    dayAnalysis = [],
+    topCountries = [],
+    timeAnalysis = [],
+    scanAnalysis = [],
+    deviceAnalysis = [],
+    browserAnalysis = [],
+  } = data ?? {}
 
   return (
     <DashboardContainer>
       <DashboardTitle>Analytics</DashboardTitle>
-      <AnalyticsFilter isDisabled={isPending} />
-      <AnalyticsCharts isPending={isPending} data={data!} />
-      <TopGeoList isPending={isPending} data={data!} />
+      <AnalyticsFilters isPending={isPending} />
+      <AnalyticsCharts
+        isPending={isPending}
+        topCities={topCities}
+        totalClicks={totalClicks}
+        dayAnalysis={dayAnalysis}
+        scanAnalysis={scanAnalysis}
+        timeAnalysis={timeAnalysis}
+        scansInRange={scansInRange}
+        deviceAnalysis={deviceAnalysis}
+        browserAnalysis={browserAnalysis}
+      />
+      <TopGeoList
+        isPending={isPending}
+        topCities={topCities}
+        topRegions={topRegions}
+        scansInRange={scansInRange}
+        topCountries={topCountries}
+      />
     </DashboardContainer>
   )
 }
