@@ -4,7 +4,7 @@ import { subscription } from "../schema"
 import type { DatabaseClient, InsertSubscription } from "../types"
 import { getWorkspaceAndSubscriptionData } from "./workspace"
 
-function isWithinRange(now: Date, start: Date | null, end: Date | null) {
+export function isWithinRange(now: Date, start: Date | null, end: Date | null) {
   return !!(start && end && now >= start && now <= end)
 }
 

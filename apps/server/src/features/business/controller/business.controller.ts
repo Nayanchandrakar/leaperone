@@ -1,6 +1,7 @@
 import {
-  createBusinessCardSchema,
   deleteCardSchema,
+  getBusinessCardQuerySchema,
+  saveBusinessCardSchema,
   toogleCardStatusSchema,
 } from "@app/zod/schema/bussiness"
 import type { BusinessService } from "@/features/business/service/business.service"
@@ -10,11 +11,10 @@ import { canManageBusinessCard } from "@/middlewares/business-card.middleware"
 import { hasActiveSubscription, hasWorkspace } from "@/middlewares/subscription.middleware"
 import { zodValidator } from "@/middlewares/validation.middleware"
 import type {
-  CreateBusinessCardContext,
   DeleteCardContext,
   GetBusinessCardContext,
+  SaveBusinessCardContext,
   ToogleCardStatusContext,
-  UpdateBusinessCardContext,
 } from "@/types/bussiness.types"
 
 export class BusinessController extends HttpController {
@@ -24,26 +24,23 @@ export class BusinessController extends HttpController {
   }
 
   protected override initializeRoutes() {
-    this.router.get("/", isAuth, hasWorkspace, hasActiveSubscription, this.getBusinessCard)
-
-    this.router.post(
-      "/create",
-      zodValidator("json", createBusinessCardSchema),
+    this.router.get(
+      "/",
+      zodValidator("query", getBusinessCardQuerySchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
-      canManageBusinessCard,
-      this.createBusinessCard,
+      this.getBusinessCard,
     )
 
-    this.router.put(
-      "/edit",
-      zodValidator("json", createBusinessCardSchema.partial()),
+    this.router.patch(
+      "/",
+      zodValidator("json", saveBusinessCardSchema),
       isAuth,
       hasWorkspace,
       hasActiveSubscription,
       canManageBusinessCard,
-      this.updateBusinessCard,
+      this.saveBusinessCard,
     )
 
     this.router.put(
@@ -56,7 +53,7 @@ export class BusinessController extends HttpController {
     )
 
     this.router.delete(
-      "/delete",
+      "/",
       zodValidator("json", deleteCardSchema),
       isAuth,
       hasWorkspace,
@@ -65,22 +62,22 @@ export class BusinessController extends HttpController {
     )
   }
 
+  // Get Business Card
   getBusinessCard = async (c: GetBusinessCardContext) => {
     return await this.businessService.getBusinessCard(c)
   }
 
-  createBusinessCard = async (c: CreateBusinessCardContext) => {
-    return await this.businessService.createBusinessCard(c)
+  // Save Business Card
+  saveBusinessCard = async (c: SaveBusinessCardContext) => {
+    return await this.businessService.saveBusinessCard(c)
   }
 
-  updateBusinessCard = async (c: UpdateBusinessCardContext) => {
-    return await this.businessService.updateBusinessCard(c)
-  }
-
+  // Delete Business Card
   deleteBusinessCard = async (c: DeleteCardContext) => {
     return await this.businessService.deleteBusinessCard(c)
   }
 
+  // Toggle Business Card Status
   toggleBusinessCardStatus = async (c: ToogleCardStatusContext) => {
     return await this.businessService.toggleBusinessCardStatus(c)
   }

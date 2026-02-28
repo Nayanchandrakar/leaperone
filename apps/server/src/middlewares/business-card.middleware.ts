@@ -6,11 +6,11 @@ import { MSG } from "@/constants/message"
 import type { HonoEnv } from "@/types/global.types"
 
 export const canManageBusinessCard = async (c: Context<HonoEnv>, next: Next) => {
-  const session = c.get("session")
+  const { session } = c.get("session")
   const workspace = c.get("workspace")
 
   // If user is being impersonated by a manager, allow management
-  if (session.session.impersonatedBy) {
+  if (session?.impersonatedBy === workspace.ownerId) {
     return await next()
   }
 

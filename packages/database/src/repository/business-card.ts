@@ -1,16 +1,50 @@
 import { ApiError } from "@app/error"
-import { and, eq } from "drizzle-orm"
+import { DatabaseError } from "@neondatabase/serverless"
+import { and, DrizzleQueryError, eq } from "drizzle-orm"
 import { businessCard } from "../schema/business-card"
+import { subscription } from "../schema/subscription"
 import type { DatabaseClient, InsertBusinessCard } from "../types"
+import { isWithinRange } from "./subscription"
 
-export async function createBusinessCard(db: DatabaseClient, values: InsertBusinessCard) {
+export async function createBusinessCard(
+  db: DatabaseClient,
+  { content, qrCode, identifier, design, template, userId, workspaceId }: InsertBusinessCard,
+) {
   try {
-    const [created] = await db
+    const [data] = await db
       .insert(businessCard)
-      .values(values)
-      .returning({ id: businessCard.id })
+      .values({ qrCode, design, userId, content, template, identifier, workspaceId })
+      .returning({ identifier: businessCard.identifier })
 
-    return created
+    return data
+  } catch (error) {
+    console.error(error)
+    if (
+      error instanceof DrizzleQueryError &&
+      error.cause instanceof DatabaseError &&
+      error.cause.code === "23505"
+    ) {
+      throw ApiError.badRequest("Business card already exists.")
+    }
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function saveBusinessCard(
+  db: DatabaseClient,
+  { content, qrCode, identifier, design, template, userId, workspaceId }: InsertBusinessCard,
+) {
+  try {
+    const [data] = await db
+      .insert(businessCard)
+      .values({ qrCode, design, userId, content, template, identifier, workspaceId })
+      .onConflictDoUpdate({
+        set: { content, qrCode, design, template },
+        target: [businessCard.workspaceId, businessCard.userId],
+      })
+      .returning({ identifier: businessCard.identifier })
+
+    return data
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
@@ -21,6 +55,7 @@ export async function getCardByWorkspaceIdAndUserId(
   db: DatabaseClient,
   workspaceId: string,
   userId: string,
+  withCard?: boolean,
 ) {
   try {
     const [data] = await db
@@ -30,6 +65,7 @@ export async function getCardByWorkspaceIdAndUserId(
         status: businessCard.status,
         template: businessCard.template,
         identifier: businessCard.identifier,
+        ...(withCard ? { design: businessCard.design, content: businessCard.content } : undefined),
       })
       .from(businessCard)
       .where(and(eq(businessCard.workspaceId, workspaceId), eq(businessCard.userId, userId)))
@@ -82,31 +118,6 @@ export async function updateBusinessCardById(
   }
 }
 
-export async function deleteBusinessCardById(
-  db: DatabaseClient,
-  workspaceId: string,
-  userId: string,
-  id: string,
-) {
-  try {
-    const [deleted] = await db
-      .delete(businessCard)
-      .where(
-        and(
-          eq(businessCard.id, id),
-          eq(businessCard.userId, userId),
-          eq(businessCard.workspaceId, workspaceId),
-        ),
-      )
-      .returning({ id: businessCard.id })
-
-    return deleted
-  } catch (error) {
-    console.error(error)
-    throw ApiError.internalServerError()
-  }
-}
-
 export async function deleteBusinessCardWithPermission(
   db: DatabaseClient,
   userId: string,
@@ -129,6 +140,54 @@ export async function deleteBusinessCardWithPermission(
       .returning({ id: businessCard.id })
 
     return deleted
+  } catch (error) {
+    console.error(error)
+    throw ApiError.internalServerError()
+  }
+}
+
+export async function getBusinessCardWithSubscription(db: DatabaseClient, id: string) {
+  try {
+    const [result] = await db
+      .select({
+        businessCard: {
+          design: businessCard.design,
+          qrCode: businessCard.qrCode,
+          status: businessCard.status,
+          content: businessCard.content,
+          template: businessCard.template,
+        },
+        subscription: {
+          status: subscription.status,
+          trialEnd: subscription.trialEnd,
+          trialStart: subscription.trialStart,
+          periodEnd: subscription.periodEnd,
+          periodStart: subscription.periodStart,
+        },
+      })
+      .from(businessCard)
+      .innerJoin(subscription, eq(businessCard.workspaceId, subscription.workspaceId))
+      .where(eq(businessCard.id, id))
+      .limit(1)
+      .$withCache()
+
+    if (!result) {
+      return {
+        businessCard: null,
+        subscription: { active: false },
+      }
+    }
+
+    const now = new Date()
+    const { status, trialStart, trialEnd, periodStart, periodEnd } = result.subscription
+
+    const isTrial = Boolean(status === "trialing" && isWithinRange(now, trialStart, trialEnd))
+    const isActive = Boolean(status === "active" && isWithinRange(now, periodStart, periodEnd))
+
+    return {
+      businessCard: result.businessCard,
+      subscription: { active: isTrial || isActive },
+    }
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()

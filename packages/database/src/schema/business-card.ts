@@ -1,4 +1,4 @@
-import type { ContentEditor, DesignEditor, QrCodeEditor, Template } from "@app/types"
+import type { ContentSection, DesignEditor, QrCodeEditor, Template } from "@app/types"
 import { createId } from "@paralleldrive/cuid2"
 import { jsonb, pgEnum, pgTable, text, unique } from "drizzle-orm/pg-core"
 import { businessCardStatus } from "../constants/enums"
@@ -27,7 +27,7 @@ export const businessCard = pgTable(
     template: text().notNull().$type<Template>(),
     design: jsonb().notNull().$type<DesignEditor>(),
     qrCode: jsonb().notNull().$type<QrCodeEditor>(),
-    content: jsonb().notNull().$type<ContentEditor>(),
+    content: jsonb().notNull().$type<ContentSection[]>(),
     status: cardStatusEnum().default("active").notNull(),
     ...timestamps,
   },

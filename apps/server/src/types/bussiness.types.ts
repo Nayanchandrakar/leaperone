@@ -1,21 +1,16 @@
 import type {
-  CreateBusinessCardSchema,
   DeleteCardSchema,
+  GetBusinessCardQuerySchema,
+  SaveBusinessCardSchema,
   ToogleCardStatusSchema,
 } from "@app/zod/types"
 import type { Context } from "hono"
 import type { ControllerIO, HonoEnv } from "@/types/global.types"
 
-export type CreateBusinessCardContext = Context<
+export type SaveBusinessCardContext = Context<
   HonoEnv,
-  "/business-card/create",
-  ControllerIO<"json", CreateBusinessCardSchema>
->
-
-export type UpdateBusinessCardContext = Context<
-  HonoEnv,
-  "/business-card/edit",
-  ControllerIO<"json", Partial<CreateBusinessCardSchema>>
+  "/",
+  ControllerIO<"json", SaveBusinessCardSchema>
 >
 
 export type DeleteCardContext = Context<
@@ -24,7 +19,11 @@ export type DeleteCardContext = Context<
   ControllerIO<"json", DeleteCardSchema>
 >
 
-export type GetBusinessCardContext = Context<HonoEnv, "/business-card", ControllerIO<"json", void>>
+export type GetBusinessCardContext = Context<
+  HonoEnv,
+  "/business-card",
+  ControllerIO<"query", GetBusinessCardQuerySchema>
+>
 
 export type ToogleCardStatusContext = Context<
   HonoEnv,

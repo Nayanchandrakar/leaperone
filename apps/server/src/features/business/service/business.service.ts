@@ -4,85 +4,49 @@ import {
   deleteBusinessCardWithPermission,
   getCardByWorkspaceIdAndUserId,
   getCardIdByWorkspaceIdAndUserId,
+  saveBusinessCard,
   updateBusinessCardById,
 } from "@app/database/repository/business-card"
 import type { BusinessCardStatus } from "@app/database/types"
 import { ApiError } from "@app/error"
 import { MSG } from "@/constants/message"
 import type {
-  CreateBusinessCardContext,
   DeleteCardContext,
   GetBusinessCardContext,
+  SaveBusinessCardContext,
   ToogleCardStatusContext,
-  UpdateBusinessCardContext,
 } from "@/types/bussiness.types"
 
 export class BusinessService {
   async getBusinessCard(c: GetBusinessCardContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
-    const card = await getCardByWorkspaceIdAndUserId(db, workspace.id, user.id)
+    const { withCard } = c.req.valid("query")
+
+    const card = await getCardByWorkspaceIdAndUserId(db, workspace.id, user.id, withCard)
     return c.json({ card })
   }
 
-  async createBusinessCard(c: CreateBusinessCardContext) {
+  async saveBusinessCard(c: SaveBusinessCardContext) {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
-    const values = c.req.valid("json")
+    const { content, design, qrCode, template, isEdit } = c.req.valid("json")
 
-    const existingCard = await getCardIdByWorkspaceIdAndUserId(db, workspace.id, user.id)
-
-    if (existingCard) {
-      throw ApiError.badRequest(MSG.BUSINESS_CARD.ALREADY_EXISTS)
-    }
-
-    const businessCard = await createBusinessCard(db, {
-      status: "active",
+    const card = await (isEdit ? saveBusinessCard : createBusinessCard)(db, {
+      qrCode,
+      design,
+      content,
+      template,
       userId: user.id,
-      qrCode: values.qrCode,
-      design: values.design,
-      content: values.content,
-      template: values.template,
       workspaceId: workspace.id,
       identifier: user.username, // By default, the identifier is the username of the user
     })
 
-    if (!businessCard) {
+    if (!card) {
       throw ApiError.badRequest(MSG.BUSINESS_CARD.FAILED_TO_CREATE)
     }
 
-    return c.json({
-      data: businessCard,
-      message: MSG.BUSINESS_CARD.CREATED_SUCCESS,
-    })
-  }
-
-  async updateBusinessCard(c: UpdateBusinessCardContext) {
-    const { user } = c.get("session")
-    const workspace = c.get("workspace")
-    const values = c.req.valid("json")
-
-    const existingCard = await getCardIdByWorkspaceIdAndUserId(db, workspace.id, user.id)
-
-    if (!existingCard) {
-      throw ApiError.notFound(MSG.BUSINESS_CARD.NOT_FOUND)
-    }
-
-    const updated = await updateBusinessCardById(db, existingCard.id, {
-      ...(values?.template && { template: values.template }),
-      ...(values?.content && { content: values.content }),
-      ...(values?.design && { design: values.design }),
-      ...(values.qrCode && { qrCode: values.qrCode }),
-    })
-
-    if (!updated) {
-      throw ApiError.badRequest(MSG.BUSINESS_CARD.FAILED_TO_UPDATE)
-    }
-
-    return c.json({
-      data: updated,
-      message: MSG.BUSINESS_CARD.UPDATED_SUCCESS,
-    })
+    return c.json({ card })
   }
 
   async deleteBusinessCard(c: DeleteCardContext) {

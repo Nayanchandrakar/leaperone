@@ -15,8 +15,9 @@ import type {
   verifyEmailSchema,
 } from "../schema/auth"
 import type {
-  createBusinessCardSchema,
   deleteCardSchema,
+  getBusinessCardQuerySchema,
+  saveBusinessCardSchema,
   toogleCardStatusSchema,
 } from "../schema/bussiness"
 import type {
@@ -48,10 +49,11 @@ export type InviteMemberSchema = z.infer<typeof inviteMemberSchema>
 export type PasswordSetupSchema = z.infer<typeof passwordSetupSchema>
 export type ImpersonateSchema = z.infer<typeof impersonateSchema>
 export type WorkspaceSettingsSchema = z.infer<typeof workspaceSettingsSchema>
-export type CreateBusinessCardSchema = z.infer<typeof createBusinessCardSchema>
+export type SaveBusinessCardSchema = z.infer<typeof saveBusinessCardSchema>
 export type GetAnalyticsSchema = z.infer<typeof getAnalyticsSchema>
 export type UpateProfileSchema = z.infer<typeof updateProfileSchema>
 export type UpdatePasswordSchema = z.infer<typeof updatePasswordSchema>
 export type GetPermissionSchema = z.infer<typeof getPermissionSchema>
 export type DeleteCardSchema = z.infer<typeof deleteCardSchema>
 export type ToogleCardStatusSchema = z.infer<typeof toogleCardStatusSchema>
+export type GetBusinessCardQuerySchema = z.infer<typeof getBusinessCardQuerySchema>

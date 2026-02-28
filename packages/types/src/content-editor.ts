@@ -4,7 +4,6 @@ import type {
   EnabledField,
   ImageViewType,
   SocialLinkType,
-  Template,
 } from "./common"
 
 export type Contact = {
@@ -227,11 +226,3 @@ export type ContentSection =
   | FloatingButtonSection
   | ContactDetailsSection
   | ImagesTextLinksSection
-/**
- * Main Content Editor interface
- * Contains template ID and array of content sections
- */
-export interface ContentEditor {
-  template: Template
-  sections: ContentSection[]
-}
