@@ -1,6 +1,14 @@
 import { cn } from "@app/ui/lib/utils"
 import { ChevronDown, GripVertical } from "lucide-react"
-import { createContext, memo, type SetStateAction, useContext, useMemo, useState } from "react"
+import {
+  createContext,
+  memo,
+  type SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 
 type EditorBlockContextProps = {
   item: string
@@ -40,6 +48,11 @@ export const EditorBlock = memo(
     defaultValue?: string
   }) => {
     const [item, setItem] = useState(defaultValue ?? "")
+
+    // Reset state when defaultValue changes (data sync)
+    useEffect(() => {
+      setItem(defaultValue ?? "")
+    }, [defaultValue])
 
     const value = useMemo(() => ({ item, setItem }), [item])
 
