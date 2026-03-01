@@ -5,8 +5,6 @@ import { notFound } from "next/navigation"
 import { TemplateRenderer } from "@/features/preview/components/ui/template-renderer"
 import type { ContentSections } from "@/features/preview/types"
 
-export const runtime = "edge"
-
 type PageProps = {
   params: Promise<{
     id: string
