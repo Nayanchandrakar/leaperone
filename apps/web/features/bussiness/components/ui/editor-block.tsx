@@ -1,42 +1,49 @@
 import { cn } from "@app/ui/lib/utils"
 import { ChevronDown, GripVertical } from "lucide-react"
-import {
-  createContext,
-  memo,
-  type SetStateAction,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { createContext, memo, useCallback, useContext, useMemo, useRef, useState } from "react"
 
-type EditorBlockContextProps = {
+// Context Separation: Distinguishing Read (item) from Write (setItem)
+// Only components consuming setItem (like EditorBlockTrigger) will not re-render
+// on changes to `item`, as they solely subscribe to the stable dispatch context.
+
+type EditorBlockDispatchContextProps = {
+  setItem: (value: string) => void
+}
+
+type EditorBlockStateContextProps = {
   item: string
-  setItem: React.Dispatch<SetStateAction<string>>
 }
 
 type EditorBlockItemContextProps = {
   value: string
 }
 
-const EditorBlockContext = createContext<EditorBlockContextProps | null>(null)
+const EditorBlockStateContext = createContext<EditorBlockStateContextProps | null>(null)
+const EditorBlockDispatchContext = createContext<EditorBlockDispatchContextProps | null>(null)
 const EditorBlockItemContext = createContext<EditorBlockItemContextProps | null>(null)
 
-const useEditorBlockContext = () => {
-  const context = useContext(EditorBlockContext)
-  if (!context) {
-    throw new Error("useEditorBlockContext must be used within EditorBlock")
-  }
+const useEditorBlockStateContext = () => {
+  const context = useContext(EditorBlockStateContext)
+  if (!context) throw new Error("Must be used within EditorBlock")
+  return context
+}
+
+const useEditorBlockDispatchContext = () => {
+  const context = useContext(EditorBlockDispatchContext)
+  if (!context) throw new Error("Must be used within EditorBlock")
   return context
 }
 
 const useEditorBlockItemContext = () => {
   const context = useContext(EditorBlockItemContext)
-  if (!context) {
-    throw new Error("useEditorBlockItemContext must be used within EditorBlockItem")
-  }
+  if (!context) throw new Error("Must be used within EditorBlockItem")
   return context
 }
+
+// EditorBlock Component
+// Replaces the useEffect/setState synchronization anti-pattern with a controlled
+// previous defaultValue ref, ensuring proper initial/reset state derivation in a
+// single render and avoiding an extra render.
 
 export const EditorBlock = memo(
   ({
@@ -44,33 +51,47 @@ export const EditorBlock = memo(
     children,
     defaultValue,
     ...props
-  }: React.ComponentProps<"ul"> & {
-    defaultValue?: string
-  }) => {
-    const [item, setItem] = useState(defaultValue ?? "")
+  }: React.ComponentProps<"ul"> & { defaultValue?: string }) => {
+    const [item, setItemState] = useState(defaultValue ?? "")
 
-    // Reset state when defaultValue changes (data sync)
-    useEffect(() => {
-      setItem(defaultValue ?? "")
-    }, [defaultValue])
+    // Ensures synchronization when defaultValue changes, replacing useEffect to prevent double renders.
+    const prevDefaultRef = useRef(defaultValue)
+    if (prevDefaultRef.current !== defaultValue) {
+      prevDefaultRef.current = defaultValue
+      setItemState(defaultValue ?? "")
+    }
 
-    const value = useMemo(() => ({ item, setItem }), [item])
+    // Provides a stable toggle/set handler; its reference never changes,
+    // shielding dispatch context consumers from state-driven re-renders.
+    const setItem = useCallback((value: string) => {
+      setItemState(value)
+    }, [])
+
+    const stateValue = useMemo(() => ({ item }), [item])
+    // The dispatch value is referentially stable, since setItem is memoized.
+    const dispatchValue = useMemo(() => ({ setItem }), [setItem])
 
     return (
-      <EditorBlockContext.Provider value={value}>
-        <ul
-          className={cn(
-            "space-y-3 animate-in fade-in transition-opacity duration-400 will-change-[opacity]",
-            className,
-          )}
-          {...props}
-        >
-          {children}
-        </ul>
-      </EditorBlockContext.Provider>
+      <EditorBlockStateContext.Provider value={stateValue}>
+        <EditorBlockDispatchContext.Provider value={dispatchValue}>
+          <ul
+            className={cn(
+              "space-y-3 animate-in fade-in transition-opacity duration-400 will-change-[opacity]",
+              className,
+            )}
+            {...props}
+          >
+            {children}
+          </ul>
+        </EditorBlockDispatchContext.Provider>
+      </EditorBlockStateContext.Provider>
     )
   },
 )
+
+// EditorBlockItem Component
+// This component subscribes to the state context to access `item` for determining
+// its open state. The item context provided is memoized based only on `value`.
 
 export const EditorBlockItem = memo(
   ({
@@ -85,8 +106,9 @@ export const EditorBlockItem = memo(
     isDragging?: boolean
     value: string
   }) => {
-    const { item } = useEditorBlockContext()
+    const { item } = useEditorBlockStateContext()
     const open = item === value
+
     const contextValue = useMemo(() => ({ value }), [value])
 
     return (
@@ -112,67 +134,78 @@ export const EditorBlockItem = memo(
   },
 )
 
-export const EditorBlockHeader = memo(({ className, ...props }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      data-slot="editor-block-header"
+// Presentational Components (No Context Access)
+// As these components only consume primitive props and receive no context, they are wrapped with memoization for performance.
+
+export const EditorBlockHeader = memo(({ className, ...props }: React.ComponentProps<"div">) => (
+  <div
+    data-slot="editor-block-header"
+    className={cn(
+      "w-full bg-muted p-5 flex items-center gap-2 justify-between",
+      "group-data-[state=open]/editor-block-item:border-b",
+      className,
+    )}
+    {...props}
+  />
+))
+
+export const EditorBlockGroup = memo(({ className, ...props }: React.ComponentProps<"div">) => (
+  <div
+    data-slot="editor-block-group"
+    className={cn("flex items-center gap-2", className)}
+    {...props}
+  />
+))
+
+export const EditorBlockTitle = memo(({ className, ...props }: React.ComponentProps<"p">) => (
+  <p
+    data-slot="editor-block-title"
+    className={cn("text-sm font-medium text-foreground", className)}
+    {...props}
+  />
+))
+
+export const EditorBlockGrip = memo(
+  ({ className, children, ...props }: React.ComponentProps<"span">) => (
+    <span
+      data-slot="editor-block-grip"
       className={cn(
-        "w-full bg-muted p-5 flex items-center gap-2 justify-between",
-        "group-data-[state=open]/editor-block-item:border-b",
+        "size-8 bg-white border border-gray-300 rounded-full cursor-grab flex-center",
         className,
       )}
       {...props}
-    />
-  )
-})
-
-export const EditorBlockGroup = memo(({ className, ...props }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      data-slot="editor-block-group"
-      className={cn("flex items-center gap-2", className)}
-      {...props}
-    />
-  )
-})
-
-export const EditorBlockTitle = memo(({ className, ...props }: React.ComponentProps<"p">) => {
-  return (
-    <p
-      data-slot="editor-block-title"
-      className={cn("text-sm font-medium text-foreground", className)}
-      {...props}
-    />
-  )
-})
-
-export const EditorBlockGrip = memo(
-  ({ className, children, ...props }: React.ComponentProps<"span">) => {
-    return (
-      <span
-        data-slot="editor-block-grip"
-        className={cn(
-          "size-8 bg-white border border-gray-300 rounded-full cursor-grab flex-center",
-          className,
-        )}
-        {...props}
-      >
-        {children ?? <GripVertical className="size-5 shrink-0 text-muted-foreground" />}
-      </span>
-    )
-  },
+    >
+      {children ?? <GripVertical className="size-5 shrink-0 text-muted-foreground" />}
+    </span>
+  ),
 )
+
+// EditorBlockTrigger Component
+// This component subscribes exclusively to the DISPATCH context, not the state context.
+// As a result, it will not re-render in response to changes to `item`, but only if
+// the reference to setItem changes (which is prevented by useCallback).
 
 export const EditorBlockTrigger = memo(
   ({ children, className, ...props }: React.ComponentProps<"button">) => {
-    const { setItem } = useEditorBlockContext()
+    const { setItem } = useEditorBlockDispatchContext()
     const { value } = useEditorBlockItemContext()
+
+    // NOTE: Toggle behavior (prev === value ? "" : value) is implemented here
+    // using the functional updater form, so the handler does not need to access
+    // potentially stale state directly. This keeps setItem in EditorBlock as a
+    // straightforward setter, and the toggle logic is localized here.
+    const handleToggle = useCallback(() => {
+      // Access to the current `item` state for toggling is achieved via the
+      // functional updater pattern. This avoids resubscribing to the state context.
+      // Internally, we use a cast to call setItem as a function updater.
+      ;(setItem as any)((prev: string) => (prev === value ? "" : value))
+    }, [setItem, value])
 
     return (
       <button
         type="button"
+        onClick={handleToggle}
         data-slot="editor-block-trigger"
-        onClick={() => setItem((prev) => (prev === value ? "" : value))}
         className={cn("size-8 bg-white border border-gray-300 rounded-full flex-center", className)}
         {...props}
       >
@@ -190,36 +223,32 @@ export const EditorBlockTrigger = memo(
 )
 
 export const EditorBlockContent = memo(
-  ({ className, children, ...props }: React.ComponentProps<"div">) => {
-    return (
+  ({ className, children, ...props }: React.ComponentProps<"div">) => (
+    <div
+      data-slot="editor-block-content"
+      className={cn(
+        "group-data-[state=open]/editor-block-item:max-h-500",
+        "group-data-[state=closed]/editor-block-item:max-h-0",
+        "transition-[max-height] duration-200 ease-in-out overflow-hidden",
+      )}
+      {...props}
+    >
       <div
-        data-slot="editor-block-content"
         className={cn(
-          "group-data-[state=open]/editor-block-item:max-h-500",
-          "group-data-[state=closed]/editor-block-item:max-h-0",
-          "transition-[max-height] duration-200 ease-in-out overflow-hidden",
+          "@container/editor-block-content p-5 has-[>[data-slot=editor-block-footer]]:p-0",
+          className,
         )}
-        {...props}
       >
-        <div
-          className={cn(
-            "@container/editor-block-content p-5 has-[>[data-slot=editor-block-footer]]:p-0",
-            className,
-          )}
-        >
-          {children}
-        </div>
+        {children}
       </div>
-    )
-  },
+    </div>
+  ),
 )
 
-export const EditorBlockFooter = memo(({ className, ...props }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      data-slot="editor-block-footer"
-      className={cn("px-5 py-4 border-t border-border", className)}
-      {...props}
-    />
-  )
-})
+export const EditorBlockFooter = ({ className, ...props }: React.ComponentProps<"div">) => (
+  <div
+    data-slot="editor-block-footer"
+    className={cn("px-5 py-4 border-t border-border", className)}
+    {...props}
+  />
+)
