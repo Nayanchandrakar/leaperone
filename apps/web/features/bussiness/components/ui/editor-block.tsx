@@ -58,7 +58,13 @@ export const EditorBlock = memo(
 
     return (
       <EditorBlockContext.Provider value={value}>
-        <ul className={cn("space-y-3", className)} {...props}>
+        <ul
+          className={cn(
+            "space-y-3 animate-in fade-in transition-opacity duration-400 will-change-[opacity]",
+            className,
+          )}
+          {...props}
+        >
           {children}
         </ul>
       </EditorBlockContext.Provider>

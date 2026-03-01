@@ -11,7 +11,11 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
   return (
     <main
       data-background={design?.sectionBackground?.enabled}
-      className="group/section relative overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
+      className="
+        group/section relative overflow-y-scroll
+        data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen
+        animate-in fade-in transition-opacity duration-400 will-change-[opacity]
+        "
       style={
         {
           "--template-background": color?.background,

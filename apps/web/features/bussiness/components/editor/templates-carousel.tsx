@@ -10,7 +10,7 @@ import { TEMPLATES } from "@/features/bussiness/constants/home/templates"
 
 export const TemplatesCarousel = memo(() => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-in fade-in transition-opacity duration-400 will-change-[opacity]">
       <div className="text-muted-foreground">
         <span className="font-semibold text-base">Card Templates</span>
         <span className="mx-2 text-xs">───</span>
