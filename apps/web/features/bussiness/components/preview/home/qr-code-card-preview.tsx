@@ -1,29 +1,41 @@
 import { Button } from "@app/ui/components/button"
-import { useShallow } from "zustand/react/shallow"
-import { QrCodePreview, QrCodeProvider } from "@/features/bussiness/components/ui/qr-code"
-import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
-import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
-import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
+import { Spinner } from "@app/ui/components/spinner"
+import { memo } from "react"
+import { useQRCode } from "@/features/bussiness/hooks/home/use-qr-code"
+import { useSaveAndShareBusinessCard } from "@/features/bussiness/hooks/home/use-save-and-share-business-card"
+import { useEditorState } from "@/features/bussiness/stores/use-editor-state"
 
-export default function QrCodeCardPreview() {
-  const content = useContentEditorStore(
-    useShallow((state) => ({
-      template: state.template,
-      sections: state.sections,
-    })),
-  )
+const QrCodeCardPreview = () => {
+  const { content, design, template, qrCode } = useEditorState()
+  const { qrCodeRef } = useQRCode(qrCode)
+  const { isFetching, isPending, handleSaveAndShare } = useSaveAndShareBusinessCard({
+    design,
+    qrCode,
+    content,
+    template,
+  })
 
-  const design = useDesignEditorStore((state) => state.config)
-  const options = useQrCodeEditorStore((state) => state.settings)
-
-  console.log(content, design)
+  const isDisabled = !!(isPending || isFetching)
 
   return (
     <div className="space-y-4">
-      <QrCodeProvider options={options}>
-        <QrCodePreview />
-      </QrCodeProvider>
-      <Button className="w-full font-semibold">Save Card & Download QR</Button>
+      <div ref={qrCodeRef} className="flex-center" />
+      <Button
+        type="button"
+        disabled={isDisabled}
+        onClick={handleSaveAndShare}
+        className="w-full font-semibold"
+      >
+        {isFetching ? (
+          <>
+            <Spinner /> Loading QR
+          </>
+        ) : (
+          <span>Save Card & Download QR</span>
+        )}
+      </Button>
     </div>
   )
 }
+
+export default memo(QrCodeCardPreview)

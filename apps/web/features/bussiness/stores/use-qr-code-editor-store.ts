@@ -21,6 +21,7 @@ type QrCodeEditorActions = {
   setFillColor: (color: string) => void
   setBodyShape: (shape: QrCodeBodyShape) => void
   setFillType: (type: QrCodeFill["type"]) => void
+  setAllSettings: (settings: QrCodeEditor) => void
   setCornerStyle: (style: QrCodeCornerStyle) => void
   setPatternStyle: (style: QrCodePatternStyle) => void
   setGradientColorStop: (index: number, color: string) => void
@@ -91,7 +92,11 @@ export const useQrCodeEditorStore = create<QrCodeEditorState & QrCodeEditorActio
       })
     },
 
-    reset: () => {
+    setAllSettings: (settings) => {
+      set({ settings })
+    },
+
+    reset() {
       set({ settings: QR_CODE_SETTINGS })
     },
   })),

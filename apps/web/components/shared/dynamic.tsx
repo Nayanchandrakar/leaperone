@@ -33,3 +33,13 @@ export const LazyQrCodeCardPreview = dynamic(
     loading: () => <QrPreviewLoadingSkeleton />,
   },
 )
+
+export const LazyShareBusinessCardDialog = dynamic(
+  () =>
+    import("@/features/dashboard/components/dialogs/dashboard/share-business-card-dialog").then(
+      (mod) => ({ default: mod.ShareBusinessCardDialog }),
+    ),
+  {
+    ssr: false,
+  },
+)

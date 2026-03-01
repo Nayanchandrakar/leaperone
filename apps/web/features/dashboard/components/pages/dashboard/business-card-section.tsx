@@ -1,5 +1,7 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
+import { getBusinessCardQueryOptions } from "@/features/bussiness/utils"
 import { BusinessCardItem } from "@/features/dashboard/components/cards/dashboard/business-card-item"
 import { CreateBusinessCard } from "@/features/dashboard/components/cards/dashboard/create-business-card"
 import { BusinessCardSkeleton } from "@/features/dashboard/components/skeletons/dashboard"
@@ -7,7 +9,6 @@ import {
   DashboardStats,
   DashboardStatsTitle,
 } from "@/features/dashboard/components/ui/dashboard-stats"
-import { useBusinessCards } from "@/features/dashboard/hooks/dashboard/use-business-cards"
 
 // Main component
 export const BusinessCardSection = () => {
@@ -20,7 +21,7 @@ export const BusinessCardSection = () => {
 }
 
 const BusinessCardList = () => {
-  const { data, isPending, isError } = useBusinessCards()
+  const { data, isPending, isError } = useQuery(getBusinessCardQueryOptions())
 
   // If there is an error or pending state, show the skeleton
   if (isPending || isError) return <BusinessCardSkeleton />

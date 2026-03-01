@@ -21,9 +21,11 @@ type ContentEditorActions = {
     value: unknown,
   ) => void
   moveSection: (fromIndex: number, toIndex: number) => void
+  setAllContent: (sections: ContentSection[], template: Template) => void
   pushSubSectionItem: (index: number, field: string[], item: unknown) => void
   removeSubSectionItem: (index: number, subIndex: number, field: string[]) => void
   moveSubSection: (index: number, field: string[], fromIndex: number, toIndex: number) => void
+  reset: () => void
 }
 
 const initialState: ContentEditorState = {
@@ -132,6 +134,15 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
         state.sections.push(newSection)
       })
     },
+
+    setAllContent: (sections, template) => {
+      set((state) => {
+        state.sections = sections
+        state.template = template
+      })
+    },
+
+    reset: () => set({ ...initialState }),
   })),
 )
 

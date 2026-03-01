@@ -1,24 +1,22 @@
+import type { QrCodeEditor } from "@app/types"
 import { Button } from "@app/ui/components/button"
-import { QrCodePreview, useQrCodeContext } from "@/features/bussiness/components/ui/qr-code"
+import { useQRCode } from "@/features/bussiness/hooks/home/use-qr-code"
 
 type DownloadQRCodeProps = {
   name: string
+  options: QrCodeEditor
 }
 
-export const DownloadQRCode = ({ name }: DownloadQRCodeProps) => {
-  const { qrCodeInstance } = useQrCodeContext()
+export const DownloadQRCode = ({ name, options }: DownloadQRCodeProps) => {
+  const { qrCodeRef, qrCodeInstance } = useQRCode(options)
+
   return (
     <>
-      <QrCodePreview />
+      <div ref={qrCodeRef} className="flex-center" />
       <Button
         variant="green-outline"
         className="w-full font-bold"
-        onClick={() => {
-          qrCodeInstance?.download({
-            name,
-            extension: "png",
-          })
-        }}
+        onClick={() => qrCodeInstance?.download({ name })}
       >
         Download QR
       </Button>

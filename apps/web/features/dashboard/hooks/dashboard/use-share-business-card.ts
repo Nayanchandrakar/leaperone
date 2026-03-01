@@ -3,29 +3,29 @@ import { create } from "zustand"
 
 interface ShareBusinessCardState {
   isOpen: boolean
-  qrCodeOptions: QrCodeEditor | null
+  qrCode: QrCodeEditor | null
   identifier: string | null
-  openDialog: (params: { identifier: string; qrCodeOptions: QrCodeEditor }) => void
+  openDialog: (params: { identifier: string; qrCode: QrCodeEditor }) => void
   closeDialog: () => void
 }
 
 export const useShareBusinessCard = create<ShareBusinessCardState>((set) => ({
   isOpen: false,
-  qrCodeOptions: null,
+  qrCode: null,
   identifier: null,
 
-  openDialog: ({ identifier, qrCodeOptions }) => {
+  openDialog: ({ identifier, qrCode }) => {
     set({
+      qrCode,
       identifier,
       isOpen: true,
-      qrCodeOptions,
     })
   },
 
   closeDialog: () => {
     set({ isOpen: false })
     setTimeout(() => {
-      set({ qrCodeOptions: null, identifier: null })
+      set({ qrCode: null, identifier: null })
     }, 300)
   },
 }))

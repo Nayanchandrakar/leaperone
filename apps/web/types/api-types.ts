@@ -1,4 +1,9 @@
 import type { BusinessCard, File, InvitationStatus } from "@app/database/types"
+import type { ContentSection, DesignEditor } from "@app/types"
+
+export type CreateBusinessCardRes = {
+  card: Pick<BusinessCard, "identifier">
+}
 
 export type LogoutMutationRes = {
   message: string
@@ -99,8 +104,11 @@ export type GetWorkspaceSettingsRes = {
   createAndEdit: boolean
 }
 
-export type GetBusinessCardsRes = {
-  card: Pick<BusinessCard, "id" | "qrCode" | "status" | "template" | "identifier">
+export type GetBusinessCardRes = {
+  card: Pick<BusinessCard, "id" | "qrCode" | "status" | "template" | "identifier"> & {
+    design?: DesignEditor
+    content?: ContentSection[]
+  }
 }
 
 export type DeleteCardRes = {

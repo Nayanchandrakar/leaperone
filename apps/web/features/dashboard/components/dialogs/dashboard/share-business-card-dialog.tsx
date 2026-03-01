@@ -6,7 +6,6 @@ import { Label } from "@app/ui/components/label"
 import Link from "next/link"
 import { useShallow } from "zustand/react/shallow"
 import { FeedBackIcons } from "@/components/shared/feeedback-icons"
-import { QrCodeProvider } from "@/features/bussiness/components/ui/qr-code"
 import { DownloadQRCode } from "@/features/dashboard/components/buttons/dashboard/download-qr-code"
 import { CopyInput } from "@/features/dashboard/components/ui/copy-input"
 import { SHARE_LINKS } from "@/features/dashboard/constants/dashboard/share-links"
@@ -19,12 +18,12 @@ interface ShareBusinessCardDialogProps {
 }
 
 export function ShareBusinessCardDialog({ title, showCheck }: ShareBusinessCardDialogProps) {
-  const { closeDialog, identifier, isOpen, qrCodeOptions } = useShareBusinessCard(
+  const { closeDialog, identifier, isOpen, qrCode } = useShareBusinessCard(
     useShallow((state) => ({
       isOpen: state.isOpen,
+      qrCode: state.qrCode!,
       identifier: state.identifier!,
       closeDialog: state.closeDialog,
-      qrCodeOptions: state.qrCodeOptions!,
     })),
   )
 
@@ -54,21 +53,18 @@ export function ShareBusinessCardDialog({ title, showCheck }: ShareBusinessCardD
               <p className="text-sm font-normal text-muted-foreground">Share the card on:</p>
 
               <div className="flex-center flex-wrap gap-3">
-                {SHARE_LINKS.map(({ name, href, Icon }) => {
-                  const linkHref = href(cardLink)
-                  return (
-                    <Link
-                      key={name}
-                      target="_blank"
-                      href={linkHref}
-                      rel="noopener noreferrer"
-                      className={buttonVariants({ variant: "gray-outline" })}
-                    >
-                      <Icon className="size-3.5" />
-                      {name}
-                    </Link>
-                  )
-                })}
+                {SHARE_LINKS.map(({ name, href, Icon }) => (
+                  <Link
+                    key={name}
+                    target="_blank"
+                    href={href(cardLink)}
+                    rel="noopener noreferrer"
+                    className={buttonVariants({ variant: "gray-outline" })}
+                  >
+                    <Icon className="size-3.5" />
+                    {name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -78,9 +74,7 @@ export function ShareBusinessCardDialog({ title, showCheck }: ShareBusinessCardD
         <section className="flex-center p-8 md:p-9 xl:p-10 border-border border-t md:border-none">
           <div className="space-y-3">
             <p className="text-sm font-normal text-muted-foreground text-center">Card's QR code</p>
-            <QrCodeProvider options={qrCodeOptions}>
-              <DownloadQRCode name={identifier} />
-            </QrCodeProvider>
+            <DownloadQRCode name={identifier} options={qrCode} />
           </div>
         </section>
       </DialogContent>

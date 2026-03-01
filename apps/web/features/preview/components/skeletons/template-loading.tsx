@@ -1,9 +1,9 @@
-import { Loader2 } from "lucide-react"
+import { Spinner } from "@app/ui/components/spinner"
 
 export const TemplateLoading = () => {
   return (
     <section className="w-full h-screen flex-center bg-muted">
-      <Loader2 className="size-6 animate-spin" />
+      <Spinner className="size-5" />
     </section>
   )
 }

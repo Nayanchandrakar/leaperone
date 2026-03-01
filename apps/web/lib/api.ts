@@ -6,6 +6,7 @@ import type {
   DeleteFilesSchema,
   EmailSchema,
   GetAnalyticsSchema,
+  GetBusinessCardQuerySchema,
   GetFileSchema,
   GetPermissionSchema,
   ImpersonateSchema,
@@ -16,6 +17,7 @@ import type {
   RegisterFormSchema,
   ResetPasswordSchema,
   RestrictUserSchema,
+  SaveBusinessCardSchema,
   SupportFormSchema,
   ToogleCardStatusSchema,
   UserNameFormSchema,
@@ -27,11 +29,12 @@ import type {
   AskSupportMutationRes,
   BillingPortalMutationRes,
   ContactUsMutationRes,
+  CreateBusinessCardRes,
   DeleteCardRes,
   DeleteFilesRes,
   ExitImpersonationMutationRes,
   GetAnalyticsMembersRes,
-  GetBusinessCardsRes,
+  GetBusinessCardRes,
   GetFilesRes,
   GetInvitedMembersRes,
   GetPermissionRes,
@@ -150,12 +153,12 @@ export async function passwordSetupMutation(params: PasswordSetupSchema) {
   return await API.post<PasswordSetupMutationRes>("/invitation/password-setup", params)
 }
 
-export async function getBusinessCards() {
-  return await API.get<GetBusinessCardsRes>("/business-card")
+export async function getBusinessCard(params?: GetBusinessCardQuerySchema) {
+  return await API.get<GetBusinessCardRes>("/business-card", { params })
 }
 
 export async function deleteCardMutation(data: DeleteCardSchema) {
-  return await API.delete<DeleteCardRes>("/business-card/delete", { data })
+  return await API.delete<DeleteCardRes>("/business-card", { data })
 }
 
 export async function toogleCardStatusMutation(data: ToogleCardStatusSchema) {
@@ -164,4 +167,8 @@ export async function toogleCardStatusMutation(data: ToogleCardStatusSchema) {
 
 export async function restrictUserMutation(params: RestrictUserSchema) {
   return await API.put<{ message: string }>("/auth/restrict", params)
+}
+
+export async function saveBusinessCardMutation(params: SaveBusinessCardSchema) {
+  return await API.patch<CreateBusinessCardRes>("/business-card", params)
 }

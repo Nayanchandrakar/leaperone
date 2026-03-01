@@ -24,6 +24,7 @@ type DesignEditorActions = {
   setColorField: <K extends keyof Color>(field: K, value: Color[K]) => void
   setCardImageUrl: <K extends keyof CardImage>(field: K, value: CardImage[K]) => void
   setSettings: <K extends keyof CardSettings>(field: K, value: CardSettings[K]) => void
+  setAllConfig: (config: DesignEditor) => void
   reset: () => void
 }
 
@@ -60,6 +61,10 @@ export const useDesignEditorStore = create<DesignEditorState & DesignEditorActio
       set((state) => {
         state.config.settings[field] = value
       }),
+
+    setAllConfig: (config) => {
+      set({ config })
+    },
 
     reset: () => set({ config: DEFAULT_DESIGN_SETTINGS }),
   })),

@@ -1,5 +1,6 @@
+import { useQuery } from "@tanstack/react-query"
 import { useCallback } from "react"
-import { useBusinessCards } from "@/features/dashboard/hooks/dashboard/use-business-cards"
+import { getBusinessCardQueryOptions } from "@/features/bussiness/utils"
 import { usePermission } from "@/features/dashboard/hooks/dashboard/use-permission"
 import { useShareBusinessCard } from "@/features/dashboard/hooks/dashboard/use-share-business-card"
 
@@ -12,13 +13,17 @@ export const useQuickActions = () => {
     data: permData,
   } = usePermission("invite:members")
 
-  const { data: card, isPending: cardPending, isError: cardError } = useBusinessCards()
+  const {
+    data: card,
+    isPending: cardPending,
+    isError: cardError,
+  } = useQuery(getBusinessCardQueryOptions())
 
   const handleShareBusinessCard = useCallback(() => {
     if (cardPending || cardError || !card?.card) return
 
     openDialog({
-      qrCodeOptions: card.card.qrCode,
+      qrCode: card.card.qrCode,
       identifier: card.card.identifier,
     })
   }, [cardPending, cardError, card, openDialog])

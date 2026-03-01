@@ -50,15 +50,15 @@ export const BusinessCardItem = ({
           View Card
         </Link>
 
-        <Link href="/" className={buttonVariants({ variant: "gray-outline" })}>
+        <Link
+          href={{ pathname: "/", query: { edit: "true" } }}
+          className={buttonVariants({ variant: "gray-outline" })}
+        >
           <Edit />
           Edit Card
         </Link>
 
-        <Button
-          variant="gray-outline"
-          onClick={() => openDialog({ identifier, qrCodeOptions: qrCode })}
-        >
+        <Button variant="gray-outline" onClick={() => openDialog({ identifier, qrCode })}>
           <Share2 />
           Share
         </Button>
