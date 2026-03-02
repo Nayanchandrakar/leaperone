@@ -86,7 +86,7 @@ proxy.get("/:identifier", async (c) => {
   )
 
   // Construct the final redirect URL to the business card page
-  const redirectUrl = `${c.env.FRONTEND_URL}?id=${cachedLink.businessCardId}`
+  const redirectUrl = `${c.env.FRONTEND_URL}/card/${cachedLink.businessCardId}`
 
   // HEAD requests are used for link previews - don't track analytics for them
   if (c.req.method === "HEAD") {
