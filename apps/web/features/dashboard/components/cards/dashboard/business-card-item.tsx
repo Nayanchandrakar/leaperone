@@ -16,7 +16,7 @@ import { DownloadQRMenu } from "@/features/dashboard/components/buttons/dashboar
 import { ToogleCardStatus } from "@/features/dashboard/components/buttons/dashboard/toogle-card-status"
 import { STAUS_TOOLTIP_CONTENT } from "@/features/dashboard/constants/dashboard/bussiness-tooltip"
 import { useShareBusinessCard } from "@/features/dashboard/hooks/dashboard/use-share-business-card"
-import { createBusinessCardLink } from "@/features/dashboard/utils"
+import { createBusinessCardPageLink } from "@/features/dashboard/utils"
 import { ToolTipProvider } from "@/features/subscription/components/ui/tooltip-provider"
 
 type BusinessCardItemProps = {
@@ -32,7 +32,7 @@ export const BusinessCardItem = ({
   return (
     <div className="border rounded-xl divide-y min-[1290px]:divide-x divide-border grid min-[1290px]:grid-cols-[auto_auto]">
       <div className="p-6 space-y-2">
-        <CopyCardLink link={createBusinessCardLink(id)} />
+        <CopyCardLink link={createBusinessCardPageLink(id)} />
         <div className="flex items-center gap-2 w-fit">
           <p className="font-normal text-sm text-muted-foreground">
             Card Status: &nbsp;
@@ -45,7 +45,11 @@ export const BusinessCardItem = ({
       </div>
 
       <div className="w-full p-6 flex items-center gap-3 flex-wrap">
-        <Link href="/" className={buttonVariants({ variant: "gray-outline" })}>
+        <Link
+          target="_blank"
+          href={`/card/${id}`}
+          className={buttonVariants({ variant: "gray-outline" })}
+        >
           <Eye />
           View Card
         </Link>

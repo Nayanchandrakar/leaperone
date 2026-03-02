@@ -3,7 +3,8 @@ import { businessCard, subscription } from "@app/database/schema"
 import { eq } from "drizzle-orm"
 import { notFound } from "next/navigation"
 import { TemplateRenderer } from "@/features/preview/components/ui/template-renderer"
-import type { ContentSections } from "@/features/preview/types"
+import { getGoogleFontsUrl } from "@/features/preview/utils/font-utils"
+import { separateSections } from "@/features/preview/utils/seperate-sections"
 
 type PageProps = {
   params: Promise<{
@@ -14,7 +15,6 @@ type PageProps = {
 export default async function CardPage({ params }: PageProps) {
   const { id } = await params
 
-  // Fetch the business card data by id
   const [data] = await dbHttp
     .select({
       businessCard: businessCard,
@@ -24,31 +24,42 @@ export default async function CardPage({ params }: PageProps) {
     .where(eq(businessCard.id, id))
     .innerJoin(subscription, eq(businessCard.workspaceId, subscription.workspaceId))
     .limit(1)
+    .$withCache()
 
   if (!data) {
     return notFound()
   }
 
-  // Expecting data.content to conform to ContentEditor type,
-  // which is not the same as the expected array of ContentSections.
-  // Here we try to extract relevant fields.
-
   const {
-    businessCard: { design, template, status },
+    businessCard: { design, template, status, content },
   } = data
 
   if (status !== "active") {
     return <p className="text-center text-sm text-muted-foreground">This card is not active</p>
   }
 
-  const sections = data.businessCard.content as unknown as ContentSections[]
+  const { mainSections, floatingButton } = separateSections(content)
 
   return (
-    <TemplateRenderer
-      design={design}
-      contents={sections}
-      template={template}
-      floating={undefined}
-    />
+    <>
+      {/* Only add DNS-prefetch and preconnect hints if we are fetching fonts from Google Fonts. */}
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+      {/* 
+        The `precedence` prop activates <head> hoisting for stylesheets in React 19+.
+        Without precedence, the <link> stays in <body> and browser font requests may not fire.
+      */}
+      <link rel="stylesheet" href={getGoogleFontsUrl(design?.font)!} precedence="default" />
+
+      <TemplateRenderer
+        design={design}
+        template={template}
+        contents={mainSections}
+        floating={floatingButton}
+      />
+    </>
   )
 }

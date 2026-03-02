@@ -12,17 +12,18 @@ export const IFRAME_HTML = `
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- DNS prefetch for faster connection establishment -->
+    <!-- DNS prefetch: earliest possible resolution for Google Fonts CDN -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    
-    <!-- Preconnect for optimized Google Fonts fetch (fonts will be injected dynamically) -->
+
+    <!-- Preconnect: begin TCP/TLS handshake before any JS runs -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 
+
     <!-- Main app CSS -->
     ${isDev ? DEV_STYLESHEET : ""}
-    <link rel="stylesheet" href="/_next/static/chunks/1e4d4b3faa85cc35.css" data-precedence="next" />
+    <link rel="stylesheet" href="/_next/static/chunks/e9d62f41a5b3f8a6.css" data-precedence="next" />
     <link rel="stylesheet" href="/_next/static/chunks/d41ba60faff93bff.css" data-precedence="next" />
 
     <!-- Minified baseline CSS with font optimization -->

@@ -11,11 +11,7 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
   return (
     <main
       data-background={design?.sectionBackground?.enabled}
-      className="
-        group/section relative overflow-y-scroll
-        data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen
-        animate-in fade-in transition-opacity duration-400 will-change-[opacity]
-        "
+      className="group/section relative animate-in fade-in transition-opacity duration-400 will-change-[opacity] overflow-y-scroll data-[mode=preview]:no-scrollbar data-[mode=preview]:h-screen"
       style={
         {
           "--template-background": color?.background,
@@ -27,6 +23,7 @@ export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
           "--font-button-weight": font?.buttonWeight,
           "--font-heading-weight": font?.headingWeight,
           "--card-radius": `${sectionBackground?.borderRadius}px`,
+          fontFamily: `${font?.family}, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`,
         } as React.CSSProperties
       }
       {...props}

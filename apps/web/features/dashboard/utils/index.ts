@@ -1,3 +1,7 @@
+export function createBusinessCardPageLink(id: string) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}/card/${id}`
+}
+
 export function createBusinessCardLink(identifier: string) {
   return `${process.env.NEXT_PUBLIC_PROXY_URL}/${identifier}`
 }
