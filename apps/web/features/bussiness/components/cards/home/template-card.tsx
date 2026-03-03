@@ -32,7 +32,7 @@ export const TemplateCard = ({ item }: TemplateCardProps) => {
       />
       {item.id === template && (
         <span className="absolute top-2 right-2 flex-center size-5.5 rounded-full bg-primary">
-          <Check className="size-3 stroke-5 text-white fill-primary" />
+          <Check className="size-3 stroke-5 text-white" />
         </span>
       )}
     </CarouselItem>

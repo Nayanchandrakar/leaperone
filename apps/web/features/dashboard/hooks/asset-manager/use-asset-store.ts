@@ -22,35 +22,35 @@ export const useAssetStore = create<AssetStore>()((set, get) => ({
   selectedAssetIds: [],
   uploadProgressList: [],
 
-  toggleSelectionMode: (value) => {
+  toggleSelectionMode(value) {
     set({ isSelectionMode: value })
   },
 
-  setSelectedAssetIds: (ids) => {
+  setSelectedAssetIds(ids) {
     set({ selectedAssetIds: ids })
   },
 
-  addSelectedAssetId: (id) => {
+  addSelectedAssetId(id) {
     set((state) => ({ selectedAssetIds: [...state.selectedAssetIds, id] }))
   },
 
-  removeSelectedAssetId: (id) => {
+  removeSelectedAssetId(id) {
     set((state) => ({
       selectedAssetIds: state.selectedAssetIds.filter((selectedId) => selectedId !== id),
     }))
   },
 
-  clearSelectedAssetIds: () => {
+  clearSelectedAssetIds() {
     set({ selectedAssetIds: [] })
   },
 
-  addUploadProgress: (progress) => {
+  addUploadProgress(progress) {
     set((state) => ({
       uploadProgressList: [...state.uploadProgressList, progress],
     }))
   },
 
-  updateUploadProgress: (fileId, progress) => {
+  updateUploadProgress(fileId, progress) {
     set((state) => ({
       uploadProgressList: state.uploadProgressList.map((item) =>
         item.fileId === fileId ? { ...item, progress } : item,
@@ -58,7 +58,7 @@ export const useAssetStore = create<AssetStore>()((set, get) => ({
     }))
   },
 
-  updateUploadStatus: (fileId, status) => {
+  updateUploadStatus(fileId, status) {
     set((state) => ({
       uploadProgressList: state.uploadProgressList.map((item) =>
         item.fileId === fileId ? { ...item, status } : item,
@@ -66,7 +66,7 @@ export const useAssetStore = create<AssetStore>()((set, get) => ({
     }))
   },
 
-  hasActiveUploads: () => {
+  hasActiveUploads() {
     return get().uploadProgressList.some(({ status }) => status === "uploading")
   },
 }))
