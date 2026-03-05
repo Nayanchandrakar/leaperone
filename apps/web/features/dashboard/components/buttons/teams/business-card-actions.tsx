@@ -33,7 +33,7 @@ export const BusinessCardActions = ({
       <DropdownMenuPortal>
         <DropdownMenuSubContent className="w-40">
           <DropdownMenuItem disabled={!businessCardId} asChild>
-            <Link href={`/preview/${memberId}`}>
+            <Link href={`/card/${businessCardId}`}>
               <Eye />
               View card
             </Link>
@@ -49,7 +49,7 @@ export const BusinessCardActions = ({
 
           <DropdownMenuItem
             disabled={isPending || !businessCardId}
-            onClick={() => mutate({ memberId, path: "/?mode=edit" })}
+            onClick={() => mutate({ memberId, path: "/?edit=true" })}
           >
             <Edit />
             Edit card
