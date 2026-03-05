@@ -1,6 +1,6 @@
 import type { Color } from "@app/types"
 
-export const CARD_COLORS: Color[] = [
+export const CARD_COLORS = [
   {
     highlight: "#0A9521",
     background: "#EDEDED",
@@ -121,4 +121,4 @@ export const CARD_COLORS: Color[] = [
     mainText: "#E03A3D",
     supportingText: "#949494",
   },
-]
+] as const satisfies Color[]

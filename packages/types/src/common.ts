@@ -1,4 +1,4 @@
-export type Template = "classic" | "premium"
+export type Template = "classic" | "premium" | "modern"
 
 export type ImageViewType = "list" | "grid" | "featured" | "carousel" | "slideshow"
 

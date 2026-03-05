@@ -2,7 +2,7 @@ import { FontIcons } from "@/features/bussiness/components/shared/font-icons"
 import type { FontOption } from "@/features/bussiness/types"
 
 // Modern Fonts
-export const MODERN_FONTS: FontOption[] = [
+export const MODERN_FONTS = [
   {
     id: "inter",
     family: "Inter",
@@ -91,15 +91,15 @@ export const MODERN_FONTS: FontOption[] = [
     bodyWeight: 400,
     Icon: FontIcons.nunito,
   },
-]
+] as const satisfies FontOption[]
 
 // Classic Fonts
-export const CLASSIC_FONTS: FontOption[] = [
+export const CLASSIC_FONTS = [
   {
     id: "roboto-slab",
     family: "Roboto Slab",
-    headingWeight: 700,
-    buttonWeight: 500,
+    headingWeight: 500,
+    buttonWeight: 400,
     bodyWeight: 400,
     Icon: FontIcons.robotoSans,
   },
@@ -167,10 +167,10 @@ export const CLASSIC_FONTS: FontOption[] = [
     bodyWeight: 400,
     Icon: FontIcons.newRoman,
   },
-]
+] as const satisfies FontOption[]
 
 // Fancy Fonts
-export const FANCY_FONTS: FontOption[] = [
+export const FANCY_FONTS = [
   {
     id: "sour-gummy",
     family: "Sour Gummy",
@@ -211,4 +211,4 @@ export const FANCY_FONTS: FontOption[] = [
     bodyWeight: 400,
     Icon: FontIcons.handlee,
   },
-]
+] as const satisfies FontOption[]
