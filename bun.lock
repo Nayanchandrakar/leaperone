@@ -100,7 +100,7 @@
         "@tanstack/react-form": "catalog:",
         "@tanstack/react-query": "catalog:",
         "@upstash/redis": "catalog:",
-        "@vnedyalk0v/react19-simple-maps": "2.0.2",
+        "@vnedyalk0v/react19-simple-maps": "catalog:",
         "axios": "catalog:",
         "babel-plugin-react-compiler": "catalog:",
         "date-fns": "catalog:",
