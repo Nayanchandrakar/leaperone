@@ -15,7 +15,7 @@ type QrCodeEditorState = {
 }
 
 type QrCodeEditorActions = {
-  reset: () => void
+  resetSettings: () => void
   setData: (data: string) => void
   setLogo: (logo: string) => void
   setFillColor: (color: string) => void
@@ -92,12 +92,16 @@ export const useQrCodeEditorStore = create<QrCodeEditorState & QrCodeEditorActio
       })
     },
 
-    setAllSettings: (settings) => {
-      set({ settings })
+    setAllSettings(settings) {
+      set((state) => {
+        state.settings = settings
+      })
     },
 
-    reset() {
-      set({ settings: QR_CODE_SETTINGS })
+    resetSettings() {
+      set((state) => {
+        state.settings = QR_CODE_SETTINGS
+      })
     },
   })),
 )

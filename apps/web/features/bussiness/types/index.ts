@@ -61,8 +61,8 @@ export type ContentSectionProps = {
 }
 
 export type Template = {
-  id: TemplateKey
-  image: string
+  template: TemplateKey
+  imageSrc: string
 }
 
 export type SocialIconMap = Record<SocialLinkType, (props: IconProps) => React.JSX.Element>

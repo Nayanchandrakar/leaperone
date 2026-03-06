@@ -38,10 +38,10 @@ export function ProfileInfo({ name, info }: ProfileInfoProps) {
       <SectionHeader className="break-all">
         {nameContent && <SectionTitle>{nameContent}</SectionTitle>}
         {infoContents?.length > 0 && (
-          <div className="divide-y divide-border text-sm">
+          <div className="divide-y divide-border">
             {infoContents.map((content, index) => (
               <p
-                key={`info-${index}`}
+                key={index}
                 className="text-sm font-template-body text-template-muted-foreground py-1.5 px-3"
               >
                 {content}

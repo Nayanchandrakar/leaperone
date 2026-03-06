@@ -6,13 +6,14 @@ import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-ed
 
 // Hook to reset the business card
 export const useResetBusinessCard = () => {
-  const resetDesign = useDesignEditorStore(useShallow((state) => state.reset))
-  const resetQrCode = useQrCodeEditorStore(useShallow((state) => state.reset))
-  const resetContent = useContentEditorStore(useShallow((state) => state.reset))
+  const template = useContentEditorStore(useShallow((state) => state.template))
+  const resetSettings = useQrCodeEditorStore(useShallow((state) => state.resetSettings))
+  const resetConfig = useDesignEditorStore(useShallow((state) => state.resetConfig))
+  const resetContent = useContentEditorStore(useShallow((state) => state.resetContent))
 
   return useCallback(() => {
     resetContent()
-    resetDesign()
-    resetQrCode()
-  }, [resetContent, resetDesign, resetQrCode])
+    resetConfig(template)
+    resetSettings()
+  }, [resetContent, resetConfig, resetSettings, template])
 }

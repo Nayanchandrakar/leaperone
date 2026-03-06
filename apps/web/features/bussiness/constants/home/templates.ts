@@ -2,11 +2,15 @@ import type { Template } from "@/features/bussiness/types"
 
 export const TEMPLATES: Template[] = [
   {
-    id: "classic",
-    image: "https://images.pexels.com/photos/29716187/pexels-photo-29716187.png",
+    template: "classic",
+    imageSrc: "/assets/image/classic.png",
   },
+  // {
+  //   template: "premium",
+  //   imageSrc: "/assets/image/premium.png",
+  // },
   {
-    id: "premium",
-    image: "https://images.pexels.com/photos/3844786/pexels-photo-3844786.jpeg",
+    template: "modern",
+    imageSrc: "/assets/image/modern.png",
   },
 ]

@@ -22,7 +22,7 @@ export const TemplatesCarousel = memo(() => {
       >
         <CarouselContent>
           {TEMPLATES.map((item) => (
-            <TemplateCard key={item.id} item={item} />
+            <TemplateCard key={item.template} item={item} />
           ))}
         </CarouselContent>
         <CarouselPrevious variant="default" className="left-0 z-1" />

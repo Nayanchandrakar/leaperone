@@ -2,6 +2,7 @@ import type {
   BussinessHourSection,
   ContactDetailsSection,
   ContentSection,
+  ContentSectionType,
   CtaButtonSection,
   FloatingButtonSection,
   HeadingTextSection,
@@ -15,13 +16,14 @@ import type {
 } from "@app/types"
 import { generateUUID } from "@/utils"
 
-export const CARD_PROFILE_SECTION: ProfileCardSection = {
+// Factory functions that create new sections with fresh IDs
+export const createCardProfileSection = (): ProfileCardSection => ({
   id: generateUUID(),
   enabled: true,
   type: "card-profile",
   details: {
     profile: {
-      imageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
+      imageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/70.jpg",
       enabled: true,
     },
     branding: {
@@ -31,7 +33,7 @@ export const CARD_PROFILE_SECTION: ProfileCardSection = {
   },
   name: {
     enabled: true,
-    name: "Michael Anderson",
+    name: "Michael Smith",
   },
   info: {
     primary: {
@@ -68,9 +70,9 @@ export const CARD_PROFILE_SECTION: ProfileCardSection = {
       },
     ],
   },
-}
+})
 
-export const HEADING_TEXT_SECTION: HeadingTextSection = {
+export const createHeadingTextSection = (): HeadingTextSection => ({
   enabled: true,
   id: generateUUID(),
   type: "heading-text",
@@ -83,9 +85,9 @@ export const HEADING_TEXT_SECTION: HeadingTextSection = {
     text: "At Electrica, I help people find the right electric vehicle to fit their lifestyle. My goal is to make the process straightforward, transparent, and truly enjoyable.",
   },
   background: true,
-}
+})
 
-export const FLOATING_BUTTON_SECTION: FloatingButtonSection = {
+export const createFloatingButtonSection = (): FloatingButtonSection => ({
   enabled: true,
   id: generateUUID(),
   type: "floating-button",
@@ -95,9 +97,9 @@ export const FLOATING_BUTTON_SECTION: FloatingButtonSection = {
   },
   showQrButton: true,
   showShareButton: true,
-}
+})
 
-export const VIDEO_SECTION: VideoSection = {
+export const createVideoSection = (): VideoSection => ({
   enabled: true,
   id: generateUUID(),
   type: "video-section",
@@ -114,9 +116,9 @@ export const VIDEO_SECTION: VideoSection = {
     type: "youtube",
     youtubeUrl: "https://www.youtube-nocookie.com/embed/mfv0V1SxbNA?si=TFysOtlLt1XiFrFs",
   },
-}
+})
 
-export const CTA_BUTTON_SECTION: CtaButtonSection = {
+export const createCtaButtonSection = (): CtaButtonSection => ({
   enabled: true,
   id: generateUUID(),
   type: "cta-button",
@@ -131,9 +133,9 @@ export const CTA_BUTTON_SECTION: CtaButtonSection = {
   background: true,
   label: "Visit Website",
   link: "https://www.yourwebsite.com",
-}
+})
 
-export const LINK_SECTION: LinkSection = {
+export const createSocialLinksSection = (): LinkSection => ({
   id: generateUUID(),
   type: "social-links",
   enabled: true,
@@ -166,9 +168,9 @@ export const LINK_SECTION: LinkSection = {
     },
   ],
   background: true,
-}
+})
 
-export const CONTACT_DETAILS_SECTION: ContactDetailsSection = {
+export const createContactDetailsSection = (): ContactDetailsSection => ({
   enabled: true,
   id: generateUUID(),
   type: "contact-details",
@@ -207,9 +209,9 @@ export const CONTACT_DETAILS_SECTION: ContactDetailsSection = {
     },
   ],
   background: true,
-}
+})
 
-export const IMAGE_TEXT_LINKS_SECTION: ImagesTextLinksSection = {
+export const createImageTextLinksSection = (): ImagesTextLinksSection => ({
   enabled: true,
   id: generateUUID(),
   type: "image-text-links",
@@ -237,9 +239,9 @@ export const IMAGE_TEXT_LINKS_SECTION: ImagesTextLinksSection = {
     },
   ],
   background: true,
-}
+})
 
-export const TEAMS_SECTION: TeamSection = {
+export const createTeamsSection = (): TeamSection => ({
   enabled: true,
   id: generateUUID(),
   type: "teams-section",
@@ -280,9 +282,9 @@ export const TEAMS_SECTION: TeamSection = {
       },
     },
   ],
-}
+})
 
-export const TESTIMONIALS_SECTION: TestimonialsSection = {
+export const createTestimonialsSection = (): TestimonialsSection => ({
   enabled: true,
   id: generateUUID(),
   type: "testimonials-section",
@@ -304,8 +306,8 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
         text: "Designation, Company",
       },
       profile: {
-        imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
         enabled: true,
+        imageSrc: "https://images.pexels.com/photos/5514828/pexels-photo-5514828.jpeg",
       },
       testimonialText: "Amazing Experience. Kudos to the great customer support team.",
     },
@@ -313,8 +315,8 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
       id: generateUUID(),
       name: "Mary Lee",
       designation: {
-        enabled: true,
         text: "Designation, Company",
+        enabled: true,
       },
       profile: {
         imageSrc: "https://images.pexels.com/photos/15577996/pexels-photo-15577996.png",
@@ -323,39 +325,9 @@ export const TESTIMONIALS_SECTION: TestimonialsSection = {
       testimonialText: "Nice work! Highly recommended.",
     },
   ],
-}
+})
 
-export const PDF_FILE_SECTION: PdfFileSection = {
-  enabled: true,
-  id: generateUUID(),
-  type: "pdf-file-section",
-  background: true,
-  heading: {
-    enabled: true,
-    text: "PDF Files",
-  },
-  description: {
-    enabled: true,
-    text: "Have a look at our PDF files.",
-  },
-  files: [
-    {
-      id: generateUUID(),
-      title: {
-        enabled: true,
-        text: "PDF File 1",
-      },
-      subTitle: {
-        enabled: true,
-        text: "PDF File 1",
-      },
-      fileSrc: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
-      thumbnail: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
-    },
-  ],
-}
-
-export const BUSSINESS_HOUR_SECTION: BussinessHourSection = {
+export const createBussinessHoursSection = (): BussinessHourSection => ({
   enabled: true,
   background: true,
   id: generateUUID(),
@@ -422,14 +394,50 @@ export const BUSSINESS_HOUR_SECTION: BussinessHourSection = {
       },
     ],
   },
-}
+})
 
-/** Default classic template */
-export const CLASSIC_CONTENT: ContentSection[] = [
-  CARD_PROFILE_SECTION,
-  HEADING_TEXT_SECTION,
-  IMAGE_TEXT_LINKS_SECTION,
-  CONTACT_DETAILS_SECTION,
-  LINK_SECTION,
-  FLOATING_BUTTON_SECTION,
-]
+export const createPdfSection = (): PdfFileSection => ({
+  enabled: true,
+  id: generateUUID(),
+  type: "pdf-file-section",
+  background: true,
+  heading: {
+    enabled: true,
+    text: "PDF Files",
+  },
+  description: {
+    enabled: true,
+    text: "Have a look at our PDF files.",
+  },
+  files: [
+    {
+      id: generateUUID(),
+      title: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      subTitle: {
+        enabled: true,
+        text: "PDF File 1",
+      },
+      fileSrc: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+      thumbnail: "https://images.pexels.com/photos/11127232/pexels-photo-11127232.jpeg",
+    },
+  ],
+})
+
+// Map section types to their factory functions
+export const SECTION_CREATOR: Record<ContentSectionType, () => ContentSection> = {
+  "teams-section": createTeamsSection,
+  "video-section": createVideoSection,
+  "pdf-file-section": createPdfSection,
+  "cta-button": createCtaButtonSection,
+  "social-links": createSocialLinksSection,
+  "card-profile": createCardProfileSection,
+  "heading-text": createHeadingTextSection,
+  "bussiness-hour": createBussinessHoursSection,
+  "floating-button": createFloatingButtonSection,
+  "contact-details": createContactDetailsSection,
+  "image-text-links": createImageTextLinksSection,
+  "testimonials-section": createTestimonialsSection,
+}

@@ -1,8 +1,8 @@
 import type { ContentSection, ContentSectionType, Template } from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
-import { CLASSIC_CONTENT } from "@/features/bussiness/constants/contents/classic-content"
-import { SECTION_FACTORIES } from "@/features/bussiness/constants/contents/section-factories"
+import { TEMPLATE_SECTIONS } from "@/features/bussiness/constants/home/template-sections"
+import { SECTION_CREATOR } from "@/features/bussiness/utils/section-creator"
 
 type ContentEditorState = {
   template: Template
@@ -25,19 +25,19 @@ type ContentEditorActions = {
   pushSubSectionItem: (index: number, field: string[], item: unknown) => void
   removeSubSectionItem: (index: number, subIndex: number, field: string[]) => void
   moveSubSection: (index: number, field: string[], fromIndex: number, toIndex: number) => void
-  reset: () => void
+  resetContent: () => void
 }
 
 const initialState: ContentEditorState = {
   template: "classic",
-  sections: CLASSIC_CONTENT,
+  sections: TEMPLATE_SECTIONS,
 }
 
 export const useContentEditorStore = create<ContentEditorState & ContentEditorActions>()(
   immer((set) => ({
     ...initialState,
 
-    setTemplate: (template) => {
+    setTemplate(template) {
       set((state) => {
         state.template = template
       })
@@ -124,9 +124,9 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
       })
     },
 
-    addSection: (sectionType) => {
+    addSection: (section) => {
       set((state) => {
-        const factory = SECTION_FACTORIES[sectionType]
+        const factory = SECTION_CREATOR[section]
         if (!factory) return
 
         // Create a new section with fresh IDs
@@ -135,14 +135,18 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
       })
     },
 
-    setAllContent: (sections, template) => {
+    setAllContent(sections, template) {
       set((state) => {
-        state.sections = sections
         state.template = template
+        state.sections = sections
       })
     },
 
-    reset: () => set({ ...initialState }),
+    resetContent() {
+      set((state) => {
+        state.sections = TEMPLATE_SECTIONS
+      })
+    },
   })),
 )
 
