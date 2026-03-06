@@ -23,8 +23,8 @@ const QrCodeCardPreview = () => {
       <Button
         type="button"
         disabled={isDisabled}
-        onClick={handleSaveAndShare}
         className="w-full font-semibold"
+        onClick={() => handleSaveAndShare(true)}
       >
         {isFetching ? (
           <>

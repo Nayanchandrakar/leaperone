@@ -18,12 +18,13 @@ interface ShareBusinessCardDialogProps {
 }
 
 export function ShareBusinessCardDialog({ title, showCheck }: ShareBusinessCardDialogProps) {
-  const { closeDialog, identifier, isOpen, qrCode } = useShareBusinessCard(
+  const { identifier, isOpen, qrCode, autoDownload, closeDialog } = useShareBusinessCard(
     useShallow((state) => ({
       isOpen: state.isOpen,
       qrCode: state.qrCode!,
       identifier: state.identifier!,
       closeDialog: state.closeDialog,
+      autoDownload: state.autoDownload,
     })),
   )
 
@@ -74,7 +75,7 @@ export function ShareBusinessCardDialog({ title, showCheck }: ShareBusinessCardD
         <section className="flex-center p-8 md:p-9 xl:p-10 border-border border-t md:border-none">
           <div className="space-y-3">
             <p className="text-sm font-normal text-muted-foreground text-center">Card's QR code</p>
-            <DownloadQRCode name={identifier} options={qrCode} />
+            <DownloadQRCode name={identifier} options={qrCode} autoDownload={autoDownload} />
           </div>
         </section>
       </DialogContent>

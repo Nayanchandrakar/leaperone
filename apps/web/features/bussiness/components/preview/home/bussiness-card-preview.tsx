@@ -30,7 +30,7 @@ export const BusinessCardPreview = memo(() => {
         <MobileSandbox />
       </Iphone>
       <div className="space-y-3 [&>button]:w-full [&>button]:font-semibold">
-        <Button disabled={isDisabled} onClick={handleSaveAndShare}>
+        <Button disabled={isDisabled} onClick={() => handleSaveAndShare()}>
           {isFetching ? (
             <>
               <Spinner />

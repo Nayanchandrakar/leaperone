@@ -19,7 +19,7 @@ export const saveBusinessCardSchema = z.object({
   design: z.json() as unknown as z.ZodType<DesignEditor>,
   qrCode: z.json() as unknown as z.ZodType<QrCodeEditor>,
   content: z.json() as unknown as z.ZodType<ContentSection[]>,
-  template: z.enum(["classic", "premium"] satisfies Template[]),
+  template: z.enum(["classic", "premium", "modern"] satisfies Template[]),
 })
 
 export const deleteCardSchema = z.object({ id })

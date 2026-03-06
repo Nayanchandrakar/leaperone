@@ -19,18 +19,25 @@ export const useSaveAndShareBusinessCard = ({ content, design, qrCode, template 
     queryKey: ["business-card"],
   })
 
-  const handleSaveAndShare = useCallback(() => {
-    if (Array.isArray(content) && content.length && design && qrCode && template) {
-      mutate(
-        { content, design, qrCode, template },
-        {
-          onSuccess({ card }) {
-            openDialog({ qrCode, identifier: card.identifier })
+  const handleSaveAndShare = useCallback(
+    (autoDownload = false) => {
+      if (Array.isArray(content) && content.length && design && qrCode && template) {
+        mutate(
+          { content, design, qrCode, template },
+          {
+            onSuccess({ card }) {
+              openDialog({
+                qrCode,
+                autoDownload,
+                identifier: card.identifier,
+              })
+            },
           },
-        },
-      )
-    }
-  }, [content, design, qrCode, template, mutate, openDialog])
+        )
+      }
+    },
+    [content, design, qrCode, template, mutate, openDialog],
+  )
 
   return { handleSaveAndShare, isPending, isFetching }
 }
