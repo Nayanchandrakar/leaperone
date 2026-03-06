@@ -1,5 +1,5 @@
 {
-  "id": "2017272e-a321-42ad-99d5-4c0dcd6ffe79",
+  "id": "a86bad5e-37a5-4cc7-b538-33678c9e068e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -269,7 +269,35 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "analytics_ws_user_time_idx": {
+          "name": "analytics_ws_user_time_idx",
+          "columns": [
+            {
+              "expression": "workspace_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "clicked_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "analytics_user_id_user_id_fk": {
           "name": "analytics_user_id_user_id_fk",
@@ -1464,7 +1492,7 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
-          "default": false
+          "default": true
         },
         "created_at": {
           "name": "created_at",

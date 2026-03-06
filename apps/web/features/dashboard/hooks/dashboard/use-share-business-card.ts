@@ -1,5 +1,6 @@
 import type { QrCodeEditor } from "@app/types"
 import { create } from "zustand"
+import { createBusinessCardLink } from "@/features/dashboard/utils"
 
 interface ShareBusinessCardState {
   isOpen: boolean
@@ -18,10 +19,10 @@ export const useShareBusinessCard = create<ShareBusinessCardState>((set) => ({
 
   openDialog: ({ identifier, qrCode, autoDownload = false }) => {
     set({
-      qrCode,
       identifier,
       isOpen: true,
       autoDownload,
+      qrCode: { ...qrCode, data: createBusinessCardLink(identifier) },
     })
   },
 

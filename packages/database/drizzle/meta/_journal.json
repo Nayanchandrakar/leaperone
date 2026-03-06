@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771308014148,
-      "tag": "0000_breezy_iron_fist",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1740062255000,
-      "tag": "0001_analytics_covering_indexes",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1771609814966,
-      "tag": "0002_equal_molecule_man",
+      "when": 1772799616190,
+      "tag": "0000_dark_sentinel",
       "breakpoints": true
     }
   ]

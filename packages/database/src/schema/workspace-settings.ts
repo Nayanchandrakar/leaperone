@@ -11,6 +11,6 @@ export const workspaceSettings = pgTable("workspace_settings", {
     .references(() => workspace.id, { onDelete: "cascade" })
     .notNull()
     .unique(),
-  createAndEdit: boolean().default(false).notNull(),
+  createAndEdit: boolean().default(true).notNull(),
   ...timestamps,
 })
