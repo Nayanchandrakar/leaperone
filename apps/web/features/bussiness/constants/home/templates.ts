@@ -5,10 +5,10 @@ export const TEMPLATES: Template[] = [
     template: "classic",
     imageSrc: "/assets/image/classic.png",
   },
-  // {
-  //   template: "premium",
-  //   imageSrc: "/assets/image/premium.png",
-  // },
+  {
+    template: "premium",
+    imageSrc: "/assets/image/premium.png",
+  },
   {
     template: "modern",
     imageSrc: "/assets/image/modern.png",

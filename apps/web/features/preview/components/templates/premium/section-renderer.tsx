@@ -6,10 +6,10 @@ import { HeadingSection } from "@/features/preview/components/templates/classic/
 import { ImageTextLinkSection } from "@/features/preview/components/templates/classic/images"
 import { SocialLinksSection } from "@/features/preview/components/templates/classic/links"
 import { PdfFileSection } from "@/features/preview/components/templates/classic/pdf"
-import { ProfileSection } from "@/features/preview/components/templates/classic/profile"
 import { TeamSection } from "@/features/preview/components/templates/classic/team"
 import { TestimonialSection } from "@/features/preview/components/templates/classic/testimonials"
 import { VideoSection } from "@/features/preview/components/templates/classic/video"
+import { ProfileSection } from "@/features/preview/components/templates/premium/profile"
 
 type PremiumSectionRendererProps = {
   content: Exclude<ContentSection, FloatingButtonSection>
