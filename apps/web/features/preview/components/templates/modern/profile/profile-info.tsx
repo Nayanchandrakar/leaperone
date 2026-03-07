@@ -51,7 +51,7 @@ export function ProfileInfo({ name, info, branding }: ProfileInfoProps) {
           height={136}
           alt="branding-logo"
           src={brandingImageSrc}
-          className="absolute left-1/2 -top-16 -translate-x-1/2 rounded-full object-contain size-34"
+          className="absolute left-1/2 -top-16 -translate-x-1/2 rounded-full object-cover size-34"
         />
       )}
 
