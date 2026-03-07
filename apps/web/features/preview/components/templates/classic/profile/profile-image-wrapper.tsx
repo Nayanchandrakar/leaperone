@@ -1,6 +1,6 @@
 import type { ProfileCardSection } from "@app/types"
 import Image from "next/image"
-import { Icons } from "@/components/shared/icons"
+import { BusinessIcons } from "@/features/bussiness/components/shared/business-icons"
 
 type ProfileImageProps = {
   profile: ProfileCardSection["details"]["profile"]
@@ -13,7 +13,7 @@ export function ProfileImageWrapper({ profile }: ProfileImageProps) {
   return (
     <figure className="relative aspect-square -m-2 xs:-m-4">
       {profile?.imageSrc && <Image fill src={profile.imageSrc} alt="user-profile-image" />}
-      <Icons.curvedBanner className="w-full h-fit absolute -bottom-1" />
+      <BusinessIcons.curvedBanner className="w-full h-fit absolute -bottom-1" />
     </figure>
   )
 }

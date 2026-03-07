@@ -26,9 +26,7 @@ export const QuickActions = memo(({ contacts }: QuickActionProps) => {
 })
 
 const QuickActionsList = ({ list }: QuickActionsListProps) => {
-  return list.map((item) => (
-    <QuickActionItem id={item.id} key={item.id} type={item.type} value={item.value} />
-  ))
+  return list.map((item) => <QuickActionItem key={item.id} {...item} />)
 }
 
 const QuickActionItem = ({ id, type, value }: Contact) => {
