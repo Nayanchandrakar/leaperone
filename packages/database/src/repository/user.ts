@@ -138,7 +138,7 @@ export async function createUser(
 
       await tx.insert(workspaceSettings).values({
         workspaceId,
-        createAndEdit: false,
+        createAndEdit: true,
       })
 
       return {
