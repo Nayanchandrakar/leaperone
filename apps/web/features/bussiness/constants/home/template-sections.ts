@@ -10,6 +10,7 @@ import type {
   PdfFileSection,
   ProfileCardSection,
   TeamSection,
+  Template,
   TestimonialsSection,
   VideoSection,
 } from "@app/types"
@@ -434,3 +435,26 @@ export const TEMPLATE_SECTIONS: ContentSection[] = [
   LINK_SECTION,
   FLOATING_BUTTON_SECTION,
 ]
+
+/**
+ * Template-specific default profile picture and brand logo for the Card Profile section.
+ * Used when switching templates: only applied if user hasn't customized (current value
+ * matches the previous template's default).
+ */
+export const CARD_PROFILE_DEFAULTS: Record<
+  Template,
+  { profileImageSrc: string; brandLogoImageSrc: string }
+> = {
+  classic: {
+    profileImageSrc: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/48.jpg",
+    brandLogoImageSrc: "https://images.pexels.com/photos/28288788/pexels-photo-28288788.jpeg",
+  },
+  premium: {
+    profileImageSrc: "https://images.pexels.com/photos/2681631/pexels-photo-2681631.jpeg",
+    brandLogoImageSrc: "https://images.pexels.com/photos/2681631/pexels-photo-2681631.jpeg",
+  },
+  modern: {
+    profileImageSrc: "https://images.pexels.com/photos/2681631/pexels-photo-2681631.jpeg",
+    brandLogoImageSrc: "https://images.pexels.com/photos/2681631/pexels-photo-2681631.jpeg",
+  },
+}

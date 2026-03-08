@@ -1,7 +1,10 @@
-import type { ContentSection, ContentSectionType, Template } from "@app/types"
+import type { ContentSection, ContentSectionType, ProfileCardSection, Template } from "@app/types"
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
-import { TEMPLATE_SECTIONS } from "@/features/bussiness/constants/home/template-sections"
+import {
+  CARD_PROFILE_DEFAULTS,
+  TEMPLATE_SECTIONS,
+} from "@/features/bussiness/constants/home/template-sections"
 import { SECTION_CREATOR } from "@/features/bussiness/utils/section-creator"
 
 type ContentEditorState = {
@@ -40,7 +43,24 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
 
     setTemplate(template) {
       set((state) => {
+        const previousTemplate = state.template
         state.template = template
+
+        const profileIndex = state.sections.findIndex(({ type }) => type === "card-profile")
+        if (profileIndex === -1) return
+
+        const cardProfile = state.sections[profileIndex] as Pick<ProfileCardSection, "details">
+        const newDefaults = CARD_PROFILE_DEFAULTS[template]
+        const prevDefaults = CARD_PROFILE_DEFAULTS[previousTemplate]
+        const { profile, branding } = cardProfile.details ?? {}
+
+        if (profile?.imageSrc === prevDefaults.profileImageSrc) {
+          profile.imageSrc = newDefaults.profileImageSrc
+        }
+
+        if (branding?.imageSrc === prevDefaults.brandLogoImageSrc) {
+          branding.imageSrc = newDefaults.brandLogoImageSrc
+        }
       })
     },
 
