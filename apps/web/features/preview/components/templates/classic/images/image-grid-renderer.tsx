@@ -14,44 +14,34 @@ type ImageGridRendererProps = {
 }
 
 export const ImageGridRenderer = ({ images, layout }: ImageGridRendererProps) => {
-  if (layout === "carousel") {
+  if (layout === "carousel" || layout === "slideshow") {
     return (
-      <Carousel opts={{ align: "start", containScroll: "trimSnaps" }} className="w-full">
+      <Carousel opts={{ align: "start" }} className="relative w-full">
         <CarouselContent className="-ml-4">
-          {Array.isArray(images) &&
-            images.map((image) => (
-              <CarouselItem key={image.id} className="pl-4 basis-full">
-                <ImageGridCard
-                  layout={layout}
-                  href={image.link}
-                  title={image.title}
-                  imageSrc={image.imageSrc}
-                />
-              </CarouselItem>
-            ))}
+          {images.map((image) => (
+            <CarouselItem key={image.id} className="pl-4 basis-full">
+              <ImageGridCard
+                layout={layout}
+                href={image.link}
+                title={image.title}
+                imageSrc={image.imageSrc}
+              />
+            </CarouselItem>
+          ))}
         </CarouselContent>
-      </Carousel>
-    )
-  }
 
-  if (layout === "slideshow") {
-    return (
-      <Carousel opts={{ align: "start", containScroll: "trimSnaps" }} className="relative w-full">
-        <CarouselContent className="-ml-4">
-          {Array.isArray(images) &&
-            images.map((image) => (
-              <CarouselItem key={image.id} className="pl-4 basis-full">
-                <ImageGridCard
-                  layout={layout}
-                  href={image.link}
-                  title={image.title}
-                  imageSrc={image.imageSrc}
-                />
-              </CarouselItem>
-            ))}
-        </CarouselContent>
-        <CarouselPrevious variant="default" className="left-0 z-1" />
-        <CarouselNext variant="default" className="right-0 z-1" />
+        {layout === "slideshow" && (
+          <>
+            <CarouselPrevious
+              variant="default"
+              className="left-0 bg-template-primary hover:bg-template-primary/90"
+            />
+            <CarouselNext
+              variant="default"
+              className="right-0 bg-template-primary hover:bg-template-primary/90"
+            />
+          </>
+        )}
       </Carousel>
     )
   }
@@ -61,16 +51,15 @@ export const ImageGridRenderer = ({ images, layout }: ImageGridRendererProps) =>
       data-layout={layout}
       className="grid data-[layout=featured]:grid-cols-2 data-[layout=grid]:grid-cols-2 gap-4"
     >
-      {Array.isArray(images) &&
-        images.map((image) => (
-          <ImageGridCard
-            key={image.id}
-            layout={layout}
-            href={image.link}
-            title={image.title}
-            imageSrc={image.imageSrc}
-          />
-        ))}
+      {images.map((image) => (
+        <ImageGridCard
+          key={image.id}
+          layout={layout}
+          href={image.link}
+          title={image.title}
+          imageSrc={image.imageSrc}
+        />
+      ))}
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import type { ImagesTextLinksSection } from "@app/types"
 import { memo, useMemo } from "react"
+import { ImageGridRenderer } from "@/features/preview/components/templates/classic/images/image-grid-renderer"
 import {
   SectionDescription,
   SectionHeader,
   SectionRoot,
   SectionTitle,
 } from "@/features/preview/components/ui/section"
-import { ImageGridRenderer } from "./image-grid-renderer"
 
 type ImageTextLinkSection = {
   content: ImagesTextLinksSection
@@ -15,6 +15,7 @@ type ImageTextLinkSection = {
 export const ImageTextLinkSection = memo(({ content }: ImageTextLinkSection) => {
   const { heading, description, images, imageView, background } = content
 
+  const showImages = Array.isArray(images) && images?.length > 0
   const showHeading = useMemo(() => heading?.enabled && heading?.text, [heading])
   const showDescription = useMemo(() => description?.enabled && description?.text, [description])
 
@@ -24,7 +25,7 @@ export const ImageTextLinkSection = memo(({ content }: ImageTextLinkSection) => 
         {showHeading && <SectionTitle>{heading?.text}</SectionTitle>}
         {showDescription && <SectionDescription>{description?.text}</SectionDescription>}
       </SectionHeader>
-      <ImageGridRenderer images={images} layout={imageView} />
+      {showImages && <ImageGridRenderer images={images} layout={imageView} />}
     </SectionRoot>
   )
 })
