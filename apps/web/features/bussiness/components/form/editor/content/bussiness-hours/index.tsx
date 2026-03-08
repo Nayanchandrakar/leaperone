@@ -1,6 +1,6 @@
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 import { Switch } from "@app/ui/components/switch"
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
@@ -14,6 +14,7 @@ import type { ContentSectionProps } from "@/features/bussiness/types"
 import { BussinessHoursList } from "./bussiness-hours-list"
 
 export const BussinessHourSection = memo(({ index }: ContentSectionProps) => {
+  const removeSection = useContentEditorStore((state) => state.removeSection)
   const idSelector = useMemo(() => selectSectionId(index), [index])
   const id = useContentEditorStore(idSelector)!
 
@@ -30,10 +31,13 @@ export const BussinessHourSection = memo(({ index }: ContentSectionProps) => {
 
   const [timingEnabled, setTimingEnabled] = useSectionField<boolean>(index, ["timing", "enabled"])
 
+  const handleDelete = useCallback(() => removeSection(index), [removeSection, index])
+
   return (
     <SortableListItem
       itemId={id}
       isEnabled={enabled}
+      onDelete={handleDelete}
       itemTitle="Business Hours"
       onIsEnabledChange={setEnabled}
     >

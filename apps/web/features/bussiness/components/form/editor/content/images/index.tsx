@@ -1,7 +1,7 @@
 import type { ImageViewType } from "@app/types"
 import { Field, FieldGroup, FieldLabel } from "@app/ui/components/field"
 
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
@@ -18,6 +18,7 @@ import {
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const ImageTextLinksForm = memo(({ index }: ContentSectionProps) => {
+  const removeSection = useContentEditorStore((state) => state.removeSection)
   const [enabled, setEnabled] = useSectionField<boolean>(index, ["enabled"])
   const [headingEnabled, setHeadingEnabled] = useSectionField<boolean>(index, [
     "heading",
@@ -34,10 +35,13 @@ export const ImageTextLinksForm = memo(({ index }: ContentSectionProps) => {
   const idSelector = useMemo(() => selectSectionId(index), [index])
   const id = useContentEditorStore(idSelector) ?? ""
 
+  const handleDelete = useCallback(() => removeSection(index), [removeSection, index])
+
   return (
     <SortableListItem
       itemId={id}
       isEnabled={enabled}
+      onDelete={handleDelete}
       onIsEnabledChange={setEnabled}
       itemTitle="Images + Texts + Links"
     >

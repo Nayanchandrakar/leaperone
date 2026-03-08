@@ -34,7 +34,7 @@ export default function PreviewPage() {
     `}</style>
       <TemplateRenderer
         design={design}
-        template="premium"
+        template="classic"
         contents={[
           {
             id: "3e454339-6717-4ff7-a59f-bfce49d0dbc0",
@@ -118,7 +118,7 @@ export default function PreviewPage() {
               enabled: true,
               text: "Discover our latest collection of electric vehicles from leading EV brands.",
             },
-            imageView: "list",
+            imageView: "slideshow",
             images: [
               {
                 id: "4f0e506c-3320-42af-9fe8-195b8c7209fd",

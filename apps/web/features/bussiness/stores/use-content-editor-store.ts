@@ -12,6 +12,7 @@ type ContentEditorState = {
 type ContentEditorActions = {
   setTemplate: (template: Template) => void
   addSection: (type: ContentSectionType) => void
+  removeSection: (index: number) => void
   updateSectionField: (index: number, field: string[], value: unknown) => void
   updateSubSectionField: (
     index: number,
@@ -132,6 +133,13 @@ export const useContentEditorStore = create<ContentEditorState & ContentEditorAc
         // Create a new section with fresh IDs
         const newSection = factory()
         state.sections.push(newSection)
+      })
+    },
+
+    removeSection: (index) => {
+      set((state) => {
+        if (index < 0 || index >= state.sections.length) return
+        state.sections.splice(index, 1)
       })
     },
 

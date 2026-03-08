@@ -18,9 +18,9 @@ type EditorBlockItemContextProps = {
   value: string
 }
 
+const EditorBlockItemContext = createContext<EditorBlockItemContextProps | null>(null)
 const EditorBlockStateContext = createContext<EditorBlockStateContextProps | null>(null)
 const EditorBlockDispatchContext = createContext<EditorBlockDispatchContextProps | null>(null)
-const EditorBlockItemContext = createContext<EditorBlockItemContextProps | null>(null)
 
 const useEditorBlockStateContext = () => {
   const context = useContext(EditorBlockStateContext)
@@ -39,11 +39,6 @@ const useEditorBlockItemContext = () => {
   if (!context) throw new Error("Must be used within EditorBlockItem")
   return context
 }
-
-// EditorBlock Component
-// Replaces the useEffect/setState synchronization anti-pattern with a controlled
-// previous defaultValue ref, ensuring proper initial/reset state derivation in a
-// single render and avoiding an extra render.
 
 export const EditorBlock = memo(
   ({

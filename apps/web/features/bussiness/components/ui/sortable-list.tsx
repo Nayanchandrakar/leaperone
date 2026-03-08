@@ -1,3 +1,4 @@
+import { Button } from "@app/ui/components/button"
 import { Switch } from "@app/ui/components/switch"
 import {
   closestCenter,
@@ -14,6 +15,7 @@ import {
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers"
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
+import { Trash } from "lucide-react"
 import { memo, type ReactNode, useCallback, useMemo } from "react"
 import tunnel from "tunnel-rat"
 import { useShallow } from "zustand/react/shallow"
@@ -51,6 +53,7 @@ type SortableListItemProps = {
   itemClassName?: string
   children: ReactNode
   onIsEnabledChange: (enabled: boolean) => void
+  onDelete?: () => void
 }
 
 type EditorSubSortableListItemProps = {
@@ -118,6 +121,7 @@ export const SortableListItem = memo(
     children,
     itemClassName,
     onIsEnabledChange,
+    onDelete,
   }: SortableListItemProps) => {
     const activeCardId = useSortableListStore((state) => state.activeCardId)
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -128,6 +132,8 @@ export const SortableListItem = memo(
       (v: boolean) => onIsEnabledChange?.(v),
       [onIsEnabledChange],
     )
+
+    const handleDelete = useCallback(() => onDelete?.(), [onDelete])
 
     return (
       <>
@@ -146,6 +152,16 @@ export const SortableListItem = memo(
               <EditorBlockTitle>{itemTitle}</EditorBlockTitle>
             </EditorBlockGroup>
             <EditorBlockGroup>
+              {onDelete && (
+                <Button
+                  size="icon-sm"
+                  variant="destructive"
+                  onClick={handleDelete}
+                  className="bg-white hover:bg-white/80 opacity-0 transition-opacity group-hover/editor-block-item:opacity-100 group-data-[dragging=true]/editor-block-item:hidden"
+                >
+                  <Trash />
+                </Button>
+              )}
               <Switch checked={isEnabled} onCheckedChange={handleIsEnabledChange} />
               <EditorBlockTrigger />
             </EditorBlockGroup>

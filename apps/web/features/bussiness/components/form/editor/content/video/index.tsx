@@ -1,7 +1,7 @@
 import { FieldGroup } from "@app/ui/components/field"
 import { Input } from "@app/ui/components/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@app/ui/components/tabs"
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
 import { ToggleTextareaField } from "@/features/bussiness/components/fields/toggle-textarea-field"
@@ -14,6 +14,7 @@ import {
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const VideoForm = memo(({ index }: ContentSectionProps) => {
+  const removeSection = useContentEditorStore((state) => state.removeSection)
   const idSelector = useMemo(() => selectSectionId(index), [index])
   const id = useContentEditorStore(idSelector)!
 
@@ -31,11 +32,14 @@ export const VideoForm = memo(({ index }: ContentSectionProps) => {
   const [descText, setDescText] = useSectionField<string>(index, ["description", "text"])
   const [youtubeUrl, setYoutubeUrl] = useSectionField<string>(index, ["video", "youtubeUrl"])
 
+  const handleDelete = useCallback(() => removeSection(index), [removeSection, index])
+
   return (
     <SortableListItem
       itemId={id}
       itemTitle="Video"
       isEnabled={enabled}
+      onDelete={handleDelete}
       onIsEnabledChange={setEnabled}
     >
       <FieldGroup className="p-5">

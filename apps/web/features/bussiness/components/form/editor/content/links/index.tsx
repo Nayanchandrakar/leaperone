@@ -1,5 +1,5 @@
 import { FieldGroup } from "@app/ui/components/field"
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { AddLinkDialog } from "@/features/bussiness/components/dialogs/home/add-link"
 import { SectionBackgroundToggle } from "@/features/bussiness/components/fields/section-background-toggle"
 import { ToggleField } from "@/features/bussiness/components/fields/toggle-field"
@@ -14,6 +14,7 @@ import {
 import type { ContentSectionProps } from "@/features/bussiness/types"
 
 export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
+  const removeSection = useContentEditorStore((state) => state.removeSection)
   const [enabled, setEnabled] = useSectionField<boolean>(index, ["enabled"])
   const [headingEnabled, setHeadingEnabled] = useSectionField<boolean>(index, [
     "heading",
@@ -29,10 +30,13 @@ export const SocialLinksForm = memo(({ index }: ContentSectionProps) => {
   const idSelector = useMemo(() => selectSectionId(index), [index])
   const id = useContentEditorStore(idSelector)!
 
+  const handleDelete = useCallback(() => removeSection(index), [removeSection, index])
+
   return (
     <SortableListItem
       itemId={id}
       isEnabled={enabled}
+      onDelete={handleDelete}
       onIsEnabledChange={setEnabled}
       itemTitle="Links: Social, Payment & more"
     >
