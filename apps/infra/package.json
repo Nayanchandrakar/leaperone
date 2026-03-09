@@ -1,28 +1,27 @@
 {
-  "name": "events",
+  "name": "infra",
   "version": "0.1.0",
   "bin": {
-    "build": "bin/app.js"
+    "cdk": "bin/app.js"
   },
   "scripts": {
     "cdk": "cdk",
-    "build": "tsc",
-    "watch": "tsc -w",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --write .",
     "format": "biome check --write ."
   },
   "dependencies": {
-    "aws-cdk-lib": "catalog:",
     "constructs": "catalog:",
+    "aws-cdk-lib": "catalog:",
     "@app/database": "workspace:*"
   },
   "devDependencies": {
-    "@app/tsconfig": "workspace:*",
-    "@types/aws-lambda": "catalog:",
-    "@types/bun": "catalog:",
     "aws-cdk": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "@types/bun": "catalog:",
+    "@app/tsconfig": "workspace:*",
+    "@types/aws-lambda": "catalog:"
   }
 }

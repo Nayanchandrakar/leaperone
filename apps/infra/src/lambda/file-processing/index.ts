@@ -1,10 +1,11 @@
 import { bootStrapFile } from "@app/database/repository/file"
 import type { InsertFile } from "@app/database/types"
 import type { S3Event } from "aws-lambda"
-import { getEventData } from "@/utils"
+import { db } from "@/config/database"
+import { getEventData } from "@/utils/process-event"
 
 export const handler = async (event: S3Event): Promise<void> => {
-  console.log(`Processing ${event.Records.length} S3 record(s).`)
+  console.log("Start processing S3 event:", { recordCount: event.Records.length })
 
   try {
     const eventRequests = await Promise.allSettled(
@@ -19,12 +20,14 @@ export const handler = async (event: S3Event): Promise<void> => {
     }, [])
 
     if (data.length === 0) {
-      console.log("No valid data extracted from S3 records. Exiting.")
+      console.log("No valid file data found. Nothing to process.")
       return
     }
 
-    await bootStrapFile(data)
+    await bootStrapFile(db, data)
+    console.log(`Processed ${data.length} files and updated storage usage.`)
   } catch (error) {
-    console.error("Critical error during data aggregation:", error)
+    console.error("Error during file processing:", error)
+    throw error
   }
 }
