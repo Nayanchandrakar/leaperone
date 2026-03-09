@@ -1,7 +1,7 @@
 import { ApiError } from "@app/error"
 import { and, asc, desc, eq, ilike, inArray, sql } from "drizzle-orm"
 import { file, storage } from "../schema/index"
-import type { DatabaseClient, GetFilesByStorageId, InsertFile } from "../types"
+import type { DatabaseClient, GetFilesByUserIdAndWorkspaceId, InsertFile } from "../types"
 
 export async function createFile(db: DatabaseClient, values: InsertFile) {
   try {
@@ -15,20 +15,14 @@ export async function createFile(db: DatabaseClient, values: InsertFile) {
 export async function bootStrapFile(db: DatabaseClient, values: InsertFile[]) {
   try {
     await db.transaction(async (tx) => {
-      // create a new file entry
       await tx.insert(file).values(values)
 
-      // Group files by storageId and batch update storage usage
-      // This reduces N queries to 1 query per unique storageId
       const storageUpdates = new Map<string, number>()
+
       for (const { storageId, size } of values) {
-        if (size) {
-          const currentTotal = storageUpdates.get(storageId) || 0
-          storageUpdates.set(storageId, currentTotal + size)
-        }
+        storageUpdates.set(storageId, (storageUpdates.get(storageId) ?? 0) + size!)
       }
 
-      // Batch update storage usage for each unique storageId
       for (const [storageId, totalSize] of storageUpdates) {
         await tx
           .update(storage)
@@ -42,12 +36,20 @@ export async function bootStrapFile(db: DatabaseClient, values: InsertFile[]) {
   }
 }
 
-export async function getFilesByStorageId(
+export async function getFilesByUserIdAndWorkspaceId(
   db: DatabaseClient,
-  { sortBy, types, offset, pageSize, storageId, searchQuery }: GetFilesByStorageId,
+  {
+    sortBy,
+    types,
+    offset,
+    pageSize,
+    uploadedBy,
+    workspaceId,
+    searchQuery,
+  }: GetFilesByUserIdAndWorkspaceId,
 ) {
   try {
-    const whereConditions = [eq(file.storageId, storageId)]
+    const whereConditions = [eq(file.uploadedBy, uploadedBy), eq(file.workspaceId, workspaceId)]
 
     if (types.length) {
       whereConditions.push(inArray(file.mime, types))
@@ -100,15 +102,18 @@ export async function getFilesByStorageId(
   }
 }
 
-export async function deleteFilesByStorageIdAndIds(
+export async function deleteFilesByIds(
   db: DatabaseClient,
-  storageId: string,
+  userId: string,
+  workspaceId: string,
   ids: string[],
 ) {
   try {
     const result = await db
       .delete(file)
-      .where(and(eq(file.storageId, storageId), inArray(file.id, ids)))
+      .where(
+        and(eq(file.uploadedBy, userId), eq(file.workspaceId, workspaceId), inArray(file.id, ids)),
+      )
       .returning({ key: file.key })
     return result
   } catch (error) {

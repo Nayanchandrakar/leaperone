@@ -1,11 +1,8 @@
 import { basename, extname } from "node:path"
 import { db } from "@app/database"
-import { deleteFilesByStorageIdAndIds, getFilesByStorageId } from "@app/database/repository/file"
-import { getStorageByWorkspaceIdAndUserId } from "@app/database/repository/storage"
-import { ApiError } from "@app/error"
+import { deleteFilesByIds, getFilesByUserIdAndWorkspaceId } from "@app/database/repository/file"
 import type { PreSignedUrlSchema } from "@app/zod/types"
 import { v4 as uuidv4 } from "uuid"
-import { MSG } from "@/constants/message"
 import type { StorageService } from "@/features/shared/services/storage.service"
 import type { DeleteFilesContext, GetFileContext, PreSignedUrlContext } from "@/types/asset.types"
 import { sanitizeString } from "@/utils/string"
@@ -15,20 +12,17 @@ export class AssetService {
 
   async deleteFiles(c: DeleteFilesContext) {
     const ids = c.req.valid("json")
-    const session = c.get("session")
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
 
-    const storage = await getStorageByWorkspaceIdAndUserId(db, workspace.id, session.user.id)
-
-    if (!storage) {
-      throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
-    }
-
     let count = 0
+
+    // delete files from database
+    const deletedKeys = await deleteFilesByIds(db, user.id, workspace.id, ids)
+
+    // delete objects from S3
     const results = await Promise.allSettled(
-      (await deleteFilesByStorageIdAndIds(db, storage.id, ids)).map(({ key }) =>
-        this.storageService.deleteObject(key),
-      ),
+      deletedKeys.map(({ key }) => this.storageService.deleteObject(key)),
     )
 
     for (const result of results) {
@@ -41,25 +35,20 @@ export class AssetService {
   }
 
   async getFiles(c: GetFileContext) {
-    const session = c.get("session")
+    const { user } = c.get("session")
     const workspace = c.get("workspace")
     const { page, pageSize, sortBy, types, query } = c.req.valid("json")
 
-    const storage = await getStorageByWorkspaceIdAndUserId(db, workspace.id, session.user.id)
-
-    if (!storage) {
-      throw ApiError.notFound(MSG.STORAGE.NOT_FOUND)
-    }
-
     const offset = (page - 1) * pageSize
 
-    const results = await getFilesByStorageId(db, {
+    const results = await getFilesByUserIdAndWorkspaceId(db, {
       offset,
       sortBy,
       types,
       pageSize,
       searchQuery: query,
-      storageId: storage.id,
+      uploadedBy: user.id,
+      workspaceId: workspace.id,
     })
 
     const nextPage = results.length === pageSize ? page + 1 : undefined
@@ -68,11 +57,12 @@ export class AssetService {
 
   async generateSignedUrls(c: PreSignedUrlContext) {
     const storage = c.get("storage")
+    const { user } = c.get("session")
     const params = c.req.valid("json")
 
     const response = []
     const results = await Promise.allSettled(
-      this.createBatchPreSignedUrls(storage.id, storage.workspaceId, params),
+      this.createBatchPreSignedUrls(storage.id, storage.workspaceId, user.id, params),
     )
 
     for (const result of results) {
@@ -94,13 +84,20 @@ export class AssetService {
   private createBatchPreSignedUrls(
     storageId: string,
     workspaceId: string,
+    uploadedBy: string,
     params: PreSignedUrlSchema,
   ) {
     return params.map(async ({ name, type, id }) => ({
       id,
       url: await this.storageService.generatePreSignedUrl({
         contentType: type,
-        metadata: { storageid: storageId, name, type },
+        metadata: {
+          "file-name": name,
+          "file-type": type,
+          "storage-id": storageId,
+          "uploaded-by": uploadedBy,
+          "workspace-id": workspaceId,
+        },
         storageKey: this.createStorageKey(name, workspaceId),
       }),
     }))

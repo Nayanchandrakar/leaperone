@@ -86,10 +86,6 @@ export const MSG = {
     PERMISSION_DENIED: "You do not have permission to perform this action.",
   },
 
-  STORAGE: {
-    NOT_FOUND: "Storage bucket not found",
-  },
-
   CONTACTUS: {
     SUBMIT_SUCCESS: "Message received. We’ll be in touch soon.",
   },

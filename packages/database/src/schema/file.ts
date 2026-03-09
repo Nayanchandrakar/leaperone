@@ -13,11 +13,12 @@ export const file = pgTable("file", {
   storageId: text()
     .references(() => storage.id, { onDelete: "cascade" })
     .notNull(),
+
   workspaceId: text()
     .references(() => workspace.id, { onDelete: "cascade" })
-    .notNull()
-    .unique(),
-  userId: text()
+    .notNull(),
+
+  uploadedBy: text()
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
 

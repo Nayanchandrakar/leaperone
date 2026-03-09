@@ -1,3 +1,4 @@
+import { STORAGE_QUOTA } from "@app/core/constants"
 import { db } from "@app/database"
 import { getStorageByWorkspaceIdAndUserId } from "@app/database/repository/storage"
 import { ApiError } from "@app/error"
@@ -14,10 +15,10 @@ export const checkStorageQuota = async (c: PreSignedUrlContext, next: Next) => {
   if (!storage) throw ApiError.notFound()
 
   const totalFileSize = file.reduce((acc, { size }) => acc + size, 0)
-  const hasEnoughSpace = totalFileSize <= storage.quota
+  const hasEnoughSpace = totalFileSize <= STORAGE_QUOTA
 
   if (!hasEnoughSpace) {
-    const shortFall = totalFileSize - storage.quota
+    const shortFall = totalFileSize - STORAGE_QUOTA
     const moreSpace = SystemFormatter.formatBytes(shortFall)
     throw ApiError.badRequest(`Insufficient storage. You need ${moreSpace} more space to upload`)
   }

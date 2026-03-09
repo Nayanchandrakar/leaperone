@@ -82,12 +82,13 @@ export type CreateUser = InsertUser & {
   defaultRole: RoleType
 }
 
-export type GetFilesByStorageId = {
+export type GetFilesByUserIdAndWorkspaceId = {
   offset: number
   sortBy: string
   types: string[]
   pageSize: number
-  storageId: string
+  uploadedBy: string
+  workspaceId: string
   searchQuery?: string | undefined
 }
 

@@ -8,6 +8,20 @@
       "when": 1772799616190,
       "tag": "0000_dark_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1773058083010,
+      "tag": "0001_dapper_madame_hydra",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773060617033,
+      "tag": "0002_remarkable_screwball",
+      "breakpoints": true
     }
   ]
 }
