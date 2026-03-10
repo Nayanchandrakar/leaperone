@@ -22,19 +22,19 @@ const EditorBlockItemContext = createContext<EditorBlockItemContextProps | null>
 const EditorBlockStateContext = createContext<EditorBlockStateContextProps | null>(null)
 const EditorBlockDispatchContext = createContext<EditorBlockDispatchContextProps | null>(null)
 
-const useEditorBlockStateContext = () => {
+function useEditorBlockStateContext() {
   const context = useContext(EditorBlockStateContext)
   if (!context) throw new Error("Must be used within EditorBlock")
   return context
 }
 
-const useEditorBlockDispatchContext = () => {
+function useEditorBlockDispatchContext() {
   const context = useContext(EditorBlockDispatchContext)
   if (!context) throw new Error("Must be used within EditorBlock")
   return context
 }
 
-const useEditorBlockItemContext = () => {
+function useEditorBlockItemContext() {
   const context = useContext(EditorBlockItemContext)
   if (!context) throw new Error("Must be used within EditorBlockItem")
   return context

@@ -6,7 +6,7 @@ interface MultiFileSelectButtonProps {
   isDisabled: boolean
 }
 
-export const MultiFileSelectButton = ({ isDisabled }: MultiFileSelectButtonProps) => {
+export function MultiFileSelectButton({ isDisabled }: MultiFileSelectButtonProps) {
   const { toggleSelectionMode, isSelectionMode } = useAssetStore(
     useShallow((state) => ({
       isSelectionMode: state.isSelectionMode,

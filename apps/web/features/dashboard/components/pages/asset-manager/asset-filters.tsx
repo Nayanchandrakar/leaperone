@@ -9,7 +9,7 @@ import { FileSortFilter } from "@/features/dashboard/components/filters/asset-ma
 import { SelectedAssetIds } from "@/features/dashboard/components/pages/asset-manager/selected-asset-ids"
 import { useFilterState } from "@/features/dashboard/hooks/asset-manager/use-filter-state"
 
-export const Filters = () => {
+export function AssetFilters() {
   const { data, isFetching, isFilterDisabled, isActionDisabled } = useFilterState()
 
   return (

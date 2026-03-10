@@ -6,7 +6,7 @@ import { toast } from "sonner"
 import { useSession } from "@/features/auth/hooks/session/use-session"
 import { useExitImpersonation } from "@/features/dashboard/hooks/teams/use-exit-impersonation"
 
-export const ExitImpersonation = () => {
+export function ExitImpersonation() {
   const { data, isPending, isError } = useSession()
   const { mutateAsync, isPending: isExiting } = useExitImpersonation()
 

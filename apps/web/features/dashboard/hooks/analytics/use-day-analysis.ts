@@ -12,7 +12,7 @@ export type GroupedResult = {
  * Transforms pre-aggregated day analysis rows from the server.
  * Receives ~14 rows max (7 days × 2 device types) instead of millions.
  */
-export const useDayAnalysis = (rows: DayAnalysisRow[] | undefined) => {
+export function useDayAnalysis(rows: DayAnalysisRow[] | undefined) {
   return useMemo(() => {
     if (!rows?.length) return []
 

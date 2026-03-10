@@ -7,7 +7,7 @@ import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asse
 import type { FileWithPreview } from "@/features/dashboard/hooks/asset-manager/use-file-upload"
 import { generatePreSignedUrl } from "@/lib/api"
 
-export const useAssetUpload = () => {
+export function useAssetUpload() {
   const queryClient = useQueryClient()
 
   const { updateUploadProgress, updateUploadStatus, addUploadProgress } = useAssetStore(

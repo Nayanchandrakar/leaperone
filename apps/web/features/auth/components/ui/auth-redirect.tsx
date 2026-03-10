@@ -8,7 +8,7 @@ interface AuthRedirectProps {
   linkText: string
 }
 
-export const AuthRedirect = ({ text, linkText, href, className }: AuthRedirectProps) => {
+export function AuthRedirect({ text, linkText, href, className }: AuthRedirectProps) {
   return (
     <p className={cn("text-center text-sm", className)}>
       {text}&nbsp;

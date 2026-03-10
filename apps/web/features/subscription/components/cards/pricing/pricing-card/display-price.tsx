@@ -14,7 +14,7 @@ interface IDisplayPrice {
   pricing: PlanPricing
 }
 
-export const DisplayPrice = ({ type, pricing }: IDisplayPrice) => {
+export function DisplayPrice({ type, pricing }: IDisplayPrice) {
   const teamPricing = useTeamPricingStore((state) => state.teamPricing)
   const planInterval = usePricingIntervalStore((state) => state.planInterval)
 

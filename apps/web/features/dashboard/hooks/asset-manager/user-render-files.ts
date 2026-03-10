@@ -4,7 +4,7 @@ import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/us
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-infinite-files"
 
-export const useRenderFiles = () => {
+export function useRenderFiles() {
   const searchQuery = useAssetFilterStore(useShallow((state) => state.query))
   const hasActiveUploads = useAssetStore(useShallow((state) => state.hasActiveUploads()))
 

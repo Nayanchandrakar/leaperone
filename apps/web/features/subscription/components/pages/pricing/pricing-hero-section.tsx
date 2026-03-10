@@ -11,7 +11,7 @@ interface PricingHeroSectionProps {
   subscription: SubscriptionInfo
 }
 
-export const PricingHeroSection = ({ subscription }: PricingHeroSectionProps) => {
+export function PricingHeroSection({ subscription }: PricingHeroSectionProps) {
   return (
     <MarketingHeader>
       <MarketingTitle>

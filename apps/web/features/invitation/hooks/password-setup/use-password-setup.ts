@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { passwordSetupMutation } from "@/lib/api"
 
-export const usePasswordSetup = () => {
+export function usePasswordSetup() {
   const router = useRouter()
   return useMutation({
     mutationFn: async (input: PasswordSetupSchema) => {

@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { registerMutation } from "@/lib/api"
 
-export const useRegister = () => {
+export function useRegister() {
   return useMutation({
     mutationFn: async (input: RegisterFormSchema) => {
       const { data } = await registerMutation(input)

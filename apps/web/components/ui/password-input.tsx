@@ -5,7 +5,7 @@ import { cn } from "@app/ui/lib/utils"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 import { useState } from "react"
 
-export const PasswordInput = ({ className, ...props }: InputProps) => {
+export function PasswordInput({ className, ...props }: InputProps) {
   const [isVisible, setIsVisible] = useState(false)
   const toggleVisibility = () => setIsVisible((prevState) => !prevState)
 

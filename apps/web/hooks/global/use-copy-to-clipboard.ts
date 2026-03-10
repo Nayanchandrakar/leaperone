@@ -5,7 +5,7 @@ type UseCopyToClipboardProps = {
   onCopy?: () => void
 }
 
-export const useCopyToClipboard = ({ timeout = 2000, onCopy }: UseCopyToClipboardProps = {}) => {
+export function useCopyToClipboard({ timeout = 2000, onCopy }: UseCopyToClipboardProps = {}) {
   const [isCopied, setIsCopied] = useState(false)
 
   const copyToClipboard = (value: string) => {

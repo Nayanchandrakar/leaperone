@@ -8,7 +8,7 @@ type RadioFieldProps = {
   options: RadioOption[]
 }
 
-export const RadioField = ({ options, label }: RadioFieldProps) => {
+export function RadioField({ options, label }: RadioFieldProps) {
   const field = useFieldContext<string>()
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
 

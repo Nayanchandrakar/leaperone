@@ -2,12 +2,12 @@ import type { SocialLink } from "@app/types"
 import { Plus } from "lucide-react"
 import { SocialIcons } from "@/features/bussiness/components/shared/social-icons"
 
-type SocialMediaItemProps = {
+interface SocialMediaItemProps {
   link: SocialLink
   onSelect: (link: SocialLink) => void
 }
 
-export const SocialMediaItem = ({ link, onSelect }: SocialMediaItemProps) => {
+export function SocialMediaItem({ link, onSelect }: SocialMediaItemProps) {
   const Icon = SocialIcons[link?.type]
 
   return (

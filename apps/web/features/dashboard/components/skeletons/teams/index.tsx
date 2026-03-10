@@ -1,6 +1,6 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 
-export const MemberItemSkeleton = () => {
+export function MemberItemSkeleton() {
   return Array.from({ length: 6 }).map((_, index) => (
     <div key={index} className="border rounded-lg p-4 sm:p-5 xl:p-6 space-y-4">
       <div className="flex items-center gap-3.5">

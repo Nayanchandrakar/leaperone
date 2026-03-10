@@ -2,7 +2,7 @@ import type { Period } from "@app/types"
 import { useMemo } from "react"
 import { formatTime } from "@/features/preview/utils/format-time"
 
-export const BussinessHourCard = ({ end, label, start }: Period) => {
+export function BussinessHourCard({ end, label, start }: Period) {
   const labelContent = useMemo(() => (label ? label : null), [label])
 
   return (

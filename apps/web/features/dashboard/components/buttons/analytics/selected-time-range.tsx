@@ -2,7 +2,7 @@ import { format } from "date-fns"
 import { useShallow } from "zustand/react/shallow"
 import { useAnalyticsStore } from "@/features/dashboard/hooks/analytics/use-analytics-store"
 
-export const SelectedTimeRange = () => {
+export function SelectedTimeRange() {
   const { from, to } = useAnalyticsStore(
     useShallow((state) => ({
       to: state.to,

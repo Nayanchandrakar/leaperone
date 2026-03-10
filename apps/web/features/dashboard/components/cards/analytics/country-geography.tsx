@@ -13,14 +13,14 @@ interface CountryGeographyProps {
 const STROKE_COLOR = "#E3E3E3"
 const ACTIVE_FILL_COLOR = "#0A9521"
 
-export const CountryGeography = ({
+export function CountryGeography({
   geo,
   maxCount,
   count = 0,
   handleMouseMove,
   handleMouseEnter,
   handleMouseLeave,
-}: CountryGeographyProps) => {
+}: CountryGeographyProps) {
   const opacity = count > 0 ? 0.2 + 0.8 * (count / maxCount) : 1
   const fillColor = count > 0 ? ACTIVE_FILL_COLOR : "#FFFFFF"
 

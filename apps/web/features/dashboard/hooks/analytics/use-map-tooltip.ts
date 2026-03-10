@@ -6,7 +6,7 @@ export type GeoTooltipContent = {
   text: string
 }
 
-export const useMapTooltip = () => {
+export function useMapTooltip() {
   const tooltipRef = useRef<HTMLDivElement>(null)
   const [content, setContent] = useState<GeoTooltipContent | null>(null)
 

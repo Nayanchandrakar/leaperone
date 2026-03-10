@@ -10,7 +10,7 @@ type TemplateCardProps = {
   item: TemplateItem
 }
 
-export const TemplateCard = ({ item }: TemplateCardProps) => {
+export function TemplateCard({ item }: TemplateCardProps) {
   const { setTemplate, template } = useContentEditorStore(
     useShallow((state) => ({
       template: state.template,

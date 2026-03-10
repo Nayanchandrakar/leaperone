@@ -1,7 +1,7 @@
 import { Button } from "@app/ui/components/button"
 import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 
-export const NetworkingSection = () => {
+export function NetworkingSection() {
   return (
     <section className="container max-w-2xl! my-32 sm:my-40 space-y-8 md:space-y-12">
       <h2 className="font-semibold text-3xl text-center leading-normal">

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { logoutMutation } from "@/lib/api"
 
-export const useLogout = () => {
+export function useLogout() {
   return useMutation({
     mutationFn: async () => {
       const { data } = await logoutMutation()

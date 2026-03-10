@@ -14,11 +14,11 @@ import { LogOutIcon, Settings } from "lucide-react"
 import Link from "next/link"
 import { useLogout } from "@/features/auth/hooks/logout/use-logout"
 
-interface NavSettingProps {
+interface NavSettingsProps {
   user: User
 }
 
-export const NavSettings = ({ user }: NavSettingProps) => {
+export function NavSettings({ user }: NavSettingsProps) {
   const { mutate, isPending } = useLogout()
 
   return (

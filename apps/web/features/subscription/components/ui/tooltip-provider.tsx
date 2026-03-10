@@ -8,7 +8,7 @@ interface IToolTipProvider {
   content: React.ReactNode
 }
 
-export const ToolTipProvider = ({ Icon = Info, content, iconClassName }: IToolTipProvider) => {
+export function ToolTipProvider({ Icon = Info, content, iconClassName }: IToolTipProvider) {
   return (
     <Tooltip>
       <TooltipTrigger>

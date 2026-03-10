@@ -6,7 +6,7 @@ import { usePricingIntervalStore } from "@/features/subscription/hooks/pricing/u
 import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
 import { billingPortalMutation, subscriptionUpgradeMutation } from "@/lib/api"
 
-export const usePriceAction = (isActive: boolean) => {
+export function usePriceAction(isActive: boolean) {
   const router = useRouter()
   const planInterval = usePricingIntervalStore((state) => state.planInterval)
   const teamPricing = useTeamPricingStore((state) => state.teamPricing)

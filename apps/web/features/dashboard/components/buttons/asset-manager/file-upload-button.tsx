@@ -7,7 +7,7 @@ import { useAssetUpload } from "@/features/dashboard/hooks/asset-manager/use-ass
 import { useFileErrorNotify } from "@/features/dashboard/hooks/asset-manager/use-file-error-notify"
 import { useFileUpload } from "@/features/dashboard/hooks/asset-manager/use-file-upload"
 
-export const FileUploadButton = () => {
+export function FileUploadButton() {
   /** Upload files to S3 Bucket */
   const onFilesAdded = useAssetUpload()
 

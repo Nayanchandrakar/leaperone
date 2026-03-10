@@ -1,7 +1,7 @@
 import type { GeoCountRow } from "@app/types"
 import { useMemo } from "react"
 
-export const useCountryMap = (countries: GeoCountRow[]) => {
+export function useCountryMap(countries: GeoCountRow[]) {
   const { countryMap, maxCount } = useMemo(() => {
     let maxCount = 0
     const countryMap = new Map<string, number>()

@@ -2,7 +2,7 @@ import { Button } from "@app/ui/components/button"
 import { Info } from "lucide-react"
 import { TeamOverview, TeamOverviewLabel } from "@/features/dashboard/components/ui/team-overview"
 
-export const WorkspaceUsage = () => {
+export function WorkspaceUsage() {
   return (
     <div className="space-y-3 min-w-59">
       <TeamOverview className="flex items-center justify-between">

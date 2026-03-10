@@ -4,7 +4,7 @@ import { ActionItem } from "@/features/dashboard/components/cards/dashboard/acti
 import { QuickActionCardSkeleton } from "@/features/dashboard/components/skeletons/dashboard"
 import { useQuickActions } from "@/features/dashboard/hooks/dashboard/use-quick-actions"
 
-export const QuickActionsList = () => {
+export function QuickActionsList() {
   const router = useRouter()
   const { isLoading, hasError, canInviteMembers, handleShareBusinessCard } = useQuickActions()
 

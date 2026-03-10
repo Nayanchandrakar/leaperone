@@ -1,6 +1,6 @@
 import { cn } from "@app/ui/lib/utils"
 
-export const FontSwatch = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function FontSwatch({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(

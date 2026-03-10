@@ -25,7 +25,7 @@ function formatHourBlock(block: number): string {
  * Transforms pre-aggregated time analysis rows from the server.
  * Receives ~12 rows max (6 blocks × 2 device types) instead of millions.
  */
-export const useTimeAnalysis = (rows: TimeAnalysisRow[] | undefined) => {
+export function useTimeAnalysis(rows: TimeAnalysisRow[] | undefined) {
   return useMemo(() => {
     if (!rows?.length) return []
 

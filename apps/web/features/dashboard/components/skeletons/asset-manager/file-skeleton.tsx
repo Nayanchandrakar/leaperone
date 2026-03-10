@@ -1,6 +1,6 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 
-export const FileSkeleton = () => {
+export function FileSkeleton() {
   return (
     <div className="h-74 border rounded-xl flex flex-col">
       <Skeleton className="h-full rounded-t-xl rounded-b-none" />
@@ -13,4 +13,8 @@ export const FileSkeleton = () => {
       </div>
     </div>
   )
+}
+
+export function FileCardSkeleton() {
+  return Array.from({ length: 50 }).map((_, index) => <FileSkeleton key={index} />)
 }

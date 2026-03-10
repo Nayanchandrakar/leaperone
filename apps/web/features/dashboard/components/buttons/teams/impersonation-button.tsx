@@ -7,7 +7,7 @@ interface ImpersonationButtonProps {
   isRestricted: boolean
 }
 
-export const ImpersonationButton = ({ memberId, isRestricted }: ImpersonationButtonProps) => {
+export function ImpersonationButton({ memberId, isRestricted }: ImpersonationButtonProps) {
   const { mutate, isPending } = useImpersonateMember()
 
   return (

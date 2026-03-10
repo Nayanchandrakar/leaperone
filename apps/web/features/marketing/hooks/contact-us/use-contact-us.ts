@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { contactUsMutation } from "@/lib/api"
 
-export const useContactUs = () => {
+export function useContactUs() {
   return useMutation({
     mutationFn: async (json: ContactUsFormSchema) => {
       const { data } = await contactUsMutation(json)

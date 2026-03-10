@@ -2,12 +2,12 @@ import { cn } from "@app/ui/lib/utils"
 import { Check, Copy } from "lucide-react"
 import { useCopyToClipboard } from "@/hooks/global/use-copy-to-clipboard"
 
-export const CopyInput = ({
+export function CopyInput({
   className,
   disabled,
   defaultValue,
   ...props
-}: React.ComponentProps<"input">) => {
+}: React.ComponentProps<"input">) {
   const { isCopied, copyToClipboard } = useCopyToClipboard()
 
   return (

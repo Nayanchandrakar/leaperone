@@ -1,7 +1,7 @@
 import { buttonVariants } from "@app/ui/components/button"
 import Link from "next/link"
 
-export const DashboardLinkButton = () => {
+export function DashboardLinkButton() {
   return (
     <Link
       className={buttonVariants({

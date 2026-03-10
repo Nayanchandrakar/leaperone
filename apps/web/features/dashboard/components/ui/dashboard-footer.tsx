@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export const DashboardFooter = () => {
+export function DashboardFooter() {
   const currentYear = new Date().getFullYear()
 
   return (

@@ -1,6 +1,6 @@
 import { Skeleton } from "@app/ui/components/skeleton"
 
-export const EditorLoadingSkeleton = () => {
+export function EditorLoadingSkeleton() {
   return (
     <div className="space-y-4">
       {Array.from({ length: 10 }).map((_, index) => (

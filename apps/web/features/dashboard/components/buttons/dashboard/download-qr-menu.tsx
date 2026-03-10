@@ -10,7 +10,7 @@ type DownloadQRMenuProps = {
   qrCodeOptions: Partial<QrCodeEditor>
 }
 
-export const DownloadQRMenu = ({ identifier, qrCodeOptions }: DownloadQRMenuProps) => {
+export function DownloadQRMenu({ identifier, qrCodeOptions }: DownloadQRMenuProps) {
   const options = useQrCodeOptions(qrCodeOptions)
   const qrCodeInstance = useMemo(() => new QRCodeStyling(options), [options])
 

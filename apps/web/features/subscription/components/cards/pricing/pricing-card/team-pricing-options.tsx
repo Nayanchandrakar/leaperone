@@ -14,7 +14,7 @@ import { TEAM_PRICING } from "@/features/subscription/constants/pricing/team-pri
 import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-team-pricing-store"
 import { resolvePricingTier } from "@/features/subscription/utils"
 
-export const TeamPricingOptions = () => {
+export function TeamPricingOptions() {
   const { setTeamPricing, teamPricing } = useTeamPricingStore(
     useShallow((state) => ({
       teamPricing: state.teamPricing,

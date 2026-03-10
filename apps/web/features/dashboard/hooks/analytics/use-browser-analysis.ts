@@ -14,9 +14,9 @@ const BASE_COLOR = "#0A9521"
  * Transforms pre-aggregated browser rows from the server.
  * Rows are already sorted by count desc — we just compute colors.
  */
-export const useBrowserAnalysis = (
+export function useBrowserAnalysis(
   rows: BrowserAnalysisRow[] | undefined,
-): BrowserAnalysisResult[] => {
+): BrowserAnalysisResult[] {
   return useMemo(() => {
     if (!rows?.length) return []
 

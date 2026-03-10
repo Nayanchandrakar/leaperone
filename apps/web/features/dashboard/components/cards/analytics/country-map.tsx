@@ -2,12 +2,12 @@ import type { GeoCountRow } from "@app/types"
 import { Card, CardContent } from "@app/ui/components/card"
 import { Skeleton } from "@app/ui/components/skeleton"
 import { ComposableMap, Geographies } from "@vnedyalk0v/react19-simple-maps"
-import { ISO_CODES } from "@/features/dashboard/components/pages/analytics/iso-codes"
 import {
   ChartDescription,
   ChartHeading,
   ChartTitle,
 } from "@/features/dashboard/components/ui/chart-heading"
+import { ISO_CODES } from "@/features/dashboard/constants/analytics/iso-codes"
 import { useCountryMap } from "@/features/dashboard/hooks/analytics/use-country-map"
 import { useMapTooltip } from "@/features/dashboard/hooks/analytics/use-map-tooltip"
 import { CountryGeography, CountryGeographyTooltip } from "./country-geography"
@@ -20,7 +20,7 @@ interface CountryMapProps {
   topCountries: GeoCountRow[]
 }
 
-export const CountryMap = ({ topCountries, isPending }: CountryMapProps) => {
+export function CountryMap({ topCountries, isPending }: CountryMapProps) {
   const { countryMap, maxCount } = useCountryMap(topCountries)
   const { content, tooltipRef, handleMouseEnter, handleMouseMove, handleMouseLeave } =
     useMapTooltip()

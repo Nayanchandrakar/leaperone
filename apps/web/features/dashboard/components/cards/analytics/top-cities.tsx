@@ -9,7 +9,7 @@ type TopCityProps = {
   topCities: GeoCityRow[]
 }
 
-export const TopCities = ({ scansInRange, topCities }: TopCityProps) => {
+export function TopCities({ scansInRange, topCities }: TopCityProps) {
   return (
     <MetricCard>
       <CardTitle className="text-base text-muted-foreground">Cities - Till Top 10</CardTitle>

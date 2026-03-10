@@ -15,7 +15,7 @@ import {
 } from "@/features/dashboard/components/ui/dashboard-stats"
 import { useWorkspaceStats } from "@/features/dashboard/hooks/dashboard/use-workspace-stats"
 
-export const DashboardOverviewStats = () => {
+export function DashboardOverviewStats() {
   const { data, isPending, isError } = useWorkspaceStats()
 
   return (

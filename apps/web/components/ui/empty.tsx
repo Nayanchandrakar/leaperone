@@ -1,7 +1,7 @@
 import { cn } from "@app/ui/lib/utils"
 import type * as React from "react"
 
-export const Empty = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function Empty({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
@@ -13,19 +13,19 @@ export const Empty = ({ className, ...props }: React.ComponentProps<"div">) => {
   )
 }
 
-export const EmptyContent = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("max-w-lg flex items-center flex-col gap-6.5", className)} {...props} />
 }
 
-export const EmptyHeading = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function EmptyHeading({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("space-y-3 text-center", className)} {...props} />
 }
 
-export const EmptyTitle = ({ className, ...props }: React.ComponentProps<"h2">) => {
+export function EmptyTitle({ className, ...props }: React.ComponentProps<"h2">) {
   return <h2 className={cn("text-3xl font-semibold", className)} {...props} />
 }
 
-export const EmptyDescription = ({ className, ...props }: React.ComponentProps<"p">) => {
+export function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       className={cn("px-8 sm:px-12 text-base font-normal text-muted-foreground", className)}
@@ -34,6 +34,6 @@ export const EmptyDescription = ({ className, ...props }: React.ComponentProps<"
   )
 }
 
-export const EmptyActions = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function EmptyActions({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("w-full flex flex-col gap-3 px-8 sm:px-12", className)} {...props} />
 }

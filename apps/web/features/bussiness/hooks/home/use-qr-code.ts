@@ -3,7 +3,7 @@ import QRCodeStyling from "qr-code-styling"
 import { useEffect, useRef, useState } from "react"
 import { useQrCodeOptions } from "@/features/bussiness/hooks/home/use-qr-code-options"
 
-export const useQRCode = (options: Partial<QrCodeEditor>) => {
+export function useQRCode(options: Partial<QrCodeEditor>) {
   const qrCodeOptions = useQrCodeOptions(options)
   const qrCodeRef = useRef<HTMLDivElement | null>(null)
   const [qrCodeInstance, setQrCodeInstance] = useState<QRCodeStyling | null>(null)

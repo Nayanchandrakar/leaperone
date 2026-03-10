@@ -7,7 +7,7 @@ import { Header, HeaderContainer, HeaderNavigation } from "@/components/ui/heade
 import { useSession } from "@/features/auth/hooks/session/use-session"
 import { DashboardSidebarToogle } from "@/features/dashboard/components/buttons/dashboard/dashboard-sidebar-toogle"
 
-export const DashboardNavbar = () => {
+export function DashboardNavbar() {
   const { data, isPending, isError } = useSession()
 
   return (

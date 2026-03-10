@@ -12,10 +12,10 @@ import { getGoogleFontsUrl } from "@/features/preview/utils/font-utils"
  * If no valid font is provided or getGoogleFontsUrl returns null,
  * any previously injected font <link> will be removed.
  */
-export const useIframeFont = (
+export function useIframeFont(
   iframeRef: React.RefObject<HTMLIFrameElement | null>,
   font: Font | undefined,
-) => {
+) {
   // Tracks the DOM id of the active <link> so we know what to clean up, even if font changes quickly
   const currentFontLinkId = useRef<string | null>(null)
 

@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { exitImpersonationMutation } from "@/lib/api"
 
-export const useExitImpersonation = () => {
+export function useExitImpersonation() {
   return useMutation({
     mutationFn: async () => {
       const { data } = await exitImpersonationMutation()

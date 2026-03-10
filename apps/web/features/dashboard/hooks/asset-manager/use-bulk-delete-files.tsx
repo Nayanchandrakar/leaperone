@@ -5,7 +5,7 @@ import { useShallow } from "zustand/react/shallow"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
 import { deleteFilesMutation } from "@/lib/api"
 
-export const useBulkDeleteFiles = () => {
+export function useBulkDeleteFiles() {
   const queryClient = useQueryClient()
   const [isOpen, setIsOpen] = useState(false)
 

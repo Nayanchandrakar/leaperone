@@ -5,11 +5,11 @@ import { ListComponent } from "@/components/shared/list-component"
 import { HeaderNavLink } from "@/components/ui/header"
 import { NAV_LINKS } from "@/constants/nav-links"
 
-type Props = {
+interface NavigationProps {
   className?: string
 }
 
-export const Navigation = ({ className }: Props) => {
+export function Navigation({ className }: NavigationProps) {
   const pathname = usePathname()
 
   return (

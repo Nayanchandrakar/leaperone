@@ -9,7 +9,7 @@ import {
 import Link from "next/link"
 import { NAV_LINKS } from "@/constants/nav-links"
 
-export const TertiaryNav = () => {
+export function TertiaryNav() {
   return (
     <SidebarGroup className="lg:hidden">
       <SidebarGroupLabel>Navigation</SidebarGroupLabel>

@@ -13,7 +13,7 @@ export type GroupedResult = {
  * Transforms pre-aggregated scan analysis rows (already grouped by day on the server)
  * into chart-ready data. Applies a display label per timeRange — no raw record iteration.
  */
-export const useScanAnalysis = (rows: ScanAnalysisRow[] | undefined, timeRange: TimeRangeValue) => {
+export function useScanAnalysis(rows: ScanAnalysisRow[] | undefined, timeRange: TimeRangeValue) {
   return useMemo(() => {
     if (!rows?.length) return []
 

@@ -6,7 +6,7 @@ type TextFieldProps = InputProps & {
   label?: string
 }
 
-export const TextField = ({ label, className, ...props }: TextFieldProps) => {
+export function TextField({ label, className, ...props }: TextFieldProps) {
   const field = useFieldContext<string>()
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
 

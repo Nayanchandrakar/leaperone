@@ -11,7 +11,7 @@ type TopCountryProps = {
   topCountries: GeoCountRow[]
 }
 
-export const TopCountries = ({ scansInRange, topCountries }: TopCountryProps) => {
+export function TopCountries({ scansInRange, topCountries }: TopCountryProps) {
   return (
     <MetricCard>
       <CardTitle className="text-base text-muted-foreground">Countries - Till Top 10</CardTitle>

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getWorkspaceStats } from "@/lib/api"
 
-export const useWorkspaceStats = () => {
+export function useWorkspaceStats() {
   return useQuery({
     queryKey: ["workspace-stats"],
     queryFn: async () => {

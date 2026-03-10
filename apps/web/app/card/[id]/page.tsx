@@ -6,13 +6,11 @@ import { TemplateRenderer } from "@/features/preview/components/ui/template-rend
 import { getGoogleFontsUrl } from "@/features/preview/utils/font-utils"
 import { separateSections } from "@/features/preview/utils/seperate-sections"
 
-type PageProps = {
-  params: Promise<{
-    id: string
-  }>
+interface CardPageProps {
+  params: Promise<{ id: string }>
 }
 
-export default async function CardPage({ params }: PageProps) {
+export default async function CardPage({ params }: CardPageProps) {
   const { id } = await params
 
   const [data] = await dbHttp

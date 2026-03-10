@@ -10,14 +10,14 @@ type TeamPermissionCardProps = {
   onCheckedChange: (checked: boolean) => void
 }
 
-export const TeamPermissionCard = ({
+export function TeamPermissionCard({
   title,
   checked,
   disabled,
   className,
   description,
   onCheckedChange,
-}: TeamPermissionCardProps) => {
+}: TeamPermissionCardProps) {
   return (
     <div
       className={cn(

@@ -9,7 +9,7 @@ type DownloadQRCodeProps = {
   autoDownload?: boolean
 }
 
-export const DownloadQRCode = ({ name, options, autoDownload }: DownloadQRCodeProps) => {
+export function DownloadQRCode({ name, options, autoDownload }: DownloadQRCodeProps) {
   const { qrCodeRef, qrCodeInstance } = useQRCode(options)
 
   const handleDownload = useEffectEvent(() => {

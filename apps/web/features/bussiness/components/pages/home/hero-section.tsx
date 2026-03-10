@@ -6,7 +6,7 @@ import {
 import { QuoteText } from "@/features/marketing/components/ui/quote-text"
 import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 
-export const HeroSection = () => {
+export function HeroSection() {
   return (
     <MarketingHeader id="hero-section" className="scroll-mt-50">
       <MarketingTitle>

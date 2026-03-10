@@ -11,7 +11,7 @@ type HookProps = {
   content: ContentSection[]
 }
 
-export const useSaveAndShareBusinessCard = ({ content, design, qrCode, template }: HookProps) => {
+export function useSaveAndShareBusinessCard({ content, design, qrCode, template }: HookProps) {
   const { mutate, isPending } = useSaveBusinessCard()
   const openDialog = useShareBusinessCard((state) => state.openDialog)
 

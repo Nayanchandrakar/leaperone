@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { inviteMemberMutation } from "@/lib/api"
 
-export const useInviteMember = () => {
+export function useInviteMember() {
   const queryClient = useQueryClient()
 
   return useMutation({

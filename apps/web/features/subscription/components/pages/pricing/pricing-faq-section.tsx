@@ -8,7 +8,7 @@ import { Plus } from "lucide-react"
 import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 import { PLAN_FAQS } from "@/features/subscription/constants/pricing/plan-faqs"
 
-export const PricingFaqSection = () => {
+export function PricingFaqSection() {
   return (
     <section className="container mt-28">
       <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight">

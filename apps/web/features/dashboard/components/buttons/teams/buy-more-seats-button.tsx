@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export const BuyMoreSeatsButton = () => {
+export function BuyMoreSeatsButton() {
   return (
     <p className="text-center text-sm font-normal text-muted-foreground transition-colors">
       All seats are full?&nbsp;

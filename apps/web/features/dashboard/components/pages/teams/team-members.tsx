@@ -29,7 +29,7 @@ interface MembersListProps {
 }
 
 // Main component - orchestrates the members page
-export const TeamMembers = () => {
+export function TeamMembers() {
   const query = useMemberSearch((state) => state.query)
   const { isLoading, isError, data } = useTeamMembers()
 

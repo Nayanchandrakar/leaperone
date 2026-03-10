@@ -7,7 +7,7 @@ type ImpersonateMemberInput = ImpersonateSchema & {
   path: string
 }
 
-export const useImpersonateMember = () => {
+export function useImpersonateMember() {
   return useMutation({
     mutationFn: async ({ memberId }: ImpersonateMemberInput) => {
       const { data } = await impersonateMutation({ memberId })

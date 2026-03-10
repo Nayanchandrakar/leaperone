@@ -4,11 +4,11 @@ import { SignupForm } from "@/features/auth/components/forms/sign-up"
 import { AuthContent, AuthForm, AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
-interface ICreateAccountPage {
+interface CreateAccountPageProps {
   searchParams: Promise<{ callbackUrl: string }>
 }
 
-export default async function CreateAccountPage({ searchParams }: ICreateAccountPage) {
+export default async function CreateAccountPage({ searchParams }: CreateAccountPageProps) {
   const { callbackUrl = APP_URL } = await searchParams
 
   return (

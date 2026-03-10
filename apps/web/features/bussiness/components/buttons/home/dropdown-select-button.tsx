@@ -13,11 +13,11 @@ interface DropdownSelectButtonProps<T extends string = string> {
   onSelect: (value: T) => void
 }
 
-export const DropdownSelectButton = <T extends string = string>({
+export function DropdownSelectButton<T extends string = string>({
   onSelect,
   options,
   children,
-}: DropdownSelectButtonProps<T>) => {
+}: DropdownSelectButtonProps<T>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>

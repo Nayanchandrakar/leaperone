@@ -14,9 +14,7 @@ const BASE_COLOR = "#0A9521"
  * Transforms pre-aggregated device/OS rows from the server.
  * Rows are already sorted by count desc — we just compute colors.
  */
-export const useDeviceAnalysis = (
-  rows: DeviceAnalysisRow[] | undefined,
-): DeviceAnalysisResult[] => {
+export function useDeviceAnalysis(rows: DeviceAnalysisRow[] | undefined): DeviceAnalysisResult[] {
   return useMemo(() => {
     if (!rows?.length) return []
 

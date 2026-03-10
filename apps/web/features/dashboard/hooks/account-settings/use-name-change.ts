@@ -3,11 +3,11 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { MESSAGES } from "@/constants/messages"
 
-interface useNameChangeProps {
+interface UseNameChangeProps {
   onSuccess?: () => void
 }
 
-export const useNameChange = ({ onSuccess }: useNameChangeProps) => {
+export function useNameChange({ onSuccess }: UseNameChangeProps) {
   return useMutation({
     mutationFn: async (input: NameChangeFormSchema) => {
       //   const { data } = await nameChangeMutation(input)

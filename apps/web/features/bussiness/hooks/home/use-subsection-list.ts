@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const useSubSectionList = <T>(index: number, path: (string | number)[]) => {
+export function useSubSectionList<T>(index: number, path: (string | number)[]) {
   // Memoize the path array to avoid reference changes triggering re-renders
   const stablePathKey = JSON.stringify(path)
   const stablePath = useMemo(() => JSON.parse(stablePathKey), [stablePathKey])

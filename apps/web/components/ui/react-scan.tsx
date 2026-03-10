@@ -1,4 +1,4 @@
-export const ReactScan = () => {
+export function ReactScan() {
   if (process.env.NODE_ENV === "production") return null
 
   return (

@@ -11,7 +11,7 @@ interface IPriceIntervalButton {
   subscription: SubscriptionInfo
 }
 
-export const PriceIntervalButton = ({ subscription }: IPriceIntervalButton) => {
+export function PriceIntervalButton({ subscription }: IPriceIntervalButton) {
   // Sync subscription data into local state
   useSubscriptionSync(subscription)
 

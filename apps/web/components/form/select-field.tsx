@@ -14,7 +14,7 @@ type SelectFieldProps = {
   options: SelectOption[]
 }
 
-export const SelectField = ({ label, options }: SelectFieldProps) => {
+export function SelectField({ label, options }: SelectFieldProps) {
   const field = useFieldContext<string>()
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
 

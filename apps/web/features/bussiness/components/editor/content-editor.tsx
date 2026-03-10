@@ -7,7 +7,7 @@ import { SortableList } from "@/features/bussiness/components/ui/sortable-list"
 import { useSectionSorting } from "@/features/bussiness/hooks/home/use-section-sorting"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-const ContentEditor = () => {
+function ContentEditor() {
   const sections = useSectionSorting()
   const moveSection = useContentEditorStore((state) => state.moveSection)
   const defaultValue = useMemo(() => sections[0]?.id as string, [sections])

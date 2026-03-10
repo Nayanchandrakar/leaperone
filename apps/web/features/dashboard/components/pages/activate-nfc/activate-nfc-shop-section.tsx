@@ -1,6 +1,6 @@
 import { Button } from "@app/ui/components/button"
 
-export const ActivateNfcShopSection = () => {
+export function ActivateNfcShopSection() {
   return (
     <div className="max-w-sm mx-auto text-center space-y-[14px] mt-8">
       <p className="font-normal text-base text-muted-foreground">Don't have your NFC Bundle yet?</p>

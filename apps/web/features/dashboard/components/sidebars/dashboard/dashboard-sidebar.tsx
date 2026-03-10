@@ -8,7 +8,7 @@ import { TertiaryNav } from "@/features/dashboard/components/sidebars/dashboard/
 import { SidebarSkeleton } from "@/features/dashboard/components/skeletons/dashboard"
 import { usePermission } from "@/features/dashboard/hooks/dashboard/use-permission"
 
-export const DashboardSidebar = () => {
+export function DashboardSidebar() {
   const { data, isPending, isError } = usePermission("invite:members")
 
   return (

@@ -8,7 +8,7 @@ type ToogleCardStatusProps = {
   status: BusinessCardStatus
 }
 
-export const ToogleCardStatus = ({ id, status }: ToogleCardStatusProps) => {
+export function ToogleCardStatus({ id, status }: ToogleCardStatusProps) {
   const { mutate, isPending } = useToogleCardStatus()
 
   const isActive = status === "active"

@@ -22,7 +22,7 @@ interface MemberSwitcherProps {
 
 const SELF_MEMBER: AnalyticsMember = { memberId: "current_user_id", name: "Myself" }
 
-export const MemberSwitcher = ({ isDisabled }: MemberSwitcherProps) => {
+export function MemberSwitcher({ isDisabled }: MemberSwitcherProps) {
   const { memberId, setMemberId } = useAnalyticsStore(
     useShallow((state) => ({
       memberId: state.memberId,

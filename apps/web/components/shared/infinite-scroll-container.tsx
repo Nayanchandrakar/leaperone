@@ -8,14 +8,14 @@ interface InfiniteScrollContainerProps extends React.ComponentProps<"div"> {
   onIntersect: () => void
 }
 
-export const InfiniteScrollContainer = ({
+export function InfiniteScrollContainer({
   hidden,
   children,
   onIntersect,
   threshold = 0,
   rootMargin = "100%",
   ...props
-}: InfiniteScrollContainerProps) => {
+}: InfiniteScrollContainerProps) {
   const { ref } = useIntersectionObserver({
     threshold,
     rootMargin,

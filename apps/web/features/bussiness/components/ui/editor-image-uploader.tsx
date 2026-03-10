@@ -7,7 +7,7 @@ interface EditorImageUploaderProps extends React.ComponentProps<"div"> {
   src: string
 }
 
-export const EditorImageUploader = ({ className, src, ...props }: EditorImageUploaderProps) => {
+export function EditorImageUploader({ className, src, ...props }: EditorImageUploaderProps) {
   return (
     <div
       className={cn("relative aspect-square size-29 rounded-lg border border-border", className)}

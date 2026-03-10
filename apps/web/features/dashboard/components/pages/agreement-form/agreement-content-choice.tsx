@@ -9,11 +9,7 @@ type AgreementContentChoiceProps = {
   description: string
 }
 
-export const AgreementContentChoice = ({
-  value,
-  title,
-  description,
-}: AgreementContentChoiceProps) => {
+export function AgreementContentChoice({ value, title, description }: AgreementContentChoiceProps) {
   const id = useId()
 
   return (

@@ -9,7 +9,7 @@ interface ProfileFieldProps {
   onAction?: () => void
 }
 
-export const ProfileField = ({ label, value, actionLabel, onAction }: ProfileFieldProps) => {
+export function ProfileField({ label, value, actionLabel, onAction }: ProfileFieldProps) {
   return (
     <div className="grid gap-1">
       <dt className="text-sm font-semibold text-muted-foreground">{label}</dt>

@@ -5,7 +5,7 @@ interface ContactInfoItemProps {
   children: ReactNode
 }
 
-export const ContactInfoItem = ({ label, children }: ContactInfoItemProps) => {
+export function ContactInfoItem({ label, children }: ContactInfoItemProps) {
   return (
     <div className="text-start font-template-body text-sm xs:text-base">
       {label && <strong className="text-template-foreground font-normal">{label}</strong>}
@@ -18,6 +18,6 @@ interface ContactInfoValueProps {
   children: ReactNode
 }
 
-export const ContactInfoValue = ({ children }: ContactInfoValueProps) => {
+export function ContactInfoValue({ children }: ContactInfoValueProps) {
   return <p className="text-template-muted-foreground">{children}</p>
 }

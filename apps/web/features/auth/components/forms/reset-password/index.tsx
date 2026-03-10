@@ -12,7 +12,7 @@ interface ResetPasswordFormProps {
   token: string
 }
 
-export const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
+export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const { isPending, mutateAsync } = useResetPassword()
 
   const form = useAppForm({

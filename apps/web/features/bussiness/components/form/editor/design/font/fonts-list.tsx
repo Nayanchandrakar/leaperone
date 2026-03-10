@@ -9,7 +9,7 @@ type FontsListProps = {
   onFontChange: (font: Font) => void
 }
 
-export const FontsList = ({ selectedFontId, fontOptions, onFontChange }: FontsListProps) => {
+export function FontsList({ selectedFontId, fontOptions, onFontChange }: FontsListProps) {
   return (
     <ListComponent
       items={fontOptions}

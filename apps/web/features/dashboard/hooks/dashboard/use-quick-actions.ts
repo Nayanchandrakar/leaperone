@@ -4,7 +4,7 @@ import { getBusinessCardQueryOptions } from "@/features/bussiness/utils"
 import { usePermission } from "@/features/dashboard/hooks/dashboard/use-permission"
 import { useShareBusinessCard } from "@/features/dashboard/hooks/dashboard/use-share-business-card"
 
-export const useQuickActions = () => {
+export function useQuickActions() {
   const { openDialog } = useShareBusinessCard()
 
   const {

@@ -13,7 +13,7 @@ type EditorSubSortListItemProps = React.ComponentProps<"div"> & {
   listeners?: SyntheticListenerMap
 }
 
-export const EditorSubSortListItem = ({
+export function EditorSubSortListItem({
   className,
   onDelete,
   children,
@@ -22,7 +22,7 @@ export const EditorSubSortListItem = ({
   isDragging = false,
   isGrabbing = false,
   ...props
-}: EditorSubSortListItemProps) => {
+}: EditorSubSortListItemProps) {
   const handleDelete = useCallback(() => {
     onDelete?.()
   }, [onDelete])

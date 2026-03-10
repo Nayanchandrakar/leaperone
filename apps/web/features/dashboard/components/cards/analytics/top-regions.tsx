@@ -9,7 +9,7 @@ type TopRegionProps = {
   topRegions: GeoRegionRow[]
 }
 
-export const TopRegions = ({ scansInRange, topRegions }: TopRegionProps) => {
+export function TopRegions({ scansInRange, topRegions }: TopRegionProps) {
   return (
     <MetricCard>
       <CardTitle className="text-base text-muted-foreground">States - Till Top 10</CardTitle>

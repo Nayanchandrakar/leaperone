@@ -7,7 +7,7 @@ interface SectionBgToogle {
   onEnabledChange: (checked: boolean) => void
 }
 
-export const SectionBackgroundToggle = ({ enabled, onEnabledChange }: SectionBgToogle) => {
+export function SectionBackgroundToggle({ enabled, onEnabledChange }: SectionBgToogle) {
   return (
     <EditorBlockFooter>
       <Field orientation="horizontal" className="w-fit">

@@ -11,7 +11,7 @@ interface ToggleTextareaFieldProps extends TextareaProps {
   onEnabledChange: (checked: boolean) => void
 }
 
-export const ToggleTextareaField = ({
+export function ToggleTextareaField({
   label,
   enabled,
   placeholder,
@@ -19,7 +19,7 @@ export const ToggleTextareaField = ({
   fieldClassName,
   onEnabledChange,
   ...props
-}: ToggleTextareaFieldProps) => {
+}: ToggleTextareaFieldProps) {
   return (
     <Field className={fieldClassName}>
       <ToogleLabel label={label} isActive={enabled} onToggle={onEnabledChange} />

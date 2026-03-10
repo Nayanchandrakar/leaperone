@@ -5,7 +5,7 @@ type ThemeContainerProps = React.ComponentProps<"main"> & {
   design: DesignEditor
 }
 
-export const ThemeContainer = ({ design, ...props }: ThemeContainerProps) => {
+export function ThemeContainer({ design, ...props }: ThemeContainerProps) {
   const { color, sectionBackground, font } = design
 
   return (

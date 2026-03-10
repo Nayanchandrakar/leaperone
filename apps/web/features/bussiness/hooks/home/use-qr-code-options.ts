@@ -8,7 +8,7 @@ import { useMemo } from "react"
  * @param settings - Partial QR code editor schema from form or state.
  * @returns Options for qr-code-styling QRCodeStyling instance.
  */
-export const useQrCodeOptions = (settings: Partial<QrCodeEditor>) => {
+export function useQrCodeOptions(settings: Partial<QrCodeEditor>) {
   return useMemo<Options>(() => {
     const options: Options = {
       width: 260,

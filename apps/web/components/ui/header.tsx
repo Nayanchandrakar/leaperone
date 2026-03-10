@@ -2,15 +2,15 @@ import { cn } from "@app/ui/lib/utils"
 import Link, { type LinkProps } from "next/link"
 import { Icons } from "@/components/shared/icons"
 
-export const Header = ({ className, ...props }: React.ComponentProps<"header">) => {
+export function Header({ className, ...props }: React.ComponentProps<"header">) {
   return <header className={cn("bg-primary sticky h-16 top-0 z-50", className)} {...props} />
 }
 
-export const HeaderContainer = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function HeaderContainer({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("container flex items-center justify-between", className)} {...props} />
 }
 
-export const HeaderLogo = ({ className, ...props }: React.ComponentProps<"svg">) => {
+export function HeaderLogo({ className, ...props }: React.ComponentProps<"svg">) {
   return (
     <Link href="/">
       <Icons.logo className={cn("size-12", className)} {...props} />
@@ -19,11 +19,11 @@ export const HeaderLogo = ({ className, ...props }: React.ComponentProps<"svg">)
   )
 }
 
-export const HeaderNavigation = ({ className, ...props }: React.ComponentProps<"div">) => {
+export function HeaderNavigation({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("lg:flex items-center gap-x-6 hidden", className)} {...props} />
 }
 
-export const HeaderNavLink = (props: React.ComponentProps<"a"> & LinkProps) => {
+export function HeaderNavLink(props: React.ComponentProps<"a"> & LinkProps) {
   return (
     <Link
       className="data-[state=true]:font-semibold text-sm font-medium text-white transition-colors hover:text-white/80"

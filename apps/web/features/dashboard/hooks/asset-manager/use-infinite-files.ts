@@ -5,7 +5,7 @@ import { useAssetFilterStore } from "@/features/dashboard/hooks/asset-manager/us
 import { getCategoryTypes } from "@/features/dashboard/utils/asset-manager"
 import { getFiles } from "@/lib/api"
 
-export const useInfiniteFiles = () => {
+export function useInfiniteFiles() {
   const { fileCategory, sortOptions, query } = useAssetFilterStore(
     useShallow((state) => ({
       query: state.query,

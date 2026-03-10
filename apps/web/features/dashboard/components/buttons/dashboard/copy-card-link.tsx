@@ -6,7 +6,7 @@ type CopyCardLinkProps = {
   link: string
 }
 
-export const CopyCardLink = ({ link }: CopyCardLinkProps) => {
+export function CopyCardLink({ link }: CopyCardLinkProps) {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopyLink = useCallback(async () => {

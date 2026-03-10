@@ -23,9 +23,9 @@ type BusinessCardItemProps = {
   item: Pick<BusinessCard, "id" | "status" | "identifier" | "qrCode">
 }
 
-export const BusinessCardItem = ({
+export function BusinessCardItem({
   item: { id, status, identifier, qrCode },
-}: BusinessCardItemProps) => {
+}: BusinessCardItemProps) {
   const isInactive = status === "inactive"
   const openDialog = useShareBusinessCard((state) => state.openDialog)
 

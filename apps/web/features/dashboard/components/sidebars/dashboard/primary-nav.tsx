@@ -13,7 +13,7 @@ type PrimaryNavProps = {
   isManager: boolean
 }
 
-export const PrimaryNav = ({ isManager }: PrimaryNavProps) => {
+export function PrimaryNav({ isManager }: PrimaryNavProps) {
   const currentPath = usePathname()
 
   return (

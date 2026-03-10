@@ -2,13 +2,13 @@ import { Field, FieldError, FieldLabel } from "@app/ui/components/field"
 import { Textarea, type TextareaProps } from "@app/ui/components/textarea"
 import { useFieldContext } from "@/components/ui/app-form"
 
-export const TextareaField = ({
+export function TextareaField({
   label,
   variant,
   ...props
 }: TextareaProps & {
   label: string
-}) => {
+}) {
   const field = useFieldContext<string>()
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
 

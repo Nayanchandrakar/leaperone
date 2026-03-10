@@ -1,7 +1,7 @@
 import type { StandardSchemaV1Issue } from "@tanstack/react-form"
 import { useCallback } from "react"
 
-export const useScrollToFirstError = () => {
+export function useScrollToFirstError() {
   return useCallback(
     (
       formRef: React.RefObject<React.ComponentRef<"form"> | null>,

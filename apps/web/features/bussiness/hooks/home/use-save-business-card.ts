@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { saveBusinessCardMutation } from "@/lib/api"
 
-export const useSaveBusinessCard = () => {
+export function useSaveBusinessCard() {
   const searchParams = useSearchParams()
   const isEdit = !!searchParams.get("edit")
 

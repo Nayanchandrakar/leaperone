@@ -15,7 +15,7 @@ interface SignupFormProps {
   callbackUrl: string
 }
 
-export const SignupForm = ({ callbackUrl = "/" }: SignupFormProps) => {
+export function SignupForm({ callbackUrl = "/" }: SignupFormProps) {
   const { mutateAsync, isPending } = useRegister()
 
   const form = useAppForm({

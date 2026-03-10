@@ -9,7 +9,7 @@ interface ScansInRangeProps {
   scansInRange: number
 }
 
-export const ScansInRange = ({ scansInRange = 0 }: ScansInRangeProps) => {
+export function ScansInRange({ scansInRange = 0 }: ScansInRangeProps) {
   const timeRangeLabel = useAnalyticsStore((state) => state.timeRangeLabel)
   return (
     <MetricCard>

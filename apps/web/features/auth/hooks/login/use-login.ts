@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { loginMutation } from "@/lib/api"
 
-export const useLogin = () => {
+export function useLogin() {
   const router = useRouter()
   return useMutation({
     mutationFn: async (input: LoginFormSchema) => {

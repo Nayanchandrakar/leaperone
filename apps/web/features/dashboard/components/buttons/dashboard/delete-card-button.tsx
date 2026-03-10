@@ -6,7 +6,7 @@ type DeleteCardButtonProps = {
   businessCardId: string | null
 }
 
-export const DeleteCardButton = ({ businessCardId }: DeleteCardButtonProps) => {
+export function DeleteCardButton({ businessCardId }: DeleteCardButtonProps) {
   const { mutate, isPending } = useDeleteCard()
 
   return (

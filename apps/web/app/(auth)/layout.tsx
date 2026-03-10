@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   description: "Created by myleaper",
 }
 
-export default function Layout({
-  children,
-}: Readonly<{
+interface LayoutProps {
   children: React.ReactNode
-}>) {
+}
+
+export default function Layout({ children }: LayoutProps) {
   return <AuthLayout>{children}</AuthLayout>
 }

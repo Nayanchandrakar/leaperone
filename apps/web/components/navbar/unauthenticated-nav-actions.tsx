@@ -2,11 +2,10 @@
 
 import { buttonVariants } from "@app/ui/components/button"
 import Link from "next/link"
-import { Fragment } from "react"
 
-export const UnauthenticatedNavActions = () => {
+export function UnauthenticatedNavActions() {
   return (
-    <Fragment>
+    <>
       <Link
         href="/pricing"
         className={buttonVariants({
@@ -27,6 +26,6 @@ export const UnauthenticatedNavActions = () => {
       >
         Login
       </Link>
-    </Fragment>
+    </>
   )
 }

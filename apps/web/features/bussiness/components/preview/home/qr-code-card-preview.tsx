@@ -5,7 +5,7 @@ import { useQRCode } from "@/features/bussiness/hooks/home/use-qr-code"
 import { useSaveAndShareBusinessCard } from "@/features/bussiness/hooks/home/use-save-and-share-business-card"
 import { useEditorState } from "@/features/bussiness/stores/use-editor-state"
 
-const QrCodeCardPreview = () => {
+function QrCodeCardPreview() {
   const { content, design, template, qrCode } = useEditorState()
   const { qrCodeRef } = useQRCode(qrCode)
   const { isFetching, isPending, handleSaveAndShare } = useSaveAndShareBusinessCard({

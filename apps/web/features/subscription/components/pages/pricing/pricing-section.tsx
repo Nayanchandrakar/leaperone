@@ -5,7 +5,7 @@ interface IPricingSection {
   subscription: SubscriptionInfo
 }
 
-export const PricingSection = ({ subscription }: IPricingSection) => {
+export function PricingSection({ subscription }: IPricingSection) {
   return (
     <section className="container mt-24">
       <RenderPriceCards subscription={subscription} />

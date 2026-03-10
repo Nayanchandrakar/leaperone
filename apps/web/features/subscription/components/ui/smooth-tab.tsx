@@ -14,7 +14,7 @@ interface SmoothTabProps {
   onChange: (tabId: string) => void
 }
 
-export const SmoothTab = ({ items, className, onChange, selected }: SmoothTabProps) => {
+export function SmoothTab({ items, className, onChange, selected }: SmoothTabProps) {
   const [dimensions, setDimensions] = React.useState({ width: 0, left: 0 })
 
   // Reference for the selected button

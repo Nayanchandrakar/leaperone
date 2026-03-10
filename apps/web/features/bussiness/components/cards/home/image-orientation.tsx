@@ -5,7 +5,7 @@ interface ImageOrientationProps extends React.ComponentProps<"div"> {
   orientation: ImageView
 }
 
-export const ImageOrientation = ({ orientation, className, ...rest }: ImageOrientationProps) => {
+export function ImageOrientation({ orientation, className, ...rest }: ImageOrientationProps) {
   return (
     <div className={cn("space-y-1 group shrink-0", className)} {...rest}>
       <div className="transition-colors border p-2 rounded-lg hover:border-primary border-border aspect-square w-22 h-17 flex-center cursor-pointer group-data-[state=true]:border-primary">

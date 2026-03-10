@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
-export const MobileNav = () => {
+export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

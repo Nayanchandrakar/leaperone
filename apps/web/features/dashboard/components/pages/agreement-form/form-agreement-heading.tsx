@@ -3,7 +3,7 @@ import {
   DashboardTitle,
 } from "@/features/dashboard/components/ui/dashboard-heading"
 
-export const FormAgreementHeading = () => {
+export function FormAgreementHeading() {
   return (
     <div className="space-y-4">
       <DashboardTitle>Form Terms & Privacy</DashboardTitle>

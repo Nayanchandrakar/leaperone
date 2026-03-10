@@ -18,7 +18,7 @@ type SecondaryNavProps = {
   isManager: boolean
 }
 
-export const SecondaryNav = ({ isManager }: SecondaryNavProps) => {
+export function SecondaryNav({ isManager }: SecondaryNavProps) {
   const currentPath = usePathname()
 
   return (

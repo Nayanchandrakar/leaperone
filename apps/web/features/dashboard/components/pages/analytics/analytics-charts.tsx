@@ -28,7 +28,7 @@ interface AnalyticsChartsProps {
   topCountries: GeoCountRow[]
 }
 
-export const AnalyticsCharts = ({
+export function AnalyticsCharts({
   isPending,
   topCities,
   totalClicks,
@@ -39,7 +39,7 @@ export const AnalyticsCharts = ({
   deviceAnalysis,
   browserAnalysis,
   topCountries,
-}: AnalyticsChartsProps) => {
+}: AnalyticsChartsProps) {
   return (
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-11 mt-8">
       <ScanDetail

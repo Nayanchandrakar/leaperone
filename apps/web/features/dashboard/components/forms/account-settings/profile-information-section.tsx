@@ -4,7 +4,7 @@ import { useShallow } from "zustand/react/shallow"
 import { ProfileField } from "@/features/dashboard/components/forms/account-settings/profile-field"
 import { useAccountStore } from "@/features/dashboard/hooks/account-settings/use-account-store"
 
-export const ProfileInformationSection = () => {
+export function ProfileInformationSection() {
   const { setIsNameChangeOpen } = useAccountStore(
     useShallow((state) => ({
       setIsNameChangeOpen: state.setIsNameChangeOpen,

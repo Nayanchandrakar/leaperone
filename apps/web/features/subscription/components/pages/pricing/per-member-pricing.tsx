@@ -9,7 +9,7 @@ import {
 import { UnderlineText } from "@/features/marketing/components/ui/underline-text"
 import { TEAMS_PER_MEMBER_COST } from "@/features/subscription/constants/pricing/teams-per-member-cost"
 
-export const PerMemberPricing = () => {
+export function PerMemberPricing() {
   return (
     <section className="container mt-32" id="plan-pricing">
       <h2 className="font-bold md:font-semibold text-3xl text-center  leading-tight ">

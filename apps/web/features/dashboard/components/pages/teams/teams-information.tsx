@@ -2,7 +2,7 @@ import { MemberStatusList } from "@/features/dashboard/components/cards/teams/me
 import { WorkspaceUsage } from "@/features/dashboard/components/cards/teams/workspace-usage"
 import { AccountOwner } from "@/features/dashboard/components/pages/teams/account-owner"
 
-export const TeamsInformation = () => {
+export function TeamsInformation() {
   return (
     <section className="@container mt-8 max-w-5xl">
       <div className="grid @2xl:grid-cols-[repeat(2,auto)] @3xl:grid-cols-[repeat(3,auto)] @4xl:grid-cols-[repeat(4,auto)] gap-3.5 md:gap-4.5">

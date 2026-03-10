@@ -10,7 +10,7 @@ import { AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
 import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { useInviteMember } from "@/features/invitation/hooks/invite/use-invite-member"
 
-export const InviteMemberForm = () => {
+export function InviteMemberForm() {
   const { mutateAsync, isPending } = useInviteMember()
 
   const form = useAppForm({

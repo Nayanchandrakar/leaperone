@@ -2,7 +2,7 @@
 
 import { Button } from "@app/ui/components/button"
 
-export const AccountActionsSection = () => {
+export function AccountActionsSection() {
   const handleChangePassword = () => {
     // TODO: Implement change password functionality
     console.log("Change password")

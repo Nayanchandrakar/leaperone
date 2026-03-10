@@ -19,7 +19,7 @@ interface IComparePlanSection {
   subscription: SubscriptionInfo
 }
 
-export const ComparePlanSection = ({ subscription }: IComparePlanSection) => {
+export function ComparePlanSection({ subscription }: IComparePlanSection) {
   console.log(subscription)
   return (
     <section className="container mt-32" id="compare-pricing">

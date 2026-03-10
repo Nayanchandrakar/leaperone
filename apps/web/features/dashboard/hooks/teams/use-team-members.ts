@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getInvitedMembers } from "@/lib/api"
 
-export const useTeamMembers = () => {
+export function useTeamMembers() {
   return useQuery({
     queryKey: ["members"],
     queryFn: async () => {

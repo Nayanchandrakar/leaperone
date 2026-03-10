@@ -18,7 +18,7 @@ interface DateRangePickerProps {
   isPending: boolean
 }
 
-export const DateRangePicker = ({ isPending }: DateRangePickerProps) => {
+export function DateRangePicker({ isPending }: DateRangePickerProps) {
   const { timeRange, setTimeRange } = useAnalyticsStore(
     useShallow((state) => ({
       timeRange: state.timeRange,

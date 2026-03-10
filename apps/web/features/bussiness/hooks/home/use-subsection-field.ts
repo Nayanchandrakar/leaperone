@@ -4,12 +4,12 @@ import {
   useContentEditorStore,
 } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const useSubSectionField = <T = unknown>(
+export function useSubSectionField<T = unknown>(
   index: number,
   subIndex: number,
   arrayPath: string[],
   fieldPath: string[],
-) => {
+) {
   // Memoize paths to avoid reference changes triggering re-renders
   const stableArrayPathKey = JSON.stringify(arrayPath)
   const stableFieldPathKey = JSON.stringify(fieldPath)

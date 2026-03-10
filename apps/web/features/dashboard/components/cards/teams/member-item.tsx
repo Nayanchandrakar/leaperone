@@ -17,7 +17,7 @@ import { RestrictMemberButton } from "@/features/dashboard/components/buttons/te
 import { getStatusColor } from "@/features/dashboard/utils/teams"
 import type { InvitedMember } from "@/types/api-types"
 
-export const MemberItem = ({
+export function MemberItem({
   memberId,
   name,
   image,
@@ -25,7 +25,7 @@ export const MemberItem = ({
   status,
   isRestricted,
   businessCardId,
-}: InvitedMember) => {
+}: InvitedMember) {
   const statusColor = getStatusColor(status, isRestricted)
 
   return (

@@ -9,7 +9,7 @@ type Props = TemplateProps & {
   template: Template
 }
 
-export const TemplateRenderer = ({ template, ...props }: Props) => {
+export function TemplateRenderer({ template, ...props }: Props) {
   const Template = useMemo(() => {
     return dynamic(TEMPLATE_REGISTRY[template], {
       ssr: true,

@@ -9,7 +9,7 @@ interface AddPdfFileProps {
   index: number
 }
 
-export const AddPdfFile = ({ index }: AddPdfFileProps) => {
+export function AddPdfFile({ index }: AddPdfFileProps) {
   const { addItem } = useSubSectionList<PdfFile>(index, ["files"])
 
   const handleAddPdfFile = useCallback(() => {

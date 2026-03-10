@@ -1,4 +1,4 @@
-export const CornerMesh = () => {
+export function CornerMesh() {
   return (
     <div
       className="fixed inset-0 z-[-1]"
@@ -14,7 +14,7 @@ export const CornerMesh = () => {
   )
 }
 
-export const RadialMesh = () => {
+export function RadialMesh() {
   return (
     <div
       className="absolute inset-0 z-[-1]"

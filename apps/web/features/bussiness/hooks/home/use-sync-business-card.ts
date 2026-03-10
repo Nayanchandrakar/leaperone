@@ -10,7 +10,7 @@ import { getBusinessCardQueryOptions } from "@/features/bussiness/utils"
  * Synchronize the business card state
  * with the Zustand stores, using React best practices.
  */
-export const useSyncBusinessCard = () => {
+export function useSyncBusinessCard() {
   const searchParams = useSearchParams()
   const withCard = !!searchParams.get("edit")
 

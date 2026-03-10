@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const AddMemberItem = () => {
+export function AddMemberItem() {
   const router = useRouter()
 
   const handleAddMember = () => {

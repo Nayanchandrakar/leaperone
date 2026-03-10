@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@app/ui/components/avatar"
 import { getSession } from "@/actions/utils"
 import { TeamOverview, TeamOverviewLabel } from "@/features/dashboard/components/ui/team-overview"
 
-export const AccountOwner = async () => {
+export async function AccountOwner() {
   const session = await getSession()
   return (
     <TeamOverview className="space-y-3">

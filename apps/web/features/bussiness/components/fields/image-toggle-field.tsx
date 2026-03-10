@@ -9,12 +9,12 @@ interface ImageToggleFieldProps {
   onEnabledChange: (checked: boolean) => void
 }
 
-export const ImageToggleField = ({
+export function ImageToggleField({
   label,
   enabled,
   imageSrc,
   onEnabledChange,
-}: ImageToggleFieldProps) => {
+}: ImageToggleFieldProps) {
   return (
     <Field className="w-fit">
       <Field orientation="horizontal" className="w-fit">

@@ -4,7 +4,7 @@ import { useTeamPricingStore } from "@/features/subscription/hooks/pricing/use-t
 import type { SubscriptionInfo } from "@/features/subscription/types"
 import { deriveSubscriptionState } from "@/features/subscription/utils"
 
-export const useSubscriptionSync = (subscription: SubscriptionInfo) => {
+export function useSubscriptionSync(subscription: SubscriptionInfo) {
   const setTeamPricing = useTeamPricingStore((state) => state.setTeamPricing)
   const setPlanIntervalById = usePricingIntervalStore((state) => state.setPlanIntervalById)
 

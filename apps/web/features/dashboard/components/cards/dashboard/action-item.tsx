@@ -5,7 +5,7 @@ type ActionItemProps = React.ComponentProps<"button"> & {
   Icon: LucideIcon
 }
 
-export const ActionItem = ({ label, Icon, ...props }: ActionItemProps) => {
+export function ActionItem({ label, Icon, ...props }: ActionItemProps) {
   return (
     <button
       type="button"

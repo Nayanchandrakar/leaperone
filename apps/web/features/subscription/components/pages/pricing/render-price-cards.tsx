@@ -9,7 +9,7 @@ interface IRenderPriceCards {
   subscription: SubscriptionInfo
 }
 
-export const RenderPriceCards = ({ subscription }: IRenderPriceCards) => {
+export function RenderPriceCards({ subscription }: IRenderPriceCards) {
   return (
     <ListComponent
       items={PLANS}

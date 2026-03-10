@@ -33,5 +33,3 @@ export const ListImagesForm = memo(({ index }: ContentSectionProps) => {
 
   return <SortableList items={list} onReorder={moveItem} renderItem={renderItem} />
 })
-
-ListImagesForm.displayName = "ListImagesForm"

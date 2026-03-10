@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { requestPasswordResetMutation } from "@/lib/api"
 
-export const useRequestPasswordReset = () => {
+export function useRequestPasswordReset() {
   return useMutation({
     mutationFn: async (input: EmailSchema) => {
       const { data } = await requestPasswordResetMutation(input)

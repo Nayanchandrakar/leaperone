@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react"
 import Link from "next/link"
 
-export const CreateBusinessCard = () => {
+export function CreateBusinessCard() {
   return (
     <>
       <p className="text-muted-foreground font-normal text-sm text-center max-w-lg mx-auto my-8">

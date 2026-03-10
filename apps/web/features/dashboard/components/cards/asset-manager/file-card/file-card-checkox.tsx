@@ -7,7 +7,7 @@ type FileCardCheckboxProps = {
   isSelectionMode: boolean
 }
 
-export const FileCheckbox = ({ fileId, isSelectionMode }: FileCardCheckboxProps) => {
+export function FileCheckbox({ fileId, isSelectionMode }: FileCardCheckboxProps) {
   const { addSelectedAssetId, removeSelectedAssetId, selectedAssetIds } = useAssetStore(
     useShallow((state) => ({
       selectedAssetIds: state.selectedAssetIds,

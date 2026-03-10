@@ -11,7 +11,7 @@ import {
 } from "@/features/dashboard/components/ui/dashboard-stats"
 
 // Main component
-export const BusinessCardSection = () => {
+export function BusinessCardSection() {
   return (
     <DashboardStats>
       <DashboardStatsTitle>My Business Card</DashboardStatsTitle>
@@ -20,7 +20,7 @@ export const BusinessCardSection = () => {
   )
 }
 
-const BusinessCardList = () => {
+function BusinessCardList() {
   const { data, isPending, isError } = useQuery(getBusinessCardQueryOptions())
 
   // If there is an error or pending state, show the skeleton

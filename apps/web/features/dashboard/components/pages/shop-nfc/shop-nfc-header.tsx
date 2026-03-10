@@ -3,7 +3,7 @@ import {
   DashboardTitle,
 } from "@/features/dashboard/components/ui/dashboard-heading"
 
-export const ShopNfcHeader = () => {
+export function ShopNfcHeader() {
   return (
     <section className="max-w-lg mx-auto space-y-2 text-center">
       <DashboardTitle>Shop The NFC Smart Bundle</DashboardTitle>

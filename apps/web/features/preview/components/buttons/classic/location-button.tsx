@@ -1,7 +1,7 @@
 import { buttonVariants } from "@app/ui/components/button"
 import { MapPin } from "lucide-react"
 
-export const LocationButton = () => {
+export function LocationButton() {
   return (
     <div className="flex-center">
       <a

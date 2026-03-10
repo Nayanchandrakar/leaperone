@@ -9,11 +9,11 @@ interface ImageOrientationListProps {
   onOrientationChange: (orientation: ImageViewType) => void
 }
 
-export const ImageOrientationList = ({
+export function ImageOrientationList({
   orientations,
   selectedOrientation,
   onOrientationChange,
-}: ImageOrientationListProps) => {
+}: ImageOrientationListProps) {
   return (
     <ListComponent
       items={orientations}

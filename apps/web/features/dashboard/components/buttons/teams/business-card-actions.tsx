@@ -17,11 +17,11 @@ type BusinessCardActionsProps = {
   businessCardId: string | null
 }
 
-export const BusinessCardActions = ({
+export function BusinessCardActions({
   memberId,
   isRestricted,
   businessCardId,
-}: BusinessCardActionsProps) => {
+}: BusinessCardActionsProps) {
   const { mutate, isPending } = useImpersonateMember()
 
   return (

@@ -7,7 +7,7 @@ type UseAnalyticsParams = {
   memberId: string | undefined
 }
 
-export const useAnalytics = ({ from, to, memberId }: UseAnalyticsParams) => {
+export function useAnalytics({ from, to, memberId }: UseAnalyticsParams) {
   return useQuery({
     // Use ISO string for stable cache keys — Date objects create new references every render
     queryKey: ["analytics", from.toISOString(), to.toISOString(), memberId],

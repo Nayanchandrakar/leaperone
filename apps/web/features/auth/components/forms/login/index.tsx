@@ -14,7 +14,7 @@ interface LoginFormProps {
   callbackUrl: string
 }
 
-export const LoginForm = ({ callbackUrl = "/" }: LoginFormProps) => {
+export function LoginForm({ callbackUrl = "/" }: LoginFormProps) {
   const { mutateAsync, isPending } = useLogin()
 
   const form = useAppForm({

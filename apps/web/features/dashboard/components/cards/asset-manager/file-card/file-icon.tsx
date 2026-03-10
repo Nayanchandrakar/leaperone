@@ -5,7 +5,7 @@ type FileCardIconProps = {
 }
 
 // File icons
-export const FileCardIcon = ({ type }: FileCardIconProps) => {
+export function FileCardIcon({ type }: FileCardIconProps) {
   let Icon = ImageIcon
 
   if (type?.startsWith("image")) {

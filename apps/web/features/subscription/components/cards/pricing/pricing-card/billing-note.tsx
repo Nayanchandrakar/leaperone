@@ -8,7 +8,7 @@ interface IBillingNote {
   billingNote: BillingNoteType
 }
 
-export const BillingNote = ({ billingNote }: IBillingNote) => {
+export function BillingNote({ billingNote }: IBillingNote) {
   const planInterval = usePricingIntervalStore((state) => state.planInterval)
 
   const note = useMemo(

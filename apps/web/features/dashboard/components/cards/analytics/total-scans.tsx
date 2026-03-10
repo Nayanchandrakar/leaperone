@@ -8,7 +8,7 @@ interface TotalScansProps {
   totalClicks: number
 }
 
-export const TotalScans = ({ totalClicks = 0 }: TotalScansProps) => {
+export function TotalScans({ totalClicks = 0 }: TotalScansProps) {
   return (
     <MetricCard>
       <MetricCardLabel>Total scans of your card</MetricCardLabel>

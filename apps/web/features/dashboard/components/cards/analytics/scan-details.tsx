@@ -11,12 +11,7 @@ interface ScanDetailProps {
   topCities: GeoCityRow[]
 }
 
-export const ScanDetail = ({
-  totalClicks,
-  scansInRange,
-  topCities,
-  isPending,
-}: ScanDetailProps) => {
+export function ScanDetail({ totalClicks, scansInRange, topCities, isPending }: ScanDetailProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {isPending ? (

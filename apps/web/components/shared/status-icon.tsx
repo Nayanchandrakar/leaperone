@@ -29,14 +29,14 @@ interface StatusIconProps
   iconClassName?: string
 }
 
-export const StatusIcon = ({
+export function StatusIcon({
   Icon,
   className,
   variant,
   size,
   iconClassName,
   ...props
-}: StatusIconProps) => {
+}: StatusIconProps) {
   return (
     <div className={cn(statusIconVariants({ variant, size }), className)} {...props}>
       <Icon className={cn(iconClassName)} strokeWidth={2.5} />

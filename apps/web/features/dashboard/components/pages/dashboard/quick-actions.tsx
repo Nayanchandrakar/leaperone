@@ -6,7 +6,7 @@ import {
   DashboardStatsTitle,
 } from "@/features/dashboard/components/ui/dashboard-stats"
 
-export const QuickActions = () => {
+export function QuickActions() {
   return (
     <DashboardStats>
       <DashboardStatsTitle>Quick Actions</DashboardStatsTitle>

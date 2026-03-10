@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { deleteCardMutation } from "@/lib/api"
 
-export const useDeleteCard = () => {
+export function useDeleteCard() {
   const queryClient = useQueryClient()
 
   return useMutation({

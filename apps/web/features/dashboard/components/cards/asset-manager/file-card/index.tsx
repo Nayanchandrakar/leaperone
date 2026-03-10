@@ -14,7 +14,7 @@ interface FileCardProps {
   file: AssetFile
 }
 
-export const FileCard = ({ file }: FileCardProps) => {
+export function FileCard({ file }: FileCardProps) {
   const { setAsset, setIsOpen, asset } = useFilePreviewStore()
   const isSelectionMode = useAssetStore((state) => state.isSelectionMode)
 

@@ -2,7 +2,7 @@ import { Button, buttonVariants } from "@app/ui/components/button"
 import { Plus, Settings } from "lucide-react"
 import Link from "next/link"
 
-export const TeamManagementButtons = () => {
+export function TeamManagementButtons() {
   return (
     <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 min-[1100px]:w-fit">
       <Button type="button">

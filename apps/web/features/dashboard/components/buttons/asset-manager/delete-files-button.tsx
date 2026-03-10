@@ -18,7 +18,7 @@ interface DeleteFilesButton {
   isActionDisabled: boolean
 }
 
-export const DeleteFilesButton = ({ isActionDisabled }: DeleteFilesButton) => {
+export function DeleteFilesButton({ isActionDisabled }: DeleteFilesButton) {
   const { fileCounts, isPending, handleDelete, isOpen, setIsOpen } = useBulkDeleteFiles()
 
   if (fileCounts === 0) return null

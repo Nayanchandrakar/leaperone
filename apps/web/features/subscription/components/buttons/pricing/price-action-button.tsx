@@ -11,7 +11,7 @@ interface IPriceActionButton {
   type: SubscriptionPlan
 }
 
-export const PriceActionButton = ({ subscription, type }: IPriceActionButton) => {
+export function PriceActionButton({ subscription, type }: IPriceActionButton) {
   const isActive = type === subscription?.plan
   const { trigger, isPending } = usePriceAction(isActive)
 

@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { getWorkspaceSettings, updateWorkspaceSettings } from "@/lib/api"
 
-export const useWorkspaceSettings = () => {
+export function useWorkspaceSettings() {
   return useQuery({
     queryKey: ["workspace-settings"],
     queryFn: async () => {
@@ -13,7 +13,7 @@ export const useWorkspaceSettings = () => {
   })
 }
 
-export const useUpdateWorkspaceSettings = () => {
+export function useUpdateWorkspaceSettings() {
   const queryClient = useQueryClient()
 
   return useMutation({

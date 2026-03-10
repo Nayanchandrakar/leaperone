@@ -11,7 +11,7 @@ interface ToggleFieldProps extends InputProps {
   onEnabledChange: (checked: boolean) => void
 }
 
-export const ToggleField = ({
+export function ToggleField({
   label,
   enabled,
   placeholder,
@@ -19,7 +19,7 @@ export const ToggleField = ({
   fieldClassName,
   onEnabledChange,
   ...props
-}: ToggleFieldProps) => {
+}: ToggleFieldProps) {
   return (
     <Field className={fieldClassName}>
       <ToogleLabel label={label} isActive={enabled} onToggle={onEnabledChange} />

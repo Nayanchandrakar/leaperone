@@ -8,13 +8,13 @@ interface ColorPickerProps extends Omit<React.ComponentProps<"input">, "onChange
   onColorChange: (color: string) => void
 }
 
-export const ColorPicker = ({
+export function ColorPicker({
   color,
   disabled,
   className,
   onColorChange,
   ...props
-}: ColorPickerProps) => {
+}: ColorPickerProps) {
   return (
     <div
       role="group"

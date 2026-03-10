@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAnalyticsMembers } from "@/lib/api"
 
-export const useAnalayticsMembers = () => {
+export function useAnalayticsMembers() {
   return useQuery({
     queryKey: ["analytics-members"],
     queryFn: async () => {

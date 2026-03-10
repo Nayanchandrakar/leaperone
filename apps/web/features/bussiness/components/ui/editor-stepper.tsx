@@ -8,7 +8,7 @@ import {
 import { CARD_STEPS } from "@/features/bussiness/constants/home/card-steps"
 import { useEditorStepper } from "@/features/bussiness/stores/use-editor-stepper"
 
-export const EditorStepNavigator = () => {
+export function EditorStepNavigator() {
   const { selectedStep, setSelectedStep } = useEditorStepper(
     useShallow((state) => ({
       selectedStep: state.selectedStep,

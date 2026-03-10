@@ -1,6 +1,6 @@
 import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-infinite-files"
 
-export const useFilterState = () => {
+export function useFilterState() {
   const { data, isFetching } = useInfiniteFiles()
 
   const isAllCategory = data?.fileCategory === "all"

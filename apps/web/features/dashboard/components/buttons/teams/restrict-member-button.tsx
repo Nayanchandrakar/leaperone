@@ -7,7 +7,7 @@ type RestrictMemberButtonProps = {
   isRestricted: boolean
 }
 
-export const RestrictMemberButton = ({ memberId, isRestricted }: RestrictMemberButtonProps) => {
+export function RestrictMemberButton({ memberId, isRestricted }: RestrictMemberButtonProps) {
   const { mutate, isPending } = useRestrictUser()
 
   return (

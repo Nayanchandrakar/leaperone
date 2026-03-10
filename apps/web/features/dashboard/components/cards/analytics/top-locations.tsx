@@ -10,7 +10,7 @@ interface TopLocationsProps {
   topCities: GeoCityRow[]
 }
 
-export const TopLocations = ({ topCities }: TopLocationsProps) => {
+export function TopLocations({ topCities }: TopLocationsProps) {
   return (
     <MetricCard className="sm:row-span-2">
       <MetricCardLabel className="font-medium">Top 5 Locations</MetricCardLabel>

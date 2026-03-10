@@ -6,7 +6,7 @@ interface UseFileDeleteProps {
   onSuccess: () => void
 }
 
-export const useFileDelete = ({ onSuccess }: UseFileDeleteProps) => {
+export function useFileDelete({ onSuccess }: UseFileDeleteProps) {
   const queryClient = useQueryClient()
 
   return useMutation({

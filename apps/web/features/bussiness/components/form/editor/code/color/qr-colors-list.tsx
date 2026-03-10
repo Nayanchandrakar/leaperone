@@ -7,7 +7,7 @@ interface QrColorsListProps {
   onColorChange: (color: string) => void
 }
 
-export const QrColorsList = ({ colors, selectedColor, onColorChange }: QrColorsListProps) => {
+export function QrColorsList({ colors, selectedColor, onColorChange }: QrColorsListProps) {
   return (
     <ListComponent
       items={colors}

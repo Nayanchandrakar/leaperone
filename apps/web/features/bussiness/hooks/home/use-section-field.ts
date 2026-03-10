@@ -5,7 +5,7 @@ import {
   useContentEditorStore,
 } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const useSectionField = <T = unknown>(index: number, path: string[]) => {
+export function useSectionField<T = unknown>(index: number, path: string[]) {
   // Memoize the selector to prevent unnecessary re-creations
   const selector = useMemo(() => selectSectionField(index, path), [index, path])
 

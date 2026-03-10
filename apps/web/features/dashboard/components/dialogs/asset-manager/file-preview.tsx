@@ -11,7 +11,7 @@ import { useFileDelete } from "@/features/dashboard/hooks/asset-manager/use-dele
 import { useFilePreviewStore } from "@/features/dashboard/hooks/asset-manager/use-file-preview-store"
 import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
 
-export const FilePreviewDialog = () => {
+export function FilePreviewDialog() {
   const { isOpen, setIsOpen, asset, setAsset } = useFilePreviewStore()
   const { mutateAsync, isPending } = useFileDelete({
     onSuccess() {

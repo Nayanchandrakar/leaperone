@@ -6,7 +6,7 @@ interface useTimePickerProps {
   onChange: (date: Date) => void
 }
 
-export const useTimePicker = ({ value, onChange }: useTimePickerProps) => {
+export function useTimePicker({ value, onChange }: useTimePickerProps) {
   const { hours, minutes, hour12, meridiem, paddedMinutes } = useMemo(() => {
     const hours = value.getUTCHours()
     const minutes = value.getUTCMinutes()

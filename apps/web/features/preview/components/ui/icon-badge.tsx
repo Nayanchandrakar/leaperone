@@ -8,8 +8,10 @@ interface IconBadgeProps {
   Icon: LucideIcon | ((props: IconProps) => React.JSX.Element)
 }
 
-export const IconBadge: React.FC<IconBadgeProps> = ({ Icon, className, iconClassName }) => (
-  <span className={cn("bg-template-primary size-9 flex-center rounded-full", className)}>
-    <Icon className={cn("size-4", iconClassName)} />
-  </span>
-)
+export function IconBadge({ Icon, className, iconClassName }: IconBadgeProps) {
+  return (
+    <span className={cn("bg-template-primary size-9 flex-center rounded-full", className)}>
+      <Icon className={cn("size-4", iconClassName)} />
+    </span>
+  )
+}

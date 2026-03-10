@@ -10,7 +10,7 @@ type SelectAllFilesButtonProps = {
   isFetching: boolean
 }
 
-export const SelectAllFilesButton = ({ data, isFetching }: SelectAllFilesButtonProps) => {
+export function SelectAllFilesButton({ data, isFetching }: SelectAllFilesButtonProps) {
   const { selectedAssetIds, setSelectedAssetIds, isSelectionMode } = useAssetStore(
     useShallow((state) => ({
       isSelectionMode: state.isSelectionMode,

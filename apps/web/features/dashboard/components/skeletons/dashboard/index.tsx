@@ -8,7 +8,7 @@ import {
 import { Skeleton } from "@app/ui/components/skeleton"
 import { MetricCard } from "@/features/dashboard/components/cards/dashboard/metric-card"
 
-export const OverviewCardSkeleton = () => {
+export function OverviewCardSkeleton() {
   return Array.from({ length: 4 }).map((_, index) => (
     <MetricCard key={index}>
       <Skeleton className="h-5 w-4/5" />
@@ -17,7 +17,7 @@ export const OverviewCardSkeleton = () => {
   ))
 }
 
-export const SidebarSkeleton = () => {
+export function SidebarSkeleton() {
   return (
     <SidebarGroup>
       <SidebarMenuSkeleton className="max-w-20" />
@@ -36,7 +36,7 @@ export const SidebarSkeleton = () => {
   )
 }
 
-export const QuickActionCardSkeleton = () => {
+export function QuickActionCardSkeleton() {
   return Array.from({ length: 4 }).map((_, index) => (
     <div
       key={index}
@@ -48,7 +48,7 @@ export const QuickActionCardSkeleton = () => {
   ))
 }
 
-export const BusinessCardSkeleton = () => {
+export function BusinessCardSkeleton() {
   return (
     <div className="border rounded-xl divide-y min-[1290px]:divide-x divide-border grid min-[1290px]:grid-cols-[auto_auto]">
       <div className="p-6 space-y-2.5">

@@ -8,7 +8,7 @@ interface IRenderPlanFeatures {
   }
 }
 
-export const RenderPlanFeatures = ({ feature }: IRenderPlanFeatures) => {
+export function RenderPlanFeatures({ feature }: IRenderPlanFeatures) {
   return (
     <ListComponent
       items={feature.details}

@@ -12,13 +12,13 @@ interface TopGeoListProps {
   topCountries: GeoCountRow[]
 }
 
-export const TopGeoList = ({
+export function TopGeoList({
   isPending,
   topCities,
   topRegions,
   topCountries,
   scansInRange,
-}: TopGeoListProps) => {
+}: TopGeoListProps) {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
       {isPending ? (

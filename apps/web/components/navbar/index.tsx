@@ -4,7 +4,7 @@ import { NavActions } from "@/components/navbar/nav-actions"
 import { Navigation } from "@/components/navbar/navigation"
 import { Header, HeaderContainer, HeaderLogo, HeaderNavigation } from "@/components/ui/header"
 
-export const Navbar = async () => {
+export async function Navbar() {
   const session = await getSession()
 
   return (

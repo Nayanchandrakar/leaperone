@@ -5,7 +5,7 @@ import { scrollToElement } from "@/features/bussiness/utils/scroll-to-element"
 
 const SCROLL_TARGET_ID = "hero-section"
 
-export const useEditorStepperControls = () => {
+export function useEditorStepperControls() {
   const { selectedStep, goToPreviousStep, goToNextStep } = useEditorStepper(
     useShallow((state) => ({
       selectedStep: state.selectedStep,

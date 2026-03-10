@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import { FooterDescription } from "@/components/footer/footer-description"
 import { FooterNavigation } from "@/components/footer/footer-navigation"
 
-export const Footer = () => {
+export function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), [])
 
   return (

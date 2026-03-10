@@ -1,7 +1,7 @@
 import { Separator } from "@app/ui/components/separator"
 import Link from "next/link"
 
-export const LegalFooter = () => {
+export function LegalFooter() {
   return (
     <footer className="h-16 border-t bg-muted flex-center">
       <div className="container w-fit! h-5! flex items-center gap-4 text-sm text-muted-foreground [&_a]:hover:text-foreground [&_a]:md:block [&_a]:hidden **:data-[slot=separator]:md:block **:data-[slot=separator]:hidden transition-colors">

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { restrictUserMutation } from "@/lib/api"
 
-export const useRestrictUser = () => {
+export function useRestrictUser() {
   const queryClient = useQueryClient()
 
   return useMutation({

@@ -6,7 +6,7 @@ interface UseFilteredMembersProps {
   members: InvitedMember[]
 }
 
-export const useFilteredMembers = ({ members, query }: UseFilteredMembersProps) => {
+export function useFilteredMembers({ members, query }: UseFilteredMembersProps) {
   // Memoize the normalized query and searching state to avoid recalculating on every render
   const { normalizedQuery, isSearching } = useMemo(() => {
     const trimmedQuery = query.trim()

@@ -6,7 +6,7 @@ interface ListComponentProps<T> {
   className?: string
 }
 
-const ListComponent = <T,>({ items, renderItem, className }: ListComponentProps<T>) => {
+export function ListComponent<T>({ items, renderItem, className }: ListComponentProps<T>) {
   return (
     <div className={cn(className)}>
       {items?.map((item, index) => {
@@ -15,5 +15,3 @@ const ListComponent = <T,>({ items, renderItem, className }: ListComponentProps<
     </div>
   )
 }
-
-export { ListComponent }

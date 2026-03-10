@@ -6,7 +6,7 @@ interface UnSelectFilesButtonProps {
   isActionDisabled: boolean
 }
 
-export const UnSelectFilesButton = ({ isActionDisabled }: UnSelectFilesButtonProps) => {
+export function UnSelectFilesButton({ isActionDisabled }: UnSelectFilesButtonProps) {
   const { clearSelectedAssetIds, selectedAssetIds, toggleSelectionMode } = useAssetStore(
     useShallow((state) => ({
       toggleSelectionMode: state.toggleSelectionMode,

@@ -14,7 +14,7 @@ interface IPricingCard extends Plan {
   subscription: SubscriptionInfo
 }
 
-export const PricingCard = ({
+export function PricingCard({
   feature,
   title,
   pricing,
@@ -23,7 +23,7 @@ export const PricingCard = ({
   type,
   subscription,
   billingNote,
-}: IPricingCard) => {
+}: IPricingCard) {
   return (
     <div className="border-2 border-primary rounded-3xl mx-auto lg:max-w-full max-w-lg bg-background">
       <span className="border-b py-4 text-gray-500 text-sm flex items-center justify-center gap-2.5 ">

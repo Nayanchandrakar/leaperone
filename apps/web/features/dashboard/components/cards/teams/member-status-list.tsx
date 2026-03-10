@@ -3,7 +3,7 @@ import { StatusItem } from "@/features/dashboard/components/cards/teams/member-s
 import { TeamOverview, TeamOverviewLabel } from "@/features/dashboard/components/ui/team-overview"
 import { MEMBER_STATUS } from "@/features/dashboard/constants/teams/member-status"
 
-export const MemberStatusList = () => {
+export function MemberStatusList() {
   return (
     <TeamOverview>
       <TeamOverviewLabel>Member Status</TeamOverviewLabel>

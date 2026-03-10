@@ -4,7 +4,7 @@ interface FileSelectIndicatorProps {
   isSelected: boolean
 }
 
-export const FileSelectIndicator = ({ isSelected }: FileSelectIndicatorProps) => {
+export function FileSelectIndicator({ isSelected }: FileSelectIndicatorProps) {
   if (!isSelected) return null
 
   return (

@@ -2,13 +2,13 @@
 
 import { InfiniteScrollContainer } from "@/components/shared/infinite-scroll-container"
 import { FileCard } from "@/features/dashboard/components/cards/asset-manager/file-card"
-import { FileCardSkeleton } from "@/features/dashboard/components/pages/asset-manager/file-card-skeleton"
 import { FileDropzone } from "@/features/dashboard/components/pages/asset-manager/file-dropzone"
 import { FileError } from "@/features/dashboard/components/pages/asset-manager/file-error"
 import { UploadProgress } from "@/features/dashboard/components/pages/asset-manager/upload-progress"
+import { FileCardSkeleton } from "@/features/dashboard/components/skeletons/asset-manager/file-skeleton"
 import { useRenderFiles } from "@/features/dashboard/hooks/asset-manager/user-render-files"
 
-export const RenderFiles = () => {
+export function RenderFiles() {
   const {
     data,
     isError,

@@ -9,11 +9,11 @@ interface QrCodeItemListProps<T extends string> {
   onItemSelect: (item: QrCodeItem<T>) => void
 }
 
-export const QrCodeItemList = <T extends string>({
+export function QrCodeItemList<T extends string>({
   items,
   currentValue,
   onItemSelect,
-}: QrCodeItemListProps<T>) => {
+}: QrCodeItemListProps<T>) {
   const isItemSelected = useCallback(
     (item: QrCodeItem<T>) => currentValue === item.value,
     [currentValue],

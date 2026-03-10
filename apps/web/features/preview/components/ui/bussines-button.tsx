@@ -18,7 +18,7 @@ const bizButtonVariants = cva(
   },
 )
 
-export const BussinessButton = ({
+export function BussinessButton({
   className,
   size,
   type = "button",
@@ -27,7 +27,7 @@ export const BussinessButton = ({
 }: React.ComponentProps<"button"> &
   VariantProps<typeof bizButtonVariants> & {
     asChild?: boolean
-  }) => {
+  }) {
   const Comp = asChild ? Slot : "button"
 
   return (

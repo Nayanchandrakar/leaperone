@@ -10,7 +10,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
  * - Proper cleanup and memory management
  * - Handles cross-origin iframes gracefully
  */
-export const useIframeBody = () => {
+export function useIframeBody() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [body, setBody] = useState<HTMLElement | null>(null)
 

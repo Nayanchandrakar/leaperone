@@ -4,7 +4,7 @@ interface QrCodeItemCardProps extends React.ComponentProps<"div"> {
   label: string
 }
 
-export const QrCodeItemCard = ({ children, label, className, ...props }: QrCodeItemCardProps) => {
+export function QrCodeItemCard({ children, label, className, ...props }: QrCodeItemCardProps) {
   return (
     <div
       className={cn(

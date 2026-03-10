@@ -2,7 +2,7 @@ import { useMemo } from "react"
 import { useShallow } from "zustand/react/shallow"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 
-export const useSectionSorting = () => {
+export function useSectionSorting() {
   // Only subscribe to the list of IDs, not the full sections
   // This prevents re-renders when content within a section changes
   // useShallow ensures we get a stable array reference if IDs haven't changed

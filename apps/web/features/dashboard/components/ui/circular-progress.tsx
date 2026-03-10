@@ -16,7 +16,7 @@ interface CircularProgressProps {
   renderLabel?: (progress: number) => number | string
 }
 
-export const CircularProgress = ({
+export function CircularProgress({
   progress,
   renderLabel,
   className,
@@ -28,7 +28,7 @@ export const CircularProgress = ({
   strokeWidth,
   baseStrokeWidth = 10,
   progressStrokeWidth = 10,
-}: CircularProgressProps) => {
+}: CircularProgressProps) {
   const radius = size / 2 - 10
   const circumference = Math.ceil(2 * Math.PI * radius)
   const strokeOffset = Math.ceil(circumference * ((100 - progress) / 100))

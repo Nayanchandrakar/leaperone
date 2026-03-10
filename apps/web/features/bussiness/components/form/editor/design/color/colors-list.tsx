@@ -9,7 +9,7 @@ interface ColorsListProps {
   onColorChange: (color: Color) => void
 }
 
-export const ColorsList = ({ colors, selectedColor, onColorChange }: ColorsListProps) => {
+export function ColorsList({ colors, selectedColor, onColorChange }: ColorsListProps) {
   const isColorSelected = useCallback(
     (color: Color) =>
       selectedColor?.background === color?.background &&

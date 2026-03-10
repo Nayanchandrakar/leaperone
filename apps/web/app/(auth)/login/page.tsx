@@ -4,11 +4,11 @@ import { LoginForm } from "@/features/auth/components/forms/login"
 import { AuthContent, AuthForm, AuthWrapper } from "@/features/auth/components/layouts/auth-layout"
 import { BackButton } from "@/features/auth/components/ui/back-button"
 
-interface ILoginPage {
+interface LoginPageProps {
   searchParams: Promise<{ callbackUrl: string }>
 }
 
-export default async function LoginPage({ searchParams }: ILoginPage) {
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const { callbackUrl = APP_URL } = await searchParams
 
   return (

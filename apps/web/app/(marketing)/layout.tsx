@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   description: "Created by leaperone",
 }
 
-export default function MarketingLayout({
-  children,
-}: Readonly<{
+interface MarketingLayoutProps {
   children: React.ReactNode
-}>) {
+}
+
+export default function MarketingLayout({ children }: Readonly<MarketingLayoutProps>) {
   return (
     <Fragment>
       <Navbar />

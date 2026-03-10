@@ -20,7 +20,7 @@ type TimePickerUnitProps = {
   onDecrement: () => void
 }
 
-export const TimePickerUnit = ({ value, onIncrement, onDecrement }: TimePickerUnitProps) => {
+export function TimePickerUnit({ value, onIncrement, onDecrement }: TimePickerUnitProps) {
   return (
     <div className="flex items-center flex-col justify-between gap-6">
       <Button size="icon-sm" variant="gray-outline" onClick={onIncrement}>

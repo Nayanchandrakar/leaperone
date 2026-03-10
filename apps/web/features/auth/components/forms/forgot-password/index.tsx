@@ -7,7 +7,7 @@ import { useAppForm } from "@/components/ui/app-form"
 import { AuthDescription, AuthHeader, AuthTitle } from "@/features/auth/components/ui/auth-header"
 import { useRequestPasswordReset } from "@/features/auth/hooks/forgot-password/use-forgot-password"
 
-export const ForgotPasswordForm = () => {
+export function ForgotPasswordForm() {
   const { mutateAsync, isPending } = useRequestPasswordReset()
 
   const form = useAppForm({
