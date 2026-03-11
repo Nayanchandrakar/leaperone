@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   // cacheComponents: true,
   experimental: {
+    optimizePackageImports: ["lucide-react", "recharts", "date-fns"],
     turbopackFileSystemCacheForBuild: true,
   },
 }

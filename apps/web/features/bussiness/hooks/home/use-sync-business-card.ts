@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { useSearchParams } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
 import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
@@ -11,10 +11,11 @@ import { getBusinessCardQueryOptions } from "@/features/bussiness/utils"
  * with the Zustand stores, using React best practices.
  */
 export function useSyncBusinessCard() {
+  // Memoize searchParams.get so it doesn't trigger extra renders
   const searchParams = useSearchParams()
-  const withCard = !!searchParams.get("edit")
+  const withCard = useMemo(() => !!searchParams.get("edit"), [searchParams])
 
-  // Fetch the business card data
+  // React Query caches/memoizes by query key
   const { data } = useQuery(getBusinessCardQueryOptions(withCard, { withCard }))
 
   // Set the business card data in the stores
@@ -23,6 +24,7 @@ export function useSyncBusinessCard() {
   const setAllSettings = useQrCodeEditorStore((state) => state.setAllSettings)
 
   useEffect(() => {
+    // Only update if all required pieces of data are present
     if (
       withCard &&
       data?.card?.design &&
@@ -34,5 +36,15 @@ export function useSyncBusinessCard() {
       setAllConfig(data.card.design)
       setAllSettings(data.card.qrCode)
     }
-  }, [withCard, data, setAllContent, setAllConfig, setAllSettings])
+    // Only depend on values that can *actually* change for this effect
+  }, [
+    withCard,
+    data?.card?.content,
+    data?.card?.template,
+    data?.card?.design,
+    data?.card?.qrCode,
+    setAllContent,
+    setAllConfig,
+    setAllSettings,
+  ])
 }

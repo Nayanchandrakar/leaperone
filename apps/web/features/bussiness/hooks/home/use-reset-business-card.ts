@@ -1,15 +1,13 @@
 import { useCallback } from "react"
-import { useShallow } from "zustand/react/shallow"
 import { useContentEditorStore } from "@/features/bussiness/stores/use-content-editor-store"
 import { useDesignEditorStore } from "@/features/bussiness/stores/use-design-editor-store"
 import { useQrCodeEditorStore } from "@/features/bussiness/stores/use-qr-code-editor-store"
 
-// Hook to reset the business card
 export function useResetBusinessCard() {
-  const template = useContentEditorStore(useShallow((state) => state.template))
-  const resetSettings = useQrCodeEditorStore(useShallow((state) => state.resetSettings))
-  const resetConfig = useDesignEditorStore(useShallow((state) => state.resetConfig))
-  const resetContent = useContentEditorStore(useShallow((state) => state.resetContent))
+  const template = useContentEditorStore((state) => state.template)
+  const resetContent = useContentEditorStore((state) => state.resetContent)
+  const resetConfig = useDesignEditorStore((state) => state.resetConfig)
+  const resetSettings = useQrCodeEditorStore((state) => state.resetSettings)
 
   return useCallback(() => {
     resetContent()
