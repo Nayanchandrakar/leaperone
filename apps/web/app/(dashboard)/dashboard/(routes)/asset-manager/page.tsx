@@ -11,7 +11,7 @@ export default function AssetManagerPage() {
       <DashboardTitle>Files Upload Manager</DashboardTitle>
       <AssetToolBar />
       <AssetFilters />
-      <RenderFiles />
+      <RenderFiles className="max-h-screen" />
       <FilePreviewDialog />
     </DashboardContainer>
   )

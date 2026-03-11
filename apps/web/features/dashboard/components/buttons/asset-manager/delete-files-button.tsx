@@ -32,7 +32,9 @@ export function DeleteFilesButton({ isActionDisabled }: DeleteFilesButton) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {fileCounts} Files?</AlertDialogTitle>
+          <AlertDialogTitle>
+            Delete {fileCounts} {fileCounts > 1 ? "Files" : "File"}?
+          </AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your files from asset manager
           </AlertDialogDescription>

@@ -6,12 +6,13 @@ import { Spinner } from "@app/ui/components/spinner"
 import { VisuallyHidden } from "@app/ui/components/visually-hidden"
 import { X } from "lucide-react"
 import Image from "next/image"
-import { FileCardIcon } from "@/features/dashboard/components/cards/asset-manager/file-card/file-icon"
+import { useCallback } from "react"
 import { useFileDelete } from "@/features/dashboard/hooks/asset-manager/use-delete-file"
 import { useFilePreviewStore } from "@/features/dashboard/hooks/asset-manager/use-file-preview-store"
-import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
+import { getAssetUrl, getIconForMime } from "@/features/dashboard/utils/asset-manager"
 
 export function FilePreviewDialog() {
+  const Icon = getIconForMime("image/jpeg")
   const { isOpen, setIsOpen, asset, setAsset } = useFilePreviewStore()
   const { mutateAsync, isPending } = useFileDelete({
     onSuccess() {
@@ -20,14 +21,14 @@ export function FilePreviewDialog() {
     },
   })
 
-  if (!asset) return null
-
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (!isPending) {
       setIsOpen(false)
       setAsset(null)
     }
-  }
+  }, [setIsOpen, setAsset, isPending])
+
+  if (!asset) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -41,7 +42,7 @@ export function FilePreviewDialog() {
         {/* File preview header */}
         <div className="flex items-center justify-between gap-2 px-6 sm:px-8 py-4 h-fit border-b">
           <div className="flex items-center gap-2.5">
-            <FileCardIcon type="image" />
+            <Icon className="size-4 text-muted-foreground" />
             <p className="text-sm max-w-24 min-[470px]:max-w-40 truncate font-normal text-muted-foreground">
               {asset?.name}
             </p>

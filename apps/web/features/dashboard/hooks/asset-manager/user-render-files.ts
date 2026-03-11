@@ -6,7 +6,9 @@ import { useInfiniteFiles } from "@/features/dashboard/hooks/asset-manager/use-i
 
 export function useRenderFiles() {
   const searchQuery = useAssetFilterStore(useShallow((state) => state.query))
-  const hasActiveUploads = useAssetStore(useShallow((state) => state.hasActiveUploads()))
+  const hasActiveUploads = useAssetStore(
+    useShallow((state) => state.uploadProgressList.some((item) => item.status === "uploading")),
+  )
 
   const { data, isPending, hasNextPage, isFetchingNextPage, fetchNextPage, isError } =
     useInfiniteFiles()

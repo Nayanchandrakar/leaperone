@@ -57,7 +57,7 @@ export const AddLinkDialog = memo(({ index }: AddLinkDialogProps) => {
           <DialogTitle className="text-[28px]">Add Links</DialogTitle>
           <DialogClose asChild>
             <Button variant="ghost" size="icon">
-              <X />
+              <X className="size-5.5" />
             </Button>
           </DialogClose>
         </DialogHeader>

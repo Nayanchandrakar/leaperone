@@ -1,16 +1,18 @@
 import { Button } from "@app/ui/components/button"
 import { useShallow } from "zustand/react/shallow"
 import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
+import type { AssetFile, PickerMode } from "@/features/dashboard/types"
 
 type SelectAllFilesButtonProps = {
+  pickerMode: PickerMode
   data: {
     totalFiles: number
-    files: any[]
+    files: AssetFile[]
   }
   isFetching: boolean
 }
 
-export function SelectAllFilesButton({ data, isFetching }: SelectAllFilesButtonProps) {
+export function SelectAllFilesButton({ pickerMode, data, isFetching }: SelectAllFilesButtonProps) {
   const { selectedAssetIds, setSelectedAssetIds, isSelectionMode } = useAssetStore(
     useShallow((state) => ({
       isSelectionMode: state.isSelectionMode,
@@ -19,7 +21,10 @@ export function SelectAllFilesButton({ data, isFetching }: SelectAllFilesButtonP
     })),
   )
 
-  if (isSelectionMode && selectedAssetIds?.length < data?.totalFiles) {
+  if (
+    (isSelectionMode || pickerMode === "multiple") &&
+    selectedAssetIds?.length < data?.totalFiles
+  ) {
     return (
       <Button
         variant="gray-outline"

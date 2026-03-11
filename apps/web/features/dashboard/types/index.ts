@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react"
 
 // Filters
 export type FileCategory = "all" | "image"
+export type PickerMode = "none" | "single" | "multiple"
 export type SortOptions = (typeof SORT_OPTIONS)[number]
 export type FileStatus = "uploaded" | "uploading" | "error"
 export type TimeRangeValue = "today" | "last-3-days" | "last-7-days" | "last-30-days" | "all-time"
