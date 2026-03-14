@@ -4,13 +4,27 @@ import {
   AssetPromptDescription,
   AssetPromptTitle,
 } from "@/features/dashboard/components/ui/asset-prompt-action"
+import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 import { useAssetUpload } from "@/features/dashboard/hooks/asset-manager/use-asset-upload"
 import { useFileErrorNotify } from "@/features/dashboard/hooks/asset-manager/use-file-error-notify"
 import { useFileUpload } from "@/features/dashboard/hooks/asset-manager/use-file-upload"
 
 export function FileDropzone() {
-  /** Upload files to S3 Bucket */
-  const onFilesAdded = useAssetUpload()
+  const {
+    actions: { dispatch },
+  } = useAssetComposer()
+
+  const { onFilesAdded } = useAssetUpload({
+    addUploadProgress: (progress) => {
+      dispatch({ type: "add-upload-progress", payload: progress })
+    },
+    updateUploadStatus: (fileId, status) => {
+      dispatch({ type: "update-upload-status", payload: { fileId, status } })
+    },
+    updateUploadProgress: (fileId, progress) => {
+      dispatch({ type: "update-upload-progress", payload: { fileId, progress } })
+    },
+  })
 
   /** File validation hook */
   const [
@@ -28,7 +42,7 @@ export function FileDropzone() {
   useFileErrorNotify(errors)
 
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex-center h-full">
       <AssetPromptAction
         onDrop={handleDrop}
         onClick={openFileDialog}

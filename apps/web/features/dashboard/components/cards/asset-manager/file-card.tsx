@@ -5,46 +5,26 @@ import { cn } from "@app/ui/lib/utils"
 import { Check, EllipsisVertical } from "lucide-react"
 import Image from "next/image"
 import { memo } from "react"
-import { useShallow } from "zustand/react/shallow"
-import { useAssetStore } from "@/features/dashboard/hooks/asset-manager/use-asset-store"
+import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 import { useFilePreviewStore } from "@/features/dashboard/hooks/asset-manager/use-file-preview-store"
-import type { AssetFile, PickerMode } from "@/features/dashboard/types"
+import type { AssetFile } from "@/features/dashboard/types"
 import { getAssetUrl, getIconForMime } from "@/features/dashboard/utils/asset-manager"
 
 interface FileCardProps {
   file: AssetFile
-  pickerMode: PickerMode
-  selectedIdsSet: Set<string>
+  assetIdsSet: Set<string>
 }
 
-function FileCardInner({ file, pickerMode, selectedIdsSet }: FileCardProps) {
+function Component({ file, assetIdsSet }: FileCardProps) {
   const { setAsset, setIsOpen, asset } = useFilePreviewStore()
-  const { isSelectionMode, addSelectedAssetId, removeSelectedAssetId, setSelectedAssetIds } =
-    useAssetStore(
-      useShallow((state) => ({
-        isSelectionMode: state.isSelectionMode,
-        addSelectedAssetId: state.addSelectedAssetId,
-        setSelectedAssetIds: state.setSelectedAssetIds,
-        removeSelectedAssetId: state.removeSelectedAssetId,
-      })),
-    )
+
+  const {
+    state: { canSelectFiles },
+    actions: { dispatch },
+  } = useAssetComposer()
 
   const handleClick = () => {
-    if (pickerMode === "single") {
-      setSelectedAssetIds([file.id])
-      return
-    }
-
-    if (pickerMode === "multiple") {
-      if (selectedIdsSet.has(file.id)) {
-        removeSelectedAssetId(file.id)
-      } else {
-        addSelectedAssetId(file.id)
-      }
-      return
-    }
-
-    if (!isSelectionMode) {
+    if (!canSelectFiles) {
       setAsset(file)
       setIsOpen(true)
     }
@@ -52,18 +32,11 @@ function FileCardInner({ file, pickerMode, selectedIdsSet }: FileCardProps) {
 
   const handleCheck = (checked: boolean) => {
     if (!file?.id) return
-
-    if (checked) {
-      addSelectedAssetId(file.id)
-    } else {
-      removeSelectedAssetId(file.id)
-    }
+    dispatch({ type: checked ? "add-asset-id" : "remove-asset-id", payload: file.id })
   }
 
-  const isSelected = pickerMode !== "none" ? selectedIdsSet.has(file.id) : asset?.id === file?.id
-  const showCheckbox = isSelectionMode || pickerMode === "multiple"
   const Icon = getIconForMime(file.mime)
-
+  const isSelected = asset?.id === file?.id
   return (
     <div
       onClick={handleClick}
@@ -87,11 +60,11 @@ function FileCardInner({ file, pickerMode, selectedIdsSet }: FileCardProps) {
         className="size-full object-contain"
       />
 
-      {showCheckbox ? (
+      {canSelectFiles ? (
         <Checkbox
           onCheckedChange={handleCheck}
           className="absolute top-2 right-2"
-          checked={selectedIdsSet.has(file.id)}
+          checked={assetIdsSet.has(file.id)}
         />
       ) : null}
 
@@ -108,4 +81,4 @@ function FileCardInner({ file, pickerMode, selectedIdsSet }: FileCardProps) {
   )
 }
 
-export const FileCard = memo(FileCardInner)
+export const FileCard = memo(Component)

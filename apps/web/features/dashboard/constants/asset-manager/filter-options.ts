@@ -7,7 +7,7 @@ export const FILE_SORTS = [
   { title: "Oldest First", value: SORT_OPTIONS[3]! },
 ] as const
 
-export const FILE_CATEGORIES = [
+export const FILE_TYPES = [
   { title: "All", types: [], value: "all" },
   { title: "Images", types: IMAGE_TYPES, value: "image" },
 ] as const
