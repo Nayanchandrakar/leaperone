@@ -3,6 +3,7 @@ import { DatabaseError } from "@neondatabase/serverless"
 import { and, DrizzleQueryError, eq } from "drizzle-orm"
 import { businessCard } from "../schema/business-card"
 import { subscription } from "../schema/subscription"
+import { workspaceStats } from "../schema/workspace-stats"
 import type { DatabaseClient, InsertBusinessCard } from "../types"
 import { isWithinRange } from "./subscription"
 
@@ -134,12 +135,27 @@ export async function deleteBusinessCardWithPermission(
       workspaceOwnerId === userId ? undefined : eq(businessCard.userId, userId),
     ].filter(Boolean)
 
-    const [deleted] = await db
-      .delete(businessCard)
-      .where(and(...whereArgs))
-      .returning({ id: businessCard.id })
+    const data = await db.transaction(async (tx) => {
+      const [card] = await tx
+        .delete(businessCard)
+        .where(and(...whereArgs))
+        .returning({ id: businessCard.id, userId: businessCard.userId })
 
-    return deleted
+      if (card) {
+        await tx
+          .delete(workspaceStats)
+          .where(
+            and(
+              eq(workspaceStats.workspaceId, workspaceId),
+              eq(workspaceStats.userId, card.userId),
+            ),
+          )
+      }
+
+      return card
+    })
+
+    return data
   } catch (error) {
     console.error(error)
     throw ApiError.internalServerError()
