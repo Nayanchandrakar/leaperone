@@ -1,12 +1,18 @@
 "use client"
+
 import { Skeleton } from "@app/ui/components/skeleton"
 import { cn } from "@app/ui/lib/utils"
 import { InfiniteScrollContainer } from "@/components/shared/infinite-scroll-container"
 import { FileDropzone } from "@/features/dashboard/components/buttons/asset-manager/file-dropzone"
-import { FileCard } from "@/features/dashboard/components/cards/asset-manager/file-card"
+import {
+  AssetCheckboxCard,
+  AssetDefaultCard,
+  AssetPickerCard,
+} from "@/features/dashboard/components/cards/asset-manager/asset-cards"
 import { FileCardSkeleton } from "@/features/dashboard/components/skeletons/asset-manager/file-skeleton"
 import { CircularProgress } from "@/features/dashboard/components/ui/circular-progress"
 import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
+import type { AssetFile } from "@/features/dashboard/types"
 
 export function AssetUploadProgressList() {
   const {
@@ -103,7 +109,11 @@ export function AssetFilesSkeleton() {
   return isPending || (hasNextPage && isFetchingNextPage) ? <FileCardSkeleton /> : null
 }
 
-export function AssetFilesList() {
+interface AssetFilesListProps {
+  renderCard: (file: AssetFile, assetIdsSet: Set<string>) => React.ReactNode
+}
+
+export function AssetFilesList({ renderCard }: AssetFilesListProps) {
   const {
     state: { files, assetIds },
   } = useAssetComposer()
@@ -113,5 +123,35 @@ export function AssetFilesList() {
     return null
   }
 
-  return files.map((file) => <FileCard file={file} key={file.id} assetIdsSet={assetIdsSet} />)
+  return files.map((file) => renderCard(file, assetIdsSet))
+}
+
+export function AssetDefaultFilesList() {
+  return (
+    <AssetFilesList
+      renderCard={(file, assetIdsSet) => (
+        <AssetDefaultCard key={file.id} file={file} assetIdsSet={assetIdsSet} />
+      )}
+    />
+  )
+}
+
+export function AssetPickerFilesList() {
+  return (
+    <AssetFilesList
+      renderCard={(file, assetIdsSet) => (
+        <AssetPickerCard key={file.id} file={file} assetIdsSet={assetIdsSet} />
+      )}
+    />
+  )
+}
+
+export function AssetCheckboxFilesList() {
+  return (
+    <AssetFilesList
+      renderCard={(file, assetIdsSet) => (
+        <AssetCheckboxCard key={file.id} file={file} assetIdsSet={assetIdsSet} />
+      )}
+    />
+  )
 }
