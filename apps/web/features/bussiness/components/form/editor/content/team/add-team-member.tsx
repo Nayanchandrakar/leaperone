@@ -15,15 +15,15 @@ export function AddTeamMemberForm({ index }: AddTeamMemberFormProps) {
   const handleAddTeamMember = useCallback(() => {
     addItem({
       id: generateUUID(),
-      memberName: "",
-      memberDesignation: "",
-      memberProfile: {
-        enabled: false,
-        imageSrc: "https://images.pexels.com/photos/4585185/pexels-photo-4585185.jpeg",
+      name: "Ben T.",
+      designation: "Designation",
+      profile: {
+        imageSrc: "https://images.pexels.com/photos/29647834/pexels-photo-29647834.jpeg",
+        enabled: true,
       },
-      memberDescription: {
+      description: {
         text: "",
-        enabled: false,
+        enabled: true,
       },
     })
   }, [addItem])

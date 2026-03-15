@@ -1,6 +1,11 @@
-import type { QrCodeBodyShape, QrCodeEditor } from "@app/types"
+import type {
+  QrCodeBodyShape,
+  QrCodeCornerStyle,
+  QrCodeEditor,
+  QrCodePatternStyle,
+} from "@app/types"
 import { Icons } from "@/components/shared/icons"
-import type { QrCodeCornerStyle, QrCodeItem, QrCodePatternStyle } from "@/features/bussiness/types"
+import type { QrCodeItem } from "@/features/bussiness/types"
 
 export const QR_CODE_SETTINGS: QrCodeEditor = {
   data: "https://www.leaperone.com",
