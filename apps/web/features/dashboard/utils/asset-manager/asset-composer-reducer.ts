@@ -1,4 +1,4 @@
-import type { AssetLocalState } from "@/features/dashboard/components/pages/asset-manager/asset-compser-context"
+import type { AssetLocalState } from "@/features/dashboard/components/pages/asset-manager/asset-composer-context"
 import type { AssetComposerAction } from "@/features/dashboard/types/composer-state-actions"
 
 export function assetComposerReducer(state: AssetLocalState, action: AssetComposerAction) {
@@ -41,18 +41,21 @@ export function assetComposerReducer(state: AssetLocalState, action: AssetCompos
       }
     }
     case "set-asset-ids": {
-      return { ...state, assetIds: action.payload }
+      return { ...state, selectedAssets: action.payload }
     }
     case "clear-asset-ids": {
-      return { ...state, assetIds: [] }
+      return { ...state, selectedAssets: [] }
     }
     case "add-asset-id": {
-      return state.assetIds.includes(action.payload)
+      return state.selectedAssets.some((a) => a.id === action.payload.id)
         ? state
-        : { ...state, assetIds: [...state.assetIds, action.payload] }
+        : { ...state, selectedAssets: [...state.selectedAssets, action.payload] }
     }
     case "remove-asset-id": {
-      return { ...state, assetIds: state.assetIds.filter((x) => x !== action.payload) }
+      return {
+        ...state,
+        selectedAssets: state.selectedAssets.filter((a) => a.id !== action.payload),
+      }
     }
     default:
       return state

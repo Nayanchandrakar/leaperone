@@ -39,14 +39,19 @@ export function AssetPickerDialog({
           onUpload={onUpload}
           meta={{ searchPlaceholder, uploadActionLabel }}
         >
+          {/* Toolbar */}
           <AssetComposer.Toolbar className="mt-3">
             <AssetComposer.SearchInput />
             <AssetComposer.UploadButton />
           </AssetComposer.Toolbar>
+
+          {/* Filters */}
           <AssetComposer.Filters className="mt-3">
             <AssetComposer.FileTypeSelector />
             <AssetComposer.SortSelector />
           </AssetComposer.Filters>
+
+          {/* Scrollable Container */}
           <AssetComposer.ScrollableContainer className="mt-4 max-h-110">
             <AssetComposer.FilesGrid>
               <AssetComposer.UploadProgressList />
@@ -54,6 +59,8 @@ export function AssetPickerDialog({
               <AssetComposer.FilesSkeleton />
             </AssetComposer.FilesGrid>
           </AssetComposer.ScrollableContainer>
+
+          {/* Bulk Upload Button */}
           <DialogFooter className="sm:justify-center">
             <AssetComposer.BulkUploadButton />
           </DialogFooter>

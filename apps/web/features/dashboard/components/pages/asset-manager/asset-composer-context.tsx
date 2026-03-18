@@ -3,16 +3,22 @@
 import type { Dispatch } from "react"
 import { createContext } from "react"
 import { useAssetComposerState } from "@/features/dashboard/hooks/asset-manager/use-asset-composer-state"
-import type { AssetFile, FileType, SortBy, UploadProgress } from "@/features/dashboard/types"
+import type {
+  AssetFile,
+  FileType,
+  SelectedAsset,
+  SortBy,
+  UploadProgress,
+} from "@/features/dashboard/types"
 import type { AssetComposerAction } from "@/features/dashboard/types/composer-state-actions"
 
 export interface AssetLocalState {
   sortBy: SortBy
-  assetIds: string[]
   fileType: FileType
   searchQuery: string
   canSelectFiles: boolean
   uploadProgress: UploadProgress[]
+  selectedAssets: SelectedAsset[]
 }
 
 export interface AssetComposerState extends AssetLocalState {
@@ -25,13 +31,18 @@ export interface AssetComposerState extends AssetLocalState {
   isFetchingNextPage: boolean
 }
 
-export interface AssetComposerActions {
+export interface AssetComposerBaseActions {
   fetchNextPage: () => void
   dispatch: Dispatch<AssetComposerAction>
 }
 
-export type AssetComposerMeta = {
-  inputPlaceholder: string
+export interface AssetComposerActions extends AssetComposerBaseActions {
+  onUpload: (assetUrls: string[]) => void
+}
+
+export interface AssetComposerMeta {
+  searchPlaceholder: string
+  uploadActionLabel?: string
 }
 
 interface AssetComposerContextValue {
@@ -44,14 +55,21 @@ interface AssetComposerProviderProps {
   fileType: FileType
   meta: AssetComposerMeta
   children: React.ReactNode
+  onUpload?: (assetUrls: string[]) => void
 }
 
 export const AssetComposerContext = createContext<AssetComposerContextValue | null>(null)
 
-export function AssetComposerProvider({ meta, fileType, children }: AssetComposerProviderProps) {
+export function AssetComposerProvider({
+  meta,
+  fileType,
+  children,
+  onUpload = () => {},
+}: AssetComposerProviderProps) {
   const { state, actions } = useAssetComposerState(fileType)
+
   return (
-    <AssetComposerContext.Provider value={{ state, actions, meta }}>
+    <AssetComposerContext.Provider value={{ state, actions: { ...actions, onUpload }, meta }}>
       {children}
     </AssetComposerContext.Provider>
   )

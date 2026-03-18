@@ -1,22 +1,22 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useReducer } from "react"
 import type {
-  AssetComposerActions,
+  AssetComposerBaseActions,
   AssetComposerState,
-} from "@/features/dashboard/components/pages/asset-manager/asset-compser-context"
+} from "@/features/dashboard/components/pages/asset-manager/asset-composer-context"
 import type { AssetFile, FileType } from "@/features/dashboard/types"
-import { assetComposerReducer } from "@/features/dashboard/utils/asset-manager/asset-compser-reducer"
+import { assetComposerReducer } from "@/features/dashboard/utils/asset-manager/asset-composer-reducer"
 import { getInfiniteFilesOptions } from "@/features/dashboard/utils/asset-manager/asset-queries"
 
 export function useAssetComposerState(fileType: FileType): {
   state: AssetComposerState
-  actions: AssetComposerActions
+  actions: AssetComposerBaseActions
 } {
   const [state, dispatch] = useReducer(assetComposerReducer, {
     fileType,
-    assetIds: [],
-    searchQuery: "",
     sortBy: "newest",
+    searchQuery: "",
+    selectedAssets: [],
     uploadProgress: [],
     canSelectFiles: false,
   })

@@ -20,10 +20,10 @@ import { isAssetFilterDisabled } from "@/features/dashboard/utils/asset-manager"
 
 export function AssetSelectedCount() {
   const {
-    state: { assetIds },
+    state: { selectedAssets },
   } = useAssetComposer()
 
-  const count = assetIds.length
+  const count = selectedAssets.length
 
   if (count === 0) return null
 

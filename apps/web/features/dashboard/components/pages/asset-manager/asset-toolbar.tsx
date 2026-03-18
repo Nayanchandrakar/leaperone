@@ -1,4 +1,5 @@
 "use client"
+
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@app/ui/components/input-group"
 import { cn } from "@app/ui/lib/utils"
 import { SearchIcon } from "lucide-react"
@@ -8,7 +9,7 @@ import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-a
 export function AssetSearchInput() {
   const {
     actions: { dispatch },
-    meta: { inputPlaceholder },
+    meta: { searchPlaceholder },
   } = useAssetComposer()
 
   const debounced = useDebounceCallback(
@@ -19,7 +20,7 @@ export function AssetSearchInput() {
   return (
     <InputGroup className="rounded-full sm:max-w-lg">
       <InputGroupInput
-        placeholder={inputPlaceholder}
+        placeholder={searchPlaceholder}
         onChange={(e) => debounced(e?.target?.value)}
       />
       <InputGroupAddon>
