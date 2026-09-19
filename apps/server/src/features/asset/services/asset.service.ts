@@ -15,23 +15,19 @@ export class AssetService {
     const { user } = c.get("session")
     const workspace = c.get("workspace")
 
-    let count = 0
-
-    // delete files from database
+    // deletedKeys contains objects that were deleted from the DB
     const deletedKeys = await deleteFilesByIds(db, user.id, workspace.id, ids)
 
-    // delete objects from S3
-    const results = await Promise.allSettled(
-      deletedKeys.map(({ key }) => this.storageService.deleteObject(key)),
-    )
-
-    for (const result of results) {
-      if (result.status === "fulfilled") {
-        count++
-      }
+    // If no keys were deleted from DB, nothing to delete from S3
+    if (deletedKeys?.length === 0) {
+      return { count: 0 }
     }
 
-    return { count }
+    // delete objects from S3 (best-effort)
+    await Promise.allSettled(deletedKeys.map(({ key }) => this.storageService.deleteObject(key)))
+
+    // The count should be the number of files successfully deleted in DB, regardless of S3 deletion
+    return { count: deletedKeys.length }
   }
 
   async getFiles(c: GetFileContext) {
