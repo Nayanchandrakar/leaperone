@@ -6,10 +6,10 @@ import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-a
 export function AssetUnselectAllButton() {
   const {
     actions: { dispatch },
-    state: { assetIds, isFetching },
+    state: { selectedAssets, isFetching },
   } = useAssetComposer()
 
-  if (assetIds.length === 0) return null
+  if (selectedAssets.length === 0) return null
 
   return (
     <Button

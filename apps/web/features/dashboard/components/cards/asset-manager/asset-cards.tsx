@@ -8,6 +8,7 @@ import {
 } from "@/features/dashboard/components/ui/file-card"
 import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 import { useFilePreviewStore } from "@/features/dashboard/hooks/asset-manager/use-file-preview-store"
+import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
 import type { AssetFile } from "@/features/dashboard/types"
 
 interface AssetDefaultCardProps {
@@ -33,7 +34,11 @@ export function AssetDefaultCard({ file, assetIdsSet }: AssetDefaultCardProps) {
 
   const handleCheck = (checked: boolean) => {
     if (!file?.id) return
-    dispatch({ type: checked ? "add-asset-id" : "remove-asset-id", payload: file.id })
+    dispatch(
+      checked
+        ? { type: "add-asset-id", payload: { id: file.id, url: getAssetUrl(file.key) } }
+        : { type: "remove-asset-id", payload: file.id },
+    )
   }
 
   const isSelected = Boolean(asset?.id === file?.id)
@@ -69,7 +74,7 @@ export function AssetPickerCard({ file, assetIdsSet }: AssetDefaultCardProps) {
   const isSelected = assetIdsSet.has(file?.id)
 
   const handleClick = () => {
-    dispatch({ type: "set-asset-ids", payload: [file?.id] })
+    dispatch({ type: "set-asset-ids", payload: [{ id: file.id, url: getAssetUrl(file.key) }] })
   }
 
   return (
@@ -93,7 +98,11 @@ export function AssetCheckboxCard({ file, assetIdsSet }: AssetDefaultCardProps) 
 
   const handleCheck = (checked: boolean) => {
     if (!file?.id) return
-    dispatch({ type: checked ? "add-asset-id" : "remove-asset-id", payload: file?.id })
+    dispatch(
+      checked
+        ? { type: "add-asset-id", payload: { id: file.id, url: getAssetUrl(file.key) } }
+        : { type: "remove-asset-id", payload: file.id },
+    )
   }
 
   return (

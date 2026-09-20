@@ -2,27 +2,27 @@
 
 import { Button } from "@app/ui/components/button"
 import { useState } from "react"
-import { SingleFileDialog } from "@/features/dashboard/components/dialogs/asset-manager/single-file-dialog"
+import { AssetPickerDialog } from "@/features/dashboard/components/dialogs/asset-manager/asset-picker-dialog"
 
 export default function TestPage() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const handleBulkUpload = ([assets]: string[]) => {
-    // We will update somthing on the state here
-    console.log(assets)
+  const handleUpload = (assetUrls: string[]) => {
+    setOpen(false)
+    console.log(assetUrls)
   }
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <SingleFileDialog
-        isOpen={isOpen}
+      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+      <AssetPickerDialog
+        isOpen={open}
         fileType="image"
-        setIsOpen={setIsOpen}
         title="Select an image"
-        onBulkUpload={handleBulkUpload}
-        uploadButtonLabel="Upload Selected Image"
-        meta={{ inputPlaceholder: "Search your uploaded images" }}
+        uploadActionLabel="Upload Selected Image"
+        searchPlaceholder="Search your uploaded images"
+        onOpenChange={setOpen}
+        onUpload={handleUpload}
       />
     </>
   )

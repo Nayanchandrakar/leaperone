@@ -2,20 +2,20 @@ import { Button } from "@app/ui/components/button"
 import { UploadIcon } from "lucide-react"
 import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 
-interface BulkUploadButtonProps {
-  label: string
-  onClick: (assets: string[]) => void
-}
-
-export function BulkUploadButton({ label, onClick }: BulkUploadButtonProps) {
+export function BulkUploadButton() {
   const {
-    state: { assetIds },
+    actions: { onUpload },
+    state: { selectedAssets },
+    meta: { uploadActionLabel },
   } = useAssetComposer()
 
   return (
-    <Button disabled={assetIds.length === 0} onClick={() => onClick(assetIds)}>
+    <Button
+      disabled={selectedAssets.length === 0}
+      onClick={() => onUpload(selectedAssets.map(({ url }) => url))}
+    >
       <UploadIcon />
-      {label}
+      {uploadActionLabel}
     </Button>
   )
 }
