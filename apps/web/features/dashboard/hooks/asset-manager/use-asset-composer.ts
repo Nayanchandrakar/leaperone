@@ -1,7 +1,7 @@
 "use client"
 
 import { use } from "react"
-import { AssetComposerContext } from "@/features/dashboard/components/pages/asset-manager/asset-compser-context"
+import { AssetComposerContext } from "@/features/dashboard/components/pages/asset-manager/asset-composer-context"
 
 export function useAssetComposer() {
   const context = use(AssetComposerContext)

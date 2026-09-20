@@ -43,3 +43,8 @@ export interface UploadProgress {
   status: FileStatus
   cancelToken: CancelTokenSource
 }
+
+export interface SelectedAsset {
+  id: string
+  url: string
+}
