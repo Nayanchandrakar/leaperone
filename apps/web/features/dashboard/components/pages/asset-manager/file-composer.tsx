@@ -1,11 +1,12 @@
 import { AssetComposer } from "@/features/dashboard/components/pages/asset-manager/asset-composer"
-import { AssetComposerProvider } from "@/features/dashboard/components/pages/asset-manager/asset-compser-context"
+import { AssetComposerProvider } from "@/features/dashboard/components/pages/asset-manager/asset-composer-context"
 
-const meta = { inputPlaceholder: "Search images, PDFs or folders" }
-
-function FileComposerNone() {
+export function FileComposerDefault() {
   return (
-    <AssetComposerProvider fileType="all" meta={meta}>
+    <AssetComposerProvider
+      fileType="all"
+      meta={{ searchPlaceholder: "Search images, PDFs or folders" }}
+    >
       <AssetComposer.Toolbar>
         <AssetComposer.SearchInput />
         <AssetComposer.UploadButton />
@@ -27,62 +28,5 @@ function FileComposerNone() {
         </AssetComposer.FilesGrid>
       </AssetComposer.ScrollableContainer>
     </AssetComposerProvider>
-  )
-}
-
-export function FileComposerPicker() {
-  return (
-    <AssetComposerProvider fileType="all" meta={meta}>
-      <AssetComposer.Toolbar>
-        <AssetComposer.SearchInput />
-        <AssetComposer.UploadButton />
-      </AssetComposer.Toolbar>
-      <AssetComposer.Filters>
-        <AssetComposer.FileTypeSelector />
-        <AssetComposer.SortSelector />
-      </AssetComposer.Filters>
-      <AssetComposer.ScrollableContainer>
-        <AssetComposer.FilesGrid>
-          <AssetComposer.UploadProgressList />
-          <AssetComposer.PickerFilesList />
-          <AssetComposer.FilesSkeleton />
-        </AssetComposer.FilesGrid>
-      </AssetComposer.ScrollableContainer>
-    </AssetComposerProvider>
-  )
-}
-
-export function FileComposerCheckbox() {
-  return (
-    <AssetComposerProvider fileType="all" meta={meta}>
-      <AssetComposer.Toolbar>
-        <AssetComposer.SearchInput />
-        <AssetComposer.UploadButton />
-      </AssetComposer.Toolbar>
-      <AssetComposer.Filters>
-        <AssetComposer.FileTypeSelector />
-        <AssetComposer.SortSelector />
-        <AssetComposer.SelectedCount />
-        <AssetComposer.SelectAllButton />
-        <AssetComposer.UnselectAllButton />
-      </AssetComposer.Filters>
-      <AssetComposer.ScrollableContainer>
-        <AssetComposer.FilesGrid>
-          <AssetComposer.UploadProgressList />
-          <AssetComposer.CheckboxFilesList />
-          <AssetComposer.FilesSkeleton />
-        </AssetComposer.FilesGrid>
-      </AssetComposer.ScrollableContainer>
-    </AssetComposerProvider>
-  )
-}
-
-export function FileComposer() {
-  return (
-    <>
-      <FileComposerNone />
-      {/* <FileComposerPicker /> */}
-      {/* <FileComposerCheckbox /> */}
-    </>
   )
 }

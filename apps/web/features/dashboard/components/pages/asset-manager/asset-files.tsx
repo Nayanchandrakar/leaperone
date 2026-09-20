@@ -115,9 +115,10 @@ interface AssetFilesListProps {
 
 export function AssetFilesList({ renderCard }: AssetFilesListProps) {
   const {
-    state: { files, assetIds },
+    state: { files, selectedAssets },
   } = useAssetComposer()
-  const assetIdsSet = new Set(assetIds)
+
+  const assetIdsSet = new Set(selectedAssets.map(({ id }) => id))
 
   if (!Array.isArray(files) || files.length === 0) {
     return null
