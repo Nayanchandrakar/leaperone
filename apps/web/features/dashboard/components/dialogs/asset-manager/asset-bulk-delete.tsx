@@ -23,21 +23,24 @@ export function AssetBulkDeleteDialog() {
 
   const {
     actions: { dispatch },
-    state: { assetIds, isFetching },
+    state: { selectedAssets, isFetching },
   } = useAssetComposer()
 
-  const fileCount = assetIds?.length ?? 0
+  const fileCount = selectedAssets.length
 
   function handleDelete() {
-    if (assetIds?.length === 0) return
+    if (fileCount === 0) return
 
-    mutate(assetIds, {
-      onSuccess({ count }) {
-        dispatch({ type: "clear-asset-ids" })
-        setIsOpen(false)
-        toast.success(`Successfully deleted ${count} file${count > 1 ? "s" : ""}`)
+    mutate(
+      selectedAssets.map(({ id }) => id),
+      {
+        onSuccess({ count }) {
+          dispatch({ type: "clear-asset-ids" })
+          setIsOpen(false)
+          toast.success(`Successfully deleted ${count} file${count > 1 ? "s" : ""}`)
+        },
       },
-    })
+    )
   }
 
   if (fileCount === 0) {
