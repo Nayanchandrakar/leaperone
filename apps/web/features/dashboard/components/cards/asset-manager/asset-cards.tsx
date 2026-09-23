@@ -8,7 +8,6 @@ import {
 } from "@/features/dashboard/components/ui/file-card"
 import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 import { useFilePreviewStore } from "@/features/dashboard/hooks/asset-manager/use-file-preview-store"
-import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
 import type { AssetFile } from "@/features/dashboard/types"
 import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
 

@@ -10,7 +10,7 @@ export function useExitImpersonation() {
       const { data } = await exitImpersonationMutation()
       return data
     },
-    onSuccess: ({ message }) => {
+    onSuccess: () => {
       window.location.href = "/dashboard/teams"
     },
     onError: ({ message }) => {
