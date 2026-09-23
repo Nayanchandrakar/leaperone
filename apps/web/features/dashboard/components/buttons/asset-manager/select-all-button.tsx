@@ -1,8 +1,8 @@
 "use client"
 
 import { Button } from "@app/ui/components/button"
-import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 import { getAssetUrl } from "@/features/dashboard/utils/asset-manager"
+import { useAssetComposer } from "@/features/dashboard/hooks/asset-manager/use-asset-composer"
 
 export function AssetSelectAllButton() {
   const {
@@ -17,10 +17,7 @@ export function AssetSelectAllButton() {
       disabled={isFetching}
       variant="gray-outline"
       onClick={() => {
-        dispatch({
-          type: "set-asset-ids",
-          payload: files?.map(({ id, key }) => ({ id, url: getAssetUrl(key) })) ?? [],
-        })
+        dispatch({ type: "set-asset-ids", payload: files?.map(({ id, key }) => ({ id, url: getAssetUrl(key) })) ?? [] })
       }}
     >
       Select All
