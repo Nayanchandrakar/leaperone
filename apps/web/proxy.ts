@@ -26,7 +26,7 @@ export async function proxy(request: NextRequest) {
       // @ts-expect-error
       const subscriptionData = await getWorkspaceWithSubscription(dbHttp, session.user.id)
       // No subscription at all - redirect to pricing
-      if (!subscriptionData.subscription || !subscriptionData.subscription.subscriptionId) {
+      if (!subscriptionData.subscription?.subscriptionId) {
         return NextResponse.redirect(new URL("/pricing", request.url))
       }
       const { active, cancelAtPeriodEnd } = subscriptionData.subscription

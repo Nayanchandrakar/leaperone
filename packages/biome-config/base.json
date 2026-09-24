@@ -21,7 +21,9 @@
       "!**/.next",
       "!**/.source",
       "!**/.expo",
-      "!**/.cache"
+      "!**/.cache",
+      "!**/public",
+      "!**/*icons.tsx"
     ]
   },
   "formatter": {

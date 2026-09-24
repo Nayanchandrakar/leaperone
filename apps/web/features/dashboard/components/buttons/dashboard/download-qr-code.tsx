@@ -18,7 +18,7 @@ export function DownloadQRCode({ name, options, autoDownload }: DownloadQRCodePr
 
   useEffect(() => {
     if (autoDownload) handleDownload()
-  }, [autoDownload, handleDownload])
+  }, [autoDownload])
 
   return (
     <>

@@ -16,6 +16,7 @@
   "license": "ISC",
   "description": "A package for logging",
   "devDependencies": {
+    "@types/node": "catalog:",
     "@app/tsconfig": "workspace:*",
     "pino-pretty": "catalog:"
   },

@@ -4,18 +4,18 @@
   "private": true,
   "version": "2.0.0",
   "sideEffects": false,
-  "main": "./dist/server.js",
-  "module": "./dist/server.js",
+  "main": "./dist/server.mjs",
+  "module": "./dist/server.mjs",
   "description": "leaperone server",
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist .turbo",
     "lint": "biome lint --write .",
-    "start": "bun ./dist/server.js",
+    "start": "bun ./dist/server.mjs",
     "dev": "bun --hot src/server.ts",
     "format": "biome check --write .",
-    "node:start": "node -r dotenv/config ./dist/server.js"
+    "node:start": "node -r dotenv/config ./dist/server.mjs"
   },
   "license": "ISC",
   "dependencies": {

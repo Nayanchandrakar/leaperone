@@ -1,7 +1,6 @@
 {
   "extends": "@app/tsconfig/react-library.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@app/ui/*": ["./src/*"]
     }

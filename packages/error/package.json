@@ -21,6 +21,7 @@
     "hono": "catalog:"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@app/tsconfig": "workspace:*"
   }
 }

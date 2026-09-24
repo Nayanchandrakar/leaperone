@@ -2,9 +2,9 @@
   "extends": "@app/tsconfig/server.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": ".",
+    "rootDir": "../..",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "@app/zod/*": ["../../packages/zod/src/*"],
       "@app/env/*": ["../../packages/env/src/*"],
       "@app/core/*": ["../../packages/core/src/*"],

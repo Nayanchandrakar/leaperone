@@ -22,6 +22,7 @@
     "@app/core": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@app/tsconfig": "workspace:*"
   }
 }
