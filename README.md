@@ -152,8 +152,8 @@ flowchart TB
 
 ### Prerequisites
 
-- **Bun 1.2.18**, pinned in the root `packageManager` field
-- **Node.js 20 or later**
+- **Bun 1.4.2**, pinned in the root `packageManager` field
+- **Node.js 22.22 or later**
 - **Docker**, for the local Redis stack
 - Credentials for **Neon Postgres**, **Upstash Redis**, **Stripe**, **Resend**, and **AWS S3**
 

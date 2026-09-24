@@ -18,7 +18,7 @@
   "license": "ISC",
   "description": "Zod schema validation for web and hono server",
   "dependencies": {
-    "zod": "^4.0.5",
+    "zod": "catalog:",
     "@app/core": "workspace:*"
   },
   "devDependencies": {

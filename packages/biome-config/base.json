@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -100,6 +100,7 @@
         "noClassAssign": "off",
         "noUnknownAtRules": "off",
         "noCommentText": "error",
+        "noNonNullAssertedOptionalChain": "off",
         "noDuplicateClassMembers": "off",
         "noDuplicateJsxProps": "error",
         "noDuplicateObjectKeys": "off",
@@ -123,6 +124,11 @@
       "performance": {
         "noImgElement": "error"
       }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "javascript": {

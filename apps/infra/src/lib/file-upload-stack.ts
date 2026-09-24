@@ -50,7 +50,7 @@ export class FileUploadStack extends Stack {
       defaultBehavior: {
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-        origin: origins.S3BucketOrigin.withOriginAccessControl(uploadBucket),
+        origin: origins.S3BucketOrigin.withOriginAccessControl(uploadBucket as s3.IBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
     })

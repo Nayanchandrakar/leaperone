@@ -5,4 +5,4 @@ import { InvitationService } from "@/features/invitation/services/invitation.ser
 const invitationService = new InvitationService(sessionService)
 const invitationController = new InvitationController(invitationService)
 
-export { invitationService, invitationController }
+export { invitationController, invitationService }

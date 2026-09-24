@@ -5,4 +5,4 @@ import { AuthService } from "@/features/auth/services/auth.service"
 const authService = new AuthService(sessionService)
 const authController = new AuthController(authService)
 
-export { authService, authController }
+export { authController, authService }

@@ -233,7 +233,7 @@ npm run build
 
 ## Technology Stack
 
-- **Runtime**: Bun 1.2.x, Node 20+
+- **Runtime**: Bun 1.4.x, Node 22.22+
 - **Package Manager**: Bun workspaces
 - **Build**: Turbo
 - **Web Framework**: Next.js 16
@@ -244,7 +244,7 @@ npm run build
 - **Forms**: React Hook Form + Zod
 - **State**: Zustand
 - **API Client**: TanStack Query
-- **Linting/Formatting**: Biome 2.2.0
+- **Linting/Formatting**: Biome 2.5.14
 - **Infrastructure**: AWS CDK
 
 ## Notes for Agents

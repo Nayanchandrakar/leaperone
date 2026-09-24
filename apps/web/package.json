@@ -12,6 +12,7 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
+    "recharts": "catalog:",
     "date-fns": "catalog:",
     "react-colorful": "catalog:",
     "qr-code-styling": "catalog:",

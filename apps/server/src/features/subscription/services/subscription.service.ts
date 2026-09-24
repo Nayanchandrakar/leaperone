@@ -7,6 +7,7 @@ import {
   upsertSubscription,
 } from "@app/database/repository/subscription"
 import { updateUserById } from "@app/database/repository/user"
+import type { SubscriptionStatus } from "@app/database/types"
 import { ENV } from "@app/env/server"
 import { ApiError } from "@app/error"
 import { logger } from "@app/logger"
@@ -206,7 +207,7 @@ export class SubscriptionService {
             workspaceId,
             seats: item.quantity,
             priceId: item.price.id,
-            status: subscription.status,
+            status: subscription.status as SubscriptionStatus,
             subscriptionId: subscription.id as string,
             customerId: subscription.customer as string,
             cancelAtPeriodEnd: subscription.cancel_at_period_end,
@@ -238,7 +239,7 @@ export class SubscriptionService {
           plan,
           seats: item.quantity,
           priceId: item.price.id,
-          status: subscription.status,
+          status: subscription.status as SubscriptionStatus,
           subscriptionId: subscription.id as string,
           cancelAtPeriodEnd: subscription.cancel_at_period_end,
           periodEnd: new Date(item.current_period_end * 1000),
@@ -262,7 +263,7 @@ export class SubscriptionService {
     try {
       if (subscription.customer && subscription.id) {
         await updateSubscriptionBySubscriptionId(db, subscription.id, {
-          status: subscription.status,
+          status: subscription.status as SubscriptionStatus,
         })
       }
     } catch (err: any) {

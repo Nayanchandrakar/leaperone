@@ -1,13 +1,14 @@
 import "dotenv/config"
 
-import { defineConfig, type Options } from "tsdown"
+import { defineConfig } from "tsdown"
 
 const isProduction = process?.env?.NODE_ENV === "production"
 
 export default defineConfig(
-  (options: Options) =>
+  (options) =>
     ({
       clean: true,
+      dts: false,
       format: "esm",
       treeshake: true,
       target: "es2022",
@@ -57,5 +58,5 @@ export default defineConfig(
         "@app/database/repository/account",
       ],
       ...options,
-    }) as Options,
+    }) ,
 )
