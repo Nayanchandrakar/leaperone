@@ -1,5 +1,6 @@
 import { db } from "@app/database"
 import { doesUserExistByUsername, updateUserById } from "@app/database/repository/user"
+import type { User } from "@app/database/types"
 import { ApiError } from "@app/error"
 import type { SessionService } from "@app/session"
 import type { Context } from "hono"
@@ -11,24 +12,30 @@ export class UserService {
   constructor(private readonly sessionService: SessionService<Context>) {}
   async updateProfile(c: UpdateUserContext) {
     const { user } = c.get("session")
-    const body = c.req.valid("json")
+    const { name, username, image } = c.req.valid("json")
 
     const promises: Promise<unknown>[] = []
 
-    if (body?.username !== user.username) {
-      const existingUser = await doesUserExistByUsername(db, body.username)
+    if (username !== undefined && username !== user.username) {
+      const existingUser = await doesUserExistByUsername(db, username)
 
       if (existingUser) {
         throw ApiError.conflict(MSG.USER.USERNAME_EXISTS)
       }
 
       const pipeline = redis.pipeline()
-      pipeline.hset("username_records", { [body.username]: 1 })
+      pipeline.hset("username_records", { [username]: 1 })
       pipeline.hdel("username_records", user.username)
       promises.push(pipeline.exec())
     }
 
-    const updatedUser = await updateUserById(db, user.id, body)
+    const updates: Partial<User> = {
+      ...(name !== undefined && { name }),
+      ...(image !== undefined && { image }),
+      ...(username !== undefined && { username }),
+    }
+
+    const updatedUser = await updateUserById(db, user.id, updates)
 
     if (!updatedUser) {
       throw ApiError.badRequest(MSG.USER.FAILED_TO_UPDATE)
@@ -38,7 +45,7 @@ export class UserService {
       this.sessionService.refresh({
         id: updatedUser.id,
         updatedAt: new Date(),
-        ...body,
+        ...updates,
       }),
     )
     await Promise.all(promises)

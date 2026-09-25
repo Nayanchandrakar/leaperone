@@ -1,7 +1,10 @@
 {
   "extends": "@app/tsconfig/base.json",
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "target": "ESNext",
     "module": "ESNext",
     "strict": true,
@@ -9,9 +12,16 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@app/types/*": ["../../packages/types/src/*"]
+      "@app/types/*": [
+        "../../packages/types/src/*"
+      ]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

@@ -23,7 +23,6 @@ export async function proxy(request: NextRequest) {
   // Check subscription status for dashboard routes
   if (session && isProtectedRoute) {
     try {
-      // @ts-expect-error
       const subscriptionData = await getWorkspaceWithSubscription(dbHttp, session.user.id)
       // No subscription at all - redirect to pricing
       if (!subscriptionData.subscription?.subscriptionId) {
