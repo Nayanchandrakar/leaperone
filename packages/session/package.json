@@ -25,6 +25,7 @@
     "hono": "catalog:",
     "typescript": "catalog:",
     "@types/node": "catalog:",
+    "@app/database": "workspace:*",
     "@app/types": "workspace:*",
     "@upstash/redis": "catalog:",
     "@app/tsconfig": "workspace:*"

@@ -14,7 +14,9 @@
   "dependencies": {
     "constructs": "catalog:",
     "aws-cdk-lib": "catalog:",
-    "@app/database": "workspace:*"
+    "@app/database": "workspace:*",
+    "@neondatabase/serverless": "catalog:",
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
     "aws-cdk": "catalog:",

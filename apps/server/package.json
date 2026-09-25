@@ -30,13 +30,16 @@
     "@aws-sdk/client-s3": "catalog:",
     "@aws-sdk/s3-request-presigner": "catalog:",
     "@hono/node-server": "catalog:",
+    "@paralleldrive/cuid2": "catalog:",
     "@react-email/render": "catalog:",
+    "@upstash/redis": "catalog:",
     "bcryptjs": "catalog:",
     "dotenv": "catalog:",
     "hono": "catalog:",
     "resend": "catalog:",
     "stripe": "catalog:",
-    "uuid": "catalog:"
+    "uuid": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "tsdown": "catalog:",
