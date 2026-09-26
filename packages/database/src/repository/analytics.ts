@@ -41,7 +41,7 @@ export async function getAnalyticsData(
   { workspaceId, from, to, memberId }: AnalyticsParams,
 ) {
   try {
-    const { rows } = await db.execute(sql`
+    const { rows } = (await db.execute(sql`
       -- CTE 1: workspace_stats lookup
       -- Isolated from the analytics CTE so the planner can schedule both CTEs
       -- independently and in parallel. The result is memoized across all
@@ -191,7 +191,7 @@ export async function getAnalyticsData(
             LIMIT  10
           ) r
         ) AS top_cities
-    `)
+    `)) as { rows: RawAnalyticsRow[] }
 
     const row = rows[0] as RawAnalyticsRow
 
