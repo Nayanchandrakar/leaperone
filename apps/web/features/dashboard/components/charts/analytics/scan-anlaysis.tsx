@@ -48,7 +48,7 @@ export const ScanAnalysis = ({ rows, isPending }: ScanAnalysisProps) => {
             <XAxis dataKey="date" tickLine={false} tickMargin={10} axisLine={true} />
             <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <ChartLegend content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />} />
+            <ChartLegend content={<ChartLegendContent verticalAlign="bottom" />} />
             <Bar dataKey="desktop" stackId="a" fill="var(--color-desktop)" />
             <Bar dataKey="mobile" stackId="a" fill="var(--color-mobile)" radius={[4, 4, 0, 0]} />
           </BarChart>

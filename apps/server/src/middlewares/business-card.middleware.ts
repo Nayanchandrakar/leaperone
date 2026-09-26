@@ -17,7 +17,7 @@ export const canManageBusinessCard = async (c: Context<HonoEnv>, next: Next) => 
   // For regular members, check workspace settings
   const workspaceSettings = await getWorkspaceSettingsByWorkspaceId(db, workspace.id)
 
-  if (!workspaceSettings || !workspaceSettings.createAndEdit) {
+  if (!workspaceSettings?.createAndEdit) {
     throw ApiError.forbidden(MSG.BUSINESS_CARD.PERMISSION_DENIED)
   }
 

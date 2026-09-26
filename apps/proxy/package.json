@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "wrangler": "catalog:",
+    "@types/node": "catalog:",
     "@app/tsconfig": "workspace:*",
     "@app/database": "workspace:*",
     "@cloudflare/workers-types": "catalog:"

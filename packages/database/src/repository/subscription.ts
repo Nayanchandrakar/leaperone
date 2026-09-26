@@ -65,7 +65,7 @@ export async function getWorkspaceWithSubscription(db: DatabaseClient, userId: s
   try {
     const result = await getWorkspaceAndSubscriptionData(db, userId)
 
-    if (!result || !result.workspace) {
+    if (!result?.workspace) {
       return {
         workspace: null,
         subscription: {

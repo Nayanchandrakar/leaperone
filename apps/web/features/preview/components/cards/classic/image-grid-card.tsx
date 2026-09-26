@@ -15,6 +15,7 @@ export const ImageGridCard = ({ href, title, layout, imageSrc }: ImageGridCardPr
       target="_blank"
       data-layout={layout}
       className="flex-none w-full first:data-[layout=featured]:col-span-2 space-y-2 font-normal text-center text-xs text-template-muted-foreground"
+      rel="noopener"
     >
       <Image
         width={1000}

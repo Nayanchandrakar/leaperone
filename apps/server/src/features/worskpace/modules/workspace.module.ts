@@ -4,4 +4,4 @@ import { WorkspaceService } from "@/features/worskpace/services/workspace.servic
 const workspaceService = new WorkspaceService()
 const workspaceController = new WorkspaceController(workspaceService)
 
-export { workspaceService, workspaceController }
+export { workspaceController, workspaceService }

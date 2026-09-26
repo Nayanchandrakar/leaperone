@@ -131,5 +131,6 @@ export const MSG = {
   ANALYTICS: {
     FAILED_TO_FETCH: "Failed to fetch analytics data",
     MEMBER_NOT_ACCESSIBLE: "You don't have access to this member's analytics",
+    OVERVIEW_NOT_FOUND: "Workspace analytics overview not found",
   },
 } as const

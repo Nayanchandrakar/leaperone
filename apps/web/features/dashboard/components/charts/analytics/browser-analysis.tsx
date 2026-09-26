@@ -49,9 +49,12 @@ export const BrowserAnalysis = ({ isPending, rows }: BrowserAnalysisProps) => {
                 <ChartTooltip content={<ChartTooltipContent hideLabel />} />
                 <Pie data={chartData} dataKey="clicks" nameKey="browser" />
                 <ChartLegend
-                  // @ts-expect-error missing payload injected by recharts
-                  content={<ChartLegendContent nameKey="browser" />}
-                  className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                  content={
+                    <ChartLegendContent
+                      nameKey="browser"
+                      className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                    />
+                  }
                 />
               </PieChart>
             </ChartContainer>

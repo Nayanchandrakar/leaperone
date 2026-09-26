@@ -4,4 +4,4 @@ import { BusinessService } from "@/features/business/service/business.service"
 const businessService = new BusinessService()
 const businessController = new BusinessController(businessService)
 
-export { businessService, businessController }
+export { businessController, businessService }

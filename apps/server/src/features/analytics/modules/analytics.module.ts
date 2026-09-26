@@ -4,4 +4,4 @@ import { AnalyticsService } from "@/features/analytics/services/analytics.servic
 const analyticsService = new AnalyticsService()
 const analyticsController = new AnalyticsController(analyticsService)
 
-export { analyticsService, analyticsController }
+export { analyticsController, analyticsService }

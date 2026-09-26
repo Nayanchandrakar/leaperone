@@ -1,7 +1,10 @@
 import { dbHttp } from "@app/database/adapters/http"
 import { findVerificationByIdentifier } from "@app/database/repository/verification"
 import { ResetPasswordForm } from "@/features/auth/components/forms/reset-password"
-import type { IResetPasswordPage } from "@/features/auth/types"
+
+interface IResetPasswordPage {
+  params: Promise<{ token: string }>
+}
 
 // TODO: improve the ui part here for errors
 export const ValidateResetToken = async ({ params }: IResetPasswordPage) => {

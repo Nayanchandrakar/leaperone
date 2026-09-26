@@ -5,4 +5,4 @@ import { UserService } from "@/features/user/services/user.service"
 const userService = new UserService(sessionService)
 const userController = new UserController(userService)
 
-export { userService, userController }
+export { userController, userService }

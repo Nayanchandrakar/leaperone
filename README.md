@@ -1,5 +1,3 @@
-# leaperone
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/be007408-051c-4b59-a056-811b49183636" width="100%" alt="leaperone. A leaping frog crosses a dashed trajectory marked identifier, 302 edge worker, and /card/[id], and a click is recorded where it lands.">
 </p>
@@ -152,8 +150,8 @@ flowchart TB
 
 ### Prerequisites
 
-- **Bun 1.2.18**, pinned in the root `packageManager` field
-- **Node.js 20 or later**
+- **Bun 1.4.2**, pinned in the root `packageManager` field
+- **Node.js 22.22 or later**
 - **Docker**, for the local Redis stack
 - Credentials for **Neon Postgres**, **Upstash Redis**, **Stripe**, **Resend**, and **AWS S3**
 

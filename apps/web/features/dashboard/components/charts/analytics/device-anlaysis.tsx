@@ -52,9 +52,12 @@ export const DeviceAnalysis = ({ isPending, rows }: DeviceAnalysisProps) => {
                 <ChartTooltip content={<ChartTooltipContent hideLabel />} />
                 <Pie nameKey="os" data={chartData} dataKey="clicks" />
                 <ChartLegend
-                  // @ts-expect-error missing payload injected by recharts
-                  content={<ChartLegendContent nameKey="os" />}
-                  className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                  content={
+                    <ChartLegendContent
+                      nameKey="os"
+                      className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                    />
+                  }
                 />
               </PieChart>
             </ChartContainer>

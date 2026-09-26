@@ -4,4 +4,4 @@ import { MarketingService } from "@/features/marketing/services/marketing.servic
 const marketingService = new MarketingService()
 const marketingController = new MarketingController(marketingService)
 
-export { marketingService, marketingController }
+export { marketingController, marketingService }

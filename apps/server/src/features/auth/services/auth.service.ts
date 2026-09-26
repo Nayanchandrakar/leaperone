@@ -135,7 +135,7 @@ export class AuthService {
       throw ApiError.badRequest(MSG.USER.RESTRICTED_USER)
     }
 
-    if (!account || !account.password || !(await compare(input.password, account.password))) {
+    if (!account?.password || !(await compare(input.password, account.password))) {
       throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
     }
 
@@ -373,7 +373,7 @@ export class AuthService {
     const { user, account } = userWithAccounts
 
     // Verify current password
-    if (!account || !account.password || !(await compare(currentPassword, account.password))) {
+    if (!account?.password || !(await compare(currentPassword, account.password))) {
       throw ApiError.unauthorized(MSG.PASSWORD.INVALID_PASSWORD)
     }
 

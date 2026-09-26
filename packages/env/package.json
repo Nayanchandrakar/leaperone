@@ -5,7 +5,6 @@
   "type": "module",
   "private": true,
   "exports": {
-    "./web": "./src/web/index.ts",
     "./server": "./src/server/index.ts",
     "./web/server": "./src/web/server.ts"
   },

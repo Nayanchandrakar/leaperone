@@ -3,5 +3,5 @@ import Stripe from "stripe"
 
 export const stripe = new Stripe(ENV.STRIPE_SECRET_KEY, {
   typescript: true,
-  apiVersion: "2025-09-30.clover",
+  apiVersion: "2026-08-26.dahlia",
 })
