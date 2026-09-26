@@ -6,7 +6,6 @@
     "module": "ESNext",
     "strict": true,
     "moduleResolution": "Bundler",
-    "outDir": "./dist",
     "paths": {
       "@app/database/*": ["../../packages/database/src/*"]
     }

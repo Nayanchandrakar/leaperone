@@ -53,7 +53,6 @@ export const DeviceAnalysis = ({ isPending, rows }: DeviceAnalysisProps) => {
                 <Pie nameKey="os" data={chartData} dataKey="clicks" />
                 <ChartLegend
                   content={
-                    // @ts-expect-error missing payload injected by recharts
                     <ChartLegendContent
                       nameKey="os"
                       className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"

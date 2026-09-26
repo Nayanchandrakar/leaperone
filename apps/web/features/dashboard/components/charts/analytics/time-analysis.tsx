@@ -53,9 +53,7 @@ export const TimeAnalysis = ({ isPending, rows }: TimeAnalysisProps) => {
                 <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={true} />
                 <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
                 <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                <ChartLegend
-                  content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />}
-                />
+                <ChartLegend content={<ChartLegendContent verticalAlign="bottom" />} />
                 <Bar dataKey="desktop" stackId="a" fill="var(--color-desktop)" />
                 <Bar
                   stackId="a"

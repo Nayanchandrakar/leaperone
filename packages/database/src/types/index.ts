@@ -1,6 +1,7 @@
 import type { Casing } from "drizzle-orm"
 import type { CacheConfig } from "drizzle-orm/cache/core/types"
 import type { NeonDatabase } from "drizzle-orm/neon-serverless"
+import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core"
 import type {
   businessCardStatus,
   invitationStatus,
@@ -27,7 +28,7 @@ import type { support } from "../schema/support"
 import type { workspaceSettings } from "../schema/workspace-settings"
 
 export type DatabaseClientWs = NeonDatabase
-export type DatabaseClient = NeonDatabase
+export type DatabaseClient = PgDatabase<PgQueryResultHKT, Record<string, never>>
 
 export type DatabaseConfig = {
   connectionString: string
