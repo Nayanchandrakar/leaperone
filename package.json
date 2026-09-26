@@ -120,6 +120,7 @@
     }
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@app/biome-config": "workspace:*",
     "@app/tsconfig": "workspace:*",
     "@biomejs/biome": "catalog:",

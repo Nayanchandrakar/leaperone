@@ -1,5 +1,3 @@
-# leaperone
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/be007408-051c-4b59-a056-811b49183636" width="100%" alt="leaperone. A leaping frog crosses a dashed trajectory marked identifier, 302 edge worker, and /card/[id], and a click is recorded where it lands.">
 </p>

@@ -59,9 +59,7 @@ export const DayAnalysis = ({ isPending, rows }: DayAnalysisProps) => {
                 <YAxis tickLine={false} axisLine={true} tickMargin={10} width="auto" />
 
                 <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                <ChartLegend
-                  content={<ChartLegendContent payload={{ verticalAlign: "bottom" }} />}
-                />
+                <ChartLegend content={<ChartLegendContent verticalAlign="bottom" />} />
                 <Bar
                   dataKey="desktop"
                   stackId="a"

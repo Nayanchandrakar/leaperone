@@ -1,10 +1,11 @@
 {
   "extends": "@app/tsconfig/react-library.json",
   "compilerOptions": {
+    "noEmit": true,
     "paths": {
       "@app/ui/*": ["./src/*"]
     }
   },
   "include": ["."],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "postcss.config.mjs"]
 }

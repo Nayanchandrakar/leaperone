@@ -50,7 +50,6 @@ export const BrowserAnalysis = ({ isPending, rows }: BrowserAnalysisProps) => {
                 <Pie data={chartData} dataKey="clicks" nameKey="browser" />
                 <ChartLegend
                   content={
-                    // @ts-expect-error missing payload injected by recharts
                     <ChartLegendContent
                       nameKey="browser"
                       className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"

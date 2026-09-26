@@ -11,7 +11,8 @@
     "paths": {
       "@app/core/*": ["../../packages/core/src/*"],
       "@app/error/*": ["../../packages/error/src/*"],
-      "@app/types/*": ["../../packages/types/src/*"]
+      "@app/types/*": ["../../packages/types/src/*"],
+      "@app/database/*": ["../../packages/database/src/*"]
     }
   },
   "include": ["src/**/*"],
