@@ -40,7 +40,7 @@ proxy.get("/:identifier", async (c) => {
     if (!cachedLink) {
       // Business card not found - redirect to 404 page
       c.res.headers.set("X-Robots-Tag", "googlebot: noindex")
-      return c.redirect("https://dev.leaperone.com/not-found")
+      return c.redirect("https://leaperone.nayan.ink/not-found")
     }
     // Cache the result for future requests (runs in background)
     c.executionCtx.waitUntil(linkCache.set(identifier, cachedLink))

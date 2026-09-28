@@ -38,7 +38,7 @@ export function FilePreviewDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[800px] p-0" showCloseButton={false}>
+      <DialogContent className="sm:max-w-200 p-0" showCloseButton={false}>
         <VisuallyHidden>
           <DialogHeader>
             <DialogTitle />

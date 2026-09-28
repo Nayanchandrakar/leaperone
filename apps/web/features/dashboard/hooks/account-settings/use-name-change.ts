@@ -9,10 +9,9 @@ interface UseNameChangeProps {
 
 export function useNameChange({ onSuccess }: UseNameChangeProps) {
   return useMutation({
-    mutationFn: async (input: NameChangeFormSchema) => {
+    mutationFn: async (_input: NameChangeFormSchema) => {
       //   const { data } = await nameChangeMutation(input)
       //   return data
-      console.log(input)
       return await new Promise((resolve) => setTimeout(resolve, 3000))
     },
     onSuccess: () => {

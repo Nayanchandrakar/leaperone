@@ -38,8 +38,11 @@ USER leaperone
 
 # Copy built app to final image with correct permissions
 COPY --from=builder --chown=leaperone:bunjs /app/node_modules ./node_modules
-COPY --from=builder --chown=leaperone:bunjs /app/apps/server/dist ./dist
-COPY --from=builder --chown=leaperone:bunjs /app/apps/server/package.json ./package.json
+COPY --from=builder --chown=leaperone:bunjs /app/apps/server/node_modules ./apps/server/node_modules
+COPY --from=builder --chown=leaperone:bunjs /app/apps/server/dist ./apps/server/dist
+COPY --from=builder --chown=leaperone:bunjs /app/apps/server/package.json ./apps/server/package.json
+
+WORKDIR /app/apps/server
 
 EXPOSE 8080
 

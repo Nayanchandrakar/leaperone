@@ -24,6 +24,7 @@
     "@types/node": "catalog:",
     "@types/bun": "catalog:",
     "@app/tsconfig": "workspace:*",
-    "@types/aws-lambda": "catalog:"
+    "@types/aws-lambda": "catalog:",
+    "@aws-sdk/client-s3": "catalog:"
   }
 }

@@ -23,7 +23,6 @@ export default function PreviewPage() {
   //   return getGoogleFontsUrl(font)
   // }, [font])
 
-  console.log(content)
 
   return (
     <>

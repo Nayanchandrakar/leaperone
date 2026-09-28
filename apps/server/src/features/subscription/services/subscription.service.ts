@@ -210,7 +210,7 @@ export class SubscriptionService {
             status: subscription.status as SubscriptionStatus,
             subscriptionId: subscription.id as string,
             customerId: subscription.customer as string,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            cancelAtPeriodEnd: !!(subscription.cancel_at_period_end || subscription.cancel_at),
             periodEnd: new Date(item.current_period_end * 1000),
             periodStart: new Date(item.current_period_start * 1000),
             ...(subscription.trial_end && {
@@ -241,7 +241,7 @@ export class SubscriptionService {
           priceId: item.price.id,
           status: subscription.status as SubscriptionStatus,
           subscriptionId: subscription.id as string,
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          cancelAtPeriodEnd: !!(subscription.cancel_at_period_end || subscription.cancel_at),
           periodEnd: new Date(item.current_period_end * 1000),
           periodStart: new Date(item.current_period_start * 1000),
           ...(subscription.trial_end && {
